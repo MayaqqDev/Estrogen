@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "estrogen:item/liquid_estrogen_bucket"
+  }
+}
