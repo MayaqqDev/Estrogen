@@ -1,0 +1,19 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "fluid": "estrogen:testosterone_mixture",
+      "amount": 27000
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "results": [
+    {
+      "fluid": "estrogen:liquid_estrogen",
+      "amount": 27000
+    }
+  ],
+  "heatRequirement": "heated"
+}

@@ -1,0 +1,22 @@
+{
+  "effect.estrogen.woman": "Girl Power",
+
+  "category.estrogen": "Estrogen",
+    "key.estrogen.dash": "Toggle Dash",
+
+  "item.estrogen.estrogen_pill": "Estrogen Pill",
+  "item.estrogen.balls": "Balls",
+  "item.estrogen.molten_slime_bucket": "Molten Slime Bucket",
+  "item.estrogen.liquid_estrogen_bucket": "Liquid Estrogen Bucket",
+  "item.estrogen.testosterone_mixture_bucket": "Testosterone Mixture Bucket",
+  "item.estrogen.testosterone_chunk": "Testosterone Chunk",
+  "item.estrogen.testosterone_powder": "Testosterone Powder",
+
+  "block.estrogen.molten_slime": "Molten Slime",
+  "block.estrogen.testosterone_mixture": "Testosterone Mixture",
+  "block.estrogen.liquid_estrogen": "Liquid Estrogen",
+
+  "subtitles.estrogen.dash": "Girl Power Dash",
+
+  "itemGroup.estrogen.estrogen_group": "Estrogen"
+}

@@ -1,0 +1,13 @@
+{
+  "type": "create:sandpaper_polishing",
+  "ingredients": [
+    {
+      "item": "estrogen:balls"
+    }
+  ],
+  "results": [
+    {
+      "item": "estrogen:testosterone_chunk"
+    }
+  ]
+}

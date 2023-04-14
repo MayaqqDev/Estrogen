@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "estrogen",
+  "version": "${version}",
+  "name": "Estrogen",
+  "description": "Adds estrogen into the game!",
+  "authors": [
+    "Mayaqq"
+  ],
+  "contact": {
+    "repo": "https://github.com/MayaqqDev/Estrogen"
+  },
+  "license": "LGPL-3.0",
+  "icon": "assets/Estrogen/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "dev.mayaqq.estrogen.client.EstrogenClient"
+    ],
+    "main": [
+      "dev.mayaqq.estrogen.Estrogen"
+    ]
+  },
+  "mixins": [
+    "estrogen.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  },
+  "recommends": {
+    "create-fabric": "*"
+  }
+}

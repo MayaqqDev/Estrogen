@@ -1,0 +1,18 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "minecraft:coal"
+    },
+    {
+      "item": "estrogen:testosterone_powder"
+    }
+  ],
+  "results": [
+    {
+      "fluid": "estrogen:testosterone_mixture",
+      "amount": 54000
+    }
+  ],
+  "heatRequirement": "heated"
+}
