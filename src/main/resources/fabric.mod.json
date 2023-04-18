@@ -28,9 +28,10 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
+    "create": "*",
     "minecraft": "${minecraft_version}"
   },
   "recommends": {
-    "create-fabric": "*"
+    "rei": "*"
   }
 }

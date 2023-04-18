@@ -23,5 +23,6 @@ public class Estrogen implements ModInitializer {
         SoundRegistry.register();
         FluidRegistry.register();
         BlockRegistry.register();
+        EntityRegistry.register();
     }
 }

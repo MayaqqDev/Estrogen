@@ -6,8 +6,7 @@ import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 
-import static dev.mayaqq.estrogen.client.ClientEventRegistry.currentDashes;
-import static dev.mayaqq.estrogen.client.ClientEventRegistry.maxDashes;
+import static dev.mayaqq.estrogen.client.ClientEventRegistry.*;
 
 public class WomanEffect extends StatusEffect {
     public WomanEffect(StatusEffectCategory statusEffectCategory, int color) {
@@ -31,6 +30,16 @@ public class WomanEffect extends StatusEffect {
         if (entity instanceof ClientPlayerEntity) {
             maxDashes = 0;
             currentDashes = 0;
+            onCooldown = false;
         }
+    }
+
+    @Override
+    public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+        if (entity instanceof ClientPlayerEntity) {
+            maxDashes = (short) (amplifier + 1);
+        }
+        super.onApplied(entity, attributes, amplifier);
+
     }
 }

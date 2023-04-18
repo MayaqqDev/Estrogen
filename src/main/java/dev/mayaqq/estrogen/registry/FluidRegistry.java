@@ -1,8 +1,6 @@
 package dev.mayaqq.estrogen.registry;
 
-import dev.mayaqq.estrogen.fluids.LiquidEstrogenFluid;
-import dev.mayaqq.estrogen.fluids.MoltenSlimeFluid;
-import dev.mayaqq.estrogen.fluids.TestosteroneMixtureFluid;
+import dev.mayaqq.estrogen.fluids.*;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
@@ -24,6 +22,14 @@ public class FluidRegistry {
     public static FlowableFluid FLOWING_LIQUID_ESTROGEN;
     public static Item LIQUID_ESTROGEN_BUCKET;
 
+    public static FlowableFluid STILL_FILTRATED_HORSE_URINE;
+    public static FlowableFluid FLOWING_FILTRATED_HORSE_URINE;
+    public static Item FILTRATED_HORSE_URINE_BUCKET;
+
+    public static FlowableFluid STILL_HORSE_URINE;
+    public static FlowableFluid FLOWING_HORSE_URINE;
+    public static Item HORSE_URINE_BUCKET;
+
     public static void register() {
         STILL_MOLTEN_SLIME = Registry.register(Registry.FLUID, id("molten_slime"), new MoltenSlimeFluid.Still());
         FLOWING_MOLTEN_SLIME = Registry.register(Registry.FLUID, id("flowing_molten_slime"), new MoltenSlimeFluid.Flowing());
@@ -39,5 +45,15 @@ public class FluidRegistry {
         FLOWING_LIQUID_ESTROGEN = Registry.register(Registry.FLUID, id("flowing_liquid_estrogen"), new LiquidEstrogenFluid.Flowing());
         LIQUID_ESTROGEN_BUCKET = Registry.register(Registry.ITEM, id("liquid_estrogen_bucket"),
                 new BucketItem(STILL_LIQUID_ESTROGEN, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ItemRegistry.ESTROGEN_GROUP)));
+
+        STILL_HORSE_URINE = Registry.register(Registry.FLUID, id("horse_urine"), new HorseUrineFluid.Still());
+        FLOWING_HORSE_URINE = Registry.register(Registry.FLUID, id("flowing_horse_urine"), new HorseUrineFluid.Flowing());
+        HORSE_URINE_BUCKET = Registry.register(Registry.ITEM, id("horse_urine_bucket"),
+                new BucketItem(STILL_HORSE_URINE, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ItemRegistry.ESTROGEN_GROUP)));
+
+        STILL_FILTRATED_HORSE_URINE = Registry.register(Registry.FLUID, id("filtrated_horse_urine"), new FiltratedHorseUrineFluid.Still());
+        FLOWING_FILTRATED_HORSE_URINE = Registry.register(Registry.FLUID, id("flowing_filtrated_horse_urine"), new FiltratedHorseUrineFluid.Flowing());
+        FILTRATED_HORSE_URINE_BUCKET = Registry.register(Registry.ITEM, id("filtrated_horse_urine_bucket"),
+                new BucketItem(STILL_FILTRATED_HORSE_URINE, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ItemRegistry.ESTROGEN_GROUP)));
     }
 }
