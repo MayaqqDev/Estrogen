@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.fluids;
+package dev.mayaqq.estrogen.registry.fluids;
 
 import dev.mayaqq.estrogen.registry.BlockRegistry;
 import dev.mayaqq.estrogen.registry.FluidRegistry;

@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.BlockEntities;
+package dev.mayaqq.estrogen.registry.blockEntities;
 
 import com.simibubi.create.content.contraptions.processing.BasinTileEntity;
 import dev.mayaqq.estrogen.registry.BlockRegistry;

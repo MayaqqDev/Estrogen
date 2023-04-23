@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.registry;
 
-import dev.mayaqq.estrogen.items.HorseUrineBottleItem;
+import dev.mayaqq.estrogen.registry.items.HorseUrineBottleItem;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.*;
 import net.minecraft.util.Rarity;

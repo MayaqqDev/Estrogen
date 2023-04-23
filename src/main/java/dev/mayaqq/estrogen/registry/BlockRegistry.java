@@ -1,7 +1,7 @@
 package dev.mayaqq.estrogen.registry;
 
-import dev.mayaqq.estrogen.BlockEntities.CentrifugeBlockEntity;
-import dev.mayaqq.estrogen.blocks.CentrifugeBlock;
+import dev.mayaqq.estrogen.registry.blockEntities.CentrifugeBlockEntity;
+import dev.mayaqq.estrogen.registry.blocks.CentrifugeBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;

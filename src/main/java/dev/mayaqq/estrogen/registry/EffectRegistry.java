@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.registry;
 
-import dev.mayaqq.estrogen.effects.WomanEffect;
+import dev.mayaqq.estrogen.registry.effects.WomanEffect;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.util.registry.Registry;

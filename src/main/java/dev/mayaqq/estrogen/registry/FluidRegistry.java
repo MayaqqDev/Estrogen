@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.registry;
 
-import dev.mayaqq.estrogen.fluids.*;
+import dev.mayaqq.estrogen.registry.fluids.*;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;

@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.effects;
+package dev.mayaqq.estrogen.registry.effects;
 
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;

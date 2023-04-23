@@ -1,18 +1,15 @@
 package dev.mayaqq.estrogen.client;
 
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.entities.DashParticleEntity;
-import dev.mayaqq.estrogen.entityRenderers.DashParticleRenderer;
-import dev.mayaqq.estrogen.models.DashParticleEntityModel;
 import dev.mayaqq.estrogen.networking.S2C;
-import dev.mayaqq.estrogen.registry.EntityRegistry;
+import dev.mayaqq.estrogen.registry.ParticleRegistry;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
+import net.minecraft.client.particle.FlameParticle;
+import net.minecraft.screen.PlayerScreenHandler;
 
 public class EstrogenClient implements ClientModInitializer {
-    public static final EntityModelLayer MODEL_DASH_PARTICLE_LAYER = new EntityModelLayer(Estrogen.id("dash_particle"), "main");
     @Override
     public void onInitializeClient() {
         KeybindRegistry.register();
@@ -20,9 +17,11 @@ public class EstrogenClient implements ClientModInitializer {
         S2C.register();
         FluidRenderRegistry.register();
         PackRegistry.register();
+        ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+            registry.register(Estrogen.id("particle/dash_particle"));
+        }));
 
-        EntityRendererRegistry.register(EntityRegistry.DASH_PARTICLE_ENTITY, DashParticleRenderer::new);
+        ParticleFactoryRegistry.getInstance().register(ParticleRegistry.DASH_PARTICLE, FlameParticle.Factory::new);
 
-        EntityModelLayerRegistry.registerModelLayer(MODEL_DASH_PARTICLE_LAYER, DashParticleEntityModel::getTexturedModelData);
     }
 }

@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.fluids;
+package dev.mayaqq.estrogen.registry.fluids;
 
 import dev.mayaqq.estrogen.registry.BlockRegistry;
 import dev.mayaqq.estrogen.registry.FluidRegistry;
@@ -17,7 +17,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
-public class FiltratedHorseUrineFluid extends FlowableFluid {
+public class LiquidEstrogenFluid extends FlowableFluid {
 
     @Override
     public boolean matchesType(Fluid fluid) {
@@ -26,12 +26,12 @@ public class FiltratedHorseUrineFluid extends FlowableFluid {
 
     @Override
     public Fluid getFlowing() {
-        return FluidRegistry.FLOWING_FILTRATED_HORSE_URINE;
+        return FluidRegistry.FLOWING_LIQUID_ESTROGEN;
     }
 
     @Override
     public Fluid getStill() {
-        return FluidRegistry.STILL_FILTRATED_HORSE_URINE;
+        return FluidRegistry.STILL_LIQUID_ESTROGEN;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class FiltratedHorseUrineFluid extends FlowableFluid {
 
     @Override
     public Item getBucketItem() {
-        return FluidRegistry.FILTRATED_HORSE_URINE_BUCKET;
+        return FluidRegistry.LIQUID_ESTROGEN_BUCKET;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class FiltratedHorseUrineFluid extends FlowableFluid {
 
     @Override
     protected BlockState toBlockState(FluidState state) {
-        return BlockRegistry.FILTRATED_HORSE_URINE.getDefaultState().with(Properties.LEVEL_15, getBlockStateLevel(state));
+        return BlockRegistry.LIQUID_ESTROGEN.getDefaultState().with(Properties.LEVEL_15, getBlockStateLevel(state));
     }
 
     @Override
@@ -89,7 +89,7 @@ public class FiltratedHorseUrineFluid extends FlowableFluid {
     public int getLevel(FluidState state) {
         return 0;
     }
-    public static class Flowing extends FiltratedHorseUrineFluid {
+    public static class Flowing extends LiquidEstrogenFluid {
         @Override
         protected void appendProperties(StateManager.Builder<Fluid, FluidState> builder) {
             super.appendProperties(builder);
@@ -103,7 +103,7 @@ public class FiltratedHorseUrineFluid extends FlowableFluid {
 
     }
 
-    public static class Still extends FiltratedHorseUrineFluid {
+    public static class Still extends LiquidEstrogenFluid {
         @Override
         public int getLevel(FluidState fluidState) {
             return 8;

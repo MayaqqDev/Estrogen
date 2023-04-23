@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.blocks;
+package dev.mayaqq.estrogen.registry.blocks;
 
 import com.simibubi.create.content.contraptions.processing.BasinBlock;
 

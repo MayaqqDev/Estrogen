@@ -1,8 +1,7 @@
-package dev.mayaqq.estrogen.items;
+package dev.mayaqq.estrogen.registry.items;
 
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

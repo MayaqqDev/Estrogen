@@ -23,6 +23,7 @@ import static dev.mayaqq.estrogen.client.KeybindRegistry.dashKey;
 public class ClientEventRegistry {
     private static final Identifier DASH_OVERLAY = new Identifier("textures/misc/nausea.png");
     public static int dashCooldown = 0;
+    public static int groundCooldown = 0;
     public static boolean onCooldown = false;
     public static short maxDashes = 0;
     public static short currentDashes = 0;
@@ -34,7 +35,9 @@ public class ClientEventRegistry {
             ClientPlayerEntity player = client.player;
             if (player == null) return;
             dashCooldown--;
+            groundCooldown--;
             if (dashCooldown < 0) dashCooldown = 0;
+            if (groundCooldown < 0) groundCooldown = 0;
             if (!player.hasStatusEffect(EffectRegistry.WOMAN_EFFECT)) {
                 maxDashes = 0;
                 currentDashes = 0;
@@ -53,7 +56,8 @@ public class ClientEventRegistry {
                 shouldWaveDash = false;
             }
 
-            if (player.isOnGround() && dashCooldown <= 0) {
+            if (player.isOnGround() && groundCooldown == 0) {
+                groundCooldown = 4;
                 currentDashes = maxDashes;
             }
             onCooldown = dashCooldown > 0 || currentDashes == 0;
