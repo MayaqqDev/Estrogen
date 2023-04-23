@@ -11,13 +11,10 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.*;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 
-import static dev.mayaqq.estrogen.Estrogen.LOGGER;
 import static dev.mayaqq.estrogen.client.KeybindRegistry.dashKey;
 
 public class ClientEventRegistry {
