@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.client;
 
 import dev.mayaqq.estrogen.Estrogen;
+import dev.mayaqq.estrogen.integrations.EarsCompat;
 import dev.mayaqq.estrogen.networking.S2C;
 import dev.mayaqq.estrogen.registry.ParticleRegistry;
 import net.fabricmc.api.ClientModInitializer;

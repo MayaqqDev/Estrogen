@@ -13,6 +13,7 @@ repositories {
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
     maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" }
+    maven { url = "https://maven.isxander.dev/releases" }
 
     maven {
 
@@ -77,6 +78,8 @@ dependencies {
     modImplementation ("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
     modImplementation ("com.simibubi.create:create-fabric-${project.minecraft_version}:${project.create_version}+${project.minecraft_version}")
     implementation ("com.unascribed:ears-api:${project.ears_version}")
+    modImplementation ("dev.isxander:yet-another-config-lib:${project.yacl_version}")
+    modImplementation ("com.terraformersmc:modmenu:${project.modMenu_version}")
 
     modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:1.1.0")
 

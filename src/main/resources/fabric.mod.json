@@ -20,6 +20,10 @@
     ],
     "main": [
       "dev.mayaqq.estrogen.Estrogen"
+    ],
+
+    "modmenu": [
+      "dev.mayaqq.estrogen.integrations.ModMenuIntegration"
     ]
   },
   "mixins": [
