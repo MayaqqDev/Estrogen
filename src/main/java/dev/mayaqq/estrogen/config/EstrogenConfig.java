@@ -64,6 +64,7 @@ public class EstrogenConfig {
                                         () -> enableNoBoobsWithEars,
                                         value -> enableNoBoobsWithEars = value
                                 )
+                                .tooltip(Text.of("If you have Chest enabled in the Ears mod, it will make them disappear until you get the Effect!"))
                                 .controller(TickBoxController::new)
                                 .build())
                         .build())
