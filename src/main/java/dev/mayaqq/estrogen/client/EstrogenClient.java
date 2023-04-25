@@ -6,6 +6,7 @@ import dev.mayaqq.estrogen.registry.ParticleRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.screen.PlayerScreenHandler;
 
@@ -22,6 +23,10 @@ public class EstrogenClient implements ClientModInitializer {
         }));
 
         ParticleFactoryRegistry.getInstance().register(ParticleRegistry.DASH_PARTICLE, FlameParticle.Factory::new);
+
+        if (FabricLoader.getInstance().isModLoaded("ears")) {
+            EarsCompat.boob();
+        }
 
     }
 }

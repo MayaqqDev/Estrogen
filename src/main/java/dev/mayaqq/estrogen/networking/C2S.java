@@ -25,7 +25,8 @@ public class C2S {
         ServerPlayNetworking.registerGlobalReceiver(Estrogen.id("dashparticles"), ((server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 ServerWorld world = player.getWorld();
-                world.spawnParticles(ParticleRegistry.DASH_PARTICLE, player.getX(), player.getY(), player.getZ(), 1, 0, 0, 0, 0);
+                //TODO: will add custom particles eventually once coded properly
+                world.spawnParticles(ParticleTypes.CLOUD, player.getX(), player.getY(), player.getZ(), 1, 0, 0, 0, 0);
             });
         }));
     }

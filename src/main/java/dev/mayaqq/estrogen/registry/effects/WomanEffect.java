@@ -1,7 +1,5 @@
 package dev.mayaqq.estrogen.registry.effects;
 
-import net.fabricmc.api.Environment;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
@@ -41,6 +39,5 @@ public class WomanEffect extends StatusEffect {
             maxDashes = (short) (amplifier + 1);
         }
         super.onApplied(entity, attributes, amplifier);
-
     }
 }

@@ -12,7 +12,10 @@ repositories {
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
+    maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" }
+
     maven {
+
         name 'Shedman maven'
         url 'https://maven.shedaniel.me/'
     }
@@ -56,6 +59,12 @@ repositories {
         name = 'ParchmentMC'
         url = 'https://maven.parchmentmc.org'
     }
+    maven {
+        url "https://repo.unascribed.com"
+        content {
+            includeGroup "com.unascribed"
+        }
+    }
 }
 
 dependencies {
@@ -65,10 +74,13 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
         // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation("com.simibubi.create:create-fabric-${project.minecraft_version}:${project.create_version}+${project.minecraft_version}")
+    modImplementation ("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
+    modImplementation ("com.simibubi.create:create-fabric-${project.minecraft_version}:${project.create_version}+${project.minecraft_version}")
+    implementation ("com.unascribed:ears-api:${project.ears_version}")
 
-    }
+    modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:1.1.0")
+
+}
 
 processResources {
     inputs.property "version", project.version
