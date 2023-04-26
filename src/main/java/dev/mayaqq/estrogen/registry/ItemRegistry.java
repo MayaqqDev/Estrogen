@@ -17,7 +17,7 @@ public class ItemRegistry {
     public static final Item BALLS = new Item(new Item.Settings().group(ESTROGEN_GROUP));
     public static final Item TESTOSTERONE_CHUNK = new Item(new Item.Settings().group(ESTROGEN_GROUP));
     public static final Item TESTOSTERONE_POWDER = new Item(new Item.Settings().group(ESTROGEN_GROUP));
-    public static final HorseUrineBottleItem HORSE_URINE_BOTTLE = new HorseUrineBottleItem(new Item.Settings().recipeRemainder(GLASS_BOTTLE).food(FoodComponents.HONEY_BOTTLE).maxCount(16).group(ESTROGEN_GROUP));
+    public static final HorseUrineBottleItem HORSE_URINE_BOTTLE = new HorseUrineBottleItem(new Item.Settings().recipeRemainder(GLASS_BOTTLE).food(FoodCompontentRegistry.HORSE_URINE_BOTTLE).maxCount(16).group(ESTROGEN_GROUP));
     public static final Item USED_FILTER = new Item(new Item.Settings().group(ESTROGEN_GROUP));
 
     public static void register() {

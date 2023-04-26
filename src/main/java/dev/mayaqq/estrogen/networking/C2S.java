@@ -26,7 +26,7 @@ public class C2S {
             server.execute(() -> {
                 ServerWorld world = player.getWorld();
                 //TODO: will add custom particles eventually once coded properly
-                world.spawnParticles(ParticleTypes.CLOUD, player.getX(), player.getY(), player.getZ(), 1, 0, 0, 0, 0);
+                world.spawnParticles(ParticleTypes.CLOUD, player.getX(), player.getY() + 1, player.getZ(), 1, 0, 0, 0, 0);
             });
         }));
     }

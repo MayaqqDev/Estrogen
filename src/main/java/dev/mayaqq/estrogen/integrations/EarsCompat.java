@@ -11,7 +11,7 @@ public class EarsCompat {
         EarsInhibitorRegistry.register("estrogen", (part, peer) -> {
             PlayerEntity player = (PlayerEntity)peer;
             // I could simplify this if statement but this makes it much cleaner
-            if (part == EarsFeatureType.CHEST && !player.hasStatusEffect(EffectRegistry.WOMAN_EFFECT) && EstrogenConfig.INSTANCE.enableNoBoobsWithEars) {
+            if (part == EarsFeatureType.CHEST && !player.hasStatusEffect(EffectRegistry.WOMAN_EFFECT) && EstrogenConfig.INSTANCE.enableNoChestWithEars) {
                 return true;
             }
             return false;

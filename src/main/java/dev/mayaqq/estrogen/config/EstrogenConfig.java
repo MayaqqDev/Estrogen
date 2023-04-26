@@ -21,14 +21,14 @@ public class EstrogenConfig {
     public final Path configFile = FabricLoader.getInstance().getConfigDir().resolve("estrogen.json");
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public boolean enableNoBoobsWithEars = true;
+    public boolean enableNoChestWithEars = true;
 
     public void save() {
         try {
             Files.deleteIfExists(configFile);
 
             JsonObject json = new JsonObject();
-            json.addProperty("enableNoBoobsWithEars", enableNoBoobsWithEars);
+            json.addProperty("enableNoChestWithEars", enableNoChestWithEars);
 
             Files.writeString(configFile, gson.toJson(json));
         } catch (IOException e) {
@@ -45,8 +45,8 @@ public class EstrogenConfig {
 
             JsonObject json = gson.fromJson(Files.readString(configFile), JsonObject.class);
 
-            if (json.has("enableScoreboard"))
-                enableNoBoobsWithEars = json.getAsJsonPrimitive("enableNoBoobsWithEars").getAsBoolean();
+            if (json.has("enableNoChestWithEars"))
+                enableNoChestWithEars = json.getAsJsonPrimitive("enableNoChestWithEars").getAsBoolean();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,13 +58,13 @@ public class EstrogenConfig {
                 .category(ConfigCategory.createBuilder()
                         .name(Text.of("General"))
                         .option(Option.createBuilder(boolean.class)
-                                .name(Text.of("Enable Boob Dispersal with Ears"))
+                                .name(Text.of("Enable Chest Dispersal with Ears"))
                                 .binding(
                                         true,
-                                        () -> enableNoBoobsWithEars,
-                                        value -> enableNoBoobsWithEars = value
+                                        () -> enableNoChestWithEars,
+                                        value -> enableNoChestWithEars = value
                                 )
-                                .tooltip(Text.of("If you have Chest enabled in the Ears mod, it will make them disappear until you get the Effect!"))
+                                .tooltip(Text.of("If you have Chest enabled in the Ears mod, it will make it disappear until you get the Effect!"))
                                 .controller(TickBoxController::new)
                                 .build())
                         .build())

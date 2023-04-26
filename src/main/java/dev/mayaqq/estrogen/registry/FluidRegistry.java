@@ -30,6 +30,10 @@ public class FluidRegistry {
     public static FlowableFluid FLOWING_HORSE_URINE;
     public static Item HORSE_URINE_BUCKET;
 
+    public static FlowableFluid STILL_MOLTEN_AMETHYST;
+    public static FlowableFluid FLOWING_MOLTEN_AMETHYST;
+    public static Item MOLTEN_AMETHYST_BUCKET;
+
     public static void register() {
         STILL_MOLTEN_SLIME = Registry.register(Registry.FLUID, id("molten_slime"), new MoltenSlimeFluid.Still());
         FLOWING_MOLTEN_SLIME = Registry.register(Registry.FLUID, id("flowing_molten_slime"), new MoltenSlimeFluid.Flowing());
@@ -55,5 +59,10 @@ public class FluidRegistry {
         FLOWING_FILTRATED_HORSE_URINE = Registry.register(Registry.FLUID, id("flowing_filtrated_horse_urine"), new FiltratedHorseUrineFluid.Flowing());
         FILTRATED_HORSE_URINE_BUCKET = Registry.register(Registry.ITEM, id("filtrated_horse_urine_bucket"),
                 new BucketItem(STILL_FILTRATED_HORSE_URINE, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ItemRegistry.ESTROGEN_GROUP)));
+
+        STILL_MOLTEN_AMETHYST = Registry.register(Registry.FLUID, id("molten_amethyst"), new MoltenAmethystFluid.Still());
+        FLOWING_MOLTEN_AMETHYST = Registry.register(Registry.FLUID, id("flowing_molten_amethyst"), new MoltenAmethystFluid.Flowing());
+        MOLTEN_AMETHYST_BUCKET = Registry.register(Registry.ITEM, id("molten_amethyst_bucket"),
+                new BucketItem(STILL_MOLTEN_AMETHYST, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ItemRegistry.ESTROGEN_GROUP)));
     }
 }

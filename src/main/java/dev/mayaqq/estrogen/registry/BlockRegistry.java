@@ -20,6 +20,7 @@ public class BlockRegistry {
     public static Block LIQUID_ESTROGEN;
     public static Block HORSE_URINE;
     public static Block FILTRATED_HORSE_URINE;
+    public static Block MOLTEN_AMETHYST;
 
     public static Block CENTRIFUGE;
     public static BlockEntityType<CentrifugeBlockEntity> CENTRIFUGE_BLOCK_ENTITY;
@@ -31,6 +32,7 @@ public class BlockRegistry {
         LIQUID_ESTROGEN = Registry.register(Registry.BLOCK, id("liquid_estrogen"), new FluidBlock(FluidRegistry.STILL_LIQUID_ESTROGEN, Block.Settings.copy(Blocks.WATER)));
         HORSE_URINE = Registry.register(Registry.BLOCK, id("horse_urine"), new FluidBlock(FluidRegistry.STILL_HORSE_URINE, Block.Settings.copy(Blocks.WATER)));
         FILTRATED_HORSE_URINE = Registry.register(Registry.BLOCK, id("filtrated_horse_urine"), new FluidBlock(FluidRegistry.STILL_FILTRATED_HORSE_URINE, Block.Settings.copy(Blocks.WATER)));
+        MOLTEN_AMETHYST = Registry.register(Registry.BLOCK, id("molten_amethyst"), new FluidBlock(FluidRegistry.STILL_MOLTEN_AMETHYST, Block.Settings.copy(Blocks.LAVA)));
 
         CENTRIFUGE = Registry.register(Registry.BLOCK, id("centrifuge"), new CentrifugeBlock(Block.Settings.copy(Blocks.IRON_BLOCK)));
         CENTRIFUGE_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, id("centrifuge_block_entity"), FabricBlockEntityTypeBuilder.create(CentrifugeBlockEntity::new, CENTRIFUGE).build());

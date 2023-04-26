@@ -1,0 +1,18 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "estrogen:estrogen_pill"
+    },
+    {
+      "fluid": "estrogen:molten_amethyst",
+      "nbt": {},
+      "amount": 27000
+    }
+  ],
+  "results": [
+    {
+      "item": "estrogen:crystal_estrogen_pill"
+    }
+  ]
+}
