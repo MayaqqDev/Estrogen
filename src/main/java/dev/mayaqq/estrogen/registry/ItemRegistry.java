@@ -19,6 +19,7 @@ public class ItemRegistry {
     public static final Item TESTOSTERONE_POWDER = new Item(new Item.Settings().group(ESTROGEN_GROUP));
     public static final HorseUrineBottleItem HORSE_URINE_BOTTLE = new HorseUrineBottleItem(new Item.Settings().recipeRemainder(GLASS_BOTTLE).food(FoodCompontentRegistry.HORSE_URINE_BOTTLE).maxCount(16).group(ESTROGEN_GROUP));
     public static final Item USED_FILTER = new Item(new Item.Settings().group(ESTROGEN_GROUP));
+    public static final Item ESTROGEN_CHIP_COOKIE = new Item(new Item.Settings().food(FoodCompontentRegistry.ESTROGEN_CHIP_COOKIE).maxCount(16).group(ESTROGEN_GROUP));
 
     public static void register() {
         Registry.register(Registry.ITEM, id("estrogen_pill"), ESTROGEN_PILL);
@@ -28,5 +29,6 @@ public class ItemRegistry {
         Registry.register(Registry.ITEM, id("testosterone_powder"), TESTOSTERONE_POWDER);
         Registry.register(Registry.ITEM, id("horse_urine_bottle"), HORSE_URINE_BOTTLE);
         Registry.register(Registry.ITEM, id("used_filter"), USED_FILTER);
+        Registry.register(Registry.ITEM, id("estrogen_chip_cookie"), ESTROGEN_CHIP_COOKIE);
     }
 }

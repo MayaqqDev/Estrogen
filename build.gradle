@@ -76,7 +76,7 @@ dependencies {
 
         // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation ("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
-    modImplementation ("com.simibubi.create:create-fabric-${project.minecraft_version}:${project.create_version}+${project.minecraft_version}")
+    modImplementation ("com.simibubi.create:create-fabric-${project.minecraft_version}:${project.create_version}${project.minecraft_version}")
     implementation ("com.unascribed:ears-api:${project.ears_version}")
     modImplementation ("dev.isxander:yet-another-config-lib:${project.yacl_version}")
     modImplementation ("com.terraformersmc:modmenu:${project.modMenu_version}")
