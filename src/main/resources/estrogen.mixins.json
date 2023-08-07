@@ -8,6 +8,8 @@
     "PlayerEntityMixin"
   ],
   "client": [
+    "PlayerEntityModelMixin",
+    "PlayerEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

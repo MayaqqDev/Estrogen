@@ -2,7 +2,9 @@ package dev.mayaqq.estrogen.integrations;
 
 import com.unascribed.ears.api.EarsFeatureType;
 import com.unascribed.ears.api.registry.EarsInhibitorRegistry;
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.config.EstrogenConfigModel;
 import dev.mayaqq.estrogen.registry.EffectRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 
@@ -11,7 +13,7 @@ public class EarsCompat {
         EarsInhibitorRegistry.register("estrogen", (part, peer) -> {
             PlayerEntity player = (PlayerEntity)peer;
             // I could simplify this if statement but this makes it much cleaner
-            if (part == EarsFeatureType.CHEST && !player.hasStatusEffect(EffectRegistry.WOMAN_EFFECT) && EstrogenConfig.INSTANCE.enableNoChestWithEars) {
+            if (part == EarsFeatureType.CHEST && player.hasStatusEffect(EffectRegistry.WOMAN_EFFECT)) {
                 return true;
             }
             return false;

@@ -7,81 +7,96 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-    // Add repositories to retrieve artifacts from in here.
-    // You should only use this when depending on other mods because
-    // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-    // See https://docs.gradle.org/current/userguide/declaring_repositories.html
-    // for more information about repositories.
-    maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" }
-    maven { url = "https://maven.isxander.dev/releases" }
-
-    maven {
-
-        name 'Shedman maven'
-        url 'https://maven.shedaniel.me/'
-    }
-
-    maven {
-        name 'blamejared'
-        url 'https://maven.blamejared.com'
-    }
-    maven { url = "https://api.modrinth.com/maven" }
-    maven { url = "https://mvn.devos.one/releases/" }
-    maven { url = "https://mvn.devos.one/snapshots/" }
-    maven { url = "https://maven.tterrag.com/" }
-    maven { url = "https://jitpack.io/" }
-    maven {
-        url 'https://www.cursemaven.com'
-        content {
-            includeGroup "curse.maven"
-        }
-    }
-    maven {
-        url = "https://maven.jamieswhiteshirt.com/libs-release"
-        content {
-            includeGroup("com.jamieswhiteshirt")
-        }
-    }
-    maven { url = "https://maven.terraformersmc.com/" }
-    maven { url = "https://maven.cafeteria.dev/releases" }
+    // Create
     maven {
         name = 'Ladysnake Mods'
-        url = 'https://ladysnake.jfrog.io/artifactory/mods'
+        url = 'https://maven.ladysnake.org/releases'
     }
+        // Create Dependencies
+    // Forge-config-api-port
     maven {
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
+        name = "CurseForge"
+        url = "https://cursemaven.com"
     }
+    // Reach Entity Attributes
     maven {
-        name = "ModMaven"
-        url = "https://modmaven.dev"
+        url = "https://maven.jamieswhiteshirt.com/libs-release"
+        content { includeGroup("com.jamieswhiteshirt") }
     }
+    // Mixin extras, Porting Lib, Fabric ASM
     maven {
-        name = 'ParchmentMC'
-        url = 'https://maven.parchmentmc.org'
+        name = "Jitpack"
+        url = "https://jitpack.io/"
     }
+    // Flywheel
     maven {
-        url "https://repo.unascribed.com"
-        content {
-            includeGroup "com.unascribed"
-        }
+        name = "Tterraq"
+        url = "https://maven.tterrag.com/"
     }
+    // Lazy DFU
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+    // Milk Lib
+    maven {
+        name = "Milk Lib"
+        url = "https://mvn.devos.one/snapshots/"
+    }
+
+    // ModMenu
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/"
+    }
+    // Ears
+    maven {
+        name = "unascribed"
+        url = "https://repo.unascribed.com"
+        content { includeGroup "com.unascribed" }
+    }
+    // DevAuth
+    maven {
+        name = "DjTheRedstoner"
+        url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1"
+    }
+    // OwO Lib
+    maven {
+        name = "WispForest"
+        url = "https://maven.wispforest.io"
+    }
+    // REI
+    maven {
+        name = "Shedaniel"
+        url = "https://maven.shedaniel.me"
+    }
+
 }
 
 dependencies {
-    // To change the versions see the gradle.properties file
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-        // Fabric API. This is technically optional, but you probably want it anyway.
+    // Base
+    minecraft ("com.mojang:minecraft:${project.minecraft_version}")
+    mappings ("net.fabricmc:yarn:${project.yarn_mappings}:v2")
+    modImplementation ("net.fabricmc:fabric-loader:${project.loader_version}")
     modImplementation ("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
-    modImplementation ("com.simibubi.create:create-fabric-${project.minecraft_version}:${project.create_version}${project.minecraft_version}")
-    implementation ("com.unascribed:ears-api:${project.ears_version}")
-    modImplementation ("dev.isxander:yet-another-config-lib:${project.yacl_version}")
-    modImplementation ("com.terraformersmc:modmenu:${project.modMenu_version}")
 
-    modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:1.1.0")
+    // Create
+    modImplementation ("com.simibubi.create:create-fabric-${project.minecraft_version}:${project.create_version}+mc${project.minecraft_version}")
+
+    // Integrations
+    modCompileOnly ("com.unascribed:ears-api:${project.ears_version}")
+
+    // Config
+    modImplementation ("io.wispforest:owo-lib:${project.owo_version}")
+    annotationProcessor ("io.wispforest:owo-lib:${project.owo_version}")
+    modImplementation ("com.terraformersmc:modmenu:${project.modmenu_version}")
+
+    // REI
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+        modImplementation("dev.architectury:architectury-fabric:${project.architectury_version}")
+
+    modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${project.devauth_version}")
 
 }
 
@@ -100,10 +115,6 @@ processResources {
 
 def targetJavaVersion = 17
 tasks.withType(JavaCompile).configureEach {
-    // ensure that the encoding is set to UTF-8, no matter what the system default is
-    // this fixes some edge cases with special characters not displaying correctly
-    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-    // If Javadoc is generated, this must be specified in that task too.
     it.options.encoding = "UTF-8"
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
         it.options.release = targetJavaVersion
@@ -116,9 +127,7 @@ java {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
     archivesBaseName = project.archives_base_name
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
+
     withSourcesJar()
 }
 
@@ -128,7 +137,6 @@ jar {
     }
 }
 
-// configure the maven publication
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -136,11 +144,6 @@ publishing {
         }
     }
 
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
     }
 }

@@ -20,10 +20,6 @@
     ],
     "main": [
       "dev.mayaqq.estrogen.Estrogen"
-    ],
-
-    "modmenu": [
-      "dev.mayaqq.estrogen.integrations.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -32,8 +28,10 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "create": "*",
-    "minecraft": "${minecraft_version}"
+    "create": ">=0.5.1-b-build.1089+mc1.19.2",
+    "minecraft": "${minecraft_version}",
+    "owo": ">=0.8.5+1.19",
+    "modmenu": ">=4.2.0-beta.2"
   },
   "recommends": {
     "rei": "*"
