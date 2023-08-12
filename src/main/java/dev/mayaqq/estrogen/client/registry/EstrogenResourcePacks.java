@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.client;
+package dev.mayaqq.estrogen.client.registry;
 
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
@@ -7,7 +7,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import static dev.mayaqq.estrogen.Estrogen.LOGGER;
 import static dev.mayaqq.estrogen.Estrogen.id;
 
-public class PackRegistry {
+public class EstrogenResourcePacks {
     public static void register() {
         if (!ResourceManagerHelper.registerBuiltinResourcePack(
                 id("mayafied_textures"),

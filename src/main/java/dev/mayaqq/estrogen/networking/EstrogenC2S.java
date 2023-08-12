@@ -1,28 +1,31 @@
 package dev.mayaqq.estrogen.networking;
 
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.registry.EffectRegistry;
-import dev.mayaqq.estrogen.registry.ParticleRegistry;
-import dev.mayaqq.estrogen.registry.SoundRegistry;
+import dev.mayaqq.estrogen.registry.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.EstrogenSounds;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.entity.Entity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.Identifier;
 
-public class C2S {
+public class EstrogenC2S {
+
+    public static final Identifier DASH = Estrogen.id("dash");
+    public static final Identifier DASH_PARTICLES = Estrogen.id("dashparticles");
+
     public static void register() {
-        ServerPlayNetworking.registerGlobalReceiver(Estrogen.id("dash"), (server, player, handler, buf, responseSender) -> {
+        ServerPlayNetworking.registerGlobalReceiver(DASH, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                if (player.hasStatusEffect(EffectRegistry.WOMAN_EFFECT)) {
+                if (player.hasStatusEffect(EstrogenEffects.ESTROGEN_EFFECT)) {
                     ServerWorld world = player.getWorld();
-                    world.playSound(null, player.getBlockPos(), SoundRegistry.DASH, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                    world.playSound(null, player.getBlockPos(), EstrogenSounds.DASH, SoundCategory.PLAYERS, 1.0F, 1.0F);
                     // summon particles around player
                     world.spawnParticles(ParticleTypes.CLOUD, player.getX(), player.getY(), player.getZ(), 10, 0.5, 0.5, 0.5, 0.5);
                 }
             });
         });
-        ServerPlayNetworking.registerGlobalReceiver(Estrogen.id("dashparticles"), ((server, player, handler, buf, responseSender) -> {
+        ServerPlayNetworking.registerGlobalReceiver(DASH_PARTICLES, ((server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 ServerWorld world = player.getWorld();
                 //TODO: will add custom particles eventually once coded properly

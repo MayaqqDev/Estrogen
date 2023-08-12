@@ -1,10 +1,10 @@
-package dev.mayaqq.estrogen.client;
+package dev.mayaqq.estrogen.client.registry;
 
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import org.lwjgl.glfw.GLFW;
 
-public class KeybindRegistry {
+public class EstrogenKeybinds {
     public static KeyBinding dashKey;
     public static void register() {
         dashKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(

@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.registry.fluids;
 
-import dev.mayaqq.estrogen.registry.BlockRegistry;
-import dev.mayaqq.estrogen.registry.FluidRegistry;
+import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -26,12 +25,12 @@ public class HorseUrineFluid extends FlowableFluid {
 
     @Override
     public Fluid getFlowing() {
-        return FluidRegistry.FLOWING_HORSE_URINE;
+        return EstrogenFluids.HORSE_URINE.flowing();
     }
 
     @Override
     public Fluid getStill() {
-        return FluidRegistry.STILL_HORSE_URINE;
+        return EstrogenFluids.HORSE_URINE.still();
     }
 
     @Override
@@ -57,7 +56,7 @@ public class HorseUrineFluid extends FlowableFluid {
 
     @Override
     public Item getBucketItem() {
-        return FluidRegistry.HORSE_URINE_BUCKET;
+        return EstrogenFluids.HORSE_URINE.bucket();
     }
 
     @Override
@@ -77,7 +76,7 @@ public class HorseUrineFluid extends FlowableFluid {
 
     @Override
     protected BlockState toBlockState(FluidState state) {
-        return BlockRegistry.HORSE_URINE.getDefaultState().with(Properties.LEVEL_15, getBlockStateLevel(state));
+        return EstrogenFluids.HORSE_URINE_BLOCK.getDefaultState().with(Properties.LEVEL_15, getBlockStateLevel(state));
     }
 
     @Override

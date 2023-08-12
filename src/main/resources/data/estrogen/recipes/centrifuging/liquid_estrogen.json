@@ -1,18 +1,15 @@
 {
-  "type": "create:mixing",
+  "type": "estrogen:centrifuging",
   "ingredients": [
     {
       "fluid": "estrogen:filtrated_horse_urine",
-      "amount": 27000
-    },
-    {
-      "item": "minecraft:sugar"
+      "amount": 10
     }
   ],
   "results": [
     {
       "fluid": "estrogen:liquid_estrogen",
-      "amount": 27000
+      "amount": 10
     }
   ]
 }

@@ -5,10 +5,10 @@ import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 
-import static dev.mayaqq.estrogen.client.ClientEventRegistry.*;
+import static dev.mayaqq.estrogen.client.Dash.*;
 
-public class WomanEffect extends StatusEffect {
-    public WomanEffect(StatusEffectCategory statusEffectCategory, int color) {
+public class EstrogenEffect extends StatusEffect {
+    public EstrogenEffect(StatusEffectCategory statusEffectCategory, int color) {
         super(statusEffectCategory, color);
     }
 

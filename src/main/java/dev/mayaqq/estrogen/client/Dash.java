@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.client;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.registry.EffectRegistry;
+import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -15,9 +15,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
-import static dev.mayaqq.estrogen.client.KeybindRegistry.dashKey;
+import static dev.mayaqq.estrogen.client.registry.EstrogenKeybinds.dashKey;
 
-public class ClientEventRegistry {
+public class Dash {
     private static final Identifier DASH_OVERLAY = new Identifier("textures/misc/nausea.png");
     public static int dashCooldown = 0;
     public static int groundCooldown = 0;
@@ -35,7 +35,7 @@ public class ClientEventRegistry {
             groundCooldown--;
             if (dashCooldown < 0) dashCooldown = 0;
             if (groundCooldown < 0) groundCooldown = 0;
-            if (!player.hasStatusEffect(EffectRegistry.WOMAN_EFFECT)) {
+            if (!player.hasStatusEffect(EstrogenEffects.ESTROGEN_EFFECT)) {
                 maxDashes = 0;
                 currentDashes = 0;
                 onCooldown = false;
@@ -58,7 +58,7 @@ public class ClientEventRegistry {
                 currentDashes = maxDashes;
             }
             onCooldown = dashCooldown > 0 || currentDashes == 0;
-            if (dashKey.wasPressed() && player.hasStatusEffect(EffectRegistry.WOMAN_EFFECT) && !onCooldown) {
+            if (dashKey.wasPressed() && player.hasStatusEffect(EstrogenEffects.ESTROGEN_EFFECT) && !onCooldown) {
                 if (player.getPitch() > 50 && player.getPitch() < 90) {
                     shouldWaveDash = true;
                 }
@@ -75,9 +75,9 @@ public class ClientEventRegistry {
                 int i = mc.getWindow().getScaledWidth();
                 int j = mc.getWindow().getScaledHeight();
                 double d = MathHelper.lerp(distortionStrength, 2.0, 1.0);
-                float f = 0.3F; // red component
-                float g = 0.5F; // green component
-                float h = 0.8F; // blue component
+                float f = 0.3F;
+                float g = 0.5F;
+                float h = 0.8F;
                 double e = (double)i * d;
                 double k = (double)j * d;
                 double l = ((double)i - e) / 2.0;

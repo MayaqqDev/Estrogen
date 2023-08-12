@@ -1,6 +1,6 @@
-package dev.mayaqq.estrogen.mixin;
+package dev.mayaqq.estrogen.mixin.client;
 
-import dev.mayaqq.estrogen.client.entity.player.features.boob.BoobFeatureRenderer;
+import dev.mayaqq.estrogen.client.entity.player.features.boobs.BoobFeatureRenderer;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;

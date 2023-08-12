@@ -1,9 +1,9 @@
-package dev.mayaqq.estrogen.mixin;
+package dev.mayaqq.estrogen.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.client.entity.player.features.boob.PlayerEntityModelExtension;
-import dev.mayaqq.estrogen.registry.EffectRegistry;
+import dev.mayaqq.estrogen.client.entity.player.features.boobs.PlayerEntityModelExtension;
+import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import net.minecraft.client.model.*;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumer;
@@ -49,7 +49,7 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends BipedEntityM
         this.boobs.copyTransform(this.body);
         this.boobs.pitch = this.body.pitch + 1.0F;
         Estrogen.LOGGER.info("boobs zScale: " + this.boobs.zScale);
-        this.boobs.zScale = 1 + player.getStatusEffect(EffectRegistry.WOMAN_EFFECT).getAmplifier() / 10.0F;
+        this.boobs.zScale = 1 + player.getStatusEffect(EstrogenEffects.ESTROGEN_EFFECT).getAmplifier() / 10.0F;
         this.boobs.render(matrices, vertices, light, overlay);
     }
 

@@ -7,70 +7,20 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-    // Create
-    maven {
-        name = 'Ladysnake Mods'
-        url = 'https://maven.ladysnake.org/releases'
-    }
-        // Create Dependencies
-    // Forge-config-api-port
-    maven {
-        name = "CurseForge"
-        url = "https://cursemaven.com"
-    }
-    // Reach Entity Attributes
-    maven {
-        url = "https://maven.jamieswhiteshirt.com/libs-release"
-        content { includeGroup("com.jamieswhiteshirt") }
-    }
-    // Mixin extras, Porting Lib, Fabric ASM
-    maven {
-        name = "Jitpack"
-        url = "https://jitpack.io/"
-    }
-    // Flywheel
-    maven {
-        name = "Tterraq"
-        url = "https://maven.tterrag.com/"
-    }
-    // Lazy DFU
-    maven {
-        name = "Modrinth"
-        url = "https://api.modrinth.com/maven"
-    }
-    // Milk Lib
-    maven {
-        name = "Milk Lib"
-        url = "https://mvn.devos.one/snapshots/"
-    }
+    maven { url "https://maven.ladysnake.org/releases" } // Create
+    // Create Dependencies
+    maven { url "https://cursemaven.com" } // ForgeConfigApiPort
+    maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
+    maven { url = "https://maven.tterrag.com/" } // Flywheel
+    maven { url = "https://api.modrinth.com/maven" } // Lazy DFU
+    maven { url = "https://mvn.devos.one/snapshots/" } // Milk Lib
 
-    // ModMenu
-    maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/"
-    }
-    // Ears
-    maven {
-        name = "unascribed"
-        url = "https://repo.unascribed.com"
-        content { includeGroup "com.unascribed" }
-    }
-    // DevAuth
-    maven {
-        name = "DjTheRedstoner"
-        url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1"
-    }
-    // OwO Lib
-    maven {
-        name = "WispForest"
-        url = "https://maven.wispforest.io"
-    }
-    // REI
-    maven {
-        name = "Shedaniel"
-        url = "https://maven.shedaniel.me"
-    }
-
+    maven { url = "https://maven.terraformersmc.com/" } // ModMenu
+    maven { url = "https://maven.wispforest.io" } // OwO Lib
+    maven { url = "https://maven.shedaniel.me" } // REI
+    maven { url = "https://repo.unascribed.com" } // Ears
+    maven { url = "https://jitpack.io/" } // Mixin extras, Porting Lib
+    maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" } // DevAuth
 }
 
 dependencies {
@@ -96,8 +46,8 @@ dependencies {
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
         modImplementation("dev.architectury:architectury-fabric:${project.architectury_version}")
 
+    // Dev Only
     modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${project.devauth_version}")
-
 }
 
 processResources {
@@ -144,6 +94,5 @@ publishing {
         }
     }
 
-    repositories {
-    }
+    repositories { }
 }

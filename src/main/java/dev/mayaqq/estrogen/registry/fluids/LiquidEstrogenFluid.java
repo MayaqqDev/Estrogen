@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.registry.fluids;
 
-import dev.mayaqq.estrogen.registry.BlockRegistry;
-import dev.mayaqq.estrogen.registry.FluidRegistry;
+import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -26,12 +25,12 @@ public class LiquidEstrogenFluid extends FlowableFluid {
 
     @Override
     public Fluid getFlowing() {
-        return FluidRegistry.FLOWING_LIQUID_ESTROGEN;
+        return EstrogenFluids.LIQUID_ESTROGEN.flowing();
     }
 
     @Override
     public Fluid getStill() {
-        return FluidRegistry.STILL_LIQUID_ESTROGEN;
+        return EstrogenFluids.LIQUID_ESTROGEN.still();
     }
 
     @Override
@@ -57,7 +56,7 @@ public class LiquidEstrogenFluid extends FlowableFluid {
 
     @Override
     public Item getBucketItem() {
-        return FluidRegistry.LIQUID_ESTROGEN_BUCKET;
+        return EstrogenFluids.LIQUID_ESTROGEN.bucket();
     }
 
     @Override
@@ -77,7 +76,7 @@ public class LiquidEstrogenFluid extends FlowableFluid {
 
     @Override
     protected BlockState toBlockState(FluidState state) {
-        return BlockRegistry.LIQUID_ESTROGEN.getDefaultState().with(Properties.LEVEL_15, getBlockStateLevel(state));
+        return EstrogenFluids.LIQUID_ESTROGEN_BLOCK.getDefaultState().with(Properties.LEVEL_15, getBlockStateLevel(state));
     }
 
     @Override

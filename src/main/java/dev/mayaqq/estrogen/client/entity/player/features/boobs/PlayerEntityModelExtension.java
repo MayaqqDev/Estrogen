@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.client.entity.player.features.boob;
+package dev.mayaqq.estrogen.client.entity.player.features.boobs;
 
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumer;
