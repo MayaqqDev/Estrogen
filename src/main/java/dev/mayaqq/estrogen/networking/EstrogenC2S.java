@@ -1,8 +1,8 @@
 package dev.mayaqq.estrogen.networking;
 
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.registry.EstrogenEffects;
-import dev.mayaqq.estrogen.registry.EstrogenSounds;
+import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.common.EstrogenSounds;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;

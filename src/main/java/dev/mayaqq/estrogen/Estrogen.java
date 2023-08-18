@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen;
 
+import com.llamalad7.mixinextras.MixinExtrasBootstrap;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
@@ -7,13 +8,14 @@ import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenC2S;
-import dev.mayaqq.estrogen.registry.*;
+import dev.mayaqq.estrogen.registry.common.*;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Estrogen implements ModInitializer {
+public class Estrogen implements ModInitializer, PreLaunchEntrypoint {
     public static final Logger LOGGER = LoggerFactory.getLogger("Estrogen");
     public static final EstrogenConfig CONFIG = EstrogenConfig.createAndLoad();
 
@@ -41,8 +43,14 @@ public class Estrogen implements ModInitializer {
         EstrogenSounds.register();
         EstrogenBlocks.register();
         EstrogenBlockEntities.register();
-        EstrogenParticles.register();
         EstrogenRecipes.register();
+        EstrogenEnchantments.register();
+        EstrogenPonderScenes.register();
         REGISTRATE.register();
+    }
+
+    @Override
+    public void onPreLaunch() {
+        MixinExtrasBootstrap.init();
     }
 }

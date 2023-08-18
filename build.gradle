@@ -6,20 +6,23 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
+println(project.archivesBaseName + ": " + version)
+
 repositories {
-    maven { url "https://maven.ladysnake.org/releases" } // Create
+    maven { url "https://maven.ladysnake.org/releases" } // Create, Cardinal Components
     // Create Dependencies
     maven { url "https://cursemaven.com" } // ForgeConfigApiPort
     maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
     maven { url = "https://maven.tterrag.com/" } // Flywheel
-    maven { url = "https://api.modrinth.com/maven" } // Lazy DFU
     maven { url = "https://mvn.devos.one/snapshots/" } // Milk Lib
 
+    maven { url = "https://api.modrinth.com/maven" } // LazyDFU, Trinkets
     maven { url = "https://maven.terraformersmc.com/" } // ModMenu
     maven { url = "https://maven.wispforest.io" } // OwO Lib
     maven { url = "https://maven.shedaniel.me" } // REI
     maven { url = "https://repo.unascribed.com" } // Ears
     maven { url = "https://jitpack.io/" } // Mixin extras, Porting Lib
+    maven { url = "https://maven.terraformersmc.com/" } // EMI
     maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" } // DevAuth
 }
 
@@ -33,6 +36,14 @@ dependencies {
     // Create
     modImplementation ("com.simibubi.create:create-fabric-${project.minecraft_version}:${project.create_version}+mc${project.minecraft_version}")
 
+    // Trinkets
+    modImplementation ("maven.modrinth:trinkets:${project.trinkets_version}")
+
+    // Cardinal Components
+    project.cardinal_modules.split(",").each { module ->
+        modApi ("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${project.cardinal_version}")
+    }
+
     // Integrations
     modCompileOnly ("com.unascribed:ears-api:${project.ears_version}")
 
@@ -43,8 +54,22 @@ dependencies {
 
     // REI
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
         modImplementation("dev.architectury:architectury-fabric:${project.architectury_version}")
+
+    // EMI
+        modCompileOnly "dev.emi:emi-fabric:${emi_version}"
+
+    // REI
+    switch (project.item_viewer.toLowerCase()) {
+        case "rei": modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"); break
+        case "emi": modLocalRuntime("dev.emi:emi-fabric:${emi_version}"); break
+        case "disabled": break
+        default: println("Invalid item viewer: ${project.item_viewer} must be REI, EMI or disabled"); break
+    }
+
+    // Mixin extras
+    implementation("com.github.LlamaLad7:MixinExtras:${project.mixin_extras_version}")
+    annotationProcessor("com.github.LlamaLad7:MixinExtras:${project.mixin_extras_version}")
 
     // Dev Only
     modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${project.devauth_version}")
@@ -95,4 +120,35 @@ publishing {
     }
 
     repositories { }
+}
+
+loom {
+    runs {
+        datagenClient {
+            inherit client
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.modid=${mod_id}"
+
+            runDir "build/datagen"
+        }
+    }
+    runs {
+        mixinDebug {
+            inherit client
+            name "Mixin Debug"
+            vmArg("-Dmixin.debug.export=true")
+        }
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs += [
+                    'src/main/generated'
+            ]
+        }
+    }
 }

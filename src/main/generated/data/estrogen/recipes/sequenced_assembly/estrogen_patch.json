@@ -1,0 +1,69 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "minecraft:paper"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "item": "estrogen:estrogen_patches"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {
+          "item": "estrogen:incomplete_estrogen_patches"
+        },
+        {
+          "amount": 27000,
+          "fluid": "estrogen:molten_slime",
+          "nbt": {}
+        }
+      ],
+      "results": [
+        {
+          "item": "estrogen:incomplete_estrogen_patches"
+        }
+      ]
+    },
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {
+          "item": "estrogen:incomplete_estrogen_patches"
+        },
+        {
+          "amount": 27000,
+          "fluid": "estrogen:liquid_estrogen",
+          "nbt": {}
+        }
+      ],
+      "results": [
+        {
+          "item": "estrogen:incomplete_estrogen_patches"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "estrogen:incomplete_estrogen_patches"
+        },
+        {
+          "item": "minecraft:nether_star"
+        }
+      ],
+      "results": [
+        {
+          "item": "estrogen:incomplete_estrogen_patches"
+        }
+      ]
+    }
+  ],
+  "transitionalItem": {
+    "item": "estrogen:incomplete_estrogen_patches"
+  }
+}

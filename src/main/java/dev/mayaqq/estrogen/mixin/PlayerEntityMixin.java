@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.mixin;
 
-import dev.mayaqq.estrogen.registry.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
