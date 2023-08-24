@@ -10,6 +10,7 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.math.Vec3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -36,15 +37,18 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends BipedEntityM
     )
     private static ModelData estrogen$getTextureModelData(ModelData modelData) {
         ModelPartData modelPartData = modelData.getRoot();
-        modelPartData.addChild("boobs", ModelPartBuilder.create().cuboid("boobs", -4.0F, -1.0F, -5.0F, 8, 4, 4, Dilation.NONE, 16, 20), ModelTransform.NONE);
+        modelPartData.addChild("boobs", ModelPartBuilder.create().cuboid("boobs", -4.0F, 0F, 0F, 8, 2, 2, Dilation.NONE, 18, 22), ModelTransform.NONE);
         return modelData;
     }
 
     @Override
-    public void estrogen$renderBoobs(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, AbstractClientPlayerEntity player) {
+    public void estrogen$renderBoobs(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, AbstractClientPlayerEntity player, float size) {
         this.boobs.copyTransform(this.body);
         this.boobs.pitch = this.body.pitch + 1.0F;
-        this.boobs.zScale = 1 + player.getStatusEffect(EstrogenEffects.ESTROGEN_EFFECT).getAmplifier() / 10.0F;
+        float amplifier = player.getStatusEffect(EstrogenEffects.ESTROGEN_EFFECT).getAmplifier() / 10.0F;
+        this.boobs.translate(new Vec3f(0.0F, 4.0F+size*0.864F*(1+amplifier), -1.9F+size*-1.944F*(1+amplifier)));
+        this.boobs.yScale = (1 + size*2.0F*(1+amplifier)) / 2.0F;
+        this.boobs.zScale = (1 + size*2.5F*(1+amplifier)) / 2.0F;
         this.boobs.render(matrices, vertices, light, overlay);
     }
 
