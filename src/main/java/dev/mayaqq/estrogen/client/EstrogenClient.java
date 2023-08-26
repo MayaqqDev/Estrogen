@@ -18,6 +18,7 @@ public class EstrogenClient implements ClientModInitializer {
         EstrogenModelPredicateProviders.register();
         EstrogenClientEvents.register();
 
+        // mod compat
         if (FabricLoader.getInstance().isModLoaded("ears")) {
             EarsCompat.boob();
         }

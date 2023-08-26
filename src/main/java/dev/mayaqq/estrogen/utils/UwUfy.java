@@ -4,30 +4,8 @@ import java.util.Random;
 
 public class UwUfy {
 
-    private static final Random random = new Random();
-
-    public static String uwufyChar(Character c) {
-        switch (c) {
-            case 'r', 'l' -> {
-                return "w";
-            }
-            case 'R', 'L' -> {
-                return "W";
-            }
-            case 'o' -> {
-                return "owo";
-            }
-            case 'O' -> {
-                return "OwO";
-            }
-            case '.' -> {
-                return ":3";
-            }
-        }
-        return c.toString();
-    }
-
     public static String uwufyString(String input) {
+        int stringLength = input.length();
         // Replace 'r' and 'l' with 'w', and 'R' and 'L' with 'W'
         input = input.replaceAll("[rR]", "w").replaceAll("[lL]", "w");
 
@@ -38,22 +16,22 @@ public class UwUfy {
         input = input.replaceAll("o", "owo").replaceAll("O", "OwO");
 
         // Replace '.' with ':3'
-        input = input.replaceAll("\\.", ":3");
+        //input = input.replaceAll("\\.", ":3");
 
         // Replace repeated exclamation marks and question marks
         input = input.replaceAll("!", "!!!").replaceAll("\\?", "???");
 
         // Convert to uppercase
-
-        if (random.nextInt(3) == 0) {
+        if (stringLength % 3 == 0) {
             input = input.toUpperCase();
         }
 
         // Add more letters to the end of words
-        input = input.replaceAll("(\\w)(\\b)", "$1$1$1$1$2");
-
+        if (stringLength % 2 == 0) {
+            input = input.replaceAll("(\\w)(\\b)", "$1$1$1$1$2");
+        }
         // 50% chance to duplicate the first letter and add '-'
-        if (random.nextBoolean()) {
+        if (!(stringLength % 2 == 0)) {
             input = input.replaceAll("\\b(\\w)(\\w*)\\b", "$1-$1$2");
         }
 
@@ -68,9 +46,10 @@ public class UwUfy {
                 ":3",
                 "^-^",
                 "^_^",
-                "^w^"
+                "^w^",
+                ":3"
         };
-        input += " " + randomPhrases[random.nextInt(randomPhrases.length)];
+        input += " " + randomPhrases[stringLength % randomPhrases.length];
 
         return input;
     }

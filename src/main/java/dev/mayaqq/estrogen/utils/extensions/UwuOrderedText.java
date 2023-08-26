@@ -14,12 +14,20 @@ public class UwuOrderedText implements OrderedText {
     @Override
     public boolean accept(CharacterVisitor visitor) {
         return wrapped.accept((index, style, codePoint) -> {
-            String uwufied = UwUfy.uwufyChar((char) codePoint);
-            char[] uwufiedChars = uwufied.toCharArray();
-            for (char uwufiedChar : uwufiedChars) {
-                visitor.accept(index, style, uwufiedChar);
-            }
-            return false;
+            if (codePoint == 'r' || codePoint == 'l') codePoint = 'w';
+            else if (codePoint == 'R' || codePoint == 'L') codePoint = 'W';
+            else if (codePoint == 'u') {
+                return visitor.accept(index, style, 'u')
+                        && visitor.accept(index, style, 'w')
+                        && visitor.accept(index, style, 'u');
+                }
+            else if (codePoint == 'U') {
+                    return visitor.accept(index, style, 'U')
+                            && visitor.accept(index, style, 'w')
+                            && visitor.accept(index, style, 'U');
+                }
+
+                return visitor.accept(index, style, codePoint);
         });
     }
 }
