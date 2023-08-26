@@ -2,7 +2,7 @@ package dev.mayaqq.estrogen.integrations.rei.animated;
 
 import com.simibubi.create.compat.rei.category.animations.AnimatedKinetics;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
-import dev.mayaqq.estrogen.registry.client.registry.EstrogenRenderer;
+import dev.mayaqq.estrogen.registry.client.EstrogenRenderer;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import net.minecraft.client.util.math.MatrixStack;
 

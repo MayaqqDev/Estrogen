@@ -9,9 +9,7 @@
   ],
   "client": [
     "client.ClientPlayerEntityMixin",
-    "client.LivingEntityRendererMixin",
     "client.PlayerEntityModelMixin",
-    "client.PlayerEntityRendererMixin",
     "client.TextRendererMixin"
   ],
   "injectors": {

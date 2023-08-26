@@ -1,10 +1,10 @@
-package dev.mayaqq.estrogen.registry.client.registry.blockRenderers.centrifuge;
+package dev.mayaqq.estrogen.registry.client.blockRenderers.centrifuge;
 
 import com.jozufozu.flywheel.api.Instancer;
 import com.jozufozu.flywheel.api.MaterialManager;
 import com.simibubi.create.content.kinetics.base.SingleRotatingInstance;
 import com.simibubi.create.content.kinetics.base.flwdata.RotatingData;
-import dev.mayaqq.estrogen.registry.client.registry.EstrogenRenderer;
+import dev.mayaqq.estrogen.registry.client.EstrogenRenderer;
 import dev.mayaqq.estrogen.registry.common.blockEntities.CentrifugeBlockEntity;
 
 public class CentrifugeCogInstance extends SingleRotatingInstance<CentrifugeBlockEntity> {

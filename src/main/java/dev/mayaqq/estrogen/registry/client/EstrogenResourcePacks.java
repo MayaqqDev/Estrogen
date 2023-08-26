@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.registry.client.registry;
+package dev.mayaqq.estrogen.registry.client;
 
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;

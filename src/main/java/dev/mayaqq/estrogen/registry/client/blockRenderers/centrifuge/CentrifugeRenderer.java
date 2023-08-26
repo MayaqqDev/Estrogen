@@ -1,10 +1,10 @@
-package dev.mayaqq.estrogen.registry.client.registry.blockRenderers.centrifuge;
+package dev.mayaqq.estrogen.registry.client.blockRenderers.centrifuge;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.foundation.fluid.FluidRenderer;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
-import dev.mayaqq.estrogen.registry.client.registry.EstrogenRenderer;
+import dev.mayaqq.estrogen.registry.client.EstrogenRenderer;
 import dev.mayaqq.estrogen.registry.common.blockEntities.CentrifugeBlockEntity;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import io.github.fabricators_of_create.porting_lib.util.FluidStack;

@@ -2,7 +2,7 @@ package dev.mayaqq.estrogen.integrations.emi;
 
 import com.simibubi.create.compat.emi.CreateEmiAnimations;
 import dev.emi.emi.api.widget.WidgetHolder;
-import dev.mayaqq.estrogen.registry.client.registry.EstrogenRenderer;
+import dev.mayaqq.estrogen.registry.client.EstrogenRenderer;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 
 public class EstrogenEmiAnimations extends CreateEmiAnimations {

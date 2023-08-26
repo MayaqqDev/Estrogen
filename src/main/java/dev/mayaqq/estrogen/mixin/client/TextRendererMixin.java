@@ -1,11 +1,11 @@
 package dev.mayaqq.estrogen.mixin.client;
 
 import dev.mayaqq.estrogen.client.Dash;
+import dev.mayaqq.estrogen.utils.UwUfy;
 import dev.mayaqq.estrogen.utils.extensions.UwuOrderedText;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.text.OrderedText;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
@@ -21,7 +21,7 @@ public class TextRendererMixin {
             argsOnly = true
         )
     private String modifyString(String text) {
-        if (Dash.uwufy) return uwufy(text); else return text;
+        if (Dash.uwufy) return UwUfy.uwufyString(text); else return text;
     }
 
     @ModifyVariable(
@@ -34,19 +34,5 @@ public class TextRendererMixin {
     )
     private OrderedText modifyText(OrderedText text) {
         if (Dash.uwufy) return new UwuOrderedText(text); else return text;
-    }
-
-    @Unique
-    private static String uwufy(String original) {
-        return original
-                .replaceAll("r", "w")
-                .replaceAll("R", "W")
-                .replaceAll("l", "w")
-                .replaceAll("L", "W")
-                .replaceAll("u", "uwu")
-                .replaceAll("U", "UwU")
-                .replaceAll("hi ", "haiiii~ ")
-                .replaceAll("Hi ", "Haiiii~ ")
-                .replaceAll("\\.", ":3 ");
     }
 }

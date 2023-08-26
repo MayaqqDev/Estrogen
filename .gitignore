@@ -101,6 +101,7 @@ $RECYCLE.BIN/
 *.lnk
 
 .gradle
+!build/datagen/run/config/fabric_loader_dependencies.json
 build/
 
 # Ignore Gradle GUI config
@@ -112,6 +113,7 @@ gradle-app.setting
 **/build/
 
 # Common working directory
+!run/config/fabric_loader_dependencies.json
 run/
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)

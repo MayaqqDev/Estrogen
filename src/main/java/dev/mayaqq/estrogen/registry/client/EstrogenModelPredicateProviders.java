@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.registry.client.registry;
+package dev.mayaqq.estrogen.registry.client;
 
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;

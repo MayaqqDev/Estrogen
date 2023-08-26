@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.utils.extensions;
 
+import dev.mayaqq.estrogen.utils.UwUfy;
 import net.minecraft.text.CharacterVisitor;
 import net.minecraft.text.OrderedText;
 
@@ -13,20 +14,12 @@ public class UwuOrderedText implements OrderedText {
     @Override
     public boolean accept(CharacterVisitor visitor) {
         return wrapped.accept((index, style, codePoint) -> {
-            if (codePoint == 'r' || codePoint == 'l') codePoint = 'w';
-            else if (codePoint == 'R' || codePoint == 'L') codePoint = 'W';
-            else if (codePoint == 'u') {
-                return visitor.accept(index, style, 'u')
-                        && visitor.accept(index, style, 'w')
-                        && visitor.accept(index, style, 'u');
+            String uwufied = UwUfy.uwufyChar((char) codePoint);
+            char[] uwufiedChars = uwufied.toCharArray();
+            for (char uwufiedChar : uwufiedChars) {
+                visitor.accept(index, style, uwufiedChar);
             }
-            else if (codePoint == 'U') {
-                return visitor.accept(index, style, 'U')
-                        && visitor.accept(index, style, 'w')
-                        && visitor.accept(index, style, 'U');
-            }
-
-            return visitor.accept(index, style, codePoint);
+            return false;
         });
     }
 }

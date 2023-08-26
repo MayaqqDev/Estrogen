@@ -4,11 +4,13 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.datagen.tags.EstrogenTags;
+import dev.mayaqq.estrogen.networking.EstrogenC2S;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.minecraft.block.FluidBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.*;
@@ -16,7 +18,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
-import static dev.mayaqq.estrogen.registry.client.registry.EstrogenKeybinds.dashKey;
+import static dev.mayaqq.estrogen.registry.client.EstrogenKeybinds.dashKey;
 
 public class Dash {
 
@@ -67,7 +69,7 @@ public class Dash {
             }
 
             if (dashCooldown > 0 && dashCooldown % 2 == 0 && player.getBlockPos() != lastPos) {
-                ClientPlayNetworking.send(Estrogen.id("dashparticles"), PacketByteBufs.empty());
+                ClientPlayNetworking.send(EstrogenC2S.DASH_PARTICLES, PacketByteBufs.empty());
             }
             lastPos = player.getBlockPos();
 
@@ -76,7 +78,7 @@ public class Dash {
                 shouldWaveDash = false;
             }
 
-            if (player.isOnGround() && groundCooldown == 0) {
+            if (shouldRefreshDash(player) && groundCooldown == 0) {
                 groundCooldown = 4;
                 currentDashes = maxDashes;
             }
@@ -131,5 +133,9 @@ public class Dash {
         RenderSystem.disableBlend();
         RenderSystem.depthMask(true);
         RenderSystem.enableDepthTest();
+    }
+
+    private static Boolean shouldRefreshDash(ClientPlayerEntity player) {
+        return player.isOnGround() || player.getWorld().getBlockState(player.getBlockPos()).getBlock() instanceof FluidBlock;
     }
 }

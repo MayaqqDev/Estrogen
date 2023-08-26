@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.registry.client.registry;
+package dev.mayaqq.estrogen.registry.client;
 
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;

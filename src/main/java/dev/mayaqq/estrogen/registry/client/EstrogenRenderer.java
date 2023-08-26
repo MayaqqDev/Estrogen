@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.registry.client.registry;
+package dev.mayaqq.estrogen.registry.client;
 
 import com.jozufozu.flywheel.core.PartialModel;
 

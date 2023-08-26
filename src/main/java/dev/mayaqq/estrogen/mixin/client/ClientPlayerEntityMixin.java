@@ -6,9 +6,10 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+
+import static dev.mayaqq.estrogen.utils.UwUfy.uwufyString;
 
 @Mixin(ClientPlayerEntity.class)
 public abstract class ClientPlayerEntityMixin {
@@ -23,29 +24,15 @@ public abstract class ClientPlayerEntityMixin {
     private String modifyMessage(String message) {
         ClientPlayerEntity player = (ClientPlayerEntity) (Object) this;
         if (player.getInventory().contains(EstrogenTags.ItemTags.UWUFYING)) {
-            message = uwufy(message);
+            message = uwufyString(message);
         } else {
             for (ItemStack stack : player.getArmorItems()) {
                 if (EnchantmentHelper.get(stack).containsKey(EstrogenEnchantments.UWUFYING_CURSE)) {
-                    message = uwufy(message);
+                    message = uwufyString(message);
                     break;
                 }
             }
         }
         return message;
-    }
-
-    @Unique
-    private static String uwufy(String original) {
-        return original
-                .replaceAll("r", "w")
-                .replaceAll("R", "W")
-                .replaceAll("l", "w")
-                .replaceAll("L", "W")
-                .replaceAll("u", "uwu")
-                .replaceAll("U", "UwU")
-                .replaceAll("hi ", "haiiii~ ")
-                .replaceAll("Hi ", "Haiiii~ ")
-                .replaceAll("\\.", ":3 ");
     }
 }
