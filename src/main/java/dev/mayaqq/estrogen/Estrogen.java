@@ -8,6 +8,7 @@ import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenC2S;
+import dev.mayaqq.estrogen.networking.EstrogenS2C;
 import dev.mayaqq.estrogen.registry.common.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
@@ -38,6 +39,7 @@ public class Estrogen implements ModInitializer, PreLaunchEntrypoint {
         EstrogenFluids.register();
         EstrogenEffects.register();
         EstrogenC2S.register();
+        EstrogenS2C.register();
         EstrogenItems.register();
         EstrogenFoodComponents.register();
         EstrogenSounds.register();
@@ -46,6 +48,7 @@ public class Estrogen implements ModInitializer, PreLaunchEntrypoint {
         EstrogenRecipes.register();
         EstrogenEnchantments.register();
         EstrogenPonderScenes.register();
+        EstrogenEntityTrackingEvents.register();
         REGISTRATE.register();
     }
 
