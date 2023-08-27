@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.registry.common.effects;
 
-import dev.mayaqq.estrogen.networking.EstrogenS2C;
+import dev.mayaqq.estrogen.networking.EstrogenStatusEffectSender;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
@@ -36,7 +36,7 @@ public class EstrogenEffect extends StatusEffect {
             onCooldown = false;
         }
         if (entity instanceof ServerPlayerEntity player) {
-            EstrogenS2C.sendRemovePlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayerEntity[]::new));
+            EstrogenStatusEffectSender.sendRemovePlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayerEntity[]::new));
         }
 
     }
@@ -47,7 +47,7 @@ public class EstrogenEffect extends StatusEffect {
             maxDashes = (short) (amplifier + 1);
         }
         if (entity instanceof ServerPlayerEntity player) {
-            EstrogenS2C.sendPlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayerEntity[]::new));
+            EstrogenStatusEffectSender.sendPlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayerEntity[]::new));
         }
         super.onApplied(entity, attributes, amplifier);
     }
