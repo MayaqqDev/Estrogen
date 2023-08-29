@@ -46,6 +46,7 @@ public class Estrogen implements ModInitializer, PreLaunchEntrypoint {
         EstrogenRecipes.register();
         EstrogenEnchantments.register();
         EstrogenPonderScenes.register();
+        EstrogenEvents.register();
         REGISTRATE.register();
     }
 
