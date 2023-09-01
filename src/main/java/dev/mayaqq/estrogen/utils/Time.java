@@ -2,9 +2,6 @@ package dev.mayaqq.estrogen.utils;
 
 import net.minecraft.world.World;
 
-import java.time.Duration;
-import java.time.Instant;
-
 public class Time {
     /**
      * Store the world time as a double precision floating point number.
