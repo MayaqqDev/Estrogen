@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.utils.extensions;
 
-import dev.mayaqq.estrogen.utils.UwUfy;
 import net.minecraft.text.CharacterVisitor;
 import net.minecraft.text.OrderedText;
 

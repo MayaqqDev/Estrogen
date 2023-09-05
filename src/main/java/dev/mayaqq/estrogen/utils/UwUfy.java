@@ -1,7 +1,5 @@
 package dev.mayaqq.estrogen.utils;
 
-import java.util.Random;
-
 public class UwUfy {
 
     public static String uwufyString(String input) {

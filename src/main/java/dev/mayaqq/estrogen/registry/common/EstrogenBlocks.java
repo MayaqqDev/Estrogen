@@ -6,6 +6,7 @@ import com.simibubi.create.foundation.data.SharedProperties;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.mayaqq.estrogen.registry.common.blocks.CentrifugeBlock;
 import net.minecraft.block.MapColor;
+import net.minecraft.client.render.RenderLayer;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
@@ -25,6 +26,7 @@ public class EstrogenBlocks {
             .transform(BlockStressDefaults.setImpact(8.0))
             .item()
             .transform(customItemModel())
+            .addLayer(() -> RenderLayer::getCutout)
             .register();
 
     public static void register() {}

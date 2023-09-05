@@ -11,7 +11,7 @@ public class EstrogenEmiAnimations extends CreateEmiAnimations {
             int scale = 22;
 
             blockElement(EstrogenRenderer.CENTRIFUGE_COG)
-                    .rotateBlock(22.5, getCurrentAngle() * 2, 0)
+                    .rotateBlock(22.5, getCurrentAngle() * 10, 0)
                     .scale(scale)
                     .render(matrices);
 

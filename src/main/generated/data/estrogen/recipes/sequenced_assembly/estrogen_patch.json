@@ -3,10 +3,27 @@
   "ingredient": {
     "item": "minecraft:paper"
   },
-  "loops": 1,
+  "loops": 5,
   "results": [
     {
+      "chance": 120.0,
       "item": "estrogen:estrogen_patches"
+    },
+    {
+      "chance": 16.0,
+      "item": "estrogen:estrogen_pill"
+    },
+    {
+      "chance": 5.0,
+      "item": "minecraft:paper"
+    },
+    {
+      "chance": 5.0,
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "chance": 4.0,
+      "item": "estrogen:horse_urine_bottle"
     }
   ],
   "sequence": [
@@ -53,7 +70,7 @@
           "item": "estrogen:incomplete_estrogen_patches"
         },
         {
-          "item": "minecraft:nether_star"
+          "item": "create:tree_fertilizer"
         }
       ],
       "results": [
