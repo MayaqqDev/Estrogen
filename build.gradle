@@ -9,12 +9,13 @@ group = project.maven_group
 println(project.archivesBaseName + ": " + version)
 
 repositories {
-    maven { url "https://maven.ladysnake.org/releases" } // Create, Cardinal Components
+    maven { url = "https://mvn.devos.one/snapshots/" } // Create
     // Create Dependencies
-    maven { url "https://cursemaven.com" } // ForgeConfigApiPort
+    maven { url = "https://cursemaven.com" } // ForgeConfigApiPort
     maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
     maven { url = "https://maven.tterrag.com/" } // Flywheel
     maven { url = "https://mvn.devos.one/snapshots/" } // Milk Lib
+    maven { url = "https://maven.ladysnake.org/releases" } // Cardinal Components
 
     maven { url = "https://api.modrinth.com/maven" } // LazyDFU, Trinkets
     maven { url = "https://maven.terraformersmc.com/" } // ModMenu
@@ -40,7 +41,7 @@ dependencies {
     modImplementation ("maven.modrinth:trinkets:${project.trinkets_version}")
 
     // Cardinal Components
-    project.cardinal_modules.split(",").each { module ->
+    project.cardinal_modules.replaceAll(" ", "").split(",").each { module ->
         modApi ("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${project.cardinal_version}")
     }
 
@@ -53,7 +54,7 @@ dependencies {
     modImplementation ("com.terraformersmc:modmenu:${project.modmenu_version}")
 
     // REI
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
+    modCompileOnly ("me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}")
         modImplementation("dev.architectury:architectury-fabric:${project.architectury_version}")
 
     // EMI
