@@ -2,6 +2,10 @@ package dev.mayaqq.estrogen.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.Tessellator;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.VertexFormats;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.datagen.tags.EstrogenTags;
 import dev.mayaqq.estrogen.networking.EstrogenC2S;
@@ -12,8 +16,11 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.gui.hud.InGameOverlayRenderer;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -93,46 +100,38 @@ public class Dash {
                 ClientPlayNetworking.send(Estrogen.id("dash"), PacketByteBufs.empty());
             }
         });
-        HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
+
+        HudRenderCallback.EVENT.register((graphics, tickDelta) -> {
             if (onCooldown) {
-                renderOverLayer(0.3F, 0.5F, 0.8F);
+                renderOverLayer(graphics, 0.3F, 0.5F, 0.8F);
             }
             if (uwufyHotbar) {
-                renderOverLayer(0.9F, 0.6F, 0.7F);
+                renderOverLayer(graphics, 0.9F, 0.6F, 0.7F);
             }
         });
     }
 
-    private static void renderOverLayer(float f, float g, float h) {
-        MinecraftClient mc = MinecraftClient.getInstance();
-        float distortionStrength = 0.5F;
-        int i = mc.getWindow().getScaledWidth();
-        int j = mc.getWindow().getScaledHeight();
-        double d = MathHelper.lerp(distortionStrength, 2.0, 1.0);
-        double e = (double)i * d;
-        double k = (double)j * d;
-        double l = ((double)i - e) / 2.0;
-        double m = ((double)j - k) / 2.0;
+    private static void renderOverLayer(GuiGraphics graphics, float c1, float c2, float c3) {
+        int i = graphics.getScaledWindowWidth();
+        int j = graphics.getScaledWindowHeight();
+        graphics.getMatrices().push();
+        float distortionAmount = 0.5F;
+        float f = MathHelper.lerp(distortionAmount, 2.0F, 1.0F);
+        graphics.getMatrices().translate((float)i / 2.0F, (float)j / 2.0F, 0.0F);
+        graphics.getMatrices().scale(f, f, f);
+        graphics.getMatrices().translate((float)(-i) / 2.0F, (float)(-j) / 2.0F, 0.0F);
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
         RenderSystem.enableBlend();
-        RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ONE);
-        RenderSystem.setShaderColor(f, g, h, 1.0F);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, DASH_OVERLAY);
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferBuilder = tessellator.getBuffer();
-        bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-        bufferBuilder.vertex(l, m + k, -90.0).texture(0.0F, 1.0F).next();
-        bufferBuilder.vertex(l + e, m + k, -90.0).texture(1.0F, 1.0F).next();
-        bufferBuilder.vertex(l + e, m, -90.0).texture(1.0F, 0.0F).next();
-        bufferBuilder.vertex(l, m, -90.0).texture(0.0F, 0.0F).next();
-        tessellator.draw();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
+        graphics.setShaderColor(c1, c2, c3, 1.0F);
+        graphics.drawTexture(DASH_OVERLAY, 0, 0, -90, 0.0F, 0.0F, i, j, i, j);
+        RenderSystem.setShaderColor(c1, c2, c3, 1.0F);
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
         RenderSystem.depthMask(true);
         RenderSystem.enableDepthTest();
+        graphics.getMatrices().pop();
     }
 
     private static Boolean shouldRefreshDash(ClientPlayerEntity player) {

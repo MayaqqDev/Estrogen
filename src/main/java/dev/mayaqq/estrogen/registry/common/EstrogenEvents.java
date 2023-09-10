@@ -27,9 +27,9 @@ public class EstrogenEvents {
 
         ServerPlayConnectionEvents.DISCONNECT.register(((handler, server) -> {
             if (handler.player.hasStatusEffect(ESTROGEN_EFFECT)) {
-                double startTime = handler.player.getAttributeBaseValue(BOOB_GROWING_START_TIME);
-                double currentTime = Time.currentTime(handler.player.world);
-                float initialSize = (float) handler.player.getAttributeBaseValue(BOOB_INITIAL_SIZE);
+                double startTime = handler.player.getAttributeValue(BOOB_GROWING_START_TIME);
+                double currentTime = Time.currentTime(handler.player.getWorld());
+                float initialSize = (float) handler.player.getAttributeValue(BOOB_INITIAL_SIZE);
                 float size = boobSize(startTime, currentTime, initialSize, 0.0F);
                 handler.player.getAttributeInstance(BOOB_INITIAL_SIZE).setBaseValue(size);
             }
@@ -37,7 +37,7 @@ public class EstrogenEvents {
 
         ServerPlayConnectionEvents.JOIN.register(((handler, sender, server) -> {
             if (handler.player.hasStatusEffect(ESTROGEN_EFFECT)) {
-                double currentTime = Time.currentTime(handler.player.world);
+                double currentTime = Time.currentTime(handler.player.getWorld());
                 handler.player.getAttributeInstance(BOOB_GROWING_START_TIME).setBaseValue(currentTime);
             }
         }));

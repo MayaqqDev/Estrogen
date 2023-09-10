@@ -1,14 +1,14 @@
 package dev.mayaqq.estrogen.datagen.translations;
 
 import dev.mayaqq.estrogen.registry.common.*;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
 public class EstrogenTranslations {
     public static class EnUs extends FabricLanguageProvider {
 
-        public EnUs(FabricDataGenerator fdg) {
-            super(fdg, "en_us");
+        public EnUs(FabricDataOutput output) {
+            super(output, "en_us");
         }
 
         @Override
@@ -21,7 +21,7 @@ public class EstrogenTranslations {
                 tb.add("key.estrogen.dash", "Activate Dash");
 
             // Items
-            tb.add(EstrogenItems.ESTROGEN_GROUP, "Estrogen");
+            tb.add(EstrogenItems.ESTROGEN_GROUP_KEY, "Estrogen");
                 tb.add(EstrogenItems.ESTROGEN_PILL, "Estrogen Pill");
                 tb.add(EstrogenItems.ESTROGEN_PATCHES, "Estrogen Patch");
                 tb.add("item.estrogen.estrogen_patches_plural", "Estrogen Patches");
@@ -82,8 +82,8 @@ public class EstrogenTranslations {
 
     public static class FrFr extends FabricLanguageProvider {
 
-        public FrFr(FabricDataGenerator fdg) {
-            super(fdg, "fr_fr");
+        public FrFr(FabricDataOutput output) {
+            super(output, "fr_fr");
         }
 
         @Override
@@ -96,7 +96,7 @@ public class EstrogenTranslations {
                 tb.add("key.estrogen.dash", "Activer/Désactiver Dash");
 
             // Items
-                tb.add(EstrogenItems.ESTROGEN_GROUP, "Oestrogène");
+                tb.add(EstrogenItems.ESTROGEN_GROUP_KEY, "Oestrogène");
                 tb.add(EstrogenItems.ESTROGEN_PILL, "Pillule d'Oestrogènes");
                 tb.add(EstrogenItems.ESTROGEN_PATCHES, "Patchs d'oestrogènes");
                 tb.add("item.estrogen.estrogen_patches_plural", "Patch d'oestrogènes");

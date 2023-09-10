@@ -17,7 +17,7 @@ import dev.mayaqq.estrogen.integrations.rei.categories.CentrifugingCategory;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenRecipes;
 import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
-import io.github.fabricators_of_create.porting_lib.mixin.common.accessor.RecipeManagerAccessor;
+import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.RecipeManagerAccessor;
 import me.shedaniel.rei.api.client.gui.Renderer;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;

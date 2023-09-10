@@ -18,7 +18,7 @@ public class EstrogenC2S {
         ServerPlayNetworking.registerGlobalReceiver(DASH, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
                 if (player.hasStatusEffect(EstrogenEffects.ESTROGEN_EFFECT)) {
-                    ServerWorld world = player.getWorld();
+                    ServerWorld world = player.getServerWorld();
                     world.playSound(null, player.getBlockPos(), EstrogenSounds.DASH, SoundCategory.PLAYERS, 1.0F, 1.0F);
                     // summon particles around player
                     world.spawnParticles(ParticleTypes.CLOUD, player.getX(), player.getY(), player.getZ(), 10, 0.5, 0.5, 0.5, 0.5);
@@ -27,7 +27,7 @@ public class EstrogenC2S {
         });
         ServerPlayNetworking.registerGlobalReceiver(DASH_PARTICLES, ((server, player, handler, buf, responseSender) -> {
             server.execute(() -> {
-                ServerWorld world = player.getWorld();
+                ServerWorld world = player.getServerWorld();
                 //TODO: will add custom particles eventually once coded properly
                 world.spawnParticles(ParticleTypes.CLOUD, player.getX(), player.getY() + 1, player.getZ(), 1, 0, 0, 0, 0);
             });

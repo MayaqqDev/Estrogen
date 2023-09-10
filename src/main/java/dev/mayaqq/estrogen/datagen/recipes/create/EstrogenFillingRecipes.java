@@ -6,7 +6,7 @@ import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Items;
 
@@ -29,8 +29,8 @@ public class EstrogenFillingRecipes extends ProcessingRecipeGen {
                 .output(AllItems.FILTER.get(), 1));
 
 
-    public EstrogenFillingRecipes(FabricDataGenerator fdg) {
-        super(fdg);
+    public EstrogenFillingRecipes(FabricDataOutput output) {
+        super(output);
     }
 
     @Override

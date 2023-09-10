@@ -25,7 +25,7 @@
       "dev.mayaqq.estrogen.datagen.EstrogenDatagen"
     ],
     "preLaunch": [
-      "dev.mayaqq.estrogen.Estrogen"
+      "dev.mayaqq.estrogen.EstrogenPreLaunch"
     ],
     "rei_client": [
       "dev.mayaqq.estrogen.integrations.rei.ReiCompat"

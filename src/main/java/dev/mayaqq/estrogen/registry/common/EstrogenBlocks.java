@@ -15,7 +15,7 @@ import static dev.mayaqq.estrogen.Estrogen.REGISTRATE;
 public class EstrogenBlocks {
 
     static {
-        REGISTRATE.creativeModeTab(() -> EstrogenItems.ESTROGEN_GROUP);
+        REGISTRATE.useCreativeTab(EstrogenItems.ESTROGEN_GROUP_KEY);
     }
 
     public static final BlockEntry<CentrifugeBlock> CENTRIFUGE = REGISTRATE.block("centrifuge", CentrifugeBlock::new)

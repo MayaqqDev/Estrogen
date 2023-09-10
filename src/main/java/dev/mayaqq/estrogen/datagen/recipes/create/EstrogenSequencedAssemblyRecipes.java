@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.datagen.recipes.create;
 
-import com.simibubi.create.AllItems;
 import com.simibubi.create.content.fluids.transfer.FillingRecipe;
 import com.simibubi.create.content.kinetics.deployer.DeployerApplicationRecipe;
 import com.simibubi.create.content.kinetics.press.PressingRecipe;
@@ -8,7 +7,7 @@ import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipeB
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.item.Items;
 
 import java.util.function.UnaryOperator;
@@ -44,8 +43,8 @@ public class EstrogenSequencedAssemblyRecipes extends CreateRecipeProvider {
             );
 
 
-    public EstrogenSequencedAssemblyRecipes(FabricDataGenerator fdg) {
-        super(fdg);
+    public EstrogenSequencedAssemblyRecipes(FabricDataOutput output) {
+        super(output);
     }
 
     protected GeneratedRecipe create(String name, UnaryOperator<SequencedAssemblyRecipeBuilder> transform) {

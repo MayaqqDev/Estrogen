@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.client.entity.player.features.boobs;
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import dev.mayaqq.estrogen.utils.Time;
@@ -7,7 +8,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
@@ -31,10 +31,10 @@ public class BoobFeatureRenderer extends FeatureRenderer<AbstractClientPlayerEnt
             int m = LivingEntityRenderer.getOverlay(abstractClientPlayerEntity, 0.0F);
             matrixStack.push();
             float size;
-            double startTime = abstractClientPlayerEntity.getAttributeBaseValue(BOOB_GROWING_START_TIME);
+            double startTime = abstractClientPlayerEntity.getAttributeValue(BOOB_GROWING_START_TIME);
             if (startTime >= 0.0) {
-                float initialSize = (float) abstractClientPlayerEntity.getAttributeBaseValue(BOOB_INITIAL_SIZE);
-                double currentTime = Time.currentTime(abstractClientPlayerEntity.world);
+                float initialSize = (float) abstractClientPlayerEntity.getAttributeValue(BOOB_INITIAL_SIZE);
+                double currentTime = Time.currentTime(abstractClientPlayerEntity.getWorld());
                 size = boobSize(startTime, currentTime, initialSize, h);
             } else {
                 size = 0.0F;

@@ -14,24 +14,25 @@ public class EstrogenDatagen implements DataGeneratorEntrypoint {
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fdg) {
         // recipes
-        fdg.addProvider(EstrogenCentrifugingRecipes::new);
-        fdg.addProvider(EstrogenCraftingRecipes::new);
-        fdg.addProvider(EstrogenCompactingRecipes::new);
-        fdg.addProvider(EstrogenEmptyingRecipes::new);
-        fdg.addProvider(EstrogenFillingRecipes::new);
-        fdg.addProvider(EstrogenMillingRecipes::new);
-        fdg.addProvider(EstrogenSandpaperPolishingRecipes::new);
-        fdg.addProvider(EstrogenMixingRecipes::new);
-        fdg.addProvider(EstrogenSequencedAssemblyRecipes::new);
+        FabricDataGenerator.Pack pack = fdg.createPack();
+        pack.addProvider(EstrogenCentrifugingRecipes::new);
+        pack.addProvider(EstrogenCraftingRecipes::new);
+        pack.addProvider(EstrogenCompactingRecipes::new);
+        pack.addProvider(EstrogenEmptyingRecipes::new);
+        pack.addProvider(EstrogenFillingRecipes::new);
+        pack.addProvider(EstrogenMillingRecipes::new);
+        pack.addProvider(EstrogenSandpaperPolishingRecipes::new);
+        pack.addProvider(EstrogenMixingRecipes::new);
+        pack.addProvider(EstrogenSequencedAssemblyRecipes::new);
 
         // tags
-        fdg.addProvider(EstrogenTags.ItemTags::new);
-        fdg.addProvider(EstrogenTags.BlockTags::new);
-        fdg.addProvider(EstrogenTags.FluidTags::new);
-        fdg.addProvider(EstrogenTags.EntityTypeTags::new);
+        pack.addProvider(EstrogenTags.ItemTags::new);
+        pack.addProvider(EstrogenTags.BlockTags::new);
+        pack.addProvider(EstrogenTags.FluidTags::new);
+        pack.addProvider(EstrogenTags.EntityTypeTags::new);
 
         // Lang
-        fdg.addProvider(EstrogenTranslations.EnUs::new);
-        fdg.addProvider(EstrogenTranslations.FrFr::new);
+        pack.addProvider(EstrogenTranslations.EnUs::new);
+        pack.addProvider(EstrogenTranslations.FrFr::new);
     }
 }

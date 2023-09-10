@@ -1,7 +1,7 @@
 package dev.mayaqq.estrogen.client.entity.player.features.boobs;
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 
 public interface PlayerEntityModelExtension {

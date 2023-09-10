@@ -1,16 +1,11 @@
 package dev.mayaqq.estrogen.registry.client;
 
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
-
-import java.util.List;
 
 public class EstrogenFluidRender {
     public static void register() {
@@ -23,16 +18,6 @@ public class EstrogenFluidRender {
     }
 
     public static void register(EstrogenFluids.FluidType fluidType, int tint, boolean translucent, String texture) {
-        List<String> textures = List.of(
-                "blank_lava/blank_lava"
-        );
-        ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
-            for (String tex : textures) {
-                registry.register(Estrogen.id("block/" + tex + "_still"));
-                registry.register(Estrogen.id("block/" + tex + "_flow"));
-            }
-        }));
-
         FluidRenderHandlerRegistry.INSTANCE.register(fluidType.still(), fluidType.flowing(), new SimpleFluidRenderHandler (
                 new Identifier(texture + "still"),
                 new Identifier(texture + "flow"),

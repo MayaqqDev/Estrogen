@@ -7,7 +7,7 @@ import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.item.Items;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
@@ -35,8 +35,8 @@ public class EstrogenMixingRecipes extends ProcessingRecipeGen {
                 .output(EstrogenFluids.TESTOSTERONE_MIXTURE.still(), 54000)
                 .requiresHeat(HeatCondition.HEATED));
 
-    public EstrogenMixingRecipes(FabricDataGenerator fdg) {
-        super(fdg);
+    public EstrogenMixingRecipes(FabricDataOutput output) {
+        super(output);
     }
 
     @Override

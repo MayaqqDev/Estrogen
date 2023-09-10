@@ -1,16 +1,16 @@
 package dev.mayaqq.estrogen.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.PlayerEntityModelExtension;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import net.minecraft.client.model.*;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.Vec3f;
+import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -46,12 +46,12 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends BipedEntityM
         this.boobs.copyTransform(this.body);
         this.boobs.pitch = this.body.pitch + 1.0F;
         float amplifier = player.getStatusEffect(EstrogenEffects.ESTROGEN_EFFECT).getAmplifier() / 10.0F;
-        this.boobs.translate(new Vec3f(0.0F, 4.0F+size*0.864F*(1+amplifier), -1.9F+size*-1.944F*(1+amplifier)));
+        this.boobs.translate(new Vector3f(0.0F, 4.0F+size*0.864F*(1+amplifier), -1.9F+size*-1.944F*(1+amplifier)));
         if (player.isInSneakingPose()) {
-            this.boobs.translate(new Vec3f(0.0F, -0.4F, 2.0F));
+            this.boobs.translate(new Vector3f(0.0F, -0.4F, 2.0F));
         }
-        this.boobs.yScale = (1 + size*2.0F*(1+amplifier)) / 2.0F;
-        this.boobs.zScale = (1 + size*2.5F*(1+amplifier)) / 2.0F;
+        this.boobs.scaleY = (1 + size*2.0F*(1+amplifier)) / 2.0F;
+        this.boobs.scaleZ = (1 + size*2.5F*(1+amplifier)) / 2.0F;
         this.boobs.render(matrices, vertices, light, overlay);
     }
 

@@ -9,7 +9,8 @@ import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
 
@@ -31,14 +32,14 @@ public class EstrogenFluids {
 
     public static FluidType register(String id, FlowableFluid still, FlowableFluid flowing) {
         return new FluidType(
-                Registry.register(Registry.FLUID, id(id), still),
-                Registry.register(Registry.FLUID, id("flowing_" + id), flowing),
-                EstrogenItems.register(id + "_bucket", new BucketItem(still, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(EstrogenItems.ESTROGEN_GROUP))
+                Registry.register(Registries.FLUID, id(id), still),
+                Registry.register(Registries.FLUID, id("flowing_" + id), flowing),
+                EstrogenItems.register(id + "_bucket", new BucketItem(still, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1))
         ));
     }
 
     public static Block registerFluidBlock(String id, FlowableFluid fluid, boolean water) {
-        return Registry.register(Registry.BLOCK, id(id), new FluidBlock(fluid, AbstractBlock.Settings.copy(water ? Blocks.WATER : Blocks.LAVA)));
+        return Registry.register(Registries.BLOCK, id(id), new FluidBlock(fluid, AbstractBlock.Settings.copy(water ? Blocks.WATER : Blocks.LAVA)));
     }
 
     public record FluidType(FlowableFluid still, FlowableFluid flowing, Item bucket) {}

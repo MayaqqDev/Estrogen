@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.integrations.emi;
 
 import com.simibubi.create.AllRecipeTypes;
+import com.simibubi.create.compat.emi.recipes.CreateEmiRecipe;
 import com.simibubi.create.compat.rei.ToolboxColoringRecipeMaker;
 import com.simibubi.create.content.equipment.toolbox.ToolboxBlock;
 import com.simibubi.create.content.fluids.VirtualFluid;
@@ -24,8 +25,8 @@ import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -93,13 +94,13 @@ public class EmiCompat implements EmiPlugin {
                 }
             }
             if (toolbox == null || dye == null) return;
-            Identifier toolboxId = Registry.ITEM.getId(toolbox.getItem());
-            Identifier dyeId = Registry.ITEM.getId(dye.getItem());
+            Identifier toolboxId = Registries.ITEM.getId(toolbox.getItem());
+            Identifier dyeId = Registries.ITEM.getId(dye.getItem());
             String recipeName = "create/toolboxes/%s/%s/%s/%s"
                     .formatted(toolboxId.getNamespace(), toolboxId.getPath(), dyeId.getNamespace(), dyeId.getPath());
             registry.addRecipe(new EmiCraftingRecipe(
                     r.getIngredients().stream().map(EmiIngredient::of).toList(),
-                    EmiStack.of(r.getOutput()), new Identifier("emi", recipeName)));
+                    CreateEmiRecipe.getResultEmi(r), new Identifier("emi", recipeName)));
         });
         // for EMI we don't do this since it already has a category, World Interaction
 //		LogStrippingFakeRecipes.createRecipes().forEach(r -> {

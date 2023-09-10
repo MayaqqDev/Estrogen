@@ -4,7 +4,7 @@ import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenRecipes;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
 
@@ -15,8 +15,8 @@ public class EstrogenCentrifugingRecipes extends ProcessingRecipeGen {
             .require(EstrogenFluids.FILTRATED_HORSE_URINE.still(), 10)
             .output(EstrogenFluids.LIQUID_ESTROGEN.still(), 10));
 
-    public EstrogenCentrifugingRecipes(FabricDataGenerator generator) {
-        super(generator);
+    public EstrogenCentrifugingRecipes(FabricDataOutput output) {
+        super(output);
     }
 
     @Override

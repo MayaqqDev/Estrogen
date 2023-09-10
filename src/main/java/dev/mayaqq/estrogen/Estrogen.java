@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen;
 
-import com.llamalad7.mixinextras.MixinExtrasBootstrap;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
@@ -10,12 +9,11 @@ import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenC2S;
 import dev.mayaqq.estrogen.registry.common.*;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Estrogen implements ModInitializer, PreLaunchEntrypoint {
+public class Estrogen implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("Estrogen");
     public static final EstrogenConfig CONFIG = EstrogenConfig.createAndLoad();
 
@@ -49,10 +47,5 @@ public class Estrogen implements ModInitializer, PreLaunchEntrypoint {
         EstrogenEvents.register();
         EstrogenAttributes.register();
         REGISTRATE.register();
-    }
-
-    @Override
-    public void onPreLaunch() {
-        MixinExtrasBootstrap.init();
     }
 }

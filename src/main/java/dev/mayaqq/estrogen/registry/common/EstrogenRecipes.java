@@ -10,8 +10,9 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,10 +33,10 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
     EstrogenRecipes(Supplier<RecipeSerializer<?>> serializerSupplier, Supplier<RecipeType<?>> typeSupplier, boolean registerType) {
         String name = Lang.asId(name());
         id = Create.asResource(name);
-        serializerObject = Registry.register(Registry.RECIPE_SERIALIZER, id, serializerSupplier.get());
+        serializerObject = Registry.register(Registries.RECIPE_SERIALIZER, id, serializerSupplier.get());
         if (registerType) {
             typeObject = typeSupplier.get();
-            Registry.register(Registry.RECIPE_TYPE, id, typeObject);
+            Registry.register(Registries.RECIPE_TYPE, id, typeObject);
             type = typeSupplier;
         } else {
             typeObject = null;
@@ -46,9 +47,9 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
     EstrogenRecipes(Supplier<RecipeSerializer<?>> serializerSupplier) {
         String name = Lang.asId(name());
         id = id(name);
-        serializerObject = Registry.register(Registry.RECIPE_SERIALIZER, id, serializerSupplier.get());
+        serializerObject = Registry.register(Registries.RECIPE_SERIALIZER, id, serializerSupplier.get());
         typeObject = simpleType(id);
-        Registry.register(Registry.RECIPE_TYPE, id, typeObject);
+        Registry.register(Registries.RECIPE_TYPE, id, typeObject);
         type = () -> typeObject;
     }
 
