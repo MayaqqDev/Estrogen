@@ -30,5 +30,6 @@
     "recipes": [
       "estrogen:estrogen_chip_cookie"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 
 public class Estrogen implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("Estrogen");
-    public static final EstrogenConfig CONFIG = EstrogenConfig.createAndLoad();
 
     public static Identifier id(String path) {
         return new Identifier("estrogen", path);
@@ -33,6 +32,7 @@ public class Estrogen implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("Injecting Estrogen into your veins...");
+        EstrogenConfig.INSTANCE.load();
         EstrogenFluids.register();
         EstrogenEffects.register();
         EstrogenC2S.register();

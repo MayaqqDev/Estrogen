@@ -7,7 +7,7 @@
 [![Github](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/cozy/available/github_64h.png)](https://github.com/MayaqqDev/estrogen/)
 ## `Information`
 
-Adds Estrogen pills into your game that allow you to Dash like Madeline from Celeste! REI is strongly recommended for this mod as it will show you the recipes for the pills. Requires Create to actually make the said pills.
+Big Create Addon mod adding many features related to Estrogen Pills! Adds many new items, blocks, a dashing ability and even some *body features*... EMI (or REI) is recommended for the best experience to see all the recipes and items!
 
 ## `Community`
 

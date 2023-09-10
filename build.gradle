@@ -19,9 +19,8 @@ repositories {
     maven { url = "https://mvn.devos.one/snapshots/" } // Milk Lib
     maven { url = "https://maven.ladysnake.org/releases" } // Cardinal Components
 
-    maven { url = "https://api.modrinth.com/maven" } // LazyDFU, Trinkets
+    maven { url = "https://api.modrinth.com/maven" } // LazyDFU, Trinkets, Yacl
     maven { url = "https://maven.terraformersmc.com/" } // ModMenu
-    maven { url = "https://maven.wispforest.io" } // OwO Lib
     maven { url = "https://maven.shedaniel.me" } // REI
     maven { url = "https://repo.unascribed.com" } // Ears
     maven { url = "https://jitpack.io/" } // Mixin extras, Porting Lib
@@ -52,8 +51,7 @@ dependencies {
     modCompileOnly ("com.unascribed:ears-api:${project.ears_version}")
 
     // Config
-    modImplementation ("io.wispforest:owo-lib:${project.owo_version}")
-    annotationProcessor ("io.wispforest:owo-lib:${project.owo_version}")
+    modImplementation "maven.modrinth:yacl:${project.yacl_version}"
     modImplementation ("com.terraformersmc:modmenu:${project.modmenu_version}")
 
     // REI

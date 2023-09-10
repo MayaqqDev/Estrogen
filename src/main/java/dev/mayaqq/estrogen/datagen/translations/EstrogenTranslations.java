@@ -21,7 +21,7 @@ public class EstrogenTranslations {
                 tb.add("key.estrogen.dash", "Activate Dash");
 
             // Items
-            tb.add(EstrogenItems.ESTROGEN_GROUP_KEY, "Estrogen");
+            tb.add("itemGroup.estrogen", "Estrogen");
                 tb.add(EstrogenItems.ESTROGEN_PILL, "Estrogen Pill");
                 tb.add(EstrogenItems.ESTROGEN_PATCHES, "Estrogen Patch");
                 tb.add("item.estrogen.estrogen_patches_plural", "Estrogen Patches");
@@ -96,7 +96,7 @@ public class EstrogenTranslations {
                 tb.add("key.estrogen.dash", "Activer/Désactiver Dash");
 
             // Items
-                tb.add(EstrogenItems.ESTROGEN_GROUP_KEY, "Oestrogène");
+                tb.add("itemGroup.estrogen", "Oestrogène");
                 tb.add(EstrogenItems.ESTROGEN_PILL, "Pillule d'Oestrogènes");
                 tb.add(EstrogenItems.ESTROGEN_PATCHES, "Patchs d'oestrogènes");
                 tb.add("item.estrogen.estrogen_patches_plural", "Patch d'oestrogènes");

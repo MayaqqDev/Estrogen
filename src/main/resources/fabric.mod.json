@@ -32,6 +32,9 @@
     ],
     "emi": [
       "dev.mayaqq.estrogen.integrations.emi.EmiCompat"
+    ],
+    "modmenu": [
+      "dev.mayaqq.estrogen.integrations.modmenu.ModMenuCompat"
     ]
   },
   "mixins": [
@@ -42,6 +45,13 @@
     "fabric": "*",
     "create": "*",
     "minecraft": "${minecraft_version}",
-    "owo": "*"
+    "trinkets": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/w7PpGax9Bq"
+      }
+    }
   }
 }
