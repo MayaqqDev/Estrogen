@@ -1,11 +1,11 @@
 package dev.mayaqq.estrogen.datagen.tags;
 
-import com.simibubi.create.foundation.damageTypes.DamageTypeDataProvider;
+import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.data.DataPackOutput;
+import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.registry.HolderLookup;
@@ -35,12 +35,18 @@ public class EstrogenTags {
     }
 
     public static class BlockTags extends FabricTagProvider.BlockTagProvider {
+
+        public static final TagKey<Block> PICKAXE_MINABLE = TagKey.of(Registries.BLOCK.getKey(), new Identifier("minecraft", "mineable/pickaxe"));
+
         public BlockTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
             super(output, completableFuture);
         }
 
         @Override
-        protected void configure(HolderLookup.Provider arg) {}
+        protected void configure(HolderLookup.Provider arg) {
+            getOrCreateTagBuilder(PICKAXE_MINABLE)
+                    .add(EstrogenBlocks.CENTRIFUGE.get());
+        }
     }
 
     public static class FluidTags extends FabricTagProvider.FluidTagProvider {

@@ -20,11 +20,10 @@ repositories {
     maven { url = "https://maven.ladysnake.org/releases" } // Cardinal Components
 
     maven { url = "https://api.modrinth.com/maven" } // LazyDFU, Trinkets, Yacl
-    maven { url = "https://maven.terraformersmc.com/" } // ModMenu
+    maven { url = "https://maven.terraformersmc.com/" } // ModMenu, EMI
     maven { url = "https://maven.shedaniel.me" } // REI
     maven { url = "https://repo.unascribed.com" } // Ears
     maven { url = "https://jitpack.io/" } // Mixin extras, Porting Lib
-    maven { url = "https://maven.terraformersmc.com/" } // EMI
     maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" } // DevAuth
 }
 

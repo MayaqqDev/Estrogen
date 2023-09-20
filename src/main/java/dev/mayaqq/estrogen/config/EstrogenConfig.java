@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import dev.isxander.yacl3.api.ConfigCategory;
 import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.YetAnotherConfigLib;
-import dev.isxander.yacl3.gui.controllers.TickBoxController;
 import dev.isxander.yacl3.impl.controller.TickBoxControllerBuilderImpl;
 import dev.mayaqq.estrogen.Estrogen;
 import net.fabricmc.loader.api.FabricLoader;

@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.datagen;
 
+import dev.mayaqq.estrogen.datagen.loottables.EstrogenLootTables;
 import dev.mayaqq.estrogen.datagen.recipes.create.*;
 import dev.mayaqq.estrogen.datagen.recipes.estrogen.EstrogenCentrifugingRecipes;
 import dev.mayaqq.estrogen.datagen.recipes.minecraft.EstrogenCraftingRecipes;
@@ -34,5 +35,8 @@ public class EstrogenDatagen implements DataGeneratorEntrypoint {
         // Lang
         pack.addProvider(EstrogenTranslations.EnUs::new);
         pack.addProvider(EstrogenTranslations.FrFr::new);
+
+        // Loot Tables
+        pack.addProvider(EstrogenLootTables::new);
     }
 }

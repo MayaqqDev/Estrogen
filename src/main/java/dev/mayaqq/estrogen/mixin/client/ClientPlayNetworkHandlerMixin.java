@@ -2,9 +2,9 @@ package dev.mayaqq.estrogen.mixin.client;
 
 import dev.mayaqq.estrogen.datagen.tags.EstrogenTags;
 import dev.mayaqq.estrogen.registry.common.EstrogenEnchantments;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;

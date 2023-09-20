@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.client.entity.player.features.boobs;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import dev.mayaqq.estrogen.utils.Time;
