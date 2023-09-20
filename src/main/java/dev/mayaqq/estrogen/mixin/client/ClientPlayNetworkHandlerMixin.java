@@ -4,6 +4,7 @@ import dev.mayaqq.estrogen.datagen.tags.EstrogenTags;
 import dev.mayaqq.estrogen.registry.common.EstrogenEnchantments;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,7 +21,7 @@ public class ClientPlayNetworkHandlerMixin {
             ordinal = 0, argsOnly = true
     )
     private String modifyMessage(String message) {
-        ClientPlayerEntity player = (ClientPlayerEntity) (Object) this;
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
         if (player.getInventory().contains(EstrogenTags.ItemTags.UWUFYING)) {
             message = uwufyString(message);
         } else {
