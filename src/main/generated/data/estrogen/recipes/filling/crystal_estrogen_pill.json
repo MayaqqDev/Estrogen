@@ -5,9 +5,9 @@
       "item": "estrogen:estrogen_pill"
     },
     {
-      "amount": 27000,
       "fluid": "estrogen:molten_amethyst",
-      "nbt": {}
+      "nbt": {},
+      "amount": 27000
     }
   ],
   "results": [

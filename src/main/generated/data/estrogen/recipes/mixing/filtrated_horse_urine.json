@@ -5,9 +5,9 @@
       "item": "create:filter"
     },
     {
-      "amount": 27000,
       "fluid": "estrogen:horse_urine",
-      "nbt": {}
+      "nbt": {},
+      "amount": 27000
     }
   ],
   "results": [
@@ -15,8 +15,8 @@
       "item": "estrogen:used_filter"
     },
     {
-      "amount": 27000,
-      "fluid": "estrogen:filtrated_horse_urine"
+      "fluid": "estrogen:filtrated_horse_urine",
+      "amount": 27000
     }
   ]
 }

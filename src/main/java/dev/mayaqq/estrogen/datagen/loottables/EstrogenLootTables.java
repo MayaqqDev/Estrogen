@@ -3,6 +3,9 @@ package dev.mayaqq.estrogen.datagen.loottables;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.minecraft.data.DataCache;
+
+import java.io.IOException;
 
 public class EstrogenLootTables extends FabricBlockLootTableProvider {
     public EstrogenLootTables(FabricDataGenerator fdg) {

@@ -25,13 +25,16 @@
       "dev.mayaqq.estrogen.datagen.EstrogenDatagen"
     ],
     "preLaunch": [
-      "dev.mayaqq.estrogen.Estrogen"
+      "dev.mayaqq.estrogen.EstrogenPreLaunch"
     ],
     "rei_client": [
       "dev.mayaqq.estrogen.integrations.rei.ReiCompat"
     ],
     "emi": [
       "dev.mayaqq.estrogen.integrations.emi.EmiCompat"
+    ],
+    "modmenu": [
+      "dev.mayaqq.estrogen.integrations.modmenu.ModMenuCompat"
     ]
   },
   "mixins": [
@@ -40,8 +43,8 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "create": ">=0.5.1-b-build.1089+mc1.19.2",
+    "create": "*",
     "minecraft": "${minecraft_version}",
-    "owo": ">=0.8.5+1.19"
+    "cloth-config": "*"
   }
 }

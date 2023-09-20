@@ -46,12 +46,15 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends BipedEntityM
         this.boobs.copyTransform(this.body);
         this.boobs.pitch = this.body.pitch + 1.0F;
         float amplifier = player.getStatusEffect(EstrogenEffects.ESTROGEN_EFFECT).getAmplifier() / 10.0F;
-        this.boobs.translate(new Vec3f(0.0F, 4.0F+size*0.864F*(1+amplifier), -1.9F+size*-1.944F*(1+amplifier)));
+        Vec3f transform = new Vec3f(0.0F, 4.0F+size*0.864F*(1+amplifier), -1.9F+size*-1.944F*(1+amplifier));
+        this.boobs.setTransform(ModelTransform.pivot(transform.getX(), transform.getY(), transform.getZ()));
         if (player.isInSneakingPose()) {
-            this.boobs.translate(new Vec3f(0.0F, -0.4F, 2.0F));
+            Vec3f transform2 = new Vec3f(0.0F, -0.4F, 2.0F);
+            this.boobs.setTransform(ModelTransform.pivot(transform2.getX(), transform2.getY(), transform2.getZ()));
         }
-        this.boobs.yScale = (1 + size*2.0F*(1+amplifier)) / 2.0F;
-        this.boobs.zScale = (1 + size*2.5F*(1+amplifier)) / 2.0F;
+        //this.boobs.yScale = (1 + size*2.0F*(1+amplifier)) / 2.0F;
+        //this.boobs.zScale = (1 + size*2.5F*(1+amplifier)) / 2.0F;
+
         this.boobs.render(matrices, vertices, light, overlay);
     }
 

@@ -5,9 +5,9 @@
       "item": "estrogen:used_filter"
     },
     {
-      "amount": 27000,
       "fluid": "minecraft:water",
-      "nbt": {}
+      "nbt": {},
+      "amount": 27000
     }
   ],
   "results": [

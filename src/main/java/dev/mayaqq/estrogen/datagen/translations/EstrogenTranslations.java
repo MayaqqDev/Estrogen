@@ -1,8 +1,12 @@
 package dev.mayaqq.estrogen.datagen.translations;
 
+import com.simibubi.create.foundation.advancement.CreateAdvancement;
 import dev.mayaqq.estrogen.registry.common.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.data.DataCache;
+
+import java.io.IOException;
 
 public class EstrogenTranslations {
     public static class EnUs extends FabricLanguageProvider {
@@ -13,6 +17,9 @@ public class EstrogenTranslations {
 
         @Override
         public void generateTranslations(TranslationBuilder tb) {
+            // Config
+                tb.add("text.autoconfig.estrogen.title", "Estrogen");
+                tb.add("text.autoconfig.estrogen.option.boobies", "Chest Feature");
             // Status Effects
                 tb.add(EstrogenEffects.ESTROGEN_EFFECT, "Girl Power");
 

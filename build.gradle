@@ -9,16 +9,16 @@ group = project.maven_group
 println(project.archivesBaseName + ": " + version)
 
 repositories {
-    maven { url "https://maven.ladysnake.org/releases" } // Create, Cardinal Components
+    maven { url = "https://mvn.devos.one/snapshots/" } // Create
     // Create Dependencies
     maven { url "https://cursemaven.com" } // ForgeConfigApiPort
     maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
     maven { url = "https://maven.tterrag.com/" } // Flywheel
     maven { url = "https://mvn.devos.one/snapshots/" } // Milk Lib
 
+    maven { url = "https://maven.ladysnake.org/releases" } // Cardinal Components
     maven { url = "https://api.modrinth.com/maven" } // LazyDFU, Trinkets
     maven { url = "https://maven.terraformersmc.com/" } // ModMenu
-    maven { url = "https://maven.wispforest.io" } // OwO Lib
     maven { url = "https://maven.shedaniel.me" } // REI
     maven { url = "https://repo.unascribed.com" } // Ears
     maven { url = "https://jitpack.io/" } // Mixin extras, Porting Lib
@@ -48,21 +48,22 @@ dependencies {
     modCompileOnly ("com.unascribed:ears-api:${project.ears_version}")
 
     // Config
-    modImplementation ("io.wispforest:owo-lib:${project.owo_version}")
-    annotationProcessor ("io.wispforest:owo-lib:${project.owo_version}")
-    modImplementation ("com.terraformersmc:modmenu:${project.modmenu_version}")
+    modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+        modImplementation ("com.terraformersmc:modmenu:${project.modmenu_version}")
 
     // REI
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
         modImplementation("dev.architectury:architectury-fabric:${project.architectury_version}")
 
     // EMI
-        modCompileOnly "dev.emi:emi-fabric:${emi_version}"
+        modCompileOnly "dev.emi:emi:${emi_version}"
 
     // REI
     switch (project.item_viewer.toLowerCase()) {
         case "rei": modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"); break
-        case "emi": modLocalRuntime("dev.emi:emi-fabric:${emi_version}"); break
+        case "emi": modLocalRuntime("dev.emi:emi:${emi_version}"); break
         case "disabled": break
         default: println("Invalid item viewer: ${project.item_viewer} must be REI, EMI or disabled"); break
     }

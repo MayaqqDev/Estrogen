@@ -29,6 +29,11 @@ public class EstrogenTags {
             getOrCreateTagBuilder(UWUFYING)
                     .add(EstrogenItems.UWU);
         }
+
+        @Override
+        public String getName() {
+            return "Estrogen Item Tags";
+        }
     }
 
     public static class BlockTags extends FabricTagProvider.BlockTagProvider {
@@ -43,6 +48,11 @@ public class EstrogenTags {
         protected void generateTags() {
             getOrCreateTagBuilder(PICKAXE_MINEABLE)
                     .add(EstrogenBlocks.CENTRIFUGE.get());
+        }
+
+        @Override
+        public String getName() {
+            return "Estrogen Block Tags";
         }
     }
 
@@ -68,6 +78,10 @@ public class EstrogenTags {
                     .add(EstrogenFluids.MOLTEN_AMETHYST.still()).add(EstrogenFluids.MOLTEN_AMETHYST.flowing())
                     .add(EstrogenFluids.MOLTEN_SLIME.still()).add(EstrogenFluids.MOLTEN_SLIME.flowing());
         }
+        @Override
+        public String getName() {
+            return "Estrogen Fluid Tags";
+        }
     }
 
     public static class EntityTypeTags extends FabricTagProvider.EntityTypeTagProvider {
@@ -77,6 +91,11 @@ public class EstrogenTags {
 
         @Override
         protected void generateTags() {}
+
+        @Override
+        public String getName() {
+            return "Estrogen Entity Type Tags";
+        }
     }
 
     private static Identifier mcId(String path) {
