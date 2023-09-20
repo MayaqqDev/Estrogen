@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.datagen.recipes.create;
 
-import com.simibubi.create.AllItems;
 import com.simibubi.create.content.fluids.transfer.FillingRecipe;
 import com.simibubi.create.content.kinetics.deployer.DeployerApplicationRecipe;
 import com.simibubi.create.content.kinetics.press.PressingRecipe;

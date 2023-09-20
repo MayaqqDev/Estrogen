@@ -1,9 +1,11 @@
 package dev.mayaqq.estrogen.datagen.tags;
 
+import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.tag.TagKey;
@@ -30,12 +32,18 @@ public class EstrogenTags {
     }
 
     public static class BlockTags extends FabricTagProvider.BlockTagProvider {
+
+        public static final TagKey<Block> PICKAXE_MINEABLE = TagKey.of(Registry.BLOCK_KEY, mcId("mineable/pickaxe"));
+
         public BlockTags(FabricDataGenerator fdg) {
             super(fdg);
         }
 
         @Override
-        protected void generateTags() {}
+        protected void generateTags() {
+            getOrCreateTagBuilder(PICKAXE_MINEABLE)
+                    .add(EstrogenBlocks.CENTRIFUGE.get());
+        }
     }
 
     public static class FluidTags extends FabricTagProvider.FluidTagProvider {

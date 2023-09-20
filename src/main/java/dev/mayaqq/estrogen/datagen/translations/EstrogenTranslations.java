@@ -77,6 +77,15 @@ public class EstrogenTranslations {
                 tb.add("tag.item.trinkets.legs.thighs", "Thighs");
                 tb.add("tag.item.estrogen.uwufying", "Uwufying");
 
+            // Ponder
+                // Centrifuge
+                tb.add("estrogen.ponder.intro.header", "The Centrifuge Requirements");
+                    tb.add("estrogen.ponder.intro.text_1", "The centrifuge needs the maximum speed (256 RPM) to work!");
+                tb.add("estrogen.ponder.basic.header", "How to use the Centrifuge");
+                    tb.add("estrogen.ponder.basic.text_1", "The Centrifuge doesn't have any inventory, you will need to place fluid containers around it to make it work!");
+                    tb.add("estrogen.ponder.basic.text_2", "You can input fluids from the bottom");
+                    tb.add("estrogen.ponder.basic.text_3", "And output fluids from the top");
+
         }
     }
 
