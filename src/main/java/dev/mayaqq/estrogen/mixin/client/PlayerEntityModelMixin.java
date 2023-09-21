@@ -10,6 +10,7 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -43,19 +44,20 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends BipedEntityM
 
     @Override
     public void estrogen$renderBoobs(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, AbstractClientPlayerEntity player, float size) {
-        this.boobs.copyTransform(this.body);
         float amplifier = player.getStatusEffect(EstrogenEffects.ESTROGEN_EFFECT).getAmplifier() / 10.0F;
+        Quaternion bodyRotation = Vec3f.POSITIVE_X.getRadialQuaternion(this.body.pitch);
         Vec3f transform = new Vec3f(0.0F, 4.0F+size*0.864F*(1+amplifier), -1.9F+size*-1.944F*(1+amplifier));
-        this.boobs.setTransform(ModelTransform.pivot(transform.getX(), transform.getY(), transform.getZ()));
-        if (player.isInSneakingPose()) {
-            Vec3f transform2 = new Vec3f(0.0F, -0.4F, 2.0F);
-            this.boobs.setTransform(ModelTransform.pivot(transform2.getX(), transform2.getY(), transform2.getZ()));
-        }
-        // this.boobs.yScale = (1 + size*2.0F*(1+amplifier)) / 2.0F;
-        // this.boobs.zScale = (1 + size*2.5F*(1+amplifier)) / 2.0F;
-        this.boobs.pitch = this.body.pitch + 1.0F;
+        transform.rotate(bodyRotation);
+        transform.add(this.body.pivotX, this.body.pivotY, this.body.pivotZ);
+        float yScale = (1 + size*2.0F*(1+amplifier)) / 2.0F;
+        float zScale = (1 + size*2.5F*(1+amplifier)) / 2.0F;
+        matrices.push();
+        matrices.translate(transform.getX() / 16.0F, transform.getY() / 16.0F, transform.getZ() / 16.0F);
+        matrices.multiply(Vec3f.POSITIVE_X.getRadialQuaternion(this.body.pitch + 1.0F));
+        matrices.scale(1.0F, yScale, zScale);
 
         this.boobs.render(matrices, vertices, light, overlay);
+        matrices.pop();
     }
 
     @Inject(method = "setVisible", at = @At("RETURN"))
