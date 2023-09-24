@@ -10,6 +10,7 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -46,10 +47,8 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends BipedEntityM
         this.boobs.copyTransform(this.body);
         this.boobs.pitch = this.body.pitch + 1.0F;
         float amplifier = player.getStatusEffect(EstrogenEffects.ESTROGEN_EFFECT).getAmplifier() / 10.0F;
-        this.boobs.translate(new Vector3f(0.0F, 4.0F+size*0.864F*(1+amplifier), -1.9F+size*-1.944F*(1+amplifier)));
-        if (player.isInSneakingPose()) {
-            this.boobs.translate(new Vector3f(0.0F, -0.4F, 2.0F));
-        }
+        Quaternionf bodyRotation = (new Quaternionf()).rotationZYX(this.body.roll, this.body.yaw, this.body.pitch);
+        this.boobs.translate((new Vector3f(0.0F, 4.0F+size*0.864F*(1+amplifier), -1.9F+size*-1.944F*(1+amplifier))).rotate(bodyRotation));
         this.boobs.scaleY = (1 + size*2.0F*(1+amplifier)) / 2.0F;
         this.boobs.scaleZ = (1 + size*2.5F*(1+amplifier)) / 2.0F;
         this.boobs.render(matrices, vertices, light, overlay);
