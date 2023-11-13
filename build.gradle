@@ -11,12 +11,12 @@ println(project.archivesBaseName + ": " + version)
 repositories {
     maven { url "https://maven.ladysnake.org/releases" } // Create, Cardinal Components
     // Create Dependencies
-    maven { url "https://cursemaven.com" } // ForgeConfigApiPort
+    maven { url = "https://cursemaven.com" } // ForgeConfigApiPort
     maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
     maven { url = "https://maven.tterrag.com/" } // Flywheel
     maven { url = "https://mvn.devos.one/snapshots/" } // Milk Lib
 
-    maven { url = "https://api.modrinth.com/maven" } // LazyDFU, Trinkets
+    maven { url = "https://api.modrinth.com/maven" } // LazyDFU, Trinkets, CreateFabricReiBugFix
     maven { url = "https://maven.terraformersmc.com/" } // ModMenu
     maven { url = "https://maven.wispforest.io" } // OwO Lib
     maven { url = "https://maven.shedaniel.me" } // REI
@@ -61,7 +61,9 @@ dependencies {
 
     // REI
     switch (project.item_viewer.toLowerCase()) {
-        case "rei": modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"); break
+        case "rei":
+            modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:$rei_version")
+            modLocalRuntime("maven.modrinth:createfabricreibugfix:${project.createreibugfix_version}"); break
         case "emi": modLocalRuntime("dev.emi:emi-fabric:${emi_version}"); break
         case "disabled": break
         default: println("Invalid item viewer: ${project.item_viewer} must be REI, EMI or disabled"); break
