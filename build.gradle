@@ -17,7 +17,7 @@ repositories {
     maven { url = "https://mvn.devos.one/snapshots/" } // Milk Lib
 
     maven { url = "https://maven.ladysnake.org/releases" } // Cardinal Components
-    maven { url = "https://api.modrinth.com/maven" } // LazyDFU, Trinkets
+    maven { url = "https://api.modrinth.com/maven" } // LazyDFU, Trinkets, CreateFabricReiBugFix
     maven { url = "https://maven.terraformersmc.com/" } // ModMenu
     maven { url = "https://maven.shedaniel.me" } // REI
     maven { url = "https://repo.unascribed.com" } // Ears
@@ -62,7 +62,9 @@ dependencies {
 
     // REI
     switch (project.item_viewer.toLowerCase()) {
-        case "rei": modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"); break
+        case "rei":
+            modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}")
+            modLocalRuntime("maven.modrinth:createfabricreibugfix:${project.createreibugfix_version}"); break; break
         case "emi": modLocalRuntime("dev.emi:emi:${emi_version}"); break
         case "disabled": break
         default: println("Invalid item viewer: ${project.item_viewer} must be REI, EMI or disabled"); break
