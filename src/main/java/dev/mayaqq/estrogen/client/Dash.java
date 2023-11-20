@@ -123,6 +123,7 @@ public class Dash {
         RenderSystem.disableBlend();
         RenderSystem.depthMask(true);
         RenderSystem.enableDepthTest();
+        graphics.setShaderColor(1f, 1f, 1f, 1f);
         graphics.getMatrices().pop();
     }
 
