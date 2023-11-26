@@ -9,29 +9,28 @@ group = "$project.maven_group"
 println(project.archivesBaseName + ": " + version)
 
 repositories {
-    maven("https://maven.quiltmc.org/repository/release/") // Quilt Mappings
+    maven { url = "https://maven.quiltmc.org/repository/release/" } // Quilt Mappings
 
-    maven("https://mvn.devos.one/snapshots/") // Create
+    maven { url = "https://mvn.devos.one/snapshots/" } // Create
     // Create Dependencies
-    maven("https://cursemaven.com") // ForgeConfigApiPort
-    maven("https://maven.jamieswhiteshirt.com/libs-release") // Reach Entity Attributes
-    maven("https://maven.tterrag.com/") // Flywheel
-    maven("https://mvn.devos.one/snapshots/") // Milk Lib
-    maven("https://maven.ladysnake.org/releases") // Cardinal Components
+    maven { url = "https://cursemaven.com" } // ForgeConfigApiPort
+    maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
+    maven { url = "https://maven.tterrag.com/" } // Flywheel
+    maven { url = "https://mvn.devos.one/snapshots/" } // Milk Lib
+    maven { url = "https://maven.ladysnake.org/releases" } // Cardinal Components
 
-    maven("https://api.modrinth.com/maven") // LazyDFU, Trinkets, CreateFabricReiBugFix
-    maven("https://maven.terraformersmc.com/") // ModMenu, EMI, Cloth Config
-    maven("https://maven.shedaniel.me") // REI, Cloth config
-    maven("https://repo.unascribed.com") // Ears
-    maven("https://jitpack.io/")// Mixin extras, Porting Lib
-    maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1") // DevAuth
+    maven { url = "https://api.modrinth.com/maven" } // LazyDFU, Trinkets, CreateFabricReiBugFix
+    maven { url = "https://maven.terraformersmc.com/" } // ModMenu, EMI, Cloth Config
+    maven { url = "https://maven.shedaniel.me" } // REI, Cloth config
+    maven { url = "https://repo.unascribed.com" } // Ears
+    maven { url = "https://jitpack.io/" }// Mixin extras, Porting Lib
+    maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" } // DevAuth
 }
 
 dependencies {
     // Base
     minecraft("com.mojang:minecraft:${project.minecraft_version}")
-    //mappings ("net.fabricmc:yarn:${project.yarn_mappings}:v2")
-    mappings ("org.quiltmc:quilt-mappings:${project.quilt_mappings}:intermediary-v2")
+    mappings ("net.fabricmc:yarn:${project.yarn_mappings}:v2")
     modImplementation ("net.fabricmc:fabric-loader:${project.loader_version}")
     modImplementation ("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
 
