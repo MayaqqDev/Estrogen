@@ -1,35 +1,35 @@
 plugins {
-    id 'fabric-loom' version '1.0-SNAPSHOT'
-    id 'maven-publish'
+    id ("fabric-loom") version '1.0-SNAPSHOT'
+    id ("maven-publish")
 }
 
-version = project.mod_version
-group = project.maven_group
+version = "$project.mod_version"
+group = "$project.maven_group"
 
 println(project.archivesBaseName + ": " + version)
 
 repositories {
-    maven { url = "https://maven.quiltmc.org/repository/release/" } // Quilt Mappings
+    maven("https://maven.quiltmc.org/repository/release/") // Quilt Mappings
 
-    maven { url = "https://mvn.devos.one/snapshots/" } // Create
+    maven("https://mvn.devos.one/snapshots/") // Create
     // Create Dependencies
-    maven { url = "https://cursemaven.com" } // ForgeConfigApiPort
-    maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
-    maven { url = "https://maven.tterrag.com/" } // Flywheel
-    maven { url = "https://mvn.devos.one/snapshots/" } // Milk Lib
-    maven { url = "https://maven.ladysnake.org/releases" } // Cardinal Components
+    maven("https://cursemaven.com") // ForgeConfigApiPort
+    maven("https://maven.jamieswhiteshirt.com/libs-release") // Reach Entity Attributes
+    maven("https://maven.tterrag.com/") // Flywheel
+    maven("https://mvn.devos.one/snapshots/") // Milk Lib
+    maven("https://maven.ladysnake.org/releases") // Cardinal Components
 
-    maven { url = "https://api.modrinth.com/maven" } // LazyDFU, Trinkets, Yacl, CreateFabricReiBugFix
-    maven { url = "https://maven.terraformersmc.com/" } // ModMenu, EMI
-    maven { url = "https://maven.shedaniel.me" } // REI
-    maven { url = "https://repo.unascribed.com" } // Ears
-    maven { url = "https://jitpack.io/" } // Mixin extras, Porting Lib
-    maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" } // DevAuth
+    maven("https://api.modrinth.com/maven") // LazyDFU, Trinkets, CreateFabricReiBugFix
+    maven("https://maven.terraformersmc.com/") // ModMenu, EMI, Cloth Config
+    maven("https://maven.shedaniel.me") // REI, Cloth config
+    maven("https://repo.unascribed.com") // Ears
+    maven("https://jitpack.io/")// Mixin extras, Porting Lib
+    maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1") // DevAuth
 }
 
 dependencies {
     // Base
-    minecraft ("com.mojang:minecraft:${project.minecraft_version}")
+    minecraft("com.mojang:minecraft:${project.minecraft_version}")
     //mappings ("net.fabricmc:yarn:${project.yarn_mappings}:v2")
     mappings ("org.quiltmc:quilt-mappings:${project.quilt_mappings}:intermediary-v2")
     modImplementation ("net.fabricmc:fabric-loader:${project.loader_version}")
@@ -50,7 +50,9 @@ dependencies {
     modCompileOnly ("com.unascribed:ears-api:${project.ears_version}")
 
     // Config
-    modImplementation "maven.modrinth:yacl:${project.yacl_version}"
+    modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
     modImplementation ("com.terraformersmc:modmenu:${project.modmenu_version}")
 
     // REI
@@ -129,12 +131,12 @@ loom {
     runs {
         datagenClient {
             inherit client
-            name "Data Generation"
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-            vmArg "-Dfabric-api.datagen.modid=${mod_id}"
+            name ("Data Generation")
+            vmArg ("-Dfabric-api.datagen")
+            vmArg ("-Dfabric-api.datagen.output-dir=${file("src/main/generated")}")
+            vmArg ("-Dfabric-api.datagen.modid=${mod_id}")
 
-            runDir "build/datagen"
+            runDir ("build/datagen")
         }
     }
     runs {

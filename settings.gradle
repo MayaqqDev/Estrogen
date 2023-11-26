@@ -1,9 +1,21 @@
 pluginManagement {
     repositories {
-        maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
-        }
+        maven { url = 'https://maven.fabricmc.net/' }
         gradlePluginPortal()
+        mavenCentral()
+        maven { url = 'https://repo.essential.gg/repository/maven-public' }
+        maven { url = 'https://maven.architectury.dev' }
+        maven { url = 'https://jitpack.io' }
+        maven { url = 'https://maven.minecraftforge.net' }
     }
+    plugins {
+        String egtVersion = "0.1.0" // should be whatever is displayed in above badge
+        id("gg.essential.multi-version.root") version egtVersion
+        id("gg.essential.multi-version.api-validation") version egtVersion
+    }
+}
+
+// make a list
+["1.18.2-fabric", "1.19.2-fabric", "1.20.1-fabric", "1.18.2-forge", "1.19.2-forge", "1.20.1-forge"].forEach {
+    version -> include()
 }

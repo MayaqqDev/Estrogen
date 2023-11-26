@@ -13,6 +13,9 @@ public class EstrogenTranslations {
 
         @Override
         public void generateTranslations(TranslationBuilder tb) {
+            // Config
+                tb.add("text.autoconfig.estrogen.title", "Estrogen");
+                tb.add("text.autoconfig.estrogen.option.boobies", "Chest Feature");
             // Status Effects
                 tb.add(EstrogenEffects.ESTROGEN_EFFECT, "Girl Power");
 
@@ -86,6 +89,10 @@ public class EstrogenTranslations {
                     tb.add("estrogen.ponder.basic.text_2", "You can input fluids from the bottom");
                     tb.add("estrogen.ponder.basic.text_3", "And output fluids from the top");
 
+            // Attributes
+                tb.add("attribute.name.estrogen.boob_growing_start_time", "Upper body Start Time");
+                tb.add("attribute.name.estrogen.boob_initial_size", "Upper Body initial size");
+
         }
     }
 
@@ -97,6 +104,9 @@ public class EstrogenTranslations {
 
         @Override
         public void generateTranslations(TranslationBuilder tb) {
+            // Config
+                tb.add("text.autoconfig.estrogen.title", "Estrogen");
+                tb.add("text.autoconfig.estrogen.option.boobies", "Chest Feature");
             // Status Effects
                 tb.add(EstrogenEffects.ESTROGEN_EFFECT, "Girl Power");
 
@@ -151,6 +161,7 @@ public class EstrogenTranslations {
 
             // Enchantments
                 tb.add(EstrogenEnchantments.UWUFYING_CURSE, "Curse of Uwufying");
+                    tb.add("enchantment.estrogen.uwufy_curse.desc", "UwUfies yowr Chat Messages >w<");
 
             // EMI
                 tb.add("emi.category.estrogen.centrifuging", "Centrifugation");

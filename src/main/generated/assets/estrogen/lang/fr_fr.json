@@ -12,6 +12,7 @@
   "effect.estrogen.estrogen": "Girl Power",
   "emi.category.estrogen.centrifuging": "Centrifugation",
   "enchantment.estrogen.uwufy_curse": "Curse of Uwufying",
+  "enchantment.estrogen.uwufy_curse.desc": "UwUfies yowr Chat Messages >w<",
   "item.estrogen.balls": "Boules",
   "item.estrogen.crystal_estrogen_pill": "Pillule d'Oestrogènes de Cristal",
   "item.estrogen.estrogen_chip_cookie": "Biscuit aux oestrogènes",
@@ -37,5 +38,7 @@
   "subtitles.estrogen.dash": "Girl Power Dash",
   "tag.item.estrogen.uwufying": "Uwufying",
   "tag.item.trinkets.legs.thighs": "Cuisses",
+  "text.autoconfig.estrogen.option.boobies": "Chest Feature",
+  "text.autoconfig.estrogen.title": "Estrogen",
   "trinkets.slot.legs.thighs": "Cuisses"
 }

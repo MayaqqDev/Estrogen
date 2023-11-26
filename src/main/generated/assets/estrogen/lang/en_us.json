@@ -1,4 +1,6 @@
 {
+  "attribute.name.estrogen.boob_growing_start_time": "Upper body Start Time",
+  "attribute.name.estrogen.boob_initial_size": "Upper Body initial size",
   "block.estrogen.centrifuge": "Centrifuge",
   "block.estrogen.filtrated_horse_urine": "Filtrated Horse Urine",
   "block.estrogen.horse_urine": "Horse Urine",
@@ -12,7 +14,6 @@
   "effect.estrogen.estrogen": "Girl Power",
   "emi.category.estrogen.centrifuging": "Centrifuging",
   "enchantment.estrogen.uwufy_curse": "Curse of Uwufying",
-  "enchantment.estrogen.uwufy_curse.desc": "The users messages will become uwufied.",
   "estrogen.ponder.basic.header": "How to use the Centrifuge",
   "estrogen.ponder.basic.text_1": "The Centrifuge doesn't have any inventory, you will need to place fluid containers around it to make it work!",
   "estrogen.ponder.basic.text_2": "You can input fluids from the bottom",
@@ -44,5 +45,7 @@
   "subtitles.estrogen.dash": "Girl Power Dash",
   "tag.item.estrogen.uwufying": "Uwufying",
   "tag.item.trinkets.legs.thighs": "Thighs",
+  "text.autoconfig.estrogen.option.boobies": "Chest Feature",
+  "text.autoconfig.estrogen.title": "Estrogen",
   "trinkets.slot.legs.thighs": "Thighs"
 }

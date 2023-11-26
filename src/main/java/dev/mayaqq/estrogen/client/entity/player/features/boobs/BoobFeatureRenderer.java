@@ -1,7 +1,7 @@
 package dev.mayaqq.estrogen.client.entity.player.features.boobs;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import dev.mayaqq.estrogen.utils.Time;
 import net.fabricmc.api.EnvType;
@@ -26,7 +26,7 @@ public class BoobFeatureRenderer extends FeatureRenderer<AbstractClientPlayerEnt
     }
 
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, AbstractClientPlayerEntity abstractClientPlayerEntity, float f, float g, float h, float j, float k, float l) {
-        if (abstractClientPlayerEntity.hasStatusEffect(EstrogenEffects.ESTROGEN_EFFECT) && EstrogenConfig.INSTANCE.chestFeature && abstractClientPlayerEntity.hasSkinTexture() && !abstractClientPlayerEntity.isInvisible()) {
+        if (abstractClientPlayerEntity.hasStatusEffect(EstrogenEffects.ESTROGEN_EFFECT) && Estrogen.getConfig().chestFeature && abstractClientPlayerEntity.hasSkinTexture() && !abstractClientPlayerEntity.isInvisible()) {
             VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntitySolid(abstractClientPlayerEntity.getSkinTexture()));
             int m = LivingEntityRenderer.getOverlay(abstractClientPlayerEntity, 0.0F);
             matrixStack.push();
