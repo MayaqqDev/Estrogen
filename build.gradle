@@ -1,16 +1,18 @@
 plugins {
-    id ("fabric-loom") version '1.0-SNAPSHOT'
-    id ("maven-publish")
+    id 'fabric-loom' version '1.4-SNAPSHOT'
+    id 'maven-publish'
 }
 
-version = "$project.mod_version"
-group = "$project.maven_group"
+version = project.mod_version
+group = project.maven_group
 
 println(project.archivesBaseName + ": " + version)
 
-repositories {
-    maven { url = "https://maven.quiltmc.org/repository/release/" } // Quilt Mappings
+base {
+    archivesName = project.archives_base_name
+}
 
+repositories {
     maven { url = "https://mvn.devos.one/snapshots/" } // Create
     // Create Dependencies
     maven { url = "https://cursemaven.com" } // ForgeConfigApiPort
@@ -29,7 +31,7 @@ repositories {
 
 dependencies {
     // Base
-    minecraft("com.mojang:minecraft:${project.minecraft_version}")
+    minecraft ("com.mojang:minecraft:${project.minecraft_version}")
     mappings ("net.fabricmc:yarn:${project.yarn_mappings}:v2")
     modImplementation ("net.fabricmc:fabric-loader:${project.loader_version}")
     modImplementation ("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
@@ -61,7 +63,7 @@ dependencies {
     // EMI
         modCompileOnly "dev.emi:emi-fabric:${emi_version}"
 
-    // REI
+    // Item Viewers
     switch (project.item_viewer.toLowerCase()) {
         case "rei":
             modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}")
@@ -81,38 +83,23 @@ dependencies {
 
 processResources {
     inputs.property "version", project.version
-    inputs.property "minecraft_version", project.minecraft_version
-    inputs.property "loader_version", project.loader_version
-    filteringCharset "UTF-8"
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version,
-                "minecraft_version": project.minecraft_version,
-                "loader_version": project.loader_version
+        expand "version": project.version
     }
 }
 
-def targetJavaVersion = 17
-tasks.withType(JavaCompile).configureEach {
-    it.options.encoding = "UTF-8"
-    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-        it.options.release = targetJavaVersion
-    }
-}
 
 java {
-    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-    }
-    archivesBaseName = project.archives_base_name
-
     withSourcesJar()
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 jar {
     from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}"}
+        rename { "${it}_${project.base.archivesName.get()}"}
     }
 }
 
@@ -130,19 +117,19 @@ loom {
     runs {
         datagenClient {
             inherit client
-            name ("Data Generation")
-            vmArg ("-Dfabric-api.datagen")
-            vmArg ("-Dfabric-api.datagen.output-dir=${file("src/main/generated")}")
-            vmArg ("-Dfabric-api.datagen.modid=${mod_id}")
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.modid=${mod_id}"
 
-            runDir ("build/datagen")
+            runDir "build/datagen"
         }
     }
     runs {
         mixinDebug {
             inherit client
             name "Mixin Debug"
-            vmArg("-Dmixin.debug.export=true")
+            vmArg "-Dmixin.debug.export=true"
         }
     }
 }
