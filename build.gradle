@@ -79,7 +79,9 @@ dependencies {
     include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.1")))
 
     // Dev Only
-    modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${project.devauth_version}")
+    modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${project.devauth_version}") {
+        exclude (group: "net.fabricmc")
+    }
 }
 
 processResources {

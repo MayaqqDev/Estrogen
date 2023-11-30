@@ -16,6 +16,8 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Rarity;
 
+import java.util.ArrayList;
+
 import static dev.mayaqq.estrogen.Estrogen.id;
 import static net.minecraft.item.Items.GLASS_BOTTLE;
 
@@ -42,11 +44,14 @@ public class EstrogenItems {
 
     public static void register() {
         Registry.register(Registries.ITEM_GROUP, id("estrogen"), ESTROGEN_GROUP);
+        ArrayList<Item> itemsNotInCreative = new ArrayList<>();
+        itemsNotInCreative.add(INCOMPLETE_ESTROGEN_PATCH);
+        itemsNotInCreative.add(INCOMPLETE_UWU);
         ItemGroupEvents.modifyEntriesEvent(ESTROGEN_GROUP_KEY).register(content -> {
             boolean checked = false;
             for (Item item : Registries.ITEM) {
-                if (item.getTranslationKey().split("\\.")[1].equals("estrogen")) {
-                    content.addStack(new ItemStack(item));
+                if (item.getTranslationKey().split("\\.")[1].equals("estrogen") && !itemsNotInCreative.contains(item)) {
+                    content.addStack(item.getDefaultStack());
                     checked = true;
                 } else if (checked) {
                     break;
