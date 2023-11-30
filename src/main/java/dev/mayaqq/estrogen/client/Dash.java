@@ -21,10 +21,12 @@ import static dev.mayaqq.estrogen.registry.client.EstrogenKeybinds.dashKey;
 
 public class Dash {
 
+    // should the player be uwufied
     public static boolean uwufy = false;
+    // is the uwu item in the hotbar
     public static boolean uwufyHotbar = false;
+    // tick counter from 0 to 20
     private static int tick = 0;
-
     private static final Identifier DASH_OVERLAY = new Identifier("textures/misc/nausea.png");
     public static int dashCooldown = 0;
     public static int groundCooldown = 0;
@@ -33,12 +35,13 @@ public class Dash {
     public static short currentDashes = 0;
     private static boolean shouldWaveDash = false;
     private static BlockPos lastPos = null;
+
     public static void register() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             ClientPlayerEntity player = client.player;
             if (player == null) return;
 
-            // UwU
+            // UwU Check
             tick++;
             if (tick == 20) {
                 tick = 0;
@@ -59,6 +62,8 @@ public class Dash {
             groundCooldown--;
             if (dashCooldown < 0) dashCooldown = 0;
             if (groundCooldown < 0) groundCooldown = 0;
+
+            // Reset dash if estrogen effect is gone
             if (!player.hasStatusEffect(EstrogenEffects.ESTROGEN_EFFECT)) {
                 maxDashes = 0;
                 currentDashes = 0;
@@ -67,16 +72,19 @@ public class Dash {
                 return;
             }
 
+            // Dash particles
             if (dashCooldown > 0 && dashCooldown % 2 == 0 && player.getBlockPos() != lastPos) {
                 ClientPlayNetworking.send(EstrogenC2S.DASH_PARTICLES, PacketByteBufs.empty());
             }
             lastPos = player.getBlockPos();
 
+            // Wave dash
             if (dashCooldown > 0 && shouldWaveDash && client.options.jumpKey.isPressed()) {
                 player.setVelocity(player.getRotationVector().x * 3, 1, player.getRotationVector().z * 3);
                 shouldWaveDash = false;
             }
 
+            // Whole Dash Mechanic
             if (shouldRefreshDash(player) && groundCooldown == 0) {
                 groundCooldown = 4;
                 currentDashes = maxDashes;

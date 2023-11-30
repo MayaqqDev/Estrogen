@@ -90,6 +90,8 @@ public class EstrogenTranslations {
                     tb.add("estrogen.ponder.basic.text_3", "And output fluids from the top");
 
             // Attributes
+                tb.add("attribute.name.estrogen.dash_level", "Dash Level");
+                tb.add("attribute.name.estrogen.current_dashes", "Current Dashes");
                 tb.add("attribute.name.estrogen.boob_growing_start_time", "Upper body Start Time");
                 tb.add("attribute.name.estrogen.boob_initial_size", "Upper Body initial size");
 

@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.3-SNAPSHOT'
+    id 'fabric-loom' version '1.4-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -13,6 +13,8 @@ base {
 }
 
 repositories {
+    maven { url = "https://maven.quiltmc.org/repository/release/" } // Quilt Mappings
+
     maven { url = "https://mvn.devos.one/snapshots/" } // Create
     // Create Dependencies
     maven { url = "https://cursemaven.com" } // ForgeConfigApiPort
@@ -32,7 +34,7 @@ repositories {
 dependencies {
     // Base
     minecraft ("com.mojang:minecraft:${project.minecraft_version}")
-    mappings ("net.fabricmc:yarn:${project.yarn_mappings}:v2")
+    mappings ("org.quiltmc:quilt-mappings:${project.quilt_mappings}:intermediary-v2")
     modImplementation ("net.fabricmc:fabric-loader:${project.loader_version}")
     modImplementation ("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}")
 
@@ -74,8 +76,7 @@ dependencies {
     }
 
     // Mixin extras
-    implementation("com.github.LlamaLad7:MixinExtras:${project.mixin_extras_version}")
-    annotationProcessor("com.github.LlamaLad7:MixinExtras:${project.mixin_extras_version}")
+    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.1")))
 
     // Dev Only
     modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${project.devauth_version}")

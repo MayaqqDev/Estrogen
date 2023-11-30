@@ -41,7 +41,7 @@
     "estrogen.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=${loader_version}",
+    "fabricloader": "*",
     "fabric": "*",
     "create": "*",
     "minecraft": "1.20.1",
