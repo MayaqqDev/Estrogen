@@ -1,6 +1,8 @@
 plugins {
     id 'fabric-loom' version '1.4-SNAPSHOT'
     id 'maven-publish'
+    id "com.modrinth.minotaur" version "2.+"
+    id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
 
 version = project.mod_version
@@ -86,9 +88,15 @@ dependencies {
 
 processResources {
     inputs.property "version", project.version
+    inputs.property("minecraft_version", project.minecraft_version)
+    inputs.property("loader_version", project.loader_version)
+    inputs.property("fabric_version", project.fabric_version)
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand  "version": project.version,
+                "minecraft_version": project.minecraft_version,
+                "loader_version": project.loader_version,
+                "fabric_version": project.fabric_version
     }
 }
 
@@ -146,3 +154,49 @@ sourceSets {
         }
     }
 }
+
+import com.modrinth.minotaur.dependencies.ModDependency
+
+modrinth {
+    token = System.getenv('MODRINTH_TOKEN') // Please use an environment variable for this! The default is `$MODRINTH_TOKEN`.
+    projectId = "HhIJW8n1" // The ID of your Modrinth project. Slugs will not work.
+    versionNumber = "${project.mod_version}" // The (preferably SemVer) version of the mod. If not specified, it'll use the `version` declaration
+    versionName = "${project.mod_version}" // The version title. If not specified, it'll use the version number
+    uploadFile = remapJar // Tells Minotaur to use the remapped jar
+    gameVersions = ["${project.minecraft_version}"] // An array of game versions the version supports
+    loaders = ['fabric', 'quilt'] // Self-explanatory.
+    changelog = "For a full changelog, you can look at the commit history on Github."
+    dependencies = [
+            new ModDependency('P7dR8mSH', 'required'), // Fabric API
+            new ModDependency('Xbc0uyRg', 'required'), // Create
+            new ModDependency('5aaWibi9', 'required'), // Trinkets
+    ]
+}
+
+curseforge {
+    apiKey = System.getenv('CURSE_TOKEN') != null ? System.getenv('CURSE_TOKEN') : 'xxx'
+    project {
+        id = '850410'
+        changelog = 'For a full changelog, you can look at the commit history on Github.'
+        releaseType = 'release'
+        addGameVersion "${project.minecraft_version}"
+
+        mainArtifact(jar) {
+            displayName = "Estrogen ${project.mod_version}"
+            relations {
+                requiredDependency "trinkets"
+                requiredDependency "create-fabric"
+                requiredDependency "fabric-api"
+            }
+        }
+        afterEvaluate {
+            mainArtifact(remapJar)
+            uploadTask.dependsOn(remapJar)
+        }
+    }
+    options {
+        forgeGradleIntegration = false
+    }
+}
+
+
