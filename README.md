@@ -19,8 +19,8 @@ To Dash, simply have the Estrogen Pill effect (Called Girl Power in game) and cl
 
 ### `Additional Features`
 This mod adds a lot of other features related to Estrogen and its production. This includes but is not limited to:
-- a new block called the Centrifuge, with a new mechanic for fluid processing which is used to make the Estrogen fluid. 🌀
-<img src="https://i.imgur.com/GNDjxGG.png" alt="centrifuge" width="256"/>
+- a new block called the Centrifuge, with a new mechanic for fluid processing which is used to make the Estrogen fluid. 🌀 <br>
+<img src="https://i.imgur.com/cqXBcVw.png" alt="centrifuge" width="256"/>
 - Estrogen Patches with their own slots, allowing you to have the Estrogen Effect forever active. 🩹<br>
 <img src="https://i.imgur.com/5MEMDcY.png" alt="patches" width="256"/>
 - Some custom mechanics you may discover when dashing around! 💨<br>
