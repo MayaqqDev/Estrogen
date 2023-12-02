@@ -15,7 +15,7 @@ public class EstrogenResourcePacks {
                 "Mayafied Estrogen",
                 ResourcePackActivationType.NORMAL
         )) {
-            LOGGER.info("Failed to register Mayafied Estrogen Pack.");
+            LOGGER.error("Failed to register Mayafied Estrogen Pack.");
         }
     }
 }

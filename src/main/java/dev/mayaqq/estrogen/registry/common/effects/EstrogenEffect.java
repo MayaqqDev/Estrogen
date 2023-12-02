@@ -1,13 +1,17 @@
 package dev.mayaqq.estrogen.registry.common.effects;
 
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.networking.EstrogenStatusEffectSender;
+import dev.mayaqq.estrogen.registry.common.EstrogenAttributes;
 import dev.mayaqq.estrogen.utils.Time;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 import static dev.mayaqq.estrogen.client.Dash.*;

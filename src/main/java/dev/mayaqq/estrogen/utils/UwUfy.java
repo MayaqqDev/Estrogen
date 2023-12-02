@@ -13,9 +13,6 @@ public class UwUfy {
         // Replace 'o' with 'owo' and 'O' with 'OwO'
         input = input.replaceAll("o", "owo").replaceAll("O", "OwO");
 
-        // Replace '.' with ':3'
-        //input = input.replaceAll("\\.", ":3");
-
         // Replace repeated exclamation marks and question marks
         input = input.replaceAll("!", "!!!").replaceAll("\\?", "???");
 

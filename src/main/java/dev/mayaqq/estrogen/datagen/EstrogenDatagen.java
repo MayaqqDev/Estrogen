@@ -14,8 +14,8 @@ public class EstrogenDatagen implements DataGeneratorEntrypoint {
 
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fdg) {
-        // recipes
         FabricDataGenerator.Pack pack = fdg.createPack();
+        // recipes
         pack.addProvider(EstrogenCentrifugingRecipes::new);
         pack.addProvider(EstrogenCraftingRecipes::new);
         pack.addProvider(EstrogenCompactingRecipes::new);
