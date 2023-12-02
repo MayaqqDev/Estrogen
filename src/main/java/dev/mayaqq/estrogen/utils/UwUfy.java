@@ -5,7 +5,7 @@ public class UwUfy {
     public static String uwufyString(String input) {
         int stringLength = input.length();
         // Replace 'r' and 'l' with 'w', and 'R' and 'L' with 'W'
-        input = input.replaceAll("[rR]", "w").replaceAll("[lL]", "w");
+        input = input.replaceAll("[rl]", "w").replaceAll("[RL]", "W");
 
         // Replace 'ove' with 'uv' and 'OVE' with 'UV'
         input = input.replaceAll("ove", "uv").replaceAll("OVE", "UV");
