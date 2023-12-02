@@ -42,7 +42,7 @@
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "fabric": ">=${fabric_version}",
+    "fabric-api": ">=${fabric_version}",
     "create": "*",
     "minecraft": "${minecraft_version}",
     "trinkets": "*",
