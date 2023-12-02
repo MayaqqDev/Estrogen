@@ -50,6 +50,7 @@ public class EstrogenTranslations {
 
             // Blocks
                 tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuge");
+                tb.add(EstrogenBlocks.DREAM_BLOCK.get(), "Dream Block");
                 tb.add(EstrogenFluids.LIQUID_ESTROGEN_BLOCK, "Liquid Estrogen");
                 tb.add(EstrogenFluids.HORSE_URINE_BLOCK, "Horse Urine");
                 tb.add(EstrogenFluids.FILTRATED_HORSE_URINE_BLOCK, "Filtrated Horse Urine");
@@ -91,10 +92,8 @@ public class EstrogenTranslations {
 
             // Attributes
                 tb.add("attribute.name.estrogen.dash_level", "Dash Level");
-                tb.add("attribute.name.estrogen.current_dashes", "Current Dashes");
                 tb.add("attribute.name.estrogen.boob_growing_start_time", "Upper body Start Time");
                 tb.add("attribute.name.estrogen.boob_initial_size", "Upper Body initial size");
-
         }
     }
 

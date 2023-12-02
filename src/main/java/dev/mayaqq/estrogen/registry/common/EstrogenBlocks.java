@@ -1,10 +1,13 @@
 package dev.mayaqq.estrogen.registry.common;
 
+import com.simibubi.create.Create;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.mayaqq.estrogen.registry.common.blocks.CentrifugeBlock;
+import dev.mayaqq.estrogen.registry.common.blocks.DreamBlock;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.MapColor;
 import net.minecraft.client.render.RenderLayer;
 
@@ -25,6 +28,12 @@ public class EstrogenBlocks {
             .item()
             .transform(customItemModel())
             .addLayer(() -> RenderLayer::getCutout)
+            .register();
+
+    public static final BlockEntry<DreamBlock> DREAM_BLOCK = Create.REGISTRATE.block("dream_block", DreamBlock::new)
+            .initialProperties(() -> Blocks.BEDROCK)
+            .properties(p -> p.mapColor(MapColor.BLACK))
+            .simpleItem()
             .register();
 
     public static void register() {}

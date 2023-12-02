@@ -16,8 +16,6 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Rarity;
 
-import java.util.ArrayList;
-
 import static dev.mayaqq.estrogen.Estrogen.id;
 import static net.minecraft.item.Items.GLASS_BOTTLE;
 

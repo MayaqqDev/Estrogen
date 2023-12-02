@@ -5,6 +5,7 @@ import dev.emi.trinkets.api.TrinketItem;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class EstrogenPatchesItem extends TrinketItem {
@@ -14,8 +15,15 @@ public class EstrogenPatchesItem extends TrinketItem {
     }
 
     @Override
-    public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        entity.addStatusEffect(new StatusEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, 2, stack.getCount() - 1, true, false, false));
+    public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        if (entity instanceof PlayerEntity player) {
+            player.addStatusEffect(new StatusEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, -1, stack.getCount() - 1, false, false, false));
+        }
+    }
+
+    @Override
+    public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        entity.removeStatusEffect(EstrogenEffects.ESTROGEN_EFFECT);
     }
 
     @Override

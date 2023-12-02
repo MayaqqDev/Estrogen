@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.registry.common;
 
 import dev.mayaqq.estrogen.registry.common.effects.EstrogenEffect;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.registry.Registries;
