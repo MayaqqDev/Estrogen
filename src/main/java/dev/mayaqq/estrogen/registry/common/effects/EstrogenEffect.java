@@ -124,7 +124,8 @@ public class EstrogenEffect extends StatusEffect {
         super.onApplied(entity, attributes, amplifier);
 
         EntityAttributeInstance attributeInstance = entity.getAttributeInstance(BOOB_GROWING_START_TIME);
-        if (attributeInstance.getBaseValue() < 0.0) {
+        // should fix crash related to applying effect to entity without given attribute
+        if (attributeInstance != null && attributeInstance.getBaseValue() < 0.0) {
             double currentTime = Time.currentTime(entity.getWorld());
             entity.getAttributeInstance(BOOB_GROWING_START_TIME).setBaseValue(currentTime);
         }
