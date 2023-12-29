@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "estrogen",
+  "version": "${version}",
+  "name": "Estrogen",
+  "description": "Estrogen test for mulitplatform",
+  "authors": [],
+  "contact": {},
+  "license": "GNU LGPL 3.0",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {},
+  "mixins": [
+    "estrogen.mixins.json",
+    "estrogen-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.3",
+    "minecraft": ">=1.20.1"
+  }
+}
