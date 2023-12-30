@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
@@ -17,7 +18,7 @@ public class Dash {
     // tick counter from 0 to 20
     private static int tick = 0;
     // the overlay texture
-    private static final Identifier DASH_OVERLAY = new Identifier("textures/misc/nausea.png");
+    private static final ResourceLocation DASH_OVERLAY = new ResourceLocation("textures/misc/nausea.png");
     // is the dash on cooldown
     public static boolean onCooldown = false;
 

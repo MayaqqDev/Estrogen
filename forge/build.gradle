@@ -23,7 +23,7 @@ dependencies {
     //Create
     modImplementation ("com.simibubi.create:create-${rootProject.minecraft_version}:${rootProject.create_version_forge}:slim") { transitive = false }
     modImplementation ("com.jozufozu.flywheel:flywheel-forge-1.20.1:${rootProject.flywheel_version}")
-    modImplementation ("com.tterrag.registrate:Registrate:${project.registrate_version}")
+    modImplementation ("com.tterrag.registrate:Registrate:${rootProject.registrate_version}")
 
     //Config
     modImplementation ("dev.isxander.yacl:yet-another-config-lib-forge:${rootProject.yacl_version}") transitive false

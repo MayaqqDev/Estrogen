@@ -1,19 +1,22 @@
 package dev.mayaqq.estrogen.registry.common;
 
+import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.utility.Lang;
+import dev.architectury.registry.registries.Registrar;
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -24,7 +27,10 @@ import static dev.mayaqq.estrogen.Estrogen.id;
 public enum EstrogenRecipes implements IRecipeTypeInfo {
     CENTRIFUGING(CentrifugingRecipe::new);
 
-    private final Identifier id;
+    Registrar<RecipeSerializer<?>> recipeSerializers = Estrogen.MANAGER.get().get(Registries.RECIPE_SERIALIZER);
+    Registrar<RecipeType<?>> recipeTypes = Estrogen.MANAGER.get().get(Registries.RECIPE_TYPE);
+
+    private final ResourceLocation id;
     private final RecipeSerializer<?> serializerObject;
     @Nullable
     private final RecipeType<?> typeObject;
@@ -33,10 +39,10 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
     EstrogenRecipes(Supplier<RecipeSerializer<?>> serializerSupplier, Supplier<RecipeType<?>> typeSupplier, boolean registerType) {
         String name = Lang.asId(name());
         id = Create.asResource(name);
-        serializerObject = Registry.register(Registries.RECIPE_SERIALIZER, id, serializerSupplier.get());
+        serializerObject = recipeSerializers.register(Estrogen.id(name), () -> serializerSupplier.get()).get();
         if (registerType) {
             typeObject = typeSupplier.get();
-            Registry.register(Registries.RECIPE_TYPE, id, typeObject);
+            recipeTypes.register(id, () -> typeObject);
             type = typeSupplier;
         } else {
             typeObject = null;
@@ -47,9 +53,9 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
     EstrogenRecipes(Supplier<RecipeSerializer<?>> serializerSupplier) {
         String name = Lang.asId(name());
         id = id(name);
-        serializerObject = Registry.register(Registries.RECIPE_SERIALIZER, id, serializerSupplier.get());
+        serializerObject = recipeSerializers.register(Estrogen.id(name), () -> serializerSupplier.get()).get();
         typeObject = simpleType(id);
-        Registry.register(Registries.RECIPE_TYPE, id, typeObject);
+        recipeTypes.register(id, () -> typeObject);
         type = () -> typeObject;
     }
 
@@ -57,7 +63,7 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
         this(() -> new ProcessingRecipeSerializer<>(processingFactory));
     }
 
-    public static <T extends Recipe<?>> RecipeType<T> simpleType(Identifier id) {
+    public static <T extends Recipe<?>> RecipeType<T> simpleType(ResourceLocation id) {
         String stringId = id.toString();
         return new RecipeType<T>() {
             @Override
@@ -70,7 +76,7 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
     public static void register() {}
 
     @Override
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return id;
     }
 
@@ -86,9 +92,9 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
         return (T) type.get();
     }
 
-    public <C extends Inventory, T extends Recipe<C>> Optional<T> find(C inv, World world) {
+    public <C extends Inventory, T extends Recipe<C>> Optional<T> find(C inv, Level world) {
         return world.getRecipeManager()
-                .getFirstMatch(getType(), inv, world);
+                .getRecipeFor(getType(), inv, world);
     }
 
     public static boolean shouldIgnoreInAutomation(Recipe<?> recipe) {

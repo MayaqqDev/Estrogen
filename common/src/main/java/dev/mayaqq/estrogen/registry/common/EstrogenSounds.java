@@ -1,12 +1,10 @@
 package dev.mayaqq.estrogen.registry.common;
 
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvent;
-
-import static dev.mayaqq.estrogen.Estrogen.id;
+import com.simibubi.create.AllSoundEvents;
+import dev.mayaqq.estrogen.Estrogen;
+import net.minecraft.sounds.SoundSource;
 
 public class EstrogenSounds {
-    public static final SoundEvent DASH = Registry.register(Registries.SOUND_EVENT, id("dash"), SoundEvent.createVariableRangeEvent((id("dash"))));
+    public static final AllSoundEvents.SoundEntry DASH = AllSoundEvents.create(Estrogen.id("dash")).category(SoundSource.PLAYERS).build();
     public static void register() {}
 }

@@ -1,31 +1,31 @@
 package dev.mayaqq.estrogen.registry.common.enchantments;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class UwufyCurseEnchantment extends Enchantment {
-    public UwufyCurseEnchantment(Rarity weight, EquipmentSlot... slotTypes) {
-        super(weight, EnchantmentTarget.ARMOR_HEAD, slotTypes);
-    }
 
+    public UwufyCurseEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot[] slotTypes) {
+        super(rarity, category, slotTypes);
+    }
     @Override
-    public int getMinPower(int level) {
+    public int getMinCost(int level) {
         return 25;
     }
 
     @Override
-    public int getMaxPower(int level) {
+    public int getMaxCost(int level) {
         return 50;
     }
 
     @Override
-    public boolean isTreasure() {
+    public boolean isTreasureOnly() {
         return true;
     }
 
     @Override
-    public boolean isCursed() {
+    public boolean isCurse() {
         return true;
     }
 }
