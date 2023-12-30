@@ -15,6 +15,7 @@ import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -30,7 +31,7 @@ public class CentrifugingRecipe extends ProcessingRecipe<SmartInventory> {
     }
 
     @Override
-    public boolean matches(SmartInventory inventory, World world) {
+    public boolean matches(SmartInventory inventory, Level world) {
         CentrifugeBlockEntity be = ((DataInventory) inventory).getCentrifuge();
         Storage<FluidVariant> storageUp = FluidStorage.SIDED.find(world, be.getPos().up(), Direction.DOWN);
         Storage<FluidVariant> storageDown = FluidStorage.SIDED.find(world, be.getPos().down(), Direction.UP);

@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.core.BlockPos;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -19,6 +20,9 @@ import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
 
 import java.util.UUID;
 
@@ -27,7 +31,7 @@ import static dev.mayaqq.estrogen.registry.common.EstrogenAttributes.BOOB_GROWIN
 import static dev.mayaqq.estrogen.registry.common.EstrogenAttributes.BOOB_INITIAL_SIZE;
 import static dev.mayaqq.estrogen.registry.common.EstrogenEffects.ESTROGEN_EFFECT;
 
-public class EstrogenEffect extends StatusEffect {
+public class EstrogenEffect extends MobEffect {
 
     public short currentDashes = 0;
 
@@ -37,17 +41,17 @@ public class EstrogenEffect extends StatusEffect {
     private boolean shouldWaveDash = false;
     private BlockPos lastPos = null;
 
-    public EstrogenEffect(StatusEffectType statusEffectType, int color) {
+    public EstrogenEffect(MobEffectCategory statusEffectType, int color) {
         super(statusEffectType, color);
     }
 
     @Override
-    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
     }
 
     @Override
-    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+    public void applyEffectTick(LivingEntity entity, int amplifier) {
         dashCooldown--;
         groundCooldown--;
         if (dashCooldown < 0) dashCooldown = 0;

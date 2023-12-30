@@ -5,7 +5,11 @@ import dev.mayaqq.estrogen.registry.common.EstrogenRecipes;
 import dev.mayaqq.estrogen.registry.common.recipes.common.DataInventory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Container;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class CentrifugeBlockEntity extends KineticBlockEntity {
 
@@ -17,9 +21,9 @@ public class CentrifugeBlockEntity extends KineticBlockEntity {
     @Override
     public void tick() {
         super.tick();
-        if (world.isClient) return;
-        world.getServer().getRecipeManager().listAllOfType(EstrogenRecipes.CENTRIFUGING.getType()).forEach(recipe -> {
-            recipe.matches(new DataInventory(1, this), world);
+        if (level.isClientSide) return;
+        level.getServer().getRecipeManager().getAllRecipesFor(EstrogenRecipes.CENTRIFUGING.getType()).forEach(recipe -> {
+            recipe.matches((Container) new DataInventory(1, this), level);
         });
     }
 }
