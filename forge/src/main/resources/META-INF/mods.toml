@@ -9,7 +9,7 @@ modLoader = "javafml" #mandatory
 loaderVersion = "[47,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
-license = "GNU LGPL 3.0"
+license = "LGPL-3.0"
 # A URL to refer people to when problems occur with this mod
 issueTrackerURL = "https://github.com/mayaqq/Estrogen/issues"
 # A list of mods - how many allowed here is determined by the individual mod loader
@@ -27,9 +27,10 @@ displayName = "Estrogen" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
 #displayURL="http://example.com/" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile = "icon.png" #optional
+logoFile = "assets/estrogen/icon.png" #optional
 # A text field displayed in the mod UI
 #credits="Thanks for this example mod goes to Java" #optional
+credits="Contributors: PrincessDoreena"
 # A text field displayed in the mod UI
 authors = "Mayaqq" #optional
 # Display Test controls the display for your mod in the server connection screen
@@ -42,7 +43,7 @@ authors = "Mayaqq" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description = '''
-Estrogen test for mulitplatform
+Adds estrogen into the game!
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.estrogen]] #optional
@@ -64,3 +65,9 @@ mandatory = true
 versionRange = "[1.20.1,1.21)"
 ordering = "NONE"
 side = "BOTH"
+[[dependencies.estrogen]]
+modId="create"
+mandatory=true
+versionRange="[0.5.1.e,)"
+ordering="NONE"
+side="BOTH"

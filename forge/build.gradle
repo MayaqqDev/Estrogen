@@ -14,10 +14,26 @@ configurations {
     developmentForge.extendsFrom common
 }
 
+repositories {}
+
 dependencies {
-    forge "net.minecraftforge:forge:${rootProject.forge_version}"
-    // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
+    forge ("net.minecraftforge:forge:${rootProject.forge_version}")
+    modApi ("dev.architectury:architectury-forge:${rootProject.architectury_version}")
+
+    //Create
+    modImplementation ("com.simibubi.create:create-${rootProject.minecraft_version}:${rootProject.create_version_forge}:slim") { transitive = false }
+    modImplementation ("com.jozufozu.flywheel:flywheel-forge-1.20.1:${rootProject.flywheel_version}")
+    modImplementation ("com.tterrag.registrate:Registrate:${project.registrate_version}")
+
+    //Config
+    modImplementation ("dev.isxander.yacl:yet-another-config-lib-forge:${rootProject.yacl_version}") transitive false
+
+    //Mixin Extras
+    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${project.mixin_extras_version}"))
+    implementation(include("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras_version}"))
+
+    //Dev Auth
+    modRuntimeOnly("me.djtheredstoner:DevAuth-forge-latest:${rootProject.devauth_version}")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }

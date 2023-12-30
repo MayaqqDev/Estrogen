@@ -1,0 +1,17 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "blank_lava_still"
+    },
+    {
+      "type": "single",
+        "resource": "blank_lava_flow"
+    },
+    {
+      "type": "directory",
+      "source": "estrogen",
+      "prefix": "estrogen/block/blank_lava"
+    }
+  ]
+}
