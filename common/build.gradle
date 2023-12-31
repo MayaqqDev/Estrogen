@@ -1,4 +1,6 @@
-repositories {}
+repositories {
+    maven { url = "https://repo.unascribed.com" } // Ears
+}
 
 dependencies {
     // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
@@ -11,6 +13,12 @@ dependencies {
     modCompileOnly("com.simibubi.create:create-${rootProject.minecraft_version}:${rootProject.create_version_forge}:slim") transitive false
     modCompileOnly ("com.jozufozu.flywheel:flywheel-forge-1.20.1:${rootProject.flywheel_version}")
     modCompileOnly ("com.tterrag.registrate:Registrate:${rootProject.registrate_version}")
+
+    // Config
+    modCompileOnly ("dev.isxander.yacl:yet-another-config-lib-forge:${rootProject.yacl_version}") transitive false
+
+    // Ears
+    implementation ("com.unascribed:ears-api:${project.ears_version}")
 
     // Mixin Extras
     implementation ("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}")
@@ -32,4 +40,8 @@ publishing {
     repositories {
         // Add repositories to publish to here.
     }
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/estrogen.accesswidener")
 }

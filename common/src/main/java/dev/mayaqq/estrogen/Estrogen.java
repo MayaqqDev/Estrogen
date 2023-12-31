@@ -7,6 +7,7 @@ import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import dev.architectury.registry.registries.RegistrarManager;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,10 @@ public class Estrogen {
 
     public static final Supplier<RegistrarManager> MANAGER = Suppliers.memoize(() -> RegistrarManager.get(MOD_ID));
 
+    public static EstrogenConfig CONFIG() {
+        return EstrogenConfig.HANDLER.instance();
+    }
+
     static {
         REGISTRATE.setTooltipModifierFactory(item ->
                 new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
@@ -34,6 +39,6 @@ public class Estrogen {
     }
 
     public static void init() {
-
+        EstrogenConfig.HANDLER.load();
     }
 }

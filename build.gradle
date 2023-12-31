@@ -33,6 +33,17 @@ allprojects {
         maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" } // DevAuth
         maven { url = "https://maven.tterrag.com/" } // Create Forge
         maven { url = "https://maven.isxander.dev/releases"} // Yacl
+        maven { url = "https://maven.terraformersmc.com/" } // ModMenu, EMI
+    }
+
+    sourceSets {
+        main {
+            resources {
+                srcDirs += [
+                        'src/main/generated'
+                ]
+            }
+        }
     }
 
     tasks.withType(JavaCompile) {

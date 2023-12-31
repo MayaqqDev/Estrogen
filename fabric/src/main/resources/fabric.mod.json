@@ -23,6 +23,12 @@
     ],
     "client": [
       "dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric"
+    ],
+    "modmenu": [
+      "dev.mayaqq.estrogen.fabric.integrations.modmenu.ModMenuCompat"
+    ],
+    "fabric-datagen": [
+      "dev.mayaqq.estrogen.fabric.datagen.EstrogenDatagen"
     ]
   },
   "mixins": [

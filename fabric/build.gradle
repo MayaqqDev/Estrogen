@@ -34,6 +34,9 @@ dependencies {
     //Config
     modImplementation ("dev.isxander.yacl:yet-another-config-lib-fabric:${rootProject.yacl_version}") transitive false
 
+    //Mod Menu
+    modImplementation ("com.terraformersmc:modmenu:${project.modmenu_version}")
+
     //Mixin Extras
     include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${project.mixin_extras_version}")))
 
@@ -88,4 +91,18 @@ publishing {
     }
 
     repositories {}
+}
+
+loom {
+    runs {
+        datagen {
+            inherit server
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.modid=estrogen"
+
+            runDir "build/datagen"
+        }
+    }
 }

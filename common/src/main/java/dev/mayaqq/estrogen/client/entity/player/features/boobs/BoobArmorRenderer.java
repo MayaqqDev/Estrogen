@@ -6,6 +6,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.core.Direction;
 import org.joml.*;
 
 import java.util.List;
@@ -181,7 +182,7 @@ public final class BoobArmorRenderer {
             Matrix4f matrix4f = entry.pose();
             Matrix3f matrix3f = entry.normal();
             for (ModelPart.Polygon quad : this.sides) {
-                Vector3f vector3f = matrix3f.transform(new Vector3f(quad.direction));
+                Vector3f vector3f = matrix3f.transform(new Vector3f(quad.normal));
                 float f = vector3f.x();
                 float g = vector3f.y();
                 float h = vector3f.z();
