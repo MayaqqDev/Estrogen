@@ -3,8 +3,8 @@ package dev.mayaqq.estrogen.registry.common.ponders;
 import com.simibubi.create.foundation.ponder.SceneBuilder;
 import com.simibubi.create.foundation.ponder.SceneBuildingUtil;
 import com.simibubi.create.foundation.ponder.Selection;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 
 public class CentrifugeStoryboard {
     public static void centrifugeStoryboardIntro(SceneBuilder scene, SceneBuildingUtil util) {

@@ -1,13 +1,13 @@
 package dev.mayaqq.estrogen.registry.common;
 
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.FoodComponent;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 
 public class EstrogenFoodComponents {
-    public static final FoodComponent ESTROGEN_PILL = (new FoodComponent.Builder()).statusEffect(new StatusEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, 6000, 0), 1).snack().alwaysEdible().build();
-    public static final FoodComponent CRYTAL_ESTROGEN_PILL = (new FoodComponent.Builder()).statusEffect(new StatusEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, 6000, 1), 1).snack().alwaysEdible().build();
-    public static final FoodComponent HORSE_URINE_BOTTLE = (new FoodComponent.Builder()).statusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 0), 1).hunger(1).saturationModifier(0.1F).build();
-    public static final FoodComponent ESTROGEN_CHIP_COOKIE = (new FoodComponent.Builder()).statusEffect(new StatusEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, 6000, 0), 1).hunger(6).saturationModifier(1.0F).snack().alwaysEdible().build();
+    public static final FoodProperties ESTROGEN_PILL = (new FoodProperties.Builder()).effect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, 6000, 0), 1).fast().alwaysEat().build();
+    public static final FoodProperties CRYTAL_ESTROGEN_PILL = (new FoodProperties.Builder()).effect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, 6000, 1), 1).fast().alwaysEat().build();
+    public static final FoodProperties HORSE_URINE_BOTTLE = (new FoodProperties.Builder()).effect(new MobEffectInstance(MobEffects.POISON, 100, 0), 1).nutrition(1).saturationMod(0.1F).build();
+    public static final FoodProperties ESTROGEN_CHIP_COOKIE = (new FoodProperties.Builder()).effect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, 6000, 0), 1).nutrition(6).saturationMod(1.0F).fast().alwaysEat().build();
     public static void register() {}
 }

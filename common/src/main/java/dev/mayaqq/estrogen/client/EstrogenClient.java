@@ -2,24 +2,16 @@ package dev.mayaqq.estrogen.client;
 
 import dev.architectury.platform.Platform;
 import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
-import dev.mayaqq.estrogen.networking.EstrogenS2C;
-import dev.mayaqq.estrogen.registry.client.*;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
+import dev.mayaqq.estrogen.registry.EstrogenKeybinds;
+import dev.mayaqq.estrogen.registry.client.EstrogenRenderer;
 
 import static dev.mayaqq.estrogen.Estrogen.LOGGER;
 
 public class EstrogenClient {
     public static void init() {
-        EstrogenKeybinds.register();
         Dash.register();
-        EstrogenS2C.register();
-        EstrogenFluidRender.register();
-        EstrogenResourcePacks.register();
         EstrogenRenderer.register();
-        EstrogenModelPredicateProviders.register();
-        EstrogenClientEvents.register();
-
+        EstrogenKeybinds.register();
         // mod compat
         if (Platform.isModLoaded("ears")) {
             EarsCompat.boob();

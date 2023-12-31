@@ -2,14 +2,13 @@ package dev.mayaqq.estrogen.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.mayaqq.estrogen.datagen.tags.EstrogenTags;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import dev.architectury.event.events.client.ClientGuiEvent;
+import dev.architectury.event.events.client.ClientTickEvent;
+import dev.mayaqq.estrogen.registry.common.EstrogenTags;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
 
 public class Dash {
 
@@ -23,19 +22,18 @@ public class Dash {
     public static boolean onCooldown = false;
 
     public static void register() {
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            ClientPlayerEntity player = client.player;
+        ClientTickEvent.CLIENT_POST.register(client -> {
+            LocalPlayer player = client.player;
             if (player == null) return;
 
             // UwU Check
             tick++;
             if (tick == 20) {
                 tick = 0;
-                uwufy = player.getInventory().contains(EstrogenTags.ItemTags.UWUFYING);
+                uwufy = player.getInventory().contains(EstrogenTags.UWUFYING);
             }
         });
-
-        HudRenderCallback.EVENT.register((graphics, tickDelta) -> {
+        ClientGuiEvent.RENDER_HUD.register((graphics, tickDelta) -> {
             if (onCooldown) {
                 renderOverLayer(graphics, 0.3F, 0.5F, 0.8F);
             }
@@ -43,26 +41,26 @@ public class Dash {
     }
 
     private static void renderOverLayer(GuiGraphics graphics, float c1, float c2, float c3) {
-        int i = graphics.getScaledWindowWidth();
-        int j = graphics.getScaledWindowHeight();
-        graphics.getMatrices().push();
+        int i = graphics.guiWidth();
+        int j = graphics.guiHeight();
+        graphics.pose().pushPose();
         float distortionAmount = 0.5F;
-        float f = MathHelper.lerp(distortionAmount, 2.0F, 1.0F);
-        graphics.getMatrices().translate((float)i / 2.0F, (float)j / 2.0F, 0.0F);
-        graphics.getMatrices().scale(f, f, f);
-        graphics.getMatrices().translate((float)(-i) / 2.0F, (float)(-j) / 2.0F, 0.0F);
+        float f = Mth.lerp(distortionAmount, 2.0F, 1.0F);
+        graphics.pose().translate((float)i / 2.0F, (float)j / 2.0F, 0.0F);
+        graphics.pose().scale(f, f, f);
+        graphics.pose().translate((float)(-i) / 2.0F, (float)(-j) / 2.0F, 0.0F);
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
-        graphics.setShaderColor(c1, c2, c3, 1.0F);
-        graphics.drawTexture(DASH_OVERLAY, 0, 0, -90, 0.0F, 0.0F, i, j, i, j);
+        graphics.setColor(c1, c2, c3, 1.0F);
+        graphics.blit(DASH_OVERLAY, 0, 0, -90, 0.0F, 0.0F, i, j, i, j);
         RenderSystem.setShaderColor(c1, c2, c3, 1.0F);
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
         RenderSystem.depthMask(true);
         RenderSystem.enableDepthTest();
-        graphics.setShaderColor(1f, 1f, 1f, 1f);
-        graphics.getMatrices().pop();
+        graphics.setColor(1f, 1f, 1f, 1f);
+        graphics.pose().popPose();
     }
 }

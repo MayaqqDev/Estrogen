@@ -1,25 +1,26 @@
 package dev.mayaqq.estrogen.registry.common.items;
 
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.world.World;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class UwUItem extends Item {
-    public UwUItem(Settings settings) {
-        super(settings);
+    public UwUItem(Item.Properties properties) {
+        super(properties);
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("item.estrogen.uwu.tooltip"));
+    public void appendHoverText(ItemStack itemStack, @Nullable net.minecraft.world.level.Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
+        tooltip.add(Component.translatable("item.estrogen.uwu.tooltip"));
     }
 
     @Override
-    public boolean hasGlint(ItemStack stack) {
+    public boolean isFoil(ItemStack stack) {
         return true;
     }
 }
