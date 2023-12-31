@@ -1,27 +1,27 @@
 package dev.mayaqq.estrogen.registry.common.fluids;
 
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.fluid.FlowableFluid;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.item.Item;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
 
-public class MoltenAmethystFluid extends FlowableFluid {
+public class MoltenAmethystFluid extends FlowingFluid {
 
     @Override
-    public boolean matchesType(Fluid fluid) {
-        return fluid == getStill() || fluid == getFlowing();
+    public boolean isSame(Fluid fluid) {
+        return fluid == getSource() || fluid == getFlowing();
     }
 
     @Override
@@ -30,54 +30,54 @@ public class MoltenAmethystFluid extends FlowableFluid {
     }
 
     @Override
-    public Fluid getStill() {
+    public Fluid getSource() {
         return EstrogenFluids.MOLTEN_AMETHYST.still();
     }
 
     @Override
-    protected boolean isInfinite(World world) {
+    protected boolean canConvertToSource(Level level) {
         return false;
     }
 
     @Override
-    protected void beforeBreakingBlock(WorldAccess world, BlockPos pos, BlockState state) {
-        final BlockEntity blockEntity = state.hasBlockEntity() ? world.getBlockEntity(pos) : null;
-        Block.dropStacks(state, world, pos, blockEntity);
+    protected void beforeDestroyingBlock(LevelAccessor level, BlockPos pos, BlockState state) {
+        final BlockEntity blockEntity = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
+        Block.dropResources(state, level, pos, blockEntity);
     }
 
     @Override
-    protected int getFlowSpeed(WorldView world) {
+    protected int getSlopeFindDistance(LevelReader levelReader) {
         return 1;
     }
 
     @Override
-    protected int getLevelDecreasePerBlock(WorldView world) {
+    protected int getDropOff(LevelReader levelReader) {
         return 2;
     }
 
     @Override
-    public Item getBucketItem() {
+    public Item getBucket() {
         return EstrogenFluids.MOLTEN_AMETHYST.bucket();
     }
 
     @Override
-    protected boolean canBeReplacedWith(FluidState state, BlockView world, BlockPos pos, Fluid fluid, Direction direction) {
+    protected boolean canBeReplacedWith(FluidState fluidState, BlockGetter blockGetter, BlockPos blockPos, Fluid fluid, Direction direction) {
         return false;
     }
 
     @Override
-    public int getTickRate(WorldView world) {
+    public int getTickDelay(LevelReader levelReader) {
         return 30;
     }
 
     @Override
-    protected float getBlastResistance() {
+    protected float getExplosionResistance() {
         return 100.0F;
     }
 
     @Override
-    protected BlockState toBlockState(FluidState state) {
-        return EstrogenFluids.MOLTEN_AMETHYST_BLOCK.getDefaultState().with(Properties.LEVEL_15, getBlockStateLevel(state));
+    protected BlockState createLegacyBlock(FluidState state) {
+        return EstrogenFluids.MOLTEN_AMETHYST_BLOCK.defaultBlockState().setValue(BlockStateProperties.LEVEL, getLegacyLevel(state));
     }
 
     @Override
@@ -86,26 +86,26 @@ public class MoltenAmethystFluid extends FlowableFluid {
     }
 
     @Override
-    public int getLevel(FluidState state) {
+    public int getAmount(FluidState state) {
         return 0;
     }
     public static class Flowing extends MoltenAmethystFluid {
         @Override
-        protected void appendProperties(StateManager.Builder<Fluid, FluidState> builder) {
-            super.appendProperties(builder);
+        protected void createFluidStateDefinition(StateDefinition.Builder<Fluid, FluidState> builder) {
+            super.createFluidStateDefinition(builder);
             builder.add(LEVEL);
         }
 
         @Override
-        public int getLevel(FluidState fluidState) {
-            return fluidState.get(LEVEL);
+        public int getAmount(FluidState fluidState) {
+            return fluidState.getValue(LEVEL);
         }
 
     }
 
     public static class Still extends MoltenAmethystFluid {
         @Override
-        public int getLevel(FluidState fluidState) {
+        public int getAmount(FluidState fluidState) {
             return 8;
         }
 

@@ -4,8 +4,6 @@
   "package": "dev.mayaqq.estrogen.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "HorseEntityMixin",
-    "PlayerEntityMixin"
   ],
   "client": [
     "client.PlayerEntityModelMixin",

@@ -1,16 +1,16 @@
 package dev.mayaqq.estrogen.registry.common;
 
 import dev.mayaqq.estrogen.registry.common.fluids.*;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.fluid.FlowableFluid;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.FlowingFluid;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
 
@@ -30,17 +30,17 @@ public class EstrogenFluids {
 
     public static void register() {}
 
-    public static FluidType register(String id, FlowableFluid still, FlowableFluid flowing) {
+    public static FluidType register(String id, FlowingFluid still, FlowingFluid flowing) {
         return new FluidType(
-                Registry.register(Registries.FLUID, id(id), still),
-                Registry.register(Registries.FLUID, id("flowing_" + id), flowing),
-                EstrogenItems.register(id + "_bucket", new BucketItem(still, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1))
+                Registry.register(BuiltInRegistries.FLUID, id(id), still),
+                Registry.register(BuiltInRegistries.FLUID, id("flowing_" + id), flowing),
+                EstrogenItems.register(id + "_bucket", new BucketItem(still, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1))
         ));
     }
 
-    public static Block registerFluidBlock(String id, FlowableFluid fluid, boolean water) {
-        return Registry.register(Registries.BLOCK, id(id), new FluidBlock(fluid, AbstractBlock.Settings.copy(water ? Blocks.WATER : Blocks.LAVA)));
+    public static Block registerFluidBlock(String id, FlowingFluid fluid, boolean water) {
+        return Registry.register(BuiltInRegistries.BLOCK, id(id), new LiquidBlock(fluid, BlockBehaviour.Properties.copy(water ? Blocks.WATER : Blocks.LAVA)));
     }
 
-    public record FluidType(FlowableFluid still, FlowableFluid flowing, Item bucket) {}
+    public record FluidType(FlowingFluid still, FlowingFluid flowing, Item bucket) {}
 }

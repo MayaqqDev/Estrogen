@@ -4,29 +4,25 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.Dash;
 import dev.mayaqq.estrogen.networking.EstrogenC2S;
 import dev.mayaqq.estrogen.networking.EstrogenStatusEffectSender;
+import dev.mayaqq.estrogen.registry.EstrogenKeybinds;
 import dev.mayaqq.estrogen.registry.common.EstrogenAttributes;
 import dev.mayaqq.estrogen.utils.Time;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.LiquidBlock;
 
 import java.util.UUID;
 
-import static dev.mayaqq.estrogen.registry.client.EstrogenKeybinds.dashKey;
 import static dev.mayaqq.estrogen.registry.common.EstrogenAttributes.BOOB_GROWING_START_TIME;
 import static dev.mayaqq.estrogen.registry.common.EstrogenAttributes.BOOB_INITIAL_SIZE;
 import static dev.mayaqq.estrogen.registry.common.EstrogenEffects.ESTROGEN_EFFECT;
@@ -58,59 +54,59 @@ public class EstrogenEffect extends MobEffect {
         if (groundCooldown < 0) groundCooldown = 0;
 
         // Dash particles
-        if (dashCooldown > 0 && dashCooldown % 2 == 0 && entity.getBlockPos() != lastPos) {
+        if (dashCooldown > 0 && dashCooldown % 2 == 0 && entity.blockPosition() != lastPos) {
             ClientPlayNetworking.send(EstrogenC2S.DASH_PARTICLES, PacketByteBufs.empty());
         }
-        lastPos = entity.getBlockPos();
+        lastPos = entity.blockPosition();
 
         // Wave dash
-        if (entity instanceof PlayerEntity player && player.getWorld().isClient) {
-            MinecraftClient client = MinecraftClient.getInstance();
-            if (dashCooldown > 0 && shouldWaveDash && client.options.jumpKey.isPressed()) {
-                player.setVelocity(player.getRotationVector().x * 3, 1, player.getRotationVector().z * 3);
+        if (entity instanceof Player player && player.level().isClientSide) {
+            Minecraft client = Minecraft.getInstance();
+            if (dashCooldown > 0 && shouldWaveDash && client.options.keyJump.isDown()) {
+                player.setDeltaMovement(player.getRotationVector().x * 3, 1, player.getRotationVector().z * 3);
                 shouldWaveDash = false;
             }
 
             // Whole Dash Mechanic
             if (shouldRefreshDash(player) && groundCooldown == 0) {
                 groundCooldown = 4;
-                currentDashes = (short) player.getAttributeValue(EstrogenAttributes.DASH_LEVEL);
+                currentDashes = (short) player.getAttributeValue(EstrogenAttributes.DASH_LEVEL.get());
             }
             onCooldown = dashCooldown > 0 || currentDashes == 0;
             Dash.onCooldown = onCooldown;
-            if (dashKey.wasPressed() && !onCooldown) {
-                if (player.getPitch() > 50 && player.getPitch() < 90) {
+            if (EstrogenKeybinds.dashKey.consumeClick() && !onCooldown) {
+                if (player.getXRot() > 50 && player.getXRot() < 90) {
                     shouldWaveDash = true;
                 }
                 dashCooldown = 10;
                 currentDashes--;
-                player.setVelocity(player.getRotationVector().x * 2, player.getRotationVector().y * 2, player.getRotationVector().z * 2);
+                player.setDeltaMovement(player.getRotationVector().x * 2, player.getRotationVector().y * 2, player.getRotationVector().z * 2);
                 ClientPlayNetworking.send(Estrogen.id("dash"), PacketByteBufs.empty());
             }
         }
     }
 
-    private static Boolean shouldRefreshDash(PlayerEntity player) {
-        return player.isOnGround() || player.getWorld().getBlockState(player.getBlockPos()).getBlock() instanceof FluidBlock;
+    private static Boolean shouldRefreshDash(Player player) {
+        return player.onGround() || player.level().getBlockState(player.blockPosition()).getBlock() instanceof LiquidBlock;
     }
 
     @Override
-    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        if (entity instanceof ServerPlayerEntity player) {
-            EstrogenStatusEffectSender.sendRemovePlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayerEntity[]::new));
+    public void removeAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
+        if (entity instanceof ServerPlayer player) {
+            new EstrogenStatusEffectSender().sendRemovePlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayerEntity[]::new));
         }
 
         resetDash(entity);
 
-        if (!entity.hasStatusEffect(ESTROGEN_EFFECT) && entity instanceof PlayerEntity) {
-            entity.getAttributeInstance(BOOB_INITIAL_SIZE).setBaseValue(0.0);
-            entity.getAttributeInstance(BOOB_GROWING_START_TIME).setBaseValue(-1.0);
+        if (!entity.hasEffect(ESTROGEN_EFFECT) && entity instanceof Player) {
+            entity.getAttribute(BOOB_INITIAL_SIZE.get()).setBaseValue(0.0);
+            entity.getAttribute(BOOB_GROWING_START_TIME.get()).setBaseValue(-1.0);
         }
     }
 
     public void resetDash(LivingEntity entity) {
-            if (entity instanceof ServerPlayerEntity player) {
-            player.getAttributeInstance(EstrogenAttributes.DASH_LEVEL).removeModifier(UUID.fromString("c2c16ccb-9acc-4f57-88e1-7b3e0c2ffe16"));
+            if (entity instanceof ServerPlayer player) {
+            player.getAttribute(EstrogenAttributes.DASH_LEVEL.get()).removeModifier(UUID.fromString("c2c16ccb-9acc-4f57-88e1-7b3e0c2ffe16"));
         }
         currentDashes = 0;
         onCooldown = false;
@@ -119,19 +115,19 @@ public class EstrogenEffect extends MobEffect {
     }
 
     @Override
-    public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+    public void addAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
 
-        if (entity instanceof ServerPlayerEntity player) {
-            EstrogenStatusEffectSender.sendPlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayerEntity[]::new));
+        if (entity instanceof ServerPlayer player) {
+            new EstrogenStatusEffectSender().sendPlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayerEntity[]::new));
         }
 
-        super.onApplied(entity, attributes, amplifier);
+        super.addAttributeModifiers(entity, attributes, amplifier);
 
-        EntityAttributeInstance attributeInstance = entity.getAttributeInstance(BOOB_GROWING_START_TIME);
+        AttributeInstance attributeInstance = entity.getAttribute(BOOB_GROWING_START_TIME.get());
         // should fix crash related to applying effect to entity without given attribute
         if (attributeInstance != null && attributeInstance.getBaseValue() < 0.0) {
-            double currentTime = Time.currentTime(entity.getWorld());
-            entity.getAttributeInstance(BOOB_GROWING_START_TIME).setBaseValue(currentTime);
+            double currentTime = Time.currentTime(entity.level());
+            entity.getAttribute(BOOB_GROWING_START_TIME.get()).setBaseValue(currentTime);
         }
     }
 }
