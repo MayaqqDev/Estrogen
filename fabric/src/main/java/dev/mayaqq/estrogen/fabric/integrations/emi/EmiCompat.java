@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.integrations.emi;
+package dev.mayaqq.estrogen.fabric.integrations.emi;
 
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.compat.emi.recipes.CreateEmiRecipe;
@@ -17,7 +17,7 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.integrations.emi.recipes.CentrifugingEmiRecipe;
+import dev.mayaqq.estrogen.fabric.integrations.emi.recipes.CentrifugingEmiRecipe;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenRecipes;
 import net.minecraft.item.BlockItem;
@@ -26,7 +26,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.registry.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -35,7 +40,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class EmiCompat implements EmiPlugin {
-    public static final Map<Identifier, EmiRecipeCategory> ALL = new LinkedHashMap<>();
+    public static final Map<ResourceLocation, EmiRecipeCategory> ALL = new LinkedHashMap<>();
 
     public static final EmiRecipeCategory
             CENTRIFUGING = register("centrifuging", EmiStack.of(EstrogenBlocks.CENTRIFUGE.get()));
@@ -56,8 +61,6 @@ public class EmiCompat implements EmiPlugin {
             }
         });
 
-        registerGeneratedRecipes(registry);
-
         ALL.forEach((id, category) -> registry.addCategory(category));
 
         registry.addWorkstation(CENTRIFUGING, EmiStack.of(EstrogenBlocks.CENTRIFUGE.get()));
@@ -67,50 +70,21 @@ public class EmiCompat implements EmiPlugin {
 
     @SuppressWarnings("unchecked")
     private <T extends Recipe<?>> void addAll(EmiRegistry registry, EstrogenRecipes type, Function<T, EmiRecipe> constructor) {
-        for (T recipe : (List<T>) registry.getRecipeManager().listAllOfType(type.getType())) {
+        for (T recipe : (List<T>) registry.getRecipeManager().getAllRecipesFor(type.getType())) {
             registry.addRecipe(constructor.apply(recipe));
         }
     }
 
     @SuppressWarnings("unchecked")
     private <T extends Recipe<?>> void addAll(EmiRegistry registry, AllRecipeTypes type, EmiRecipeCategory category, BiFunction<EmiRecipeCategory, T, EmiRecipe> constructor) {
-        for (T recipe : (List<T>) registry.getRecipeManager().listAllOfType(type.getType())) {
+        for (T recipe : (List<T>) registry.getRecipeManager().getAllRecipesFor(type.getType())) {
             registry.addRecipe(constructor.apply(category, recipe));
         }
     }
 
-    public void registerGeneratedRecipes(EmiRegistry registry) {
-        ToolboxColoringRecipeMaker.createRecipes().forEach(r -> {
-            ItemStack toolbox = null;
-            ItemStack dye = null;
-            for (Ingredient ingredient : r.getIngredients()) {
-                for (ItemStack stack : ingredient.getMatchingStacks()) {
-                    if (toolbox == null && stack.getItem() instanceof BlockItem block && block.getBlock() instanceof ToolboxBlock) {
-                        toolbox = stack;
-                    } else if (dye == null && stack.getItem() instanceof DyeItem) {
-                        dye = stack;
-                    }
-                    if (toolbox != null && dye != null) break;
-                }
-            }
-            if (toolbox == null || dye == null) return;
-            Identifier toolboxId = Registries.ITEM.getId(toolbox.getItem());
-            Identifier dyeId = Registries.ITEM.getId(dye.getItem());
-            String recipeName = "create/toolboxes/%s/%s/%s/%s"
-                    .formatted(toolboxId.getNamespace(), toolboxId.getPath(), dyeId.getNamespace(), dyeId.getPath());
-            registry.addRecipe(new EmiCraftingRecipe(
-                    r.getIngredients().stream().map(EmiIngredient::of).toList(),
-                    CreateEmiRecipe.getResultEmi(r), new Identifier("emi", recipeName)));
-        });
-        // for EMI we don't do this since it already has a category, World Interaction
-//		LogStrippingFakeRecipes.createRecipes().forEach(r -> {
-//			registry.addRecipe(new ItemApplicationEmiRecipe(r));
-//		});
-    }
-
     public static boolean doInputsMatch(Recipe<?> a, Recipe<?> b) {
         if (!a.getIngredients().isEmpty() && !b.getIngredients().isEmpty()) {
-            ItemStack[] matchingStacks = a.getIngredients().get(0).getMatchingStacks();
+            ItemStack[] matchingStacks = a.getIngredients().get(0).getItems();
             if (matchingStacks.length != 0) {
                 if (b.getIngredients().get(0).test(matchingStacks[0])) {
                     return true;
@@ -121,7 +95,7 @@ public class EmiCompat implements EmiPlugin {
     }
 
     private static EmiRecipeCategory register(String name, EmiRenderable icon) {
-        Identifier id = Estrogen.id(name);
+        ResourceLocation id = Estrogen.id(name);
         EmiRecipeCategory category = new EmiRecipeCategory(id, icon);
         ALL.put(id, category);
         return category;

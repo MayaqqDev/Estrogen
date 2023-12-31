@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.registry;
 
+import com.simibubi.create.foundation.fluid.FluidRenderer;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;

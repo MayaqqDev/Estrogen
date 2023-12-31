@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.fabric.platformSpecific;
 
+import dev.mayaqq.estrogen.networking.EstrogenStatusEffectSender;
 import dev.mayaqq.estrogen.networking.EstrogenStatusEffectSenderFabric;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,13 +12,13 @@ public class EstrogenFabricEvents {
     public static void register() {
         EntityTrackingEvents.START_TRACKING.register(((trackedEntity, player) -> {
             if (trackedEntity instanceof ServerPlayer trackedPlayer) {
-                new EstrogenStatusEffectSenderFabric().sendPlayerStatusEffect(trackedPlayer, ESTROGEN_EFFECT, player);
+                new EstrogenStatusEffectSender().sendPlayerStatusEffect(trackedPlayer, ESTROGEN_EFFECT, player);
             }
         }));
 
         EntityTrackingEvents.STOP_TRACKING.register(((trackedEntity, player) -> {
             if (trackedEntity instanceof ServerPlayer trackedPlayer) {
-                new EstrogenStatusEffectSenderFabric().sendRemovePlayerStatusEffect(trackedPlayer, ESTROGEN_EFFECT, player);
+                new EstrogenStatusEffectSender().sendRemovePlayerStatusEffect(trackedPlayer, ESTROGEN_EFFECT, player);
             }
         }));
     }

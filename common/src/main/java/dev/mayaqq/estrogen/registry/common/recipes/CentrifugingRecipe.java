@@ -13,14 +13,19 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressWarnings("UnstableApiUsage")
-public class CentrifugingRecipe extends ProcessingRecipe<SmartInventory> {
+public class CentrifugingRecipe extends ProcessingRecipe<DataInventory> {
     public CentrifugingRecipe(IRecipeTypeInfo typeInfo, ProcessingRecipeBuilder.ProcessingRecipeParams params) {
         super(typeInfo, params);
     }
@@ -31,8 +36,8 @@ public class CentrifugingRecipe extends ProcessingRecipe<SmartInventory> {
     }
 
     @Override
-    public boolean matches(SmartInventory inventory, Level world) {
-        CentrifugeBlockEntity be = ((DataInventory) inventory).getCentrifuge();
+    public boolean matches(DataInventory inventory, Level world) {
+        CentrifugeBlockEntity be = inventory.getCentrifuge();
         Storage<FluidVariant> storageUp = FluidStorage.SIDED.find(world, be.getPos().up(), Direction.DOWN);
         Storage<FluidVariant> storageDown = FluidStorage.SIDED.find(world, be.getPos().down(), Direction.UP);
 
@@ -61,8 +66,6 @@ public class CentrifugingRecipe extends ProcessingRecipe<SmartInventory> {
         });
         return matches.get();
     }
-
-
 
     @Override
     protected int getMaxInputCount() {

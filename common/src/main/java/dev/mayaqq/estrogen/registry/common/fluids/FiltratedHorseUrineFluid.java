@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.registry.common.fluids;
 
+import dev.architectury.core.fluid.ArchitecturyFlowingFluid;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

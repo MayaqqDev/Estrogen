@@ -31,6 +31,10 @@ dependencies {
     //Porting Lib
     modImplementation(include("io.github.fabricators_of_create.Porting-Lib:transfer:${project.porting_lib_version}"))
 
+    // EMI
+    modCompileOnly "dev.emi:emi-fabric:${project.emi_version}:api"
+    modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}"
+
     //Config
     modImplementation ("dev.isxander.yacl:yet-another-config-lib-fabric:${rootProject.yacl_version}") transitive false
 

@@ -1,8 +1,14 @@
 package dev.mayaqq.estrogen.registry.common;
 
+import com.simibubi.create.AllFluids;
+import dev.architectury.core.fluid.ArchitecturyFlowingFluid;
+import dev.architectury.core.item.ArchitecturyBucketItem;
+import dev.architectury.registry.registries.Registrar;
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.fluids.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -11,10 +17,16 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
 
+import static dev.mayaqq.estrogen.Estrogen.REGISTRATE;
 import static dev.mayaqq.estrogen.Estrogen.id;
 
 public class EstrogenFluids {
+
+    public static Registrar<Fluid> FLUIDS = Estrogen.MANAGER.get().get(Registries.FLUID);
+    public static Registrar<Item> FLUID_ITEMS = Estrogen.MANAGER.get().get(Registries.ITEM);
+
     public static FluidType MOLTEN_SLIME = register("molten_slime", new MoltenSlimeFluid.Still(), new MoltenSlimeFluid.Flowing());
     public static Block MOLTEN_SLIME_BLOCK = registerFluidBlock("molten_slime", MOLTEN_SLIME.still(), false);
     public static FluidType TESTOSTERONE_MIXTURE = register("testosterone_mixture", new TestosteroneMixtureFluid.Still(), new TestosteroneMixtureFluid.Flowing());
@@ -32,10 +44,11 @@ public class EstrogenFluids {
 
     public static FluidType register(String id, FlowingFluid still, FlowingFluid flowing) {
         return new FluidType(
-                Registry.register(BuiltInRegistries.FLUID, id(id), still),
-                Registry.register(BuiltInRegistries.FLUID, id("flowing_" + id), flowing),
-                EstrogenItems.register(id + "_bucket", new BucketItem(still, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1))
-        ));
+                FLUIDS.register(id, () -> new ArchitecturyFlowingFluid.Source(EXAMPLE_FLUID_ATTRIBUTES)),
+                FLUIDS.register("flowing_" + id, () -> new ArchitecturyFlowingFluid.Flowing(EXAMPLE_FLUID_ATTRIBUTES))
+                FLUID_ITEMS.register(id + "_bucket", () -> new ArchitecturyBucketItem(still, new Item.Properties().arch$tab(Estrogen.ESTROGEN_GROUP.get())))
+        );
+        AllFluids
     }
 
     public static Block registerFluidBlock(String id, FlowingFluid fluid, boolean water) {

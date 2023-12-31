@@ -1,8 +1,10 @@
 package dev.mayaqq.estrogen.networking;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
+import dev.architectury.networking.NetworkManager;
 import dev.mayaqq.estrogen.Estrogen;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.resources.ResourceLocation;
@@ -12,16 +14,14 @@ public class EstrogenS2C {
     public static final ResourceLocation REMOVE_STATUS_EFFECT_PACKET_ID = Estrogen.id("remove_status_effect");
 
     public static void register() {
-        ClientPlayNetworking.registerGlobalReceiver(STATUS_EFFECT_PACKET_ID, (client, handler, buf, responseSender) -> {
-            FriendlyByteBuf buffer = PacketByteBufs.copy(buf);
-            client.execute(() -> {
-                ClientboundUpdateMobEffectPacket packet = new ClientboundUpdateMobEffectPacket(buffer);
-                client.getConnection().handleUpdateMobEffect(packet);
-            });
-        });
+        handle(STATUS_EFFECT_PACKET_ID);
+        handle(REMOVE_STATUS_EFFECT_PACKET_ID);
+    }
 
-        ClientPlayNetworking.registerGlobalReceiver(REMOVE_STATUS_EFFECT_PACKET_ID, (client, handler, buf, responseSender) -> {
-            FriendlyByteBuf buffer = PacketByteBufs.copy(buf);
+    private static void handle(ResourceLocation removeStatusEffectPacketId) {
+        NetworkManager.registerReceiver(NetworkManager.Side.S2C, removeStatusEffectPacketId, (buf, context) -> {
+            FriendlyByteBuf buffer = new FriendlyByteBuf(buf.copy());
+            Minecraft client = Minecraft.getInstance();
             client.execute(() -> {
                 ClientboundUpdateMobEffectPacket packet = new ClientboundUpdateMobEffectPacket(buffer);
                 client.getConnection().handleUpdateMobEffect(packet);

@@ -1,5 +1,8 @@
 package dev.mayaqq.estrogen.networking;
 
+import dev.architectury.networking.NetworkManager;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -10,16 +13,16 @@ import net.minecraft.world.effect.MobEffectInstance;
 
 import java.lang.reflect.UndeclaredThrowableException;
 
-public class EstrogenStatusEffectSender { //idk if this'll work tbh im an idiot ngl -bagel
+public class EstrogenStatusEffectSender {
 
     public void sendPlayerStatusEffect(ServerPlayer player, MobEffect effect, ServerPlayer... targetPlayers) {
         MobEffectInstance effectInstance = player.getEffect(effect);
         if (effectInstance != null) {
             Packet<ClientGamePacketListener> packet = new ClientboundUpdateMobEffectPacket(player.getId(), effectInstance);
-            FriendlyByteBuf buf = PacketByteBufs.create();
+            FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
             packet.write(buf);
             for(ServerPlayer targetPlayer: targetPlayers) {
-                ServerPlayNetworking.send(targetPlayer, EstrogenS2C.STATUS_EFFECT_PACKET_ID, buf);
+                NetworkManager.sendToPlayer(targetPlayer, EstrogenS2C.STATUS_EFFECT_PACKET_ID, buf);
             }
         }
     }
@@ -28,10 +31,10 @@ public class EstrogenStatusEffectSender { //idk if this'll work tbh im an idiot 
         MobEffectInstance effectInstance = player.getEffect(effect);
         if (effectInstance != null) {
             Packet<ClientGamePacketListener> packet = new ClientboundUpdateMobEffectPacket(player.getId(), effectInstance);
-            FriendlyByteBuf buf = PacketByteBufs.create();
+            FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
             packet.write(buf);
             for (ServerPlayer targetPlayer : targetPlayers) {
-                ServerPlayNetworking.send(targetPlayer, EstrogenS2C.REMOVE_STATUS_EFFECT_PACKET_ID, buf);
+                NetworkManager.sendToPlayer(targetPlayer, EstrogenS2C.REMOVE_STATUS_EFFECT_PACKET_ID, buf);
             }
         }
     }
