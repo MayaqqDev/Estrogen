@@ -1,3 +1,4 @@
 accessWidener   v2  named
 accessible class net/minecraft/client/model/geom/ModelPart$Vertex
 accessible class net/minecraft/client/model/geom/ModelPart$Polygon
+accessible method net/minecraft/client/renderer/entity/LivingEntityRenderer addLayer (Lnet/minecraft/client/renderer/entity/layers/RenderLayer;)Z

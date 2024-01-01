@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.fabric.platformSpecific;
 
 import dev.mayaqq.estrogen.networking.EstrogenStatusEffectSender;
-import dev.mayaqq.estrogen.networking.EstrogenStatusEffectSenderFabric;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.minecraft.server.level.ServerPlayer;
 

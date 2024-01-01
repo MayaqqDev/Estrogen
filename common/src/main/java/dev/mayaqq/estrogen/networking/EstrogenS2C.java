@@ -1,9 +1,7 @@
 package dev.mayaqq.estrogen.networking;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
 import dev.architectury.networking.NetworkManager;
 import dev.mayaqq.estrogen.Estrogen;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;

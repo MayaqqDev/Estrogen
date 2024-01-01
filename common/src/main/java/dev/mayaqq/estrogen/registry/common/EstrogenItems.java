@@ -7,7 +7,9 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.items.EstrogenPatchesItem;
 import dev.mayaqq.estrogen.registry.common.items.HorseUrineBottleItem;
 import dev.mayaqq.estrogen.registry.common.items.UwUItem;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
 
 import static dev.mayaqq.estrogen.Estrogen.REGISTRATE;
 

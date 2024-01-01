@@ -1,17 +1,17 @@
 package dev.mayaqq.estrogen.registry.common.effects;
 
-import dev.mayaqq.estrogen.Estrogen;
+import dev.architectury.networking.NetworkManager;
 import dev.mayaqq.estrogen.client.Dash;
 import dev.mayaqq.estrogen.networking.EstrogenC2S;
 import dev.mayaqq.estrogen.networking.EstrogenStatusEffectSender;
 import dev.mayaqq.estrogen.registry.EstrogenKeybinds;
 import dev.mayaqq.estrogen.registry.common.EstrogenAttributes;
+import dev.mayaqq.estrogen.utils.PlayerLookup;
 import dev.mayaqq.estrogen.utils.Time;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -55,7 +55,7 @@ public class EstrogenEffect extends MobEffect {
 
         // Dash particles
         if (dashCooldown > 0 && dashCooldown % 2 == 0 && entity.blockPosition() != lastPos) {
-            ClientPlayNetworking.send(EstrogenC2S.DASH_PARTICLES, PacketByteBufs.empty());
+            NetworkManager.sendToServer(EstrogenC2S.DASH_PARTICLES, new FriendlyByteBuf(Unpooled.buffer()));
         }
         lastPos = entity.blockPosition();
 
@@ -63,7 +63,7 @@ public class EstrogenEffect extends MobEffect {
         if (entity instanceof Player player && player.level().isClientSide) {
             Minecraft client = Minecraft.getInstance();
             if (dashCooldown > 0 && shouldWaveDash && client.options.keyJump.isDown()) {
-                player.setDeltaMovement(player.getRotationVector().x * 3, 1, player.getRotationVector().z * 3);
+                player.setDeltaMovement(player.getLookAngle().x * 3, 1, player.getLookAngle().z * 3);
                 shouldWaveDash = false;
             }
 
@@ -80,8 +80,8 @@ public class EstrogenEffect extends MobEffect {
                 }
                 dashCooldown = 10;
                 currentDashes--;
-                player.setDeltaMovement(player.getRotationVector().x * 2, player.getRotationVector().y * 2, player.getRotationVector().z * 2);
-                ClientPlayNetworking.send(Estrogen.id("dash"), PacketByteBufs.empty());
+                player.setDeltaMovement(player.getLookAngle().x * 2, player.getLookAngle().y * 2, player.getLookAngle().z * 2);
+                NetworkManager.sendToServer(EstrogenC2S.DASH, new FriendlyByteBuf(Unpooled.buffer()));
             }
         }
     }
@@ -93,7 +93,7 @@ public class EstrogenEffect extends MobEffect {
     @Override
     public void removeAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
         if (entity instanceof ServerPlayer player) {
-            new EstrogenStatusEffectSender().sendRemovePlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayerEntity[]::new));
+            new EstrogenStatusEffectSender().sendRemovePlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
         }
 
         resetDash(entity);
@@ -118,7 +118,7 @@ public class EstrogenEffect extends MobEffect {
     public void addAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
 
         if (entity instanceof ServerPlayer player) {
-            new EstrogenStatusEffectSender().sendPlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayerEntity[]::new));
+            new EstrogenStatusEffectSender().sendPlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
         }
 
         super.addAttributeModifiers(entity, attributes, amplifier);

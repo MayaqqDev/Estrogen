@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.registry.common;
 
-import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
@@ -9,7 +8,6 @@ import com.simibubi.create.foundation.utility.Lang;
 import dev.architectury.registry.registries.Registrar;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;

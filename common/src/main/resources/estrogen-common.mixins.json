@@ -4,14 +4,18 @@
   "package": "dev.mayaqq.estrogen.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "accessor.EntityTrackerAccessor",
+    "accessor.ThreadedAnvilChunkStorageAccessor"
   ],
   "client": [
     "client.ClientPlayNetworkHandlerMixin",
     "client.PlayerEntityModelMixin",
+    "client.PlayerEntityRendererMixin",
     "client.TextRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "refmap": ""
 }

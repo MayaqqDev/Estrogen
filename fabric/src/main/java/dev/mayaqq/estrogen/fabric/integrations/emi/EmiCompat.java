@@ -1,36 +1,22 @@
 package dev.mayaqq.estrogen.fabric.integrations.emi;
 
 import com.simibubi.create.AllRecipeTypes;
-import com.simibubi.create.compat.emi.recipes.CreateEmiRecipe;
-import com.simibubi.create.compat.rei.ToolboxColoringRecipeMaker;
-import com.simibubi.create.content.equipment.toolbox.ToolboxBlock;
 import com.simibubi.create.content.fluids.VirtualFluid;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.item.TagDependentIngredientItem;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
-import dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiRenderable;
-import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.fabric.integrations.emi.recipes.CentrifugingEmiRecipe;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenRecipes;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.registry.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 
 import java.util.LinkedHashMap;
