@@ -3,7 +3,6 @@ package dev.mayaqq.estrogen.forge.platformSpecific;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import dev.mayaqq.estrogen.registry.common.blockEntities.CentrifugeBlockEntity;
 import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
-import dev.mayaqq.estrogen.registry.common.recipes.common.DataInventory;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -14,8 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CentrifugingRecipeMatchesImpl {
     @org.jetbrains.annotations.Contract
-    public static boolean matches(DataInventory inventory, Level world, CentrifugingRecipe recipe) {
-        CentrifugeBlockEntity be = inventory.getCentrifuge();
+    public static boolean matches(CentrifugeBlockEntity be, Level world, CentrifugingRecipe recipe) {
         Level level = be.getLevel();
         BlockEntity up = level.getBlockEntity(be.getBlockPos().above());
         BlockEntity down = level.getBlockEntity(be.getBlockPos().below());

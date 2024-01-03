@@ -3,7 +3,6 @@ package dev.mayaqq.estrogen.fabric.platformSpecific;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import dev.mayaqq.estrogen.registry.common.blockEntities.CentrifugeBlockEntity;
 import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
-import dev.mayaqq.estrogen.registry.common.recipes.common.DataInventory;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
@@ -16,8 +15,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CentrifugingRecipeMatchesImpl {
     @org.jetbrains.annotations.Contract
-    public static boolean matches(DataInventory inventory, Level world, CentrifugingRecipe recipe) {
-        CentrifugeBlockEntity be = inventory.getCentrifuge();
+    public static boolean matches(CentrifugeBlockEntity be, Level world, CentrifugingRecipe recipe) {
         Storage<FluidVariant> storageUp = FluidStorage.SIDED.find(world, be.getBlockPos().above(), Direction.DOWN);
         Storage<FluidVariant> storageDown = FluidStorage.SIDED.find(world, be.getBlockPos().below(), Direction.UP);
 

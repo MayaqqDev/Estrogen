@@ -1,5 +1,11 @@
 repositories {
     maven { url = "https://repo.unascribed.com" } // Ears
+    maven { url = "https://maven.terraformersmc.com/releases/" } // Mod Menu
+    maven { url = "https://mvn.devos.one/snapshots/" } // Create Fabric, Porting Lib, Forge Tags, Milk Lib, Registrate Fabric
+    maven { url = "https://cursemaven.com" } // Forge Config API Port
+    maven { url = "https://maven.cafeteria.dev/releases" } // Fake Player API
+    maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
+    maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM
 }
 
 dependencies {
@@ -10,9 +16,7 @@ dependencies {
     modApi ("dev.architectury:architectury:${rootProject.architectury_version}")
 
     // Create
-    modCompileOnly("com.simibubi.create:create-${rootProject.minecraft_version}:${rootProject.create_version_forge}:slim") transitive false
-    modCompileOnly ("com.jozufozu.flywheel:flywheel-forge-1.20.1:${rootProject.flywheel_version}")
-    modCompileOnly ("com.tterrag.registrate:Registrate:${rootProject.registrate_version}")
+    modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${rootProject.create_fabric_version}")
 
     // Config
     modCompileOnly ("dev.isxander.yacl:yet-another-config-lib-forge:${rootProject.yacl_version}") transitive false

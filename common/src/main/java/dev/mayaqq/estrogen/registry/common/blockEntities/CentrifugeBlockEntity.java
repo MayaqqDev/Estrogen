@@ -2,7 +2,7 @@ package dev.mayaqq.estrogen.registry.common.blockEntities;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import dev.mayaqq.estrogen.registry.common.EstrogenRecipes;
-import dev.mayaqq.estrogen.registry.common.recipes.common.DataInventory;
+import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -20,7 +20,8 @@ public class CentrifugeBlockEntity extends KineticBlockEntity {
         super.tick();
         if (level.isClientSide) return;
         level.getServer().getRecipeManager().getAllRecipesFor(EstrogenRecipes.CENTRIFUGING.getType()).forEach(recipe -> {
-            recipe.matches((Container) new DataInventory(1, this), level);
+            ((CentrifugingRecipe) (Object) recipe).setBlockEntity(this);
+            recipe.matches(null, level);
         });
     }
 }
