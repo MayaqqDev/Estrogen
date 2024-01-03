@@ -3,8 +3,8 @@ package dev.mayaqq.estrogen.client;
 import dev.architectury.platform.Platform;
 import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
 import dev.mayaqq.estrogen.networking.EstrogenS2C;
-import dev.mayaqq.estrogen.registry.EstrogenKeybinds;
-import dev.mayaqq.estrogen.registry.EstrogenModelPredicateProviders;
+import dev.mayaqq.estrogen.registry.client.EstrogenKeybinds;
+import dev.mayaqq.estrogen.registry.client.EstrogenModelPredicateProviders;
 import dev.mayaqq.estrogen.registry.client.EstrogenRenderer;
 
 import static dev.mayaqq.estrogen.Estrogen.LOGGER;

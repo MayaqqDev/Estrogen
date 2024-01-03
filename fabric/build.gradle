@@ -16,7 +16,13 @@ configurations {
 }
 
 repositories {
-    maven { url = "https://mvn.devos.one/snapshots/" } // Create, registrate
+    maven { url = "https://maven.shedaniel.me" } // REI
+    maven { url = "https://maven.terraformersmc.com/releases/" } // Mod Menu
+    maven { url = "https://mvn.devos.one/snapshots/" } // Create Fabric, Porting Lib, Forge Tags, Milk Lib, Registrate Fabric
+    maven { url = "https://cursemaven.com" } // Forge Config API Port
+    maven { url = "https://maven.cafeteria.dev/releases" } // Fake Player API
+    maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
+    maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM
 }
 
 dependencies {
@@ -26,8 +32,7 @@ dependencies {
     modApi ("dev.architectury:architectury-fabric:${rootProject.architectury_version}")
 
     //Create
-    modImplementation ("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${project.create_version}+mc${rootProject.minecraft_version}") transitive false
-    modApi ("com.tterrag.registrate_fabric:Registrate:${project.registrate_version}") transitive false
+    modImplementation ("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${project.create_version}+mc${rootProject.minecraft_version}")
 
     //Porting Lib
     modImplementation(include("io.github.fabricators_of_create.Porting-Lib:transfer:${project.porting_lib_version}"))
@@ -36,8 +41,8 @@ dependencies {
     modCompileOnly "dev.emi:emi-fabric:${project.emi_version}:api"
     modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}"
 
-    //Config
-    modImplementation ("dev.isxander.yacl:yet-another-config-lib-fabric:${rootProject.yacl_version}") transitive false
+    // REI
+    modCompileOnly ("me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}")
 
     //Mod Menu
     modImplementation ("com.terraformersmc:modmenu:${project.modmenu_version}")
@@ -68,7 +73,7 @@ shadowJar {
 remapJar {
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
-    archiveClassifier.set(null)
+    archiveClassifier.set("-fabric")
 }
 
 jar {
@@ -99,6 +104,7 @@ publishing {
 }
 
 loom {
+    accessWidenerPath = file("src/main/resources/estrogen.accesswidener")
     runs {
         datagen {
             inherit server

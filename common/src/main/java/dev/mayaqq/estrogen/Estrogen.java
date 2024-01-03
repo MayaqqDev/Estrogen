@@ -6,17 +6,22 @@ import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
+import dev.architectury.event.EventResult;
+import dev.architectury.event.events.common.InteractionEvent;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrarManager;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
-import dev.mayaqq.estrogen.registry.common.EstrogenItems;
+import dev.mayaqq.estrogen.registry.common.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +48,7 @@ public class Estrogen {
     );
 
     public static EstrogenConfig CONFIG() {
-        return EstrogenConfig.HANDLER.instance();
+        return new EstrogenConfig();
     }
 
     static {
@@ -58,6 +63,32 @@ public class Estrogen {
     }
 
     public static void init() {
-        EstrogenConfig.HANDLER.load();
+        EstrogenAttributes.register();
+        EstrogenBlockEntities.register();
+        EstrogenBlocks.register();
+        EstrogenEffects.register();
+        EstrogenEnchantments.register();
+        EstrogenEvents.register();
+        EstrogenFluidAttributes.register();
+        EstrogenFluids.register();
+        EstrogenItems.register();
+        EstrogenPonderScenes.register();
+        EstrogenRecipes.register();
+        EstrogenSounds.register();
+
+        InteractionEvent.INTERACT_ENTITY.register((player, entity, hand) -> {
+            ItemStack stack = player.getItemInHand(hand);
+            if (entity instanceof Horse horse) {
+                if (!horse.isBaby()) {
+                    if (stack.getItem() == Items.GLASS_BOTTLE) {
+                        stack.shrink(1);
+                        player.playSound(SoundEvents.BOTTLE_FILL_DRAGONBREATH, 1.0f, 1.0f);
+                        player.addItem(new ItemStack(EstrogenItems.HORSE_URINE_BOTTLE.get()));
+                        return EventResult.interruptTrue();
+                    }
+                }
+            }
+            return EventResult.pass();
+        });
     }
 }

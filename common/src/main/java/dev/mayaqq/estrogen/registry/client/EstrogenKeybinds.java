@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.registry;
+package dev.mayaqq.estrogen.registry.client;
 
 import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import net.minecraft.client.KeyMapping;

@@ -17,11 +17,11 @@ public class EstrogenFillingRecipes extends ProcessingRecipeGen {
     GeneratedRecipe
         CRYSTAL_ESTROGEN_PILL = create(id("crystal_estrogen_pill"), recipeBuilder -> recipeBuilder
                 .require(EstrogenItems.ESTROGEN_PILL)
-                .require(EstrogenFluids.MOLTEN_AMETHYST.still(), 27000)
+                .require(EstrogenFluids.MOLTEN_AMETHYST.still().get(), 27000)
                 .output(EstrogenItems.CRYSTAL_ESTROGEN_PILL, 1)),
         ESTROGEN_PILL = create(id("estrogen_pill"), recipeBuilder -> recipeBuilder
                 .require(Items.COOKIE)
-                .require(EstrogenFluids.LIQUID_ESTROGEN.still(), 27000)
+                .require(EstrogenFluids.LIQUID_ESTROGEN.still().get(), 27000)
                 .output(EstrogenItems.ESTROGEN_PILL, 1)),
         FILTER = create(id("filter"), recipeBuilder -> recipeBuilder
                 .require(EstrogenItems.USED_FILTER)

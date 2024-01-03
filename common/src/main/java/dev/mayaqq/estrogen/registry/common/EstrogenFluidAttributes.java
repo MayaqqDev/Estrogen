@@ -26,6 +26,8 @@ public class EstrogenFluidAttributes {
     public static final SimpleArchitecturyFluidAttributes HORSE_URINE = waterLike("horse_urine", EstrogenFluids.HORSE_URINE.still(), EstrogenFluids.HORSE_URINE.flowing(), 0x8C8B05);
     public static final SimpleArchitecturyFluidAttributes MOLTEN_AMETHYST = lavaLike("molten_amethyst", EstrogenFluids.MOLTEN_AMETHYST.still(), EstrogenFluids.MOLTEN_AMETHYST.flowing(), 0xAE7AFD);
 
+    public static void register() {}
+
     public static SimpleArchitecturyFluidAttributes waterLike(String id, RegistrySupplier<? extends FlowingFluid> still, RegistrySupplier<? extends FlowingFluid> flowing, int color) {
         return SimpleArchitecturyFluidAttributes.of(still, flowing)
                 .blockSupplier(() -> FLUID_BLOCKS.register(Estrogen.id(id + "_block"), () -> new ArchitecturyLiquidBlock(still, BlockBehaviour.Properties.copy(Blocks.WATER))))

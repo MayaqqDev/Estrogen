@@ -23,13 +23,12 @@ public class EstrogenTags {
         public ItemTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
             super(output, completableFuture);
         }
-
         @Override
-        protected void configure(HolderLookup.Provider arg) {
+        protected void addTags(HolderLookup.Provider arg) {
             getOrCreateTagBuilder(THIGHS)
-                    .add(EstrogenItems.ESTROGEN_PATCHES);
+                    .add(EstrogenItems.ESTROGEN_PATCHES.get());
             getOrCreateTagBuilder(dev.mayaqq.estrogen.registry.common.EstrogenTags.UWUFYING)
-                    .add(EstrogenItems.UWU);
+                    .add(EstrogenItems.UWU.get());
         }
     }
 
@@ -42,7 +41,7 @@ public class EstrogenTags {
         }
 
         @Override
-        protected void configure(HolderLookup.Provider arg) {
+        protected void addTags(HolderLookup.Provider arg) {
             getOrCreateTagBuilder(PICKAXE_MINABLE)
                     .add(EstrogenBlocks.CENTRIFUGE.get());
         }
@@ -59,16 +58,16 @@ public class EstrogenTags {
         }
 
         @Override
-        protected void configure(HolderLookup.Provider arg) {
+        protected void addTags(HolderLookup.Provider arg) {
             getOrCreateTagBuilder(WATER)
-                    .add(EstrogenFluids.LIQUID_ESTROGEN.still()).add(EstrogenFluids.LIQUID_ESTROGEN.flowing())
-                    .add(EstrogenFluids.HORSE_URINE.still()).add(EstrogenFluids.HORSE_URINE.flowing())
-                    .add(EstrogenFluids.FILTRATED_HORSE_URINE.still()).add(EstrogenFluids.FILTRATED_HORSE_URINE.flowing())
-                    .add(EstrogenFluids.TESTOSTERONE_MIXTURE.still()).add(EstrogenFluids.TESTOSTERONE_MIXTURE.flowing());
+                    .add(EstrogenFluids.LIQUID_ESTROGEN.still().get()).add(EstrogenFluids.LIQUID_ESTROGEN.flowing().get())
+                    .add(EstrogenFluids.HORSE_URINE.still().get()).add(EstrogenFluids.HORSE_URINE.flowing().get())
+                    .add(EstrogenFluids.FILTRATED_HORSE_URINE.still().get()).add(EstrogenFluids.FILTRATED_HORSE_URINE.flowing().get())
+                    .add(EstrogenFluids.TESTOSTERONE_MIXTURE.still().get()).add(EstrogenFluids.TESTOSTERONE_MIXTURE.flowing().get());
 
             getOrCreateTagBuilder(LAVA)
-                    .add(EstrogenFluids.MOLTEN_AMETHYST.still()).add(EstrogenFluids.MOLTEN_AMETHYST.flowing())
-                    .add(EstrogenFluids.MOLTEN_SLIME.still()).add(EstrogenFluids.MOLTEN_SLIME.flowing());
+                    .add(EstrogenFluids.MOLTEN_AMETHYST.still().get()).add(EstrogenFluids.MOLTEN_AMETHYST.flowing().get())
+                    .add(EstrogenFluids.MOLTEN_SLIME.still().get()).add(EstrogenFluids.MOLTEN_SLIME.flowing().get());
         }
     }
 
@@ -78,7 +77,7 @@ public class EstrogenTags {
         }
 
         @Override
-        protected void configure(HolderLookup.Provider arg) {}
+        protected void addTags(HolderLookup.Provider arg) {}
     }
 
     private static ResourceLocation mcId(String path) {

@@ -18,9 +18,6 @@ dependencies {
     // Create
     modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${rootProject.create_fabric_version}")
 
-    // Config
-    modCompileOnly ("dev.isxander.yacl:yet-another-config-lib-forge:${rootProject.yacl_version}") transitive false
-
     // Ears
     implementation ("com.unascribed:ears-api:${project.ears_version}")
 

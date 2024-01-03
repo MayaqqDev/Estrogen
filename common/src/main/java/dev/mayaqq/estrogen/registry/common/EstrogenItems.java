@@ -42,7 +42,8 @@ public class EstrogenItems {
     public static class EstrogenProperties extends Item.Properties {
         public EstrogenProperties() {
             super();
-            this.arch$tab(Estrogen.ESTROGEN_GROUP.get());
+            //TODO: FIX THIS
+            //this.arch$tab(Estrogen.ESTROGEN_GROUP.get());
         }
     }
 }

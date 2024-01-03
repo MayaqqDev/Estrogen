@@ -2,19 +2,19 @@ package dev.mayaqq.estrogen.registry.common.recipes;
 
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
-import com.simibubi.create.foundation.item.SmartInventory;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.mayaqq.estrogen.platformSpecific.CentrifugingRecipeMatches;
 import dev.mayaqq.estrogen.registry.common.EstrogenRecipes;
 import dev.mayaqq.estrogen.registry.common.blockEntities.CentrifugeBlockEntity;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public class CentrifugingRecipe extends ProcessingRecipe<SmartInventory> {
+public class CentrifugingRecipe extends ProcessingRecipe<Inventory> {
     CentrifugeBlockEntity blockEntity;
     public CentrifugingRecipe(IRecipeTypeInfo typeInfo, ProcessingRecipeBuilder.ProcessingRecipeParams params) {
         super(typeInfo, params);
@@ -29,11 +29,11 @@ public class CentrifugingRecipe extends ProcessingRecipe<SmartInventory> {
         this(EstrogenRecipes.CENTRIFUGING, params);
     }
 
-    public boolean matches(SmartInventory inventory, Level world) {
+    public boolean matches(Inventory inventory, Level world) {
         return CentrifugingRecipeMatches.matches(blockEntity, world, this);
     }
 
-    public ItemStack assemble(SmartInventory container, RegistryAccess registryAccess) {
+    public ItemStack assemble(Inventory container, RegistryAccess registryAccess) {
         return getResultItem(registryAccess);
     }
 

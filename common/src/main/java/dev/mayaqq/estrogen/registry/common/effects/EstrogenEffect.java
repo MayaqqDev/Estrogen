@@ -4,7 +4,7 @@ import dev.architectury.networking.NetworkManager;
 import dev.mayaqq.estrogen.client.Dash;
 import dev.mayaqq.estrogen.networking.EstrogenC2S;
 import dev.mayaqq.estrogen.networking.EstrogenStatusEffectSender;
-import dev.mayaqq.estrogen.registry.EstrogenKeybinds;
+import dev.mayaqq.estrogen.registry.client.EstrogenKeybinds;
 import dev.mayaqq.estrogen.registry.common.EstrogenAttributes;
 import dev.mayaqq.estrogen.utils.PlayerLookup;
 import dev.mayaqq.estrogen.utils.Time;

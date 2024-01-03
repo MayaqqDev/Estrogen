@@ -25,21 +25,4 @@ public class EstrogenForgeEvents {
             }
         }
     }
-
-    @SubscribeEvent
-    private void interactHorse(PlayerInteractEvent.EntityInteractSpecific event) {
-        Entity target = event.getTarget();
-        Player player = event.getEntity();
-        ItemStack stack = event.getItemStack();
-        if (target instanceof Horse horse) {
-            if (!horse.isBaby()) {
-                if (stack.getItem() == Items.GLASS_BOTTLE) {
-                    stack.shrink(1);
-                    player.playSound(SoundEvents.BOTTLE_FILL_DRAGONBREATH, 1.0f, 1.0f);
-                    player.addItem(new ItemStack(EstrogenItems.HORSE_URINE_BOTTLE.get()));
-                    event.setCancellationResult(InteractionResult.SUCCESS);
-                }
-            }
-        }
-    }
 }

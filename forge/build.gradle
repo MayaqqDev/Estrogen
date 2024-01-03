@@ -25,9 +25,6 @@ dependencies {
     modImplementation ("com.jozufozu.flywheel:flywheel-forge-1.20.1:${rootProject.flywheel_version}")
     modImplementation ("com.tterrag.registrate:Registrate:${rootProject.registrate_version}")
 
-    //Config
-    modImplementation ("dev.isxander.yacl:yet-another-config-lib-forge:${rootProject.yacl_version}") transitive false
-
     //Mixin Extras
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${project.mixin_extras_version}"))
     implementation(include("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras_version}"))
@@ -57,7 +54,7 @@ shadowJar {
 remapJar {
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
-    archiveClassifier.set(null)
+    archiveClassifier.set("-forge")
 }
 
 jar {

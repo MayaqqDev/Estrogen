@@ -1,8 +1,7 @@
 package dev.mayaqq.estrogen.fabric.integrations.rei;
 
 import com.simibubi.create.Create;
-import com.simibubi.create.compat.rei.CreateREI;
-import com.simibubi.create.compat.rei.ToolboxColoringRecipeMaker;
+import com.simibubi.create.compat.rei.*;
 import com.simibubi.create.compat.rei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.rei.display.CreateDisplay;
 import com.simibubi.create.content.fluids.VirtualFluid;
@@ -18,9 +17,7 @@ import dev.mayaqq.estrogen.fabric.integrations.rei.categories.CentrifugingCatego
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenRecipes;
 import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
-import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.RecipeManagerAccessor;
 import me.shedaniel.rei.api.client.gui.Renderer;
-import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.entry.EntryRegistry;
@@ -36,6 +33,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.ItemLike;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -45,7 +43,7 @@ import java.util.function.Supplier;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
 
-public class ReiCompat implements REIClientPlugin {
+public class ReiCompat extends CreateREI {
 
     private static final ResourceLocation ID = id("rei_plugin");
     final List<CreateRecipeCategory<?>> ALL = new ArrayList<>();
@@ -234,7 +232,7 @@ public class ReiCompat implements REIClientPlugin {
             return this;
         }
 
-        public CategoryBuilder<T> catalyst(Supplier<ItemConvertible> supplier) {
+        public CategoryBuilder<T> catalyst(Supplier<ItemLike> supplier) {
             return catalystStack(() -> new ItemStack(supplier.get()
                     .asItem()));
         }
@@ -244,12 +242,12 @@ public class ReiCompat implements REIClientPlugin {
             return this;
         }
 
-        public CategoryBuilder<T> itemIcon(ItemConvertible item) {
+        public CategoryBuilder<T> itemIcon(ItemLike item) {
             icon(new ItemIcon(() -> new ItemStack(item)));
             return this;
         }
 
-        public CategoryBuilder<T> doubleItemIcon(ItemConvertible item1, ItemConvertible item2) {
+        public CategoryBuilder<T> doubleItemIcon(ItemLike item1, ItemLike item2) {
             icon(new DoubleItemIcon(() -> new ItemStack(item1), () -> new ItemStack(item2)));
             return this;
         }
@@ -321,9 +319,9 @@ public class ReiCompat implements REIClientPlugin {
     }
 
     public static <T extends Recipe<?>> void consumeTypedRecipes(Consumer<T> consumer, RecipeType<?> type) {
-        Map<ResourceLocation, Recipe<?>> map = ((RecipeManagerAccessor) Minecraft.getInstance()
-                .getNetworkHandler()
-                .getRecipeManager()).port_lib$getRecipes().get(type);
+        Map<ResourceLocation, Recipe<?>> map = Minecraft.getInstance()
+                .getConnection()
+                .getRecipeManager().recipes.get(type);
         if (map != null) {
             map.values().forEach(recipe -> consumer.accept((T) recipe));
         }
