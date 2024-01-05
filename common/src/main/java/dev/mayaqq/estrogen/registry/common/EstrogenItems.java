@@ -32,7 +32,7 @@ public class EstrogenItems {
     public static final ItemEntry<SequencedAssemblyItem> INCOMPLETE_UWU = REGISTRATE.item("incomplete_uwu", SequencedAssemblyItem::new).properties(p -> p.stacksTo(1)).register();
 
     private static ItemEntry<Item> normalItem(String name, Item.Properties properties) {
-        return Create.REGISTRATE.item(name, Item::new)
+        return Estrogen.REGISTRATE.item(name, Item::new)
                 .properties(p -> properties)
                 .register();
     }
@@ -42,8 +42,7 @@ public class EstrogenItems {
     public static class EstrogenProperties extends Item.Properties {
         public EstrogenProperties() {
             super();
-            //TODO: FIX THIS
-            //this.arch$tab(Estrogen.ESTROGEN_GROUP.get());
+            this.arch$tab(EstrogenCreativeTab.ESTROGEN_TAB);
         }
     }
 }

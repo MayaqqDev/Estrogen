@@ -1,12 +1,9 @@
 package dev.mayaqq.estrogen.fabric;
 
-import dev.architectury.event.events.common.InteractionEvent;
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.fabric.platformSpecific.EstrogenFabricEvents;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingEntityDamageEvents;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.player.Player;
 

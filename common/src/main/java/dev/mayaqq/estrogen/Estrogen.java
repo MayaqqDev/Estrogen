@@ -36,17 +36,6 @@ public class Estrogen {
 
     public static final Supplier<RegistrarManager> MANAGER = Suppliers.memoize(() -> RegistrarManager.get(MOD_ID));
 
-    public static final DeferredRegister<CreativeModeTab> TABS =
-            DeferredRegister.create(Estrogen.MOD_ID, Registries.CREATIVE_MODE_TAB);
-
-    public static final RegistrySupplier<CreativeModeTab> ESTROGEN_GROUP = TABS.register(
-            "estrogen",
-            () -> CreativeTabRegistry.create(
-                    Component.translatable("itemGroup.estrogen"), // Tab Name
-                    () -> new ItemStack(EstrogenItems.ESTROGEN_PILL) // Icon
-            )
-    );
-
     public static EstrogenConfig CONFIG() {
         return new EstrogenConfig();
     }
@@ -63,6 +52,7 @@ public class Estrogen {
     }
 
     public static void init() {
+        EstrogenCreativeTab.register();
         EstrogenAttributes.register();
         EstrogenBlockEntities.register();
         EstrogenBlocks.register();
@@ -75,6 +65,8 @@ public class Estrogen {
         EstrogenPonderScenes.register();
         EstrogenRecipes.register();
         EstrogenSounds.register();
+
+        REGISTRATE.register();
 
         InteractionEvent.INTERACT_ENTITY.register((player, entity, hand) -> {
             ItemStack stack = player.getItemInHand(hand);

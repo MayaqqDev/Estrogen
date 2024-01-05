@@ -19,7 +19,8 @@ public class EstrogenBlocks {
             .properties(p -> p.mapColor(MapColor.COLOR_ORANGE))
             .transform(BlockStressDefaults.setImpact(8.0))
             .item()
-            .properties(p -> p.arch$tab(Estrogen.ESTROGEN_GROUP.get()))
+            //TODO: FIX ITEM GROUP
+            .properties(p -> p.arch$tab(EstrogenCreativeTab.ESTROGEN_TAB))
             .transform(customItemModel())
             .addLayer(() -> RenderType::cutout)
             .register();

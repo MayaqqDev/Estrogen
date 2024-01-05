@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.fabric.platformSpecific;
+package dev.mayaqq.estrogen.fabric;
 
 import dev.mayaqq.estrogen.networking.EstrogenStatusEffectSender;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;

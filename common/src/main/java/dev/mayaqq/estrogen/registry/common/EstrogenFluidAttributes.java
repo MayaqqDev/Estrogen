@@ -31,7 +31,7 @@ public class EstrogenFluidAttributes {
     public static SimpleArchitecturyFluidAttributes waterLike(String id, RegistrySupplier<? extends FlowingFluid> still, RegistrySupplier<? extends FlowingFluid> flowing, int color) {
         return SimpleArchitecturyFluidAttributes.of(still, flowing)
                 .blockSupplier(() -> FLUID_BLOCKS.register(Estrogen.id(id + "_block"), () -> new ArchitecturyLiquidBlock(still, BlockBehaviour.Properties.copy(Blocks.WATER))))
-                .bucketItemSupplier(() -> FLUID_ITEMS.register(Estrogen.id(id + "_bucket"), () -> new ArchitecturyBucketItem(still, new Item.Properties().arch$tab(Estrogen.ESTROGEN_GROUP.get()))))
+                .bucketItemSupplier(() -> FLUID_ITEMS.register(Estrogen.id(id + "_bucket"), () -> new ArchitecturyBucketItem(still, new Item.Properties().arch$tab(EstrogenCreativeTab.ESTROGEN_TAB))))
                 .flowingTexture(new ResourceLocation("minecraft", "block/water_flow"))
                 .sourceTexture(new ResourceLocation("minecraft", "block/water_still"))
                 .color(color)
@@ -41,7 +41,7 @@ public class EstrogenFluidAttributes {
     public static SimpleArchitecturyFluidAttributes lavaLike(String id, RegistrySupplier<? extends FlowingFluid> still, RegistrySupplier<? extends FlowingFluid> flowing, int color) {
         return SimpleArchitecturyFluidAttributes.of(still, flowing)
                 .blockSupplier(() -> FLUID_BLOCKS.register(Estrogen.id(id + "_block"), () -> new ArchitecturyLiquidBlock(still, BlockBehaviour.Properties.copy(Blocks.LAVA))))
-                .bucketItemSupplier(() -> FLUID_ITEMS.register(Estrogen.id(id + "_bucket"), () -> new ArchitecturyBucketItem(still, new Item.Properties().arch$tab(Estrogen.ESTROGEN_GROUP.get()))))
+                .bucketItemSupplier(() -> FLUID_ITEMS.register(Estrogen.id(id + "_bucket"), () -> new ArchitecturyBucketItem(still, new Item.Properties().arch$tab(EstrogenCreativeTab.ESTROGEN_TAB))))
                 .flowingTexture(Estrogen.id("block/blank_lava/blank_lava_flow"))
                 .sourceTexture(Estrogen.id("block/blank_lava/blank_lava_still"))
                 .color(color)

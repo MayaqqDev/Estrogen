@@ -23,7 +23,7 @@ public class EstrogenC2S {
             server.execute(() -> {
                 if (player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT)) {
                     ServerLevel world = player.serverLevel();
-                    world.playSound(null, player.blockPosition(), EstrogenSounds.DASH.getMainEvent(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                    world.playSound(null, player.blockPosition(), EstrogenSounds.DASH.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
                     // summon particles around player
                     world.sendParticles(ParticleTypes.CLOUD, player.getX(), player.getY(), player.getZ(), 10, 0.5, 0.5, 0.5, 0.5);
                 }

@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.forge.platformSpecific;
+package dev.mayaqq.estrogen.platformSpecific.forge;
 
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import dev.mayaqq.estrogen.registry.common.blockEntities.CentrifugeBlockEntity;

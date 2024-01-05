@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.forge.platformSpecific;
+package dev.mayaqq.estrogen.platformSpecific.forge;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.fluid.FluidRenderer;
