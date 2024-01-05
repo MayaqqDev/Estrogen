@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen;
 
 import com.google.common.base.Suppliers;
+import com.jozufozu.flywheel.config.FlwConfig;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;

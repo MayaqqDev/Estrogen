@@ -15,9 +15,8 @@ public class EstrogenForge {
     public EstrogenForge() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         // Submit our event bus to let architectury register our content on the right time
+        bus.addListener(this::clientSetup);
         EventBuses.registerModEventBus(MOD_ID, bus);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-        EventBuses.registerModEventBus(MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
         Estrogen.init();
     }
 

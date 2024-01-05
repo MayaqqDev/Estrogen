@@ -14,16 +14,54 @@ configurations {
     developmentForge.extendsFrom common
 }
 
-repositories {}
+repositories {
+    maven {
+        // location of the maven for Registrate and Flywheel
+        name = 'tterrag maven'
+        url = 'https://maven.tterrag.com'
+    }
+    maven {
+        // location of the maven that hosts JEI files since January 2023
+        // location of the maven for Vazkii's mods
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
+    }
+    /*maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }*/
+    maven {
+        // location of the maven for Dynamic Trees
+        url = 'https://harleyoconnor.com/maven'
+    }
+    maven {
+        // location of the maven for Curios API
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        // location of maven for CC: Tweaked
+        name = "squiddev"
+        url = "https://squiddev.cc/maven/"
+    }
+
+    maven {
+        url = 'https://www.cursemaven.com'
+    }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+}
 
 dependencies {
     forge ("net.minecraftforge:forge:${rootProject.forge_version}")
     modApi ("dev.architectury:architectury-forge:${rootProject.architectury_version}")
 
     //Create
-    modImplementation ("com.simibubi.create:create-${rootProject.minecraft_version}:${rootProject.create_version_forge}:slim") { transitive = false }
-    modImplementation ("com.jozufozu.flywheel:flywheel-forge-1.20.1:${rootProject.flywheel_version}")
-    modImplementation ("com.tterrag.registrate:Registrate:${rootProject.registrate_version}")
+    modImplementation("com.simibubi.create:create-${minecraft_version}:${rootProject.create_version_forge}:slim") { transitive = false }
+    modImplementation("com.tterrag.registrate:Registrate:${rootProject.registrate_version}")
+    modImplementation("com.jozufozu.flywheel:flywheel-forge-${minecraft_version}:${rootProject.flywheel_version}")
 
     //Mixin Extras
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${project.mixin_extras_version}"))
