@@ -12,7 +12,7 @@ import static dev.mayaqq.estrogen.Estrogen.id;
 public class EstrogenCompactingRecipes extends ProcessingRecipeGen {
 
     GeneratedRecipe SLIME_BALL = create(id("slime_ball"), recipeBuilder -> recipeBuilder
-            .require(EstrogenFluids.MOLTEN_SLIME.still().get(), 54000)
+            .require(EstrogenFluids.MOLTEN_SLIME.get(), 54000)
             .output(Items.SLIME_BALL, 1));
 
     public EstrogenCompactingRecipes(FabricDataOutput output) {

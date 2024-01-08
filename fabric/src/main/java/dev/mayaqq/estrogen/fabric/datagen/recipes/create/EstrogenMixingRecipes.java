@@ -16,23 +16,23 @@ public class EstrogenMixingRecipes extends ProcessingRecipeGen {
 
     GeneratedRecipe
         FILATRATED_HORSE_URINE = create(id("filtrated_horse_urine"), recipeBuilder -> recipeBuilder
-            .require(EstrogenFluids.HORSE_URINE.still().get(), 27000)
+            .require(EstrogenFluids.HORSE_URINE.get(), 27000)
             .require(AllItems.FILTER.get())
-            .output(EstrogenFluids.FILTRATED_HORSE_URINE.still().get(), 27000)
+            .output(EstrogenFluids.FILTRATED_HORSE_URINE.get(), 27000)
             .output(EstrogenItems.USED_FILTER)),
         MOLTEN_AMETHYST = create(id("molten_amethyst"), recipeBuilder -> recipeBuilder
                 .require(Items.AMETHYST_SHARD)
-                .output(EstrogenFluids.MOLTEN_AMETHYST.still().get(), 27000)
+                .output(EstrogenFluids.MOLTEN_AMETHYST.get(), 27000)
                 .requiresHeat(HeatCondition.HEATED)),
         BALLS = create(id("balls"), recipeBuilder -> recipeBuilder
                 .require(Items.SLIME_BALL)
                 .output(EstrogenItems.BALLS)
-                .output(EstrogenFluids.MOLTEN_SLIME.still().get(), 27000)
+                .output(EstrogenFluids.MOLTEN_SLIME.get(), 27000)
                 .requiresHeat(HeatCondition.HEATED)),
         TESTOSTERONE_MIXTURE = create(id("testosterone_mixture"), recipeBuilder -> recipeBuilder
                 .require(EstrogenItems.TESTOSTERONE_POWDER)
                 .require(Items.COAL)
-                .output(EstrogenFluids.TESTOSTERONE_MIXTURE.still().get(), 54000)
+                .output(EstrogenFluids.TESTOSTERONE_MIXTURE.get(), 54000)
                 .requiresHeat(HeatCondition.HEATED));
 
     public EstrogenMixingRecipes(FabricDataOutput output) {

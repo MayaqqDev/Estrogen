@@ -25,8 +25,8 @@ public class EstrogenSequencedAssemblyRecipes extends CreateRecipeProvider {
                 .addOutput(Items.SLIME_BALL, 5)
                 .addOutput(EstrogenItems.HORSE_URINE_BOTTLE, 4)
                 .loops(5)
-                .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.MOLTEN_SLIME.still().get(), 27000))
-                .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.LIQUID_ESTROGEN.still().get(), 27000))
+                .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.MOLTEN_SLIME.get(), 27000))
+                .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.LIQUID_ESTROGEN.get(), 27000))
                 .addStep(DeployerApplicationRecipe::new, rb -> rb.require(Items.PAPER))
             ),
 
