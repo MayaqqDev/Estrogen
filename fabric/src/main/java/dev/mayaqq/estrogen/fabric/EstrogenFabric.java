@@ -11,6 +11,7 @@ public class EstrogenFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         Estrogen.init();
+        Estrogen.REGISTRATE.register();
         EstrogenFabricEvents.register();
         LivingEntityDamageEvents.HURT.register((event) -> {
             if (event.damaged instanceof Player player) {
