@@ -19,12 +19,12 @@ public class EstrogenFluidAttributes {
     public static Registrar<Item> FLUID_ITEMS = Estrogen.MANAGER.get().get(Registries.ITEM);
     public static Registrar<Block> FLUID_BLOCKS = Estrogen.MANAGER.get().get(Registries.BLOCK);
 
-    public static final SimpleArchitecturyFluidAttributes MOLTEN_SLIME = lavaLike("molten_slime", EstrogenFluids.MOLTEN_SLIME.still(), EstrogenFluids.MOLTEN_SLIME.flowing(), 144238144);
-    public static final SimpleArchitecturyFluidAttributes TESTOSTERONE_MIXTURE = waterLike("testosterone_mixture", EstrogenFluids.TESTOSTERONE_MIXTURE.still(), EstrogenFluids.TESTOSTERONE_MIXTURE.flowing(), 154148010);
-    public static final SimpleArchitecturyFluidAttributes LIQUID_ESTROGEN = waterLike("liquid_estrogen", EstrogenFluids.LIQUID_ESTROGEN.still(), EstrogenFluids.LIQUID_ESTROGEN.flowing(), 104164161);
-    public static final SimpleArchitecturyFluidAttributes FILTRATED_HORSE_URINE = waterLike("filtrated_horse_urine", EstrogenFluids.FILTRATED_HORSE_URINE.still(), EstrogenFluids.FILTRATED_HORSE_URINE.flowing(), 0xE1E114);
-    public static final SimpleArchitecturyFluidAttributes HORSE_URINE = waterLike("horse_urine", EstrogenFluids.HORSE_URINE.still(), EstrogenFluids.HORSE_URINE.flowing(), 0x8C8B05);
-    public static final SimpleArchitecturyFluidAttributes MOLTEN_AMETHYST = lavaLike("molten_amethyst", EstrogenFluids.MOLTEN_AMETHYST.still(), EstrogenFluids.MOLTEN_AMETHYST.flowing(), 0xAE7AFD);
+    public static final SimpleArchitecturyFluidAttributes MOLTEN_SLIME = lavaLike("molten_slime", EstrogenFluids.MOLTEN_SLIME, EstrogenFluids.MOLTEN_SLIME_FLOWING, 144238144);
+    public static final SimpleArchitecturyFluidAttributes TESTOSTERONE_MIXTURE = waterLike("testosterone_mixture", EstrogenFluids.TESTOSTERONE_MIXTURE, EstrogenFluids.TESTOSTERONE_MIXTURE_FLOWING, 154148010);
+    public static final SimpleArchitecturyFluidAttributes LIQUID_ESTROGEN = waterLike("liquid_estrogen", EstrogenFluids.LIQUID_ESTROGEN, EstrogenFluids.LIQUID_ESTROGEN_FLOWING, 104164161);
+    public static final SimpleArchitecturyFluidAttributes FILTRATED_HORSE_URINE = waterLike("filtrated_horse_urine", EstrogenFluids.FILTRATED_HORSE_URINE, EstrogenFluids.FILTRATED_HORSE_URINE_FLOWING, 0xE1E114);
+    public static final SimpleArchitecturyFluidAttributes HORSE_URINE = waterLike("horse_urine", EstrogenFluids.HORSE_URINE, EstrogenFluids.HORSE_URINE_FLOWING, 0x8C8B05);
+    public static final SimpleArchitecturyFluidAttributes MOLTEN_AMETHYST = lavaLike("molten_amethyst", EstrogenFluids.MOLTEN_AMETHYST, EstrogenFluids.MOLTEN_AMETHYST_FLOWING, 0xAE7AFD);
 
     public static void register() {}
 

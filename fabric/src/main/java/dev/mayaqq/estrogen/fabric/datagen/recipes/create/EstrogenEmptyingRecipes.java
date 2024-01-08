@@ -14,7 +14,7 @@ public class EstrogenEmptyingRecipes extends ProcessingRecipeGen {
 
     GeneratedRecipe HORSE_URINE = create(id("horse_urine"), recipeBuilder -> recipeBuilder
             .require(EstrogenItems.HORSE_URINE_BOTTLE)
-            .output(EstrogenFluids.HORSE_URINE.still().get(), 27000)
+            .output(EstrogenFluids.HORSE_URINE.get(), 27000)
             .output(Items.GLASS_BOTTLE));
 
     public EstrogenEmptyingRecipes(FabricDataOutput output) {
