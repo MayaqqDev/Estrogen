@@ -6,6 +6,7 @@ import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.utility.Lang;
 import dev.architectury.registry.registries.Registrar;
+import dev.architectury.registry.registries.RegistrySupplier;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
 import net.minecraft.core.registries.Registries;
@@ -29,7 +30,7 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
     Registrar<RecipeType<?>> recipeTypes = Estrogen.MANAGER.get().get(Registries.RECIPE_TYPE);
 
     private final ResourceLocation id;
-    private final RecipeSerializer<?> serializerObject;
+    private final RegistrySupplier<? extends RecipeSerializer<?>> serializerSupplier;
     @Nullable
     private final RecipeType<?> typeObject;
     private final Supplier<RecipeType<?>> type;
@@ -37,7 +38,7 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
     EstrogenRecipes(Supplier<RecipeSerializer<?>> serializerSupplier, Supplier<RecipeType<?>> typeSupplier, boolean registerType) {
         String name = Lang.asId(name());
         id = Create.asResource(name);
-        serializerObject = recipeSerializers.register(Estrogen.id(name), () -> serializerSupplier.get()).get();
+        this.serializerSupplier = recipeSerializers.register(Estrogen.id(name), () -> serializerSupplier.get());
         if (registerType) {
             typeObject = typeSupplier.get();
             recipeTypes.register(id, () -> typeObject);
@@ -51,7 +52,7 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
     EstrogenRecipes(Supplier<RecipeSerializer<?>> serializerSupplier) {
         String name = Lang.asId(name());
         id = id(name);
-        serializerObject = recipeSerializers.register(Estrogen.id(name), () -> serializerSupplier.get()).get();
+        this.serializerSupplier = recipeSerializers.register(Estrogen.id(name), () -> serializerSupplier.get());
         typeObject = simpleType(id);
         recipeTypes.register(id, () -> typeObject);
         type = () -> typeObject;
@@ -81,7 +82,7 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
     @SuppressWarnings("unchecked")
     @Override
     public <T extends RecipeSerializer<?>> T getSerializer() {
-        return (T) serializerObject;
+        return (T) serializerSupplier.get();
     }
 
     @SuppressWarnings("unchecked")

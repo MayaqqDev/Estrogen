@@ -17,6 +17,7 @@ public class EstrogenForge {
         // Submit our event bus to let architectury register our content on the right time
         bus.addListener(this::clientSetup);
         EventBuses.registerModEventBus(MOD_ID, bus);
+        Estrogen.REGISTRATE.registerEventListeners(bus);
         Estrogen.init();
     }
 
