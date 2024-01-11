@@ -21,10 +21,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.LiquidBlock;
 
-import java.util.UUID;
-
-import static dev.mayaqq.estrogen.registry.common.EstrogenAttributes.BOOB_GROWING_START_TIME;
-import static dev.mayaqq.estrogen.registry.common.EstrogenAttributes.BOOB_INITIAL_SIZE;
+import static dev.mayaqq.estrogen.registry.common.EstrogenAttributes.*;
 import static dev.mayaqq.estrogen.registry.common.EstrogenEffects.ESTROGEN_EFFECT;
 
 public class EstrogenEffect extends MobEffect {
@@ -105,8 +102,8 @@ public class EstrogenEffect extends MobEffect {
     }
 
     public void resetDash(LivingEntity entity) {
-            if (entity instanceof ServerPlayer player) {
-            player.getAttribute(EstrogenAttributes.DASH_LEVEL.get()).removeModifier(UUID.fromString("c2c16ccb-9acc-4f57-88e1-7b3e0c2ffe16"));
+        if (entity instanceof ServerPlayer player) {
+            player.getAttribute(EstrogenAttributes.DASH_LEVEL.get()).setBaseValue(0.0);
         }
         currentDashes = 0;
         onCooldown = false;
@@ -123,9 +120,11 @@ public class EstrogenEffect extends MobEffect {
 
         super.addAttributeModifiers(entity, attributes, amplifier);
 
-        AttributeInstance attributeInstance = entity.getAttribute(BOOB_GROWING_START_TIME.get());
+        entity.getAttribute(DASH_LEVEL.get()).setBaseValue(1 + amplifier);
+
+        AttributeInstance startTime = entity.getAttribute(BOOB_GROWING_START_TIME.get());
         // should fix crash related to applying effect to entity without given attribute
-        if (attributeInstance != null && attributeInstance.getBaseValue() < 0.0) {
+        if (startTime != null && startTime.getBaseValue() < 0.0) {
             double currentTime = Time.currentTime(entity.level());
             entity.getAttribute(BOOB_GROWING_START_TIME.get()).setBaseValue(currentTime);
         }
