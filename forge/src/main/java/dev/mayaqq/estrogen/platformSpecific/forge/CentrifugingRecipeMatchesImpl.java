@@ -18,6 +18,8 @@ public class CentrifugingRecipeMatchesImpl {
         BlockEntity up = level.getBlockEntity(be.getBlockPos().above());
         BlockEntity down = level.getBlockEntity(be.getBlockPos().below());
 
+        if (up == null || down == null) return false;
+
         if (!up.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent() || !down.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent()) return false;
 
         FluidStack fluidUp = up.getCapability(ForgeCapabilities.FLUID_HANDLER).map(handler -> handler.getFluidInTank(0)).orElse(null);
