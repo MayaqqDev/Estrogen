@@ -40,13 +40,12 @@ public class EstrogenTranslations {
                     tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
                 tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "Incomplete UwU");
                 // Buckets
-            //TODO: Fix bucket translations
-                //tb.add("estrogen.uhh", "Bucket of Liquid Estrogen");
-                //tb.add(EstrogenFluids.HORSE_URINE.bucket(), "Bucket of Horse Urine");
-                //tb.add(EstrogenFluids.FILTRATED_HORSE_URINE.bucket(), "Bucket of Filtrated Horse Urine");
-                //tb.add(EstrogenFluids.MOLTEN_SLIME.bucket(), "Bucket of Molten Slime");
-                //tb.add(EstrogenFluids.MOLTEN_AMETHYST.bucket(), "Bucket of Molten Amethyst");
-                //tb.add(EstrogenFluids.TESTOSTERONE_MIXTURE.bucket(), "Bucket of Testosterone Mixture");
+                tb.add(EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET.get(), "Bucket of Liquid Estrogen");
+                tb.add(EstrogenFluidItems.HORSE_URINE_BUCKET.get(), "Bucket of Horse Urine");
+                tb.add(EstrogenFluidItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Bucket of Filtrated Horse Urine");
+                tb.add(EstrogenFluidItems.MOLTEN_SLIME_BUCKET.get(), "Bucket of Molten Slime");
+                tb.add(EstrogenFluidItems.MOLTEN_AMETHYST_BUCKET.get(), "Bucket of Molten Amethyst");
+                tb.add(EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Bucket of Testosterone Mixture");
 
 
             // Blocks
