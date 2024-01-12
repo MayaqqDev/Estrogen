@@ -54,6 +54,8 @@ public class Estrogen {
         EstrogenEnchantments.register();
         EstrogenEvents.register();
         EstrogenFluids.register();
+        EstrogenFluidBlocks.register();
+        EstrogenFluidItems.register();
         EstrogenFluidAttributes.register();
         EstrogenItems.register();
         EstrogenPonderScenes.register();
