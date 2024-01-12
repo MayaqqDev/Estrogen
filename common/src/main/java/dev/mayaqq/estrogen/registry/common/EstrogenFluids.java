@@ -1,12 +1,10 @@
 package dev.mayaqq.estrogen.registry.common;
 
 import dev.architectury.core.fluid.ArchitecturyFlowingFluid;
-import dev.architectury.core.fluid.SimpleArchitecturyFluidAttributes;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.mayaqq.estrogen.Estrogen;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 
 public class EstrogenFluids {
