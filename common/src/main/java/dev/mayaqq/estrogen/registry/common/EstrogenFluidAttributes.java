@@ -24,8 +24,8 @@ public class EstrogenFluidAttributes {
     public static final SimpleArchitecturyFluidAttributes LIQUID_ESTROGEN = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.LIQUID_ESTROGEN_FLOWING, () -> EstrogenFluids.LIQUID_ESTROGEN)
             .blockSupplier(() -> EstrogenFluidBlocks.LIQUID_ESTROGEN_BLOCK)
             .bucketItemSupplier(() -> EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET)
-            .flowingTexture(new ResourceLocation("minecraft", "block/water_flow"))
-            .sourceTexture(new ResourceLocation("minecraft", "block/water_still"))
+            .flowingTexture(Estrogen.id("block/liquid_estrogen/liquid_estrogen_flow"))
+            .sourceTexture(Estrogen.id("block/liquid_estrogen/liquid_estrogen_still"))
             .color(104164161)
             ;
 

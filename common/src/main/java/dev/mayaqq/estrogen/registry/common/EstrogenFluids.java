@@ -13,7 +13,7 @@ public class EstrogenFluids {
 
     public static RegistrySupplier<ArchitecturyFlowingFluid.Source> MOLTEN_SLIME = FLUIDS.register(Estrogen.id("molten_slime"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.MOLTEN_SLIME));
     public static RegistrySupplier<ArchitecturyFlowingFluid.Source> TESTOSTERONE_MIXTURE = FLUIDS.register(Estrogen.id("testosterone_mixture"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.TESTOSTERONE_MIXTURE));
-    public static RegistrySupplier<ArchitecturyFlowingFluid.Source> LIQUID_ESTROGEN = FLUIDS.register(Estrogen.id("liquid_estrogen"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.LIQUID_ESTROGEN));
+    public static RegistrySupplier<ArchitecturyFlowingFluid.Source> LIQUID_ESTROGEN = FLUIDS.register(Estrogen.id("liquid_estrogen.json"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.LIQUID_ESTROGEN));
     public static RegistrySupplier<ArchitecturyFlowingFluid.Source> FILTRATED_HORSE_URINE = FLUIDS.register(Estrogen.id("filtrated_horse_urine"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.FILTRATED_HORSE_URINE));
     public static RegistrySupplier<ArchitecturyFlowingFluid.Source> HORSE_URINE = FLUIDS.register(Estrogen.id("horse_urine"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.HORSE_URINE));
     public static RegistrySupplier<ArchitecturyFlowingFluid.Source> MOLTEN_AMETHYST = FLUIDS.register(Estrogen.id("molten_amethyst"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.MOLTEN_AMETHYST));

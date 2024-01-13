@@ -47,9 +47,15 @@ public class EstrogenTranslations {
                 tb.add(EstrogenFluidItems.MOLTEN_AMETHYST_BUCKET.get(), "Bucket of Molten Amethyst");
                 tb.add(EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Bucket of Testosterone Mixture");
 
-
             // Blocks
                 tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuge");
+                // Fluids
+                tb.add("fluid.estrogen.liquid_estrogen.json", "Liquid Estrogen");
+                tb.add("fluid.estrogen.horse_urine", "Horse Urine");
+                tb.add("fluid.estrogen.filtrated_horse_urine", "Filtrated Horse Urine");
+                tb.add("fluid.estrogen.molten_slime", "Molten Slime");
+                tb.add("fluid.estrogen.molten_amethyst", "Molten Amethyst");
+                tb.add("fluid.estrogen.testosterone_mixture", "Testosterone Mixture");
 
             // Sounds
                 tb.add("subtitles.estrogen.dash", "Girl Power Dash");
