@@ -15,7 +15,6 @@ public class EstrogenPatchesItem extends TrinketItem {
     public EstrogenPatchesItem(Item.Properties properties) {
         super(properties);
     }
-    //TODO idk how to make unique items for each platform, curios on forge is different idk
     @Override
     public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if (entity instanceof Player player) {
