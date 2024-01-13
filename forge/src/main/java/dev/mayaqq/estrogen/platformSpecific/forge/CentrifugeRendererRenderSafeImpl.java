@@ -26,8 +26,10 @@ public class CentrifugeRendererRenderSafeImpl {
         if (fluidUp == null || fluidDown == null) return;
 
         ms.pushPose();
-        FluidRenderer.renderFluidBox(fluidDown, 0.01F, 0.01F, 0.01F, 0.99F, 0.3F, 0.99F, buffer, ms, light, false);
-        FluidRenderer.renderFluidBox(fluidUp, 0.01F, 0.71F, 0.01F, 0.99F, 0.97F, 0.99F, buffer, ms, light, false);
+        try {
+            FluidRenderer.renderFluidBox(fluidDown, 0.01F, 0.01F, 0.01F, 0.99F, 0.3F, 0.99F, buffer, ms, light, false);
+            FluidRenderer.renderFluidBox(fluidUp, 0.01F, 0.71F, 0.01F, 0.99F, 0.97F, 0.99F, buffer, ms, light, false);
+        } catch (Exception ignored) {}
         ms.popPose();
     }
 }

@@ -63,6 +63,9 @@ dependencies {
     modImplementation("com.tterrag.registrate:Registrate:${rootProject.registrate_version}")
     modImplementation("com.jozufozu.flywheel:flywheel-forge-${minecraft_version}:${rootProject.flywheel_version}")
 
+    //Curios
+    modImplementation("top.theillusivec4.curios:curios-forge:${project.curios_version}")
+
     //Mixin Extras
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${project.mixin_extras_version}"))
     implementation(include("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras_version}"))

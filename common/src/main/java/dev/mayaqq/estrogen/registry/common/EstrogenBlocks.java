@@ -1,11 +1,8 @@
 package dev.mayaqq.estrogen.registry.common;
 
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
-import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.SharedProperties;
-import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.blocks.CentrifugeBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.material.MapColor;
@@ -19,7 +16,6 @@ public class EstrogenBlocks {
             .properties(p -> p.mapColor(MapColor.COLOR_ORANGE))
             .transform(BlockStressDefaults.setImpact(8.0))
             .item()
-            //TODO: FIX ITEM GROUP
             .properties(p -> p.arch$tab(EstrogenCreativeTab.ESTROGEN_TAB))
             .transform(customItemModel())
             .addLayer(() -> RenderType::cutout)

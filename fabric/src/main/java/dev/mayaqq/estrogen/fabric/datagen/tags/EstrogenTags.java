@@ -19,6 +19,7 @@ public class EstrogenTags {
     public static class ItemTags extends FabricTagProvider.ItemTagProvider {
 
         public static final TagKey<Item> THIGHS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("trinkets", "legs/thighs"));
+        public static final TagKey<Item> CURIOS_THIGHS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("curios", "thighs"));
 
         public ItemTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
             super(output, completableFuture);
@@ -29,6 +30,8 @@ public class EstrogenTags {
                     .add(EstrogenItems.ESTROGEN_PATCHES.get());
             getOrCreateTagBuilder(dev.mayaqq.estrogen.registry.common.EstrogenTags.UWUFYING)
                     .add(EstrogenItems.UWU.get());
+            getOrCreateTagBuilder(CURIOS_THIGHS)
+                    .add(EstrogenItems.ESTROGEN_PATCHES.get());
         }
     }
 

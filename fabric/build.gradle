@@ -37,6 +37,12 @@ dependencies {
     //Porting Lib
     modImplementation(include("io.github.fabricators_of_create.Porting-Lib:transfer:${project.porting_lib_version}"))
 
+    //Trinkets
+    modImplementation ("dev.emi:trinkets:${rootProject.trinkets_version}")
+    project.cardinal_modules.replaceAll(" ", "").split(",").each { module ->
+        modApi ("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${project.cardinal_version}")
+    }
+
     // EMI
     modCompileOnly "dev.emi:emi-fabric:${project.emi_version}:api"
     modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}"

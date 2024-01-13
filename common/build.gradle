@@ -18,6 +18,9 @@ dependencies {
     // Create
     modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${rootProject.create_fabric_version}")
 
+    // Trinkets
+    modCompileOnly "dev.emi:trinkets:${rootProject.trinkets_version}"
+
     // Ears
     implementation ("com.unascribed:ears-api:${project.ears_version}")
 

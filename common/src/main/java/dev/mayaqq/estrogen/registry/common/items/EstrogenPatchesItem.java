@@ -1,29 +1,35 @@
 package dev.mayaqq.estrogen.registry.common.items;
 
+import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.TrinketItem;
+import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-public class EstrogenPatchesItem extends Item /*TrinketItem */{
+public class EstrogenPatchesItem extends TrinketItem {
 
     public EstrogenPatchesItem(Item.Properties properties) {
         super(properties);
     }
     //TODO idk how to make unique items for each platform, curios on forge is different idk
-/*
     @Override
     public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        if (entity instanceof PlayerEntity player) {
-            player.addStatusEffect(new StatusEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, -1, stack.getCount() - 1, false, false, false));
+        if (entity instanceof Player player) {
+            player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, -1, stack.getCount() - 1, false, false, false));
         }
     }
 
     @Override
     public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        entity.removeStatusEffect(EstrogenEffects.ESTROGEN_EFFECT);
-    }*/
+        entity.removeEffect(EstrogenEffects.ESTROGEN_EFFECT);
+    }
 
     @Override
-    public String getDescriptionId(ItemStack stack) {
+    public @NotNull String getDescriptionId(ItemStack stack) {
         int count = stack.getCount();
         if (count == 1) {
             return super.getDescriptionId(stack);

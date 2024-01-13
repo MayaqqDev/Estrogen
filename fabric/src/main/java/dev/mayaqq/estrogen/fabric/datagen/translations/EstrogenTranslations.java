@@ -65,6 +65,8 @@ public class EstrogenTranslations {
 
             // Trinkets
                 tb.add("trinkets.slot.legs.thighs", "Thighs");
+            // Curios
+                tb.add("curios.identifier.thighs", "Thighs");
 
             // REI
                 tb.add("create.recipe.centrifuging", "Centrifuging");
@@ -79,6 +81,7 @@ public class EstrogenTranslations {
                 // Items
                 tb.add("tag.item.trinkets.legs.thighs", "Thighs");
                 tb.add("tag.item.estrogen.uwufying", "Uwufying");
+                tb.add("tag.item.curios.thighs", "Thighs");
 
             // Ponder
                 // Centrifuge

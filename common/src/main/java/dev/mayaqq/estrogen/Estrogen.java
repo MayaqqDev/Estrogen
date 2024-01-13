@@ -9,7 +9,7 @@ import com.simibubi.create.foundation.item.TooltipModifier;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.InteractionEvent;
 import dev.architectury.registry.registries.RegistrarManager;
-import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.networking.EstrogenC2S;
 import dev.mayaqq.estrogen.registry.common.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -29,10 +29,6 @@ public class Estrogen {
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create("estrogen");
 
     public static final Supplier<RegistrarManager> MANAGER = Suppliers.memoize(() -> RegistrarManager.get(MOD_ID));
-
-    public static EstrogenConfig CONFIG() {
-        return new EstrogenConfig();
-    }
 
     static {
         REGISTRATE.setTooltipModifierFactory(item ->
@@ -61,6 +57,7 @@ public class Estrogen {
         EstrogenPonderScenes.register();
         EstrogenRecipes.register();
         EstrogenSounds.register();
+        EstrogenC2S.register();
 
         InteractionEvent.INTERACT_ENTITY.register((player, entity, hand) -> {
             ItemStack stack = player.getItemInHand(hand);
