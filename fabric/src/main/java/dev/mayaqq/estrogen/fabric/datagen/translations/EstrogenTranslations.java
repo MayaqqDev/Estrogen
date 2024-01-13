@@ -50,7 +50,7 @@ public class EstrogenTranslations {
             // Blocks
                 tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuge");
                 // Fluids
-                tb.add("fluid.estrogen.liquid_estrogen.json", "Liquid Estrogen");
+                tb.add("fluid.estrogen.liquid_estrogen", "Liquid Estrogen");
                 tb.add("fluid.estrogen.horse_urine", "Horse Urine");
                 tb.add("fluid.estrogen.filtrated_horse_urine", "Filtrated Horse Urine");
                 tb.add("fluid.estrogen.molten_slime", "Molten Slime");

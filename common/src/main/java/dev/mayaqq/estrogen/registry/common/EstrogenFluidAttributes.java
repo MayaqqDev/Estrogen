@@ -10,6 +10,8 @@ public class EstrogenFluidAttributes {
             .bucketItemSupplier(() -> EstrogenFluidItems.MOLTEN_SLIME_BUCKET)
             .flowingTexture(Estrogen.id("block/blank_lava/blank_lava_flow"))
             .sourceTexture(Estrogen.id("block/blank_lava/blank_lava_still"))
+            .overlayTexture(Estrogen.id("block/blank_lava/blank_lava_flow"))
+            .temperature(1300)
             .color(0x90EE90)
             ;
 
@@ -18,6 +20,7 @@ public class EstrogenFluidAttributes {
             .bucketItemSupplier(() -> EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET)
             .flowingTexture(new ResourceLocation("minecraft", "block/water_flow"))
             .sourceTexture(new ResourceLocation("minecraft", "block/water_still"))
+            .overlayTexture(new ResourceLocation("minecraft", "block/water_flow"))
             .color(154148010)
             ;
 
@@ -26,6 +29,7 @@ public class EstrogenFluidAttributes {
             .bucketItemSupplier(() -> EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET)
             .flowingTexture(Estrogen.id("block/liquid_estrogen/liquid_estrogen_flow"))
             .sourceTexture(Estrogen.id("block/liquid_estrogen/liquid_estrogen_still"))
+            .overlayTexture(Estrogen.id("block/liquid_estrogen/liquid_estrogen_flow"))
             ;
 
     public static final SimpleArchitecturyFluidAttributes FILTRATED_HORSE_URINE = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.FILTRATED_HORSE_URINE_FLOWING, () -> EstrogenFluids.FILTRATED_HORSE_URINE)
@@ -33,6 +37,7 @@ public class EstrogenFluidAttributes {
             .bucketItemSupplier(() -> EstrogenFluidItems.FILTRATED_HORSE_URINE_BUCKET)
             .flowingTexture(new ResourceLocation("minecraft", "block/water_flow"))
             .sourceTexture(new ResourceLocation("minecraft", "block/water_still"))
+            .overlayTexture(new ResourceLocation("minecraft", "block/water_flow"))
             .color(0xE1E114)
             ;
 
@@ -41,6 +46,7 @@ public class EstrogenFluidAttributes {
             .bucketItemSupplier(() -> EstrogenFluidItems.HORSE_URINE_BUCKET)
             .flowingTexture(new ResourceLocation("minecraft", "block/water_flow"))
             .sourceTexture(new ResourceLocation("minecraft", "block/water_still"))
+            .overlayTexture(new ResourceLocation("minecraft", "block/water_flow"))
             .color(0x8C8B05)
             ;
 
@@ -49,6 +55,8 @@ public class EstrogenFluidAttributes {
             .bucketItemSupplier(() -> EstrogenFluidItems.MOLTEN_AMETHYST_BUCKET)
             .flowingTexture(Estrogen.id("block/blank_lava/blank_lava_flow"))
             .sourceTexture(Estrogen.id("block/blank_lava/blank_lava_still"))
+            .overlayTexture(new ResourceLocation("minecraft", "block/water_flow"))
+            .temperature(1300)
             .color(0xAE7AFD)
             ;
 
