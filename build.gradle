@@ -35,16 +35,6 @@ allprojects {
         maven { url = "https://maven.terraformersmc.com/" } // ModMenu, EMI
     }
 
-    sourceSets {
-        main {
-            resources {
-                srcDirs += [
-                        'src/main/generated'
-                ]
-            }
-        }
-    }
-
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
         options.release.set(17)

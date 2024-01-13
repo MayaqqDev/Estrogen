@@ -1,50 +1,58 @@
 package dev.mayaqq.estrogen.registry.common;
 
-import dev.architectury.core.block.ArchitecturyLiquidBlock;
 import dev.architectury.core.fluid.SimpleArchitecturyFluidAttributes;
-import dev.architectury.core.item.ArchitecturyBucketItem;
-import dev.architectury.registry.registries.Registrar;
-import dev.architectury.registry.registries.RegistrySupplier;
 import dev.mayaqq.estrogen.Estrogen;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.FlowingFluid;
 
 public class EstrogenFluidAttributes {
+    public static final SimpleArchitecturyFluidAttributes MOLTEN_SLIME = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.MOLTEN_SLIME_FLOWING, () -> EstrogenFluids.MOLTEN_SLIME)
+            .blockSupplier(() -> EstrogenFluidBlocks.MOLTEN_SLIME_BLOCK)
+            .bucketItemSupplier(() -> EstrogenFluidItems.MOLTEN_SLIME_BUCKET)
+            .flowingTexture(Estrogen.id("block/blank_lava/blank_lava_flow"))
+            .sourceTexture(Estrogen.id("block/blank_lava/blank_lava_still"))
+            .color(144238144)
+            ;
 
-    public static Registrar<Item> FLUID_ITEMS = Estrogen.MANAGER.get().get(Registries.ITEM);
-    public static Registrar<Block> FLUID_BLOCKS = Estrogen.MANAGER.get().get(Registries.BLOCK);
+    public static final SimpleArchitecturyFluidAttributes TESTOSTERONE_MIXTURE = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.TESTOSTERONE_MIXTURE_FLOWING, () -> EstrogenFluids.TESTOSTERONE_MIXTURE)
+            .blockSupplier(() -> EstrogenFluidBlocks.TESTOSTERONE_MIXTURE_BLOCK)
+            .bucketItemSupplier(() -> EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET)
+            .flowingTexture(new ResourceLocation("minecraft", "block/water_flow"))
+            .sourceTexture(new ResourceLocation("minecraft", "block/water_still"))
+            .color(154148010)
+            ;
 
-    public static final SimpleArchitecturyFluidAttributes MOLTEN_SLIME = lavaLike("molten_slime", EstrogenFluids.MOLTEN_SLIME, EstrogenFluids.MOLTEN_SLIME_FLOWING, 144238144);
-    public static final SimpleArchitecturyFluidAttributes TESTOSTERONE_MIXTURE = waterLike("testosterone_mixture", EstrogenFluids.TESTOSTERONE_MIXTURE, EstrogenFluids.TESTOSTERONE_MIXTURE_FLOWING, 154148010);
-    public static final SimpleArchitecturyFluidAttributes LIQUID_ESTROGEN = waterLike("liquid_estrogen", EstrogenFluids.LIQUID_ESTROGEN, EstrogenFluids.LIQUID_ESTROGEN_FLOWING, 104164161);
-    public static final SimpleArchitecturyFluidAttributes FILTRATED_HORSE_URINE = waterLike("filtrated_horse_urine", EstrogenFluids.FILTRATED_HORSE_URINE, EstrogenFluids.FILTRATED_HORSE_URINE_FLOWING, 0xE1E114);
-    public static final SimpleArchitecturyFluidAttributes HORSE_URINE = waterLike("horse_urine", EstrogenFluids.HORSE_URINE, EstrogenFluids.HORSE_URINE_FLOWING, 0x8C8B05);
-    public static final SimpleArchitecturyFluidAttributes MOLTEN_AMETHYST = lavaLike("molten_amethyst", EstrogenFluids.MOLTEN_AMETHYST, EstrogenFluids.MOLTEN_AMETHYST_FLOWING, 0xAE7AFD);
+    public static final SimpleArchitecturyFluidAttributes LIQUID_ESTROGEN = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.LIQUID_ESTROGEN_FLOWING, () -> EstrogenFluids.LIQUID_ESTROGEN)
+            .blockSupplier(() -> EstrogenFluidBlocks.LIQUID_ESTROGEN_BLOCK)
+            .bucketItemSupplier(() -> EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET)
+            .flowingTexture(new ResourceLocation("minecraft", "block/water_flow"))
+            .sourceTexture(new ResourceLocation("minecraft", "block/water_still"))
+            .color(104164161)
+            ;
+
+    public static final SimpleArchitecturyFluidAttributes FILTRATED_HORSE_URINE = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.FILTRATED_HORSE_URINE_FLOWING, () -> EstrogenFluids.FILTRATED_HORSE_URINE)
+            .blockSupplier(() -> EstrogenFluidBlocks.FILTRATED_HORSE_URINE_BLOCK)
+            .bucketItemSupplier(() -> EstrogenFluidItems.FILTRATED_HORSE_URINE_BUCKET)
+            .flowingTexture(new ResourceLocation("minecraft", "block/water_flow"))
+            .sourceTexture(new ResourceLocation("minecraft", "block/water_still"))
+            .color(0xE1E114)
+            ;
+
+    public static final SimpleArchitecturyFluidAttributes HORSE_URINE = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.HORSE_URINE_FLOWING, () -> EstrogenFluids.HORSE_URINE)
+            .blockSupplier(() -> EstrogenFluidBlocks.HORSE_URINE_BLOCK)
+            .bucketItemSupplier(() -> EstrogenFluidItems.HORSE_URINE_BUCKET)
+            .flowingTexture(new ResourceLocation("minecraft", "block/water_flow"))
+            .sourceTexture(new ResourceLocation("minecraft", "block/water_still"))
+            .color(0x8C8B05)
+            ;
+
+    public static final SimpleArchitecturyFluidAttributes MOLTEN_AMETHYST = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.MOLTEN_AMETHYST_FLOWING, () -> EstrogenFluids.MOLTEN_AMETHYST)
+            .blockSupplier(() -> EstrogenFluidBlocks.MOLTEN_AMETHYST_BLOCK)
+            .bucketItemSupplier(() -> EstrogenFluidItems.MOLTEN_AMETHYST_BUCKET)
+            .flowingTexture(Estrogen.id("block/blank_lava/blank_lava_flow"))
+            .sourceTexture(Estrogen.id("block/blank_lava/blank_lava_still"))
+            .color(0xAE7AFD)
+            ;
 
     public static void register() {}
 
-    public static SimpleArchitecturyFluidAttributes waterLike(String id, RegistrySupplier<? extends FlowingFluid> still, RegistrySupplier<? extends FlowingFluid> flowing, int color) {
-        return SimpleArchitecturyFluidAttributes.of(still, flowing)
-                .blockSupplier(() -> FLUID_BLOCKS.register(Estrogen.id(id + "_block"), () -> new ArchitecturyLiquidBlock(still, BlockBehaviour.Properties.copy(Blocks.WATER))))
-                .bucketItemSupplier(() -> FLUID_ITEMS.register(Estrogen.id(id + "_bucket"), () -> new ArchitecturyBucketItem(still, new Item.Properties().arch$tab(EstrogenCreativeTab.ESTROGEN_TAB))))
-                .flowingTexture(new ResourceLocation("minecraft", "block/water_flow"))
-                .sourceTexture(new ResourceLocation("minecraft", "block/water_still"))
-                .color(color)
-                ;
-    }
-
-    public static SimpleArchitecturyFluidAttributes lavaLike(String id, RegistrySupplier<? extends FlowingFluid> still, RegistrySupplier<? extends FlowingFluid> flowing, int color) {
-        return SimpleArchitecturyFluidAttributes.of(still, flowing)
-                .blockSupplier(() -> FLUID_BLOCKS.register(Estrogen.id(id + "_block"), () -> new ArchitecturyLiquidBlock(still, BlockBehaviour.Properties.copy(Blocks.LAVA))))
-                .bucketItemSupplier(() -> FLUID_ITEMS.register(Estrogen.id(id + "_bucket"), () -> new ArchitecturyBucketItem(still, new Item.Properties().arch$tab(EstrogenCreativeTab.ESTROGEN_TAB))))
-                .flowingTexture(Estrogen.id("block/blank_lava/blank_lava_flow"))
-                .sourceTexture(Estrogen.id("block/blank_lava/blank_lava_still"))
-                .color(color)
-                ;
-    }
 }
