@@ -1,0 +1,14 @@
+{
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "estrogen:testosterone_chunk"
+    }
+  ],
+  "results": [
+    {
+      "count": 3,
+      "item": "estrogen:testosterone_powder"
+    }
+  ]
+}

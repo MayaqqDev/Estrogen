@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "estrogen:estrogen_pill"
+    },
+    {
+      "item": "create:wheat_flour"
+    },
+    {
+      "item": "create:bar_of_chocolate"
+    }
+  ],
+  "result": {
+    "item": "estrogen:estrogen_chip_cookie"
+  }
+}
