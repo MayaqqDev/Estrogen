@@ -4,6 +4,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+/* God forbit me as I have sinned. */
 public class TrinketItem extends Item {
     public TrinketItem(Properties arg) {
         super(arg);
