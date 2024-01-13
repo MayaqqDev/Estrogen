@@ -10,7 +10,7 @@ public class EstrogenFluidAttributes {
             .bucketItemSupplier(() -> EstrogenFluidItems.MOLTEN_SLIME_BUCKET)
             .flowingTexture(Estrogen.id("block/blank_lava/blank_lava_flow"))
             .sourceTexture(Estrogen.id("block/blank_lava/blank_lava_still"))
-            .color(144238144)
+            .color(0x90EE90)
             ;
 
     public static final SimpleArchitecturyFluidAttributes TESTOSTERONE_MIXTURE = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.TESTOSTERONE_MIXTURE_FLOWING, () -> EstrogenFluids.TESTOSTERONE_MIXTURE)
@@ -26,7 +26,6 @@ public class EstrogenFluidAttributes {
             .bucketItemSupplier(() -> EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET)
             .flowingTexture(Estrogen.id("block/liquid_estrogen/liquid_estrogen_flow"))
             .sourceTexture(Estrogen.id("block/liquid_estrogen/liquid_estrogen_still"))
-            .color(104164161)
             ;
 
     public static final SimpleArchitecturyFluidAttributes FILTRATED_HORSE_URINE = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.FILTRATED_HORSE_URINE_FLOWING, () -> EstrogenFluids.FILTRATED_HORSE_URINE)

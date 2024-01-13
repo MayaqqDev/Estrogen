@@ -53,7 +53,7 @@
         },
         {
           "amount": 27000,
-          "fluid": "estrogen:liquid_estrogen",
+          "fluid": "estrogen:liquid_estrogen.json",
           "nbt": {}
         }
       ],
