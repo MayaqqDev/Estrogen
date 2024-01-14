@@ -34,7 +34,6 @@ allprojects {
         maven { url = "https://maven.terraformersmc.com/" } // EMI
         maven { url = "https://maven.shedaniel.me" } // REI
         maven { url = "https://maven.blamejared.com/" } // JEI
-        maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM
         maven { url = "https://maven.tterrag.com" } // Forge Registrate, Forge Flywheel
         maven { url = "https://maven.theillusivec4.top/" } // Curios
         maven { url = "https://mvn.devos.one/snapshots/" } // Create Fabric, Porting Lib, Forge Tags, Milk Lib, Fabric Registrate
@@ -44,6 +43,7 @@ allprojects {
         maven { url = "https://maven.ladysnake.org/releases" } // Trinkets
         maven { url = "https://repo.unascribed.com" } // Ears
         maven { url = "https://api.modrinth.com/maven" } // Create & REI Bug Fix
+        maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM
     }
 
     tasks.withType(JavaCompile) {
