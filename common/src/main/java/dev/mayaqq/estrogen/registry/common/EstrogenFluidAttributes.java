@@ -12,7 +12,7 @@ public class EstrogenFluidAttributes {
             .sourceTexture(Estrogen.id("block/blank_lava/blank_lava_still"))
             .overlayTexture(Estrogen.id("block/blank_lava/blank_lava_flow"))
             .temperature(1300)
-            .color(0x90EE90)
+            .color(0xFF90EE90)
             ;
 
     public static final SimpleArchitecturyFluidAttributes TESTOSTERONE_MIXTURE = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.TESTOSTERONE_MIXTURE_FLOWING, () -> EstrogenFluids.TESTOSTERONE_MIXTURE)
@@ -21,7 +21,7 @@ public class EstrogenFluidAttributes {
             .flowingTexture(new ResourceLocation("minecraft", "block/water_flow"))
             .sourceTexture(new ResourceLocation("minecraft", "block/water_still"))
             .overlayTexture(new ResourceLocation("minecraft", "block/water_flow"))
-            .color(154148010)
+            .color(0xFF301CAA)
             ;
 
     public static final SimpleArchitecturyFluidAttributes LIQUID_ESTROGEN = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.LIQUID_ESTROGEN_FLOWING, () -> EstrogenFluids.LIQUID_ESTROGEN)
@@ -30,6 +30,7 @@ public class EstrogenFluidAttributes {
             .flowingTexture(Estrogen.id("block/liquid_estrogen/liquid_estrogen_flow"))
             .sourceTexture(Estrogen.id("block/liquid_estrogen/liquid_estrogen_still"))
             .overlayTexture(Estrogen.id("block/liquid_estrogen/liquid_estrogen_flow"))
+            .color(0xFFFFFFFF)
             ;
 
     public static final SimpleArchitecturyFluidAttributes FILTRATED_HORSE_URINE = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.FILTRATED_HORSE_URINE_FLOWING, () -> EstrogenFluids.FILTRATED_HORSE_URINE)
@@ -38,7 +39,7 @@ public class EstrogenFluidAttributes {
             .flowingTexture(new ResourceLocation("minecraft", "block/water_flow"))
             .sourceTexture(new ResourceLocation("minecraft", "block/water_still"))
             .overlayTexture(new ResourceLocation("minecraft", "block/water_flow"))
-            .color(0xE1E114)
+            .color(0xFFE1E114)
             ;
 
     public static final SimpleArchitecturyFluidAttributes HORSE_URINE = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.HORSE_URINE_FLOWING, () -> EstrogenFluids.HORSE_URINE)
@@ -47,7 +48,7 @@ public class EstrogenFluidAttributes {
             .flowingTexture(new ResourceLocation("minecraft", "block/water_flow"))
             .sourceTexture(new ResourceLocation("minecraft", "block/water_still"))
             .overlayTexture(new ResourceLocation("minecraft", "block/water_flow"))
-            .color(0x8C8B05)
+            .color(0xFF8C8B05)
             ;
 
     public static final SimpleArchitecturyFluidAttributes MOLTEN_AMETHYST = SimpleArchitecturyFluidAttributes.ofSupplier(() -> EstrogenFluids.MOLTEN_AMETHYST_FLOWING, () -> EstrogenFluids.MOLTEN_AMETHYST)
@@ -57,7 +58,7 @@ public class EstrogenFluidAttributes {
             .sourceTexture(Estrogen.id("block/blank_lava/blank_lava_still"))
             .overlayTexture(new ResourceLocation("minecraft", "block/water_flow"))
             .temperature(1300)
-            .color(0xAE7AFD)
+            .color(0xFFAE7AFD)
             ;
 
     public static void register() {}
