@@ -1,31 +1,34 @@
-repositories {
-    maven { url = "https://repo.unascribed.com" } // Ears
-    maven { url = "https://maven.terraformersmc.com/releases/" } // Mod Menu
-    maven { url = "https://mvn.devos.one/snapshots/" } // Create Fabric, Porting Lib, Forge Tags, Milk Lib, Registrate Fabric
-    maven { url = "https://cursemaven.com" } // Forge Config API Port
-    maven { url = "https://maven.cafeteria.dev/releases" } // Fake Player API
-    maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
-    maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM
-}
+repositories {}
 
 dependencies {
     // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
     // Do NOT use other classes from fabric loader
     modImplementation ("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
 
+    // Architectury
     modApi ("dev.architectury:architectury:${rootProject.architectury_version}")
 
     // Create
-    modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${rootProject.create_fabric_version}")
+    modCompileOnly ("com.simibubi.create:create-fabric-${minecraft_version}:${rootProject.create_fabric_version}")
 
     // Trinkets
-    modCompileOnly "dev.emi:trinkets:${rootProject.trinkets_version}"
+    modCompileOnly ("dev.emi:trinkets:${rootProject.trinkets_version}")
+
+    // EMI
+    modCompileOnly ("dev.emi:emi-fabric:${rootProject.emi_version}:api")
+
+    // REI
+    modCompileOnly ("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
+    modCompileOnly ("me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}")
+
+    // JEI //TODO: JEI Compat
+    modCompileOnly ("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
 
     // Ears
     implementation ("com.unascribed:ears-api:${project.ears_version}")
 
     // Mixin Extras
-    implementation ("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}")
+    implementation (annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}"))
 }
 
 architectury {

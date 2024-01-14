@@ -24,27 +24,24 @@
     "client": [
       "dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric"
     ],
-    "modmenu": [
-      "dev.mayaqq.estrogen.fabric.integrations.modmenu.ModMenuCompat"
-    ],
     "fabric-datagen": [
       "dev.mayaqq.estrogen.fabric.datagen.EstrogenDatagen"
     ],
     "emi": [
-      "dev.mayaqq.estrogen.fabric.integrations.emi.EmiCompat"
+      "dev.mayaqq.estrogen.integrations.emi.EmiCompat"
     ],
     "rei_client": [
-      "dev.mayaqq.estrogen.fabric.integrations.rei.ReiCompat"
+      "dev.mayaqq.estrogen.integrations.rei.ReiCompat"
     ]
   },
   "mixins": [
     "estrogen.mixins.json",
     "estrogen-common.mixins.json"
   ],
-  "accessWidener": "estrogen.accesswidener",
   "depends": {
     "fabricloader": ">=0.15.3",
-    "minecraft": ">=1.20.1"
+    "minecraft": ">=1.20.1",
+    "trinkets": "*"
   },
   "suggests": {
     "emi": "*",

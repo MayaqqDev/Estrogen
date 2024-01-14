@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.fabric.integrations.rei;
+package dev.mayaqq.estrogen.integrations.rei;
 
 import com.simibubi.create.Create;
 import com.simibubi.create.compat.rei.*;
@@ -13,7 +13,7 @@ import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
 import dev.architectury.fluid.FluidStack;
-import dev.mayaqq.estrogen.fabric.integrations.rei.categories.CentrifugingCategory;
+import dev.mayaqq.estrogen.integrations.rei.categories.CentrifugingCategory;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenRecipes;
 import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;

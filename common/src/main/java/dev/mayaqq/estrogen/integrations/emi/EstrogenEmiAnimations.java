@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.fabric.integrations.emi;
+package dev.mayaqq.estrogen.integrations.emi;
 
 import com.simibubi.create.compat.emi.CreateEmiAnimations;
 import dev.emi.emi.api.widget.WidgetHolder;

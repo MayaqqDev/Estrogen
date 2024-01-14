@@ -15,19 +15,14 @@ configurations {
     developmentFabric.extendsFrom common
 }
 
-repositories {
-    maven { url = "https://maven.shedaniel.me" } // REI
-    maven { url = "https://maven.terraformersmc.com/releases/" } // Mod Menu
-    maven { url = "https://mvn.devos.one/snapshots/" } // Create Fabric, Porting Lib, Forge Tags, Milk Lib, Registrate Fabric
-    maven { url = "https://cursemaven.com" } // Forge Config API Port
-    maven { url = "https://maven.cafeteria.dev/releases" } // Fake Player API
-    maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
-    maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM
-}
+repositories {}
 
 dependencies {
+    // Fabric
     modImplementation ("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
-    modApi ("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
+
+    // Fapi
+    modApi ("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
 
     modApi ("dev.architectury:architectury-fabric:${rootProject.architectury_version}")
 
@@ -43,29 +38,31 @@ dependencies {
         modApi ("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${project.cardinal_version}")
     }
 
-    // EMI
-    modCompileOnly "dev.emi:emi-fabric:${project.emi_version}:api"
-    modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}"
-
-    // REI
-    modCompileOnly ("me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}")
-
     //Mod Menu
-    modImplementation ("com.terraformersmc:modmenu:${project.modmenu_version}")
+    modLocalRuntime ("com.terraformersmc:modmenu:${project.modmenu_version}")
 
     //Mixin Extras
-    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${project.mixin_extras_version}")))
+    implementation (include(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${rootProject.mixin_extras_version}")))
 
     //Dev Auth
     modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${rootProject.devauth_version}")
+
+    // Item Viewers
+    switch (rootProject.item_viewer.toLowerCase()) {
+        case "rei":
+            modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}")
+            modLocalRuntime("maven.modrinth:createfabricreibugfix:${project.createreibugfix_version}"); break
+        case "emi": modLocalRuntime("dev.emi:emi-fabric:${rootProject.emi_version}"); break
+        case "jei": modLocalRuntime("mezz.jei:jei-${rootProject.minecraft_version}-fabric:${rootProject.jei_version}"); break
+        case "disabled": break
+        default: println("Invalid item viewer: ${rootProject.item_viewer} must be REI, EMI or disabled"); break
+    }
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }
 
 processResources {
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-    
     inputs.property "version", project.version
 
     filesMatching("fabric.mod.json") {
@@ -113,7 +110,6 @@ publishing {
 
 loom {
     Project common = project(":common")
-    accessWidenerPath = file("src/main/resources/estrogen.accesswidener")
     runs {
         datagen {
             client()
