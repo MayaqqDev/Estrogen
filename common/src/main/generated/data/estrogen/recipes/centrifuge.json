@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "C": {
-      "tag": "c:copper_plates"
+      "tag": "estrogen:copper_plates"
     },
     "M": {
       "item": "create:precision_mechanism"

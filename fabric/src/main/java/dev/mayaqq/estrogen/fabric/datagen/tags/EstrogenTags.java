@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.fabric.datagen.tags;
 
+import com.simibubi.create.AllTags;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
@@ -30,6 +31,9 @@ public class EstrogenTags {
                     .add(EstrogenItems.ESTROGEN_PATCHES.get());
             getOrCreateTagBuilder(dev.mayaqq.estrogen.registry.common.EstrogenTags.UWUFYING)
                     .add(EstrogenItems.UWU.get());
+            getOrCreateTagBuilder(dev.mayaqq.estrogen.registry.common.EstrogenTags.COPPER_PLATES)
+                    .addOptionalTag(AllTags.forgeItemTag("copper_plates"))
+                    .addOptionalTag(AllTags.optionalTag(BuiltInRegistries.ITEM, new ResourceLocation("forge", "plates/copper")));
             getOrCreateTagBuilder(CURIOS_THIGHS)
                     .add(EstrogenItems.ESTROGEN_PATCHES.get());
         }
