@@ -47,7 +47,7 @@ dependencies {
     switch (item_viewer.toLowerCase()) {
         case "jei": modLocalRuntime("curse.maven:jei-238222:${rootProject.jei_file_id}"); break
         case "disabled": break
-        default: println("Invalid item viewer: ${item_viewer} must be REI, EMI or disabled"); break
+        default: println("Invalid item viewer: ${item_viewer} must be JEI or disabled"); break
     }
 
     //Forge stuff
