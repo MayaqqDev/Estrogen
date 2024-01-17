@@ -38,6 +38,13 @@ dependencies {
         modApi ("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${project.cardinal_version}")
     }
 
+    // REI
+    modCompileOnly ("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
+    modCompileOnly ("me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}")
+
+    // EMI
+    modCompileOnly ("dev.emi:emi-fabric:${rootProject.emi_version}:api")
+
     //Mod Menu
     modLocalRuntime ("com.terraformersmc:modmenu:${project.modmenu_version}")
 

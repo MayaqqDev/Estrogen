@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.integrations.rei;
+package dev.mayaqq.estrogen.fabric.integrations.rei;
 
 import com.simibubi.create.Create;
 import com.simibubi.create.compat.rei.*;
@@ -13,7 +13,8 @@ import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
 import dev.architectury.fluid.FluidStack;
-import dev.mayaqq.estrogen.integrations.rei.categories.CentrifugingCategory;
+import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.RecipeManagerAccessor;
+import dev.mayaqq.estrogen.fabric.integrations.rei.categories.CentrifugingCategory;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenRecipes;
 import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
@@ -319,9 +320,9 @@ public class ReiCompat extends CreateREI {
     }
 
     public static <T extends Recipe<?>> void consumeTypedRecipes(Consumer<T> consumer, RecipeType<?> type) {
-        Map<ResourceLocation, Recipe<?>> map = Minecraft.getInstance()
+        Map<ResourceLocation, Recipe<?>> map = ((RecipeManagerAccessor) Minecraft.getInstance()
                 .getConnection()
-                .getRecipeManager().recipes.get(type);
+                .getRecipeManager()).port_lib$getRecipes().get(type);
         if (map != null) {
             map.values().forEach(recipe -> consumer.accept((T) recipe));
         }

@@ -1,10 +1,10 @@
-package dev.mayaqq.estrogen.integrations.rei.categories;
+package dev.mayaqq.estrogen.fabric.integrations.rei.categories;
 
 import com.simibubi.create.compat.rei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.rei.category.WidgetUtil;
 import com.simibubi.create.compat.rei.display.CreateDisplay;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
-import dev.mayaqq.estrogen.integrations.rei.animated.AnimatedCentrifuge;
+import dev.mayaqq.estrogen.fabric.integrations.rei.animated.AnimatedCentrifuge;
 import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
 import io.github.fabricators_of_create.porting_lib.util.FluidStack;
 import me.shedaniel.math.Point;
