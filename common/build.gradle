@@ -21,9 +21,6 @@ dependencies {
     modCompileOnly ("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
     modCompileOnly ("me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}")
 
-    // JEI //TODO: JEI Compat
-    modCompileOnly ("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
-
     // Ears
     implementation ("com.unascribed:ears-api:${project.ears_version}")
 
