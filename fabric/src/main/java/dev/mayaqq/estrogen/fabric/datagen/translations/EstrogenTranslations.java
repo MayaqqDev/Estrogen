@@ -13,9 +13,6 @@ public class EstrogenTranslations {
 
         @Override
         public void generateTranslations(TranslationBuilder tb) {
-            // Config
-                tb.add("text.autoconfig.estrogen.title", "Estrogen");
-                tb.add("text.autoconfig.estrogen.option.boobies", "Chest Feature");
             // Status Effects
                 tb.add(EstrogenEffects.ESTROGEN_EFFECT, "Girl Power");
 

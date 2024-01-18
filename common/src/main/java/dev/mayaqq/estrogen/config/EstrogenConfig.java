@@ -75,7 +75,7 @@ public class EstrogenConfig {
     }
 
     public static class Common extends ConfigBase {
-        public final ConfigBool test = b(false, "test", "Test");
+        public final ConfigBool placeholder = b(true, "placeholder", "Placeholder");
 
         @Override
         public String getName() {
@@ -84,7 +84,7 @@ public class EstrogenConfig {
     }
 
     public static class Server extends ConfigBase {
-        public final ConfigBool test = b(false, "test", "Test");
+        public final ConfigBool dashEnabled = b(true, "dashEnabled", "Enable dash from the Effect of Estrogen");
 
         @Override
         public String getName() {

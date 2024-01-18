@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.registry.common.effects;
 
 import dev.architectury.networking.NetworkManager;
 import dev.mayaqq.estrogen.client.Dash;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenC2S;
 import dev.mayaqq.estrogen.networking.EstrogenStatusEffectSender;
 import dev.mayaqq.estrogen.registry.client.EstrogenKeybinds;
@@ -45,6 +46,7 @@ public class EstrogenEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
+        if (!EstrogenConfig.server().dashEnabled.get()) return;
         dashCooldown--;
         groundCooldown--;
         if (dashCooldown < 0) dashCooldown = 0;
