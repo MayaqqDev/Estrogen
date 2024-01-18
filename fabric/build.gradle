@@ -82,9 +82,10 @@ shadowJar {
 }
 
 remapJar {
+    destinationDirectory = project(":common").file("build/output")
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
-    archiveClassifier.set("-fabric")
+    archiveClassifier.set("fabric")
 }
 
 jar {

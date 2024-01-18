@@ -3,6 +3,12 @@ plugins {
     id "dev.architectury.loom" version "1.1-SNAPSHOT" apply false
 }
 
+tasks.register("buildBoth") {
+    dependsOn project(":fabric").tasks.named("build")
+    dependsOn project(":forge").tasks.named("build")
+}
+
+
 architectury {
     minecraft = rootProject.minecraft_version
 }
@@ -43,7 +49,7 @@ allprojects {
         maven { url = "https://maven.ladysnake.org/releases" } // Trinkets
         maven { url = "https://repo.unascribed.com" } // Ears
         maven { url = "https://api.modrinth.com/maven" } // Create & REI Bug Fix
-        maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM
+        maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM | NOTE: LEAVE THIS AS LAST
     }
 
     tasks.withType(JavaCompile) {

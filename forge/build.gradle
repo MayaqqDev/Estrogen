@@ -65,15 +65,15 @@ processResources {
 
 shadowJar {
     exclude "fabric.mod.json"
-
     configurations = [project.configurations.shadowCommon]
     archiveClassifier.set("dev-shadow")
 }
 
 remapJar {
+    destinationDirectory = project(":common").file("build/output")
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
-    archiveClassifier.set("-forge")
+    archiveClassifier.set("forge")
 }
 
 jar {
