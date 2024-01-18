@@ -285,9 +285,9 @@ public class EstrogenTranslations {
         }
     }
 
-        public static class PtBr extends FabricLanguageProvider {
+    public static class PtBr extends FabricLanguageProvider {
 
-        public EnUs(FabricDataOutput output) {
+        public PtBr(FabricDataOutput output) {
             super(output, "pt_br");
         }
 
