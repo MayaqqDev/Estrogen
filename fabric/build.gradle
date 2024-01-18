@@ -69,6 +69,8 @@ dependencies {
 }
 
 processResources {
+    Project common = project(":common")
+
     inputs.property "version", project.version
     inputs.property "contributors", rootProject.contributors
 
@@ -76,6 +78,12 @@ processResources {
         expand "version": project.version,
                     "contributors": rootProject.contributors
     }
+    copy {
+        from common.file("src/main/generated/data/estrogen/recipes/.fabric")
+        include "**/*.json"
+        into "src/main/generated/data/estrogen/recipes/"
+    }
+
 }
 
 shadowJar {
@@ -130,6 +138,18 @@ loom {
             vmArg "-Dporting_lib.datagen.existing_resources=${common.file("src/main/resources")}"
 
             runDir "build/datagen"
+
+        }
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs += [
+                    'src/main/generated'
+            ]
+            exclude ".cache/**"
         }
     }
 }

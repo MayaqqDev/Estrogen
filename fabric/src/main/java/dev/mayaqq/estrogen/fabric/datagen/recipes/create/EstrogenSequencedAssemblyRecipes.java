@@ -5,17 +5,22 @@ import com.simibubi.create.content.kinetics.deployer.DeployerApplicationRecipe;
 import com.simibubi.create.content.kinetics.press.PressingRecipe;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipeBuilder;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
+import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeFabricImpl;
+import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeForgeImpl;
+import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeInterface;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 
 import java.util.function.UnaryOperator;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
 
-public class EstrogenSequencedAssemblyRecipes extends CreateRecipeProvider {
+public class EstrogenSequencedAssemblyRecipes<T extends EstrogenRecipeInterface> extends CreateRecipeProvider {
 
+    private T t;
     GeneratedRecipe
             ESTROGEN_PATCH = create("estrogen_patch", b -> b.require(Items.PAPER)
                 .transitionTo(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH)
@@ -25,8 +30,8 @@ public class EstrogenSequencedAssemblyRecipes extends CreateRecipeProvider {
                 .addOutput(Items.SLIME_BALL, 5)
                 .addOutput(EstrogenItems.HORSE_URINE_BOTTLE, 4)
                 .loops(5)
-                .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.MOLTEN_SLIME.get(), 27000))
-                .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.LIQUID_ESTROGEN.get(), 27000))
+                .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.MOLTEN_SLIME.get(), t.getAmount(27000)))
+                .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(27000)))
                 .addStep(DeployerApplicationRecipe::new, rb -> rb.require(Items.PAPER))
             ),
 
@@ -43,8 +48,9 @@ public class EstrogenSequencedAssemblyRecipes extends CreateRecipeProvider {
             );
 
 
-    public EstrogenSequencedAssemblyRecipes(FabricDataOutput output) {
+    public EstrogenSequencedAssemblyRecipes(FabricDataOutput output, T t) {
         super(output);
+        this.t = t;
     }
 
     protected GeneratedRecipe create(String name, UnaryOperator<SequencedAssemblyRecipeBuilder> transform) {
@@ -55,8 +61,21 @@ public class EstrogenSequencedAssemblyRecipes extends CreateRecipeProvider {
         return generatedRecipe;
     }
 
+    public static EstrogenSequencedAssemblyRecipes buildFabric(FabricDataOutput output) {
+        return new EstrogenSequencedAssemblyRecipes<>(output, new EstrogenRecipeFabricImpl());
+    }
+
+    public static EstrogenSequencedAssemblyRecipes buildForge(FabricDataOutput output) {
+        return new EstrogenSequencedAssemblyRecipes<>(output, new EstrogenRecipeForgeImpl());
+    }
+
+    @Override
+    protected ResourceLocation getRecipeIdentifier(ResourceLocation identifier) {
+        return t.getRecipeIdentifier(identifier);
+    }
+
     @Override
     public String getName() {
-        return "Estrogen's Sequenced Assembly Recipes";
+        return t.getName("Estrogen's Sequenced Assembly Recipes");
     }
 }

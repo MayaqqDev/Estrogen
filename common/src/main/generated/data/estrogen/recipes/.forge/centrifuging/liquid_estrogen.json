@@ -1,0 +1,16 @@
+{
+  "type": "estrogen:centrifuging",
+  "ingredients": [
+    {
+      "amount": 10,
+      "fluid": "estrogen:filtrated_horse_urine",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "amount": 10,
+      "fluid": "estrogen:liquid_estrogen"
+    }
+  ]
+}

@@ -45,6 +45,8 @@ sourceSets {
                     'src/main/generated'
             ]
             exclude ".cache/**"
+            exclude "**/.fabric"
+            exclude "**/.forge"
 
         }
     }
