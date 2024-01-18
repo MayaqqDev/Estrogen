@@ -9,7 +9,8 @@
   ],
   "contributors": [
     "PrincessDoreena",
-    "TheWinABagel"
+    "TheWinABagel",
+    "rosymaplemoss"
   ],
   "contact": {
     "repo": "https://github.com/MayaqqDev/Estrogen",
@@ -43,9 +44,10 @@
     "fabricloader": ">=0.15.3",
     "minecraft": ">=1.20.1",
     "create": "*",
-    "trinkets": "*"
+    "trinkets": "*",
+    "architectury": "*"
   },
-  "accessWidener": "${accessWidenerPath}",
+  "accessWidener": "estrogen.accesswidener",
   "suggests": {
     "emi": "*",
     "modmenu": "*"

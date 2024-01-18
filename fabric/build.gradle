@@ -69,15 +69,10 @@ dependencies {
 }
 
 processResources {
-
-    String commonAccessWidenerPath = project(":common").file("src/main/resources/estrogen.accesswidener").toString()
-
     inputs.property "version", project.version
-    inputs.property "accessWidenerPath", commonAccessWidenerPath
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version,
-            "accessWidenerPath": commonAccessWidenerPath
+        expand "version": project.version
     }
 }
 
@@ -98,6 +93,7 @@ jar {
 }
 
 sourcesJar {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
     def commonSources = project(":common").sourcesJar
     dependsOn commonSources
     from commonSources.archiveFile.map { zipTree(it) }

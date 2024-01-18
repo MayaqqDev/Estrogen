@@ -32,7 +32,8 @@ logoFile = "assets/estrogen/icon.png" #optional
 #credits="Thanks for this example mod goes to Java" #optional
 credits='''
 PrincessDoreena,
-TheWinABagel
+TheWinABagel,
+rosymaplemoss
 '''
 # Authors
 authors = "Mayaqq"
@@ -68,6 +69,13 @@ side="BOTH"
 # curios
 [[dependencies.estrogen]]
 modId="curios"
+mandatory=true
+versionRange="*"
+ordering="NONE"
+side="BOTH"
+# architectury api
+[[dependencies.estrogen]]
+modId="architectury"
 mandatory=true
 versionRange="*"
 ordering="NONE"
