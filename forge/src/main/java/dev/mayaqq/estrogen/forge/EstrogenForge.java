@@ -22,17 +22,21 @@ public class EstrogenForge {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         // Submit our event bus to let architectury register our content on the right time
         bus.addListener(this::clientSetup);
+        // Forge ugh
         EventBuses.registerModEventBus(MOD_ID, bus);
+        // REGISTRATE registering
         Estrogen.REGISTRATE.registerEventListeners(bus);
 
+        // Config
         EstrogenConfig.register();
-
         for (Map.Entry<ModConfig.Type, ConfigBase> pair : EstrogenConfig.CONFIGS.entrySet())
             ModLoadingContext.get().registerConfig(pair.getKey(), pair.getValue().specification);
 
+        // Init Estrogen main class
         Estrogen.init();
     }
 
+    // Init Estrogen Client on Forge
     public void clientSetup(FMLClientSetupEvent event) {
         EstrogenClient.init();
     }

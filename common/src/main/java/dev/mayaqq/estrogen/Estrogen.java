@@ -26,11 +26,14 @@ public class Estrogen {
 
     public static final Logger LOGGER = LoggerFactory.getLogger("Estrogen");
 
+    // Used to register some of the registry objects, other is done by architectury
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create("estrogen");
 
+    // The registering part done by architectury
     public static final Supplier<RegistrarManager> MANAGER = Suppliers.memoize(() -> RegistrarManager.get(MOD_ID));
 
     static {
+        // Tooltip modifier for Centrifuge
         REGISTRATE.setTooltipModifierFactory(item ->
                 new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
                         .andThen(TooltipModifier.mapNull(KineticStats.create(item)))
@@ -42,6 +45,7 @@ public class Estrogen {
     }
 
     public static void init() {
+        // Init all the different classes
         EstrogenCreativeTab.register();
         EstrogenAttributes.register();
         EstrogenBlockEntities.register();
@@ -58,20 +62,5 @@ public class Estrogen {
         EstrogenRecipes.register();
         EstrogenSounds.register();
         EstrogenC2S.register();
-
-        InteractionEvent.INTERACT_ENTITY.register((player, entity, hand) -> {
-            ItemStack stack = player.getItemInHand(hand);
-            if (entity instanceof Horse horse) {
-                if (!horse.isBaby()) {
-                    if (stack.getItem() == Items.GLASS_BOTTLE) {
-                        stack.shrink(1);
-                        player.playSound(SoundEvents.BOTTLE_FILL_DRAGONBREATH, 1.0f, 1.0f);
-                        player.addItem(new ItemStack(EstrogenItems.HORSE_URINE_BOTTLE.get()));
-                        return EventResult.interruptTrue();
-                    }
-                }
-            }
-            return EventResult.pass();
-        });
     }
 }

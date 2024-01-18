@@ -20,7 +20,6 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 
 @Mod.EventBusSubscriber(modid = Estrogen.MOD_ID)
 public class EstrogenForgeEvents {
-
     @SubscribeEvent
     public static void modifyDamageSource(LivingFallEvent event) {
         if (event.getEntity() instanceof Player player) {
@@ -30,6 +29,7 @@ public class EstrogenForgeEvents {
         }
     }
 
+    // Config
     @SubscribeEvent
     public static void onLoad(ModConfigEvent.Loading event) {
         for (ConfigBase config : EstrogenConfig.CONFIGS.values())
@@ -38,6 +38,7 @@ public class EstrogenForgeEvents {
                 config.onLoad();
     }
 
+    // Config
     @SubscribeEvent
     public static void onReload(ModConfigEvent.Reloading event) {
         for (ConfigBase config : EstrogenConfig.CONFIGS.values())
@@ -46,6 +47,7 @@ public class EstrogenForgeEvents {
                 config.onReload();
     }
 
+    // For Estrogen Patches to work with curios
     @SubscribeEvent
     public static void attachCapabilities(AttachCapabilitiesEvent<ItemStack> evt) {
         ItemStack stack = evt.getObject();

@@ -17,18 +17,14 @@ import java.util.Map;
 public class EstrogenFabric implements ModInitializer {
     @Override
     public void onInitialize() {
-
+        // init Estrogen main class
         Estrogen.init();
+        // Register everything using REGISTRATE
         Estrogen.REGISTRATE.register();
+        // Register Fabric specific Events
         EstrogenFabricEvents.register();
-        LivingEntityDamageEvents.HURT.register((event) -> {
-            if (event.damaged instanceof Player player) {
-                if (event.damageSource.is(DamageTypes.FALL) && player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT)) {
-                    event.damageAmount /= 1.5f;
-                }
-            }
-        });
 
+        // Register and configure the config
         EstrogenConfig.register();
         for (Map.Entry<ModConfig.Type, ConfigBase> pair : EstrogenConfig.CONFIGS.entrySet())
             ForgeConfigRegistry.INSTANCE.register(Estrogen.MOD_ID, pair.getKey(), pair.getValue().specification);
