@@ -30,7 +30,10 @@ displayName = "Estrogen" #mandatory
 logoFile = "assets/estrogen/icon.png" #optional
 # A text field displayed in the mod UI
 #credits="Thanks for this example mod goes to Java" #optional
-credits="Contributors: PrincessDoreena"
+credits='''
+PrincessDoreena,
+TheWinABagel
+'''
 # A text field displayed in the mod UI
 authors = "Mayaqq" #optional
 # Display Test controls the display for your mod in the server connection screen
@@ -57,7 +60,7 @@ versionRange = "[47,)" #mandatory
 ordering = "NONE"
 # Side this dependency is applied on - BOTH, CLIENT or SERVER
 side = "BOTH"
-# Here's another dependency
+# minecraft
 [[dependencies.estrogen]]
 modId = "minecraft"
 mandatory = true
