@@ -7,12 +7,7 @@
   "authors": [
     "Mayaqq"
   ],
-  "contributors": [
-    "PrincessDoreena",
-    "TheWinABagel",
-    "rosymaplemoss",
-    "Encode42"
-  ],
+  "contributors": ["${contributors}"],
   "contact": {
     "repo": "https://github.com/MayaqqDev/Estrogen",
     "sources": "https://github.com/MayaqqDev/Estrogen"

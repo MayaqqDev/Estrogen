@@ -30,12 +30,7 @@ displayName = "Estrogen" #mandatory
 logoFile = "assets/estrogen/icon.png" #optional
 # A text field displayed in the mod UI
 #credits="Thanks for this example mod goes to Java" #optional
-credits='''
-PrincessDoreena,
-TheWinABagel,
-rosymaplemoss,
-Encode42
-'''
+credits="${contributors}"
 # Authors
 authors = "Mayaqq"
 
