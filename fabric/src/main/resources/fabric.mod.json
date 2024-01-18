@@ -45,6 +45,7 @@
     "create": "*",
     "trinkets": "*"
   },
+  "accessWidener": "${accessWidenerPath}",
   "suggests": {
     "emi": "*",
     "modmenu": "*"

@@ -69,10 +69,15 @@ dependencies {
 }
 
 processResources {
+
+    String commonAccessWidenerPath = project(":common").file("src/main/resources/estrogen.accesswidener").toString()
+
     inputs.property "version", project.version
+    inputs.property "accessWidenerPath", commonAccessWidenerPath
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand "version": project.version,
+            "accessWidenerPath": commonAccessWidenerPath
     }
 }
 
