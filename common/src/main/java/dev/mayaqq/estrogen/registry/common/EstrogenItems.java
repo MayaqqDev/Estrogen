@@ -10,7 +10,6 @@ import dev.mayaqq.estrogen.registry.common.items.UwUItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.RecordItem;
 
 import static dev.mayaqq.estrogen.Estrogen.REGISTRATE;
 

@@ -3,13 +3,9 @@ package dev.mayaqq.estrogen.fabric;
 import com.simibubi.create.foundation.config.ConfigBase;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
-import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import fuzs.forgeconfigapiport.api.config.v2.ModConfigEvents;
-import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingEntityDamageEvents;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fml.config.ModConfig;
 
 import java.util.Map;
