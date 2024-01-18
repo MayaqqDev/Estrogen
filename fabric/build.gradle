@@ -38,6 +38,13 @@ dependencies {
         modApi ("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${project.cardinal_version}")
     }
 
+    // REI
+    modCompileOnly ("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
+    modCompileOnly ("me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}")
+
+    // EMI
+    modCompileOnly ("dev.emi:emi-fabric:${rootProject.emi_version}:api")
+
     //Mod Menu
     modLocalRuntime ("com.terraformersmc:modmenu:${project.modmenu_version}")
 
@@ -48,14 +55,13 @@ dependencies {
     modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${rootProject.devauth_version}")
 
     // Item Viewers
-    switch (rootProject.item_viewer.toLowerCase()) {
+    switch (item_viewer.toLowerCase()) {
         case "rei":
             modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}")
             modLocalRuntime("maven.modrinth:createfabricreibugfix:${project.createreibugfix_version}"); break
         case "emi": modLocalRuntime("dev.emi:emi-fabric:${rootProject.emi_version}"); break
-        case "jei": modLocalRuntime("mezz.jei:jei-${rootProject.minecraft_version}-fabric:${rootProject.jei_version}"); break
         case "disabled": break
-        default: println("Invalid item viewer: ${rootProject.item_viewer} must be REI, EMI or disabled"); break
+        default: println("Invalid item viewer: ${item_viewer} must be REI, EMI or disabled"); break
     }
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }

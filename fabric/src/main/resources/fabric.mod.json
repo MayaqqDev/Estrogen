@@ -28,10 +28,10 @@
       "dev.mayaqq.estrogen.fabric.datagen.EstrogenDatagen"
     ],
     "emi": [
-      "dev.mayaqq.estrogen.integrations.emi.EmiCompat"
+      "dev.mayaqq.estrogen.fabric.integrations.emi.EmiCompat"
     ],
     "rei_client": [
-      "dev.mayaqq.estrogen.integrations.rei.ReiCompat"
+      "dev.mayaqq.estrogen.fabric.integrations.rei.ReiCompat"
     ]
   },
   "mixins": [

@@ -40,14 +40,14 @@ dependencies {
     //Dev Auth
     modRuntimeOnly ("me.djtheredstoner:DevAuth-forge-latest:${rootProject.devauth_version}")
 
+    modCompileOnly ("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
+    compileOnlyApi ("mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}")
+
     //Item Viewers
-    //TODO: REI is currently broken on forge, seems like a REI issue, EMI compat seems to be broken on forge, also tags in recipes are broken on forge because of platform difference
-    switch (rootProject.item_viewer.toLowerCase()) {
-        case "rei": modLocalRuntime("me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}"); break
-        case "emi": modLocalRuntime("dev.emi:emi-forge:${rootProject.emi_version}"); break
-        case "jei": modLocalRuntime("mezz.jei:jei-${rootProject.minecraft_version}-forge:${rootProject.jei_version}"); break
+    switch (item_viewer.toLowerCase()) {
+        case "jei": modLocalRuntime("curse.maven:jei-238222:${rootProject.jei_file_id}"); break
         case "disabled": break
-        default: println("Invalid item viewer: ${rootProject.item_viewer} must be REI, EMI or disabled"); break
+        default: println("Invalid item viewer: ${item_viewer} must be JEI or disabled"); break
     }
 
     //Forge stuff

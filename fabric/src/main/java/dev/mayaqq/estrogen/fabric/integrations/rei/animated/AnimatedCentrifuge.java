@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.integrations.rei.animated;
+package dev.mayaqq.estrogen.fabric.integrations.rei.animated;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.compat.rei.category.animations.AnimatedKinetics;

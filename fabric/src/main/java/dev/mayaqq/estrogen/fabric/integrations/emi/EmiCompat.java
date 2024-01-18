@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.integrations.emi;
+package dev.mayaqq.estrogen.fabric.integrations.emi;
 
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.content.fluids.VirtualFluid;
@@ -13,7 +13,7 @@ import dev.emi.emi.api.render.EmiRenderable;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.integrations.emi.recipes.CentrifugingEmiRecipe;
+import dev.mayaqq.estrogen.fabric.integrations.emi.recipes.CentrifugingEmiRecipe;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenRecipes;
 import net.minecraft.resources.ResourceLocation;
