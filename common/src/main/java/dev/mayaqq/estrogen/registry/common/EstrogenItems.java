@@ -3,12 +3,14 @@ package dev.mayaqq.estrogen.registry.common;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import dev.mayaqq.estrogen.Estrogen;
+import dev.mayaqq.estrogen.registry.common.items.EstrogenCookieItem;
 import dev.mayaqq.estrogen.registry.common.items.EstrogenPatchesItem;
 import dev.mayaqq.estrogen.registry.common.items.HorseUrineBottleItem;
 import dev.mayaqq.estrogen.registry.common.items.UwUItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.RecordItem;
 
 import static dev.mayaqq.estrogen.Estrogen.REGISTRATE;
 
@@ -19,9 +21,11 @@ public class EstrogenItems {
         BALLS = normalItem("balls", new EstrogenProperties()),
         TESTOSTERONE_CHUNK = normalItem("testosterone_chunk", new EstrogenProperties()),
         TESTOSTERONE_POWDER = normalItem("testosterone_powder", new EstrogenProperties()),
-        USED_FILTER = normalItem("used_filter", new EstrogenProperties()),
-        ESTROGEN_CHIP_COOKIE = normalItem("estrogen_chip_cookie", new EstrogenProperties().food(EstrogenFoodComponents.ESTROGEN_CHIP_COOKIE).stacksTo(16));
+        USED_FILTER = normalItem("used_filter", new EstrogenProperties());
 
+    public static final ItemEntry<EstrogenCookieItem> ESTROGEN_CHIP_COOKIE = REGISTRATE.item("estrogen_chip_cookie", EstrogenCookieItem::new)
+            .properties(p -> new EstrogenProperties().rarity(Rarity.RARE).food(EstrogenFoodComponents.ESTROGEN_CHIP_COOKIE).stacksTo(1))
+            .register();
     public static final ItemEntry<HorseUrineBottleItem> HORSE_URINE_BOTTLE = REGISTRATE.item("horse_urine_bottle", HorseUrineBottleItem::new)
             .properties(p -> p.craftRemainder(Items.GLASS_BOTTLE).food(EstrogenFoodComponents.HORSE_URINE_BOTTLE).stacksTo(16))
             .register();

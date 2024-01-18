@@ -31,6 +31,7 @@ public class EstrogenTranslations {
                 tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Incomplete Estrogen Patch");
                 tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Crystal Estrogen Pill");
                 tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Estrogen Chip Cookie");
+                    tb.add("item.estrogen.estrogen_chip_cookie.desc", "Erora - G03C");
                 tb.add(EstrogenItems.BALLS.get(), "Balls");
                 tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Horse Urine Bottle");
                 tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Testosterone Chunk");
@@ -82,6 +83,7 @@ public class EstrogenTranslations {
                 tb.add("tag.item.trinkets.legs.thighs", "Thighs");
                 tb.add("tag.item.estrogen.uwufying", "Uwufying");
                 tb.add("tag.item.curios.thighs", "Thighs");
+                tb.add("tag.item.estrogen.copper_plates", "Copper Plates");
 
             // Ponder
                 // Centrifuge

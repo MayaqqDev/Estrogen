@@ -21,6 +21,7 @@ public class EstrogenTags {
 
         public static final TagKey<Item> THIGHS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("trinkets", "legs/thighs"));
         public static final TagKey<Item> CURIOS_THIGHS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("curios", "thighs"));
+        public static final TagKey<Item> MUSIC_DISCS = TagKey.create(BuiltInRegistries.ITEM.key(), mcId("music_discs"));
 
         public ItemTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
             super(output, completableFuture);
@@ -36,6 +37,8 @@ public class EstrogenTags {
                     .addOptionalTag(AllTags.optionalTag(BuiltInRegistries.ITEM, new ResourceLocation("forge", "plates/copper")));
             getOrCreateTagBuilder(CURIOS_THIGHS)
                     .add(EstrogenItems.ESTROGEN_PATCHES.get());
+            getOrCreateTagBuilder(MUSIC_DISCS)
+                    .add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get());
         }
     }
 
