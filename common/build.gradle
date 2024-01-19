@@ -40,6 +40,7 @@ publishing {
 
 sourceSets {
     main {
+        // Platform specific generated files
         resources {
             srcDirs += [
                     'src/main/generated'

@@ -68,6 +68,7 @@ processResources {
                 "minecraft_version": rootProject.minecraft_version
     }
 
+    // Copy the forge only recipes to the generated resources
     copy {
         from common.file("src/main/generated/data/estrogen/recipes/.forge")
         include "**/*.json"

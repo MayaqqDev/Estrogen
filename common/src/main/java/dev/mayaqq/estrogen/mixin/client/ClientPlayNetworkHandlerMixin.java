@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.mixin.client;
 
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.EstrogenEnchantments;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
