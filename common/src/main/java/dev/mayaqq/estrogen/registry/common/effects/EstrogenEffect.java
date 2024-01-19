@@ -16,11 +16,13 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.LiquidBlock;
+import org.jetbrains.annotations.NotNull;
 
 import static dev.mayaqq.estrogen.registry.common.EstrogenAttributes.*;
 import static dev.mayaqq.estrogen.registry.common.EstrogenEffects.ESTROGEN_EFFECT;
@@ -91,11 +93,12 @@ public class EstrogenEffect extends MobEffect {
 
     @Override
     public void removeAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
+        super.removeAttributeModifiers(entity, attributes, amplifier);
         if (entity instanceof ServerPlayer player) {
             new EstrogenStatusEffectSender().sendRemovePlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
         }
 
-        resetDash(entity);
+        resetDash();
 
         if (!entity.hasEffect(ESTROGEN_EFFECT) && entity instanceof Player) {
             entity.getAttribute(BOOB_INITIAL_SIZE.get()).setBaseValue(0.0);
@@ -103,10 +106,7 @@ public class EstrogenEffect extends MobEffect {
         }
     }
 
-    public void resetDash(LivingEntity entity) {
-        if (entity instanceof ServerPlayer player) {
-            player.getAttribute(EstrogenAttributes.DASH_LEVEL.get()).setBaseValue(0.0);
-        }
+    public void resetDash() {
         currentDashes = 0;
         onCooldown = false;
         Dash.onCooldown = false;
@@ -114,16 +114,13 @@ public class EstrogenEffect extends MobEffect {
     }
 
     @Override
-    public void addAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
+    public void addAttributeModifiers(@NotNull LivingEntity entity, @NotNull AttributeMap attributes, int amplifier) {
 
         if (entity instanceof ServerPlayer player) {
             new EstrogenStatusEffectSender().sendPlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
         }
 
         super.addAttributeModifiers(entity, attributes, amplifier);
-
-        entity.getAttribute(DASH_LEVEL.get()).setBaseValue(1 + amplifier);
-
         AttributeInstance startTime = entity.getAttribute(BOOB_GROWING_START_TIME.get());
         // should fix crash related to applying effect to entity without given attribute
         if (startTime != null && startTime.getBaseValue() < 0.0) {
