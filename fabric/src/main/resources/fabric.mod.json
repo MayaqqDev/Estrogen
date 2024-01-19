@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "estrogen",
   "version": "${version}",
-  "name": "Estrogen",
+  "name": "Create: Estrogen",
   "description": "Create Addon Based around expressing yourself, fluid handling and expanding your factory. This mods add a lot of new Items, Blocks, Mechanics and more!",
   "authors": [
     "Mayaqq"
