@@ -17,8 +17,8 @@ public class EstrogenCentrifugingRecipes<T extends EstrogenRecipeInterface> exte
 
     private T t;
     GeneratedRecipe	LIQUID_ESTROGEN = create(id("liquid_estrogen"), recipeBuilder -> recipeBuilder
-            .require(EstrogenFluids.FILTRATED_HORSE_URINE.get(), t.getAmount(1080))
-            .output(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(1080)));
+            .require(EstrogenFluids.FILTRATED_HORSE_URINE.get(), t.getAmount(81))
+            .output(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(81)));
 
     public EstrogenCentrifugingRecipes(FabricDataOutput output, T t) {
         super(output);

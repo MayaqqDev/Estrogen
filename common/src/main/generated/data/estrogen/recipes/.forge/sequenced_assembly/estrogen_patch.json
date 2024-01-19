@@ -34,7 +34,7 @@
           "item": "estrogen:incomplete_estrogen_patches"
         },
         {
-          "amount": 250,
+          "amount": 333,
           "fluid": "estrogen:molten_slime",
           "nbt": {}
         }
@@ -52,7 +52,7 @@
           "item": "estrogen:incomplete_estrogen_patches"
         },
         {
-          "amount": 250,
+          "amount": 333,
           "fluid": "estrogen:liquid_estrogen",
           "nbt": {}
         }

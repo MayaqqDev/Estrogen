@@ -2,7 +2,7 @@
   "type": "create:compacting",
   "ingredients": [
     {
-      "amount": 500,
+      "amount": 666,
       "fluid": "estrogen:molten_slime",
       "nbt": {}
     }
