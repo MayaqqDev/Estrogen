@@ -28,7 +28,7 @@ public class EstrogenTranslations {
                 tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Incomplete Estrogen Patch");
                 tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Crystal Estrogen Pill");
                 tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Estrogen Chip Cookie");
-                    tb.add("item.estrogen.estrogen_chip_cookie.desc", "Erora - G03C");
+                    tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C");
                 tb.add(EstrogenItems.BALLS.get(), "Balls");
                 tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Horse Urine Bottle");
                 tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Testosterone Chunk");
@@ -121,7 +121,7 @@ public class EstrogenTranslations {
             tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Nedokončená Estrogenová Náplast");
             tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Krystalová pilulka estrogenu");
             tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Estrogenová Sušenka");
-            tb.add("item.estrogen.estrogen_chip_cookie.desc", "Erora - G03C");
+            tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C");
             tb.add(EstrogenItems.BALLS.get(), "Koule");
             tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Láhevička S Koňskou Močí");
             tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Kus Testosteronu");
@@ -217,7 +217,7 @@ public class EstrogenTranslations {
             tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Befejezetlen ösztrogén tapasz");
             tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Kristály ösztrogén tabletta");
             tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Ösztrogénes süti");
-            tb.add("item.estrogen.estrogen_chip_cookie.desc", "Erora - G03C");
+            tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C");
             tb.add(EstrogenItems.BALLS.get(), "Golyók");
             tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Lóvizeletes palack");
             tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Tesztoszteron darab");
@@ -310,7 +310,7 @@ public class EstrogenTranslations {
                 tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Adesivo Incompleto de Estrogênio");
                 tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Pilula de Estrogênio Cristalizado");
                 tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Cookie de Estrogênio");
-                    tb.add("item.estrogen.estrogen_chip_cookie.desc", "Erora - G03C");
+                    tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C");
                 tb.add(EstrogenItems.BALLS.get(), "Bolas");
                 tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Garrafa de Urina de Cavalo");
                 tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Pedaço de Testosterona");
