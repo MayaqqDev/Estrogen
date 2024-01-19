@@ -56,12 +56,20 @@ dependencies {
 }
 
 processResources {
+    Project common = project(":common")
+
     inputs.property "version", project.version
     inputs.property "contributors", rootProject.contributors
 
     filesMatching("META-INF/mods.toml") {
         expand "version": project.version,
                 "contributors": rootProject.contributors
+    }
+
+    copy {
+        from common.file("src/main/generated/data/estrogen/recipes/.forge")
+        include "**/*.json"
+        into "src/main/generated/data/estrogen/recipes/"
     }
 }
 
@@ -104,6 +112,17 @@ loom {
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
 
         mixinConfig("estrogen-common.mixins.json")
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs += [
+                    'src/main/generated'
+            ]
+            exclude ".cache/**"
+        }
     }
 }
 

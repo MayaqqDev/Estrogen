@@ -217,6 +217,7 @@ public class EstrogenTranslations {
             tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Befejezetlen ösztrogén tapasz");
             tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Kristály ösztrogén tabletta");
             tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Ösztrogénes süti");
+            tb.add("item.estrogen.estrogen_chip_cookie.desc", "Erora - G03C");
             tb.add(EstrogenItems.BALLS.get(), "Golyók");
             tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Lóvizeletes palack");
             tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Tesztoszteron darab");
@@ -268,6 +269,7 @@ public class EstrogenTranslations {
             tb.add("tag.item.trinkets.legs.thighs", "Combok");
             tb.add("tag.item.estrogen.uwufying", "UwUsítás");
             tb.add("tag.item.curios.thighs", "Combok");
+            tb.add("tag.item.estrogen.copper_plates", "Rézlapok");
 
             // Ponder
             // Centrifuge
