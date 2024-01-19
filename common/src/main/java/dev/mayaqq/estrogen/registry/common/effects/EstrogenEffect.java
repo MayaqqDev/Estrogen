@@ -19,8 +19,11 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.LiquidBlock;
+
+import java.util.UUID;
 
 import static dev.mayaqq.estrogen.registry.common.EstrogenAttributes.*;
 import static dev.mayaqq.estrogen.registry.common.EstrogenEffects.ESTROGEN_EFFECT;
@@ -34,6 +37,8 @@ public class EstrogenEffect extends MobEffect {
     public boolean onCooldown = false;
     private boolean shouldWaveDash = false;
     private BlockPos lastPos = null;
+
+    private static final UUID DASH_MODIFIER_UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4c");
 
     public EstrogenEffect(MobEffectCategory statusEffectType, int color) {
         super(statusEffectType, color);
@@ -95,6 +100,10 @@ public class EstrogenEffect extends MobEffect {
             new EstrogenStatusEffectSender().sendRemovePlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
         }
 
+        if (entity instanceof Player) {
+            entity.getAttribute(EstrogenAttributes.DASH_LEVEL.get()).removeModifier(DASH_MODIFIER_UUID);
+        }
+
         resetDash(entity);
 
         if (!entity.hasEffect(ESTROGEN_EFFECT) && entity instanceof Player) {
@@ -104,9 +113,6 @@ public class EstrogenEffect extends MobEffect {
     }
 
     public void resetDash(LivingEntity entity) {
-        if (entity instanceof ServerPlayer player) {
-            player.getAttribute(EstrogenAttributes.DASH_LEVEL.get()).setBaseValue(0.0);
-        }
         currentDashes = 0;
         onCooldown = false;
         Dash.onCooldown = false;
@@ -122,7 +128,9 @@ public class EstrogenEffect extends MobEffect {
 
         super.addAttributeModifiers(entity, attributes, amplifier);
 
-        entity.getAttribute(DASH_LEVEL.get()).setBaseValue(1 + amplifier);
+        AttributeModifier dashModifier = new AttributeModifier(DASH_MODIFIER_UUID, "Dash Level", amplifier + 1, AttributeModifier.Operation.ADDITION);
+        entity.getAttribute(DASH_LEVEL.get()).removeModifier(DASH_MODIFIER_UUID);
+        entity.getAttribute(DASH_LEVEL.get()).addPermanentModifier(dashModifier);
 
         AttributeInstance startTime = entity.getAttribute(BOOB_GROWING_START_TIME.get());
         // should fix crash related to applying effect to entity without given attribute
