@@ -73,10 +73,12 @@ processResources {
 
     inputs.property "version", project.version
     inputs.property "contributors", rootProject.contributors
+    inputs.property "minecraft_version", rootProject.minecraft_version
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version,
-                    "contributors": rootProject.contributors
+                "contributors": rootProject.contributors,
+                "minecraft_version": rootProject.minecraft_version
     }
     copy {
         from common.file("src/main/generated/data/estrogen/recipes/.fabric")
@@ -92,6 +94,7 @@ shadowJar {
 }
 
 remapJar {
+    // change the desitionation directory to the common project's build/output so that both fabric and forge ends up in the same place
     destinationDirectory = project(":common").file("build/output")
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar

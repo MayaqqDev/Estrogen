@@ -36,7 +36,7 @@ authors = "Mayaqq"
 
 # Description
 description = '''
-Adds estrogen into the game!
+Create Addon Based around expressing yourself, fluid handling and expanding your factory. This mods add a lot of new Items, Blocks, Mechanics and more!
 '''
 
 # forge
@@ -52,7 +52,7 @@ side = "BOTH"
 [[dependencies.estrogen]]
 modId = "minecraft"
 mandatory = true
-versionRange = "1.20.1"
+versionRange = "${minecraft_version}"
 ordering = "NONE"
 side = "BOTH"
 # create

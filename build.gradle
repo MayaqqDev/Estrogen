@@ -3,11 +3,11 @@ plugins {
     id "dev.architectury.loom" version "1.1-SNAPSHOT" apply false
 }
 
+// A task to build both, Forge and Fabric
 tasks.register("buildBoth") {
     dependsOn project(":fabric").tasks.named("build")
     dependsOn project(":forge").tasks.named("build")
 }
-
 
 architectury {
     minecraft = rootProject.minecraft_version
@@ -35,6 +35,7 @@ allprojects {
     version = rootProject.mod_version
     group = rootProject.maven_group
 
+    // repositories for all the build.gradle files, makes it a lot easier to manage
     repositories {
         maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" } // DevAuth
         maven { url = "https://maven.terraformersmc.com/" } // EMI
