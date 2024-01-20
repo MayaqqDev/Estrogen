@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+@SuppressWarnings("UnstableApiUsage")
 public class CentrifugingRecipeMatchesImpl {
     @org.jetbrains.annotations.Contract
     public static boolean matches(CentrifugeBlockEntity be, Level world, CentrifugingRecipe recipe) {

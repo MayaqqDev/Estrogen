@@ -4,7 +4,7 @@ license = "LGPL-3.0"
 issueTrackerURL = "https://github.com/mayaqq/Estrogen/issues"
 [[mods]]
 modId = "estrogen"
-version = "${version}"
+version = "${version}-forge"
 displayName = "Create: Estrogen"
 logoFile = "assets/estrogen/icon.png"
 credits="${contributors}"
