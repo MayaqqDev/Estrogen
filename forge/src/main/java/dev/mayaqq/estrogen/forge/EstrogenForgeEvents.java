@@ -5,6 +5,7 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
+import dev.mayaqq.estrogen.registry.common.items.EstrogenPatchesItem;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -15,6 +16,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
@@ -52,7 +54,8 @@ public class EstrogenForgeEvents {
     public static void attachCapabilities(AttachCapabilitiesEvent<ItemStack> evt) {
         ItemStack stack = evt.getObject();
         Item item = stack.getItem();
-        evt.addCapability(EstrogenItems.ESTROGEN_PATCHES.getId(), CuriosApi.createCurioProvider(new ICurio() {
+        if (!(item instanceof EstrogenPatchesItem)) return;
+        evt.addCapability(CuriosCapability.ID_ITEM, CuriosApi.createCurioProvider(new ICurio() {
 
             @Override
             public ItemStack getStack() {
