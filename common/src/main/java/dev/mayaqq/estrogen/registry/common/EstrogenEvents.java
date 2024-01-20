@@ -17,17 +17,6 @@ import static dev.mayaqq.estrogen.utils.Boob.boobSize;
 public class EstrogenEvents {
 
     public static void register() {
-        InteractionEvent.INTERACT_ENTITY.register((player, entity, hand) -> {
-            if (!(entity instanceof Horse horse)) return EventResult.pass();
-            ItemStack stack = player.getItemInHand(hand);
-            if (stack.getItem() instanceof BottleItem && !horse.isBaby()) {
-                stack.shrink(1);
-                player.playSound(SoundEvents.BOTTLE_FILL);
-                player.getInventory().placeItemBackInInventory(new ItemStack(EstrogenItems.HORSE_URINE_BOTTLE));
-                return EventResult.interruptTrue();
-            }
-            return EventResult.pass();
-        });
         PlayerEvent.PLAYER_QUIT.register(player -> {
             if (player.hasEffect(ESTROGEN_EFFECT)) {
                 double startTime = player.getAttributeValue(BOOB_GROWING_START_TIME.get());
