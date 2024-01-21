@@ -23,7 +23,7 @@ public class EstrogenItems {
         USED_FILTER = normalItem("used_filter", new EstrogenProperties());
 
     public static final ItemEntry<EstrogenCookieItem> ESTROGEN_CHIP_COOKIE = REGISTRATE.item("estrogen_chip_cookie", EstrogenCookieItem::new)
-            .properties(p -> new EstrogenProperties().rarity(Rarity.RARE).food(EstrogenFoodComponents.ESTROGEN_CHIP_COOKIE).stacksTo(1))
+            .properties(p -> new EstrogenProperties().rarity(Rarity.RARE).food(EstrogenFoodComponents.ESTROGEN_CHIP_COOKIE).stacksTo(16))
             .register();
     public static final ItemEntry<HorseUrineBottleItem> HORSE_URINE_BOTTLE = REGISTRATE.item("horse_urine_bottle", HorseUrineBottleItem::new)
             .properties(p -> new EstrogenProperties().craftRemainder(Items.GLASS_BOTTLE).food(EstrogenFoodComponents.HORSE_URINE_BOTTLE).stacksTo(16))

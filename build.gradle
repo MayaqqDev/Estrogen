@@ -49,8 +49,9 @@ allprojects {
         maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
         maven { url = "https://maven.ladysnake.org/releases" } // Trinkets
         maven { url = "https://repo.unascribed.com" } // Ears
-        maven { url = "https://api.modrinth.com/maven" } // Create & REI Bug Fix
+        maven { url = "https://api.modrinth.com/maven" } // Create & REI Bug Fix, Jukeboxfix
         maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM | NOTE: LEAVE THIS AS LAST
+        mavenLocal()
     }
 
     tasks.withType(JavaCompile) {
