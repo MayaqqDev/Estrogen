@@ -52,7 +52,6 @@ public class Estrogen {
         EstrogenFluidItems.register();
         EstrogenFluidAttributes.register();
         EstrogenItems.register();
-        EstrogenPonderScenes.register();
         EstrogenRecipes.register();
         EstrogenSounds.register();
         EstrogenC2S.register();

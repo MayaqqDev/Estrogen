@@ -23,6 +23,8 @@ subprojects {
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
         mappings loom.officialMojangMappings()
+
+        modImplementation include("maven.modrinth:jukeboxfix:${rootProject.jukeboxfix_version}")
     }
 }
 

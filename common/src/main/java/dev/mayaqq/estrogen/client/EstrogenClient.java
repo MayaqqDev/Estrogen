@@ -8,6 +8,7 @@ import dev.mayaqq.estrogen.registry.client.EstrogenKeybinds;
 import dev.mayaqq.estrogen.registry.client.EstrogenModelPredicateProviders;
 import dev.mayaqq.estrogen.registry.client.EstrogenRenderer;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
+import dev.mayaqq.estrogen.registry.common.EstrogenPonderScenes;
 import net.minecraft.client.renderer.RenderType;
 
 import static dev.mayaqq.estrogen.Estrogen.LOGGER;
@@ -19,6 +20,7 @@ public class EstrogenClient {
         EstrogenKeybinds.register();
         EstrogenModelPredicateProviders.register();
         EstrogenS2C.register();
+        EstrogenPonderScenes.register();
 
         RenderTypeRegistry.register(RenderType.translucent(), EstrogenFluids.LIQUID_ESTROGEN.get());
         RenderTypeRegistry.register(RenderType.translucent(), EstrogenFluids.LIQUID_ESTROGEN_FLOWING.get());
