@@ -30,9 +30,6 @@ dependencies {
     //Create
     modImplementation ("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${project.create_version}+mc${rootProject.minecraft_version}")
 
-    //Jukeboxfix
-    modImplementation include("dev.mayaqq.Jukeboxfix:fabric:${rootProject.jukeboxfix_version}")
-
     //Porting Lib
     modImplementation(include("io.github.fabricators_of_create.Porting-Lib:transfer:${project.porting_lib_version}"))
 
