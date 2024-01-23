@@ -48,7 +48,6 @@ public void render(PoseStack stack, MultiBufferSource bufferSource, int i, Abstr
             ItemStack itemStack = entity.getItemBySlot(EquipmentSlot.CHEST);
             if (itemStack.getItem() instanceof ArmorItem armorItem) {
                 if (armorItem.getEquipmentSlot() == EquipmentSlot.CHEST) {
-                    boolean bl = false;
                     boolean bl2 = itemStack.hasFoil();
                     if (armorItem instanceof DyeableArmorItem dyeable) {
                         int n = dyeable.getColor(itemStack);
@@ -56,10 +55,10 @@ public void render(PoseStack stack, MultiBufferSource bufferSource, int i, Abstr
                         float p = (float) (n >> 8 & 255) / 255.0F;
                         float q = (float) (n & 255) / 255.0F;
 
-                        ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, armorItem, bl2, bl, o, p, q, (String) null, entity, size);
-                        ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, armorItem, bl2, bl, 1.0F, 1.0F, 1.0F, "overlay", entity, size);
+                        ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, bl2, o, p, q, null, entity, size);
+                        ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, bl2, 1.0F, 1.0F, 1.0F, "overlay", entity, size);
                     } else {
-                        ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, armorItem, bl2, bl, 1.0F, 1.0F, 1.0F, (String) null, entity, size);
+                        ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, bl2, 1.0F, 1.0F, 1.0F, null, entity, size);
                     }
                 }
             }
