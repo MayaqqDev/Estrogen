@@ -1,6 +1,7 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "1.4-SNAPSHOT" apply false
+    id "me.modmuss50.mod-publish-plugin" version "0.4.5"
 }
 
 // A task to build both, Forge and Fabric
@@ -63,5 +64,105 @@ allprojects {
 
     java {
         withSourcesJar()
+    }
+}
+
+publishMods {
+    changelog = "Changelog"
+    type = STABLE
+
+    def optionsCurseforge = curseforgeOptions {
+        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+        minecraftVersions.add("1.20.1")
+        projectId = "850410"
+        requires {
+            slug = "architectury-api"
+        }
+        optional {
+            slug = "ears"
+        }
+    }
+
+    def optionsModrinth = modrinthOptions {
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        projectId = "HhIJW8n1"
+        minecraftVersions.add("1.20.1")
+        requires {
+            slug = "architectury-api"
+        }
+        optional {
+            slug = "ears"
+        }
+        embeds {
+            slug = "jukeboxfix"
+        }
+    }
+
+    curseforge("curseforgeFabric") {
+        from optionsCurseforge
+        modLoaders.add("fabric")
+        modLoaders.add("quilt")
+        file = project(":fabric").tasks.named("remapJar").get().archiveFile
+        requires {
+            slug = "create-fabric"
+        }
+        requires {
+            slug = "trinkets"
+        }
+        optional {
+            slug = "roughly-enough-items"
+        }
+        optional {
+            slug = "emi"
+        }
+    }
+
+    curseforge("curseforgeForge") {
+        from optionsCurseforge
+        modLoaders.add("forge")
+        file = project(":forge").tasks.named("remapJar").get().archiveFile
+        requires {
+            slug = "create"
+        }
+        requires {
+            slug = "curios"
+        }
+        optional {
+            slug = "jei"
+        }
+    }
+
+    modrinth("modrinthFabric") {
+        from optionsModrinth
+        modLoaders.add("fabric")
+        modLoaders.add("quilt")
+        file = project(":fabric").tasks.named("remapJar").get().archiveFile
+        requires {
+            slug = "create-fabric"
+        }
+        requires {
+            slug = "trinkets"
+        }
+        optional {
+            slug = "rei"
+        }
+        optional {
+            slug = "emi"
+        }
+    }
+
+    modrinth("modrinthForge") {
+        from optionsModrinth
+        modLoaders.add("forge")
+        file = project(":forge").tasks.named("remapJar").get().archiveFile
+        requires {
+            slug = "create"
+        }
+        requires {
+            slug = "curios"
+        }
+        optional {
+            slug = "jei"
+        }
     }
 }
