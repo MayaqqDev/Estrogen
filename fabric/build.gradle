@@ -96,11 +96,14 @@ shadowJar {
 }
 
 remapJar {
-    // change the desitionation directory to the common project's build/output so that both fabric and forge ends up in the same place
-    destinationDirectory = project(":common").file("build/output")
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
     archiveClassifier.set("fabric")
+}
+
+tasks.register("buildBothFabric") {
+    remapJar.destinationDirectory = project.rootProject.file("build/libs")
+    dependsOn remapJar
 }
 
 jar {

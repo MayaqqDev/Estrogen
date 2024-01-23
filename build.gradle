@@ -5,8 +5,8 @@ plugins {
 
 // A task to build both, Forge and Fabric
 tasks.register("buildBoth") {
-    dependsOn project(":fabric").tasks.named("build")
-    dependsOn project(":forge").tasks.named("build")
+    dependsOn project(":fabric").tasks.named("buildBothFabric")
+    dependsOn project(":forge").tasks.named("buildBothForge")
 }
 
 architectury {
