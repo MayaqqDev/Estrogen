@@ -75,6 +75,7 @@ publishMods {
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
         minecraftVersions.add("1.20.1")
         projectId = "850410"
+        displayName = "Create: Estrogen ${rootProject.mod_version} Forge"
         requires {
             slug = "architectury-api"
         }
@@ -87,6 +88,7 @@ publishMods {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         projectId = "HhIJW8n1"
         minecraftVersions.add("1.20.1")
+        displayName = "Create: Estrogen ${rootProject.mod_version} Fabric"
         requires {
             slug = "architectury-api"
         }
