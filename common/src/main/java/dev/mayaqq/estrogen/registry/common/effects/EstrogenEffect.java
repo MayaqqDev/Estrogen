@@ -64,7 +64,7 @@ public class EstrogenEffect extends MobEffect {
         lastPos = entity.blockPosition();
 
         // Wave dash
-        if (entity instanceof Player player && player.level().isClientSide) {
+        if (entity instanceof Player player && player.getLevel().isClientSide) {
             Minecraft client = Minecraft.getInstance();
             if (dashCooldown > 0 && shouldWaveDash && client.options.keyJump.isDown()) {
                 player.setDeltaMovement(player.getLookAngle().x * 3, 1, player.getLookAngle().z * 3);
@@ -91,7 +91,7 @@ public class EstrogenEffect extends MobEffect {
     }
 
     private static Boolean shouldRefreshDash(Player player) {
-        return player.onGround() || player.level().getBlockState(player.blockPosition()).getBlock() instanceof LiquidBlock;
+        return player.isOnGround() || player.getLevel().getBlockState(player.blockPosition()).getBlock() instanceof LiquidBlock;
     }
 
     @Override
@@ -135,7 +135,7 @@ public class EstrogenEffect extends MobEffect {
         AttributeInstance startTime = entity.getAttribute(BOOB_GROWING_START_TIME.get());
         // should fix crash related to applying effect to entity without given attribute
         if (startTime != null && startTime.getBaseValue() < 0.0) {
-            double currentTime = Time.currentTime(entity.level());
+            double currentTime = Time.currentTime(entity.getLevel());
             entity.getAttribute(BOOB_GROWING_START_TIME.get()).setBaseValue(currentTime);
         }
     }

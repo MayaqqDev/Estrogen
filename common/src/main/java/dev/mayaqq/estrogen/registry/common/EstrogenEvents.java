@@ -20,7 +20,7 @@ public class EstrogenEvents {
         PlayerEvent.PLAYER_QUIT.register(player -> {
             if (player.hasEffect(ESTROGEN_EFFECT)) {
                 double startTime = player.getAttributeValue(BOOB_GROWING_START_TIME.get());
-                double currentTime = Time.currentTime(player.level());
+                double currentTime = Time.currentTime(player.getLevel());
                 float initialSize = (float) player.getAttributeValue(BOOB_INITIAL_SIZE.get());
                 float size = boobSize(startTime, currentTime, initialSize, 0.0F);
                 player.getAttribute(BOOB_INITIAL_SIZE.get()).setBaseValue(size);
@@ -28,7 +28,7 @@ public class EstrogenEvents {
         });
         PlayerEvent.PLAYER_JOIN.register(player -> {
             if (player.hasEffect(ESTROGEN_EFFECT)) {
-                double currentTime = Time.currentTime(player.level());
+                double currentTime = Time.currentTime(player.getLevel());
                 player.getAttribute(BOOB_GROWING_START_TIME.get()).setBaseValue(currentTime);
             }
         });

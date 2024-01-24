@@ -6,7 +6,7 @@ import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
-import dev.architectury.registry.registries.RegistrarManager;
+import dev.architectury.registry.registries.Registries;
 import dev.mayaqq.estrogen.networking.EstrogenC2S;
 import dev.mayaqq.estrogen.registry.common.*;
 import net.minecraft.resources.ResourceLocation;
@@ -24,7 +24,7 @@ public class Estrogen {
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create("estrogen");
 
     // The registering part done by architectury
-    public static final Supplier<RegistrarManager> MANAGER = Suppliers.memoize(() -> RegistrarManager.get(MOD_ID));
+    public static final Supplier<Registries> MANAGER = Suppliers.memoize(() -> Registries.get(MOD_ID));
 
     static {
         // Tooltip modifier for Centrifuge

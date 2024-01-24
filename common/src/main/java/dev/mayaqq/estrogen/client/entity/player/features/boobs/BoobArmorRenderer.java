@@ -2,12 +2,12 @@ package dev.mayaqq.estrogen.client.entity.player.features.boobs;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.core.Direction;
-import org.joml.*;
 
 import java.util.List;
 import java.util.random.RandomGenerator;
@@ -104,13 +104,19 @@ public final class BoobArmorRenderer {
         stack.popPose();
     }
 
-    public void rotate(PoseStack stack) {
-        stack.translate(this.pivotX / 16.0f, this.pivotY / 16.0f, this.pivotZ / 16.0f);
-        if (this.pitch != 0.0f || this.yaw != 0.0f || this.roll != 0.0f) {
-            stack.mulPose(new Quaternionf().rotationZYX(this.roll, this.yaw, this.pitch));
+    public void rotate(PoseStack matrices) {
+        matrices.translate(this.pivotX / 16.0f, this.pivotY / 16.0f, this.pivotZ / 16.0f);
+        if (this.roll != 0.0f) {
+            matrices.mulPose(Vector3f.ZP.rotation(this.roll));
+        }
+        if (this.yaw != 0.0f) {
+            matrices.mulPose(Vector3f.YP.rotation(this.yaw));
+        }
+        if (this.pitch != 0.0f) {
+            matrices.mulPose(Vector3f.XP.rotation(this.pitch));
         }
         if (this.scaleX != 1.0f || this.scaleY != 1.0f || this.scaleZ != 1.0f) {
-            stack.scale(this.scaleX, this.scaleY, this.scaleZ);
+            matrices.scale(this.scaleX, this.scaleY, this.scaleZ);
         }
     }
 
@@ -182,7 +188,7 @@ public final class BoobArmorRenderer {
             Matrix4f matrix4f = entry.pose();
             Matrix3f matrix3f = entry.normal();
             for (ModelPart.Polygon quad : this.sides) {
-                Vector3f vector3f = matrix3f.transform(new Vector3f(quad.normal));
+                Vector3f vector3f = quad.normal.copy();
                 float f = vector3f.x();
                 float g = vector3f.y();
                 float h = vector3f.z();
@@ -190,7 +196,8 @@ public final class BoobArmorRenderer {
                     float i = vertex.pos.x() / 16.0f;
                     float j = vertex.pos.y() / 16.0f;
                     float k = vertex.pos.z() / 16.0f;
-                    Vector4f vector4f = matrix4f.transform(new Vector4f(i, j, k, 1.0f));
+                    Vector4f vector4f = new Vector4f(i, j, k, 1.0f);
+                    vector4f.transform(matrix4f);
                     vertexConsumer.vertex(vector4f.x(), vector4f.y(), vector4f.z(), red, green, blue, alpha, vertex.u, vertex.v, overlay, light, f, g, h);
                 }
             }

@@ -3,14 +3,14 @@ package dev.mayaqq.estrogen.registry.common;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.mayaqq.estrogen.Estrogen;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 
 public class EstrogenAttributes {
     public static void register() {}
 
-    public static final Registrar<Attribute> attributes = Estrogen.MANAGER.get().get(Registries.ATTRIBUTE);
+    public static final Registrar<Attribute> attributes = Estrogen.MANAGER.get().get(Registry.ATTRIBUTE);
     public static final RegistrySupplier<Attribute> DASH_LEVEL = attributes.register(Estrogen.id("dash_level"), () -> (new RangedAttribute("attribute.name.estrogen.dash_level", 0.0, 0.0, 10.0)).setSyncable(true));
 
     // Boob growing client sided sync

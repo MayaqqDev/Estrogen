@@ -38,7 +38,7 @@ public void render(PoseStack stack, MultiBufferSource bufferSource, int i, Abstr
             double startTime = entity.getAttributeValue(BOOB_GROWING_START_TIME.get());
             if (startTime >= 0.0) {
                 float initialSize = (float) entity.getAttributeValue(BOOB_INITIAL_SIZE.get());
-                double currentTime = Time.currentTime(entity.level());
+                double currentTime = Time.currentTime(entity.getLevel());
                 size = boobSize(startTime, currentTime, initialSize, h);
             } else {
                 size = 0.0F;
@@ -48,7 +48,7 @@ public void render(PoseStack stack, MultiBufferSource bufferSource, int i, Abstr
             if (EstrogenConfig.client().chestArmor.get()) {
                 ItemStack itemStack = entity.getItemBySlot(EquipmentSlot.CHEST);
                 if (itemStack.getItem() instanceof ArmorItem armorItem) {
-                    if (armorItem.getEquipmentSlot() == EquipmentSlot.CHEST) {
+                    if (armorItem.getSlot() == EquipmentSlot.CHEST) {
                         boolean bl2 = itemStack.hasFoil();
                         if (armorItem instanceof DyeableArmorItem dyeable) {
                             int n = dyeable.getColor(itemStack);

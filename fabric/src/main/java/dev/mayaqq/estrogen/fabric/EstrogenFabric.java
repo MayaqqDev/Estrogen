@@ -6,6 +6,8 @@ import dev.mayaqq.estrogen.config.EstrogenConfig;
 import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import fuzs.forgeconfigapiport.api.config.v2.ModConfigEvents;
 import net.fabricmc.api.ModInitializer;
+import net.minecraftforge.api.fml.event.config.ModConfigEvents;
+import net.minecraftforge.configured.ForgeConfigProvider;
 import net.minecraftforge.fml.config.ModConfig;
 
 import java.util.Map;

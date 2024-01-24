@@ -4,12 +4,12 @@ import dev.architectury.core.fluid.ArchitecturyFlowingFluid;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.mayaqq.estrogen.Estrogen;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.world.level.material.Fluid;
 
 public class EstrogenFluids {
 
-    public static Registrar<Fluid> FLUIDS = Estrogen.MANAGER.get().get(Registries.FLUID);
+    public static Registrar<Fluid> FLUIDS = Estrogen.MANAGER.get().get(Registry.FLUID);
 
     public static RegistrySupplier<ArchitecturyFlowingFluid.Source> MOLTEN_SLIME = FLUIDS.register(Estrogen.id("molten_slime"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.MOLTEN_SLIME));
     public static RegistrySupplier<ArchitecturyFlowingFluid.Source> TESTOSTERONE_MIXTURE = FLUIDS.register(Estrogen.id("testosterone_mixture"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.TESTOSTERONE_MIXTURE));

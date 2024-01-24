@@ -4,6 +4,8 @@ import com.google.common.collect.Maps;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import com.simibubi.create.content.equipment.armor.BaseArmorItem;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.BoobArmorRenderer;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.PlayerEntityModelExtension;
@@ -27,8 +29,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -74,8 +74,10 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         this.boobs.copyFrom(this.body);
         this.boobs.xRot = this.body.xRot + 1.0F;
         float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT).getAmplifier() / 10.0F;
-        Quaternionf bodyRotation = (new Quaternionf()).rotationZYX(this.body.zRot, this.body.yRot, this.body.xRot);
-        this.boobs.offsetPos(new Vector3f(0.0F, 4.0F+size*0.864F*(1+amplifier), -1.9F+size*-1.944F*(1+amplifier)).rotate(bodyRotation));
+        Quaternion bodyRotation = Vector3f.XP.rotation(this.body.xRot);
+        Vector3f translation = new Vector3f(0.0F, 4.0F+size*0.864F*(1+amplifier), -1.9F+size*-1.944F*(1+amplifier));
+        translation.transform(bodyRotation);
+        this.boobs.offsetPos(translation);
         this.boobs.yScale = (1 + size*2.0F*(1+amplifier)) / 2.0F;
         this.boobs.zScale = (1 + size*2.5F*(1+amplifier)) / 2.0F;
         this.boobs.render(matrices, vertices, light, overlay);
@@ -87,12 +89,15 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         if (texture == null) {
             return;
         }
+
         VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(texture), false, glint);
         this.boobArmor.copyTransform(this.body);
         this.boobArmor.pitch = this.body.xRot;
         float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT).getAmplifier() / 10.0F;
-        Quaternionf bodyRotation = (new Quaternionf()).rotationZYX(this.body.zRot, this.body.yRot, this.body.xRot);
-        this.boobArmor.translate((new Vector3f(0.0F, 4.0F+size*0.864F*(1+amplifier), -3.9F+size*-1.944F*(1+amplifier))).rotate(bodyRotation));
+        Quaternion bodyRotation = Vector3f.XP.rotation(this.body.xRot);
+        Vector3f translation = new Vector3f(0.0F, 4.0F+size*0.864F*(1+amplifier), -3.9F+size*-1.944F*(1+amplifier));
+        translation.transform(bodyRotation);
+        this.boobArmor.translate(translation);
         this.boobArmor.scaleY = (1 + size*2.0F*(1+amplifier)) / 2.0F;
         this.boobArmor.scaleZ = (1 + size*2.5F*(1+amplifier)) / 2.0F;
         this.boobArmor.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);

@@ -44,7 +44,7 @@ public class EstrogenItems {
     public static class EstrogenProperties extends Item.Properties {
         public EstrogenProperties() {
             super();
-            this.arch$tab(EstrogenCreativeTab.ESTROGEN_TAB);
+            this.tab(EstrogenCreativeTab.ESTROGEN_TAB);
         }
     }
 }

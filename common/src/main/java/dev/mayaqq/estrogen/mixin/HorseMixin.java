@@ -22,7 +22,7 @@ public class HorseMixin {
         if (stack.getItem() instanceof BottleItem && !horse.isBaby()) {
             stack.shrink(1);
             player.playSound(SoundEvents.BOTTLE_FILL);
-            player.getInventory().placeItemBackInInventory(new ItemStack(EstrogenItems.HORSE_URINE_BOTTLE));
+            player.getInventory().placeItemBackInInventory(new ItemStack(EstrogenItems.HORSE_URINE_BOTTLE.get()));
             cir.setReturnValue(InteractionResult.SUCCESS);
         }
     }

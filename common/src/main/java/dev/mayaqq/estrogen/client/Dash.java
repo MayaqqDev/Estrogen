@@ -2,11 +2,13 @@ package dev.mayaqq.estrogen.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
 import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.event.events.client.ClientTickEvent;
 import dev.mayaqq.estrogen.registry.common.EstrogenTags;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
@@ -35,32 +37,40 @@ public class Dash {
         });
         ClientGuiEvent.RENDER_HUD.register((graphics, tickDelta) -> {
             if (onCooldown) {
-                renderOverLayer(graphics, 0.3F, 0.5F, 0.8F);
+                renderOverLayer(0.3F, 0.5F, 0.8F);
             }
         });
     }
 
-    private static void renderOverLayer(GuiGraphics graphics, float c1, float c2, float c3) {
-        int i = graphics.guiWidth();
-        int j = graphics.guiHeight();
-        graphics.pose().pushPose();
-        float distortionAmount = 0.5F;
-        float f = Mth.lerp(distortionAmount, 2.0F, 1.0F);
-        graphics.pose().translate((float)i / 2.0F, (float)j / 2.0F, 0.0F);
-        graphics.pose().scale(f, f, f);
-        graphics.pose().translate((float)(-i) / 2.0F, (float)(-j) / 2.0F, 0.0F);
+    private static void renderOverLayer(float f, float g, float h) {
+        Minecraft mc = Minecraft.getInstance();
+        float distortionStrength = 0.5F;
+        int i = mc.getWindow().getGuiScaledWidth();
+        int j = mc.getWindow().getGuiScaledHeight();
+        double d = Mth.lerp(distortionStrength, 2.0, 1.0);
+        double e = (double)i * d;
+        double k = (double)j * d;
+        double l = ((double)i - e) / 2.0;
+        double m = ((double)j - k) / 2.0;
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
-        graphics.setColor(c1, c2, c3, 1.0F);
-        graphics.blit(DASH_OVERLAY, 0, 0, -90, 0.0F, 0.0F, i, j, i, j);
-        RenderSystem.setShaderColor(c1, c2, c3, 1.0F);
+        RenderSystem.setShaderColor(f, g, h, 1.0F);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderTexture(0, DASH_OVERLAY);
+        Tesselator tessellator = Tesselator.getInstance();
+        BufferBuilder bufferBuilder = tessellator.getBuilder();
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        bufferBuilder.vertex(l, m + k, -90.0).uv(0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(l + e, m + k, -90.0).uv(1.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(l + e, m, -90.0).uv(1.0F, 0.0F).endVertex();
+        bufferBuilder.vertex(l, m, -90.0).uv(0.0F, 0.0F).endVertex();
+        tessellator.end();
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
         RenderSystem.depthMask(true);
         RenderSystem.enableDepthTest();
-        graphics.setColor(1f, 1f, 1f, 1f);
-        graphics.pose().popPose();
     }
 }

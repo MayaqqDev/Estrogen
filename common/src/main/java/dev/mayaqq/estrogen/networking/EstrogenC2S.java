@@ -22,7 +22,7 @@ public class EstrogenC2S {
             MinecraftServer server = player.server;
             server.execute(() -> {
                 if (player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT)) {
-                    ServerLevel world = player.serverLevel();
+                    ServerLevel world = player.getLevel();
                     world.playSound(null, player.blockPosition(), EstrogenSounds.DASH.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
                     // summon particles around player
                     world.sendParticles(ParticleTypes.CLOUD, player.getX(), player.getY(), player.getZ(), 10, 0.5, 0.5, 0.5, 0.5);
@@ -31,7 +31,7 @@ public class EstrogenC2S {
         });
         NetworkManager.registerReceiver(NetworkManager.Side.C2S, DASH_PARTICLES, ((buf, context) -> {
             ServerPlayer player = (ServerPlayer) context.getPlayer();
-            ServerLevel world = player.serverLevel();
+            ServerLevel world = player.getLevel();
             MinecraftServer server = player.server;
             server.execute(() -> {
                 world.sendParticles(ParticleTypes.CLOUD, player.getX(), player.getY() + 1, player.getZ(), 1, 0, 0, 0, 0);

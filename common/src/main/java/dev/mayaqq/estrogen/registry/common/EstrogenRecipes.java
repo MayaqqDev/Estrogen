@@ -9,7 +9,7 @@ import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.Recipe;
@@ -26,8 +26,8 @@ import static dev.mayaqq.estrogen.Estrogen.id;
 public enum EstrogenRecipes implements IRecipeTypeInfo {
     CENTRIFUGING(CentrifugingRecipe::new);
 
-    Registrar<RecipeSerializer<?>> recipeSerializers = Estrogen.MANAGER.get().get(Registries.RECIPE_SERIALIZER);
-    Registrar<RecipeType<?>> recipeTypes = Estrogen.MANAGER.get().get(Registries.RECIPE_TYPE);
+    Registrar<RecipeSerializer<?>> recipeSerializers = Estrogen.MANAGER.get().get(Registry.RECIPE_SERIALIZER);
+    Registrar<RecipeType<?>> recipeTypes = Estrogen.MANAGER.get().get(Registry.RECIPE_TYPE);
 
     private final ResourceLocation id;
     private final RegistrySupplier<? extends RecipeSerializer<?>> serializerSupplier;
