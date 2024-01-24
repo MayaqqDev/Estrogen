@@ -57,11 +57,11 @@ public class JeiCompat extends CreateJEI {
         CreateRecipeCategory<?>
 
                 centrifuging = builder(CentrifugingRecipe.class)
-                        .addTypedRecipes(EstrogenRecipes.CENTRIFUGING)
-                        .catalyst(EstrogenBlocks.CENTRIFUGE::get)
-                        .itemIcon(EstrogenBlocks.CENTRIFUGE.get())
-                        .emptyBackground(177, 70)
-                        .build("centrifuging", CentrifugingCategory::new);
+                .addTypedRecipes(EstrogenRecipes.CENTRIFUGING)
+                .catalyst(EstrogenBlocks.CENTRIFUGE::get)
+                .itemIcon(EstrogenBlocks.CENTRIFUGE.get())
+                .emptyBackground(177, 70)
+                .build("centrifuging", CentrifugingCategory::new);
     }
 
     private <T extends Recipe<?>> CategoryBuilder<T> builder(Class<? extends T> recipeClass) {
@@ -109,13 +109,11 @@ public class JeiCompat extends CreateJEI {
 
     private class CategoryBuilder<T extends Recipe<?>> {
         private final Class<? extends T> recipeClass;
-        private Predicate<CRecipes> predicate = cRecipes -> true;
-
-        private IDrawable background;
-        private IDrawable icon;
-
         private final List<Consumer<List<T>>> recipeListConsumers = new ArrayList<>();
         private final List<Supplier<? extends ItemStack>> catalysts = new ArrayList<>();
+        private Predicate<CRecipes> predicate = cRecipes -> true;
+        private IDrawable background;
+        private IDrawable icon;
 
         public CategoryBuilder(Class<? extends T> recipeClass) {
             this.recipeClass = recipeClass;

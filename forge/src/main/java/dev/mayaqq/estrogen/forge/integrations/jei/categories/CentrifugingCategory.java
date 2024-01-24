@@ -17,29 +17,29 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class CentrifugingCategory extends CreateRecipeCategory<CentrifugingRecipe> {
 
-	private final AnimatedCentrifuge centrifuge = new AnimatedCentrifuge();
+    private final AnimatedCentrifuge centrifuge = new AnimatedCentrifuge();
 
-	public CentrifugingCategory(Info<CentrifugingRecipe> info) {
-		super(info);
-	}
+    public CentrifugingCategory(Info<CentrifugingRecipe> info) {
+        super(info);
+    }
 
-	@Override
-	public void setRecipe(IRecipeLayoutBuilder builder, CentrifugingRecipe recipe, IFocusGroup focuses) {
-		builder
-				.addSlot(RecipeIngredientRole.INPUT, 27, 32)
-				.setBackground(getRenderedSlot(), -1, -1)
-				.addIngredients(ForgeTypes.FLUID_STACK, withImprovedVisibility(recipe.getFluidIngredients().get(0).getMatchingFluidStacks()))
-				.addTooltipCallback(addFluidTooltip(recipe.getFluidIngredients().get(0).getRequiredAmount()));
-		builder
-				.addSlot(RecipeIngredientRole.OUTPUT, 132, 51)
-				.setBackground(getRenderedSlot(), -1, -1)
-				.addFluidStack(recipe.getFluidResults().get(0).getFluid(), recipe.getFluidResults().get(0).getAmount());
-	}
+    @Override
+    public void setRecipe(IRecipeLayoutBuilder builder, CentrifugingRecipe recipe, IFocusGroup focuses) {
+        builder
+                .addSlot(RecipeIngredientRole.INPUT, 27, 32)
+                .setBackground(getRenderedSlot(), -1, -1)
+                .addIngredients(ForgeTypes.FLUID_STACK, withImprovedVisibility(recipe.getFluidIngredients().get(0).getMatchingFluidStacks()))
+                .addTooltipCallback(addFluidTooltip(recipe.getFluidIngredients().get(0).getRequiredAmount()));
+        builder
+                .addSlot(RecipeIngredientRole.OUTPUT, 132, 51)
+                .setBackground(getRenderedSlot(), -1, -1)
+                .addFluidStack(recipe.getFluidResults().get(0).getFluid(), recipe.getFluidResults().get(0).getAmount());
+    }
 
-	@Override
-	public void draw(CentrifugingRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
-		AllGuiTextures.JEI_DOWN_ARROW.render(graphics, 126, 29);
-		centrifuge.draw(graphics, getBackground().getWidth() / 2 - 13, 22);
-	}
+    @Override
+    public void draw(CentrifugingRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
+        AllGuiTextures.JEI_DOWN_ARROW.render(graphics, 126, 29);
+        centrifuge.draw(graphics, getBackground().getWidth() / 2 - 13, 22);
+    }
 
 }

@@ -16,7 +16,9 @@ import static dev.mayaqq.estrogen.utils.UwUfy.uwufyString;
 
 @Mixin(ClientPacketListener.class)
 public class ClientPlayNetworkHandlerMixin {
-    @Shadow @Final private static Logger LOGGER;
+    @Shadow
+    @Final
+    private static Logger LOGGER;
 
     @ModifyVariable(
             method = "sendChat(Ljava/lang/String;)V",

@@ -30,18 +30,20 @@ import static dev.mayaqq.estrogen.registry.common.EstrogenEffects.ESTROGEN_EFFEC
 
 public class EstrogenEffect extends MobEffect {
 
+    private static final UUID DASH_MODIFIER_UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4c");
     public short currentDashes = 0;
-
     public int dashCooldown = 0;
     public int groundCooldown = 0;
     public boolean onCooldown = false;
     private boolean shouldWaveDash = false;
     private BlockPos lastPos = null;
 
-    private static final UUID DASH_MODIFIER_UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4c");
-
     public EstrogenEffect(MobEffectCategory statusEffectType, int color) {
         super(statusEffectType, color);
+    }
+
+    private static Boolean shouldRefreshDash(Player player) {
+        return player.onGround() || player.level().getBlockState(player.blockPosition()).getBlock() instanceof LiquidBlock;
     }
 
     @Override
@@ -88,10 +90,6 @@ public class EstrogenEffect extends MobEffect {
                 NetworkManager.sendToServer(EstrogenC2S.DASH, new FriendlyByteBuf(Unpooled.buffer()));
             }
         }
-    }
-
-    private static Boolean shouldRefreshDash(Player player) {
-        return player.onGround() || player.level().getBlockState(player.blockPosition()).getBlock() instanceof LiquidBlock;
     }
 
     @Override

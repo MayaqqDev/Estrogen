@@ -4,14 +4,12 @@ import com.simibubi.create.foundation.config.ConfigBase;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
-import dev.mayaqq.estrogen.registry.common.EstrogenItems;
 import dev.mayaqq.estrogen.registry.common.items.EstrogenPatchesItem;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
@@ -22,15 +20,6 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 
 @Mod.EventBusSubscriber(modid = Estrogen.MOD_ID)
 public class EstrogenForgeEvents {
-    @SubscribeEvent
-    public static void modifyDamageSource(LivingFallEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            if (player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT)) {
-                event.setDamageMultiplier(event.getDamageMultiplier() / 1.5f);
-            }
-        }
-    }
-
     // Config
     @SubscribeEvent
     public static void onLoad(ModConfigEvent.Loading event) {

@@ -19,38 +19,38 @@ repositories {}
 
 dependencies {
     // Fabric
-    modImplementation ("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
+    modImplementation("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
 
     // Fapi
-    modApi ("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
+    modApi("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
 
     //Architectury api
-    modApi ("dev.architectury:architectury-fabric:${rootProject.architectury_version}")
+    modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}")
 
     //Create
-    modImplementation ("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${project.create_version}+mc${rootProject.minecraft_version}")
+    modImplementation("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${project.create_version}+mc${rootProject.minecraft_version}")
 
     //Porting Lib
     modImplementation(include("io.github.fabricators_of_create.Porting-Lib:transfer:${project.porting_lib_version}"))
 
     //Trinkets
-    modImplementation ("dev.emi:trinkets:${rootProject.trinkets_version}")
+    modImplementation("dev.emi:trinkets:${rootProject.trinkets_version}")
     project.cardinal_modules.replaceAll(" ", "").split(",").each { module ->
-        modApi ("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${project.cardinal_version}")
+        modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${project.cardinal_version}")
     }
 
     // REI
-    modCompileOnly ("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
-    modCompileOnly ("me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}")
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}")
 
     // EMI
-    modCompileOnly ("dev.emi:emi-fabric:${rootProject.emi_version}:api")
+    modCompileOnly("dev.emi:emi-fabric:${rootProject.emi_version}:api")
 
     //Mod Menu
-    modLocalRuntime ("com.terraformersmc:modmenu:${project.modmenu_version}")
+    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
 
     //Mixin Extras
-    implementation (include(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${rootProject.mixin_extras_version}")))
+    implementation(include(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${rootProject.mixin_extras_version}")))
 
     //Dev Auth
     modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${rootProject.devauth_version}")

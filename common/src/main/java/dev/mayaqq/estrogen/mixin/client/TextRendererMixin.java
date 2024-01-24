@@ -13,15 +13,16 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class TextRendererMixin {
 
     @ModifyVariable(
-                method = "drawInternal(Ljava/lang/String;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/client/gui/Font$DisplayMode;IIZ)I",
-                at = @At(
-                        value = "HEAD",
-                        ordinal = 0
-                ),
+            method = "drawInternal(Ljava/lang/String;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/client/gui/Font$DisplayMode;IIZ)I",
+            at = @At(
+                    value = "HEAD",
+                    ordinal = 0
+            ),
             argsOnly = true
-        )
+    )
     private String modifyString(String text) {
-        if (Dash.uwufy) return UwUfy.uwufyString(text); else return text;
+        if (Dash.uwufy) return UwUfy.uwufyString(text);
+        else return text;
     }
 
     @ModifyVariable(
@@ -33,6 +34,7 @@ public class TextRendererMixin {
             argsOnly = true
     )
     private FormattedCharSequence modifyText(FormattedCharSequence text) {
-        if (Dash.uwufy) return new UwuOrderedText(text); else return text;
+        if (Dash.uwufy) return new UwuOrderedText(text);
+        else return text;
     }
 }

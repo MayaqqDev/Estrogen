@@ -3,22 +3,22 @@ repositories {}
 dependencies {
     // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
     // Do NOT use other classes from fabric loader
-    modImplementation ("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
+    modImplementation("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
 
     // Architectury
-    modApi ("dev.architectury:architectury:${rootProject.architectury_version}")
+    modApi("dev.architectury:architectury:${rootProject.architectury_version}")
 
     // Create
-    modCompileOnly ("com.simibubi.create:create-fabric-${minecraft_version}:${rootProject.create_fabric_version}")
+    modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${rootProject.create_fabric_version}")
 
     // Trinkets
-    modCompileOnly ("dev.emi:trinkets:${rootProject.trinkets_version}")
+    modCompileOnly("dev.emi:trinkets:${rootProject.trinkets_version}")
 
     // Ears
-    implementation ("com.unascribed:ears-api:${project.ears_version}")
+    implementation("com.unascribed:ears-api:${project.ears_version}")
 
     // Mixin Extras
-    implementation (annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}"))
+    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}"))
 }
 
 architectury {

@@ -20,5 +20,6 @@ public class EstrogenFluidBlocks {
     public static final RegistrySupplier<LiquidBlock> HORSE_URINE_BLOCK = FLUID_BLOCKS.register(Estrogen.id("horse_urine_block"), () -> new ArchitecturyLiquidBlock(EstrogenFluids.HORSE_URINE, BlockBehaviour.Properties.copy(Blocks.WATER)));
     public static final RegistrySupplier<LiquidBlock> MOLTEN_AMETHYST_BLOCK = FLUID_BLOCKS.register(Estrogen.id("molten_amethyst_block"), () -> new ArchitecturyLiquidBlock(EstrogenFluids.MOLTEN_AMETHYST, BlockBehaviour.Properties.copy(Blocks.LAVA)));
 
-    public static void register() {}
+    public static void register() {
+    }
 }

@@ -15,6 +15,7 @@ public class EstrogenPatchesItem extends TrinketItem {
     public EstrogenPatchesItem(Item.Properties properties) {
         super(properties);
     }
+
     @Override
     public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
         if (entity instanceof Player player) {

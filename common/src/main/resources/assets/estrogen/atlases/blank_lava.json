@@ -6,7 +6,7 @@
     },
     {
       "type": "single",
-        "resource": "blank_lava_flow"
+      "resource": "blank_lava_flow"
     },
     {
       "type": "directory",

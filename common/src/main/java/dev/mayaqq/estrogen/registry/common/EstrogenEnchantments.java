@@ -15,5 +15,6 @@ public class EstrogenEnchantments {
             .rarity(Enchantment.Rarity.VERY_RARE)
             .register();
 
-    public static void register() {}
+    public static void register() {
+    }
 }

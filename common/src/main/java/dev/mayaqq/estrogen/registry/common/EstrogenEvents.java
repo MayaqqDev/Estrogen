@@ -1,13 +1,7 @@
 package dev.mayaqq.estrogen.registry.common;
 
-import dev.architectury.event.EventResult;
-import dev.architectury.event.events.common.InteractionEvent;
 import dev.architectury.event.events.common.PlayerEvent;
 import dev.mayaqq.estrogen.utils.Time;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.animal.horse.Horse;
-import net.minecraft.world.item.BottleItem;
-import net.minecraft.world.item.ItemStack;
 
 import static dev.mayaqq.estrogen.registry.common.EstrogenAttributes.BOOB_GROWING_START_TIME;
 import static dev.mayaqq.estrogen.registry.common.EstrogenAttributes.BOOB_INITIAL_SIZE;

@@ -17,5 +17,6 @@ public class EstrogenFluidItems {
     public static final RegistrySupplier<Item> HORSE_URINE_BUCKET = FLUID_ITEMS.register(Estrogen.id("horse_urine_bucket"), () -> new ArchitecturyBucketItem(EstrogenFluids.HORSE_URINE, new Item.Properties().arch$tab(EstrogenCreativeTab.ESTROGEN_TAB).stacksTo(1)));
     public static final RegistrySupplier<Item> MOLTEN_AMETHYST_BUCKET = FLUID_ITEMS.register(Estrogen.id("molten_amethyst_bucket"), () -> new ArchitecturyBucketItem(EstrogenFluids.MOLTEN_AMETHYST, new Item.Properties().arch$tab(EstrogenCreativeTab.ESTROGEN_TAB).stacksTo(1)));
 
-    public static void register() {}
+    public static void register() {
+    }
 }

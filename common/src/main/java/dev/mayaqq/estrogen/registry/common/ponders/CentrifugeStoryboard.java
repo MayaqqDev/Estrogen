@@ -33,6 +33,7 @@ public class CentrifugeStoryboard {
 
         scene.markAsFinished();
     }
+
     public static void centrifugeStoryboardBasic(SceneBuilder scene, SceneBuildingUtil util) {
         scene.title("basic", "How to use the Centrifuge");
         scene.configureBasePlate(0, 0, 5);

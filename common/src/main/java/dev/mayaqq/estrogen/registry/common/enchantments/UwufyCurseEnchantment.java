@@ -9,6 +9,7 @@ public class UwufyCurseEnchantment extends Enchantment {
     public UwufyCurseEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot[] slotTypes) {
         super(rarity, category, slotTypes);
     }
+
     @Override
     public int getMinCost(int level) {
         return 25;

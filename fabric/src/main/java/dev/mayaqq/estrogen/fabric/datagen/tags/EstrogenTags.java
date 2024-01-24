@@ -17,6 +17,10 @@ import net.minecraft.world.level.material.Fluid;
 import java.util.concurrent.CompletableFuture;
 
 public class EstrogenTags {
+    private static ResourceLocation mcId(String path) {
+        return new ResourceLocation("minecraft", path);
+    }
+
     public static class ItemTags extends FabricTagProvider.ItemTagProvider {
 
         public static final TagKey<Item> THIGHS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("trinkets", "legs/thighs"));
@@ -26,6 +30,7 @@ public class EstrogenTags {
         public ItemTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
             super(output, completableFuture);
         }
+
         @Override
         protected void addTags(HolderLookup.Provider arg) {
             getOrCreateTagBuilder(THIGHS)
@@ -87,10 +92,7 @@ public class EstrogenTags {
         }
 
         @Override
-        protected void addTags(HolderLookup.Provider arg) {}
-    }
-
-    private static ResourceLocation mcId(String path) {
-        return new ResourceLocation("minecraft", path);
+        protected void addTags(HolderLookup.Provider arg) {
+        }
     }
 }

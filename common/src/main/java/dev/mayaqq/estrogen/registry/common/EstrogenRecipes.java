@@ -26,14 +26,13 @@ import static dev.mayaqq.estrogen.Estrogen.id;
 public enum EstrogenRecipes implements IRecipeTypeInfo {
     CENTRIFUGING(CentrifugingRecipe::new);
 
-    Registrar<RecipeSerializer<?>> recipeSerializers = Estrogen.MANAGER.get().get(Registries.RECIPE_SERIALIZER);
-    Registrar<RecipeType<?>> recipeTypes = Estrogen.MANAGER.get().get(Registries.RECIPE_TYPE);
-
     private final ResourceLocation id;
     private final RegistrySupplier<? extends RecipeSerializer<?>> serializerSupplier;
     @Nullable
     private final RecipeType<?> typeObject;
     private final Supplier<RecipeType<?>> type;
+    Registrar<RecipeSerializer<?>> recipeSerializers = Estrogen.MANAGER.get().get(Registries.RECIPE_SERIALIZER);
+    Registrar<RecipeType<?>> recipeTypes = Estrogen.MANAGER.get().get(Registries.RECIPE_TYPE);
 
     EstrogenRecipes(Supplier<RecipeSerializer<?>> serializerSupplier, Supplier<RecipeType<?>> typeSupplier, boolean registerType) {
         String name = Lang.asId(name());
@@ -72,7 +71,17 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
         };
     }
 
-    public static void register() {}
+    public static void register() {
+    }
+
+    public static boolean shouldIgnoreInAutomation(Recipe<?> recipe) {
+        RecipeSerializer<?> serializer = recipe.getSerializer();
+        if (serializer != null)
+            return true;
+        return recipe.getId()
+                .getPath()
+                .endsWith("_manual_only");
+    }
 
     @Override
     public ResourceLocation getId() {
@@ -94,14 +103,5 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
     public <C extends Inventory, T extends Recipe<C>> Optional<T> find(C inv, Level world) {
         return world.getRecipeManager()
                 .getRecipeFor(getType(), inv, world);
-    }
-
-    public static boolean shouldIgnoreInAutomation(Recipe<?> recipe) {
-        RecipeSerializer<?> serializer = recipe.getSerializer();
-        if (serializer != null)
-            return true;
-        return recipe.getId()
-                .getPath()
-                .endsWith("_manual_only");
     }
 }

@@ -11,7 +11,7 @@ import static dev.mayaqq.estrogen.Estrogen.id;
 public class EstrogenSandpaperPolishingRecipes extends ProcessingRecipeGen {
 
     GeneratedRecipe
-        TESTOSTERONE_CHUNK = create(id("testosterone_chunk"), recipeBuilder -> recipeBuilder
+            TESTOSTERONE_CHUNK = create(id("testosterone_chunk"), recipeBuilder -> recipeBuilder
             .require(EstrogenItems.BALLS)
             .output(EstrogenItems.TESTOSTERONE_CHUNK, 1));
 

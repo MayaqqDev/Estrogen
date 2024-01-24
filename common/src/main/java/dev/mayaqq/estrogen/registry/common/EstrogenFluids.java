@@ -25,5 +25,6 @@ public class EstrogenFluids {
     public static RegistrySupplier<ArchitecturyFlowingFluid.Flowing> HORSE_URINE_FLOWING = FLUIDS.register(Estrogen.id("flowing_horse_urine"), () -> new ArchitecturyFlowingFluid.Flowing(EstrogenFluidAttributes.HORSE_URINE));
     public static RegistrySupplier<ArchitecturyFlowingFluid.Flowing> MOLTEN_AMETHYST_FLOWING = FLUIDS.register(Estrogen.id("flowing_molten_amethyst"), () -> new ArchitecturyFlowingFluid.Flowing(EstrogenFluidAttributes.MOLTEN_AMETHYST));
 
-    public static void register() {}
+    public static void register() {
+    }
 }

@@ -18,30 +18,30 @@ repositories {}
 
 dependencies {
     //Forge
-    forge ("net.minecraftforge:forge:${project.forge_version}")
+    forge("net.minecraftforge:forge:${project.forge_version}")
     //Architectury
-    modApi ("dev.architectury:architectury-forge:${rootProject.architectury_version}")
+    modApi("dev.architectury:architectury-forge:${rootProject.architectury_version}")
 
     //Create
-    modImplementation ("com.simibubi.create:create-${minecraft_version}:${project.create_version}:slim") { transitive = false }
+    modImplementation("com.simibubi.create:create-${minecraft_version}:${project.create_version}:slim") { transitive = false }
 
     //Registrate
-    modImplementation ("com.tterrag.registrate:Registrate:${project.registrate_version}")
+    modImplementation("com.tterrag.registrate:Registrate:${project.registrate_version}")
 
     //Flywheel
-    modImplementation ("com.jozufozu.flywheel:flywheel-forge-${minecraft_version}:${project.flywheel_version}")
+    modImplementation("com.jozufozu.flywheel:flywheel-forge-${minecraft_version}:${project.flywheel_version}")
 
     //Curios
-    modImplementation ("top.theillusivec4.curios:curios-forge:${project.curios_version}")
+    modImplementation("top.theillusivec4.curios:curios-forge:${project.curios_version}")
 
     //Mixin Extras
-    implementation (include("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras_version}"))
+    implementation(include("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras_version}"))
 
     //Dev Auth
-    modRuntimeOnly ("me.djtheredstoner:DevAuth-forge-latest:${rootProject.devauth_version}")
+    modRuntimeOnly("me.djtheredstoner:DevAuth-forge-latest:${rootProject.devauth_version}")
 
-    modCompileOnly ("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
-    compileOnlyApi ("mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}")
+    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
+    compileOnlyApi("mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}")
 
     //Item Viewers
     switch (item_viewer.toLowerCase()) {

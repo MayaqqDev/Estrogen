@@ -16,7 +16,7 @@ import static dev.mayaqq.estrogen.Estrogen.id;
 public class EstrogenCentrifugingRecipes<T extends EstrogenRecipeInterface> extends ProcessingRecipeGen {
 
     private T t;
-    GeneratedRecipe	LIQUID_ESTROGEN = create(id("liquid_estrogen"), recipeBuilder -> recipeBuilder
+    GeneratedRecipe LIQUID_ESTROGEN = create(id("liquid_estrogen"), recipeBuilder -> recipeBuilder
             .require(EstrogenFluids.FILTRATED_HORSE_URINE.get(), t.getAmount(81))
             .output(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(81)));
 

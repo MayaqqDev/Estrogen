@@ -12,9 +12,10 @@ import org.joml.*;
 import java.util.List;
 import java.util.random.RandomGenerator;
 
-@Environment(value=EnvType.CLIENT)
+@Environment(value = EnvType.CLIENT)
 public final class BoobArmorRenderer {
     public static final float DEFAULT_SCALE = 1.0f;
+    private final List<BoobArmorModel> models;
     public float pivotX;
     public float pivotY;
     public float pivotZ;
@@ -26,7 +27,6 @@ public final class BoobArmorRenderer {
     public float scaleZ = 1.0f;
     public boolean visible = true;
     public boolean skipDraw;
-    private final List<BoobArmorModel> models;
     private PartPose initalTransform = PartPose.ZERO;
 
     public BoobArmorRenderer(List<BoobArmorModel> models) {
@@ -35,18 +35,6 @@ public final class BoobArmorRenderer {
 
     public PartPose getTransform() {
         return PartPose.offsetAndRotation(this.pivotX, this.pivotY, this.pivotZ, this.pitch, this.yaw, this.roll);
-    }
-
-    public PartPose getInitialTransform() {
-        return this.initalTransform;
-    }
-
-    public void setInitialTransform(PartPose initialTransform) {
-        this.initalTransform = initialTransform;
-    }
-
-    public void resetTransform() {
-        this.setTransform(this.initalTransform);
     }
 
     public void setTransform(PartPose rotationData) {
@@ -59,6 +47,18 @@ public final class BoobArmorRenderer {
         this.scaleX = 1.0f;
         this.scaleY = 1.0f;
         this.scaleZ = 1.0f;
+    }
+
+    public PartPose getInitialTransform() {
+        return this.initalTransform;
+    }
+
+    public void setInitialTransform(PartPose initialTransform) {
+        this.initalTransform = initialTransform;
+    }
+
+    public void resetTransform() {
+        this.setTransform(this.initalTransform);
     }
 
     public void copyTransform(ModelPart part) {
@@ -147,12 +147,12 @@ public final class BoobArmorRenderer {
     }
 
     @FunctionalInterface
-    @Environment(value=EnvType.CLIENT)
+    @Environment(value = EnvType.CLIENT)
     public static interface CuboidConsumer {
         public void visit(PoseStack.Pose var1, String var2, int var3, BoobArmorModel var4);
     }
 
-    @Environment(value=EnvType.CLIENT)
+    @Environment(value = EnvType.CLIENT)
     public static class BoobArmorModel {
         private final ModelPart.Polygon[] sides; //private, add to AW/AT or smth, same deal with modelpart.vertex
 
@@ -166,12 +166,12 @@ public final class BoobArmorRenderer {
             ModelPart.Vertex vertex5 = new ModelPart.Vertex(-4.0F, -1.68F, 1.68F, 0.0F, 0.0F);
             ModelPart.Vertex vertex6 = new ModelPart.Vertex(4.0F, -1.68F, 1.68F, 0.0F, 8.0F);
             float j = textureWidth;
-            float k = (float)textureWidth + sizeZ;
-            float l = (float)textureWidth + sizeZ + sizeX;
-            float n = (float)textureWidth + sizeZ + sizeX + sizeZ;
+            float k = (float) textureWidth + sizeZ;
+            float l = (float) textureWidth + sizeZ + sizeX;
+            float n = (float) textureWidth + sizeZ + sizeX + sizeZ;
             float p = textureHeight;
-            float q = (float)textureHeight + sizeZ;
-            float r = (float)textureHeight + sizeZ + sizeY;
+            float q = (float) textureHeight + sizeZ;
+            float r = (float) textureHeight + sizeZ + sizeY;
             this.sides[2] = new ModelPart.Polygon(new ModelPart.Vertex[]{vertex6, vertex5, vertex, vertex2}, k, p, l, q, squishU, squishV, mirror, Direction.DOWN);
             this.sides[1] = new ModelPart.Polygon(new ModelPart.Vertex[]{vertex, vertex5, vertex5, vertex4}, j, q, k, r, squishU, squishV, mirror, Direction.WEST);
             this.sides[3] = new ModelPart.Polygon(new ModelPart.Vertex[]{vertex2, vertex, vertex4, vertex3}, k, q, l, r, squishU, squishV, mirror, Direction.NORTH);

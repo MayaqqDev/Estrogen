@@ -78,7 +78,7 @@ public class CentrifugeBlock extends KineticBlock implements IBE<CentrifugeBlock
 
     @Override
     public BlockEntityType<? extends CentrifugeBlockEntity> getBlockEntityType() {
-        return  EstrogenBlockEntities.CENTRIFUGE.get();
+        return EstrogenBlockEntities.CENTRIFUGE.get();
     }
 
     @Nullable

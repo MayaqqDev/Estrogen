@@ -6,6 +6,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class EstrogenKeybinds {
     public static KeyMapping dashKey;
+
     public static void register() {
         dashKey = new KeyMapping(
                 "key.estrogen.dash",

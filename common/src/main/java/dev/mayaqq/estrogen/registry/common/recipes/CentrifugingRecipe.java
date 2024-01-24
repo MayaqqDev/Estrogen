@@ -16,17 +16,17 @@ import net.minecraft.world.level.Level;
 
 public class CentrifugingRecipe extends ProcessingRecipe<Inventory> {
     CentrifugeBlockEntity blockEntity;
+
     public CentrifugingRecipe(IRecipeTypeInfo typeInfo, ProcessingRecipeBuilder.ProcessingRecipeParams params) {
         super(typeInfo, params);
     }
 
-    public void setBlockEntity(CentrifugeBlockEntity blockEntity) {
-        this.blockEntity = blockEntity;
-    }
-
-
     public CentrifugingRecipe(ProcessingRecipeBuilder.ProcessingRecipeParams params) {
         this(EstrogenRecipes.CENTRIFUGING, params);
+    }
+
+    public void setBlockEntity(CentrifugeBlockEntity blockEntity) {
+        this.blockEntity = blockEntity;
     }
 
     public boolean matches(Inventory inventory, Level world) {

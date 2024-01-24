@@ -20,18 +20,18 @@ public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends P
 
     private T t;
     GeneratedRecipe
-        CRYSTAL_ESTROGEN_PILL = create(id("crystal_estrogen_pill"), recipeBuilder -> recipeBuilder
-                .require(EstrogenItems.ESTROGEN_PILL)
-                .require(EstrogenFluids.MOLTEN_AMETHYST.get(), t.getAmount(27000))
-                .output(EstrogenItems.CRYSTAL_ESTROGEN_PILL, 1)),
-        ESTROGEN_PILL = create(id("estrogen_pill"), recipeBuilder -> recipeBuilder
-                .require(Items.COOKIE)
-                .require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(27000))
-                .output(EstrogenItems.ESTROGEN_PILL, 1)),
-        FILTER = create(id("filter"), recipeBuilder -> recipeBuilder
-                .require(EstrogenItems.USED_FILTER)
-                .require(Fluids.WATER, t.getAmount(27000))
-                .output(AllItems.FILTER.get(), 1));
+            CRYSTAL_ESTROGEN_PILL = create(id("crystal_estrogen_pill"), recipeBuilder -> recipeBuilder
+            .require(EstrogenItems.ESTROGEN_PILL)
+            .require(EstrogenFluids.MOLTEN_AMETHYST.get(), t.getAmount(27000))
+            .output(EstrogenItems.CRYSTAL_ESTROGEN_PILL, 1)),
+            ESTROGEN_PILL = create(id("estrogen_pill"), recipeBuilder -> recipeBuilder
+                    .require(Items.COOKIE)
+                    .require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(27000))
+                    .output(EstrogenItems.ESTROGEN_PILL, 1)),
+            FILTER = create(id("filter"), recipeBuilder -> recipeBuilder
+                    .require(EstrogenItems.USED_FILTER)
+                    .require(Fluids.WATER, t.getAmount(27000))
+                    .output(AllItems.FILTER.get(), 1));
 
 
     public EstrogenFillingRecipes(FabricDataOutput output, T t) {

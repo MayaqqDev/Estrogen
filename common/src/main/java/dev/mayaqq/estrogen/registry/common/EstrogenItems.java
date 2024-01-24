@@ -15,12 +15,12 @@ import static dev.mayaqq.estrogen.Estrogen.REGISTRATE;
 
 public class EstrogenItems {
     public static final ItemEntry<Item>
-        ESTROGEN_PILL = normalItem("estrogen_pill", new EstrogenProperties().food(EstrogenFoodComponents.ESTROGEN_PILL).stacksTo(16).rarity(Rarity.RARE)),
-        CRYSTAL_ESTROGEN_PILL = normalItem("crystal_estrogen_pill", new EstrogenProperties().food(EstrogenFoodComponents.CRYTAL_ESTROGEN_PILL).stacksTo(16).rarity(Rarity.EPIC)),
-        BALLS = normalItem("balls", new EstrogenProperties()),
-        TESTOSTERONE_CHUNK = normalItem("testosterone_chunk", new EstrogenProperties()),
-        TESTOSTERONE_POWDER = normalItem("testosterone_powder", new EstrogenProperties()),
-        USED_FILTER = normalItem("used_filter", new EstrogenProperties());
+            ESTROGEN_PILL = normalItem("estrogen_pill", new EstrogenProperties().food(EstrogenFoodComponents.ESTROGEN_PILL).stacksTo(16).rarity(Rarity.RARE)),
+            CRYSTAL_ESTROGEN_PILL = normalItem("crystal_estrogen_pill", new EstrogenProperties().food(EstrogenFoodComponents.CRYTAL_ESTROGEN_PILL).stacksTo(16).rarity(Rarity.EPIC)),
+            BALLS = normalItem("balls", new EstrogenProperties()),
+            TESTOSTERONE_CHUNK = normalItem("testosterone_chunk", new EstrogenProperties()),
+            TESTOSTERONE_POWDER = normalItem("testosterone_powder", new EstrogenProperties()),
+            USED_FILTER = normalItem("used_filter", new EstrogenProperties());
 
     public static final ItemEntry<EstrogenCookieItem> ESTROGEN_CHIP_COOKIE = REGISTRATE.item("estrogen_chip_cookie", EstrogenCookieItem::new)
             .properties(p -> new EstrogenProperties().rarity(Rarity.RARE).food(EstrogenFoodComponents.ESTROGEN_CHIP_COOKIE).stacksTo(16))
@@ -39,7 +39,8 @@ public class EstrogenItems {
                 .register();
     }
 
-    public static void register() {}
+    public static void register() {
+    }
 
     public static class EstrogenProperties extends Item.Properties {
         public EstrogenProperties() {

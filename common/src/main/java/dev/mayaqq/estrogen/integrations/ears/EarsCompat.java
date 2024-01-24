@@ -8,6 +8,6 @@ import net.minecraft.world.entity.player.Player;
 
 public class EarsCompat {
     public static void boob() {
-        EarsInhibitorRegistry.register("estrogen", (part, peer) -> part == EarsFeatureType.CHEST && ((Player)peer).hasEffect(EstrogenEffects.ESTROGEN_EFFECT) && EstrogenConfig.client().chestFeature.get());
+        EarsInhibitorRegistry.register("estrogen", (part, peer) -> part == EarsFeatureType.CHEST && ((Player) peer).hasEffect(EstrogenEffects.ESTROGEN_EFFECT) && EstrogenConfig.client().chestFeature.get());
     }
 }

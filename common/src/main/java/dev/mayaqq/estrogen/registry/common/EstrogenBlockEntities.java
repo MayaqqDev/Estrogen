@@ -16,5 +16,6 @@ public class EstrogenBlockEntities {
             .renderer(() -> CentrifugeRenderer::new)
             .register();
 
-    public static void register() {}
+    public static void register() {
+    }
 }
