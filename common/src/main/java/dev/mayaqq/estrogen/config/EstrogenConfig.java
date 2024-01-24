@@ -67,6 +67,7 @@ public class EstrogenConfig {
 
     public static class Client extends ConfigBase {
         public final ConfigBool chestFeature = b(true, "chestFeature", "Enable chest feature");
+        public final ConfigBool chestArmor = b(true, "chestArmor", "Enable chest feature armor");
 
         @Override
         public String getName() {

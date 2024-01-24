@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.simibubi.create.content.equipment.armor.BaseArmorItem;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.BoobArmorRenderer;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.PlayerEntityModelExtension;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
@@ -21,8 +22,10 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -79,8 +82,12 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
     }
 
     @Override
-    public void estrogen$renderBoobArmor(PoseStack matrices, MultiBufferSource vertexConsumers, int light, ArmorItem item, boolean glint, boolean secondTextureLayer, float red, float green, float blue, @Nullable String overlay, AbstractClientPlayer player, float size) {
-        VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(this.getArmorTexture(item, secondTextureLayer, overlay)), false, glint);
+    public void estrogen$renderBoobArmor(PoseStack matrices, MultiBufferSource vertexConsumers, int light, boolean glint, float red, float green, float blue, @Nullable String overlay, AbstractClientPlayer player, float size) {
+        ResourceLocation texture = this.getArmorTexture(player, overlay);
+        if (texture == null) {
+            return;
+        }
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(texture), false, glint);
         this.boobArmor.copyTransform(this.body);
         this.boobArmor.pitch = this.body.xRot;
         float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT).getAmplifier() / 10.0F;
@@ -91,10 +98,23 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         this.boobArmor.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
     }
 
-    private ResourceLocation getArmorTexture(ArmorItem item, boolean legs, @Nullable String overlay) {
-        String var10000 = item.getMaterial().getName();
-        String string = "textures/models/armor/" + var10000 + "_layer_" + (legs ? 2 : 1) + (overlay == null ? "" : "_" + overlay) + ".png";
-        return ARMOR_TEXTURE_CACHE.computeIfAbsent(string, ResourceLocation::new);
+    private ResourceLocation getArmorTexture(AbstractClientPlayer player, @Nullable String overlay) {
+        String string;
+        ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
+        ArmorItem item = (ArmorItem)itemStack.getItem();
+        if (item instanceof BaseArmorItem) {
+            string = ((BaseArmorItem) item).getArmorTexture(itemStack, player, EquipmentSlot.CHEST, overlay);
+        } else {
+            String texture = item.getMaterial().getName();
+            String domain = "minecraft";
+            int idx = texture.indexOf(':');
+            if (idx != -1) {
+                domain = texture.substring(0, idx);
+                texture = texture.substring(idx + 1);
+            }
+            string = String.format(java.util.Locale.ROOT, "%s:textures/models/armor/%s_layer_1%s.png", domain, texture, overlay == null ? "" : String.format(java.util.Locale.ROOT, "_%s", overlay));
+        }
+        return ARMOR_TEXTURE_CACHE.computeIfAbsent(string, ResourceLocation::tryParse);
     }
 
     @Inject(method = "setAllVisible", at = @At("RETURN"))
