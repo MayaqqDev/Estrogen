@@ -8,7 +8,7 @@
     "PlayerEntityMixin"
   ],
   "client": [
-    "client.ClientPlayNetworkHandlerMixin",
+    "client.LocalPlayerMixin",
     "client.PlayerEntityModelMixin",
     "client.PlayerEntityRendererMixin",
     "client.TextRendererMixin"

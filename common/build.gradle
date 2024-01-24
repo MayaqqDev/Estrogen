@@ -9,7 +9,7 @@ dependencies {
     modApi ("dev.architectury:architectury:${rootProject.architectury_version}")
 
     // Create
-    modCompileOnly ("com.simibubi.create:create-fabric-${minecraft_version}:${rootProject.create_fabric_version}")
+    modCompileOnly ("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}")
 
     // Trinkets
     modCompileOnly ("dev.emi:trinkets:${rootProject.trinkets_version}")

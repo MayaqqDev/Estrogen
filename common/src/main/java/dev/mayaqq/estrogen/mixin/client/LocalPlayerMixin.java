@@ -14,12 +14,12 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import static dev.mayaqq.estrogen.utils.UwUfy.uwufyString;
 
-@Mixin(ClientPacketListener.class)
-public class ClientPlayNetworkHandlerMixin {
+@Mixin(LocalPlayer.class)
+public class LocalPlayerMixin {
     @Shadow @Final private static Logger LOGGER;
 
     @ModifyVariable(
-            method = "sendChat(Ljava/lang/String;)V",
+            method = "sendChat(Ljava/lang/String;Lnet/minecraft/network/chat/Component;)V",
             at = @At(value = "HEAD"),
             ordinal = 0,
             argsOnly = true

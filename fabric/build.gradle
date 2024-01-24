@@ -28,7 +28,7 @@ dependencies {
     modApi ("dev.architectury:architectury-fabric:${rootProject.architectury_version}")
 
     //Create
-    modImplementation ("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${project.create_version}+mc${rootProject.minecraft_version}")
+    modImplementation ("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}")
 
     //Porting Lib
     modImplementation(include("io.github.fabricators_of_create.Porting-Lib:transfer:${project.porting_lib_version}"))
