@@ -8,11 +8,8 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(Player.class)
 public class PlayerEntityMixin {
@@ -24,14 +21,30 @@ public class PlayerEntityMixin {
                 .add(EstrogenAttributes.BOOB_GROWING_START_TIME.get());
     }
 
-    @ModifyArgs(method = "hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z", at = @At(value = "HEAD"))
-    private void modifyDamageSource(Args args) {
+    @ModifyVariable(
+            method = "hurt",
+            at = @At(value = "HEAD"),
+            index = 1,
+            argsOnly = true
+    )
+    private DamageSource modifyDamageSource(DamageSource source) {
         Player player = (Player) (Object) this;
-        DamageSource source = args.get(0);
-        float damage = args.get(1);
         if (source.is(DamageTypes.FALL) && player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT)) {
-            args.set(0, EstrogenDamageSources.of(player.level(), EstrogenDamageSources.GIRLPOWER_DAMAGE_TYPE));
-            args.set(1, damage / 1.5f);
+            return EstrogenDamageSources.of(player.level(), EstrogenDamageSources.GIRLPOWER_DAMAGE_TYPE);
         }
+        return source;
+    }
+
+    @ModifyVariable(
+            method = "hurt",
+            at = @At(value = "HEAD"),
+            index = 2,
+            argsOnly = true
+    )
+    private float modifyFallDamage(float damage, DamageSource source) {
+        if (source.is(EstrogenDamageSources.GIRLPOWER_DAMAGE_TYPE)) {
+            return damage / 1.5f;
+        }
+        return damage;
     }
 }
