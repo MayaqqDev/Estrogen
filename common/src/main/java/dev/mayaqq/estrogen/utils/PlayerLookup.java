@@ -12,6 +12,11 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/*
+ * This code includes modifications based on or derived from code provided by fabric-api.
+ * The original code can be found at: https://github.com/FabricMC/fabric
+ * fabric-api is licensed under Apache License 2.0.
+ */
 public class PlayerLookup {
     public static Collection<ServerPlayer> tracking(Entity entity) {
         Objects.requireNonNull(entity, "Entity cannot be null");

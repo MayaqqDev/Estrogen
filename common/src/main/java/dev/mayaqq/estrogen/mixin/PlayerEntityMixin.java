@@ -13,6 +13,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
 public class PlayerEntityMixin {
+    /*
+     * Registers additional attributes for players without the use of events.
+     * Should be compatible with any other mod.
+     */
     @Inject(method = "createAttributes()Lnet/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder;", require = 1, allow = 1, at = @At("RETURN"))
     private static void additionalEntityAttributes$addPlayerAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
         cir.getReturnValue()
@@ -21,7 +25,8 @@ public class PlayerEntityMixin {
                 .add(EstrogenAttributes.BOOB_GROWING_START_TIME.get());
     }
 
-    @ModifyVariable(
+    // Modifies the damage source of fall damage if the player has the estrogen effect.
+     @ModifyVariable(
             method = "hurt",
             at = @At(value = "HEAD"),
             index = 1,
@@ -35,6 +40,7 @@ public class PlayerEntityMixin {
         return source;
     }
 
+    // If the damage source is the aforementioned damage source, reduce the damage by 1/3.
     @ModifyVariable(
             method = "hurt",
             at = @At(value = "HEAD"),

@@ -22,21 +22,21 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
 
     // Fapi
-    modApi("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
+    modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
 
     //Architectury api
     modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}")
 
     //Create
-    modImplementation("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${project.create_version}+mc${rootProject.minecraft_version}")
+    modImplementation("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}")
 
     //Porting Lib
-    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:transfer:${project.porting_lib_version}"))
+    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:transfer:${rootProject.porting_lib_version}"))
 
     //Trinkets
     modImplementation("dev.emi:trinkets:${rootProject.trinkets_version}")
     project.cardinal_modules.replaceAll(" ", "").split(",").each { module ->
-        modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${project.cardinal_version}")
+        modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${rootProject.cardinal_version}")
     }
 
     // REI
@@ -47,7 +47,7 @@ dependencies {
     modCompileOnly("dev.emi:emi-fabric:${rootProject.emi_version}:api")
 
     //Mod Menu
-    modLocalRuntime("com.terraformersmc:modmenu:${project.modmenu_version}")
+    modLocalRuntime("com.terraformersmc:modmenu:${rootProject.modmenu_version}")
 
     //Mixin Extras
     implementation(include(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${rootProject.mixin_extras_version}")))
@@ -56,10 +56,10 @@ dependencies {
     modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${rootProject.devauth_version}")
 
     // Item Viewers
-    switch (item_viewer.toLowerCase()) {
+    switch (project.item_viewer.toLowerCase()) {
         case "rei":
             modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}")
-            modLocalRuntime("maven.modrinth:createfabricreibugfix:${project.createreibugfix_version}"); break
+            modLocalRuntime("maven.modrinth:createfabricreibugfix:${rootProject.createreibugfix_version}"); break
         case "emi": modLocalRuntime("dev.emi:emi-fabric:${rootProject.emi_version}"); break
         case "disabled": break
         default: println("Invalid item viewer: ${item_viewer} must be REI, EMI or disabled"); break
@@ -95,6 +95,7 @@ shadowJar {
     archiveClassifier.set("dev-shadow")
 }
 
+// The Production jar
 remapJar {
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
