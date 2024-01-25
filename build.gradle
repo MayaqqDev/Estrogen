@@ -54,7 +54,6 @@ allprojects {
         maven { url = "https://repo.unascribed.com" } // Ears
         maven { url = "https://api.modrinth.com/maven" } // Create & REI Bug Fix, Jukeboxfix
         maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM | NOTE: LEAVE THIS AS LAST
-        mavenLocal()
     }
 
     tasks.withType(JavaCompile) {
