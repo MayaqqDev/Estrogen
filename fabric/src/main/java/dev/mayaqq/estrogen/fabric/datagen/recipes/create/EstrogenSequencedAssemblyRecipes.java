@@ -10,7 +10,7 @@ import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeInterface;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 
@@ -23,12 +23,12 @@ public class EstrogenSequencedAssemblyRecipes<T extends EstrogenRecipeInterface>
     private T t;
     GeneratedRecipe
             ESTROGEN_PATCH = create("estrogen_patch", b -> b.require(Items.PAPER)
-                .transitionTo(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH)
-                .addOutput(EstrogenItems.ESTROGEN_PATCHES, 120)
-                .addOutput(EstrogenItems.ESTROGEN_PILL, 16)
+                .transitionTo(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get())
+                .addOutput(EstrogenItems.ESTROGEN_PATCHES.get(), 120)
+                .addOutput(EstrogenItems.ESTROGEN_PILL.get(), 16)
                 .addOutput(Items.PAPER, 5)
                 .addOutput(Items.SLIME_BALL, 5)
-                .addOutput(EstrogenItems.HORSE_URINE_BOTTLE, 4)
+                .addOutput(EstrogenItems.HORSE_URINE_BOTTLE.get(), 4)
                 .loops(5)
                 .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.MOLTEN_SLIME.get(), t.getAmount(27000)))
                 .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(27000)))
@@ -36,8 +36,8 @@ public class EstrogenSequencedAssemblyRecipes<T extends EstrogenRecipeInterface>
             ),
 
             UWU = create("uwu", b -> b.require(Items.NETHERITE_INGOT)
-                    .transitionTo(EstrogenItems.INCOMPLETE_UWU)
-                    .addOutput(EstrogenItems.UWU, 1)
+                    .transitionTo(EstrogenItems.INCOMPLETE_UWU.get())
+                    .addOutput(EstrogenItems.UWU.get(), 1)
                     .loops(10)
                     .addStep(DeployerApplicationRecipe::new, rb -> rb.require(Items.NETHER_STAR))
                     .addStep(PressingRecipe::new, rb -> rb)
@@ -48,7 +48,7 @@ public class EstrogenSequencedAssemblyRecipes<T extends EstrogenRecipeInterface>
             );
 
 
-    public EstrogenSequencedAssemblyRecipes(FabricDataOutput output, T t) {
+    public EstrogenSequencedAssemblyRecipes(FabricDataGenerator output, T t) {
         super(output);
         this.t = t;
     }
@@ -61,11 +61,11 @@ public class EstrogenSequencedAssemblyRecipes<T extends EstrogenRecipeInterface>
         return generatedRecipe;
     }
 
-    public static EstrogenSequencedAssemblyRecipes buildFabric(FabricDataOutput output) {
+    public static EstrogenSequencedAssemblyRecipes buildFabric(FabricDataGenerator output) {
         return new EstrogenSequencedAssemblyRecipes<>(output, new EstrogenRecipeFabricImpl());
     }
 
-    public static EstrogenSequencedAssemblyRecipes buildForge(FabricDataOutput output) {
+    public static EstrogenSequencedAssemblyRecipes buildForge(FabricDataGenerator output) {
         return new EstrogenSequencedAssemblyRecipes<>(output, new EstrogenRecipeForgeImpl());
     }
 

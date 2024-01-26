@@ -18,21 +18,21 @@ repositories {}
 
 dependencies {
     //Forge
-    forge ("net.minecraftforge:forge:${project.forge_version}")
+    forge ("net.minecraftforge:forge:${rootProject.forge_version}")
     //Architectury
     modApi ("dev.architectury:architectury-forge:${rootProject.architectury_version}")
 
     //Create
-    modImplementation ("com.simibubi.create:create-${minecraft_version}:${project.create_version}:slim") { transitive = false }
+    modImplementation ("com.simibubi.create:create-${rootProject.minecraft_version}:${rootProject.create_version}:slim") { transitive = false }
 
     //Registrate
-    modImplementation ("com.tterrag.registrate:Registrate:${project.registrate_version}")
+    modImplementation ("com.tterrag.registrate:Registrate:${rootProject.registrate_version}")
 
     //Flywheel
-    modImplementation ("com.jozufozu.flywheel:flywheel-forge-${minecraft_version}:${project.flywheel_version}")
+    modImplementation ("com.jozufozu.flywheel:flywheel-forge-${rootProject.minecraft_version}:${rootProject.flywheel_version}")
 
     //Curios
-    modImplementation ("top.theillusivec4.curios:curios-forge:${project.curios_version}")
+    modImplementation ("top.theillusivec4.curios:curios-forge:${rootProject.curios_version}")
 
     //Mixin Extras
     implementation (include("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras_version}"))
@@ -44,7 +44,7 @@ dependencies {
     compileOnlyApi ("mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}")
 
     //Item Viewers
-    switch (item_viewer.toLowerCase()) {
+    switch (project.item_viewer.toLowerCase()) {
         case "jei": modLocalRuntime("curse.maven:jei-238222:${rootProject.jei_file_id}"); break
         case "disabled": break
         default: println("Invalid item viewer: ${item_viewer} must be JEI or disabled"); break

@@ -22,15 +22,6 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 
 @Mod.EventBusSubscriber(modid = Estrogen.MOD_ID)
 public class EstrogenForgeEvents {
-    @SubscribeEvent
-    public static void modifyDamageSource(LivingFallEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            if (player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT)) {
-                event.setDamageMultiplier(event.getDamageMultiplier() / 1.5f);
-            }
-        }
-    }
-
     // Config
     @SubscribeEvent
     public static void onLoad(ModConfigEvent.Loading event) {

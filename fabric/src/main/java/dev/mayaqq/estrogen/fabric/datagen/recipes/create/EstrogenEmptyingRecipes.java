@@ -8,7 +8,7 @@ import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeInterface;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 
@@ -18,20 +18,20 @@ public class EstrogenEmptyingRecipes<T extends EstrogenRecipeInterface> extends 
 
     private T t;
     GeneratedRecipe HORSE_URINE = create(id("horse_urine"), recipeBuilder -> recipeBuilder
-            .require(EstrogenItems.HORSE_URINE_BOTTLE)
+            .require(EstrogenItems.HORSE_URINE_BOTTLE.get())
             .output(EstrogenFluids.HORSE_URINE.get(), t.getAmount(27000))
             .output(Items.GLASS_BOTTLE));
 
-    public EstrogenEmptyingRecipes(FabricDataOutput output, T t) {
+    public EstrogenEmptyingRecipes(FabricDataGenerator output, T t) {
         super(output);
         this.t = t;
     }
 
-    public static EstrogenEmptyingRecipes buildFabric(FabricDataOutput output) {
+    public static EstrogenEmptyingRecipes buildFabric(FabricDataGenerator output) {
         return new EstrogenEmptyingRecipes<>(output, new EstrogenRecipeFabricImpl());
     }
 
-    public static EstrogenEmptyingRecipes buildForge(FabricDataOutput output) {
+    public static EstrogenEmptyingRecipes buildForge(FabricDataGenerator output) {
         return new EstrogenEmptyingRecipes<>(output, new EstrogenRecipeForgeImpl());
     }
 

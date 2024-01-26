@@ -27,6 +27,14 @@ subprojects {
 
         modImplementation include("maven.modrinth:jukeboxfix:${rootProject.jukeboxfix_version}")
     }
+
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'net.fabricmc' && details.requested.name == 'fabric-loader') {
+                details.useVersion '0.14.25'
+            }
+        }
+    }
 }
 
 allprojects {
@@ -54,7 +62,6 @@ allprojects {
         maven { url = "https://repo.unascribed.com" } // Ears
         maven { url = "https://api.modrinth.com/maven" } // Create & REI Bug Fix, Jukeboxfix
         maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM | NOTE: LEAVE THIS AS LAST
-        mavenLocal()
     }
 
     tasks.withType(JavaCompile) {

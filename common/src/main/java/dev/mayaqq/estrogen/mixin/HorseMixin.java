@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Horse.class)
 public class HorseMixin {
+    // Makes it so that you can milk horses with bottles to get their urine.
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void estrogen$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack stack = player.getItemInHand(hand);

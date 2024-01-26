@@ -1,13 +1,13 @@
 package dev.mayaqq.estrogen.fabric.datagen.translations;
 
 import dev.mayaqq.estrogen.registry.common.*;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
 public class EstrogenTranslations {
     public static class EnUs extends FabricLanguageProvider {
 
-        public EnUs(FabricDataOutput output) {
+        public EnUs(FabricDataGenerator output) {
             super(output, "en_us");
         }
 
@@ -100,7 +100,7 @@ public class EstrogenTranslations {
 
     public static class CsCz extends FabricLanguageProvider {
 
-        public CsCz(FabricDataOutput output) {
+        public CsCz(FabricDataGenerator output) {
             super(output, "cs_cz");
         }
 
@@ -193,7 +193,7 @@ public class EstrogenTranslations {
 
     public static class HuHu extends FabricLanguageProvider {
 
-        public HuHu(FabricDataOutput output) {
+        public HuHu(FabricDataGenerator output) {
             super(output, "hu_hu");
         }
 
@@ -289,7 +289,7 @@ public class EstrogenTranslations {
 
     public static class PtBr extends FabricLanguageProvider {
 
-        public PtBr(FabricDataOutput output) {
+        public PtBr(FabricDataGenerator output) {
             super(output, "pt_br");
         }
 

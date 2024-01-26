@@ -4,7 +4,7 @@ import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
 
@@ -12,10 +12,10 @@ public class EstrogenSandpaperPolishingRecipes extends ProcessingRecipeGen {
 
     GeneratedRecipe
         TESTOSTERONE_CHUNK = create(id("testosterone_chunk"), recipeBuilder -> recipeBuilder
-            .require(EstrogenItems.BALLS)
-            .output(EstrogenItems.TESTOSTERONE_CHUNK, 1));
+            .require(EstrogenItems.BALLS.get())
+            .output(EstrogenItems.TESTOSTERONE_CHUNK.get(), 1));
 
-    public EstrogenSandpaperPolishingRecipes(FabricDataOutput output) {
+    public EstrogenSandpaperPolishingRecipes(FabricDataGenerator output) {
         super(output);
     }
 

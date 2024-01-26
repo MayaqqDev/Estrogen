@@ -14,21 +14,21 @@ public class EstrogenDatagen implements DataGeneratorEntrypoint {
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator pack) {
         // recipes
-        pack.addProvider((Factory<?>) EstrogenCentrifugingRecipes::buildFabric);
-        pack.addProvider((Factory<?>) EstrogenCentrifugingRecipes::buildForge);
+        pack.addProvider(EstrogenCentrifugingRecipes::buildFabric);
+        pack.addProvider(EstrogenCentrifugingRecipes::buildForge);
         pack.addProvider(EstrogenCraftingRecipes::new);
-        pack.addProvider((Factory<?>) EstrogenCompactingRecipes::buildFabric);
-        pack.addProvider((Factory<?>) EstrogenCompactingRecipes::buildForge);
-        pack.addProvider((Factory<?>) EstrogenEmptyingRecipes::buildFabric);
-        pack.addProvider((Factory<?>) EstrogenEmptyingRecipes::buildForge);
-        pack.addProvider((Factory<?>) EstrogenFillingRecipes::buildFabric);
-        pack.addProvider((Factory<?>) EstrogenFillingRecipes::buildForge);
+        pack.addProvider(EstrogenCompactingRecipes::buildFabric);
+        pack.addProvider(EstrogenCompactingRecipes::buildForge);
+        pack.addProvider(EstrogenEmptyingRecipes::buildFabric);
+        pack.addProvider(EstrogenEmptyingRecipes::buildForge);
+        pack.addProvider(EstrogenFillingRecipes::buildFabric);
+        pack.addProvider(EstrogenFillingRecipes::buildForge);
         pack.addProvider(EstrogenMillingRecipes::new);
         pack.addProvider(EstrogenSandpaperPolishingRecipes::new);
-        pack.addProvider((Factory<?>) EstrogenMixingRecipes::buildFabric);
-        pack.addProvider((Factory<?>) EstrogenMixingRecipes::buildForge);
-        pack.addProvider((Factory<?>) EstrogenSequencedAssemblyRecipes::buildFabric);
-        pack.addProvider((Factory<?>) EstrogenSequencedAssemblyRecipes::buildForge);
+        pack.addProvider(EstrogenMixingRecipes::buildFabric);
+        pack.addProvider(EstrogenMixingRecipes::buildForge);
+        pack.addProvider(EstrogenSequencedAssemblyRecipes::buildFabric);
+        pack.addProvider(EstrogenSequencedAssemblyRecipes::buildForge);
 
         // tags
         pack.addProvider(EstrogenTags.ItemTags::new);

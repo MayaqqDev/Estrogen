@@ -7,7 +7,7 @@ import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeInterface;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 
@@ -20,16 +20,16 @@ public class EstrogenCompactingRecipes<T extends EstrogenRecipeInterface> extend
             .require(EstrogenFluids.MOLTEN_SLIME.get(), t.getAmount(54000))
             .output(Items.SLIME_BALL, 1));
 
-    public EstrogenCompactingRecipes(FabricDataOutput output, T t) {
+    public EstrogenCompactingRecipes(FabricDataGenerator output, T t) {
         super(output);
         this.t = t;
     }
 
-    public static EstrogenCompactingRecipes buildFabric(FabricDataOutput output) {
+    public static EstrogenCompactingRecipes buildFabric(FabricDataGenerator output) {
         return new EstrogenCompactingRecipes<>(output, new EstrogenRecipeFabricImpl());
     }
 
-    public static EstrogenCompactingRecipes buildForge(FabricDataOutput output) {
+    public static EstrogenCompactingRecipes buildForge(FabricDataGenerator output) {
         return new EstrogenCompactingRecipes<>(output, new EstrogenRecipeForgeImpl());
     }
 

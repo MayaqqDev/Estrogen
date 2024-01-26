@@ -7,7 +7,7 @@ import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeInterface;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenRecipes;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.resources.ResourceLocation;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
@@ -20,16 +20,16 @@ public class EstrogenCentrifugingRecipes<T extends EstrogenRecipeInterface> exte
             .require(EstrogenFluids.FILTRATED_HORSE_URINE.get(), t.getAmount(81))
             .output(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(81)));
 
-    public EstrogenCentrifugingRecipes(FabricDataOutput output, T t) {
+    public EstrogenCentrifugingRecipes(FabricDataGenerator output, T t) {
         super(output);
         this.t = t;
     }
 
-    public static EstrogenCentrifugingRecipes buildFabric(FabricDataOutput output) {
+    public static EstrogenCentrifugingRecipes buildFabric(FabricDataGenerator output) {
         return new EstrogenCentrifugingRecipes<>(output, new EstrogenRecipeFabricImpl());
     }
 
-    public static EstrogenCentrifugingRecipes buildForge(FabricDataOutput output) {
+    public static EstrogenCentrifugingRecipes buildForge(FabricDataGenerator output) {
         return new EstrogenCentrifugingRecipes<>(output, new EstrogenRecipeForgeImpl());
     }
 
