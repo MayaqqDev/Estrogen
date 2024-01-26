@@ -54,8 +54,8 @@ public class EstrogenEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
+        if (!EstrogenConfig.server().dashEnabled.get()) return;
         if (entity instanceof Player player && player.level().isClientSide && player instanceof LocalPlayer) {
-            if (!EstrogenConfig.server().dashEnabled.get()) return;
             dashCooldown--;
             groundCooldown--;
             if (dashCooldown < 0) dashCooldown = 0;
