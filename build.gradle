@@ -106,6 +106,7 @@ publishMods {
         modLoaders.add("quilt")
         file = project(":fabric").tasks.named("remapJar").get().archiveFile
         displayName = "Create: Estrogen ${rootProject.mod_version} Fabric"
+        version = "${rootProject.mod_version}-fabric"
         requires {
             slug = "create-fabric"
         }
@@ -125,6 +126,7 @@ publishMods {
         modLoaders.add("forge")
         file = project(":forge").tasks.named("remapJar").get().archiveFile
         displayName = "Create: Estrogen ${rootProject.mod_version} Forge"
+        version = "${rootProject.mod_version}-forge"
         requires {
             slug = "create"
         }
@@ -142,6 +144,7 @@ publishMods {
         modLoaders.add("quilt")
         file = project(":fabric").tasks.named("remapJar").get().archiveFile
         displayName = "Create: Estrogen ${rootProject.mod_version} Fabric"
+        version = "${rootProject.mod_version}-fabric"
         requires {
             slug = "create-fabric"
         }
@@ -161,6 +164,7 @@ publishMods {
         modLoaders.add("forge")
         file = project(":forge").tasks.named("remapJar").get().archiveFile
         displayName = "Create: Estrogen ${rootProject.mod_version} Forge"
+        version = "${rootProject.mod_version}-forge"
         requires {
             slug = "create"
         }
