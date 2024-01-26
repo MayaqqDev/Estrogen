@@ -7,8 +7,6 @@ import dev.mayaqq.estrogen.Estrogen;
 
 public class ModMenuCompat implements ModMenuApi {
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return (screen) -> {
-            return new BaseConfigScreen(screen, Estrogen.MOD_ID);
-        };
+        return (screen) -> new BaseConfigScreen(screen, Estrogen.MOD_ID);
     }
 }
