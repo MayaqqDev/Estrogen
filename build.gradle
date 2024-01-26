@@ -80,6 +80,9 @@ publishMods {
         optional {
             slug = "ears"
         }
+        embeds {
+            slug = "jukeboxfix"
+        }
     }
 
     def optionsModrinth = modrinthOptions {
