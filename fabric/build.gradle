@@ -47,7 +47,7 @@ dependencies {
     modCompileOnly ("dev.emi:emi-fabric:${rootProject.emi_version}:api")
 
     //Mod Menu
-    modLocalRuntime ("com.terraformersmc:modmenu:${rootProject.modmenu_version}")
+    modImplementation ("com.terraformersmc:modmenu:${rootProject.modmenu_version}")
 
     //Mixin Extras
     implementation (include(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${rootProject.mixin_extras_version}")))

@@ -4,11 +4,14 @@ import com.simibubi.create.foundation.config.ConfigBase;
 import dev.architectury.platform.forge.EventBuses;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.registry.client.EstrogenRenderer;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import java.util.Map;
 
@@ -30,5 +33,9 @@ public class EstrogenForge {
 
         // Init Estrogen main class
         Estrogen.init();
+
+        if(FMLEnvironment.dist == Dist.CLIENT) {
+            EstrogenRenderer.register();
+        }
     }
 }

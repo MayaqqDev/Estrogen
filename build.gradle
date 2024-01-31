@@ -80,7 +80,7 @@ publishMods {
 
     def optionsCurseforge = curseforgeOptions {
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
-        minecraftVersions.add("1.20.1")
+        minecraftVersions.add("1.19.2")
         projectId = "850410"
         requires {
             slug = "architectury-api"
@@ -88,12 +88,15 @@ publishMods {
         optional {
             slug = "ears"
         }
+        embeds {
+            slug = "jukeboxfix"
+        }
     }
 
     def optionsModrinth = modrinthOptions {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         projectId = "HhIJW8n1"
-        minecraftVersions.add("1.20.1")
+        minecraftVersions.add("1.19.2")
         requires {
             slug = "architectury-api"
         }
@@ -111,6 +114,7 @@ publishMods {
         modLoaders.add("quilt")
         file = project(":fabric").tasks.named("remapJar").get().archiveFile
         displayName = "Create: Estrogen ${rootProject.mod_version} Fabric"
+        version = "${rootProject.mod_version}-fabric"
         requires {
             slug = "create-fabric"
         }
@@ -130,6 +134,7 @@ publishMods {
         modLoaders.add("forge")
         file = project(":forge").tasks.named("remapJar").get().archiveFile
         displayName = "Create: Estrogen ${rootProject.mod_version} Forge"
+        version = "${rootProject.mod_version}-forge"
         requires {
             slug = "create"
         }
@@ -147,6 +152,7 @@ publishMods {
         modLoaders.add("quilt")
         file = project(":fabric").tasks.named("remapJar").get().archiveFile
         displayName = "Create: Estrogen ${rootProject.mod_version} Fabric"
+        version = "${rootProject.mod_version}-fabric"
         requires {
             slug = "create-fabric"
         }
@@ -166,6 +172,7 @@ publishMods {
         modLoaders.add("forge")
         file = project(":forge").tasks.named("remapJar").get().archiveFile
         displayName = "Create: Estrogen ${rootProject.mod_version} Forge"
+        version = "${rootProject.mod_version}-forge"
         requires {
             slug = "create"
         }
