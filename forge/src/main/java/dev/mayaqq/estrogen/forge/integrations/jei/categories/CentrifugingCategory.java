@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.forge.integrations.jei.categories;
 
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import dev.mayaqq.estrogen.forge.integrations.jei.categories.animations.AnimatedCentrifuge;
@@ -10,7 +11,6 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import net.minecraft.client.gui.GuiGraphics;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -37,7 +37,7 @@ public class CentrifugingCategory extends CreateRecipeCategory<CentrifugingRecip
 	}
 
 	@Override
-	public void draw(CentrifugingRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
+	public void draw(CentrifugingRecipe recipe, IRecipeSlotsView iRecipeSlotsView, PoseStack graphics, double mouseX, double mouseY) {
 		AllGuiTextures.JEI_DOWN_ARROW.render(graphics, 126, 29);
 		centrifuge.draw(graphics, getBackground().getWidth() / 2 - 13, 22);
 	}

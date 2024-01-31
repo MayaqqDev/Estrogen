@@ -21,19 +21,19 @@ subprojects {
         silentMojangMappingsLicense()
     }
 
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'net.fabricmc' && details.requested.name == 'fabric-loader') {
+                details.useVersion '0.15.3'
+            }
+        }
+    }
+
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
         mappings loom.officialMojangMappings()
 
         modImplementation include("maven.modrinth:jukeboxfix:${rootProject.jukeboxfix_version}")
-    }
-
-    configurations.all {
-        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-            if (details.requested.group == 'net.fabricmc' && details.requested.name == 'fabric-loader') {
-                details.useVersion '0.14.25'
-            }
-        }
     }
 }
 

@@ -46,7 +46,7 @@ public class EstrogenForgeEvents {
         ItemStack stack = evt.getObject();
         Item item = stack.getItem();
         if (!(item instanceof EstrogenPatchesItem)) return;
-        evt.addCapability(CuriosCapability.ID_ITEM, CuriosApi.createCurioProvider(new ICurio() {
+        evt.addCapability(CuriosCapability.ID_ITEM, CuriosApi.registerCurioProvider(new ICurio() {
 
             @Override
             public ItemStack getStack() {
