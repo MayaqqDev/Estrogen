@@ -3,8 +3,8 @@ package dev.mayaqq.estrogen.registry.common;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import dev.mayaqq.estrogen.Estrogen;
+import dev.mayaqq.estrogen.platformSpecific.PlatformItemRegistry;
 import dev.mayaqq.estrogen.registry.common.items.EstrogenCookieItem;
-import dev.mayaqq.estrogen.registry.common.items.EstrogenPatchesItem;
 import dev.mayaqq.estrogen.registry.common.items.HorseUrineBottleItem;
 import dev.mayaqq.estrogen.registry.common.items.UwUItem;
 import net.minecraft.world.item.Item;
@@ -28,7 +28,6 @@ public class EstrogenItems {
     public static final ItemEntry<HorseUrineBottleItem> HORSE_URINE_BOTTLE = REGISTRATE.item("horse_urine_bottle", HorseUrineBottleItem::new)
             .properties(p -> new EstrogenProperties().craftRemainder(Items.GLASS_BOTTLE).food(EstrogenFoodComponents.HORSE_URINE_BOTTLE).stacksTo(16))
             .register();
-    public static final ItemEntry<EstrogenPatchesItem> ESTROGEN_PATCHES = REGISTRATE.item("estrogen_patches", EstrogenPatchesItem::new).properties(p -> new EstrogenProperties().stacksTo(4)).register();
     public static final ItemEntry<SequencedAssemblyItem> INCOMPLETE_ESTROGEN_PATCH = REGISTRATE.item("incomplete_estrogen_patches", SequencedAssemblyItem::new).properties(p -> p.stacksTo(1)).register();
     public static final ItemEntry<UwUItem> UWU = REGISTRATE.item("uwu", UwUItem::new).properties(p -> new EstrogenProperties().stacksTo(1)).register();
     public static final ItemEntry<SequencedAssemblyItem> INCOMPLETE_UWU = REGISTRATE.item("incomplete_uwu", SequencedAssemblyItem::new).properties(p -> p.stacksTo(1)).register();
@@ -39,7 +38,9 @@ public class EstrogenItems {
                 .register();
     }
 
-    public static void register() {}
+    public static void register() {
+        PlatformItemRegistry.register();
+    }
 
     public static class EstrogenProperties extends Item.Properties {
         public EstrogenProperties() {

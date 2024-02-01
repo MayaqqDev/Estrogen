@@ -6,7 +6,7 @@ issueTrackerURL = "https://github.com/MayaqqDev/Estrogen/issues"
 modId = "estrogen"
 version = "${version}-forge"
 displayName = "Create: Estrogen"
-logoFile = "assets/estrogen/icon.png"
+logoFile = "icon.png"
 credits="${contributors}"
 authors = "Mayaqq"
 

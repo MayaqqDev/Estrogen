@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.fabric.datagen.tags;
 
 import com.simibubi.create.AllTags;
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
@@ -27,14 +28,14 @@ public class EstrogenTags {
         @Override
         protected void generateTags() {
             getOrCreateTagBuilder(THIGHS)
-                    .add(EstrogenItems.ESTROGEN_PATCHES.get());
+                    .add(Estrogen.id("estrogen_patches"));
             getOrCreateTagBuilder(dev.mayaqq.estrogen.registry.common.EstrogenTags.UWUFYING)
                     .add(EstrogenItems.UWU.get());
             getOrCreateTagBuilder(dev.mayaqq.estrogen.registry.common.EstrogenTags.COPPER_PLATES)
                     .addOptionalTag(AllTags.forgeItemTag("copper_plates"))
                     .addOptionalTag(AllTags.optionalTag(Registry.ITEM, new ResourceLocation("forge", "plates/copper")));
             getOrCreateTagBuilder(CURIOS_THIGHS)
-                    .add(EstrogenItems.ESTROGEN_PATCHES.get());
+                    .add(Estrogen.id("estrogen_patches"));
             getOrCreateTagBuilder(MUSIC_DISCS)
                     .add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get());
         }

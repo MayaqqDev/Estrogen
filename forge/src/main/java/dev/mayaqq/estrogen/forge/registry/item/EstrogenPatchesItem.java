@@ -1,30 +1,29 @@
-package dev.mayaqq.estrogen.registry.common.items;
+package dev.mayaqq.estrogen.forge.registry.item;
 
-import dev.emi.trinkets.api.SlotReference;
-import dev.emi.trinkets.api.TrinketItem;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public class EstrogenPatchesItem extends TrinketItem {
-
-    public EstrogenPatchesItem(Item.Properties properties) {
-        super(properties);
+public class EstrogenPatchesItem extends Item implements ICurioItem {
+    public EstrogenPatchesItem(Properties arg) {
+        super(arg);
     }
+
     @Override
-    public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        if (entity instanceof Player player) {
+    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
+        if (slotContext.entity() instanceof Player player) {
             player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, -1, stack.getCount() - 1, false, false, false));
         }
     }
 
     @Override
-    public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        entity.removeEffect(EstrogenEffects.ESTROGEN_EFFECT);
+    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
+        slotContext.entity().removeEffect(EstrogenEffects.ESTROGEN_EFFECT);
     }
 
     @Override

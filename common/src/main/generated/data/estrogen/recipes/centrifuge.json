@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "redstone",
   "key": {
     "C": {
       "tag": "estrogen:copper_plates"
@@ -22,6 +21,5 @@
   ],
   "result": {
     "item": "estrogen:centrifuge"
-  },
-  "show_notification": true
+  }
 }

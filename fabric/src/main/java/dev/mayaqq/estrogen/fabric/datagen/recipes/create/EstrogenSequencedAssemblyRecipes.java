@@ -5,12 +5,14 @@ import com.simibubi.create.content.kinetics.deployer.DeployerApplicationRecipe;
 import com.simibubi.create.content.kinetics.press.PressingRecipe;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipeBuilder;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeInterface;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 
@@ -24,7 +26,7 @@ public class EstrogenSequencedAssemblyRecipes<T extends EstrogenRecipeInterface>
     GeneratedRecipe
             ESTROGEN_PATCH = create("estrogen_patch", b -> b.require(Items.PAPER)
                 .transitionTo(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get())
-                .addOutput(EstrogenItems.ESTROGEN_PATCHES.get(), 120)
+                .addOutput(Registry.ITEM.get(Estrogen.id("estrogen_patches")), 120)
                 .addOutput(EstrogenItems.ESTROGEN_PILL.get(), 16)
                 .addOutput(Items.PAPER, 5)
                 .addOutput(Items.SLIME_BALL, 5)

@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.fabric.datagen.translations;
 
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -21,9 +22,9 @@ public class EstrogenTranslations {
                 tb.add("key.estrogen.dash", "Activate Dash");
 
             // Items
-            tb.add("itemGroup.estrogen", "Estrogen");
+            tb.add("itemGroup.estrogen.estrogen", "Estrogen");
                 tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Estrogen Pill");
-                tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Estrogen Patch");
+                tb.add(Estrogen.id("estrogen_patches"), "Estrogen Patch");
                 tb.add("item.estrogen.estrogen_patches_plural", "Estrogen Patches");
                 tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Incomplete Estrogen Patch");
                 tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Crystal Estrogen Pill");
@@ -114,9 +115,9 @@ public class EstrogenTranslations {
             tb.add("key.estrogen.dash", "Aktivovat Dash");
 
             // Items
-            tb.add("itemGroup.estrogen", "Estrogen");
+            tb.add("itemGroup.estrogen.estrogen", "Estrogen");
             tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Pilulka Estrogenu");
-            tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Estrogenová Náplast");
+            tb.add(Estrogen.id("estrogen_patches"), "Estrogenová Náplast");
             tb.add("item.estrogen.estrogen_patches_plural", "Estrogenové Náplasti");
             tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Nedokončená Estrogenová Náplast");
             tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Krystalová pilulka estrogenu");
@@ -210,9 +211,9 @@ public class EstrogenTranslations {
             tb.add("key.estrogen.dash", "Dash Aktiválása");
 
             // Items
-            tb.add("itemGroup.estrogen", "Ösztrogén");
+            tb.add("itemGroup.estrogen.estrogen", "Ösztrogén");
             tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Ösztrogén tabletta");
-            tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Ösztrogén tapasz");
+            tb.add(Estrogen.id("estrogen_patches"), "Ösztrogén tapasz");
             tb.add("item.estrogen.estrogen_patches_plural", "Ösztrogén tapaszok");
             tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Befejezetlen ösztrogén tapasz");
             tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Kristály ösztrogén tabletta");
@@ -303,9 +304,9 @@ public class EstrogenTranslations {
                 tb.add("key.estrogen.dash", "Ativar Dash");
 
             // Items
-            tb.add("itemGroup.estrogen", "Estrogênio");
+            tb.add("itemGroup.estrogen.estrogen", "Estrogênio");
                 tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Comprimido de Estrogênio");
-                tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Adesivo de Estrogênio");
+                tb.add(Estrogen.id("estrogen_patches"), "Adesivo de Estrogênio");
                 tb.add("item.estrogen.estrogen_patches_plural", "Adesivos de Estrogênio");
                 tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Adesivo Incompleto de Estrogênio");
                 tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Pilula de Estrogênio Cristalizado");
