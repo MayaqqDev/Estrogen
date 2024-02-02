@@ -4,8 +4,11 @@ import com.simibubi.create.foundation.config.ConfigBase;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import top.theillusivec4.curios.api.SlotTypeMessage;
 
 @Mod.EventBusSubscriber(modid = Estrogen.MOD_ID)
 public class EstrogenForgeEvents {
@@ -25,5 +28,14 @@ public class EstrogenForgeEvents {
             if (config.specification == event.getConfig()
                     .getSpec())
                 config.onReload();
+    }
+
+    @SubscribeEvent
+    public static void interModEnqueue(InterModEnqueueEvent event) {
+        InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () ->
+                new SlotTypeMessage.Builder("thighs")
+                        .icon(Estrogen.id("slot/thighs"))
+                        .build()
+        );
     }
 }

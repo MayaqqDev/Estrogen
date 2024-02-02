@@ -22,12 +22,14 @@ public class CentrifugeRendererRenderSafeImpl {
         if (up != null) {
             up.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(handler -> {
                 FluidStack fluid = handler.getFluidInTank(0);
+                if (fluid.isEmpty()) return;
                 renderFluidSafe(fluid, 0.01F, 0.71F, 0.01F, 0.99F, 0.97F, 0.99F, buffer, ms, light, false);
             });
         }
         if (down != null) {
             down.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(handler -> {
                 FluidStack fluid = handler.getFluidInTank(0);
+                if (fluid.isEmpty()) return;
                 renderFluidSafe(fluid, 0.01F, 0.01F, 0.01F, 0.99F, 0.3F, 0.99F, buffer, ms, light, false);
             });
         }

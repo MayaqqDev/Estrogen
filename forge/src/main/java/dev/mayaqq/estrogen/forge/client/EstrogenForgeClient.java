@@ -4,6 +4,7 @@ import com.simibubi.create.foundation.config.ui.BaseConfigScreen;
 import dev.mayaqq.estrogen.Estrogen;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -20,5 +21,10 @@ public class EstrogenForgeClient {
         ModLoadingContext.get().getActiveContainer().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
                 () -> new ConfigScreenHandler.ConfigScreenFactory((minecraft, screen) -> new BaseConfigScreen(screen, MOD_ID)));
         EstrogenClient.init();
+    }
+
+    @SubscribeEvent
+    public static void textureStitch(TextureStitchEvent.Pre event) {
+        event.addSprite(Estrogen.id("slot/thighs"));
     }
 }
