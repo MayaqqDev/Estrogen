@@ -53,6 +53,7 @@ allprojects {
         maven { url = "https://maven.ladysnake.org/releases" } // Trinkets
         maven { url = "https://repo.unascribed.com" } // Ears
         maven { url = "https://api.modrinth.com/maven" } // Create & REI Bug Fix, Jukeboxfix
+        maven { url = "https://maven.figuramc.org/releases" } // Figura
         maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM | NOTE: LEAVE THIS AS LAST
     }
 

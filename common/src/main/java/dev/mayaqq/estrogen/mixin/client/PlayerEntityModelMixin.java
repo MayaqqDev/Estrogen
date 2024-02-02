@@ -5,9 +5,12 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.content.equipment.armor.BaseArmorItem;
+import dev.architectury.platform.Platform;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.BoobArmorRenderer;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.PlayerEntityModelExtension;
+import dev.mayaqq.estrogen.integrations.figura.FiguraCompat;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -83,6 +86,7 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
 
     @Override
     public void estrogen$renderBoobArmor(PoseStack matrices, MultiBufferSource vertexConsumers, int light, boolean glint, float red, float green, float blue, @Nullable String overlay, AbstractClientPlayer player, float size) {
+        if (Platform.isModLoaded("figura") && !FiguraCompat.renderBoobArmor(Minecraft.getInstance().player)) return;
         ResourceLocation texture = this.getArmorTexture(player, overlay);
         if (texture == null) {
             return;

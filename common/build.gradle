@@ -17,6 +17,9 @@ dependencies {
     // Ears
     implementation("com.unascribed:ears-api:${rootProject.ears_version}")
 
+    // Figura
+    modCompileOnly("org.figuramc:figura-common-mojmap:${rootProject.figura_version}")
+
     // Mixin Extras
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}"))
 }

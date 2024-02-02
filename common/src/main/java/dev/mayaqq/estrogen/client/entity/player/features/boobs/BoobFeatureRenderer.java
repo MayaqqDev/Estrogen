@@ -2,11 +2,14 @@ package dev.mayaqq.estrogen.client.entity.player.features.boobs;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.architectury.platform.Platform;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.integrations.figura.FiguraCompat;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import dev.mayaqq.estrogen.utils.Time;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -30,6 +33,7 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
     }
 
     public void render(PoseStack stack, MultiBufferSource bufferSource, int i, AbstractClientPlayer entity, float f, float g, float h, float j, float k, float l) {
+        if (Platform.isModLoaded("figura") && !FiguraCompat.renderBoobs(Minecraft.getInstance().player)) return;
         if (entity.hasEffect(EstrogenEffects.ESTROGEN_EFFECT) && EstrogenConfig.client().chestFeature.get() && entity.isSkinLoaded() && !entity.isInvisible()) {
             VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entitySolid(entity.getSkinTextureLocation()));
             int m = LivingEntityRenderer.getOverlayCoords(entity, 0.0F);
