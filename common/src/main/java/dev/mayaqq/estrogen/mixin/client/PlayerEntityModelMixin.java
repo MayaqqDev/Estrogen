@@ -74,6 +74,7 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
 
     @Override
     public void estrogen$renderBoobs(PoseStack matrices, VertexConsumer vertices, int light, int overlay, AbstractClientPlayer player, float size) {
+        if (Platform.isModLoaded("figura") && !FiguraCompat.renderBoobs(Minecraft.getInstance().player)) return;
         this.boobs.copyFrom(this.body);
         this.boobs.xRot = this.body.xRot + 1.0F;
         float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT).getAmplifier() / 10.0F;
