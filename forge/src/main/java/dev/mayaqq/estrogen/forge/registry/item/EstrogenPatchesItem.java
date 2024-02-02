@@ -10,14 +10,27 @@ import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 public class EstrogenPatchesItem extends Item implements ICurioItem {
+    int tick = 0;
+
     public EstrogenPatchesItem(Properties arg) {
         super(arg);
     }
 
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        if (slotContext.entity() instanceof Player player) {
-            player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, -1, stack.getCount() - 1, false, false, false));
+        patchTick(slotContext, stack, true);
+    }
+
+    @Override
+    public void curioTick(SlotContext slotContext, ItemStack stack) {
+        tick++;
+        patchTick(slotContext, stack, false);
+    }
+
+    public void patchTick(SlotContext slotContext, ItemStack stack, boolean bypass) {
+        if (slotContext.entity() instanceof Player player && (bypass || tick == 20)) {
+            tick = 0;
+            player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, 400, stack.getCount() - 1, false, false, false));
         }
     }
 

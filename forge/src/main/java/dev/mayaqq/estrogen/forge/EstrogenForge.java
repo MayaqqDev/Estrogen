@@ -21,6 +21,9 @@ import static dev.mayaqq.estrogen.Estrogen.MOD_ID;
 public class EstrogenForge {
     public EstrogenForge() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        bus.addListener(EstrogenForgeEvents::onLoad);
+        bus.addListener(EstrogenForgeEvents::onReload);
+        bus.addListener(EstrogenForgeEvents::interModEnqueue);
         // Forge ugh
         EventBuses.registerModEventBus(MOD_ID, bus);
         // REGISTRATE registering

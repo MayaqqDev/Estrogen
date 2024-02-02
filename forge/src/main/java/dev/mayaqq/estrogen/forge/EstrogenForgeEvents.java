@@ -30,6 +30,7 @@ public class EstrogenForgeEvents {
                 config.onReload();
     }
 
+    // Curios
     @SubscribeEvent
     public static void interModEnqueue(InterModEnqueueEvent event) {
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () ->

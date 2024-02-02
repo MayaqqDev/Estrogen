@@ -23,6 +23,7 @@ public class EstrogenForgeClient {
         EstrogenClient.init();
     }
 
+    // Curios
     @SubscribeEvent
     public static void textureStitch(TextureStitchEvent.Pre event) {
         event.addSprite(Estrogen.id("slot/thighs"));
