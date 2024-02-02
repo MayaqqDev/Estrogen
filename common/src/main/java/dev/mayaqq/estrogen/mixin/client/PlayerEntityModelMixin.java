@@ -7,9 +7,12 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import com.simibubi.create.content.equipment.armor.BaseArmorItem;
+import dev.architectury.platform.Platform;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.BoobArmorRenderer;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.PlayerEntityModelExtension;
+import dev.mayaqq.estrogen.integrations.figura.FiguraCompat;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -71,6 +74,7 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
 
     @Override
     public void estrogen$renderBoobs(PoseStack matrices, VertexConsumer vertices, int light, int overlay, AbstractClientPlayer player, float size) {
+        if (Platform.isModLoaded("figura") && !FiguraCompat.renderBoobs(Minecraft.getInstance().player)) return;
         this.boobs.copyFrom(this.body);
         this.boobs.xRot = this.body.xRot + 1.0F;
         float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT).getAmplifier() / 10.0F;
@@ -85,6 +89,7 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
 
     @Override
     public void estrogen$renderBoobArmor(PoseStack matrices, MultiBufferSource vertexConsumers, int light, boolean glint, float red, float green, float blue, @Nullable String overlay, AbstractClientPlayer player, float size) {
+        if (Platform.isModLoaded("figura") && !FiguraCompat.renderBoobArmor(Minecraft.getInstance().player)) return;
         ResourceLocation texture = this.getArmorTexture(player, overlay);
         if (texture == null) {
             return;
