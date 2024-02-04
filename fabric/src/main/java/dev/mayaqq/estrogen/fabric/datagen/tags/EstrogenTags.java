@@ -20,6 +20,8 @@ public class EstrogenTags {
         public static final TagKey<Item> THIGHS = TagKey.create(Registry.ITEM.key(), new ResourceLocation("trinkets", "legs/thighs"));
         public static final TagKey<Item> CURIOS_THIGHS = TagKey.create(Registry.ITEM.key(), new ResourceLocation("curios", "thighs"));
         public static final TagKey<Item> MUSIC_DISCS = TagKey.create(Registry.ITEM.key(), mcId("music_discs"));
+        public static final TagKey<Item> UWUFYING = TagKey.create(Registry.ITEM.key(), new ResourceLocation("estrogen", "uwufying"));
+        public static final TagKey<Item> COPPER_PLATES = TagKey.create(Registry.ITEM.key(), new ResourceLocation("estrogen", "copper_plates"));
 
         public ItemTags(FabricDataGenerator dataGenerator) {
             super(dataGenerator);
@@ -28,14 +30,14 @@ public class EstrogenTags {
         @Override
         protected void generateTags() {
             getOrCreateTagBuilder(THIGHS)
-                    .add(Estrogen.id("estrogen_patches"));
-            getOrCreateTagBuilder(dev.mayaqq.estrogen.registry.common.EstrogenTags.UWUFYING)
+                    .add(EstrogenItems.ESTROGEN_PATCHES.get());
+            getOrCreateTagBuilder(UWUFYING)
                     .add(EstrogenItems.UWU.get());
-            getOrCreateTagBuilder(dev.mayaqq.estrogen.registry.common.EstrogenTags.COPPER_PLATES)
+            getOrCreateTagBuilder(COPPER_PLATES)
                     .addOptionalTag(AllTags.forgeItemTag("copper_plates"))
                     .addOptionalTag(AllTags.optionalTag(Registry.ITEM, new ResourceLocation("forge", "plates/copper")));
             getOrCreateTagBuilder(CURIOS_THIGHS)
-                    .add(Estrogen.id("estrogen_patches"));
+                    .add(EstrogenItems.ESTROGEN_PATCHES.get());
             getOrCreateTagBuilder(MUSIC_DISCS)
                     .add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get());
         }

@@ -5,12 +5,14 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.event.events.client.ClientTickEvent;
-import dev.mayaqq.estrogen.registry.common.EstrogenTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.Item;
 
 public class Dash {
 
@@ -20,6 +22,7 @@ public class Dash {
     private static int tick = 0;
     // the overlay texture
     private static final ResourceLocation DASH_OVERLAY = new ResourceLocation("textures/misc/nausea.png");
+    public static final TagKey<Item> UWUFYING = TagKey.create(Registry.ITEM.key(), new ResourceLocation("estrogen", "uwufying"));
     // is the dash on cooldown
     public static boolean onCooldown = false;
 
@@ -32,7 +35,7 @@ public class Dash {
             tick++;
             if (tick == 20) {
                 tick = 0;
-                uwufy = player.getInventory().contains(EstrogenTags.UWUFYING);
+                uwufy = player.getInventory().contains(UWUFYING);
             }
         });
         ClientGuiEvent.RENDER_HUD.register((graphics, tickDelta) -> {

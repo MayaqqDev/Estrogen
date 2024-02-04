@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.fabric.registry.item;
+package dev.mayaqq.estrogen.fabric.items;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;

@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.forge.registry.item;
+package dev.mayaqq.estrogen.forge.items;
 
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import net.minecraft.world.effect.MobEffectInstance;

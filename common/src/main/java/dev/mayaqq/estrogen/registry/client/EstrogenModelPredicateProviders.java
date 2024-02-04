@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class EstrogenModelPredicateProviders {
     public static void register() {
-        ItemPropertiesRegistry.register(Registry.ITEM.get(Estrogen.id("estrogen_patches")), new ResourceLocation("stacked"), (stack, world, entity, seed) -> {
+        ItemPropertiesRegistry.register(EstrogenItems.ESTROGEN_PATCHES.get(), new ResourceLocation("stacked"), (stack, world, entity, seed) -> {
             return stack.getCount() > 1 ? 1 : 0;
         });
     }
