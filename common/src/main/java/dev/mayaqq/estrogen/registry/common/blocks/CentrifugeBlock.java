@@ -5,6 +5,7 @@ import com.simibubi.create.content.kinetics.base.KineticBlock;
 import com.simibubi.create.content.kinetics.simpleRelays.ICogWheel;
 import com.simibubi.create.foundation.advancement.AdvancementBehaviour;
 import com.simibubi.create.foundation.block.IBE;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlockEntities;
 import dev.mayaqq.estrogen.registry.common.blockEntities.CentrifugeBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -63,7 +64,7 @@ public class CentrifugeBlock extends KineticBlock implements IBE<CentrifugeBlock
 
     @Override
     public SpeedLevel getMinimumRequiredSpeedLevel() {
-        return SpeedLevel.of(256);
+        return SpeedLevel.of(EstrogenConfig.server().centrifugeSpeedRequired.getF());
     }
 
     @Override
