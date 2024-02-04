@@ -26,6 +26,8 @@ public class EstrogenTags {
         public static final TagKey<Item> THIGHS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("trinkets", "legs/thighs"));
         public static final TagKey<Item> CURIOS_THIGHS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("curios", "thighs"));
         public static final TagKey<Item> MUSIC_DISCS = TagKey.create(BuiltInRegistries.ITEM.key(), mcId("music_discs"));
+        public static final TagKey<Item> UWUFYING = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("estrogen", "uwufying"));
+        public static final TagKey<Item> COPPER_PLATES = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("estrogen", "copper_plates"));
 
         public ItemTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
             super(output, completableFuture);
@@ -35,9 +37,9 @@ public class EstrogenTags {
         protected void addTags(HolderLookup.Provider arg) {
             getOrCreateTagBuilder(THIGHS)
                     .add(EstrogenItems.ESTROGEN_PATCHES.get());
-            getOrCreateTagBuilder(dev.mayaqq.estrogen.registry.common.EstrogenTags.UWUFYING)
+            getOrCreateTagBuilder(UWUFYING)
                     .add(EstrogenItems.UWU.get());
-            getOrCreateTagBuilder(dev.mayaqq.estrogen.registry.common.EstrogenTags.COPPER_PLATES)
+            getOrCreateTagBuilder(COPPER_PLATES)
                     .addOptionalTag(AllTags.forgeItemTag("copper_plates"))
                     .addOptionalTag(AllTags.optionalTag(BuiltInRegistries.ITEM, new ResourceLocation("forge", "plates/copper")));
             getOrCreateTagBuilder(CURIOS_THIGHS)

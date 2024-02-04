@@ -2,9 +2,9 @@ package dev.mayaqq.estrogen.fabric.datagen.recipes.minecraft;
 
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
+import dev.mayaqq.estrogen.fabric.datagen.tags.EstrogenTags;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
-import dev.mayaqq.estrogen.registry.common.EstrogenTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -31,7 +31,7 @@ public class EstrogenCraftingRecipes extends FabricRecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, EstrogenBlocks.CENTRIFUGE.get(), 1)
                 .define('P', AllBlocks.MECHANICAL_PUMP.get())
                 .define('T', AllBlocks.FLUID_TANK.get())
-                .define('C', EstrogenTags.COPPER_PLATES)
+                .define('C', EstrogenTags.ItemTags.COPPER_PLATES)
                 .define('M', AllItems.PRECISION_MECHANISM.get())
                 .pattern("CTC")
                 .pattern("PMP")
