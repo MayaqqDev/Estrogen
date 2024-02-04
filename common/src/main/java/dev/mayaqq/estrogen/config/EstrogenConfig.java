@@ -86,6 +86,7 @@ public class EstrogenConfig {
 
     public static class Server extends ConfigBase {
         public final ConfigBool dashEnabled = b(true, "dashEnabled", "Enable dash from the Effect of Estrogen");
+        public final ConfigFloat centrifugeSpeedRequired = f(256, 0, 256, "centrifugeSpeedRequired", "Minimum speed required for the centrifuge to work");
 
         @Override
         public String getName() {
