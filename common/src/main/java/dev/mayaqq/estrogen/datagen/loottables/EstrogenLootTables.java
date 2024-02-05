@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.fabric.datagen.loottables;
+package dev.mayaqq.estrogen.datagen.loottables;
 
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
