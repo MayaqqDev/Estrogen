@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.fabric.datagen.tags;
+package dev.mayaqq.estrogen.datagen.tags;
 
 import com.simibubi.create.AllTags;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;

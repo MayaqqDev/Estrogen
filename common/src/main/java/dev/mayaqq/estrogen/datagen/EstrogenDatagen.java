@@ -1,11 +1,11 @@
-package dev.mayaqq.estrogen.fabric.datagen;
+package dev.mayaqq.estrogen.datagen;
 
-import dev.mayaqq.estrogen.fabric.datagen.loottables.EstrogenLootTables;
-import dev.mayaqq.estrogen.fabric.datagen.recipes.create.*;
-import dev.mayaqq.estrogen.fabric.datagen.recipes.estrogen.EstrogenCentrifugingRecipes;
-import dev.mayaqq.estrogen.fabric.datagen.recipes.minecraft.EstrogenCraftingRecipes;
-import dev.mayaqq.estrogen.fabric.datagen.tags.EstrogenTags;
-import dev.mayaqq.estrogen.fabric.datagen.translations.EstrogenTranslations;
+import dev.mayaqq.estrogen.datagen.loottables.EstrogenLootTables;
+import dev.mayaqq.estrogen.datagen.recipes.create.*;
+import dev.mayaqq.estrogen.datagen.recipes.estrogen.EstrogenCentrifugingRecipes;
+import dev.mayaqq.estrogen.datagen.recipes.minecraft.EstrogenCraftingRecipes;
+import dev.mayaqq.estrogen.datagen.tags.EstrogenTags;
+import dev.mayaqq.estrogen.datagen.translations.EstrogenTranslations;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator.Pack.Factory;

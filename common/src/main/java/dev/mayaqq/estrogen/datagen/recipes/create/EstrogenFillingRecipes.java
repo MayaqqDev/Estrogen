@@ -1,12 +1,12 @@
-package dev.mayaqq.estrogen.fabric.datagen.recipes.create;
+package dev.mayaqq.estrogen.datagen.recipes.create;
 
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
-import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeFabricImpl;
-import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeForgeImpl;
-import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeInterface;
+import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeFabricImpl;
+import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeForgeImpl;
+import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeInterface;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;

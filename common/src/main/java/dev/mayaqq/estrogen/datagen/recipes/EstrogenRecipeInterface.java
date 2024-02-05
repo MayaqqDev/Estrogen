@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.fabric.datagen.recipes;
+package dev.mayaqq.estrogen.datagen.recipes;
 
 import net.minecraft.resources.ResourceLocation;
 
