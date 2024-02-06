@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.fabric.datagen.recipes.create;
+package dev.mayaqq.estrogen.datagen.recipes.create;
 
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
