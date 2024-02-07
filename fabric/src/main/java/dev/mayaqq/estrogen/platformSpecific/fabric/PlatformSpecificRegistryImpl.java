@@ -9,7 +9,7 @@ import static dev.mayaqq.estrogen.Estrogen.REGISTRATE;
 
 public class PlatformSpecificRegistryImpl {
     @org.jetbrains.annotations.Contract
-    public static ItemEntry<? extends Item> getRegisteredPatchesItem() {
-        return REGISTRATE.item("estrogen_patches", EstrogenPatchesItem::new).properties(p -> new EstrogenItems.EstrogenProperties().stacksTo(4)).register();
+    public static ItemEntry<? extends Item> getRegisteredPatchesItem(Integer stackLimit) {
+        return REGISTRATE.item("estrogen_patches", EstrogenPatchesItem::new).properties(p -> new EstrogenItems.EstrogenProperties().stacksTo(stackLimit)).register();
     }
 }
