@@ -84,7 +84,8 @@ public class EstrogenEffect extends MobEffect {
                 }
                 dashCooldown = 10;
                 currentDashes--;
-                player.setDeltaMovement(player.getLookAngle().x * 2, player.getLookAngle().y * 2, player.getLookAngle().z * 2);
+                int dashDeltaModifier = EstrogenConfig.server().dashDeltaModifier.get();
+                player.setDeltaMovement(player.getLookAngle().x * dashDeltaModifier, player.getLookAngle().y * dashDeltaModifier, player.getLookAngle().z * dashDeltaModifier);
                 NetworkManager.sendToServer(EstrogenC2S.DASH, new FriendlyByteBuf(Unpooled.buffer()));
             }
         }

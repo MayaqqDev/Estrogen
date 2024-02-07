@@ -1,9 +1,7 @@
 package dev.mayaqq.estrogen.registry.client;
 
 import dev.architectury.registry.item.ItemPropertiesRegistry;
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 
 public class EstrogenModelPredicateProviders {

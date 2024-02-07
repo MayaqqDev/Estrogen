@@ -20,6 +20,11 @@ import static dev.mayaqq.estrogen.Estrogen.MOD_ID;
 @Mod(MOD_ID)
 public class EstrogenForge {
     public EstrogenForge() {
+        // Config
+        EstrogenConfig.register();
+        for (Map.Entry<ModConfig.Type, ConfigBase> pair : EstrogenConfig.CONFIGS.entrySet())
+            ModLoadingContext.get().registerConfig(pair.getKey(), pair.getValue().specification);
+
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(EstrogenForgeEvents::onLoad);
         bus.addListener(EstrogenForgeEvents::onReload);
@@ -28,11 +33,6 @@ public class EstrogenForge {
         EventBuses.registerModEventBus(MOD_ID, bus);
         // REGISTRATE registering
         Estrogen.REGISTRATE.registerEventListeners(bus);
-
-        // Config
-        EstrogenConfig.register();
-        for (Map.Entry<ModConfig.Type, ConfigBase> pair : EstrogenConfig.CONFIGS.entrySet())
-            ModLoadingContext.get().registerConfig(pair.getKey(), pair.getValue().specification);
 
         // Init Estrogen main class
         Estrogen.init();

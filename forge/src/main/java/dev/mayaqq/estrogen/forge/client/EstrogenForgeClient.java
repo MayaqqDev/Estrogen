@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.forge.client;
 
 import com.simibubi.create.foundation.config.ui.BaseConfigScreen;
 import dev.mayaqq.estrogen.Estrogen;
+import dev.mayaqq.estrogen.client.EstrogenClient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -9,7 +10,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import dev.mayaqq.estrogen.client.EstrogenClient;
 
 import static dev.mayaqq.estrogen.Estrogen.MOD_ID;
 

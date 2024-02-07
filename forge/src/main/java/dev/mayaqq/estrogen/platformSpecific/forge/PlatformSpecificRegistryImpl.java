@@ -1,9 +1,9 @@
 package dev.mayaqq.estrogen.platformSpecific.forge;
 
 import com.tterrag.registrate.util.entry.ItemEntry;
-import net.minecraft.world.item.Item;
-import dev.mayaqq.estrogen.registry.common.EstrogenItems;
 import dev.mayaqq.estrogen.forge.items.EstrogenPatchesItem;
+import dev.mayaqq.estrogen.registry.common.EstrogenItems;
+import net.minecraft.world.item.Item;
 
 import static dev.mayaqq.estrogen.Estrogen.REGISTRATE;
 
