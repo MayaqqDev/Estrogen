@@ -10,6 +10,23 @@ tasks.register("buildBoth") {
     dependsOn project(":forge").tasks.named("buildBothForge")
 }
 
+tasks.register("multiplatformDatagen") {
+    Project common = project(":common")
+    dependsOn project(":fabric").tasks.named("runDatagen")
+    // Copy the fabric only recipes to the generated resources
+    copy {
+        from common.file("src/main/generated/data/estrogen/recipes/.fabric")
+        include "**/*.json"
+        into "src/main/generated/data/estrogen/recipes/"
+    }
+    // Copy the forge only recipes to the generated resources
+    copy {
+        from common.file("src/main/generated/data/estrogen/recipes/.forge")
+        include "**/*.json"
+        into "src/main/generated/data/estrogen/recipes/"
+    }
+}
+
 architectury {
     minecraft = rootProject.minecraft_version
 }
