@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.event.events.client.ClientTickEvent;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,7 +39,7 @@ public class Dash {
             }
         });
         ClientGuiEvent.RENDER_HUD.register((graphics, tickDelta) -> {
-            if (onCooldown) {
+            if (onCooldown && EstrogenConfig.client().dashOverlay.get()) {
                 renderOverLayer(graphics, 0.3F, 0.5F, 0.8F);
             }
         });
