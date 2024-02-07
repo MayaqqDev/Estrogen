@@ -60,6 +60,7 @@ public class EstrogenTranslations {
 
             // Death
                 tb.add("death.attack.girlpower", "%s Girlbossed too hard");
+                tb.add("death.attack.girlpower.player", "%s Girlbossed too hard");
 
             // Trinkets
                 tb.add("trinkets.slot.legs.thighs", "Thighs");
@@ -153,6 +154,7 @@ public class EstrogenTranslations {
 
             // Death
             tb.add("death.attack.girlpower", "hráč %s Girlbossoval příliš tvrdě");
+            tb.add("death.attack.girlpower.player", "hráč %s Girlbossoval příliš tvrdě");
 
             // Trinkets
             tb.add("trinkets.slot.legs.thighs", "Stehna");
@@ -249,6 +251,7 @@ public class EstrogenTranslations {
 
             // Death
             tb.add("death.attack.girlpower", "%s túl erős Girlboss");
+            tb.add("death.attack.girlpower.player", "%s túl erős Girlboss");
 
             // Trinkets
             tb.add("trinkets.slot.legs.thighs", "Combok");
@@ -342,6 +345,7 @@ public class EstrogenTranslations {
 
             // Death
                 tb.add("death.attack.girlpower", "%s foi chefona demais");
+                tb.add("death.attack.girlpower.player", "%s foi chefona demais");
 
             // Trinkets
                 tb.add("trinkets.slot.legs.thighs", "Coxas");
