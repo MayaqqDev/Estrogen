@@ -9,6 +9,8 @@ public class EstrogenRecipeForgeImpl implements EstrogenRecipeInterface {
     public long getAmount(long amount) {
         double fabricBucket = 81000.0;
         double forgeBucket = 1000.0;
+        if (amount == 27000) return 250;
+        if (amount == 54000) return 500;
         return ((long) ((amount / fabricBucket) * forgeBucket));
     }
 

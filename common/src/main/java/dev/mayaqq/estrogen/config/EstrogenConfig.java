@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.config;
 
 import com.simibubi.create.foundation.config.ConfigBase;
+import com.simibubi.create.foundation.config.ui.ConfigAnnotations;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.config.ModConfig;
 import org.apache.commons.lang3.tuple.Pair;
@@ -66,8 +67,15 @@ public class EstrogenConfig {
     }
 
     public static class Client extends ConfigBase {
+        // Chest Config Group
+        public final ConfigGroup chest = group(1, "chest", "Settings for the chest feature");
         public final ConfigBool chestFeature = b(true, "chestFeature", "Enable chest feature");
         public final ConfigBool chestArmor = b(true, "chestArmor", "Enable chest feature armor");
+
+        // UI Config Group
+        public final ConfigGroup ui = group(1, "ui", "UI element Configuration");
+        public final ConfigBool dashOverlay = b(true, "dashOverlay", "Enable dash overlay");
+
 
         @Override
         public String getName() {
@@ -76,7 +84,15 @@ public class EstrogenConfig {
     }
 
     public static class Common extends ConfigBase {
-        public final ConfigBool placeholder = b(true, "placeholder", "Placeholder");
+        // Estrogen Patches group
+        public final ConfigGroup estrogenPatches = group(1, "estrogenPatches", "Settings for the estrogen patches");
+        public final ConfigInt estrogenPatchesStackSize = i(4, 1, 64, "estrogenPatchesStackSize", "§4THIS ONLY WORKS ON §fFABRIC§7/§dQUILT§4 MOD LOADER", "The stack size limit of estrogen patches", ConfigAnnotations.RequiresRestart.BOTH.asComment());
+
+        // Minigame Group
+        public final ConfigGroup minigame = group(2, "minigame", "Settings which are more fun and not fit for survival");
+        public final ConfigBool minigameEnabled = b(false, "minigameEnabled", "Enable/Disable all minigame settings");
+        public final ConfigBool permaDash = b(true, "permaDash", "Gives you permanent, unremovable Girl Power Effect");
+        public final ConfigInt girlPowerLevel = i(0, 0, 255, "permaDashAmount", "The level of Girl Power Effect when Perma-Dash is enabled");
 
         @Override
         public String getName() {
@@ -85,7 +101,13 @@ public class EstrogenConfig {
     }
 
     public static class Server extends ConfigBase {
+        // Dash Group
+        public final ConfigGroup dash = group(1, "dash", "Settings for the dash effect");
         public final ConfigBool dashEnabled = b(true, "dashEnabled", "Enable dash from the Effect of Estrogen");
+        public final ConfigInt dashDeltaModifier = i(2, 0, 100, "dashDeltaModifier", "The multiplier for the dash delta movement");
+
+        // Centrifuge group
+        public final ConfigGroup centrifuge = group(2, "centrifuge", "Settings for the centrifuge");
         public final ConfigFloat centrifugeSpeedRequired = f(256, 0, 256, "centrifugeSpeedRequired", "Minimum speed required for the centrifuge to work");
 
         @Override

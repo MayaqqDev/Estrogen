@@ -6,7 +6,6 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import dev.mayaqq.estrogen.registry.client.EstrogenRenderer;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import net.minecraft.client.gui.components.events.GuiEventListener;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 

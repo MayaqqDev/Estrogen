@@ -60,6 +60,7 @@ public class EstrogenTranslations {
 
             // Death
                 tb.add("death.attack.girlpower", "%s Girlbossed too hard");
+                tb.add("death.attack.girlpower.player", "%s Girlbossed too hard");
 
             // Trinkets
                 tb.add("trinkets.slot.legs.thighs", "Thighs");
@@ -71,6 +72,7 @@ public class EstrogenTranslations {
 
             // Enchantments
                 tb.add(EstrogenEnchantments.UWUFYING_CURSE.get(), "Curse of Uwufying");
+                tb.add("enchantment.estrogen.uwufy_curse.desc", "UwUfies your chat messages >///<");
 
             // EMI
                 tb.add("emi.category.estrogen.centrifuging", "Centrifuging");
@@ -153,6 +155,7 @@ public class EstrogenTranslations {
 
             // Death
             tb.add("death.attack.girlpower", "hráč %s Girlbossoval příliš tvrdě");
+            tb.add("death.attack.girlpower.player", "hráč %s Girlbossoval příliš tvrdě");
 
             // Trinkets
             tb.add("trinkets.slot.legs.thighs", "Stehna");
@@ -164,6 +167,7 @@ public class EstrogenTranslations {
 
             // Enchantments
             tb.add(EstrogenEnchantments.UWUFYING_CURSE.get(), "Prokletí UwUfikování");
+            tb.add("enchantment.estrogen.uwufy_curse.desc", "UwUfikuje tvé chat zprávy >///<");
 
             // EMI
             tb.add("emi.category.estrogen.centrifuging", "Centrifugování");
@@ -249,6 +253,7 @@ public class EstrogenTranslations {
 
             // Death
             tb.add("death.attack.girlpower", "%s túl erős Girlboss");
+            tb.add("death.attack.girlpower.player", "%s túl erős Girlboss");
 
             // Trinkets
             tb.add("trinkets.slot.legs.thighs", "Combok");
@@ -260,6 +265,7 @@ public class EstrogenTranslations {
 
             // Enchantments
             tb.add(EstrogenEnchantments.UWUFYING_CURSE.get(), "UwUsítás átka");
+            tb.add("enchantment.estrogen.uwufy_curse.desc", "UwUsítja a chat üzeneteidet >///<");
 
             // EMI
             tb.add("emi.category.estrogen.centrifuging", "Centrifugálás");
@@ -342,6 +348,7 @@ public class EstrogenTranslations {
 
             // Death
                 tb.add("death.attack.girlpower", "%s foi chefona demais");
+                tb.add("death.attack.girlpower.player", "%s foi chefona demais");
 
             // Trinkets
                 tb.add("trinkets.slot.legs.thighs", "Coxas");
@@ -353,6 +360,7 @@ public class EstrogenTranslations {
 
             // Enchantments
                 tb.add(EstrogenEnchantments.UWUFYING_CURSE.get(), "Maldição de Uwuficação");
+                tb.add("enchantment.estrogen.uwufy_curse.desc", "UwUifica suas mensagens do chat >///<");
 
             // EMI
                 tb.add("emi.category.estrogen.centrifuging", "Centrifugando");

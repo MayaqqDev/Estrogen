@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.datagen.tags;
 
 import com.simibubi.create.AllTags;
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
