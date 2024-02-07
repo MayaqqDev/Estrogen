@@ -442,6 +442,7 @@ public class EstrogenTranslations {
 
             // Death
             tb.add("death.attack.girlpower", "%s a trop joué à la patronne");
+            tb.add("death.attack.girlpower.player", "%s a trop joué à la patronne");
 
             // Trinkets
             tb.add("trinkets.slot.legs.thighs", "Cuisse");
@@ -453,6 +454,7 @@ public class EstrogenTranslations {
 
             // Enchantments
             tb.add(EstrogenEnchantments.UWUFYING_CURSE.get(), "Malédiction d'uwufication");
+            tb.add("enchantment.estrogen.uwufy_curse.desc", "UwUifie vos messages dans le chat >///<");
 
             // EMI
             tb.add("emi.category.estrogen.centrifuging", "Centrifugeage");
