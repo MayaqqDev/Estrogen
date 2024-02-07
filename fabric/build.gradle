@@ -81,13 +81,6 @@ processResources {
                 "contributors": rootProject.contributors,
                 "minecraft_version": rootProject.minecraft_version
     }
-    // Copy the fabric only recipes to the generated resources
-    copy {
-        from common.file("src/main/generated/data/estrogen/recipes/.fabric")
-        include "**/*.json"
-        into "src/main/generated/data/estrogen/recipes/"
-    }
-
 }
 
 shadowJar {
@@ -148,7 +141,6 @@ loom {
             vmArg "-Dporting_lib.datagen.existing_resources=${common.file("src/main/resources")}"
 
             runDir "build/datagen"
-
         }
     }
 }

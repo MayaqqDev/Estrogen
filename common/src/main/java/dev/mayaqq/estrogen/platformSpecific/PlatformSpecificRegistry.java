@@ -11,7 +11,7 @@ public class PlatformSpecificRegistry {
 
     @Contract
     @ExpectPlatform
-    public static ItemEntry<? extends Item> getRegisteredPatchesItem() {
+    public static ItemEntry<? extends Item> getRegisteredPatchesItem(Integer stackLimit) {
         throw new PlatformExpectedError();
     }
 }
