@@ -10,7 +10,7 @@ public class EstrogenRecipeForgeImpl implements EstrogenRecipeInterface {
         double fabricBucket = 81000.0;
         double forgeBucket = 1000.0;
         // if the amount can be divided by 3, we change it to 1/4 on forge
-        if (amount % 3 == 0) return amount > 27000 ? 500 : 250;
+        if (amount % 3 == 0 && amount != 81000) return amount > 27000 ? 500 : 250;
         return ((long) ((amount / fabricBucket) * forgeBucket));
     }
 
