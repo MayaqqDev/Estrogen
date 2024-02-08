@@ -389,7 +389,7 @@ public class EstrogenTranslations {
     }
 
     public static class FrFr extends FabricLanguageProvider {
-        public FrFr(FabricDataOutput output) {
+        public FrFr(FabricDataGenerator output) {
             super(output, "fr_fr");
         }
         
