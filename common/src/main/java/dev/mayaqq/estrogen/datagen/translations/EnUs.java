@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.datagen.translations.languages;
+package dev.mayaqq.estrogen.datagen.translations;
 
 import dev.mayaqq.estrogen.registry.common.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;

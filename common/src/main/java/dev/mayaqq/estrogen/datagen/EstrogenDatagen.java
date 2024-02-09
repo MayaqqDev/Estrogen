@@ -5,10 +5,10 @@ import dev.mayaqq.estrogen.datagen.recipes.create.*;
 import dev.mayaqq.estrogen.datagen.recipes.estrogen.EstrogenCentrifugingRecipes;
 import dev.mayaqq.estrogen.datagen.recipes.minecraft.EstrogenCraftingRecipes;
 import dev.mayaqq.estrogen.datagen.tags.EstrogenTags;
+import dev.mayaqq.estrogen.datagen.translations.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator.Pack.Factory;
-import dev.mayaqq.estrogen.datagen.translations.languages.*;
 
 
 public class EstrogenDatagen implements DataGeneratorEntrypoint {
