@@ -5,10 +5,10 @@ import dev.mayaqq.estrogen.datagen.recipes.create.*;
 import dev.mayaqq.estrogen.datagen.recipes.estrogen.EstrogenCentrifugingRecipes;
 import dev.mayaqq.estrogen.datagen.recipes.minecraft.EstrogenCraftingRecipes;
 import dev.mayaqq.estrogen.datagen.tags.EstrogenTags;
-import dev.mayaqq.estrogen.datagen.translations.EstrogenTranslations;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator.Pack.Factory;
+import dev.mayaqq.estrogen.datagen.translations.languages.*;
 
 
 public class EstrogenDatagen implements DataGeneratorEntrypoint {
@@ -40,11 +40,12 @@ public class EstrogenDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(EstrogenTags.EntityTypeTags::new);
 
         // Lang
-        pack.addProvider(EstrogenTranslations.EnUs::new);
-        pack.addProvider(EstrogenTranslations.HuHu::new);
-        pack.addProvider(EstrogenTranslations.CsCz::new);
-        pack.addProvider(EstrogenTranslations.PtBr::new);
-        pack.addProvider(EstrogenTranslations.FrFr::new);
+        pack.addProvider(CsCz::new);
+        pack.addProvider(EnUs::new);
+        pack.addProvider(FrFr::new);
+        pack.addProvider(HuHu::new);
+        pack.addProvider(PtBr::new);
+        Hispanic.addAll(pack);
 
         // Loot Tables
         pack.addProvider(EstrogenLootTables::new);
