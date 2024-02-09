@@ -49,6 +49,51 @@ public class ReiCompat extends CreateREI {
     private static final ResourceLocation ID = id("rei_plugin");
     final List<CreateRecipeCategory<?>> ALL = new ArrayList<>();
 
+    public static void consumeAllRecipes(Consumer<Recipe<?>> consumer) {
+        Minecraft.getInstance().level.getRecipeManager()
+                .getRecipes()
+                .forEach(consumer);
+    }
+
+    public static <T extends Recipe<?>> void consumeTypedRecipes(Consumer<T> consumer, RecipeType<?> type) {
+        Map<ResourceLocation, Recipe<?>> map = ((RecipeManagerAccessor) Minecraft.getInstance()
+                .getConnection()
+                .getRecipeManager()).port_lib$getRecipes().get(type);
+        if (map != null) {
+            map.values().forEach(recipe -> consumer.accept((T) recipe));
+        }
+    }
+
+    public static List<Recipe<?>> getTypedRecipes(RecipeType<?> type) {
+        List<Recipe<?>> recipes = new ArrayList<>();
+        consumeTypedRecipes(recipes::add, type);
+        return recipes;
+    }
+
+    public static List<Recipe<?>> getTypedRecipesExcluding(RecipeType<?> type, Predicate<Recipe<?>> exclusionPred) {
+        List<Recipe<?>> recipes = getTypedRecipes(type);
+        recipes.removeIf(exclusionPred);
+        return recipes;
+    }
+
+    public static boolean doInputsMatch(Recipe<?> recipe1, Recipe<?> recipe2) {
+        if (recipe1.getIngredients()
+                .isEmpty()
+                || recipe2.getIngredients()
+                .isEmpty()) {
+            return false;
+        }
+        ItemStack[] matchingStacks = recipe1.getIngredients()
+                .get(0)
+                .getItems();
+        if (matchingStacks.length == 0) {
+            return false;
+        }
+        return recipe2.getIngredients()
+                .get(0)
+                .test(matchingStacks[0]);
+    }
+
     private void loadCategories() {
         ALL.clear();
 
@@ -112,12 +157,12 @@ public class ReiCompat extends CreateREI {
     @Override
     public void registerEntries(EntryRegistry registry) {
         registry.removeEntryIf(entryStack -> {
-            if(entryStack.getType() == VanillaEntryTypes.ITEM) {
+            if (entryStack.getType() == VanillaEntryTypes.ITEM) {
                 ItemStack itemStack = entryStack.castValue();
-                if(itemStack.getItem() instanceof TagDependentIngredientItem tagItem) {
+                if (itemStack.getItem() instanceof TagDependentIngredientItem tagItem) {
                     return tagItem.shouldHide();
                 }
-            } else if(entryStack.getType() == VanillaEntryTypes.FLUID) {
+            } else if (entryStack.getType() == VanillaEntryTypes.FLUID) {
                 FluidStack fluidStack = entryStack.castValue();
                 return fluidStack.getFluid() instanceof VirtualFluid;
             }
@@ -127,18 +172,14 @@ public class ReiCompat extends CreateREI {
 
     private class CategoryBuilder<T extends Recipe<?>> {
         private final Class<? extends T> recipeClass;
-        private Predicate<CRecipes> predicate = cRecipes -> true;
-
-        private Renderer background;
-        private Renderer icon;
-
-        private int width;
-        private int height;
-
-        private Function<T, ? extends CreateDisplay<T>> displayFactory;
-
         private final List<Consumer<List<T>>> recipeListConsumers = new ArrayList<>();
         private final List<Supplier<? extends ItemStack>> catalysts = new ArrayList<>();
+        private Predicate<CRecipes> predicate = cRecipes -> true;
+        private Renderer background;
+        private Renderer icon;
+        private int width;
+        private int height;
+        private Function<T, ? extends CreateDisplay<T>> displayFactory;
 
         public CategoryBuilder(Class<? extends T> recipeClass) {
             this.recipeClass = recipeClass;
@@ -200,7 +241,7 @@ public class ReiCompat extends CreateREI {
         }
 
         public CategoryBuilder<T> addTypedRecipesExcluding(Supplier<RecipeType<? extends T>> recipeType,
-                                                                     Supplier<RecipeType<? extends T>> excluded) {
+                                                           Supplier<RecipeType<? extends T>> excluded) {
             return addRecipeListConsumer(recipes -> {
                 List<Recipe<?>> excludedRecipes = getTypedRecipes(excluded.get());
                 CreateREI.<T>consumeTypedRecipes(recipe -> {
@@ -311,50 +352,5 @@ public class ReiCompat extends CreateREI {
             ALL.add(category);
             return category;
         }
-    }
-
-    public static void consumeAllRecipes(Consumer<Recipe<?>> consumer) {
-        Minecraft.getInstance().level.getRecipeManager()
-                .getRecipes()
-                .forEach(consumer);
-    }
-
-    public static <T extends Recipe<?>> void consumeTypedRecipes(Consumer<T> consumer, RecipeType<?> type) {
-        Map<ResourceLocation, Recipe<?>> map = ((RecipeManagerAccessor) Minecraft.getInstance()
-                .getConnection()
-                .getRecipeManager()).port_lib$getRecipes().get(type);
-        if (map != null) {
-            map.values().forEach(recipe -> consumer.accept((T) recipe));
-        }
-    }
-
-    public static List<Recipe<?>> getTypedRecipes(RecipeType<?> type) {
-        List<Recipe<?>> recipes = new ArrayList<>();
-        consumeTypedRecipes(recipes::add, type);
-        return recipes;
-    }
-
-    public static List<Recipe<?>> getTypedRecipesExcluding(RecipeType<?> type, Predicate<Recipe<?>> exclusionPred) {
-        List<Recipe<?>> recipes = getTypedRecipes(type);
-        recipes.removeIf(exclusionPred);
-        return recipes;
-    }
-
-    public static boolean doInputsMatch(Recipe<?> recipe1, Recipe<?> recipe2) {
-        if (recipe1.getIngredients()
-                .isEmpty()
-                || recipe2.getIngredients()
-                .isEmpty()) {
-            return false;
-        }
-        ItemStack[] matchingStacks = recipe1.getIngredients()
-                .get(0)
-                .getItems();
-        if (matchingStacks.length == 0) {
-            return false;
-        }
-        return recipe2.getIngredients()
-                .get(0)
-                .test(matchingStacks[0]);
     }
 }

@@ -3,28 +3,28 @@ repositories {}
 dependencies {
     // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
     // Do NOT use other classes from fabric loader
-    modImplementation ("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
+    modImplementation("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
 
     // Fapi
-    modApi ("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
+    modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
 
     // Architectury
-    modApi ("dev.architectury:architectury:${rootProject.architectury_version}")
+    modApi("dev.architectury:architectury:${rootProject.architectury_version}")
 
     // Create
-    modCompileOnly ("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}")
+    modCompileOnly("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}")
 
     // Trinkets
-    modCompileOnly ("dev.emi:trinkets:${rootProject.trinkets_version}")
+    modCompileOnly("dev.emi:trinkets:${rootProject.trinkets_version}")
 
     // Ears
-    implementation ("com.unascribed:ears-api:${rootProject.ears_version}")
+    implementation("com.unascribed:ears-api:${rootProject.ears_version}")
 
     // Figura
-    modCompileOnly ("org.figuramc:figura-common-mojmap:${rootProject.figura_version}")
+    modCompileOnly("org.figuramc:figura-common-mojmap:${rootProject.figura_version}")
 
     // Mixin Extras
-    implementation (annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}"))
+    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}"))
 }
 
 architectury {

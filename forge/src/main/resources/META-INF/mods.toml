@@ -7,7 +7,7 @@ modId = "estrogen"
 version = "${version}-forge"
 displayName = "Create: Estrogen"
 logoFile = "icon.png"
-credits="${contributors}"
+credits = "${contributors}"
 authors = "Mayaqq"
 
 # Description
@@ -33,22 +33,22 @@ ordering = "NONE"
 side = "BOTH"
 # create
 [[dependencies.estrogen]]
-modId="create"
-mandatory=true
-versionRange="*"
-ordering="NONE"
-side="BOTH"
+modId = "create"
+mandatory = true
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
 # curios
 [[dependencies.estrogen]]
-modId="curios"
-mandatory=true
-versionRange="*"
-ordering="NONE"
-side="BOTH"
+modId = "curios"
+mandatory = true
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
 # architectury api
 [[dependencies.estrogen]]
-modId="architectury"
-mandatory=true
-versionRange="*"
-ordering="NONE"
-side="BOTH"
+modId = "architectury"
+mandatory = true
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"

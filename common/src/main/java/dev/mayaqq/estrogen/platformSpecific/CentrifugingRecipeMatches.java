@@ -8,7 +8,8 @@ import org.jetbrains.annotations.Contract;
 
 public class CentrifugingRecipeMatches {
 
-    private CentrifugingRecipeMatches() {}
+    private CentrifugingRecipeMatches() {
+    }
 
     @Contract
     @ExpectPlatform

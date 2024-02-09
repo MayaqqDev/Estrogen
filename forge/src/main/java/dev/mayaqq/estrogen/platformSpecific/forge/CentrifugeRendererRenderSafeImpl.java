@@ -51,6 +51,7 @@ public class CentrifugeRendererRenderSafeImpl {
     public static void renderFluidSafe(FluidStack fluidStack, float xMin, float yMin, float zMin, float xMax, float yMax, float zMax, MultiBufferSource buffer, PoseStack ms, int light, boolean renderBottom) {
         try {
             FluidRenderer.renderFluidBox(fluidStack, xMin, yMin, zMin, xMax, yMax, zMax, buffer, ms, light, renderBottom);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 }

@@ -25,6 +25,7 @@ public class PlayerEntityMixin {
                 .add(EstrogenAttributes.BOOB_INITIAL_SIZE.get())
                 .add(EstrogenAttributes.BOOB_GROWING_START_TIME.get());
     }
+
     // Modifies the damage source of fall damage if the player has the estrogen effect.
     @ModifyVariable(
             method = "hurt",
@@ -39,6 +40,7 @@ public class PlayerEntityMixin {
         }
         return source;
     }
+
     // If the damage source is the aforementioned damage source, reduce the damage by 1/3.
     @ModifyVariable(
             method = "hurt",

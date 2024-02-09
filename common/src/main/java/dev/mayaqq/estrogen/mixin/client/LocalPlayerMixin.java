@@ -15,7 +15,10 @@ import static dev.mayaqq.estrogen.utils.UwUfy.uwufyString;
 
 @Mixin(LocalPlayer.class)
 public class LocalPlayerMixin {
-    @Shadow @Final private static Logger LOGGER;
+    @Shadow
+    @Final
+    private static Logger LOGGER;
+
     /*
      * This mixin uwufies chat messages sent by the player if the player has a helmet with the Uwufying Curse enchantment.
      * Because we modify the String by itself, and do not replace any method calls, it should be compatible with most if not all mods.

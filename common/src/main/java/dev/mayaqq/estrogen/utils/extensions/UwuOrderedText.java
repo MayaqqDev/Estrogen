@@ -23,14 +23,13 @@ public class UwuOrderedText implements FormattedCharSequence {
                 return visitor.accept(index, style, 'u')
                         && visitor.accept(index, style, 'w')
                         && visitor.accept(index, style, 'u');
-                }
-            else if (codePoint == 'U') {
-                    return visitor.accept(index, style, 'U')
-                            && visitor.accept(index, style, 'w')
-                            && visitor.accept(index, style, 'U');
-                }
+            } else if (codePoint == 'U') {
+                return visitor.accept(index, style, 'U')
+                        && visitor.accept(index, style, 'w')
+                        && visitor.accept(index, style, 'U');
+            }
 
-                return visitor.accept(index, style, codePoint);
+            return visitor.accept(index, style, codePoint);
         });
     }
 }

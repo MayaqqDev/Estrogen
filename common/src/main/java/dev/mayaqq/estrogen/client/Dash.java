@@ -18,14 +18,14 @@ import net.minecraft.util.Mth;
 
 public class Dash {
 
-    // should the player be uwufied
-    public static boolean uwufy = false;
-    // tick counter from 0 to 20
-    private static int tick = 0;
     // the overlay texture
     private static final ResourceLocation DASH_OVERLAY = new ResourceLocation("textures/misc/nausea.png");
+    // should the player be uwufied
+    public static boolean uwufy = false;
     // is the dash on cooldown
     public static boolean onCooldown = false;
+    // tick counter from 0 to 20
+    private static int tick = 0;
 
     public static void register() {
         ClientTickEvent.CLIENT_POST.register(client -> {
@@ -52,10 +52,10 @@ public class Dash {
         int i = mc.getWindow().getGuiScaledWidth();
         int j = mc.getWindow().getGuiScaledHeight();
         double d = Mth.lerp(distortionStrength, 2.0, 1.0);
-        double e = (double)i * d;
-        double k = (double)j * d;
-        double l = ((double)i - e) / 2.0;
-        double m = ((double)j - k) / 2.0;
+        double e = (double) i * d;
+        double k = (double) j * d;
+        double l = ((double) i - e) / 2.0;
+        double m = ((double) j - k) / 2.0;
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
         RenderSystem.enableBlend();

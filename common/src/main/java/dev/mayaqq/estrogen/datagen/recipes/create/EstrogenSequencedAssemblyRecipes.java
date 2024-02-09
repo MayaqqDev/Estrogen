@@ -23,42 +23,34 @@ public class EstrogenSequencedAssemblyRecipes<T extends EstrogenRecipeInterface>
     private T t;
     GeneratedRecipe
             ESTROGEN_PATCH = create("estrogen_patch", b -> b.require(Items.PAPER)
-                .transitionTo(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get())
-                .addOutput(EstrogenItems.ESTROGEN_PATCHES.get(), 120)
-                .addOutput(EstrogenItems.ESTROGEN_PILL.get(), 16)
-                .addOutput(Items.PAPER, 5)
-                .addOutput(Items.SLIME_BALL, 5)
-                .addOutput(EstrogenItems.HORSE_URINE_BOTTLE.get(), 4)
-                .loops(5)
-                .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.MOLTEN_SLIME.get(), t.getAmount(27000)))
-                .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(27000)))
-                .addStep(DeployerApplicationRecipe::new, rb -> rb.require(Items.PAPER))
-            ),
+            .transitionTo(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get())
+            .addOutput(EstrogenItems.ESTROGEN_PATCHES.get(), 120)
+            .addOutput(EstrogenItems.ESTROGEN_PILL.get(), 16)
+            .addOutput(Items.PAPER, 5)
+            .addOutput(Items.SLIME_BALL, 5)
+            .addOutput(EstrogenItems.HORSE_URINE_BOTTLE.get(), 4)
+            .loops(5)
+            .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.MOLTEN_SLIME.get(), t.getAmount(27000)))
+            .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(27000)))
+            .addStep(DeployerApplicationRecipe::new, rb -> rb.require(Items.PAPER))
+    ),
 
-            UWU = create("uwu", b -> b.require(Items.NETHERITE_INGOT)
-                    .transitionTo(EstrogenItems.INCOMPLETE_UWU.get())
-                    .addOutput(EstrogenItems.UWU.get(), 1)
-                    .loops(10)
-                    .addStep(DeployerApplicationRecipe::new, rb -> rb.require(Items.NETHER_STAR))
-                    .addStep(PressingRecipe::new, rb -> rb)
-                    .addStep(DeployerApplicationRecipe::new, rb -> rb.require(Items.NETHER_STAR))
-                    .addStep(PressingRecipe::new, rb -> rb)
-                    .addStep(DeployerApplicationRecipe::new, rb -> rb.require(Items.NETHER_STAR))
-                    .addStep(PressingRecipe::new, rb -> rb)
-            );
+    UWU = create("uwu", b -> b.require(Items.NETHERITE_INGOT)
+            .transitionTo(EstrogenItems.INCOMPLETE_UWU.get())
+            .addOutput(EstrogenItems.UWU.get(), 1)
+            .loops(10)
+            .addStep(DeployerApplicationRecipe::new, rb -> rb.require(Items.NETHER_STAR))
+            .addStep(PressingRecipe::new, rb -> rb)
+            .addStep(DeployerApplicationRecipe::new, rb -> rb.require(Items.NETHER_STAR))
+            .addStep(PressingRecipe::new, rb -> rb)
+            .addStep(DeployerApplicationRecipe::new, rb -> rb.require(Items.NETHER_STAR))
+            .addStep(PressingRecipe::new, rb -> rb)
+    );
 
 
     public EstrogenSequencedAssemblyRecipes(FabricDataGenerator output, T t) {
         super(output);
         this.t = t;
-    }
-
-    protected GeneratedRecipe create(String name, UnaryOperator<SequencedAssemblyRecipeBuilder> transform) {
-        GeneratedRecipe generatedRecipe =
-                c -> transform.apply(new SequencedAssemblyRecipeBuilder(id(name)))
-                        .build(c);
-        all.add(generatedRecipe);
-        return generatedRecipe;
     }
 
     public static EstrogenSequencedAssemblyRecipes buildFabric(FabricDataGenerator output) {
@@ -67,6 +59,14 @@ public class EstrogenSequencedAssemblyRecipes<T extends EstrogenRecipeInterface>
 
     public static EstrogenSequencedAssemblyRecipes buildForge(FabricDataGenerator output) {
         return new EstrogenSequencedAssemblyRecipes<>(output, new EstrogenRecipeForgeImpl());
+    }
+
+    protected GeneratedRecipe create(String name, UnaryOperator<SequencedAssemblyRecipeBuilder> transform) {
+        GeneratedRecipe generatedRecipe =
+                c -> transform.apply(new SequencedAssemblyRecipeBuilder(id(name)))
+                        .build(c);
+        all.add(generatedRecipe);
+        return generatedRecipe;
     }
 
     @Override

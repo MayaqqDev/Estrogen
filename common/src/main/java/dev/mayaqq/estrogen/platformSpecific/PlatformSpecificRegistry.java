@@ -7,7 +7,8 @@ import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.Contract;
 
 public class PlatformSpecificRegistry {
-    private PlatformSpecificRegistry() {}
+    private PlatformSpecificRegistry() {
+    }
 
     @Contract
     @ExpectPlatform

@@ -32,7 +32,7 @@ public class CentrifugingRecipeMatchesImpl {
         AtomicBoolean matches = new AtomicBoolean(false);
         TransferUtil.getAllFluids(storageDown).forEach(fluidStack -> {
             if (!fluidIngredient.test(fluidStack)) return;
-            try(Transaction tx = Transaction.openOuter()) {
+            try (Transaction tx = Transaction.openOuter()) {
                 long amount = storageDown.extract(FluidVariant.of(fluidStack.getFluid()), amountRequired, tx);
                 if (amount == amountRequired) {
                     long amount2 = storageUp.insert(FluidVariant.of(recipe.getFluidResults().get(0).getFluid()), recipe.getFluidResults().get(0).getAmount(), tx);

@@ -14,6 +14,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
 public class EstrogenTags {
+    private static ResourceLocation mcId(String path) {
+        return new ResourceLocation("minecraft", path);
+    }
+
     public static class ItemTags extends FabricTagProvider.ItemTagProvider {
 
         public static final TagKey<Item> THIGHS = TagKey.create(Registry.ITEM.key(), new ResourceLocation("trinkets", "legs/thighs"));
@@ -87,10 +91,7 @@ public class EstrogenTags {
         }
 
         @Override
-        protected void generateTags() {}
-    }
-
-    private static ResourceLocation mcId(String path) {
-        return new ResourceLocation("minecraft", path);
+        protected void generateTags() {
+        }
     }
 }

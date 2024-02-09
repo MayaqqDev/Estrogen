@@ -20,7 +20,8 @@ public class CentrifugingRecipeMatchesImpl {
 
         if (up == null || down == null) return false;
 
-        if (!up.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent() || !down.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent()) return false;
+        if (!up.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent() || !down.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent())
+            return false;
 
         FluidStack fluidUp = up.getCapability(ForgeCapabilities.FLUID_HANDLER).map(handler -> handler.getFluidInTank(0)).orElse(null);
         FluidStack fluidDown = down.getCapability(ForgeCapabilities.FLUID_HANDLER).map(handler -> handler.getFluidInTank(0)).orElse(null);
@@ -42,19 +43,19 @@ public class CentrifugingRecipeMatchesImpl {
             for (int i = 0; i < tanks; i++) {
                 int finalI = i;
                 down.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(handler -> {
-                        FluidStack stack = handler.drain((int) amountRequired, IFluidHandler.FluidAction.SIMULATE);
-                        if (fluidIngredient.test(stack)) {
-                            up.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(handler1 -> {
-                                int amount = handler.drain((int) amountRequired, IFluidHandler.FluidAction.SIMULATE).getAmount();
-                                if (amount == amountRequired) {
-                                    if (handler1.isFluidValid(amountOut, recipe.getFluidResults().get(0))) {
-                                        handler.drain((int) amountRequired, IFluidHandler.FluidAction.EXECUTE);
-                                        handler1.fill(new FluidStack(recipe.getFluidResults().get(0).getFluid(), amountOut), IFluidHandler.FluidAction.EXECUTE);
-                                        matches.set(true);
-                                    }
+                    FluidStack stack = handler.drain((int) amountRequired, IFluidHandler.FluidAction.SIMULATE);
+                    if (fluidIngredient.test(stack)) {
+                        up.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(handler1 -> {
+                            int amount = handler.drain((int) amountRequired, IFluidHandler.FluidAction.SIMULATE).getAmount();
+                            if (amount == amountRequired) {
+                                if (handler1.isFluidValid(amountOut, recipe.getFluidResults().get(0))) {
+                                    handler.drain((int) amountRequired, IFluidHandler.FluidAction.EXECUTE);
+                                    handler1.fill(new FluidStack(recipe.getFluidResults().get(0).getFluid(), amountOut), IFluidHandler.FluidAction.EXECUTE);
+                                    matches.set(true);
                                 }
-                            });
-                        }
+                            }
+                        });
+                    }
                 });
             }
         });

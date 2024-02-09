@@ -37,7 +37,7 @@ public class EstrogenForge {
         // Init Estrogen main class
         Estrogen.init();
 
-        if(FMLEnvironment.dist == Dist.CLIENT) {
+        if (FMLEnvironment.dist == Dist.CLIENT) {
             EstrogenRenderer.register();
         }
     }

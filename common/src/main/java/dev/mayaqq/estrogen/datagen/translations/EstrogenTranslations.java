@@ -14,89 +14,89 @@ public class EstrogenTranslations {
         @Override
         public void generateTranslations(TranslationBuilder tb) {
             // Status Effects
-                tb.add(EstrogenEffects.ESTROGEN_EFFECT, "Girl Power");
+            tb.add(EstrogenEffects.ESTROGEN_EFFECT, "Girl Power");
 
             // Controls
             tb.add("category.estrogen", "Estrogen");
-                tb.add("key.estrogen.dash", "Activate Dash");
+            tb.add("key.estrogen.dash", "Activate Dash");
 
             // Items
             tb.add("itemGroup.estrogen.estrogen", "Estrogen");
-                tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Estrogen Pill");
-                tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Estrogen Patch");
-                tb.add("item.estrogen.estrogen_patches_plural", "Estrogen Patches");
-                tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Incomplete Estrogen Patch");
-                tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Crystal Estrogen Pill");
-                tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Estrogen Chip Cookie");
-                    tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C");
-                tb.add(EstrogenItems.BALLS.get(), "Balls");
-                tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Horse Urine Bottle");
-                tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Testosterone Chunk");
-                tb.add(EstrogenItems.TESTOSTERONE_POWDER.get(), "Testosterone Powder");
-                tb.add(EstrogenItems.USED_FILTER.get(), "Used Filter");
-                tb.add(EstrogenItems.UWU.get(), ":3");
-                    tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
-                tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "Incomplete UwU");
-                // Buckets
-                tb.add(EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET.get(), "Bucket of Liquid Estrogen");
-                tb.add(EstrogenFluidItems.HORSE_URINE_BUCKET.get(), "Bucket of Horse Urine");
-                tb.add(EstrogenFluidItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Bucket of Filtrated Horse Urine");
-                tb.add(EstrogenFluidItems.MOLTEN_SLIME_BUCKET.get(), "Bucket of Molten Slime");
-                tb.add(EstrogenFluidItems.MOLTEN_AMETHYST_BUCKET.get(), "Bucket of Molten Amethyst");
-                tb.add(EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Bucket of Testosterone Mixture");
+            tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Estrogen Pill");
+            tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Estrogen Patch");
+            tb.add("item.estrogen.estrogen_patches_plural", "Estrogen Patches");
+            tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Incomplete Estrogen Patch");
+            tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Crystal Estrogen Pill");
+            tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Estrogen Chip Cookie");
+            tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C");
+            tb.add(EstrogenItems.BALLS.get(), "Balls");
+            tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Horse Urine Bottle");
+            tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Testosterone Chunk");
+            tb.add(EstrogenItems.TESTOSTERONE_POWDER.get(), "Testosterone Powder");
+            tb.add(EstrogenItems.USED_FILTER.get(), "Used Filter");
+            tb.add(EstrogenItems.UWU.get(), ":3");
+            tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
+            tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "Incomplete UwU");
+            // Buckets
+            tb.add(EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET.get(), "Bucket of Liquid Estrogen");
+            tb.add(EstrogenFluidItems.HORSE_URINE_BUCKET.get(), "Bucket of Horse Urine");
+            tb.add(EstrogenFluidItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Bucket of Filtrated Horse Urine");
+            tb.add(EstrogenFluidItems.MOLTEN_SLIME_BUCKET.get(), "Bucket of Molten Slime");
+            tb.add(EstrogenFluidItems.MOLTEN_AMETHYST_BUCKET.get(), "Bucket of Molten Amethyst");
+            tb.add(EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Bucket of Testosterone Mixture");
 
             // Blocks
-                tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuge");
-                // Fluids
-                tb.add("fluid.estrogen.liquid_estrogen", "Liquid Estrogen");
-                tb.add("fluid.estrogen.horse_urine", "Horse Urine");
-                tb.add("fluid.estrogen.filtrated_horse_urine", "Filtrated Horse Urine");
-                tb.add("fluid.estrogen.molten_slime", "Molten Slime");
-                tb.add("fluid.estrogen.molten_amethyst", "Molten Amethyst");
-                tb.add("fluid.estrogen.testosterone_mixture", "Testosterone Mixture");
+            tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuge");
+            // Fluids
+            tb.add("fluid.estrogen.liquid_estrogen", "Liquid Estrogen");
+            tb.add("fluid.estrogen.horse_urine", "Horse Urine");
+            tb.add("fluid.estrogen.filtrated_horse_urine", "Filtrated Horse Urine");
+            tb.add("fluid.estrogen.molten_slime", "Molten Slime");
+            tb.add("fluid.estrogen.molten_amethyst", "Molten Amethyst");
+            tb.add("fluid.estrogen.testosterone_mixture", "Testosterone Mixture");
 
             // Sounds
-                tb.add("subtitles.estrogen.dash", "Girl Power Dash");
+            tb.add("subtitles.estrogen.dash", "Girl Power Dash");
 
             // Death
-                tb.add("death.attack.girlpower", "%s Girlbossed too hard");
-                tb.add("death.attack.girlpower.player", "%s Girlbossed too hard");
+            tb.add("death.attack.girlpower", "%s Girlbossed too hard");
+            tb.add("death.attack.girlpower.player", "%s Girlbossed too hard");
 
             // Trinkets
-                tb.add("trinkets.slot.legs.thighs", "Thighs");
+            tb.add("trinkets.slot.legs.thighs", "Thighs");
             // Curios
-                tb.add("curios.identifier.thighs", "Thighs");
+            tb.add("curios.identifier.thighs", "Thighs");
 
             // REI
-                tb.add("create.recipe.centrifuging", "Centrifuging");
+            tb.add("create.recipe.centrifuging", "Centrifuging");
 
             // Enchantments
-                tb.add(EstrogenEnchantments.UWUFYING_CURSE.get(), "Curse of Uwufying");
-                tb.add("enchantment.estrogen.uwufy_curse.desc", "UwUfies your chat messages >///<");
+            tb.add(EstrogenEnchantments.UWUFYING_CURSE.get(), "Curse of Uwufying");
+            tb.add("enchantment.estrogen.uwufy_curse.desc", "UwUfies your chat messages >///<");
 
             // EMI
-                tb.add("emi.category.estrogen.centrifuging", "Centrifuging");
+            tb.add("emi.category.estrogen.centrifuging", "Centrifuging");
 
             // Tags
-                // Items
-                tb.add("tag.item.trinkets.legs.thighs", "Thighs");
-                tb.add("tag.item.estrogen.uwufying", "Uwufying");
-                tb.add("tag.item.curios.thighs", "Thighs");
-                tb.add("tag.item.estrogen.copper_plates", "Copper Plates");
+            // Items
+            tb.add("tag.item.trinkets.legs.thighs", "Thighs");
+            tb.add("tag.item.estrogen.uwufying", "Uwufying");
+            tb.add("tag.item.curios.thighs", "Thighs");
+            tb.add("tag.item.estrogen.copper_plates", "Copper Plates");
 
             // Ponder
-                // Centrifuge
-                tb.add("estrogen.ponder.intro.header", "The Centrifuge Requirements");
-                    tb.add("estrogen.ponder.intro.text_1", "The centrifuge needs the maximum speed (256 RPM) to work!");
-                tb.add("estrogen.ponder.basic.header", "How to use the Centrifuge");
-                    tb.add("estrogen.ponder.basic.text_1", "The Centrifuge doesn't have any inventory, you will need to place fluid containers around it to make it work!");
-                    tb.add("estrogen.ponder.basic.text_2", "You can input fluids from the bottom");
-                    tb.add("estrogen.ponder.basic.text_3", "And output fluids from the top");
+            // Centrifuge
+            tb.add("estrogen.ponder.intro.header", "The Centrifuge Requirements");
+            tb.add("estrogen.ponder.intro.text_1", "The centrifuge needs the maximum speed (256 RPM) to work!");
+            tb.add("estrogen.ponder.basic.header", "How to use the Centrifuge");
+            tb.add("estrogen.ponder.basic.text_1", "The Centrifuge doesn't have any inventory, you will need to place fluid containers around it to make it work!");
+            tb.add("estrogen.ponder.basic.text_2", "You can input fluids from the bottom");
+            tb.add("estrogen.ponder.basic.text_3", "And output fluids from the top");
 
             // Attributes
-                tb.add("attribute.name.estrogen.dash_level", "Dash Level");
-                tb.add("attribute.name.estrogen.boob_growing_start_time", "Upper body Start Time");
-                tb.add("attribute.name.estrogen.boob_initial_size", "Upper Body initial size");
+            tb.add("attribute.name.estrogen.dash_level", "Dash Level");
+            tb.add("attribute.name.estrogen.boob_growing_start_time", "Upper body Start Time");
+            tb.add("attribute.name.estrogen.boob_initial_size", "Upper Body initial size");
         }
     }
 
@@ -302,89 +302,89 @@ public class EstrogenTranslations {
         @Override
         public void generateTranslations(TranslationBuilder tb) {
             // Status Effects
-                tb.add(EstrogenEffects.ESTROGEN_EFFECT, "Poder Feminino");
+            tb.add(EstrogenEffects.ESTROGEN_EFFECT, "Poder Feminino");
 
             // Controls
             tb.add("category.estrogen", "Estrogênio");
-                tb.add("key.estrogen.dash", "Ativar Dash");
+            tb.add("key.estrogen.dash", "Ativar Dash");
 
             // Items
             tb.add("itemGroup.estrogen.estrogen", "Estrogênio");
-                tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Comprimido de Estrogênio");
-                tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Adesivo de Estrogênio");
-                tb.add("item.estrogen.estrogen_patches_plural", "Adesivos de Estrogênio");
-                tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Adesivo Incompleto de Estrogênio");
-                tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Pilula de Estrogênio Cristalizado");
-                tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Cookie de Estrogênio");
-                    tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C");
-                tb.add(EstrogenItems.BALLS.get(), "Bolas");
-                tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Garrafa de Urina de Cavalo");
-                tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Pedaço de Testosterona");
-                tb.add(EstrogenItems.TESTOSTERONE_POWDER.get(), "Pó de Testosterona");
-                tb.add(EstrogenItems.USED_FILTER.get(), "Filtro Usado");
-                tb.add(EstrogenItems.UWU.get(), ":3");
-                    tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
-                tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "UwU Incompleto");
-                // Buckets
-                tb.add(EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET.get(), "Balde de Estrogênio Liquido");
-                tb.add(EstrogenFluidItems.HORSE_URINE_BUCKET.get(), "Balde de Urina de Cavalo");
-                tb.add(EstrogenFluidItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Balde de Urina de Cavalo Filtrada");
-                tb.add(EstrogenFluidItems.MOLTEN_SLIME_BUCKET.get(), "Balde de Slime Derretido");
-                tb.add(EstrogenFluidItems.MOLTEN_AMETHYST_BUCKET.get(), "Balde de Ametista Derretida");
-                tb.add(EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Balde de Mistura de Testosterona");
+            tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Comprimido de Estrogênio");
+            tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Adesivo de Estrogênio");
+            tb.add("item.estrogen.estrogen_patches_plural", "Adesivos de Estrogênio");
+            tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Adesivo Incompleto de Estrogênio");
+            tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Pilula de Estrogênio Cristalizado");
+            tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Cookie de Estrogênio");
+            tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C");
+            tb.add(EstrogenItems.BALLS.get(), "Bolas");
+            tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Garrafa de Urina de Cavalo");
+            tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Pedaço de Testosterona");
+            tb.add(EstrogenItems.TESTOSTERONE_POWDER.get(), "Pó de Testosterona");
+            tb.add(EstrogenItems.USED_FILTER.get(), "Filtro Usado");
+            tb.add(EstrogenItems.UWU.get(), ":3");
+            tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
+            tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "UwU Incompleto");
+            // Buckets
+            tb.add(EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET.get(), "Balde de Estrogênio Liquido");
+            tb.add(EstrogenFluidItems.HORSE_URINE_BUCKET.get(), "Balde de Urina de Cavalo");
+            tb.add(EstrogenFluidItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Balde de Urina de Cavalo Filtrada");
+            tb.add(EstrogenFluidItems.MOLTEN_SLIME_BUCKET.get(), "Balde de Slime Derretido");
+            tb.add(EstrogenFluidItems.MOLTEN_AMETHYST_BUCKET.get(), "Balde de Ametista Derretida");
+            tb.add(EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Balde de Mistura de Testosterona");
 
             // Blocks
-                tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrífuga");
-                // Fluids
-                tb.add("fluid.estrogen.liquid_estrogen", "Estrogênio Líquido");
-                tb.add("fluid.estrogen.horse_urine", "Urina de Cavalo");
-                tb.add("fluid.estrogen.filtrated_horse_urine", "Urina de Cavalo Filtrada");
-                tb.add("fluid.estrogen.molten_slime", "Slime Derretido");
-                tb.add("fluid.estrogen.molten_amethyst", "Ametista Derretida");
-                tb.add("fluid.estrogen.testosterone_mixture", "Mistura de Testosterona");
+            tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrífuga");
+            // Fluids
+            tb.add("fluid.estrogen.liquid_estrogen", "Estrogênio Líquido");
+            tb.add("fluid.estrogen.horse_urine", "Urina de Cavalo");
+            tb.add("fluid.estrogen.filtrated_horse_urine", "Urina de Cavalo Filtrada");
+            tb.add("fluid.estrogen.molten_slime", "Slime Derretido");
+            tb.add("fluid.estrogen.molten_amethyst", "Ametista Derretida");
+            tb.add("fluid.estrogen.testosterone_mixture", "Mistura de Testosterona");
 
             // Sounds
-                tb.add("subtitles.estrogen.dash", "Dash de Poder Feminino");
+            tb.add("subtitles.estrogen.dash", "Dash de Poder Feminino");
 
             // Death
-                tb.add("death.attack.girlpower", "%s foi chefona demais");
-                tb.add("death.attack.girlpower.player", "%s foi chefona demais");
+            tb.add("death.attack.girlpower", "%s foi chefona demais");
+            tb.add("death.attack.girlpower.player", "%s foi chefona demais");
 
             // Trinkets
-                tb.add("trinkets.slot.legs.thighs", "Coxas");
+            tb.add("trinkets.slot.legs.thighs", "Coxas");
             // Curios
-                tb.add("curios.identifier.thighs", "Coxas");
+            tb.add("curios.identifier.thighs", "Coxas");
 
             // REI
-                tb.add("create.recipe.centrifuging", "Centrifugando");
+            tb.add("create.recipe.centrifuging", "Centrifugando");
 
             // Enchantments
-                tb.add(EstrogenEnchantments.UWUFYING_CURSE.get(), "Maldição de Uwuficação");
-                tb.add("enchantment.estrogen.uwufy_curse.desc", "UwUifica suas mensagens do chat >///<");
+            tb.add(EstrogenEnchantments.UWUFYING_CURSE.get(), "Maldição de Uwuficação");
+            tb.add("enchantment.estrogen.uwufy_curse.desc", "UwUifica suas mensagens do chat >///<");
 
             // EMI
-                tb.add("emi.category.estrogen.centrifuging", "Centrifugando");
+            tb.add("emi.category.estrogen.centrifuging", "Centrifugando");
 
             // Tags
-                // Items
-                tb.add("tag.item.trinkets.legs.thighs", "Coxas");
-                tb.add("tag.item.estrogen.uwufying", "Uwuficação");
-                tb.add("tag.item.curios.thighs", "Coxas");
-                tb.add("tag.item.estrogen.copper_plates", "Placas de Cobre");
+            // Items
+            tb.add("tag.item.trinkets.legs.thighs", "Coxas");
+            tb.add("tag.item.estrogen.uwufying", "Uwuficação");
+            tb.add("tag.item.curios.thighs", "Coxas");
+            tb.add("tag.item.estrogen.copper_plates", "Placas de Cobre");
 
             // Ponder
-                // Centrifuge
-                tb.add("estrogen.ponder.intro.header", "Requisitos da centrífuga");
-                    tb.add("estrogen.ponder.intro.text_1", "A centrífuga precisa da rotação máxima (256RPM) pra funcionar!");
-                tb.add("estrogen.ponder.basic.header", "Como usar a centrífuga");
-                    tb.add("estrogen.ponder.basic.text_1", "A centrífuga não tem um inventário, você precisa por os recipientes de líquidos em volta");
-                    tb.add("estrogen.ponder.basic.text_2", "Você pode inserir líquidos pela parte inferior");
-                    tb.add("estrogen.ponder.basic.text_3", "E expelir líquidos pela parte superior!");
+            // Centrifuge
+            tb.add("estrogen.ponder.intro.header", "Requisitos da centrífuga");
+            tb.add("estrogen.ponder.intro.text_1", "A centrífuga precisa da rotação máxima (256RPM) pra funcionar!");
+            tb.add("estrogen.ponder.basic.header", "Como usar a centrífuga");
+            tb.add("estrogen.ponder.basic.text_1", "A centrífuga não tem um inventário, você precisa por os recipientes de líquidos em volta");
+            tb.add("estrogen.ponder.basic.text_2", "Você pode inserir líquidos pela parte inferior");
+            tb.add("estrogen.ponder.basic.text_3", "E expelir líquidos pela parte superior!");
 
             // Attributes
-                tb.add("attribute.name.estrogen.dash_level", "Nível do Dash");
-                tb.add("attribute.name.estrogen.boob_growing_start_time", "Tempo de início das partes corporais superiores");
-                tb.add("attribute.name.estrogen.boob_initial_size", "Tamanho inicial das partes corporais superiores");
+            tb.add("attribute.name.estrogen.dash_level", "Nível do Dash");
+            tb.add("attribute.name.estrogen.boob_growing_start_time", "Tempo de início das partes corporais superiores");
+            tb.add("attribute.name.estrogen.boob_initial_size", "Tamanho inicial das partes corporais superiores");
         }
     }
 
@@ -392,7 +392,7 @@ public class EstrogenTranslations {
         public FrFr(FabricDataGenerator output) {
             super(output, "fr_fr");
         }
-        
+
         @Override
         public void generateTranslations(TranslationBuilder tb) {
             // Status Effects

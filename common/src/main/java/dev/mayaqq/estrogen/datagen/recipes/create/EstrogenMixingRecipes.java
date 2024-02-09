@@ -20,25 +20,25 @@ public class EstrogenMixingRecipes<T extends EstrogenRecipeInterface> extends Pr
 
     private T t;
     GeneratedRecipe
-        FILATRATED_HORSE_URINE = create(id("filtrated_horse_urine"), recipeBuilder -> recipeBuilder
+            FILATRATED_HORSE_URINE = create(id("filtrated_horse_urine"), recipeBuilder -> recipeBuilder
             .require(EstrogenFluids.HORSE_URINE.get(), t.getAmount(27000))
             .require(AllItems.FILTER.get())
             .output(EstrogenFluids.FILTRATED_HORSE_URINE.get(), t.getAmount(27000))
             .output(EstrogenItems.USED_FILTER.get())),
-        MOLTEN_AMETHYST = create(id("molten_amethyst"), recipeBuilder -> recipeBuilder
-                .require(Items.AMETHYST_SHARD)
-                .output(EstrogenFluids.MOLTEN_AMETHYST.get(), t.getAmount(27000))
-                .requiresHeat(HeatCondition.HEATED)),
-        BALLS = create(id("balls"), recipeBuilder -> recipeBuilder
-                .require(Items.SLIME_BALL)
-                .output(EstrogenItems.BALLS.get())
-                .output(EstrogenFluids.MOLTEN_SLIME.get(), t.getAmount(27000))
-                .requiresHeat(HeatCondition.HEATED)),
-        TESTOSTERONE_MIXTURE = create(id("testosterone_mixture"), recipeBuilder -> recipeBuilder
-                .require(EstrogenItems.TESTOSTERONE_POWDER.get())
-                .require(Items.COAL)
-                .output(EstrogenFluids.TESTOSTERONE_MIXTURE.get(), t.getAmount(54000))
-                .requiresHeat(HeatCondition.HEATED));
+            MOLTEN_AMETHYST = create(id("molten_amethyst"), recipeBuilder -> recipeBuilder
+                    .require(Items.AMETHYST_SHARD)
+                    .output(EstrogenFluids.MOLTEN_AMETHYST.get(), t.getAmount(27000))
+                    .requiresHeat(HeatCondition.HEATED)),
+            BALLS = create(id("balls"), recipeBuilder -> recipeBuilder
+                    .require(Items.SLIME_BALL)
+                    .output(EstrogenItems.BALLS.get())
+                    .output(EstrogenFluids.MOLTEN_SLIME.get(), t.getAmount(27000))
+                    .requiresHeat(HeatCondition.HEATED)),
+            TESTOSTERONE_MIXTURE = create(id("testosterone_mixture"), recipeBuilder -> recipeBuilder
+                    .require(EstrogenItems.TESTOSTERONE_POWDER.get())
+                    .require(Items.COAL)
+                    .output(EstrogenFluids.TESTOSTERONE_MIXTURE.get(), t.getAmount(54000))
+                    .requiresHeat(HeatCondition.HEATED));
 
     public EstrogenMixingRecipes(FabricDataGenerator output, T t) {
         super(output);

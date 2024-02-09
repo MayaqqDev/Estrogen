@@ -21,5 +21,6 @@ public class EstrogenBlocks {
             .addLayer(() -> RenderType::cutout)
             .register();
 
-    public static void register() {}
+    public static void register() {
+    }
 }

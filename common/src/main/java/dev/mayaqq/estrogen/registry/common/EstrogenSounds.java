@@ -12,5 +12,6 @@ public class EstrogenSounds {
     public static final RegistrySupplier<SoundEvent> DASH = SOUNDS.register(Estrogen.id("dash"), () -> new SoundEvent(Estrogen.id("dash")));
     public static final RegistrySupplier<SoundEvent> G03C = SOUNDS.register(Estrogen.id("g03c"), () -> new SoundEvent(Estrogen.id("g03c")));
 
-    public static void register() {}
+    public static void register() {
+    }
 }

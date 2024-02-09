@@ -18,7 +18,7 @@ public class EstrogenStatusEffectSender {
             Packet<ClientGamePacketListener> packet = new ClientboundUpdateMobEffectPacket(player.getId(), effectInstance);
             FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
             packet.write(buf);
-            for(ServerPlayer targetPlayer: targetPlayers) {
+            for (ServerPlayer targetPlayer : targetPlayers) {
                 NetworkManager.sendToPlayer(targetPlayer, EstrogenS2C.STATUS_EFFECT_PACKET_ID, buf);
             }
         }

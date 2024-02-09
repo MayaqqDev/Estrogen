@@ -12,5 +12,6 @@ public class EstrogenCreativeTab {
             () -> new ItemStack(EstrogenItems.ESTROGEN_PILL.get()) // Icon
     );
 
-    public static void register() {}
+    public static void register() {
+    }
 }

@@ -7,7 +7,9 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import org.jetbrains.annotations.Contract;
 
 public class CentrifugeRendererRenderSafe {
-    private CentrifugeRendererRenderSafe() {}
+    private CentrifugeRendererRenderSafe() {
+    }
+
     @Contract
     @ExpectPlatform
     public static void renderSafe(CentrifugeBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {

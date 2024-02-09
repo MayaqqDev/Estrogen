@@ -33,6 +33,23 @@ public class EmiCompat implements EmiPlugin {
     public static final EmiRecipeCategory
             CENTRIFUGING = register("centrifuging", EmiStack.of(EstrogenBlocks.CENTRIFUGE.get()));
 
+    public static boolean doInputsMatch(Recipe<?> a, Recipe<?> b) {
+        if (!a.getIngredients().isEmpty() && !b.getIngredients().isEmpty()) {
+            ItemStack[] matchingStacks = a.getIngredients().get(0).getItems();
+            if (matchingStacks.length != 0) {
+                return b.getIngredients().get(0).test(matchingStacks[0]);
+            }
+        }
+        return false;
+    }
+
+    private static EmiRecipeCategory register(String name, EmiRenderable icon) {
+        ResourceLocation id = Estrogen.id(name);
+        EmiRecipeCategory category = new EmiRecipeCategory(id, icon);
+        ALL.put(id, category);
+        return category;
+    }
+
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
     public void register(EmiRegistry registry) {
@@ -68,24 +85,5 @@ public class EmiCompat implements EmiPlugin {
         for (T recipe : (List<T>) registry.getRecipeManager().getAllRecipesFor(type.getType())) {
             registry.addRecipe(constructor.apply(category, recipe));
         }
-    }
-
-    public static boolean doInputsMatch(Recipe<?> a, Recipe<?> b) {
-        if (!a.getIngredients().isEmpty() && !b.getIngredients().isEmpty()) {
-            ItemStack[] matchingStacks = a.getIngredients().get(0).getItems();
-            if (matchingStacks.length != 0) {
-                if (b.getIngredients().get(0).test(matchingStacks[0])) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private static EmiRecipeCategory register(String name, EmiRenderable icon) {
-        ResourceLocation id = Estrogen.id(name);
-        EmiRecipeCategory category = new EmiRecipeCategory(id, icon);
-        ALL.put(id, category);
-        return category;
     }
 }
