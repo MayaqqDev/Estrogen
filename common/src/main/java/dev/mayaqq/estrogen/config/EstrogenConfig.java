@@ -85,7 +85,7 @@ public class EstrogenConfig {
     public static class Common extends ConfigBase {
         // Estrogen Patches group
         public final ConfigGroup estrogenPatches = group(1, "estrogenPatches", "Settings for the estrogen patches");
-        public final ConfigInt estrogenPatchesStackSize = i(4, 1, 64, "estrogenPatchesStackSize", "§4THIS ONLY WORKS ON §fFABRIC§7/§dQUILT§4 MOD LOADER", "The stack size limit of estrogen patches", ConfigAnnotations.RequiresRestart.BOTH.asComment());
+        public final ConfigInt estrogenPatchesStackSize = i(1, 1, 64, "estrogenPatchesStackSize", "§4THIS ONLY WORKS ON §fFABRIC§7/§dQUILT§4 MOD LOADER", "The stack size limit of estrogen patches", ConfigAnnotations.RequiresRestart.BOTH.asComment());
 
         // Minigame Group
         public final ConfigGroup minigame = group(1, "minigame", "Settings which are more fun and not fit for survival");

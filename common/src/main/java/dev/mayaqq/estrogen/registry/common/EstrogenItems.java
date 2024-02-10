@@ -23,12 +23,12 @@ public class EstrogenItems {
             USED_FILTER = normalItem("used_filter", new EstrogenProperties());
 
     public static final ItemEntry<EstrogenCookieItem> ESTROGEN_CHIP_COOKIE = REGISTRATE.item("estrogen_chip_cookie", EstrogenCookieItem::new)
-            .properties(p -> new EstrogenProperties().rarity(Rarity.RARE).food(EstrogenFoodComponents.ESTROGEN_CHIP_COOKIE).stacksTo(16))
+            .properties(p -> new EstrogenProperties().rarity(Rarity.RARE).food(EstrogenFoodComponents.ESTROGEN_CHIP_COOKIE).stacksTo(64))
             .register();
     public static final ItemEntry<HorseUrineBottleItem> HORSE_URINE_BOTTLE = REGISTRATE.item("horse_urine_bottle", HorseUrineBottleItem::new)
             .properties(p -> new EstrogenProperties().craftRemainder(Items.GLASS_BOTTLE).food(EstrogenFoodComponents.HORSE_URINE_BOTTLE).stacksTo(16))
             .register();
-    public static final ItemEntry<? extends Item> ESTROGEN_PATCHES = PlatformSpecificRegistry.getRegisteredPatchesItem(4);
+    public static final ItemEntry<? extends Item> ESTROGEN_PATCHES = PlatformSpecificRegistry.getRegisteredPatchesItem(1);
     public static final ItemEntry<SequencedAssemblyItem> INCOMPLETE_ESTROGEN_PATCH = REGISTRATE.item("incomplete_estrogen_patches", SequencedAssemblyItem::new).properties(p -> p.stacksTo(1)).register();
     public static final ItemEntry<UwUItem> UWU = REGISTRATE.item("uwu", UwUItem::new).properties(p -> new EstrogenProperties().stacksTo(1)).register();
     public static final ItemEntry<SequencedAssemblyItem> INCOMPLETE_UWU = REGISTRATE.item("incomplete_uwu", SequencedAssemblyItem::new).properties(p -> p.stacksTo(1)).register();
