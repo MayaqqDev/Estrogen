@@ -76,6 +76,10 @@ public class EstrogenConfig {
         public final ConfigGroup ui = group(1, "ui", "UI element Configuration");
         public final ConfigBool dashOverlay = b(true, "dashOverlay", "Enable dash overlay");
 
+        // Misc Config Group
+        public final ConfigGroup misc = group(1, "misc", "Miscellaneous settings");
+        public final ConfigBool entityPatting = b(true, "entityPatting", "Allows you to pat entities by shift right-clicking them!");
+
         @Override
         public String getName() {
             return "client";
