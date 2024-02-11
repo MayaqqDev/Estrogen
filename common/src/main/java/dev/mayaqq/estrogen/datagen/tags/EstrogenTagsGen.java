@@ -4,30 +4,17 @@ import com.simibubi.create.AllTags;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
+import dev.mayaqq.estrogen.registry.common.EstrogenTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.material.Fluid;
 
 import java.util.concurrent.CompletableFuture;
 
-public class EstrogenTags {
-    private static ResourceLocation mcId(String path) {
-        return new ResourceLocation("minecraft", path);
-    }
-
+public class EstrogenTagsGen {
     public static class ItemTags extends FabricTagProvider.ItemTagProvider {
-
-        public static final TagKey<Item> THIGHS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("trinkets", "legs/thighs"));
-        public static final TagKey<Item> CURIOS_THIGHS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("curios", "thighs"));
-        public static final TagKey<Item> MUSIC_DISCS = TagKey.create(BuiltInRegistries.ITEM.key(), mcId("music_discs"));
-        public static final TagKey<Item> UWUFYING = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("estrogen", "uwufying"));
-        public static final TagKey<Item> COPPER_PLATES = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("estrogen", "copper_plates"));
 
         public ItemTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
             super(output, completableFuture);
@@ -35,40 +22,33 @@ public class EstrogenTags {
 
         @Override
         protected void addTags(HolderLookup.Provider arg) {
-            getOrCreateTagBuilder(THIGHS)
+            getOrCreateTagBuilder(EstrogenTags.Items.THIGHS)
                     .add(EstrogenItems.ESTROGEN_PATCHES.get());
-            getOrCreateTagBuilder(UWUFYING)
+            getOrCreateTagBuilder(EstrogenTags.Items.UWUFYING)
                     .add(EstrogenItems.UWU.get());
-            getOrCreateTagBuilder(COPPER_PLATES)
+            getOrCreateTagBuilder(EstrogenTags.Items.COPPER_PLATES)
                     .addOptionalTag(AllTags.forgeItemTag("copper_plates"))
                     .addOptionalTag(AllTags.optionalTag(BuiltInRegistries.ITEM, new ResourceLocation("forge", "plates/copper")));
-            getOrCreateTagBuilder(CURIOS_THIGHS)
+            getOrCreateTagBuilder(EstrogenTags.Items.CURIOS_THIGHS)
                     .add(EstrogenItems.ESTROGEN_PATCHES.get());
-            getOrCreateTagBuilder(MUSIC_DISCS)
+            getOrCreateTagBuilder(EstrogenTags.Items.MUSIC_DISCS)
                     .add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get());
         }
     }
 
     public static class BlockTags extends FabricTagProvider.BlockTagProvider {
-
-        public static final TagKey<Block> PICKAXE_MINABLE = TagKey.create(BuiltInRegistries.BLOCK.key(), new ResourceLocation("minecraft", "mineable/pickaxe"));
-
         public BlockTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
             super(output, completableFuture);
         }
 
         @Override
         protected void addTags(HolderLookup.Provider arg) {
-            getOrCreateTagBuilder(PICKAXE_MINABLE)
+            getOrCreateTagBuilder(EstrogenTags.Blocks.PICKAXE_MINABLE)
                     .add(EstrogenBlocks.CENTRIFUGE.get());
         }
     }
 
     public static class FluidTags extends FabricTagProvider.FluidTagProvider {
-
-        // vanilla
-        public static final TagKey<Fluid> WATER = TagKey.create(BuiltInRegistries.FLUID.key(), mcId("water"));
-        public static final TagKey<Fluid> LAVA = TagKey.create(BuiltInRegistries.FLUID.key(), mcId("lava"));
 
         public FluidTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
             super(output, completableFuture);
@@ -76,13 +56,13 @@ public class EstrogenTags {
 
         @Override
         protected void addTags(HolderLookup.Provider arg) {
-            getOrCreateTagBuilder(WATER)
+            getOrCreateTagBuilder(EstrogenTags.Fluids.WATER)
                     .add(EstrogenFluids.LIQUID_ESTROGEN.get()).add(EstrogenFluids.LIQUID_ESTROGEN_FLOWING.get())
                     .add(EstrogenFluids.HORSE_URINE.get()).add(EstrogenFluids.HORSE_URINE_FLOWING.get())
                     .add(EstrogenFluids.FILTRATED_HORSE_URINE.get()).add(EstrogenFluids.FILTRATED_HORSE_URINE_FLOWING.get())
                     .add(EstrogenFluids.TESTOSTERONE_MIXTURE.get()).add(EstrogenFluids.TESTOSTERONE_MIXTURE_FLOWING.get());
 
-            getOrCreateTagBuilder(LAVA)
+            getOrCreateTagBuilder(EstrogenTags.Fluids.LAVA)
                     .add(EstrogenFluids.MOLTEN_AMETHYST.get()).add(EstrogenFluids.MOLTEN_AMETHYST_FLOWING.get())
                     .add(EstrogenFluids.MOLTEN_SLIME.get()).add(EstrogenFluids.MOLTEN_SLIME_FLOWING.get());
         }
