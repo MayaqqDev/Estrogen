@@ -80,6 +80,11 @@ public class EstrogenConfig {
         public final ConfigGroup misc = group(1, "misc", "Miscellaneous settings");
         public final ConfigBool entityPatting = b(true, "entityPatting", "Allows you to pat entities by shift right-clicking them!");
 
+        // Compat Config Group
+        public final ConfigGroup compat = group(1, "compat", "Compatibility between other mods settings");
+        public final ConfigBool ears = b(true, "ears", "Enable ears Compatibility");
+        public final ConfigBool figura = b(true, "figura", "Enable figura Compatibility");
+
         @Override
         public String getName() {
             return "client";
