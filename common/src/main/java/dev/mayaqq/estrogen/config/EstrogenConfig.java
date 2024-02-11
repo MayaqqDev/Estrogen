@@ -76,6 +76,11 @@ public class EstrogenConfig {
         public final ConfigGroup ui = group(1, "ui", "UI element Configuration");
         public final ConfigBool dashOverlay = b(true, "dashOverlay", "Enable dash overlay");
 
+        // Compat Config Group
+        public final ConfigGroup compat = group(1, "compat", "Compatibility between other mods settings");
+        public final ConfigBool ears = b(true, "ears", "Enable ears Compatibility");
+        public final ConfigBool figura = b(true, "figura", "Enable figura Compatibility");
+
         @Override
         public String getName() {
             return "client";
