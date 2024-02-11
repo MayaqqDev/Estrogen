@@ -9,7 +9,6 @@ import dev.mayaqq.estrogen.registry.common.EstrogenDamageSources;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import dev.mayaqq.estrogen.utils.Estromath;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -75,7 +74,11 @@ public abstract class PlayerEntityMixin {
             FriendlyByteBuf buf = new FriendlyByteBuf(PacketByteBufs.create());
             buf.writeLongArray(new long[]{Estromath.doubleToLong(entity.getX()), Estromath.doubleToLong(entity.getY() + entity.getEyeHeight() + 0.5), Estromath.doubleToLong(entity.getZ())});
             if (entity instanceof Mob mob) {
-                buf.writeResourceLocation(mob.getAmbientSound().getLocation());
+                if (mob.getAmbientSound() != null) {
+                    buf.writeResourceLocation(mob.getAmbientSound().getLocation());
+                } else {
+                    buf.writeResourceLocation(Estrogen.id("empty"));
+                }
             } else {
                 buf.writeResourceLocation(Estrogen.id("empty"));
             }
