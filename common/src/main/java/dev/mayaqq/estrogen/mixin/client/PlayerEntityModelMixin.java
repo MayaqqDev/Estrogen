@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import com.simibubi.create.content.equipment.armor.BaseArmorItem;
+import dev.architectury.platform.Mod;
 import dev.architectury.platform.Platform;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.BoobArmorRenderer;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.PlayerEntityModelExtension;
@@ -74,7 +75,10 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
 
     @Override
     public void estrogen$renderBoobs(PoseStack matrices, VertexConsumer vertices, int light, int overlay, AbstractClientPlayer player, float size) {
-        if (Platform.isModLoaded("figura") && !FiguraCompat.renderBoobs(Minecraft.getInstance().player)) return;
+        Mod figura = Platform.getOptionalMod("figura").orElse(null);
+        if (figura != null && figura.getVersion().split("\\.")[2].startsWith("3")) {
+            if (!FiguraCompat.renderBoobs(Minecraft.getInstance().player)) return;
+        }
         this.boobs.copyFrom(this.body);
         this.boobs.xRot = this.body.xRot + 1.0F;
         float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT).getAmplifier() / 10.0F;
@@ -89,7 +93,10 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
 
     @Override
     public void estrogen$renderBoobArmor(PoseStack matrices, MultiBufferSource vertexConsumers, int light, boolean glint, float red, float green, float blue, @Nullable String overlay, AbstractClientPlayer player, float size) {
-        if (Platform.isModLoaded("figura") && !FiguraCompat.renderBoobArmor(Minecraft.getInstance().player)) return;
+        Mod figura = Platform.getOptionalMod("figura").orElse(null);
+        if (figura != null && figura.getVersion().split("\\.")[2].startsWith("3")) {
+            if (!FiguraCompat.renderBoobArmor(Minecraft.getInstance().player)) return;
+        }
         ResourceLocation texture = this.getArmorTexture(player, overlay);
         if (texture == null) {
             return;
