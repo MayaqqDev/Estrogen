@@ -5,7 +5,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.event.events.client.ClientTickEvent;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
-import dev.mayaqq.estrogen.datagen.tags.EstrogenTags;
+import dev.mayaqq.estrogen.datagen.tags.EstrogenTagsGen;
+import dev.mayaqq.estrogen.registry.common.EstrogenTags;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -31,7 +32,7 @@ public class Dash {
             tick++;
             if (tick == 20) {
                 tick = 0;
-                uwufy = player.getInventory().contains(EstrogenTags.ItemTags.UWUFYING);
+                uwufy = player.getInventory().contains(EstrogenTags.Items.UWUFYING);
             }
         });
         ClientGuiEvent.RENDER_HUD.register((graphics, tickDelta) -> {
