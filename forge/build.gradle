@@ -1,6 +1,3 @@
-plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
-}
 architectury {
     platformSetupLoomIde()
     forge()
@@ -8,7 +5,6 @@ architectury {
 
 configurations {
     common
-    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
     developmentForge.extendsFrom common
@@ -53,8 +49,16 @@ dependencies {
     }
 
     //Forge stuff
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+    common(project(path: ":common", configuration: "transformProductionForge")) { transitive false }
+}
+
+sourceSets.main {
+    def common = project(":common").sourceSets.main
+
+    compileClasspath += common.compileClasspath
+    runtimeClasspath += common.runtimeClasspath
+    java.srcDirs(common.java)
+    resources.srcDirs(common.resources)
 }
 
 processResources {
@@ -71,16 +75,8 @@ processResources {
     }
 }
 
-shadowJar {
-    exclude "fabric.mod.json"
-    configurations = [project.configurations.shadowCommon]
-    archiveClassifier.set("dev-shadow")
-}
-
 // The Production jar
 remapJar {
-    inputFile.set shadowJar.archiveFile
-    dependsOn shadowJar
     archiveClassifier.set("forge")
 }
 
@@ -98,12 +94,6 @@ sourcesJar {
     def commonSources = project(":common").sourcesJar
     dependsOn commonSources
     from commonSources.archiveFile.map { zipTree(it) }
-}
-
-components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
-    }
 }
 
 loom {
