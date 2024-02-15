@@ -33,6 +33,7 @@ dependencies {
     modImplementation("com.jozufozu.flywheel:flywheel-forge-${rootProject.minecraft_version}:${rootProject.flywheel_version}")
 
     //Curios
+    include modImplementation("earth.terrarium.baubly:baubly-forge-${rootProject.minecraft_version}:${rootProject.baubly_version}")
     modImplementation("top.theillusivec4.curios:curios-forge:${rootProject.curios_version}")
 
     //Mixin Extras

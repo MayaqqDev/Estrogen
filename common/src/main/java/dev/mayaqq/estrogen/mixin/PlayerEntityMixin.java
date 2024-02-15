@@ -8,7 +8,7 @@ import dev.mayaqq.estrogen.registry.common.EstrogenAttributes;
 import dev.mayaqq.estrogen.registry.common.EstrogenDamageSources;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
 import dev.mayaqq.estrogen.utils.Estromath;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -71,7 +71,7 @@ public abstract class PlayerEntityMixin {
     private void estrogen$interactOn(Entity entity, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResult> cir) {
         Player player = (Player) (Object) this;
         if (player.level().isClientSide && EstrogenConfig.client().entityPatting.get() && player.isCrouching() && player.getItemInHand(interactionHand).isEmpty()) {
-            FriendlyByteBuf buf = new FriendlyByteBuf(PacketByteBufs.create());
+            FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
             buf.writeLongArray(new long[]{Estromath.doubleToLong(entity.getX()), Estromath.doubleToLong(entity.getY() + entity.getEyeHeight() + 0.5), Estromath.doubleToLong(entity.getZ())});
             if (entity instanceof Mob mob) {
                 if (mob.getAmbientSound() != null) {

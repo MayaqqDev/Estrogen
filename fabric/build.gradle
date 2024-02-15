@@ -34,6 +34,7 @@ dependencies {
     modImplementation(include("io.github.fabricators_of_create.Porting-Lib:transfer:${rootProject.porting_lib_version}"))
 
     //Trinkets
+    include modImplementation("earth.terrarium.baubly:baubly-fabric-${rootProject.minecraft_version}:${rootProject.baubly_version}")
     modImplementation("dev.emi:trinkets:${rootProject.trinkets_version}")
     project.cardinal_modules.replaceAll(" ", "").split(",").each { module ->
         modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${rootProject.cardinal_version}")

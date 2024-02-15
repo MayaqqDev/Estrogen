@@ -1,15 +1,16 @@
 package dev.mayaqq.estrogen.registry.common.items;
 
-import dev.emi.trinkets.api.SlotReference;
-import dev.emi.trinkets.api.TrinketItem;
 import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
+import earth.terrarium.baubly.common.Bauble;
+import earth.terrarium.baubly.common.SlotInfo;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class EstrogenPatchesItem extends TrinketItem {
+public class EstrogenPatchesItem extends Item implements Bauble {
     int tick = 0;
 
     public EstrogenPatchesItem(Properties properties) {
@@ -17,12 +18,12 @@ public class EstrogenPatchesItem extends TrinketItem {
     }
 
     @Override
-    public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
+    public void tick(ItemStack stack, SlotInfo slot) {
         tick++;
-        patchTick(stack, slot, entity, false);
+        patchTick(stack, slot.wearer(), false);
     }
 
-    public void patchTick(ItemStack stack, SlotReference slot, LivingEntity entity, boolean bypass) {
+    public void patchTick(ItemStack stack, LivingEntity entity, boolean bypass) {
         if (entity instanceof Player player && (bypass || tick == 20)) {
             tick = 0;
             player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, 400, stack.getCount() - 1, false, false, false));
@@ -30,13 +31,13 @@ public class EstrogenPatchesItem extends TrinketItem {
     }
 
     @Override
-    public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        patchTick(stack, slot, entity, true);
+    public void onEquip(ItemStack stack, SlotInfo slot) {
+        patchTick(stack, slot.wearer(), true);
     }
 
     @Override
-    public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        entity.removeEffect(EstrogenEffects.ESTROGEN_EFFECT);
+    public void onUnequip(ItemStack stack, SlotInfo slot) {
+        slot.wearer().removeEffect(EstrogenEffects.ESTROGEN_EFFECT);
     }
 
     @Override
