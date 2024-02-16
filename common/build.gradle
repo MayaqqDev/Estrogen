@@ -15,7 +15,7 @@ dependencies {
     modCompileOnly("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}")
 
     // Trinkets
-    modImplementation("earth.terrarium.baubly:baubly-common-${rootProject.minecraft_version}:${rootProject.baubly_version}")
+    modImplementation("earth.terrarium.baubly:baubly-common-${rootProject.minecraft_version}:${rootProject.baubly_version}") transitive false
 
     // Ears
     implementation("com.unascribed:ears-api:${rootProject.ears_version}")

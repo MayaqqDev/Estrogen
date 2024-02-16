@@ -1,8 +1,8 @@
 package dev.mayaqq.estrogen.platformSpecific;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
-import dev.mayaqq.estrogen.registry.common.blockEntities.CentrifugeBlockEntity;
-import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
+import dev.mayaqq.estrogen.registry.blockEntities.CentrifugeBlockEntity;
+import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Contract;
 

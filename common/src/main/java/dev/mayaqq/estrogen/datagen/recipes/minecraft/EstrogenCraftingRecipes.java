@@ -2,10 +2,9 @@ package dev.mayaqq.estrogen.datagen.recipes.minecraft;
 
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
-import dev.mayaqq.estrogen.datagen.tags.EstrogenTagsGen;
-import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
-import dev.mayaqq.estrogen.registry.common.EstrogenItems;
-import dev.mayaqq.estrogen.registry.common.EstrogenTags;
+import dev.mayaqq.estrogen.registry.EstrogenBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
+import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipes.FinishedRecipe;

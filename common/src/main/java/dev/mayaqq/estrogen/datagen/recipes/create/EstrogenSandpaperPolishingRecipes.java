@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.datagen.recipes.create;
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
-import dev.mayaqq.estrogen.registry.common.EstrogenItems;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 
 import static dev.mayaqq.estrogen.Estrogen.id;

@@ -4,7 +4,7 @@ package dev.mayaqq.estrogen.forge.integrations.jei.categories;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import dev.mayaqq.estrogen.forge.integrations.jei.categories.animations.AnimatedCentrifuge;
-import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
+import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;

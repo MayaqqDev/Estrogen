@@ -3,8 +3,8 @@ package dev.mayaqq.estrogen.fabric.integrations.rei.animated;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.compat.rei.category.animations.AnimatedKinetics;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
-import dev.mayaqq.estrogen.registry.client.EstrogenRenderer;
-import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
+import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
+import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import net.minecraft.client.gui.GuiGraphics;
 
 public class AnimatedCentrifuge extends AnimatedKinetics {

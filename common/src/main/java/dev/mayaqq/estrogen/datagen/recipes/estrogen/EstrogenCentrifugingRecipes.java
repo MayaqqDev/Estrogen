@@ -5,8 +5,8 @@ import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeInterface;
-import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
-import dev.mayaqq.estrogen.registry.common.EstrogenRecipes;
+import dev.mayaqq.estrogen.registry.EstrogenFluids;
+import dev.mayaqq.estrogen.registry.EstrogenRecipes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.resources.ResourceLocation;
 

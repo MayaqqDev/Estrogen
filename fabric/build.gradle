@@ -34,7 +34,7 @@ dependencies {
     modImplementation(include("io.github.fabricators_of_create.Porting-Lib:transfer:${rootProject.porting_lib_version}"))
 
     //Trinkets
-    include modImplementation("earth.terrarium.baubly:baubly-fabric-${rootProject.minecraft_version}:${rootProject.baubly_version}")
+    include modImplementation("earth.terrarium.baubly:baubly-fabric-${rootProject.minecraft_version}:${rootProject.baubly_version}") transitive false
     modImplementation("dev.emi:trinkets:${rootProject.trinkets_version}")
     project.cardinal_modules.replaceAll(" ", "").split(",").each { module ->
         modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${rootProject.cardinal_version}")
@@ -53,14 +53,11 @@ dependencies {
     //Mixin Extras
     implementation(include(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${rootProject.mixin_extras_version}")))
 
-    //Dev Auth
-    modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${rootProject.devauth_version}")
-
     // Item Viewers
     switch (project.item_viewer.toLowerCase()) {
         case "rei":
-            modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}")
-            modLocalRuntime("maven.modrinth:createfabricreibugfix:${rootProject.createreibugfix_version}"); break
+            modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}") transitive false
+            modLocalRuntime("maven.modrinth:createfabricreibugfix:${rootProject.createreibugfix_version}") transitive false; break
         case "emi": modLocalRuntime("dev.emi:emi-fabric:${rootProject.emi_version}"); break
         case "disabled": break
         default: println("Invalid item viewer: ${item_viewer} must be REI, EMI or disabled"); break

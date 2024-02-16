@@ -1,8 +1,8 @@
 package dev.mayaqq.estrogen.platformSpecific.fabric;
 
 import com.simibubi.create.foundation.fluid.FluidIngredient;
-import dev.mayaqq.estrogen.registry.common.blockEntities.CentrifugeBlockEntity;
-import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
+import dev.mayaqq.estrogen.registry.blockEntities.CentrifugeBlockEntity;
+import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;

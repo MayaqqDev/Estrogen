@@ -33,14 +33,11 @@ dependencies {
     modImplementation("com.jozufozu.flywheel:flywheel-forge-${rootProject.minecraft_version}:${rootProject.flywheel_version}")
 
     //Curios
-    include modImplementation("earth.terrarium.baubly:baubly-forge-${rootProject.minecraft_version}:${rootProject.baubly_version}")
+    include modImplementation("earth.terrarium.baubly:baubly-forge-${rootProject.minecraft_version}:${rootProject.baubly_version}") transitive false
     modImplementation("top.theillusivec4.curios:curios-forge:${rootProject.curios_version}")
 
     //Mixin Extras
     implementation(include("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras_version}"))
-
-    //Dev Auth
-    modRuntimeOnly("me.djtheredstoner:DevAuth-forge-latest:${rootProject.devauth_version}")
 
     // Jei
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")

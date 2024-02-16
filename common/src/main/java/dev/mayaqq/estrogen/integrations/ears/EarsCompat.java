@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.integrations.ears;
 import com.unascribed.ears.api.EarsFeatureType;
 import com.unascribed.ears.api.registry.EarsInhibitorRegistry;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
-import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import net.minecraft.world.entity.player.Player;
 
 public class EarsCompat {

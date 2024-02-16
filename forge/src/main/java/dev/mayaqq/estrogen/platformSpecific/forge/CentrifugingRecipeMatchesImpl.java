@@ -1,8 +1,8 @@
 package dev.mayaqq.estrogen.platformSpecific.forge;
 
 import com.simibubi.create.foundation.fluid.FluidIngredient;
-import dev.mayaqq.estrogen.registry.common.blockEntities.CentrifugeBlockEntity;
-import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
+import dev.mayaqq.estrogen.registry.blockEntities.CentrifugeBlockEntity;
+import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;

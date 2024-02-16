@@ -10,7 +10,7 @@ import dev.architectury.platform.Platform;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.BoobArmorRenderer;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.PlayerEntityModelExtension;
 import dev.mayaqq.estrogen.integrations.figura.FiguraCompat;
-import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;

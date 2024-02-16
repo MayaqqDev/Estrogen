@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.platformSpecific.forge;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.fluid.FluidRenderer;
-import dev.mayaqq.estrogen.registry.common.blockEntities.CentrifugeBlockEntity;
+import dev.mayaqq.estrogen.registry.blockEntities.CentrifugeBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

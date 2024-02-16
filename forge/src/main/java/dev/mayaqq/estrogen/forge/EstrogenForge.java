@@ -4,7 +4,7 @@ import com.simibubi.create.foundation.config.ConfigBase;
 import dev.architectury.platform.forge.EventBuses;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
-import dev.mayaqq.estrogen.registry.client.EstrogenRenderer;
+import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;

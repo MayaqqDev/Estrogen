@@ -2,8 +2,8 @@ package dev.mayaqq.estrogen.networking;
 
 import dev.architectury.networking.NetworkManager;
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
-import dev.mayaqq.estrogen.registry.common.EstrogenSounds;
+import dev.mayaqq.estrogen.registry.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.EstrogenSounds;
 import dev.mayaqq.estrogen.utils.Estromath;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;

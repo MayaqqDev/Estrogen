@@ -8,7 +8,7 @@ import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import dev.architectury.registry.registries.RegistrarManager;
 import dev.mayaqq.estrogen.networking.EstrogenC2S;
-import dev.mayaqq.estrogen.registry.common.*;
+import dev.mayaqq.estrogen.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +52,7 @@ public class Estrogen {
         EstrogenFluidItems.register();
         EstrogenFluidAttributes.register();
         EstrogenItems.register();
+        EstrogenBaubles.register();
         EstrogenRecipes.register();
         EstrogenSounds.register();
         EstrogenC2S.register();

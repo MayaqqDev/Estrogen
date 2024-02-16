@@ -1,10 +1,10 @@
 package dev.mayaqq.estrogen.datagen.tags;
 
 import com.simibubi.create.AllTags;
-import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
-import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
-import dev.mayaqq.estrogen.registry.common.EstrogenItems;
-import dev.mayaqq.estrogen.registry.common.EstrogenTags;
+import dev.mayaqq.estrogen.registry.EstrogenBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenFluids;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
+import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;

@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.platformSpecific.fabric;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.fluid.FluidRenderer;
-import dev.mayaqq.estrogen.registry.common.blockEntities.CentrifugeBlockEntity;
+import dev.mayaqq.estrogen.registry.blockEntities.CentrifugeBlockEntity;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import io.github.fabricators_of_create.porting_lib.util.FluidStack;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;

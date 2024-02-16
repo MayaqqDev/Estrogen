@@ -80,6 +80,10 @@ public class EstrogenConfig {
         public final ConfigGroup misc = group(1, "misc", "Miscellaneous settings");
         public final ConfigBool entityPatting = b(true, "entityPatting", "Allows you to pat entities by shift right-clicking them!");
 
+        // Accessory Config Group
+        public final ConfigGroup accessory = group(1, "accessory", "Settings for Equippable Items");
+        public final ConfigBool estrogenPatchRender = b(true, "estrogenPatchRender", "Render estrogen patches on the player");
+
         // Compat Config Group
         public final ConfigGroup compat = group(1, "compat", "Compatibility between other mods settings");
         public final ConfigBool ears = b(true, "ears", "Enable ears Compatibility");
@@ -92,9 +96,6 @@ public class EstrogenConfig {
     }
 
     public static class Common extends ConfigBase {
-        // Estrogen Patches group
-        public final ConfigGroup estrogenPatches = group(1, "estrogenPatches", "Settings for the estrogen patches");
-
         // Minigame Group
         public final ConfigGroup minigame = group(1, "minigame", "Settings which are more fun and not fit for survival");
         public final ConfigBool minigameEnabled = b(false, "minigameEnabled", "Enable/Disable all minigame settings");
@@ -112,6 +113,11 @@ public class EstrogenConfig {
         public final ConfigGroup dash = group(1, "dash", "Settings for the dash effect");
         public final ConfigBool dashEnabled = b(true, "dashEnabled", "Enable dash from the Effect of Estrogen");
         public final ConfigInt dashDeltaModifier = i(2, 0, 100, "dashDeltaModifier", "The multiplier for the dash delta movement");
+
+        // Patch group
+        public final ConfigGroup patch = group(1, "patch", "Settings for the estrogen patches");
+        public final ConfigBool patchDrain = b(true, "patchDrain", "Enable the estrogen patches to drain");
+        public final ConfigInt patchDrainAmount = i(100, 0, "patchDrainAmount", "The amount of ticks it takes for the estrogen patches to drain a millibucket");
 
         // Centrifuge group
         public final ConfigGroup centrifuge = group(1, "centrifuge", "Settings for the centrifuge");

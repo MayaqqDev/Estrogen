@@ -1,0 +1,52 @@
+package dev.mayaqq.estrogen.client.registry.trinkets;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
+import earth.terrarium.baubly.client.BaubleRenderer;
+import earth.terrarium.baubly.client.BaublyClient;
+import earth.terrarium.baubly.common.SlotInfo;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+
+public class EstrogenPatchesRenderer implements BaubleRenderer {
+
+    public EstrogenPatchesRenderer() {}
+
+    public static void register() {
+        BaublyClient.registerBaubleRenderer(EstrogenItems.ESTROGEN_PATCHES.get(), new EstrogenPatchesRenderer());
+    }
+
+    @Override
+    public void render(
+            ItemStack stack,
+            SlotInfo slotContext,
+            PoseStack matrixStack,
+            EntityModel<? extends LivingEntity> entityModel,
+            MultiBufferSource renderTypeBuffer,
+            int light,
+            float limbSwing,
+            float limbSwingAmount,
+            float partialTicks,
+            float ageInTicks,
+            float netHeadYaw,
+            float headPitch
+    ) {
+        if (entityModel instanceof PlayerModel<? extends LivingEntity> playerModel) {
+            if (!EstrogenConfig.client().estrogenPatchRender.get()) return;
+            LocalPlayer player = Minecraft.getInstance().player;
+            matrixStack.pushPose();
+            ModelPart leg = playerModel.leftLeg;
+            matrixStack.translate(leg.x, leg.y, leg.z);;
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, light, matrixStack, renderTypeBuffer, player.level(), 0);
+            matrixStack.popPose();
+        }
+    }
+}
