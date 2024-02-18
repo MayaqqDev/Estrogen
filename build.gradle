@@ -77,7 +77,7 @@ allprojects {
         maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM | NOTE: LEAVE THIS AS LAST
     }
 
-    tasks.withType(JavaCompile) {
+    tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
         options.release.set(17)
     }

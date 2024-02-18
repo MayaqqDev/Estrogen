@@ -53,11 +53,11 @@ public class EstrogenSequencedAssemblyRecipes<T extends EstrogenRecipeInterface>
         this.t = t;
     }
 
-    public static EstrogenSequencedAssemblyRecipes buildFabric(FabricDataOutput output) {
+    public static EstrogenSequencedAssemblyRecipes<?> buildFabric(FabricDataOutput output) {
         return new EstrogenSequencedAssemblyRecipes<>(output, new EstrogenRecipeFabricImpl());
     }
 
-    public static EstrogenSequencedAssemblyRecipes buildForge(FabricDataOutput output) {
+    public static EstrogenSequencedAssemblyRecipes<?> buildForge(FabricDataOutput output) {
         return new EstrogenSequencedAssemblyRecipes<>(output, new EstrogenRecipeForgeImpl());
     }
 

@@ -45,11 +45,11 @@ public class EstrogenMixingRecipes<T extends EstrogenRecipeInterface> extends Pr
         this.t = t;
     }
 
-    public static EstrogenMixingRecipes buildFabric(FabricDataOutput output) {
+    public static EstrogenMixingRecipes<?> buildFabric(FabricDataOutput output) {
         return new EstrogenMixingRecipes<>(output, new EstrogenRecipeFabricImpl());
     }
 
-    public static EstrogenMixingRecipes buildForge(FabricDataOutput output) {
+    public static EstrogenMixingRecipes<?> buildForge(FabricDataOutput output) {
         return new EstrogenMixingRecipes<>(output, new EstrogenRecipeForgeImpl());
     }
 

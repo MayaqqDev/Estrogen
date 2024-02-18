@@ -27,11 +27,11 @@ public class EstrogenEmptyingRecipes<T extends EstrogenRecipeInterface> extends 
         this.t = t;
     }
 
-    public static EstrogenEmptyingRecipes buildFabric(FabricDataOutput output) {
+    public static EstrogenEmptyingRecipes<?> buildFabric(FabricDataOutput output) {
         return new EstrogenEmptyingRecipes<>(output, new EstrogenRecipeFabricImpl());
     }
 
-    public static EstrogenEmptyingRecipes buildForge(FabricDataOutput output) {
+    public static EstrogenEmptyingRecipes<?> buildForge(FabricDataOutput output) {
         return new EstrogenEmptyingRecipes<>(output, new EstrogenRecipeForgeImpl());
     }
 

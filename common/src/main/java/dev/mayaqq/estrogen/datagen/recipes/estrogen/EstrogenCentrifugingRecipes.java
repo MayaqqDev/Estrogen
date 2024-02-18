@@ -25,11 +25,11 @@ public class EstrogenCentrifugingRecipes<T extends EstrogenRecipeInterface> exte
         this.t = t;
     }
 
-    public static EstrogenCentrifugingRecipes buildFabric(FabricDataOutput output) {
+    public static EstrogenCentrifugingRecipes<?> buildFabric(FabricDataOutput output) {
         return new EstrogenCentrifugingRecipes<>(output, new EstrogenRecipeFabricImpl());
     }
 
-    public static EstrogenCentrifugingRecipes buildForge(FabricDataOutput output) {
+    public static EstrogenCentrifugingRecipes<?> buildForge(FabricDataOutput output) {
         return new EstrogenCentrifugingRecipes<>(output, new EstrogenRecipeForgeImpl());
     }
 

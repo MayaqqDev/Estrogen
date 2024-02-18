@@ -12,7 +12,7 @@
 > <br> Additionally if used with **[REI](https://modrinth.com/mod/rei)**, you will have to install the *
 *[CreateFabric&REIBugFix](https://modrinth.com/mod/createfabricreibugfix)** mod to fix some recipes in the viewer.
 
-Create Addon Based around expressing yourself, fluid handling and expanding your factory. This mods add a lot of new
+Create Addon Based around expressing yourself, fluid handling and expanding your factory. This mod add a lot of new
 Items, Blocks, Mechanics and more!
 
 ### `Main Features`
