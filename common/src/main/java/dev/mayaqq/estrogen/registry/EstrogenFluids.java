@@ -1,17 +1,20 @@
 package dev.mayaqq.estrogen.registry;
 
+import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries;
+import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
 import dev.architectury.core.fluid.ArchitecturyFlowingFluid;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.mayaqq.estrogen.Estrogen;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.material.Fluid;
 
 public class EstrogenFluids {
 
-    public static Registrar<Fluid> FLUIDS = Estrogen.MANAGER.get().get(Registries.FLUID);
+    public static final ResourcefulRegistry<Fluid> FLUIDS = ResourcefulRegistries.create(BuiltInRegistries.FLUID, Estrogen.MOD_ID);
 
-    public static RegistrySupplier<ArchitecturyFlowingFluid.Source> MOLTEN_SLIME = FLUIDS.register(Estrogen.id("molten_slime"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.MOLTEN_SLIME));
+    public static RegistrySupplier<ArchitecturyFlowingFluid.Source> MOLTEN_SLIME = FLUIDS.register("molten_slime", () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.MOLTEN_SLIME));
     public static RegistrySupplier<ArchitecturyFlowingFluid.Source> TESTOSTERONE_MIXTURE = FLUIDS.register(Estrogen.id("testosterone_mixture"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.TESTOSTERONE_MIXTURE));
     public static RegistrySupplier<ArchitecturyFlowingFluid.Source> LIQUID_ESTROGEN = FLUIDS.register(Estrogen.id("liquid_estrogen"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.LIQUID_ESTROGEN));
     public static RegistrySupplier<ArchitecturyFlowingFluid.Source> FILTRATED_HORSE_URINE = FLUIDS.register(Estrogen.id("filtrated_horse_urine"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.FILTRATED_HORSE_URINE));

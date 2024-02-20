@@ -1,15 +1,15 @@
 package dev.mayaqq.estrogen.registry;
 
-import com.simibubi.create.Create;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.utility.Lang;
-import dev.architectury.registry.registries.Registrar;
-import dev.architectury.registry.registries.RegistrySupplier;
+import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
+import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries;
+import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.Recipe;
@@ -27,34 +27,41 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
     CENTRIFUGING(CentrifugingRecipe::new);
 
     private final ResourceLocation id;
-    private final RegistrySupplier<? extends RecipeSerializer<?>> serializerSupplier;
+    private final RegistryEntry<? extends RecipeSerializer<?>> serializerSupplier;
     @Nullable
     private final RecipeType<?> typeObject;
     private final Supplier<RecipeType<?>> type;
-    Registrar<RecipeSerializer<?>> recipeSerializers = Estrogen.MANAGER.get().get(Registries.RECIPE_SERIALIZER);
-    Registrar<RecipeType<?>> recipeTypes = Estrogen.MANAGER.get().get(Registries.RECIPE_TYPE);
+    public static final ResourcefulRegistry<RecipeSerializer<?>> RECIPE_SERIALIZERS = ResourcefulRegistries.create(BuiltInRegistries.RECIPE_SERIALIZER, Estrogen.MOD_ID);
+    public static final ResourcefulRegistry<RecipeType<?>> RECIPE_TYPES = ResourcefulRegistries.create(BuiltInRegistries.RECIPE_TYPE, Estrogen.MOD_ID);
 
     EstrogenRecipes(Supplier<RecipeSerializer<?>> serializerSupplier, Supplier<RecipeType<?>> typeSupplier, boolean registerType) {
         String name = Lang.asId(name());
-        id = Create.asResource(name);
-        this.serializerSupplier = recipeSerializers.register(Estrogen.id(name), () -> serializerSupplier.get());
+        id = Estrogen.id(name);
+        this.serializerSupplier = registerSerializer(name, serializerSupplier);
         if (registerType) {
             typeObject = typeSupplier.get();
-            recipeTypes.register(id, () -> typeObject);
-            type = typeSupplier;
+            registryEntry();
         } else {
             typeObject = null;
-            type = typeSupplier;
         }
+        type = typeSupplier;
     }
 
     EstrogenRecipes(Supplier<RecipeSerializer<?>> serializerSupplier) {
         String name = Lang.asId(name());
         id = id(name);
-        this.serializerSupplier = recipeSerializers.register(Estrogen.id(name), () -> serializerSupplier.get());
+        this.serializerSupplier = registerSerializer(name, serializerSupplier);
         typeObject = simpleType(id);
-        recipeTypes.register(id, () -> typeObject);
+        registryEntry();
         type = () -> typeObject;
+    }
+
+    public RegistryEntry<? extends RecipeSerializer<?>> registerSerializer(String name, Supplier<RecipeSerializer<?>> serializerSupplier) {
+        return RECIPE_SERIALIZERS.register(name, serializerSupplier::get);
+    }
+
+    public void registryEntry() {
+        RECIPE_TYPES.register(id.getPath(), () -> typeObject);
     }
 
     EstrogenRecipes(ProcessingRecipeBuilder.ProcessingRecipeFactory<?> processingFactory) {
@@ -69,9 +76,6 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
                 return stringId;
             }
         };
-    }
-
-    public static void register() {
     }
 
     public static boolean shouldIgnoreInAutomation(Recipe<?> recipe) {

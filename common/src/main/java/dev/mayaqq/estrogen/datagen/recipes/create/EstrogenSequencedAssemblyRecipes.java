@@ -10,8 +10,10 @@ import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeInterface;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
+import dev.mayaqq.estrogen.registry.items.EstrogenPatchesItem;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import java.util.function.UnaryOperator;
@@ -22,9 +24,9 @@ public class EstrogenSequencedAssemblyRecipes<T extends EstrogenRecipeInterface>
 
     private T t;
     GeneratedRecipe
-            ESTROGEN_PATCH = create("estrogen_patch", b -> b.require(Items.PAPER)
+        ESTROGEN_PATCH = create("estrogen_patch", b -> b.require(Items.PAPER)
             .transitionTo(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH)
-            .addOutput(EstrogenItems.ESTROGEN_PATCHES, 120)
+            .addOutput(EstrogenPatchesItem.getDefaultStack(), 120)
             .addOutput(EstrogenItems.ESTROGEN_PILL, 16)
             .addOutput(Items.PAPER, 5)
             .addOutput(Items.SLIME_BALL, 5)
@@ -35,7 +37,7 @@ public class EstrogenSequencedAssemblyRecipes<T extends EstrogenRecipeInterface>
             .addStep(DeployerApplicationRecipe::new, rb -> rb.require(Items.PAPER))
     ),
 
-    UWU = create("uwu", b -> b.require(Items.NETHERITE_INGOT)
+        UWU = create("uwu", b -> b.require(Items.NETHERITE_INGOT)
             .transitionTo(EstrogenItems.INCOMPLETE_UWU)
             .addOutput(EstrogenItems.UWU, 1)
             .loops(10)

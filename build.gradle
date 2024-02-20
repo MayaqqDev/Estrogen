@@ -39,11 +39,14 @@ subprojects {
     }
 
     dependencies {
-        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+        minecraft("com.mojang:minecraft:${rootProject.minecraft_version}")
         mappings loom.layered() {
             officialMojangMappings()
             parchment("org.parchmentmc.data:parchment-${rootProject.minecraft_version}:${rootProject.parchmentmc_version}@zip")
         }
+
+        modApi("com.teamresourceful.resourcefullib:resourcefullib-${project.name}-${rootProject.minecraft_version}:${rootProject.resourcefullib_version}")
+        modApi("earth.terrarium.botarium:botarium-${project.name}-${rootProject.minecraft_version}:${rootProject.botarium_version}")
 
         modImplementation include("maven.modrinth:jukeboxfix:${rootProject.jukeboxfix_version}")
     }
@@ -73,7 +76,7 @@ allprojects {
         maven { url = "https://repo.unascribed.com" } // Ears
         maven { url = "https://api.modrinth.com/maven" } // Create & REI Bug Fix, Jukeboxfix
         maven { url = "https://maven.figuramc.org/releases" } // Figura
-        maven { url = "https://maven.teamresourceful.com/repository/maven-public/" } // Baubly
+        maven { url = "https://maven.teamresourceful.com/repository/maven-public/" } // Baubly, Botarium, ResourcefulLib
         maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM | NOTE: LEAVE THIS AS LAST
     }
 

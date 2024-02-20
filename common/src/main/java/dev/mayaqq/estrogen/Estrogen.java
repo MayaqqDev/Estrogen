@@ -1,19 +1,15 @@
 package dev.mayaqq.estrogen;
 
-import com.google.common.base.Suppliers;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
-import dev.architectury.registry.registries.RegistrarManager;
 import dev.mayaqq.estrogen.networking.EstrogenC2S;
 import dev.mayaqq.estrogen.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.function.Supplier;
 
 public class Estrogen {
     public static final String MOD_ID = "estrogen";
@@ -24,8 +20,6 @@ public class Estrogen {
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create("estrogen");
 
     // The registering part done by architectury
-    public static final Supplier<RegistrarManager> MANAGER = Suppliers.memoize(() -> RegistrarManager.get(MOD_ID));
-
     static {
         // Tooltip modifier for Centrifuge
         REGISTRATE.setTooltipModifierFactory(item ->
@@ -40,11 +34,11 @@ public class Estrogen {
 
     public static void init() {
         // Init all the different classes
-        EstrogenCreativeTab.register();
+        EstrogenCreativeTab.init();
         EstrogenAttributes.register();
         EstrogenBlockEntities.register();
         EstrogenBlocks.register();
-        EstrogenEffects.register();
+        EstrogenEffects.MOB_EFFECTS.init();
         EstrogenEnchantments.register();
         EstrogenEvents.register();
         EstrogenFluids.register();
@@ -52,9 +46,9 @@ public class Estrogen {
         EstrogenFluidItems.register();
         EstrogenFluidAttributes.register();
         EstrogenItems.register();
-        EstrogenBaubles.register();
-        EstrogenRecipes.register();
-        EstrogenSounds.register();
+        EstrogenRecipes.RECIPE_SERIALIZERS.init();
+        EstrogenRecipes.RECIPE_TYPES.init();
+        EstrogenSounds.SOUNDS.init();
         EstrogenC2S.register();
     }
 }

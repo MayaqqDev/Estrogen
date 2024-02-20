@@ -3,6 +3,8 @@ package dev.mayaqq.estrogen.registry.items;
 import com.simibubi.create.foundation.utility.Color;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
+import earth.terrarium.baubly.Baubly;
 import earth.terrarium.baubly.common.Bauble;
 import earth.terrarium.baubly.common.SlotInfo;
 import net.minecraft.nbt.CompoundTag;
@@ -11,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class EstrogenPatchesItem extends Item implements Bauble {
     int tick = 0;
@@ -18,6 +21,7 @@ public class EstrogenPatchesItem extends Item implements Bauble {
 
     public EstrogenPatchesItem(Properties properties) {
         super(properties);
+        Baubly.registerBauble(this);
     }
 
     @Override
@@ -56,6 +60,18 @@ public class EstrogenPatchesItem extends Item implements Bauble {
         return newStack;
     }
 
+    public static ItemStack getDefaultStack() {
+        ItemStack newStack = new ItemStack(EstrogenItems.ESTROGEN_PATCHES);
+        newStack.getOrCreateTag().putInt("EstrogenAmount", 1000);
+        return newStack;
+    }
+
+    public static ItemStack emptyStack() {
+        ItemStack newStack = new ItemStack(EstrogenItems.ESTROGEN_PATCHES);
+        newStack.getOrCreateTag().putInt("EstrogenAmount", 0);
+        return newStack;
+    }
+
     @Override
     public @NotNull String getDescriptionId(ItemStack stack) {
         int count = stack.getCount();
@@ -76,16 +92,16 @@ public class EstrogenPatchesItem extends Item implements Bauble {
 
     @Override
     public boolean isBarVisible(@NotNull ItemStack stack) {
-        return true;
+        return getAmount(stack) != 1000;
     }
 
     @Override
     public int getBarWidth(@NotNull ItemStack stack) {
-        return getAmount(stack) / 10 * 13;
+        return (int) ((double) getAmount(stack) / 1000 * 13);
     }
 
     @Override
     public int getBarColor(@NotNull ItemStack stack) {
-        return Color.mixColors(0xFF_FFC074, 0xFF_46FFE0, getAmount(stack) / 10f);
+        return Color.SPRING_GREEN.getRGB();
     }
 }

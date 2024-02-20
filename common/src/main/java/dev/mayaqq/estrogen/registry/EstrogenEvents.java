@@ -15,7 +15,7 @@ public class EstrogenEvents {
 
     public static void register() {
         PlayerEvent.PLAYER_QUIT.register(player -> {
-            if (player.hasEffect(ESTROGEN_EFFECT)) {
+            if (player.hasEffect(ESTROGEN_EFFECT.get())) {
                 double startTime = player.getAttributeValue(BOOB_GROWING_START_TIME.get());
                 double currentTime = Time.currentTime(player.level());
                 float initialSize = (float) player.getAttributeValue(BOOB_INITIAL_SIZE.get());
@@ -24,7 +24,7 @@ public class EstrogenEvents {
             }
         });
         PlayerEvent.PLAYER_JOIN.register(player -> {
-            if (player.hasEffect(ESTROGEN_EFFECT)) {
+            if (player.hasEffect(ESTROGEN_EFFECT.get())) {
                 double currentTime = Time.currentTime(player.level());
                 player.getAttribute(BOOB_GROWING_START_TIME.get()).setBaseValue(currentTime);
             }
@@ -32,7 +32,7 @@ public class EstrogenEvents {
         TickEvent.PLAYER_POST.register(player -> {
             if (EstrogenConfig.common().minigameEnabled.get()) {
                 if (EstrogenConfig.common().permaDash.get()) {
-                    player.addEffect(new MobEffectInstance(ESTROGEN_EFFECT, 20, EstrogenConfig.common().girlPowerLevel.get(), false, false, false));
+                    player.addEffect(new MobEffectInstance(ESTROGEN_EFFECT.get(), 20, EstrogenConfig.common().girlPowerLevel.get(), false, false, false));
                 }
             }
         });
