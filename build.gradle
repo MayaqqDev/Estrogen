@@ -99,7 +99,10 @@ publishMods {
         minecraftVersions.add("1.20.1")
         projectId = "850410"
         requires {
-            slug = "architectury-api"
+            slug = "botarium"
+        }
+        requires {
+            slug = "resourceful-lib"
         }
         optional {
             slug = "ears"
@@ -114,7 +117,10 @@ publishMods {
         projectId = "HhIJW8n1"
         minecraftVersions.add("1.20.1")
         requires {
-            slug = "architectury-api"
+            slug = "botarium"
+        }
+        requires {
+            slug = "resourceful-lib"
         }
         optional {
             slug = "ears"

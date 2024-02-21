@@ -1,15 +1,13 @@
 package dev.mayaqq.estrogen.mixin;
 
-import dev.architectury.networking.NetworkManager;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
-import dev.mayaqq.estrogen.networking.EstrogenC2S;
+import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
+import dev.mayaqq.estrogen.networking.messages.c2s.SpawnHeartsPacket;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
 import dev.mayaqq.estrogen.registry.EstrogenDamageSources;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
-import dev.mayaqq.estrogen.utils.Estromath;
-import io.netty.buffer.Unpooled;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -47,7 +45,7 @@ public abstract class PlayerEntityMixin {
     )
     private DamageSource modifyDamageSource(DamageSource source) {
         Player player = (Player) (Object) this;
-        if (source.is(DamageTypes.FALL) && player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT)) {
+        if (source.is(DamageTypes.FALL) && player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get())) {
             return EstrogenDamageSources.of(player.level(), EstrogenDamageSources.GIRLPOWER_DAMAGE_TYPE);
         }
         return source;
@@ -71,18 +69,13 @@ public abstract class PlayerEntityMixin {
     private void estrogen$interactOn(Entity entity, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResult> cir) {
         Player player = (Player) (Object) this;
         if (player.level().isClientSide && EstrogenConfig.client().entityPatting.get() && player.isCrouching() && player.getItemInHand(interactionHand).isEmpty()) {
-            FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
-            buf.writeLongArray(new long[]{Estromath.doubleToLong(entity.getX()), Estromath.doubleToLong(entity.getY() + entity.getEyeHeight() + 0.5), Estromath.doubleToLong(entity.getZ())});
+            ResourceLocation sound = Estrogen.id("empty");
             if (entity instanceof Mob mob) {
                 if (mob.getAmbientSound() != null) {
-                    buf.writeResourceLocation(mob.getAmbientSound().getLocation());
-                } else {
-                    buf.writeResourceLocation(Estrogen.id("empty"));
+                    sound = mob.getAmbientSound().getLocation();
                 }
-            } else {
-                buf.writeResourceLocation(Estrogen.id("empty"));
             }
-            NetworkManager.sendToServer(EstrogenC2S.SPAWN_HEARTS, buf);
+            EstrogenNetworkManager.CHANNEL.sendToServer(new SpawnHeartsPacket(entity.position(), sound));
             cir.setReturnValue(InteractionResult.SUCCESS);
         }
     }

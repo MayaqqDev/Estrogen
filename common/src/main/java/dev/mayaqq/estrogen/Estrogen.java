@@ -5,7 +5,7 @@ import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
-import dev.mayaqq.estrogen.networking.EstrogenC2S;
+import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
@@ -35,20 +35,19 @@ public class Estrogen {
     public static void init() {
         // Init all the different classes
         EstrogenCreativeTab.init();
-        EstrogenAttributes.register();
+        EstrogenAttributes.ATTRIBUTES.init();
         EstrogenBlockEntities.register();
-        EstrogenBlocks.register();
+        EstrogenCreateBlocks.register();
+        EstrogenBlocks.BLOCKS.init();
         EstrogenEffects.MOB_EFFECTS.init();
         EstrogenEnchantments.register();
-        EstrogenEvents.register();
-        EstrogenFluids.register();
-        EstrogenFluidBlocks.register();
-        EstrogenFluidItems.register();
-        EstrogenFluidAttributes.register();
-        EstrogenItems.register();
+        EstrogenFluids.FLUIDS.init();
+        EstrogenFluidProperties.FLUID_PROPERTIES.initialize();
+        EstrogenCreateItems.register();
+        EstrogenItems.ITEMS.init();
         EstrogenRecipes.RECIPE_SERIALIZERS.init();
         EstrogenRecipes.RECIPE_TYPES.init();
         EstrogenSounds.SOUNDS.init();
-        EstrogenC2S.register();
+        EstrogenNetworkManager.register();
     }
 }

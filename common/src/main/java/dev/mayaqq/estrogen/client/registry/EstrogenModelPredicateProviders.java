@@ -1,12 +1,12 @@
 package dev.mayaqq.estrogen.client.registry;
 
-import dev.architectury.registry.item.ItemPropertiesRegistry;
-import dev.mayaqq.estrogen.registry.EstrogenItems;
+import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
+import earth.terrarium.botarium.client.ClientHooks;
 import net.minecraft.resources.ResourceLocation;
 
 public class EstrogenModelPredicateProviders {
     public static void register() {
-        ItemPropertiesRegistry.register(EstrogenItems.ESTROGEN_PATCHES, new ResourceLocation("stacked"), (stack, world, entity, seed) -> {
+        ClientHooks.registerItemProperty(EstrogenCreateItems.ESTROGEN_PATCHES.get(), new ResourceLocation("stacked"), (stack, world, entity, seed) -> {
             return stack.getCount() > 1 ? 1 : 0;
         });
     }

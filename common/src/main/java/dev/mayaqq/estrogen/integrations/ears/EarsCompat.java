@@ -12,7 +12,7 @@ public class EarsCompat {
         EarsInhibitorRegistry.register("estrogen", (part, peer) ->
                 EstrogenConfig.client().ears.get() &&
                 part == EarsFeatureType.CHEST &&
-                ((Player) peer).hasEffect(EstrogenEffects.ESTROGEN_EFFECT) &&
+                ((Player) peer).hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) &&
                 EstrogenConfig.client().chestFeature.get()
         );
     }

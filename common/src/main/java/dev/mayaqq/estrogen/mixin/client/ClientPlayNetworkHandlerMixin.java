@@ -5,10 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import org.slf4j.Logger;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
@@ -16,10 +13,6 @@ import static dev.mayaqq.estrogen.utils.UwUfy.uwufyString;
 
 @Mixin(ClientPacketListener.class)
 public class ClientPlayNetworkHandlerMixin {
-    @Shadow
-    @Final
-    private static Logger LOGGER;
-
     /*
      * This mixin uwufies chat messages sent by the player if the player has a helmet with the Uwufying Curse enchantment.
      * Because we modify the String by itself, and do not replace any method calls, it should be compatible with most if not all mods.

@@ -6,8 +6,8 @@ import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeInterface;
+import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
-import dev.mayaqq.estrogen.registry.EstrogenItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -18,7 +18,7 @@ public class EstrogenEmptyingRecipes<T extends EstrogenRecipeInterface> extends 
 
     private T t;
     GeneratedRecipe HORSE_URINE = create(id("horse_urine"), recipeBuilder -> recipeBuilder
-            .require(EstrogenItems.HORSE_URINE_BOTTLE)
+            .require(EstrogenCreateItems.HORSE_URINE_BOTTLE)
             .output(EstrogenFluids.HORSE_URINE.get(), t.getAmount(27000))
             .output(Items.GLASS_BOTTLE));
 

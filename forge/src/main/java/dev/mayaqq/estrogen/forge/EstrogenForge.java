@@ -1,10 +1,9 @@
 package dev.mayaqq.estrogen.forge;
 
 import com.simibubi.create.foundation.config.ConfigBase;
-import dev.architectury.platform.forge.EventBuses;
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -26,8 +25,6 @@ public class EstrogenForge {
             ModLoadingContext.get().registerConfig(pair.getKey(), pair.getValue().specification);
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        // Forge ugh
-        EventBuses.registerModEventBus(MOD_ID, bus);
 
         // REGISTRATE registering
         Estrogen.REGISTRATE.registerEventListeners(bus);

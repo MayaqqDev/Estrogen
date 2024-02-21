@@ -1,13 +1,11 @@
 package dev.mayaqq.estrogen.registry.effects;
 
-import dev.architectury.networking.NetworkManager;
 import dev.mayaqq.estrogen.client.Dash;
-import dev.mayaqq.estrogen.config.EstrogenConfig;
-import dev.mayaqq.estrogen.networking.EstrogenC2S;
-import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
-import dev.mayaqq.estrogen.networking.EstrogenStatusEffectSender;
 import dev.mayaqq.estrogen.client.registry.EstrogenKeybinds;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.networking.messages.c2s.DashPacket;
+import dev.mayaqq.estrogen.networking.messages.s2c.StatusEffectPacket;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
 import dev.mayaqq.estrogen.utils.PlayerLookup;
 import dev.mayaqq.estrogen.utils.Time;
@@ -16,9 +14,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
@@ -26,6 +28,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.LiquidBlock;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 import static dev.mayaqq.estrogen.registry.EstrogenAttributes.*;
@@ -98,7 +101,7 @@ public class EstrogenEffect extends MobEffect {
     @Override
     public void removeAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
         if (entity instanceof ServerPlayer player) {
-            new EstrogenStatusEffectSender().sendRemovePlayerStatusEffect(player, ESTROGEN_EFFECT.get(), PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
+            sendPlayerStatusEffect(player, ESTROGEN_EFFECT.get(), PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
         }
 
         if (entity instanceof Player) {
@@ -126,7 +129,7 @@ public class EstrogenEffect extends MobEffect {
     public void addAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
 
         if (entity instanceof ServerPlayer player) {
-            new EstrogenStatusEffectSender().sendPlayerStatusEffect(player, ESTROGEN_EFFECT.get(), PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
+            sendPlayerStatusEffect(player, ESTROGEN_EFFECT.get(), PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
         }
 
         super.addAttributeModifiers(entity, attributes, amplifier);
@@ -140,6 +143,16 @@ public class EstrogenEffect extends MobEffect {
         if (startTime != null && startTime.getBaseValue() < 0.0) {
             double currentTime = Time.currentTime(entity.level());
             entity.getAttribute(BOOB_GROWING_START_TIME.get()).setBaseValue(currentTime);
+        }
+    }
+
+    public static void sendPlayerStatusEffect(ServerPlayer player, MobEffect effect, ServerPlayer... targetPlayers) {
+        MobEffectInstance effectInstance = player.getEffect(effect);
+        if (effectInstance != null) {
+            Packet<ClientGamePacketListener> packet = new ClientboundUpdateMobEffectPacket(player.getId(), effectInstance);
+            FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
+            packet.write(buf);
+            EstrogenNetworkManager.CHANNEL.sendToPlayers(new StatusEffectPacket(buf), Arrays.stream(targetPlayers).toList());
         }
     }
 }

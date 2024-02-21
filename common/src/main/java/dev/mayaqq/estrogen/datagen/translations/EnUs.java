@@ -1,6 +1,9 @@
 package dev.mayaqq.estrogen.datagen.translations;
 
-import dev.mayaqq.estrogen.registry.*;
+import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
+import dev.mayaqq.estrogen.registry.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.EstrogenEnchantments;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
@@ -21,21 +24,21 @@ public class EnUs extends FabricLanguageProvider {
 
         // Items
         tb.add("itemGroup.estrogen", "Estrogen");
-        tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Estrogen Pill");
-        tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Estrogen Patch");
+        tb.add(EstrogenCreateItems.ESTROGEN_PILL.get(), "Estrogen Pill");
+        tb.add(EstrogenCreateItems.ESTROGEN_PATCHES.get(), "Estrogen Patch");
         tb.add("item.estrogen.estrogen_patches_plural", "Estrogen Patches");
-        tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Incomplete Estrogen Patch");
-        tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Crystal Estrogen Pill");
-        tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Estrogen Chip Cookie");
+        tb.add(EstrogenCreateItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Incomplete Estrogen Patch");
+        tb.add(EstrogenCreateItems.CRYSTAL_ESTROGEN_PILL.get(), "Crystal Estrogen Pill");
+        tb.add(EstrogenCreateItems.ESTROGEN_CHIP_COOKIE.get(), "Estrogen Chip Cookie");
         tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C");
-        tb.add(EstrogenItems.BALLS.get(), "Balls");
-        tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Horse Urine Bottle");
-        tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Testosterone Chunk");
-        tb.add(EstrogenItems.TESTOSTERONE_POWDER.get(), "Testosterone Powder");
-        tb.add(EstrogenItems.USED_FILTER.get(), "Used Filter");
-        tb.add(EstrogenItems.UWU.get(), ":3");
+        tb.add(EstrogenCreateItems.BALLS.get(), "Balls");
+        tb.add(EstrogenCreateItems.HORSE_URINE_BOTTLE.get(), "Horse Urine Bottle");
+        tb.add(EstrogenCreateItems.TESTOSTERONE_CHUNK.get(), "Testosterone Chunk");
+        tb.add(EstrogenCreateItems.TESTOSTERONE_POWDER.get(), "Testosterone Powder");
+        tb.add(EstrogenCreateItems.USED_FILTER.get(), "Used Filter");
+        tb.add(EstrogenCreateItems.UWU.get(), ":3");
         tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
-        tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "Incomplete UwU");
+        tb.add(EstrogenCreateItems.INCOMPLETE_UWU.get(), "Incomplete UwU");
         // Buckets
         tb.add(EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET.get(), "Bucket of Liquid Estrogen");
         tb.add(EstrogenFluidItems.HORSE_URINE_BUCKET.get(), "Bucket of Horse Urine");
@@ -45,7 +48,7 @@ public class EnUs extends FabricLanguageProvider {
         tb.add(EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Bucket of Testosterone Mixture");
 
         // Blocks
-        tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuge");
+        tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifuge");
         // Fluids
         tb.add("fluid.estrogen.liquid_estrogen", "Liquid Estrogen");
         tb.add("fluid.estrogen.horse_urine", "Horse Urine");

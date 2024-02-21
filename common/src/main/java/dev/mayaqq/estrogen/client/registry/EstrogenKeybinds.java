@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.client.registry;
 
-import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;
 

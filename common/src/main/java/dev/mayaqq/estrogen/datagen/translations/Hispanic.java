@@ -1,6 +1,9 @@
 package dev.mayaqq.estrogen.datagen.translations;
 
-import dev.mayaqq.estrogen.registry.*;
+import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
+import dev.mayaqq.estrogen.registry.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.EstrogenEnchantments;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -67,18 +70,18 @@ public class Hispanic {
         String pillString = pastilla ? "Pastilla" : "Pildora";
 
         tb.add("itemGroup.estrogen", "Estrogen");
-        tb.add(EstrogenItems.ESTROGEN_PILL.get(), pillString + " de Estrógeno");
-        tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Parche de Estrógeno");
+        tb.add(EstrogenCreateItems.ESTROGEN_PILL.get(), pillString + " de Estrógeno");
+        tb.add(EstrogenCreateItems.ESTROGEN_PATCHES.get(), "Parche de Estrógeno");
         tb.add("item.estrogen.estrogen_patches_plural", "Parches de Estrógeno");
-        tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Parche de Estrógeno Incompleto");
-        tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), pillString + " de Estrógeno de Vidrio");
-        tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Galleta de Pepitas de Estrógeno");
-        tb.add(EstrogenItems.BALLS.get(), "Bolas");
-        tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Botella de Orina de Caballo");
-        tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Trozo de Testosterona");
-        tb.add(EstrogenItems.TESTOSTERONE_POWDER.get(), "Polvo de Testosterona");
-        tb.add(EstrogenItems.USED_FILTER.get(), "Filtro usado");
-        tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "UwU Incompleto");
+        tb.add(EstrogenCreateItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Parche de Estrógeno Incompleto");
+        tb.add(EstrogenCreateItems.CRYSTAL_ESTROGEN_PILL.get(), pillString + " de Estrógeno de Vidrio");
+        tb.add(EstrogenCreateItems.ESTROGEN_CHIP_COOKIE.get(), "Galleta de Pepitas de Estrógeno");
+        tb.add(EstrogenCreateItems.BALLS.get(), "Bolas");
+        tb.add(EstrogenCreateItems.HORSE_URINE_BOTTLE.get(), "Botella de Orina de Caballo");
+        tb.add(EstrogenCreateItems.TESTOSTERONE_CHUNK.get(), "Trozo de Testosterona");
+        tb.add(EstrogenCreateItems.TESTOSTERONE_POWDER.get(), "Polvo de Testosterona");
+        tb.add(EstrogenCreateItems.USED_FILTER.get(), "Filtro usado");
+        tb.add(EstrogenCreateItems.INCOMPLETE_UWU.get(), "UwU Incompleto");
         // Buckets
         tb.add(EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET.get(), "Cubo de Estrógeno Líquido");
         tb.add(EstrogenFluidItems.HORSE_URINE_BUCKET.get(), "Cubo de Orina de Caballo");
@@ -88,7 +91,7 @@ public class Hispanic {
         tb.add(EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Cubo de Mezcla de Testosterona");
 
         // Blocks
-        tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifugadora");
+        tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifugadora");
         // Fluids
         tb.add("fluid.estrogen.liquid_estrogen", "Estrógeno Líquido");
         tb.add("fluid.estrogen.horse_urine", "Orina de Caballo");

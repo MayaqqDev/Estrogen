@@ -1,6 +1,9 @@
 package dev.mayaqq.estrogen.datagen.translations;
 
-import dev.mayaqq.estrogen.registry.*;
+import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
+import dev.mayaqq.estrogen.registry.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.EstrogenEnchantments;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
@@ -21,21 +24,21 @@ public class CsCz extends FabricLanguageProvider {
 
         // Items
         tb.add("itemGroup.estrogen", "Estrogen");
-        tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Pilulka Estrogenu");
-        tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Estrogenová Náplast");
+        tb.add(EstrogenCreateItems.ESTROGEN_PILL.get(), "Pilulka Estrogenu");
+        tb.add(EstrogenCreateItems.ESTROGEN_PATCHES.get(), "Estrogenová Náplast");
         tb.add("item.estrogen.estrogen_patches_plural", "Estrogenové Náplasti");
-        tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Nedokončená Estrogenová Náplast");
-        tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Krystalová pilulka estrogenu");
-        tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Estrogenová Sušenka");
+        tb.add(EstrogenCreateItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Nedokončená Estrogenová Náplast");
+        tb.add(EstrogenCreateItems.CRYSTAL_ESTROGEN_PILL.get(), "Krystalová pilulka estrogenu");
+        tb.add(EstrogenCreateItems.ESTROGEN_CHIP_COOKIE.get(), "Estrogenová Sušenka");
         tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C");
-        tb.add(EstrogenItems.BALLS.get(), "Koule");
-        tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Láhevička S Koňskou Močí");
-        tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Kus Testosteronu");
-        tb.add(EstrogenItems.TESTOSTERONE_POWDER.get(), "Testosteronový Prášek");
-        tb.add(EstrogenItems.USED_FILTER.get(), "Použitý Filtr");
-        tb.add(EstrogenItems.UWU.get(), ":3");
+        tb.add(EstrogenCreateItems.BALLS.get(), "Koule");
+        tb.add(EstrogenCreateItems.HORSE_URINE_BOTTLE.get(), "Láhevička S Koňskou Močí");
+        tb.add(EstrogenCreateItems.TESTOSTERONE_CHUNK.get(), "Kus Testosteronu");
+        tb.add(EstrogenCreateItems.TESTOSTERONE_POWDER.get(), "Testosteronový Prášek");
+        tb.add(EstrogenCreateItems.USED_FILTER.get(), "Použitý Filtr");
+        tb.add(EstrogenCreateItems.UWU.get(), ":3");
         tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
-        tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "Nedokončené UwU");
+        tb.add(EstrogenCreateItems.INCOMPLETE_UWU.get(), "Nedokončené UwU");
         // Buckets
         tb.add(EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET.get(), "Kbelík Tekutého Estrogenu");
         tb.add(EstrogenFluidItems.HORSE_URINE_BUCKET.get(), "Kbelík Koňské Moči");
@@ -45,7 +48,7 @@ public class CsCz extends FabricLanguageProvider {
         tb.add(EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Kbelík Testosteronové Směsi");
 
         // Blocks
-        tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuga");
+        tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifuga");
         // Fluids
         tb.add("fluid.estrogen.liquid_estrogen", "Tekutý Estrogen");
         tb.add("fluid.estrogen.horse_urine", "Koňská Moč");

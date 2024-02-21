@@ -1,9 +1,9 @@
 package dev.mayaqq.estrogen.datagen.tags;
 
 import com.simibubi.create.AllTags;
-import dev.mayaqq.estrogen.registry.EstrogenBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
-import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -23,16 +23,16 @@ public class EstrogenTagsGen {
         @Override
         protected void addTags(HolderLookup.Provider arg) {
             getOrCreateTagBuilder(EstrogenTags.Items.THIGHS)
-                    .add(EstrogenItems.ESTROGEN_PATCHES.get());
+                    .add(EstrogenCreateItems.ESTROGEN_PATCHES.get());
             getOrCreateTagBuilder(EstrogenTags.Items.UWUFYING)
-                    .add(EstrogenItems.UWU.get());
+                    .add(EstrogenCreateItems.UWU.get());
             getOrCreateTagBuilder(EstrogenTags.Items.COPPER_PLATES)
                     .addOptionalTag(AllTags.forgeItemTag("copper_plates"))
                     .addOptionalTag(AllTags.optionalTag(BuiltInRegistries.ITEM, new ResourceLocation("forge", "plates/copper")));
             getOrCreateTagBuilder(EstrogenTags.Items.CURIOS_THIGHS)
-                    .add(EstrogenItems.ESTROGEN_PATCHES.get());
+                    .add(EstrogenCreateItems.ESTROGEN_PATCHES.get());
             getOrCreateTagBuilder(EstrogenTags.Items.MUSIC_DISCS)
-                    .add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get());
+                    .add(EstrogenCreateItems.ESTROGEN_CHIP_COOKIE.get());
         }
     }
 
@@ -44,7 +44,7 @@ public class EstrogenTagsGen {
         @Override
         protected void addTags(HolderLookup.Provider arg) {
             getOrCreateTagBuilder(EstrogenTags.Blocks.PICKAXE_MINABLE)
-                    .add(EstrogenBlocks.CENTRIFUGE.get());
+                    .add(EstrogenCreateBlocks.CENTRIFUGE.get());
         }
     }
 

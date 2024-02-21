@@ -14,7 +14,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.fabric.integrations.emi.recipes.CentrifugingEmiRecipe;
-import dev.mayaqq.estrogen.registry.EstrogenBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenRecipes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -31,7 +31,7 @@ public class EmiCompat implements EmiPlugin {
     public static final Map<ResourceLocation, EmiRecipeCategory> ALL = new LinkedHashMap<>();
 
     public static final EmiRecipeCategory
-            CENTRIFUGING = register("centrifuging", EmiStack.of(EstrogenBlocks.CENTRIFUGE.get()));
+            CENTRIFUGING = register("centrifuging", EmiStack.of(EstrogenCreateBlocks.CENTRIFUGE.get()));
 
     public static boolean doInputsMatch(Recipe<?> a, Recipe<?> b) {
         if (!a.getIngredients().isEmpty() && !b.getIngredients().isEmpty()) {
@@ -70,7 +70,7 @@ public class EmiCompat implements EmiPlugin {
 
         ALL.forEach((id, category) -> registry.addCategory(category));
 
-        registry.addWorkstation(CENTRIFUGING, EmiStack.of(EstrogenBlocks.CENTRIFUGE.get()));
+        registry.addWorkstation(CENTRIFUGING, EmiStack.of(EstrogenCreateBlocks.CENTRIFUGE.get()));
 
         addAll(registry, EstrogenRecipes.CENTRIFUGING, CentrifugingEmiRecipe::new);
     }

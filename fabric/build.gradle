@@ -24,9 +24,6 @@ dependencies {
     // Fapi
     modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
 
-    //Architectury api
-    modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}")
-
     //Create
     modImplementation("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}")
 

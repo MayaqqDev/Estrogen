@@ -1,15 +1,14 @@
 package dev.mayaqq.estrogen.client;
 
-import dev.architectury.platform.Platform;
-import dev.architectury.registry.client.rendering.RenderTypeRegistry;
-import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
-import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
-import dev.mayaqq.estrogen.networking.EstrogenS2C;
 import dev.mayaqq.estrogen.client.registry.EstrogenKeybinds;
 import dev.mayaqq.estrogen.client.registry.EstrogenModelPredicateProviders;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
-import dev.mayaqq.estrogen.registry.EstrogenFluids;
+import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
+import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
+import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenPonderScenes;
+import earth.terrarium.botarium.client.ClientHooks;
+import earth.terrarium.botarium.util.CommonHooks;
 import net.minecraft.client.renderer.RenderType;
 
 import static dev.mayaqq.estrogen.Estrogen.LOGGER;
@@ -20,25 +19,21 @@ public class EstrogenClient {
         EstrogenRenderer.register();
         EstrogenKeybinds.register();
         EstrogenModelPredicateProviders.register();
-        EstrogenS2C.register();
         EstrogenPonderScenes.register();
         EstrogenPatchesRenderer.register();
 
-        RenderTypeRegistry.register(RenderType.translucent(), EstrogenFluids.LIQUID_ESTROGEN.get());
-        RenderTypeRegistry.register(RenderType.translucent(), EstrogenFluids.LIQUID_ESTROGEN_FLOWING.get());
-        RenderTypeRegistry.register(RenderType.translucent(), EstrogenFluids.HORSE_URINE.get());
-        RenderTypeRegistry.register(RenderType.translucent(), EstrogenFluids.HORSE_URINE_FLOWING.get());
-        RenderTypeRegistry.register(RenderType.translucent(), EstrogenFluids.FILTRATED_HORSE_URINE.get());
-        RenderTypeRegistry.register(RenderType.translucent(), EstrogenFluids.FILTRATED_HORSE_URINE_FLOWING.get());
-        RenderTypeRegistry.register(RenderType.translucent(), EstrogenFluids.TESTOSTERONE_MIXTURE.get());
-        RenderTypeRegistry.register(RenderType.translucent(), EstrogenFluids.TESTOSTERONE_MIXTURE_FLOWING.get());
+        //TODO: Might not work
+        ClientHooks.setRenderLayer(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), RenderType.translucent());
+        ClientHooks.setRenderLayer(EstrogenBlocks.HORSE_URINE_BLOCK.get(), RenderType.translucent());
+        ClientHooks.setRenderLayer(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), RenderType.translucent());
+        ClientHooks.setRenderLayer(EstrogenBlocks.TESTOSTERONE_MIXTURE_BLOCK.get(), RenderType.translucent());
 
         // mod compat
-        if (Platform.isModLoaded("ears")) {
+        if (CommonHooks.isModLoaded("ears")) {
             EarsCompat.boob();
         }
 
-        if (Platform.isFabric() && Platform.isModLoaded("roughlyenoughitems") && !Platform.isModLoaded("createreibugfix")) {
+        if (CommonHooks.isModLoaded("roughlyenoughitems") && !CommonHooks.isModLoaded("createreibugfix")) {
             LOGGER.warn("--------------------------------------------------------------------------------------------------------------------------");
             LOGGER.warn("");
             LOGGER.warn("[ESTROGEN] Roughly Enough Items is installed without Create REI Bugfix! This will cause issues with some Estrogen Recipes.");

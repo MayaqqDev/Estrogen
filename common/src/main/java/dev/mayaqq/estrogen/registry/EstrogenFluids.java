@@ -1,33 +1,29 @@
 package dev.mayaqq.estrogen.registry;
 
+import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries;
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
-import dev.architectury.core.fluid.ArchitecturyFlowingFluid;
-import dev.architectury.registry.registries.Registrar;
-import dev.architectury.registry.registries.RegistrySupplier;
 import dev.mayaqq.estrogen.Estrogen;
+import earth.terrarium.botarium.common.registry.fluid.BotariumFlowingFluid;
+import earth.terrarium.botarium.common.registry.fluid.BotariumSourceFluid;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.material.Fluid;
 
 public class EstrogenFluids {
 
     public static final ResourcefulRegistry<Fluid> FLUIDS = ResourcefulRegistries.create(BuiltInRegistries.FLUID, Estrogen.MOD_ID);
 
-    public static RegistrySupplier<ArchitecturyFlowingFluid.Source> MOLTEN_SLIME = FLUIDS.register("molten_slime", () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.MOLTEN_SLIME));
-    public static RegistrySupplier<ArchitecturyFlowingFluid.Source> TESTOSTERONE_MIXTURE = FLUIDS.register(Estrogen.id("testosterone_mixture"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.TESTOSTERONE_MIXTURE));
-    public static RegistrySupplier<ArchitecturyFlowingFluid.Source> LIQUID_ESTROGEN = FLUIDS.register(Estrogen.id("liquid_estrogen"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.LIQUID_ESTROGEN));
-    public static RegistrySupplier<ArchitecturyFlowingFluid.Source> FILTRATED_HORSE_URINE = FLUIDS.register(Estrogen.id("filtrated_horse_urine"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.FILTRATED_HORSE_URINE));
-    public static RegistrySupplier<ArchitecturyFlowingFluid.Source> HORSE_URINE = FLUIDS.register(Estrogen.id("horse_urine"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.HORSE_URINE));
-    public static RegistrySupplier<ArchitecturyFlowingFluid.Source> MOLTEN_AMETHYST = FLUIDS.register(Estrogen.id("molten_amethyst"), () -> new ArchitecturyFlowingFluid.Source(EstrogenFluidAttributes.MOLTEN_AMETHYST));
+    public static final RegistryEntry<Fluid> MOLTEN_SLIME = FLUIDS.register("molten_slime", () -> new BotariumSourceFluid(EstrogenFluidProperties.MOLTEN_SLIME));
+    public static final RegistryEntry<Fluid> TESTOSTERONE_MIXTURE = FLUIDS.register("testosterone_mixture", () -> new BotariumSourceFluid(EstrogenFluidProperties.TESTOSTERONE_MIXTURE));
+    public static final RegistryEntry<Fluid> LIQUID_ESTROGEN = FLUIDS.register("liquid_estrogen", () -> new BotariumSourceFluid(EstrogenFluidProperties.LIQUID_ESTROGEN));
+    public static final RegistryEntry<Fluid> FILTRATED_HORSE_URINE = FLUIDS.register("filtrated_horse_urine", () -> new BotariumSourceFluid(EstrogenFluidProperties.FILTRATED_HORSE_URINE));
+    public static final RegistryEntry<Fluid> HORSE_URINE = FLUIDS.register("horse_urine", () -> new BotariumSourceFluid(EstrogenFluidProperties.HORSE_URINE));
+    public static final RegistryEntry<Fluid> MOLTEN_AMETHYST = FLUIDS.register("molten_amethyst", () -> new BotariumSourceFluid(EstrogenFluidProperties.MOLTEN_AMETHYST));
 
-    public static RegistrySupplier<ArchitecturyFlowingFluid.Flowing> MOLTEN_SLIME_FLOWING = FLUIDS.register(Estrogen.id("flowing_molten_slime"), () -> new ArchitecturyFlowingFluid.Flowing(EstrogenFluidAttributes.MOLTEN_SLIME));
-    public static RegistrySupplier<ArchitecturyFlowingFluid.Flowing> TESTOSTERONE_MIXTURE_FLOWING = FLUIDS.register(Estrogen.id("flowing_testosterone_mixture"), () -> new ArchitecturyFlowingFluid.Flowing(EstrogenFluidAttributes.TESTOSTERONE_MIXTURE));
-    public static RegistrySupplier<ArchitecturyFlowingFluid.Flowing> LIQUID_ESTROGEN_FLOWING = FLUIDS.register(Estrogen.id("flowing_liquid_estrogen"), () -> new ArchitecturyFlowingFluid.Flowing(EstrogenFluidAttributes.LIQUID_ESTROGEN));
-    public static RegistrySupplier<ArchitecturyFlowingFluid.Flowing> FILTRATED_HORSE_URINE_FLOWING = FLUIDS.register(Estrogen.id("flowing_filtrated_horse_urine"), () -> new ArchitecturyFlowingFluid.Flowing(EstrogenFluidAttributes.FILTRATED_HORSE_URINE));
-    public static RegistrySupplier<ArchitecturyFlowingFluid.Flowing> HORSE_URINE_FLOWING = FLUIDS.register(Estrogen.id("flowing_horse_urine"), () -> new ArchitecturyFlowingFluid.Flowing(EstrogenFluidAttributes.HORSE_URINE));
-    public static RegistrySupplier<ArchitecturyFlowingFluid.Flowing> MOLTEN_AMETHYST_FLOWING = FLUIDS.register(Estrogen.id("flowing_molten_amethyst"), () -> new ArchitecturyFlowingFluid.Flowing(EstrogenFluidAttributes.MOLTEN_AMETHYST));
-
-    public static void register() {
-    }
+    public static final RegistryEntry<Fluid> MOLTEN_SLIME_FLOWING = FLUIDS.register("flowing_molten_slime", () -> new BotariumFlowingFluid(EstrogenFluidProperties.MOLTEN_SLIME));
+    public static final RegistryEntry<Fluid> TESTOSTERONE_MIXTURE_FLOWING = FLUIDS.register("flowing_testosterone_mixture", () -> new BotariumFlowingFluid(EstrogenFluidProperties.TESTOSTERONE_MIXTURE));
+    public static final RegistryEntry<Fluid> LIQUID_ESTROGEN_FLOWING = FLUIDS.register("flowing_liquid_estrogen", () -> new BotariumFlowingFluid(EstrogenFluidProperties.LIQUID_ESTROGEN));
+    public static final RegistryEntry<Fluid> FILTRATED_HORSE_URINE_FLOWING = FLUIDS.register("flowing_filtrated_horse_urine", () -> new BotariumFlowingFluid(EstrogenFluidProperties.FILTRATED_HORSE_URINE));
+    public static final RegistryEntry<Fluid> HORSE_URINE_FLOWING = FLUIDS.register("flowing_horse_urine", () -> new BotariumFlowingFluid(EstrogenFluidProperties.HORSE_URINE));
+    public static final RegistryEntry<Fluid> MOLTEN_AMETHYST_FLOWING = FLUIDS.register("flowing_molten_amethyst", () -> new BotariumFlowingFluid(EstrogenFluidProperties.MOLTEN_AMETHYST));
 }

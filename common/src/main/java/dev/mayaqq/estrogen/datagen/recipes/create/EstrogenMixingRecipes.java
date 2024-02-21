@@ -8,8 +8,8 @@ import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeInterface;
+import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
-import dev.mayaqq.estrogen.registry.EstrogenItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -24,18 +24,18 @@ public class EstrogenMixingRecipes<T extends EstrogenRecipeInterface> extends Pr
             .require(EstrogenFluids.HORSE_URINE.get(), t.getAmount(27000))
             .require(AllItems.FILTER.get())
             .output(EstrogenFluids.FILTRATED_HORSE_URINE.get(), t.getAmount(27000))
-            .output(EstrogenItems.USED_FILTER)),
+            .output(EstrogenCreateItems.USED_FILTER)),
             MOLTEN_AMETHYST = create(id("molten_amethyst"), recipeBuilder -> recipeBuilder
                     .require(Items.AMETHYST_SHARD)
                     .output(EstrogenFluids.MOLTEN_AMETHYST.get(), t.getAmount(27000))
                     .requiresHeat(HeatCondition.HEATED)),
             BALLS = create(id("balls"), recipeBuilder -> recipeBuilder
                     .require(Items.SLIME_BALL)
-                    .output(EstrogenItems.BALLS)
+                    .output(EstrogenCreateItems.BALLS)
                     .output(EstrogenFluids.MOLTEN_SLIME.get(), t.getAmount(27000))
                     .requiresHeat(HeatCondition.HEATED)),
             TESTOSTERONE_MIXTURE = create(id("testosterone_mixture"), recipeBuilder -> recipeBuilder
-                    .require(EstrogenItems.TESTOSTERONE_POWDER)
+                    .require(EstrogenCreateItems.TESTOSTERONE_POWDER)
                     .require(Items.COAL)
                     .output(EstrogenFluids.TESTOSTERONE_MIXTURE.get(), t.getAmount(54000))
                     .requiresHeat(HeatCondition.HEATED));

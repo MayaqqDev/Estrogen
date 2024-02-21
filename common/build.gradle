@@ -8,9 +8,6 @@ dependencies {
     // Fapi
     modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
 
-    // Architectury
-    modApi("dev.architectury:architectury:${rootProject.architectury_version}")
-
     // Create
     modCompileOnly("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}")
 

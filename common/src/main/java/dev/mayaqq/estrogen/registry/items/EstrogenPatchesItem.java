@@ -2,8 +2,8 @@ package dev.mayaqq.estrogen.registry.items;
 
 import com.simibubi.create.foundation.utility.Color;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
-import dev.mayaqq.estrogen.registry.EstrogenItems;
 import earth.terrarium.baubly.Baubly;
 import earth.terrarium.baubly.common.Bauble;
 import earth.terrarium.baubly.common.SlotInfo;
@@ -13,7 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class EstrogenPatchesItem extends Item implements Bauble {
     int tick = 0;
@@ -35,7 +34,7 @@ public class EstrogenPatchesItem extends Item implements Bauble {
         CompoundTag tag = stack.getOrCreateTag();
         if (info.wearer() instanceof Player player && (bypass || tick == 20) && tag.getInt("EstrogenAmount") > 0) {
             tick = 0;
-            player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT, 400, stack.getCount() - 1, false, false, false));
+            player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), 400, stack.getCount() - 1, false, false, false));
         }
         if (EstrogenConfig.server().patchDrain.get() && estrogenAmountTick == EstrogenConfig.server().patchDrainAmount.get()) {
             estrogenAmountTick = 0;
@@ -51,7 +50,7 @@ public class EstrogenPatchesItem extends Item implements Bauble {
 
     @Override
     public void onUnequip(ItemStack stack, SlotInfo slot) {
-        slot.wearer().removeEffect(EstrogenEffects.ESTROGEN_EFFECT);
+        slot.wearer().removeEffect(EstrogenEffects.ESTROGEN_EFFECT.get());
     }
 
     public @NotNull ItemStack getDefaultInstance() {
@@ -61,13 +60,13 @@ public class EstrogenPatchesItem extends Item implements Bauble {
     }
 
     public static ItemStack getDefaultStack() {
-        ItemStack newStack = new ItemStack(EstrogenItems.ESTROGEN_PATCHES);
+        ItemStack newStack = new ItemStack(EstrogenCreateItems.ESTROGEN_PATCHES);
         newStack.getOrCreateTag().putInt("EstrogenAmount", 1000);
         return newStack;
     }
 
     public static ItemStack emptyStack() {
-        ItemStack newStack = new ItemStack(EstrogenItems.ESTROGEN_PATCHES);
+        ItemStack newStack = new ItemStack(EstrogenCreateItems.ESTROGEN_PATCHES);
         newStack.getOrCreateTag().putInt("EstrogenAmount", 0);
         return newStack;
     }
