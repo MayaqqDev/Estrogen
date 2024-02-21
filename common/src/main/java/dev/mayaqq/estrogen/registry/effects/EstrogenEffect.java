@@ -4,8 +4,10 @@ import dev.architectury.networking.NetworkManager;
 import dev.mayaqq.estrogen.client.Dash;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenC2S;
+import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.networking.EstrogenStatusEffectSender;
 import dev.mayaqq.estrogen.client.registry.EstrogenKeybinds;
+import dev.mayaqq.estrogen.networking.messages.c2s.DashPacket;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
 import dev.mayaqq.estrogen.utils.PlayerLookup;
 import dev.mayaqq.estrogen.utils.Time;
@@ -63,7 +65,7 @@ public class EstrogenEffect extends MobEffect {
 
             // Dash particles
             if (dashCooldown > 0 && dashCooldown % 2 == 0 && entity.blockPosition() != lastPos) {
-                NetworkManager.sendToServer(EstrogenC2S.DASH_PARTICLES, new FriendlyByteBuf(Unpooled.buffer()));
+                EstrogenNetworkManager.CHANNEL.sendToServer(new DashPacket());
             }
             lastPos = entity.blockPosition();
 
@@ -89,7 +91,6 @@ public class EstrogenEffect extends MobEffect {
                 currentDashes--;
                 int dashDeltaModifier = EstrogenConfig.server().dashDeltaModifier.get();
                 player.setDeltaMovement(player.getLookAngle().x * dashDeltaModifier, player.getLookAngle().y * dashDeltaModifier, player.getLookAngle().z * dashDeltaModifier);
-                NetworkManager.sendToServer(EstrogenC2S.DASH, new FriendlyByteBuf(Unpooled.buffer()));
             }
         }
     }
@@ -97,7 +98,7 @@ public class EstrogenEffect extends MobEffect {
     @Override
     public void removeAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
         if (entity instanceof ServerPlayer player) {
-            new EstrogenStatusEffectSender().sendRemovePlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
+            new EstrogenStatusEffectSender().sendRemovePlayerStatusEffect(player, ESTROGEN_EFFECT.get(), PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
         }
 
         if (entity instanceof Player) {
@@ -108,7 +109,7 @@ public class EstrogenEffect extends MobEffect {
             resetDash(entity);
         }
 
-        if (!entity.hasEffect(ESTROGEN_EFFECT) && entity instanceof Player) {
+        if (!entity.hasEffect(ESTROGEN_EFFECT.get()) && entity instanceof Player) {
             entity.getAttribute(BOOB_INITIAL_SIZE.get()).setBaseValue(0.0);
             entity.getAttribute(BOOB_GROWING_START_TIME.get()).setBaseValue(-1.0);
         }
@@ -125,7 +126,7 @@ public class EstrogenEffect extends MobEffect {
     public void addAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
 
         if (entity instanceof ServerPlayer player) {
-            new EstrogenStatusEffectSender().sendPlayerStatusEffect(player, ESTROGEN_EFFECT, PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
+            new EstrogenStatusEffectSender().sendPlayerStatusEffect(player, ESTROGEN_EFFECT.get(), PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
         }
 
         super.addAttributeModifiers(entity, attributes, amplifier);
