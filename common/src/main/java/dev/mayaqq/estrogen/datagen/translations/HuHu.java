@@ -1,9 +1,6 @@
 package dev.mayaqq.estrogen.datagen.translations;
 
-import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
-import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
-import dev.mayaqq.estrogen.registry.EstrogenEffects;
-import dev.mayaqq.estrogen.registry.EstrogenEnchantments;
+import dev.mayaqq.estrogen.registry.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
@@ -19,14 +16,14 @@ public class HuHu extends FabricLanguageProvider {
         tb.add("text.autoconfig.estrogen.title", "Ösztrogén");
         tb.add("text.autoconfig.estrogen.option.boobies", "Mell");
         // Status Effects
-        tb.add(EstrogenEffects.ESTROGEN_EFFECT, "Lány Erő");
+        tb.add(EstrogenEffects.ESTROGEN_EFFECT.get(), "Lány Erő");
 
         // Controls
         tb.add("category.estrogen", "Ösztrogén");
         tb.add("key.estrogen.dash", "Dash Aktiválása");
 
         // Items
-        tb.add("itemGroup.estrogen", "Ösztrogén");
+        tb.add("itemGroup.estrogen.estrogen", "Ösztrogén");
         tb.add(EstrogenCreateItems.ESTROGEN_PILL.get(), "Ösztrogén tabletta");
         tb.add(EstrogenCreateItems.ESTROGEN_PATCHES.get(), "Ösztrogén tapasz");
         tb.add("item.estrogen.estrogen_patches_plural", "Ösztrogén tapaszok");
@@ -43,12 +40,12 @@ public class HuHu extends FabricLanguageProvider {
         tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
         tb.add(EstrogenCreateItems.INCOMPLETE_UWU.get(), "Befejezetlen UwU");
         // Buckets
-        tb.add(EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET.get(), "Folyékony ösztrogénes vödör");
-        tb.add(EstrogenFluidItems.HORSE_URINE_BUCKET.get(), "Lóvizeletes vödör");
-        tb.add(EstrogenFluidItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Szűrt lóvizeletes vödör");
-        tb.add(EstrogenFluidItems.MOLTEN_SLIME_BUCKET.get(), "Olvasztott nyálkás vödör");
-        tb.add(EstrogenFluidItems.MOLTEN_AMETHYST_BUCKET.get(), "Olvasztott ametisztes vödör");
-        tb.add(EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Tesztoszteron keverékes vödör");
+        tb.add(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(), "Folyékony ösztrogénes vödör");
+        tb.add(EstrogenItems.HORSE_URINE_BUCKET.get(), "Lóvizeletes vödör");
+        tb.add(EstrogenItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Szűrt lóvizeletes vödör");
+        tb.add(EstrogenItems.MOLTEN_SLIME_BUCKET.get(), "Olvasztott nyálkás vödör");
+        tb.add(EstrogenItems.MOLTEN_AMETHYST_BUCKET.get(), "Olvasztott ametisztes vödör");
+        tb.add(EstrogenItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Tesztoszteron keverékes vödör");
 
         // Blocks
         tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifuga");

@@ -38,15 +38,16 @@ public class Estrogen {
         EstrogenAttributes.ATTRIBUTES.init();
         EstrogenBlockEntities.register();
         EstrogenCreateBlocks.register();
+        EstrogenFluidProperties.FLUID_PROPERTIES.initialize();
+        EstrogenFluids.FLUIDS.init();
         EstrogenBlocks.BLOCKS.init();
         EstrogenEffects.MOB_EFFECTS.init();
         EstrogenEnchantments.register();
-        EstrogenFluids.FLUIDS.init();
-        EstrogenFluidProperties.FLUID_PROPERTIES.initialize();
         EstrogenCreateItems.register();
         EstrogenItems.ITEMS.init();
-        EstrogenRecipes.RECIPE_SERIALIZERS.init();
-        EstrogenRecipes.RECIPE_TYPES.init();
+        EstrogenRecipeSerializer.RECIPE_SERIALIZERS.init();
+        EstrogenRecipeSerializer.RECIPE_TYPES.init();
+        EstrogenRecipes.register();
         EstrogenSounds.SOUNDS.init();
         EstrogenNetworkManager.register();
     }

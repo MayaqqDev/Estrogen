@@ -9,6 +9,9 @@
   ],
   "client": [
     "client.ClientPlayNetworkHandlerMixin",
+    "client.GameOptionsMixin",
+    "client.InGameHudMixin",
+    "client.MinecraftClientMixin",
     "client.PlayerEntityModelMixin",
     "client.PlayerEntityRendererMixin",
     "client.TextRendererMixin"

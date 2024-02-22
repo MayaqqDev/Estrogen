@@ -1,9 +1,6 @@
 package dev.mayaqq.estrogen.datagen.translations;
 
-import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
-import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
-import dev.mayaqq.estrogen.registry.EstrogenEffects;
-import dev.mayaqq.estrogen.registry.EstrogenEnchantments;
+import dev.mayaqq.estrogen.registry.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -60,7 +57,7 @@ public class Hispanic {
 
     public static void generateSpanishTranslations(FabricLanguageProvider.TranslationBuilder tb, Boolean pastilla) {
         // Status Effects
-        tb.add(EstrogenEffects.ESTROGEN_EFFECT, "Poder Femenino");
+        tb.add(EstrogenEffects.ESTROGEN_EFFECT.get(), "Poder Femenino");
 
         // Controls
         tb.add("category.estrogen", "Estrogen");
@@ -69,7 +66,7 @@ public class Hispanic {
         // Items
         String pillString = pastilla ? "Pastilla" : "Pildora";
 
-        tb.add("itemGroup.estrogen", "Estrogen");
+        tb.add("itemGroup.estrogen.estrogen", "Estrogen");
         tb.add(EstrogenCreateItems.ESTROGEN_PILL.get(), pillString + " de Estrógeno");
         tb.add(EstrogenCreateItems.ESTROGEN_PATCHES.get(), "Parche de Estrógeno");
         tb.add("item.estrogen.estrogen_patches_plural", "Parches de Estrógeno");
@@ -83,12 +80,12 @@ public class Hispanic {
         tb.add(EstrogenCreateItems.USED_FILTER.get(), "Filtro usado");
         tb.add(EstrogenCreateItems.INCOMPLETE_UWU.get(), "UwU Incompleto");
         // Buckets
-        tb.add(EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET.get(), "Cubo de Estrógeno Líquido");
-        tb.add(EstrogenFluidItems.HORSE_URINE_BUCKET.get(), "Cubo de Orina de Caballo");
-        tb.add(EstrogenFluidItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Cubo de Orina de Caballo Filtrada");
-        tb.add(EstrogenFluidItems.MOLTEN_SLIME_BUCKET.get(), "Cubo de Slime Fundido");
-        tb.add(EstrogenFluidItems.MOLTEN_AMETHYST_BUCKET.get(), "Cubo de Amatista Fundida");
-        tb.add(EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Cubo de Mezcla de Testosterona");
+        tb.add(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(), "Cubo de Estrógeno Líquido");
+        tb.add(EstrogenItems.HORSE_URINE_BUCKET.get(), "Cubo de Orina de Caballo");
+        tb.add(EstrogenItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Cubo de Orina de Caballo Filtrada");
+        tb.add(EstrogenItems.MOLTEN_SLIME_BUCKET.get(), "Cubo de Slime Fundido");
+        tb.add(EstrogenItems.MOLTEN_AMETHYST_BUCKET.get(), "Cubo de Amatista Fundida");
+        tb.add(EstrogenItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Cubo de Mezcla de Testosterona");
 
         // Blocks
         tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifugadora");

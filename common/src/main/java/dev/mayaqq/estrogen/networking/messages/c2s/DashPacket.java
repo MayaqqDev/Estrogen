@@ -13,7 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 
 @SuppressWarnings("ClassEscapesDefinedScope")
-public record DashPacket() implements Packet<DashPacket> {
+public record DashPacket(Boolean sound) implements Packet<DashPacket> {
     public static Handler HANDLER = new Handler();
     public static final ResourceLocation ID = Estrogen.id("dash");
 
@@ -30,18 +30,20 @@ public record DashPacket() implements Packet<DashPacket> {
     private static class Handler implements PacketHandler<DashPacket> {
 
         @Override
-        public void encode(DashPacket message, FriendlyByteBuf buffer) {}
+        public void encode(DashPacket message, FriendlyByteBuf buffer) {
+            buffer.writeBoolean(message.sound);
+        }
 
         @Override
         public DashPacket decode(FriendlyByteBuf buffer) {
-            return new DashPacket();
+            return new DashPacket(buffer.readBoolean());
         }
 
         @Override
         public PacketContext handle(DashPacket message) {
             return (player, level) -> {
                 if (player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) && level instanceof ServerLevel serverLevel) {
-                    serverLevel.playSound(null, player.blockPosition(), EstrogenSounds.DASH.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                    if (message.sound) serverLevel.playSound(null, player.blockPosition(), EstrogenSounds.DASH.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
                     // summon particles around player
                     serverLevel.sendParticles(ParticleTypes.CLOUD, player.getX(), player.getY(), player.getZ(), 10, 0.5, 0.5, 0.5, 0.5);
                 }

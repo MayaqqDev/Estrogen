@@ -1,9 +1,6 @@
 package dev.mayaqq.estrogen.datagen.translations;
 
-import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
-import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
-import dev.mayaqq.estrogen.registry.EstrogenEffects;
-import dev.mayaqq.estrogen.registry.EstrogenEnchantments;
+import dev.mayaqq.estrogen.registry.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
@@ -15,14 +12,14 @@ public class FrFr extends FabricLanguageProvider {
     @Override
     public void generateTranslations(TranslationBuilder tb) {
         // Status Effects
-        tb.add(EstrogenEffects.ESTROGEN_EFFECT, "Force Féminine");
+        tb.add(EstrogenEffects.ESTROGEN_EFFECT.get(), "Force Féminine");
 
         // Controls
         tb.add("category.estrogen", "Œstrogène");
         tb.add("key.estrogen.dash", "Propulsion");
 
         // Items
-        tb.add("itemGroup.estrogen", "Œstrogène");
+        tb.add("itemGroup.estrogen.estrogen", "Œstrogène");
         tb.add(EstrogenCreateItems.ESTROGEN_PILL.get(), "Pilule d'Œstrogène");
         tb.add(EstrogenCreateItems.ESTROGEN_PATCHES.get(), "Patch d'Œstrogène");
         tb.add("item.estrogen.estrogen_patches_plural", "Patchs d'Œstrogène");
@@ -39,12 +36,12 @@ public class FrFr extends FabricLanguageProvider {
         //tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
         tb.add(EstrogenCreateItems.INCOMPLETE_UWU.get(), "UwU incomplet");
         // Buckets
-        tb.add(EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET.get(), "Seau d'Œstrogène liquide");
-        tb.add(EstrogenFluidItems.HORSE_URINE_BUCKET.get(), "Seau d'rine de cheval");
-        tb.add(EstrogenFluidItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Seau d'urine de cheval");
-        tb.add(EstrogenFluidItems.MOLTEN_SLIME_BUCKET.get(), "Seau de Slime fondu");
-        tb.add(EstrogenFluidItems.MOLTEN_AMETHYST_BUCKET.get(), "Seau d'améthyste fondue");
-        tb.add(EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Seau de mixture de testostérone");
+        tb.add(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(), "Seau d'Œstrogène liquide");
+        tb.add(EstrogenItems.HORSE_URINE_BUCKET.get(), "Seau d'rine de cheval");
+        tb.add(EstrogenItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Seau d'urine de cheval");
+        tb.add(EstrogenItems.MOLTEN_SLIME_BUCKET.get(), "Seau de Slime fondu");
+        tb.add(EstrogenItems.MOLTEN_AMETHYST_BUCKET.get(), "Seau d'améthyste fondue");
+        tb.add(EstrogenItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Seau de mixture de testostérone");
 
         // Blocks
         tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifugeuse");

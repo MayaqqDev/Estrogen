@@ -45,9 +45,16 @@ mandatory = true
 versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
-# architectury api
+# botarium
 [[dependencies.estrogen]]
-modId = "architectury"
+modId = "botarium"
+mandatory = true
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
+# resourceful lib
+[[dependencies.estrogen]]
+modId = "resourcefullib"
 mandatory = true
 versionRange = "*"
 ordering = "NONE"

@@ -27,6 +27,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.LiquidBlock;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.UUID;
@@ -58,9 +59,9 @@ public class EstrogenEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public void applyEffectTick(@NotNull LivingEntity entity, int amplifier) {
         if (!EstrogenConfig.server().dashEnabled.get()) return;
-        if (entity instanceof Player player && player.level().isClientSide && player instanceof LocalPlayer) {
+        if (entity instanceof Player player && player.level().isClientSide) {
             dashCooldown--;
             groundCooldown--;
             if (dashCooldown < 0) dashCooldown = 0;
@@ -68,7 +69,7 @@ public class EstrogenEffect extends MobEffect {
 
             // Dash particles
             if (dashCooldown > 0 && dashCooldown % 2 == 0 && entity.blockPosition() != lastPos) {
-                EstrogenNetworkManager.CHANNEL.sendToServer(new DashPacket());
+                EstrogenNetworkManager.CHANNEL.sendToServer(new DashPacket(false));
             }
             lastPos = entity.blockPosition();
 
@@ -86,13 +87,14 @@ public class EstrogenEffect extends MobEffect {
             }
             onCooldown = dashCooldown > 0 || currentDashes == 0;
             Dash.onCooldown = onCooldown;
-            if (EstrogenKeybinds.dashKey.consumeClick() && !onCooldown) {
+            if (EstrogenKeybinds.DASH_KEY.consumeClick() && !onCooldown) {
                 if (player.getXRot() > 50 && player.getXRot() < 90) {
                     shouldWaveDash = true;
                 }
                 dashCooldown = 10;
                 currentDashes--;
                 int dashDeltaModifier = EstrogenConfig.server().dashDeltaModifier.get();
+                EstrogenNetworkManager.CHANNEL.sendToServer(new DashPacket(true));
                 player.setDeltaMovement(player.getLookAngle().x * dashDeltaModifier, player.getLookAngle().y * dashDeltaModifier, player.getLookAngle().z * dashDeltaModifier);
             }
         }
@@ -126,7 +128,7 @@ public class EstrogenEffect extends MobEffect {
     }
 
     @Override
-    public void addAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
+    public void addAttributeModifiers(@NotNull LivingEntity entity, @NotNull AttributeMap attributes, int amplifier) {
 
         if (entity instanceof ServerPlayer player) {
             sendPlayerStatusEffect(player, ESTROGEN_EFFECT.get(), PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));

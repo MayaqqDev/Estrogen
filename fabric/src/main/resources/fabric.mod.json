@@ -47,7 +47,8 @@
     "minecraft": "${minecraft_version}",
     "create": "*",
     "trinkets": "*",
-    "architectury": "*"
+    "botarium": "*",
+    "resourcefullib": "*"
   },
   "accessWidener": "estrogen.accesswidener",
   "suggests": {

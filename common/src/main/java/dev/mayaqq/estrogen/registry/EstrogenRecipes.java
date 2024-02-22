@@ -22,6 +22,8 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
+import static dev.mayaqq.estrogen.registry.EstrogenRecipeSerializer.RECIPE_SERIALIZERS;
+import static dev.mayaqq.estrogen.registry.EstrogenRecipeSerializer.RECIPE_TYPES;
 
 public enum EstrogenRecipes implements IRecipeTypeInfo {
     CENTRIFUGING(CentrifugingRecipe::new);
@@ -31,8 +33,6 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
     @Nullable
     private final RecipeType<?> typeObject;
     private final Supplier<RecipeType<?>> type;
-    public static final ResourcefulRegistry<RecipeSerializer<?>> RECIPE_SERIALIZERS = ResourcefulRegistries.create(BuiltInRegistries.RECIPE_SERIALIZER, Estrogen.MOD_ID);
-    public static final ResourcefulRegistry<RecipeType<?>> RECIPE_TYPES = ResourcefulRegistries.create(BuiltInRegistries.RECIPE_TYPE, Estrogen.MOD_ID);
 
     EstrogenRecipes(Supplier<RecipeSerializer<?>> serializerSupplier, Supplier<RecipeType<?>> typeSupplier, boolean registerType) {
         String name = Lang.asId(name());
@@ -56,8 +56,10 @@ public enum EstrogenRecipes implements IRecipeTypeInfo {
         type = () -> typeObject;
     }
 
+    public static void register() {}
+
     public RegistryEntry<? extends RecipeSerializer<?>> registerSerializer(String name, Supplier<RecipeSerializer<?>> serializerSupplier) {
-        return RECIPE_SERIALIZERS.register(name, serializerSupplier::get);
+        return RECIPE_SERIALIZERS.register(name, serializerSupplier);
     }
 
     public void registryEntry() {

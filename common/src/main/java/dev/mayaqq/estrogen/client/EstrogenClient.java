@@ -15,11 +15,10 @@ import static dev.mayaqq.estrogen.Estrogen.LOGGER;
 
 public class EstrogenClient {
     public static void init() {
-        Dash.register();
         EstrogenRenderer.register();
-        EstrogenKeybinds.register();
         EstrogenModelPredicateProviders.register();
         EstrogenPonderScenes.register();
+        EstrogenKeybinds.register();
         EstrogenPatchesRenderer.register();
 
         //TODO: Might not work

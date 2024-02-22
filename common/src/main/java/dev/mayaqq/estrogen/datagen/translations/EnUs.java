@@ -1,9 +1,6 @@
 package dev.mayaqq.estrogen.datagen.translations;
 
-import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
-import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
-import dev.mayaqq.estrogen.registry.EstrogenEffects;
-import dev.mayaqq.estrogen.registry.EstrogenEnchantments;
+import dev.mayaqq.estrogen.registry.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
@@ -16,14 +13,14 @@ public class EnUs extends FabricLanguageProvider {
     @Override
     public void generateTranslations(TranslationBuilder tb) {
         // Status Effects
-        tb.add(EstrogenEffects.ESTROGEN_EFFECT, "Girl Power");
+        tb.add(EstrogenEffects.ESTROGEN_EFFECT.get(), "Girl Power");
 
         // Controls
         tb.add("category.estrogen", "Estrogen");
         tb.add("key.estrogen.dash", "Activate Dash");
 
         // Items
-        tb.add("itemGroup.estrogen", "Estrogen");
+        tb.add("itemGroup.estrogen.estrogen", "Estrogen");
         tb.add(EstrogenCreateItems.ESTROGEN_PILL.get(), "Estrogen Pill");
         tb.add(EstrogenCreateItems.ESTROGEN_PATCHES.get(), "Estrogen Patch");
         tb.add("item.estrogen.estrogen_patches_plural", "Estrogen Patches");
@@ -40,12 +37,12 @@ public class EnUs extends FabricLanguageProvider {
         tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
         tb.add(EstrogenCreateItems.INCOMPLETE_UWU.get(), "Incomplete UwU");
         // Buckets
-        tb.add(EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET.get(), "Bucket of Liquid Estrogen");
-        tb.add(EstrogenFluidItems.HORSE_URINE_BUCKET.get(), "Bucket of Horse Urine");
-        tb.add(EstrogenFluidItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Bucket of Filtrated Horse Urine");
-        tb.add(EstrogenFluidItems.MOLTEN_SLIME_BUCKET.get(), "Bucket of Molten Slime");
-        tb.add(EstrogenFluidItems.MOLTEN_AMETHYST_BUCKET.get(), "Bucket of Molten Amethyst");
-        tb.add(EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Bucket of Testosterone Mixture");
+        tb.add(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(), "Bucket of Liquid Estrogen");
+        tb.add(EstrogenItems.HORSE_URINE_BUCKET.get(), "Bucket of Horse Urine");
+        tb.add(EstrogenItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Bucket of Filtrated Horse Urine");
+        tb.add(EstrogenItems.MOLTEN_SLIME_BUCKET.get(), "Bucket of Molten Slime");
+        tb.add(EstrogenItems.MOLTEN_AMETHYST_BUCKET.get(), "Bucket of Molten Amethyst");
+        tb.add(EstrogenItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Bucket of Testosterone Mixture");
 
         // Blocks
         tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifuge");
