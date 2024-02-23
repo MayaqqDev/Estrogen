@@ -32,6 +32,12 @@ public class EstrogenCreativeTab {
         items.add(EstrogenPatchesItem.emptyStack());
         items.add(UWU.get().getDefaultInstance());
         items.add(EstrogenCreateBlocks.CENTRIFUGE.get().asItem().getDefaultInstance());
+        items.add(EstrogenItems.MOLTEN_SLIME_BUCKET.get().getDefaultInstance());
+        items.add(EstrogenItems.TESTOSTERONE_MIXTURE_BUCKET.get().getDefaultInstance());
+        items.add(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get().getDefaultInstance());
+        items.add(EstrogenItems.FILTRATED_HORSE_URINE_BUCKET.get().getDefaultInstance());
+        items.add(EstrogenItems.HORSE_URINE_BUCKET.get().getDefaultInstance());
+        items.add(EstrogenItems.MOLTEN_AMETHYST_BUCKET.get().getDefaultInstance());
         //TODO: Add buckets
         return items.stream();
     }
