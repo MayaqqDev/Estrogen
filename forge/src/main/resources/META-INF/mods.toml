@@ -59,7 +59,6 @@ mandatory = true
 versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
-
 [modproperties.estrogen]
 'resourcefullib:resourcepack' = [
     { name="estrogenprogrammerart", description="§fOriginal Textures for the Mod Estrogen. (§dBy Mayaqq§f)" }

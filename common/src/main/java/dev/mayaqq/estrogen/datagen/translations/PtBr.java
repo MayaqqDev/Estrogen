@@ -36,6 +36,11 @@ public class PtBr extends FabricLanguageProvider {
         tb.add(EstrogenItems.UWU.get(), ":3");
         tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
         tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "UwU Incompleto");
+        // Potion
+        tb.add("item.minecraft.tipped_arrow.effect.estrogen", "Flecha de Poder Feminino");
+        tb.add("item.minecraft.potion.effect.estrogen", "Poção de Poder Feminino");
+        tb.add("item.minecraft.splash_potion.effect.estrogen", "Poção Arremessável de Poder Feminino");
+        tb.add("item.minecraft.lingering_potion.effect.estrogen", "Poção Prolongada de Poder Feminino");
         // Buckets
         tb.add(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(), "Balde de Estrogênio Liquido");
         tb.add(EstrogenItems.HORSE_URINE_BUCKET.get(), "Balde de Urina de Cavalo");
