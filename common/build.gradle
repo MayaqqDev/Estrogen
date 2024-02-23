@@ -8,14 +8,11 @@ dependencies {
     // Fapi
     modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
 
-    // Architectury
-    modApi("dev.architectury:architectury:${rootProject.architectury_version}")
-
     // Create
     modCompileOnly("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}")
 
     // Trinkets
-    modCompileOnly("dev.emi:trinkets:${rootProject.trinkets_version}")
+    modImplementation("earth.terrarium.baubly:baubly-common-${rootProject.minecraft_version}:${rootProject.baubly_version}") transitive false
 
     // Ears
     implementation("com.unascribed:ears-api:${rootProject.ears_version}")

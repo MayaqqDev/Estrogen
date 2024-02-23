@@ -7,7 +7,17 @@
   "results": [
     {
       "chance": 120.0,
-      "item": "estrogen:estrogen_patches"
+      "item": "estrogen:estrogen_patches",
+      "nbt": {
+        "BotariumData": {
+          "StoredFluids": [
+            {
+              "Amount": "81000L",
+              "Fluid": "estrogen:liquid_estrogen"
+            }
+          ]
+        }
+      }
     },
     {
       "chance": 16.0,

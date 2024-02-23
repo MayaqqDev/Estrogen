@@ -2,9 +2,9 @@ package dev.mayaqq.estrogen.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.architectury.event.events.client.ClientGuiEvent;
-import dev.architectury.event.events.client.ClientTickEvent;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.registry.EstrogenTags;
+import net.minecraft.client.Minecraft;
 import dev.mayaqq.estrogen.datagen.tags.EstrogenTagsGen;
 import dev.mayaqq.estrogen.registry.common.EstrogenTags;
 import net.minecraft.client.gui.GuiGraphics;
@@ -23,23 +23,23 @@ public class Dash {
     // tick counter from 0 to 20
     private static int tick = 0;
 
-    public static void register() {
-        ClientTickEvent.CLIENT_POST.register(client -> {
-            LocalPlayer player = client.player;
-            if (player == null) return;
+    public static void dashClientTick() {
+        Minecraft client = Minecraft.getInstance();
+        LocalPlayer player = client.player;
+        if (player == null) return;
 
-            // UwU Check
-            tick++;
-            if (tick == 20) {
-                tick = 0;
-                uwufy = player.getInventory().contains(EstrogenTags.Items.UWUFYING);
-            }
-        });
-        ClientGuiEvent.RENDER_HUD.register((graphics, tickDelta) -> {
-            if (onCooldown && EstrogenConfig.client().dashOverlay.get()) {
-                renderOverLayer(graphics, 0.3F, 0.5F, 0.8F);
-            }
-        });
+        // UwU Check
+        tick++;
+        if (tick == 20) {
+            tick = 0;
+            uwufy = player.getInventory().contains(EstrogenTags.Items.UWUFYING);
+        }
+    }
+
+    public static void renderOverlayTick(GuiGraphics guiGraphics) {
+        if (onCooldown && EstrogenConfig.client().dashOverlay.get()) {
+            renderOverLayer(guiGraphics, 0.3F, 0.5F, 0.8F);
+        }
     }
 
     private static void renderOverLayer(GuiGraphics graphics, float c1, float c2, float c3) {

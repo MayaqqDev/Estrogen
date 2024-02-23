@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.client.entity.player.features.boobs;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
-import dev.mayaqq.estrogen.registry.common.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.utils.Time;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -19,8 +19,8 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.DyeableArmorItem;
 import net.minecraft.world.item.ItemStack;
 
-import static dev.mayaqq.estrogen.registry.common.EstrogenAttributes.BOOB_GROWING_START_TIME;
-import static dev.mayaqq.estrogen.registry.common.EstrogenAttributes.BOOB_INITIAL_SIZE;
+import static dev.mayaqq.estrogen.registry.EstrogenAttributes.BOOB_GROWING_START_TIME;
+import static dev.mayaqq.estrogen.registry.EstrogenAttributes.BOOB_INITIAL_SIZE;
 import static dev.mayaqq.estrogen.utils.Boob.boobSize;
 
 @Environment(EnvType.CLIENT)
@@ -30,7 +30,7 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
     }
 
     public void render(PoseStack stack, MultiBufferSource bufferSource, int i, AbstractClientPlayer entity, float f, float g, float h, float j, float k, float l) {
-        if (entity.hasEffect(EstrogenEffects.ESTROGEN_EFFECT) && EstrogenConfig.client().chestFeature.get() && entity.isSkinLoaded() && !entity.isInvisible()) {
+        if (entity.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) && EstrogenConfig.client().chestFeature.get() && entity.isSkinLoaded() && !entity.isInvisible()) {
             VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entitySolid(entity.getSkinTextureLocation()));
             int m = LivingEntityRenderer.getOverlayCoords(entity, 0.0F);
             stack.pushPose();

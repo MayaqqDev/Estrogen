@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.datagen.translations;
 
-import dev.mayaqq.estrogen.registry.common.*;
+import dev.mayaqq.estrogen.registry.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
@@ -13,39 +13,46 @@ public class PtBr extends FabricLanguageProvider {
     @Override
     public void generateTranslations(TranslationBuilder tb) {
         // Status Effects
-        tb.add(EstrogenEffects.ESTROGEN_EFFECT, "Poder Feminino");
+        tb.add(EstrogenEffects.ESTROGEN_EFFECT.get(), "Poder Feminino");
 
         // Controls
         tb.add("category.estrogen", "Estrogênio");
         tb.add("key.estrogen.dash", "Ativar Dash");
 
         // Items
-        tb.add("itemGroup.estrogen", "Estrogênio");
-        tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Comprimido de Estrogênio");
-        tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Adesivo de Estrogênio");
+        tb.add("itemGroup.estrogen.estrogen", "Estrogênio");
+        tb.add(EstrogenCreateItems.ESTROGEN_PILL.get(), "Comprimido de Estrogênio");
+        tb.add(EstrogenCreateItems.ESTROGEN_PATCHES.get(), "Adesivo de Estrogênio");
         tb.add("item.estrogen.estrogen_patches_plural", "Adesivos de Estrogênio");
-        tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Adesivo Incompleto de Estrogênio");
-        tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Pilula de Estrogênio Cristalizado");
-        tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Cookie de Estrogênio");
+        tb.add(EstrogenCreateItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Adesivo Incompleto de Estrogênio");
+        tb.add(EstrogenCreateItems.CRYSTAL_ESTROGEN_PILL.get(), "Pilula de Estrogênio Cristalizado");
+        tb.add(EstrogenCreateItems.ESTROGEN_CHIP_COOKIE.get(), "Cookie de Estrogênio");
         tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C");
-        tb.add(EstrogenItems.BALLS.get(), "Bolas");
-        tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Garrafa de Urina de Cavalo");
-        tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Pedaço de Testosterona");
-        tb.add(EstrogenItems.TESTOSTERONE_POWDER.get(), "Pó de Testosterona");
-        tb.add(EstrogenItems.USED_FILTER.get(), "Filtro Usado");
-        tb.add(EstrogenItems.UWU.get(), ":3");
+        tb.add(EstrogenCreateItems.BALLS.get(), "Bolas");
+        tb.add(EstrogenCreateItems.HORSE_URINE_BOTTLE.get(), "Garrafa de Urina de Cavalo");
+        tb.add(EstrogenCreateItems.TESTOSTERONE_CHUNK.get(), "Pedaço de Testosterona");
+        tb.add(EstrogenCreateItems.TESTOSTERONE_POWDER.get(), "Pó de Testosterona");
+        tb.add(EstrogenCreateItems.USED_FILTER.get(), "Filtro Usado");
+        tb.add(EstrogenCreateItems.UWU.get(), ":3");
         tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
-        tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "UwU Incompleto");
+        tb.add(EstrogenCreateItems.INCOMPLETE_UWU.get(), "UwU Incompleto");
         // Buckets
-        tb.add(EstrogenFluidItems.LIQUID_ESTROGEN_BUCKET.get(), "Balde de Estrogênio Liquido");
-        tb.add(EstrogenFluidItems.HORSE_URINE_BUCKET.get(), "Balde de Urina de Cavalo");
-        tb.add(EstrogenFluidItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Balde de Urina de Cavalo Filtrada");
-        tb.add(EstrogenFluidItems.MOLTEN_SLIME_BUCKET.get(), "Balde de Slime Derretido");
-        tb.add(EstrogenFluidItems.MOLTEN_AMETHYST_BUCKET.get(), "Balde de Ametista Derretida");
-        tb.add(EstrogenFluidItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Balde de Mistura de Testosterona");
+        tb.add(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(), "Balde de Estrogênio Liquido");
+        tb.add(EstrogenItems.HORSE_URINE_BUCKET.get(), "Balde de Urina de Cavalo");
+        tb.add(EstrogenItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Balde de Urina de Cavalo Filtrada");
+        tb.add(EstrogenItems.MOLTEN_SLIME_BUCKET.get(), "Balde de Slime Derretido");
+        tb.add(EstrogenItems.MOLTEN_AMETHYST_BUCKET.get(), "Balde de Ametista Derretida");
+        tb.add(EstrogenItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Balde de Mistura de Testosterona");
 
         // Blocks
-        tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrífuga");
+        tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrífuga");
+        tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Estrogênio Líquido");
+        tb.add(EstrogenBlocks.HORSE_URINE_BLOCK.get(), "Urina de Cavalo");
+        tb.add(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), "Urina de Cavalo Filtrada");
+        tb.add(EstrogenBlocks.MOLTEN_SLIME_BLOCK.get(), "Slime Derretido");
+        tb.add(EstrogenBlocks.MOLTEN_AMETHYST_BLOCK.get(), "Ametista Derretida");
+        tb.add(EstrogenBlocks.TESTOSTERONE_MIXTURE_BLOCK.get(), "Mistura de Testosterona");
+
         // Fluids
         tb.add("fluid.estrogen.liquid_estrogen", "Estrogênio Líquido");
         tb.add("fluid.estrogen.horse_urine", "Urina de Cavalo");

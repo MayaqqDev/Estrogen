@@ -12,18 +12,26 @@ tasks.register("buildBoth") {
 
 tasks.register("multiplatformDatagen") {
     Project common = project(":common")
+    Project fabric = project(":fabric")
+    Project forge = project(":forge")
     dependsOn project(":fabric").tasks.named("runDatagen")
     // Copy the fabric only recipes to the generated resources
+    File fabricDir = fabric.file("src/main/generated/data/estrogen/recipes/")
+    File forgeDir = forge.file("src/main/generated/data/estrogen/recipes/")
+
+    delete(fabricDir)
+    delete(forgeDir)
+
     copy {
         from common.file("src/main/generated/data/estrogen/recipes/.fabric")
         include "**/*.json"
-        into "src/main/generated/data/estrogen/recipes/"
+        into fabric.file("src/main/generated/data/estrogen/recipes/")
     }
     // Copy the forge only recipes to the generated resources
     copy {
         from common.file("src/main/generated/data/estrogen/recipes/.forge")
         include "**/*.json"
-        into "src/main/generated/data/estrogen/recipes/"
+        into forge.file("src/main/generated/data/estrogen/recipes/")
     }
 }
 
@@ -39,8 +47,14 @@ subprojects {
     }
 
     dependencies {
-        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-        mappings loom.officialMojangMappings()
+        minecraft("com.mojang:minecraft:${rootProject.minecraft_version}")
+        mappings loom.layered() {
+            officialMojangMappings()
+            parchment("org.parchmentmc.data:parchment-${rootProject.minecraft_version}:${rootProject.parchmentmc_version}@zip")
+        }
+
+        modApi("com.teamresourceful.resourcefullib:resourcefullib-${project.name}-${rootProject.minecraft_version}:${rootProject.resourcefullib_version}")
+        modApi("earth.terrarium.botarium:botarium-${project.name}-${rootProject.minecraft_version}:${rootProject.botarium_version}")
 
         modImplementation include("maven.modrinth:jukeboxfix:${rootProject.jukeboxfix_version}")
     }
@@ -57,7 +71,6 @@ allprojects {
 
     // repositories for all the build.gradle files, makes it a lot easier to manage
     repositories {
-        maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" } // DevAuth
         maven { url = "https://maven.terraformersmc.com/" } // EMI
         maven { url = "https://maven.shedaniel.me" } // REI
         maven { url = "https://maven.blamejared.com/" } // JEI
@@ -70,11 +83,12 @@ allprojects {
         maven { url = "https://maven.ladysnake.org/releases" } // Trinkets
         maven { url = "https://repo.unascribed.com" } // Ears
         maven { url = "https://api.modrinth.com/maven" } // Create & REI Bug Fix, Jukeboxfix
+        maven { url = "https://maven.teamresourceful.com/repository/maven-public/" } // Baubly, Botarium, ResourcefulLib
         maven { url = "https://maven.figuramc.org/releases" } // Figura
         maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM | NOTE: LEAVE THIS AS LAST
     }
 
-    tasks.withType(JavaCompile) {
+    tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
         options.release.set(17)
     }
@@ -93,7 +107,10 @@ publishMods {
         minecraftVersions.add("1.20.1")
         projectId = "850410"
         requires {
-            slug = "architectury-api"
+            slug = "botarium"
+        }
+        requires {
+            slug = "resourceful-lib"
         }
         optional {
             slug = "ears"
@@ -108,7 +125,10 @@ publishMods {
         projectId = "HhIJW8n1"
         minecraftVersions.add("1.20.1")
         requires {
-            slug = "architectury-api"
+            slug = "botarium"
+        }
+        requires {
+            slug = "resourceful-lib"
         }
         optional {
             slug = "ears"

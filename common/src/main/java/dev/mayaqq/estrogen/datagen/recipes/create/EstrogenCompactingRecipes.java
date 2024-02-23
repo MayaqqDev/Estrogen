@@ -6,7 +6,7 @@ import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeInterface;
-import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
+import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -25,11 +25,11 @@ public class EstrogenCompactingRecipes<T extends EstrogenRecipeInterface> extend
         this.t = t;
     }
 
-    public static EstrogenCompactingRecipes buildFabric(FabricDataOutput output) {
+    public static EstrogenCompactingRecipes<?> buildFabric(FabricDataOutput output) {
         return new EstrogenCompactingRecipes<>(output, new EstrogenRecipeFabricImpl());
     }
 
-    public static EstrogenCompactingRecipes buildForge(FabricDataOutput output) {
+    public static EstrogenCompactingRecipes<?> buildForge(FabricDataOutput output) {
         return new EstrogenCompactingRecipes<>(output, new EstrogenRecipeForgeImpl());
     }
 

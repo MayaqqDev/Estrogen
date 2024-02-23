@@ -1,19 +1,15 @@
 package dev.mayaqq.estrogen;
 
-import com.google.common.base.Suppliers;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
-import dev.architectury.registry.registries.RegistrarManager;
-import dev.mayaqq.estrogen.networking.EstrogenC2S;
-import dev.mayaqq.estrogen.registry.common.*;
+import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
+import dev.mayaqq.estrogen.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.function.Supplier;
 
 public class Estrogen {
     public static final String MOD_ID = "estrogen";
@@ -24,8 +20,6 @@ public class Estrogen {
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create("estrogen");
 
     // The registering part done by architectury
-    public static final Supplier<RegistrarManager> MANAGER = Suppliers.memoize(() -> RegistrarManager.get(MOD_ID));
-
     static {
         // Tooltip modifier for Centrifuge
         REGISTRATE.setTooltipModifierFactory(item ->
@@ -40,20 +34,21 @@ public class Estrogen {
 
     public static void init() {
         // Init all the different classes
-        EstrogenCreativeTab.register();
-        EstrogenAttributes.register();
+        EstrogenCreativeTab.init();
+        EstrogenAttributes.ATTRIBUTES.init();
         EstrogenBlockEntities.register();
-        EstrogenBlocks.register();
-        EstrogenEffects.register();
+        EstrogenCreateBlocks.register();
+        EstrogenFluidProperties.FLUID_PROPERTIES.initialize();
+        EstrogenFluids.FLUIDS.init();
+        EstrogenBlocks.BLOCKS.init();
+        EstrogenEffects.MOB_EFFECTS.init();
         EstrogenEnchantments.register();
-        EstrogenEvents.register();
-        EstrogenFluids.register();
-        EstrogenFluidBlocks.register();
-        EstrogenFluidItems.register();
-        EstrogenFluidAttributes.register();
-        EstrogenItems.register();
+        EstrogenCreateItems.register();
+        EstrogenItems.ITEMS.init();
+        EstrogenRecipeSerializer.RECIPE_SERIALIZERS.init();
+        EstrogenRecipeSerializer.RECIPE_TYPES.init();
         EstrogenRecipes.register();
-        EstrogenSounds.register();
-        EstrogenC2S.register();
+        EstrogenSounds.SOUNDS.init();
+        EstrogenNetworkManager.register();
     }
 }

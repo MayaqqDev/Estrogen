@@ -2,6 +2,9 @@ package dev.mayaqq.estrogen.datagen.recipes.minecraft;
 
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
+import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
+import dev.mayaqq.estrogen.registry.EstrogenTags;
 import dev.mayaqq.estrogen.datagen.tags.EstrogenTagsGen;
 import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.common.EstrogenItems;
@@ -23,13 +26,13 @@ public class EstrogenCraftingRecipes extends FabricRecipeProvider {
 
     @Override
     public void buildRecipes(Consumer<FinishedRecipe> exporter) {
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, EstrogenItems.ESTROGEN_CHIP_COOKIE)
-                .requires(EstrogenItems.ESTROGEN_PILL).unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.ESTROGEN_PILL), FabricRecipeProvider.has(EstrogenItems.ESTROGEN_PILL))
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, EstrogenCreateItems.ESTROGEN_CHIP_COOKIE)
+                .requires(EstrogenCreateItems.ESTROGEN_PILL).unlockedBy(FabricRecipeProvider.getHasName(EstrogenCreateItems.ESTROGEN_PILL), FabricRecipeProvider.has(EstrogenCreateItems.ESTROGEN_PILL))
                 .requires(AllItems.WHEAT_FLOUR.get())
                 .requires(AllItems.BAR_OF_CHOCOLATE.get())
                 .save(exporter);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, EstrogenBlocks.CENTRIFUGE.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, EstrogenCreateBlocks.CENTRIFUGE.get(), 1)
                 .define('P', AllBlocks.MECHANICAL_PUMP.get())
                 .define('T', AllBlocks.FLUID_TANK.get())
                 .define('C', EstrogenTags.Items.COPPER_PLATES)

@@ -5,7 +5,7 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import dev.emi.emi.api.widget.WidgetHolder;
 import dev.mayaqq.estrogen.fabric.integrations.emi.EmiCompat;
 import dev.mayaqq.estrogen.fabric.integrations.emi.EstrogenEmiAnimations;
-import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
+import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 
 import java.util.List;
 

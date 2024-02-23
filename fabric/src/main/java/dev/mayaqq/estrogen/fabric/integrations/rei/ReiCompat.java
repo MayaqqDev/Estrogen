@@ -14,9 +14,9 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
 import dev.architectury.fluid.FluidStack;
 import dev.mayaqq.estrogen.fabric.integrations.rei.categories.CentrifugingCategory;
-import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
-import dev.mayaqq.estrogen.registry.common.EstrogenRecipes;
-import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
+import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenRecipes;
+import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.RecipeManagerAccessor;
 import me.shedaniel.rei.api.client.gui.Renderer;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
@@ -35,6 +35,7 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -44,18 +45,19 @@ import java.util.function.Supplier;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
 
+@SuppressWarnings({"DataFlowIssue", "unchecked", "RedundantMethodOverride"})
 public class ReiCompat extends CreateREI {
 
     private static final ResourceLocation ID = id("rei_plugin");
     final List<CreateRecipeCategory<?>> ALL = new ArrayList<>();
 
-    public static void consumeAllRecipes(Consumer<Recipe<?>> consumer) {
+    public static void consumeAllRecipes(@NotNull Consumer<Recipe<?>> consumer) {
         Minecraft.getInstance().level.getRecipeManager()
                 .getRecipes()
                 .forEach(consumer);
     }
 
-    public static <T extends Recipe<?>> void consumeTypedRecipes(Consumer<T> consumer, RecipeType<?> type) {
+    public static <T extends Recipe<?>> void consumeTypedRecipes(@NotNull Consumer<T> consumer, @NotNull RecipeType<?> type) {
         Map<ResourceLocation, Recipe<?>> map = ((RecipeManagerAccessor) Minecraft.getInstance()
                 .getConnection()
                 .getRecipeManager()).port_lib$getRecipes().get(type);
@@ -64,19 +66,19 @@ public class ReiCompat extends CreateREI {
         }
     }
 
-    public static List<Recipe<?>> getTypedRecipes(RecipeType<?> type) {
+    public static List<Recipe<?>> getTypedRecipes(@NotNull RecipeType<?> type) {
         List<Recipe<?>> recipes = new ArrayList<>();
         consumeTypedRecipes(recipes::add, type);
         return recipes;
     }
 
-    public static List<Recipe<?>> getTypedRecipesExcluding(RecipeType<?> type, Predicate<Recipe<?>> exclusionPred) {
+    public static List<Recipe<?>> getTypedRecipesExcluding(@NotNull RecipeType<?> type, @NotNull Predicate<Recipe<?>> exclusionPred) {
         List<Recipe<?>> recipes = getTypedRecipes(type);
         recipes.removeIf(exclusionPred);
         return recipes;
     }
 
-    public static boolean doInputsMatch(Recipe<?> recipe1, Recipe<?> recipe2) {
+    public static boolean doInputsMatch(Recipe<?> recipe1, @NotNull Recipe<?> recipe2) {
         if (recipe1.getIngredients()
                 .isEmpty()
                 || recipe2.getIngredients()
@@ -99,8 +101,8 @@ public class ReiCompat extends CreateREI {
 
         CreateRecipeCategory<CentrifugingRecipe> centrifuging = builder(CentrifugingRecipe.class)
                 .addTypedRecipes(EstrogenRecipes.CENTRIFUGING)
-                .catalyst(EstrogenBlocks.CENTRIFUGE::get)
-                .itemIcon(EstrogenBlocks.CENTRIFUGE.get())
+                .catalyst(EstrogenCreateBlocks.CENTRIFUGE::get)
+                .itemIcon(EstrogenCreateBlocks.CENTRIFUGE.get())
                 .emptyBackground(177, 80)
                 .build("centrifuging", CentrifugingCategory::new);
     }
@@ -115,7 +117,7 @@ public class ReiCompat extends CreateREI {
     }
 
     @Override
-    public void registerCategories(CategoryRegistry registry) {
+    public void registerCategories(@NotNull CategoryRegistry registry) {
         loadCategories();
         ALL.forEach(category -> {
             registry.add(category);
@@ -124,7 +126,7 @@ public class ReiCompat extends CreateREI {
     }
 
     @Override
-    public void registerDisplays(DisplayRegistry registry) {
+    public void registerDisplays(@NotNull DisplayRegistry registry) {
         ALL.forEach(c -> c.registerRecipes(registry));
 
         List<CraftingRecipe> recipes = ToolboxColoringRecipeMaker.createRecipes().toList();
@@ -171,7 +173,6 @@ public class ReiCompat extends CreateREI {
     }
 
     private class CategoryBuilder<T extends Recipe<?>> {
-        private final Class<? extends T> recipeClass;
         private final List<Consumer<List<T>>> recipeListConsumers = new ArrayList<>();
         private final List<Supplier<? extends ItemStack>> catalysts = new ArrayList<>();
         private Predicate<CRecipes> predicate = cRecipes -> true;
@@ -181,9 +182,7 @@ public class ReiCompat extends CreateREI {
         private int height;
         private Function<T, ? extends CreateDisplay<T>> displayFactory;
 
-        public CategoryBuilder(Class<? extends T> recipeClass) {
-            this.recipeClass = recipeClass;
-        }
+        public CategoryBuilder(Class<? extends T> recipeClass) {}
 
         public CategoryBuilder<T> enableIf(Predicate<CRecipes> predicate) {
             this.predicate = predicate;

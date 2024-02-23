@@ -3,8 +3,8 @@ package dev.mayaqq.estrogen.forge.integrations.jei.categories.animations;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
-import dev.mayaqq.estrogen.registry.client.EstrogenRenderer;
-import dev.mayaqq.estrogen.registry.common.EstrogenBlocks;
+import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
+import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
 import net.minecraft.client.gui.GuiGraphics;
 
 public class AnimatedCentrifuge extends AnimatedKinetics {
@@ -22,7 +22,7 @@ public class AnimatedCentrifuge extends AnimatedKinetics {
                 .scale(scale)
                 .render(graphics);
 
-        blockElement(EstrogenBlocks.CENTRIFUGE.getDefaultState())
+        blockElement(EstrogenCreateBlocks.CENTRIFUGE.getDefaultState())
                 .rotateBlock(22.5, 22.5, 0)
                 .scale(scale)
                 .render(graphics);

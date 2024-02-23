@@ -7,8 +7,9 @@ import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeInterface;
-import dev.mayaqq.estrogen.registry.common.EstrogenFluids;
-import dev.mayaqq.estrogen.registry.common.EstrogenItems;
+import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
+import dev.mayaqq.estrogen.registry.EstrogenFluids;
+import dev.mayaqq.estrogen.registry.items.EstrogenPatchesItem;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -21,15 +22,15 @@ public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends P
     private T t;
     GeneratedRecipe
             CRYSTAL_ESTROGEN_PILL = create(id("crystal_estrogen_pill"), recipeBuilder -> recipeBuilder
-            .require(EstrogenItems.ESTROGEN_PILL)
+            .require(EstrogenCreateItems.ESTROGEN_PILL)
             .require(EstrogenFluids.MOLTEN_AMETHYST.get(), t.getAmount(27000))
-            .output(EstrogenItems.CRYSTAL_ESTROGEN_PILL, 1)),
+            .output(EstrogenCreateItems.CRYSTAL_ESTROGEN_PILL, 1)),
             ESTROGEN_PILL = create(id("estrogen_pill"), recipeBuilder -> recipeBuilder
                     .require(Items.COOKIE)
                     .require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(27000))
-                    .output(EstrogenItems.ESTROGEN_PILL, 1)),
+                    .output(EstrogenCreateItems.ESTROGEN_PILL, 1)),
             FILTER = create(id("filter"), recipeBuilder -> recipeBuilder
-                    .require(EstrogenItems.USED_FILTER)
+                    .require(EstrogenCreateItems.USED_FILTER)
                     .require(Fluids.WATER, t.getAmount(27000))
                     .output(AllItems.FILTER.get(), 1));
 
@@ -39,11 +40,11 @@ public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends P
         this.t = t;
     }
 
-    public static EstrogenFillingRecipes buildFabric(FabricDataOutput output) {
+    public static EstrogenFillingRecipes<?> buildFabric(FabricDataOutput output) {
         return new EstrogenFillingRecipes<>(output, new EstrogenRecipeFabricImpl());
     }
 
-    public static EstrogenFillingRecipes buildForge(FabricDataOutput output) {
+    public static EstrogenFillingRecipes<?> buildForge(FabricDataOutput output) {
         return new EstrogenFillingRecipes<>(output, new EstrogenRecipeForgeImpl());
     }
 

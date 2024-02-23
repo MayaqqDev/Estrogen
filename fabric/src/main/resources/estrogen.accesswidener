@@ -6,3 +6,5 @@ accessible field net/minecraft/world/item/crafting/RecipeManager recipes Ljava/u
 accessible field net/minecraft/server/level/ChunkMap entityMap Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
 accessible class net/minecraft/server/level/ChunkMap$TrackedEntity
 accessible field net/minecraft/server/level/ChunkMap$TrackedEntity seenBy Ljava/util/Set;
+accessible method net/minecraft/world/entity/Mob getAmbientSound ()Lnet/minecraft/sounds/SoundEvent;
+accessible field net/minecraft/client/KeyMapping CATEGORY_SORT_ORDER Ljava/util/Map;

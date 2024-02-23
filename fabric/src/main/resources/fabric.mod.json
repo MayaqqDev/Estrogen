@@ -47,7 +47,8 @@
     "minecraft": "${minecraft_version}",
     "create": "*",
     "trinkets": "*",
-    "architectury": "*"
+    "botarium": "*",
+    "resourcefullib": "*"
   },
   "accessWidener": "estrogen.accesswidener",
   "suggests": {
@@ -59,6 +60,12 @@
       "links": {
         "modmenu.discord": "https://discord.gg/w7PpGax9Bq"
       }
-    }
+    },
+    "resourcefullib:resourcepack": [
+      {
+        "name": "estrogenprogrammerart",
+        "description": "§fOriginal Textures for the Mod Estrogen. (§dBy Mayaqq§f)"
+      }
+    ]
   }
 }
