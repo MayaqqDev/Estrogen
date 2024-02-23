@@ -34,7 +34,6 @@ public class Estrogen {
 
     public static void init() {
         // Init all the different classes
-        EstrogenCreativeTab.init();
         EstrogenAttributes.ATTRIBUTES.init();
         EstrogenBlockEntities.register();
         EstrogenCreateBlocks.register();
@@ -42,13 +41,14 @@ public class Estrogen {
         EstrogenFluids.FLUIDS.init();
         EstrogenBlocks.BLOCKS.init();
         EstrogenEffects.MOB_EFFECTS.init();
-        EstrogenEnchantments.register();
-        EstrogenCreateItems.register();
+        EstrogenPotions.POTIONS.init();
+        EstrogenEnchantments.ENCHANTMENTS.init();
         EstrogenItems.ITEMS.init();
-        EstrogenRecipeSerializer.RECIPE_SERIALIZERS.init();
-        EstrogenRecipeSerializer.RECIPE_TYPES.init();
+        EstrogenRecipeRegistries.RECIPE_SERIALIZERS.init();
+        EstrogenRecipeRegistries.RECIPE_TYPES.init();
         EstrogenRecipes.register();
         EstrogenSounds.SOUNDS.init();
+        EstrogenCreativeTab.init();
         EstrogenNetworkManager.register();
     }
 }

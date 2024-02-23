@@ -23,7 +23,7 @@ public class EstrogenFluidProperties {
             .still(new ResourceLocation("minecraft", "block/water_still"))
             .flowing(new ResourceLocation("minecraft", "block/water_flow"))
             .overlay(new ResourceLocation("minecraft", "block/water_flow"))
-            .tintColor(0xFF301CAA)
+            .tintColor(0xE8D4AB)
             .canConvertToSource(false)
     );
 
@@ -31,7 +31,6 @@ public class EstrogenFluidProperties {
             .still(Estrogen.id("block/liquid_estrogen/liquid_estrogen_still"))
             .flowing(Estrogen.id("block/liquid_estrogen/liquid_estrogen_flow"))
             .overlay(Estrogen.id("block/liquid_estrogen/liquid_estrogen_flow"))
-            .tintColor(0xFFFFFFFF)
             .canConvertToSource(false)
     );
 

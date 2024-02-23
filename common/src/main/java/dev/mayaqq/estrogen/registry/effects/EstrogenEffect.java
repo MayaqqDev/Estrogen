@@ -60,8 +60,11 @@ public class EstrogenEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(@NotNull LivingEntity entity, int amplifier) {
+        // Check if Dash is enabled on the server
         if (!EstrogenConfig.server().dashEnabled.get()) return;
+        // Only tick on the client and if the entity is a player
         if (entity instanceof Player player && player.level().isClientSide) {
+            // cooldown processing
             dashCooldown--;
             groundCooldown--;
             if (dashCooldown < 0) dashCooldown = 0;
@@ -129,6 +132,8 @@ public class EstrogenEffect extends MobEffect {
 
     @Override
     public void addAttributeModifiers(@NotNull LivingEntity entity, @NotNull AttributeMap attributes, int amplifier) {
+
+        if (!(entity instanceof Player)) return;
 
         if (entity instanceof ServerPlayer player) {
             sendPlayerStatusEffect(player, ESTROGEN_EFFECT.get(), PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));

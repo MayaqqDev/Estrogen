@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.mixin;
 
-import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -23,7 +23,7 @@ public class HorseMixin {
         if (stack.getItem() instanceof BottleItem && !horse.isBaby()) {
             stack.shrink(1);
             player.playSound(SoundEvents.BOTTLE_FILL);
-            player.getInventory().placeItemBackInInventory(new ItemStack(EstrogenCreateItems.HORSE_URINE_BOTTLE));
+            player.getInventory().placeItemBackInInventory(new ItemStack(EstrogenItems.HORSE_URINE_BOTTLE.get()));
             cir.setReturnValue(InteractionResult.SUCCESS);
         }
     }

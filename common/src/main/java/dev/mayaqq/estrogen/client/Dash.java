@@ -2,7 +2,9 @@ package dev.mayaqq.estrogen.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -35,7 +37,9 @@ public class Dash {
     }
 
     public static void renderOverlayTick(GuiGraphics guiGraphics) {
-        if (onCooldown && EstrogenConfig.client().dashOverlay.get()) {
+        LocalPlayer player = Minecraft.getInstance().player;
+        if (player == null) return;
+        if (player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) && onCooldown && EstrogenConfig.client().dashOverlay.get()) {
             renderOverLayer(guiGraphics, 0.3F, 0.5F, 0.8F);
         }
     }

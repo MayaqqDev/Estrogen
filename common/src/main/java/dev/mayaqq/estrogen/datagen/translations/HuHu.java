@@ -24,21 +24,21 @@ public class HuHu extends FabricLanguageProvider {
 
         // Items
         tb.add("itemGroup.estrogen.estrogen", "Ösztrogén");
-        tb.add(EstrogenCreateItems.ESTROGEN_PILL.get(), "Ösztrogén tabletta");
-        tb.add(EstrogenCreateItems.ESTROGEN_PATCHES.get(), "Ösztrogén tapasz");
+        tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Ösztrogén tabletta");
+        tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Ösztrogén tapasz");
         tb.add("item.estrogen.estrogen_patches_plural", "Ösztrogén tapaszok");
-        tb.add(EstrogenCreateItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Befejezetlen ösztrogén tapasz");
-        tb.add(EstrogenCreateItems.CRYSTAL_ESTROGEN_PILL.get(), "Kristály ösztrogén tabletta");
-        tb.add(EstrogenCreateItems.ESTROGEN_CHIP_COOKIE.get(), "Ösztrogénes süti");
+        tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Befejezetlen ösztrogén tapasz");
+        tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Kristály ösztrogén tabletta");
+        tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Ösztrogénes süti");
         tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C");
-        tb.add(EstrogenCreateItems.BALLS.get(), "Golyók");
-        tb.add(EstrogenCreateItems.HORSE_URINE_BOTTLE.get(), "Lóvizeletes palack");
-        tb.add(EstrogenCreateItems.TESTOSTERONE_CHUNK.get(), "Tesztoszteron darab");
-        tb.add(EstrogenCreateItems.TESTOSTERONE_POWDER.get(), "Tesztoszteron por");
-        tb.add(EstrogenCreateItems.USED_FILTER.get(), "Használt szűrő");
-        tb.add(EstrogenCreateItems.UWU.get(), ":3");
+        tb.add(EstrogenItems.BALLS.get(), "Golyók");
+        tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Lóvizeletes palack");
+        tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Tesztoszteron darab");
+        tb.add(EstrogenItems.TESTOSTERONE_POWDER.get(), "Tesztoszteron por");
+        tb.add(EstrogenItems.USED_FILTER.get(), "Használt szűrő");
+        tb.add(EstrogenItems.UWU.get(), ":3");
         tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
-        tb.add(EstrogenCreateItems.INCOMPLETE_UWU.get(), "Befejezetlen UwU");
+        tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "Befejezetlen UwU");
         // Buckets
         tb.add(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(), "Folyékony ösztrogénes vödör");
         tb.add(EstrogenItems.HORSE_URINE_BUCKET.get(), "Lóvizeletes vödör");

@@ -9,12 +9,11 @@ import java.util.ArrayList;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static dev.mayaqq.estrogen.registry.EstrogenCreateItems.*;
 import static dev.mayaqq.estrogen.registry.EstrogenItems.*;
 
 public class EstrogenCreativeTab {
     public static final Supplier<CreativeModeTab> ESTROGEN_TAB = new ResourcefulCreativeTab(Estrogen.id("estrogen"))
-            .setItemIcon(EstrogenCreateItems.ESTROGEN_PILL)
+            .setItemIcon(EstrogenItems.ESTROGEN_PILL)
             .addContent(EstrogenCreativeTab::creativeTabItems)
             .build();
 

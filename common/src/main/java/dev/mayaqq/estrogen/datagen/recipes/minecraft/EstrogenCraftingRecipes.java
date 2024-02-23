@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.datagen.recipes.minecraft;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
-import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -22,8 +22,8 @@ public class EstrogenCraftingRecipes extends FabricRecipeProvider {
 
     @Override
     public void buildRecipes(Consumer<FinishedRecipe> exporter) {
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, EstrogenCreateItems.ESTROGEN_CHIP_COOKIE)
-                .requires(EstrogenCreateItems.ESTROGEN_PILL).unlockedBy(FabricRecipeProvider.getHasName(EstrogenCreateItems.ESTROGEN_PILL), FabricRecipeProvider.has(EstrogenCreateItems.ESTROGEN_PILL))
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, EstrogenItems.ESTROGEN_CHIP_COOKIE.get())
+                .requires(EstrogenItems.ESTROGEN_PILL.get()).unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.ESTROGEN_PILL.get()), FabricRecipeProvider.has(EstrogenItems.ESTROGEN_PILL.get()))
                 .requires(AllItems.WHEAT_FLOUR.get())
                 .requires(AllItems.BAR_OF_CHOCOLATE.get())
                 .save(exporter);

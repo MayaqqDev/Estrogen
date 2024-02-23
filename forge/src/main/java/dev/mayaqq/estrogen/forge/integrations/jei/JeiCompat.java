@@ -8,12 +8,12 @@ import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
-import dev.architectury.core.fluid.ArchitecturyFlowingFluid;
 import dev.mayaqq.estrogen.forge.integrations.jei.categories.CentrifugingCategory;
 import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.EstrogenRecipes;
 import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
+import earth.terrarium.botarium.common.registry.fluid.BotariumFlowingFluid;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.forge.ForgeTypes;
@@ -27,6 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.material.Fluid;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -102,9 +103,8 @@ public class JeiCompat extends CreateJEI {
     @Override
     public <T> void registerFluidSubtypes(ISubtypeRegistration registration, IPlatformFluidHelper<T> platformFluidHelper) {
         PotionFluidSubtypeInterpreter interpreter = new PotionFluidSubtypeInterpreter();
-        ArchitecturyFlowingFluid liquidEstrogen = EstrogenFluids.LIQUID_ESTROGEN.get();
-        registration.registerSubtypeInterpreter(ForgeTypes.FLUID_STACK, liquidEstrogen.getSource(), interpreter);
-        registration.registerSubtypeInterpreter(ForgeTypes.FLUID_STACK, liquidEstrogen.getFlowing(), interpreter);
+        registration.registerSubtypeInterpreter(ForgeTypes.FLUID_STACK, EstrogenFluids.LIQUID_ESTROGEN.get(), interpreter);
+        registration.registerSubtypeInterpreter(ForgeTypes.FLUID_STACK, EstrogenFluids.LIQUID_ESTROGEN_FLOWING.get(), interpreter);
     }
 
     private class CategoryBuilder<T extends Recipe<?>> {

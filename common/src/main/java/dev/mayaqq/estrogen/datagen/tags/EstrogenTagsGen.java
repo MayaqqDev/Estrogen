@@ -2,8 +2,8 @@ package dev.mayaqq.estrogen.datagen.tags;
 
 import com.simibubi.create.AllTags;
 import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
-import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -23,16 +23,16 @@ public class EstrogenTagsGen {
         @Override
         protected void addTags(HolderLookup.Provider arg) {
             getOrCreateTagBuilder(EstrogenTags.Items.THIGHS)
-                    .add(EstrogenCreateItems.ESTROGEN_PATCHES.get());
+                    .add(EstrogenItems.ESTROGEN_PATCHES.get());
             getOrCreateTagBuilder(EstrogenTags.Items.UWUFYING)
-                    .add(EstrogenCreateItems.UWU.get());
+                    .add(EstrogenItems.UWU.get());
             getOrCreateTagBuilder(EstrogenTags.Items.COPPER_PLATES)
                     .addOptionalTag(AllTags.forgeItemTag("copper_plates"))
                     .addOptionalTag(AllTags.optionalTag(BuiltInRegistries.ITEM, new ResourceLocation("forge", "plates/copper")));
             getOrCreateTagBuilder(EstrogenTags.Items.CURIOS_THIGHS)
-                    .add(EstrogenCreateItems.ESTROGEN_PATCHES.get());
+                    .add(EstrogenItems.ESTROGEN_PATCHES.get());
             getOrCreateTagBuilder(EstrogenTags.Items.MUSIC_DISCS)
-                    .add(EstrogenCreateItems.ESTROGEN_CHIP_COOKIE.get());
+                    .add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get());
         }
     }
 

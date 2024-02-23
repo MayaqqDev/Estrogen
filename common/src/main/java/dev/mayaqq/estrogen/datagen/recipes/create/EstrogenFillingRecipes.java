@@ -7,12 +7,23 @@ import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeInterface;
-import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
+import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
+import dev.mayaqq.estrogen.registry.EstrogenPotions;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.material.Fluids;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
 
@@ -21,18 +32,21 @@ public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends P
     private T t;
     GeneratedRecipe
             CRYSTAL_ESTROGEN_PILL = create(id("crystal_estrogen_pill"), recipeBuilder -> recipeBuilder
-            .require(EstrogenCreateItems.ESTROGEN_PILL)
+            .require(EstrogenItems.ESTROGEN_PILL.get())
             .require(EstrogenFluids.MOLTEN_AMETHYST.get(), t.getAmount(27000))
-            .output(EstrogenCreateItems.CRYSTAL_ESTROGEN_PILL, 1)),
+            .output(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), 1)),
             ESTROGEN_PILL = create(id("estrogen_pill"), recipeBuilder -> recipeBuilder
                     .require(Items.COOKIE)
                     .require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(27000))
-                    .output(EstrogenCreateItems.ESTROGEN_PILL, 1)),
+                    .output(EstrogenItems.ESTROGEN_PILL.get(), 1)),
             FILTER = create(id("filter"), recipeBuilder -> recipeBuilder
-                    .require(EstrogenCreateItems.USED_FILTER)
+                    .require(EstrogenItems.USED_FILTER.get())
                     .require(Fluids.WATER, t.getAmount(27000))
-                    .output(AllItems.FILTER.get(), 1));
-
+                    .output(AllItems.FILTER.get(), 1)),
+            ESTROGEN_TIPPED_ARROW = create(id("estrogen_tipped_arrow"), recipeBuilder -> recipeBuilder
+                    .require(Items.ARROW)
+                    .require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(27000))
+                    .output(tippedArrow()));
 
     public EstrogenFillingRecipes(FabricDataOutput output, T t) {
         super(output);
@@ -60,5 +74,11 @@ public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends P
     @Override
     public String getName() {
         return t.getName(super.getName());
+    }
+
+    public ItemStack tippedArrow() {
+        ItemStack stack = new ItemStack(Items.TIPPED_ARROW);
+        PotionUtils.setPotion(stack, EstrogenPotions.ESTROGEN_POTION.get());
+        return stack;
     }
 }

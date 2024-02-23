@@ -21,21 +21,21 @@ public class PtBr extends FabricLanguageProvider {
 
         // Items
         tb.add("itemGroup.estrogen.estrogen", "Estrogênio");
-        tb.add(EstrogenCreateItems.ESTROGEN_PILL.get(), "Comprimido de Estrogênio");
-        tb.add(EstrogenCreateItems.ESTROGEN_PATCHES.get(), "Adesivo de Estrogênio");
+        tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Comprimido de Estrogênio");
+        tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Adesivo de Estrogênio");
         tb.add("item.estrogen.estrogen_patches_plural", "Adesivos de Estrogênio");
-        tb.add(EstrogenCreateItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Adesivo Incompleto de Estrogênio");
-        tb.add(EstrogenCreateItems.CRYSTAL_ESTROGEN_PILL.get(), "Pilula de Estrogênio Cristalizado");
-        tb.add(EstrogenCreateItems.ESTROGEN_CHIP_COOKIE.get(), "Cookie de Estrogênio");
+        tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Adesivo Incompleto de Estrogênio");
+        tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Pilula de Estrogênio Cristalizado");
+        tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Cookie de Estrogênio");
         tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C");
-        tb.add(EstrogenCreateItems.BALLS.get(), "Bolas");
-        tb.add(EstrogenCreateItems.HORSE_URINE_BOTTLE.get(), "Garrafa de Urina de Cavalo");
-        tb.add(EstrogenCreateItems.TESTOSTERONE_CHUNK.get(), "Pedaço de Testosterona");
-        tb.add(EstrogenCreateItems.TESTOSTERONE_POWDER.get(), "Pó de Testosterona");
-        tb.add(EstrogenCreateItems.USED_FILTER.get(), "Filtro Usado");
-        tb.add(EstrogenCreateItems.UWU.get(), ":3");
+        tb.add(EstrogenItems.BALLS.get(), "Bolas");
+        tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Garrafa de Urina de Cavalo");
+        tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Pedaço de Testosterona");
+        tb.add(EstrogenItems.TESTOSTERONE_POWDER.get(), "Pó de Testosterona");
+        tb.add(EstrogenItems.USED_FILTER.get(), "Filtro Usado");
+        tb.add(EstrogenItems.UWU.get(), ":3");
         tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
-        tb.add(EstrogenCreateItems.INCOMPLETE_UWU.get(), "UwU Incompleto");
+        tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "UwU Incompleto");
         // Buckets
         tb.add(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(), "Balde de Estrogênio Liquido");
         tb.add(EstrogenItems.HORSE_URINE_BUCKET.get(), "Balde de Urina de Cavalo");

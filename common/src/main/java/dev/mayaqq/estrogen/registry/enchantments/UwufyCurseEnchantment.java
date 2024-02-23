@@ -6,7 +6,7 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class UwufyCurseEnchantment extends Enchantment {
 
-    public UwufyCurseEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot[] slotTypes) {
+    public UwufyCurseEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... slotTypes) {
         super(rarity, category, slotTypes);
     }
 

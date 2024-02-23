@@ -21,21 +21,26 @@ public class EnUs extends FabricLanguageProvider {
 
         // Items
         tb.add("itemGroup.estrogen.estrogen", "Estrogen");
-        tb.add(EstrogenCreateItems.ESTROGEN_PILL.get(), "Estrogen Pill");
-        tb.add(EstrogenCreateItems.ESTROGEN_PATCHES.get(), "Estrogen Patch");
+        tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Estrogen Pill");
+        tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Estrogen Patch");
         tb.add("item.estrogen.estrogen_patches_plural", "Estrogen Patches");
-        tb.add(EstrogenCreateItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Incomplete Estrogen Patch");
-        tb.add(EstrogenCreateItems.CRYSTAL_ESTROGEN_PILL.get(), "Crystal Estrogen Pill");
-        tb.add(EstrogenCreateItems.ESTROGEN_CHIP_COOKIE.get(), "Estrogen Chip Cookie");
+        tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Incomplete Estrogen Patch");
+        tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Crystal Estrogen Pill");
+        tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Estrogen Chip Cookie");
         tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C");
-        tb.add(EstrogenCreateItems.BALLS.get(), "Balls");
-        tb.add(EstrogenCreateItems.HORSE_URINE_BOTTLE.get(), "Horse Urine Bottle");
-        tb.add(EstrogenCreateItems.TESTOSTERONE_CHUNK.get(), "Testosterone Chunk");
-        tb.add(EstrogenCreateItems.TESTOSTERONE_POWDER.get(), "Testosterone Powder");
-        tb.add(EstrogenCreateItems.USED_FILTER.get(), "Used Filter");
-        tb.add(EstrogenCreateItems.UWU.get(), ":3");
+        tb.add(EstrogenItems.BALLS.get(), "Balls");
+        tb.add(EstrogenItems.HORSE_URINE_BOTTLE.get(), "Horse Urine Bottle");
+        tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Testosterone Chunk");
+        tb.add(EstrogenItems.TESTOSTERONE_POWDER.get(), "Testosterone Powder");
+        tb.add(EstrogenItems.USED_FILTER.get(), "Used Filter");
+        tb.add(EstrogenItems.UWU.get(), ":3");
         tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
-        tb.add(EstrogenCreateItems.INCOMPLETE_UWU.get(), "Incomplete UwU");
+        tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "Incomplete UwU");
+        // Potion
+        tb.add("item.minecraft.tipped_arrow.effect.estrogen", "Arrow of Girl Power");
+        tb.add("item.minecraft.potion.effect.estrogen", "Potion of Girl Power");
+        tb.add("item.minecraft.splash_potion.effect.estrogen", "Splash Potion of Girl Power");
+        tb.add("item.minecraft.lingering_potion.effect.estrogen", "Lingering Potion of Girl Power");
         // Buckets
         tb.add(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(), "Bucket of Liquid Estrogen");
         tb.add(EstrogenItems.HORSE_URINE_BUCKET.get(), "Bucket of Horse Urine");

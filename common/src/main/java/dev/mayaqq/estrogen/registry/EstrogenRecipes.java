@@ -19,8 +19,8 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
-import static dev.mayaqq.estrogen.registry.EstrogenRecipeSerializer.RECIPE_SERIALIZERS;
-import static dev.mayaqq.estrogen.registry.EstrogenRecipeSerializer.RECIPE_TYPES;
+import static dev.mayaqq.estrogen.registry.EstrogenRecipeRegistries.RECIPE_SERIALIZERS;
+import static dev.mayaqq.estrogen.registry.EstrogenRecipeRegistries.RECIPE_TYPES;
 
 public enum EstrogenRecipes implements IRecipeTypeInfo {
     CENTRIFUGING(CentrifugingRecipe::new);

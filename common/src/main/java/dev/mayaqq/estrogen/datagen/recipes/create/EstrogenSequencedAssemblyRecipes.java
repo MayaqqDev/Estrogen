@@ -8,8 +8,8 @@ import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeInterface;
-import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -23,12 +23,12 @@ public class EstrogenSequencedAssemblyRecipes<T extends EstrogenRecipeInterface>
     private T t;
     GeneratedRecipe
         ESTROGEN_PATCH = create("estrogen_patch", b -> b.require(Items.PAPER)
-            .transitionTo(EstrogenCreateItems.INCOMPLETE_ESTROGEN_PATCH)
-            .addOutput(EstrogenCreateItems.ESTROGEN_PATCHES.get().getFullStack(), 120)
-            .addOutput(EstrogenCreateItems.ESTROGEN_PILL, 16)
+            .transitionTo(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get())
+            .addOutput(EstrogenItems.ESTROGEN_PATCHES.get().getFullStack(), 120)
+            .addOutput(EstrogenItems.ESTROGEN_PILL.get(), 16)
             .addOutput(Items.PAPER, 5)
             .addOutput(Items.SLIME_BALL, 5)
-            .addOutput(EstrogenCreateItems.HORSE_URINE_BOTTLE, 4)
+            .addOutput(EstrogenItems.HORSE_URINE_BOTTLE.get(), 4)
             .loops(5)
             .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.MOLTEN_SLIME.get(), t.getAmount(27000)))
             .addStep(FillingRecipe::new, rb -> rb.require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(27000)))
@@ -36,8 +36,8 @@ public class EstrogenSequencedAssemblyRecipes<T extends EstrogenRecipeInterface>
     ),
 
         UWU = create("uwu", b -> b.require(Items.NETHERITE_INGOT)
-            .transitionTo(EstrogenCreateItems.INCOMPLETE_UWU)
-            .addOutput(EstrogenCreateItems.UWU, 1)
+            .transitionTo(EstrogenItems.INCOMPLETE_UWU.get())
+            .addOutput(EstrogenItems.UWU.get(), 1)
             .loops(10)
             .addStep(DeployerApplicationRecipe::new, rb -> rb.require(Items.NETHER_STAR))
             .addStep(PressingRecipe::new, rb -> rb)

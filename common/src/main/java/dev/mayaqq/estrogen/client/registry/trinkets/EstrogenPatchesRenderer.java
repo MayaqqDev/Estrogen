@@ -1,8 +1,9 @@
 package dev.mayaqq.estrogen.client.registry.trinkets;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
-import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
 import earth.terrarium.baubly.client.BaubleRenderer;
 import earth.terrarium.baubly.client.BaublyClient;
 import earth.terrarium.baubly.common.SlotInfo;
@@ -21,7 +22,7 @@ public class EstrogenPatchesRenderer implements BaubleRenderer {
     public EstrogenPatchesRenderer() {}
 
     public static void register() {
-        BaublyClient.registerBaubleRenderer(EstrogenCreateItems.ESTROGEN_PATCHES.get(), new EstrogenPatchesRenderer());
+        BaublyClient.registerBaubleRenderer(EstrogenItems.ESTROGEN_PATCHES.get(), new EstrogenPatchesRenderer());
     }
 
     @Override
@@ -44,7 +45,19 @@ public class EstrogenPatchesRenderer implements BaubleRenderer {
             LocalPlayer player = Minecraft.getInstance().player;
             matrixStack.pushPose();
             ModelPart leg = playerModel.leftLeg;
-            matrixStack.translate(leg.x, leg.y, leg.z);;
+
+            if (player.isCrouching() && !playerModel.riding && !player.isSwimming()) {
+                matrixStack.translate(0.0F, 0.0F, 0.25F);
+            }
+            matrixStack.translate(0.125F, 0.75F, 0.0F);
+            matrixStack.mulPose(Axis.ZP.rotation(leg.zRot));
+            matrixStack.mulPose(Axis.YP.rotation(leg.yRot));
+            matrixStack.mulPose(Axis.XP.rotation(leg.xRot));
+            matrixStack.translate(0.0F, 0.75F, 0.0F);
+
+            matrixStack.translate(0.0F, -0.4F, -0.135F);
+            matrixStack.scale(0.3F, 0.3F, 0.3F);
+
             Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, light, matrixStack, renderTypeBuffer, player.level(), 0);
             matrixStack.popPose();
         }
