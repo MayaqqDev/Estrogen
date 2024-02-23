@@ -46,6 +46,13 @@ public class EnUs extends FabricLanguageProvider {
 
         // Blocks
         tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifuge");
+        tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Liquid Estrogen");
+        tb.add(EstrogenBlocks.HORSE_URINE_BLOCK.get(), "Horse Urine");
+        tb.add(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), "Filtrated Horse Urine");
+        tb.add(EstrogenBlocks.MOLTEN_SLIME_BLOCK.get(), "Molten Slime");
+        tb.add(EstrogenBlocks.MOLTEN_AMETHYST_BLOCK.get(), "Molten Amethyst");
+        tb.add(EstrogenBlocks.TESTOSTERONE_MIXTURE_BLOCK.get(), "Testosterone Mixture");
+
         // Fluids
         tb.add("fluid.estrogen.liquid_estrogen", "Liquid Estrogen");
         tb.add("fluid.estrogen.horse_urine", "Horse Urine");

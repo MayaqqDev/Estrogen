@@ -45,6 +45,13 @@ public class FrFr extends FabricLanguageProvider {
 
         // Blocks
         tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifugeuse");
+        tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Œstrogène liquide");
+        tb.add(EstrogenBlocks.HORSE_URINE_BLOCK.get(), "Urine de cheval");
+        tb.add(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), "Urine de cheval filtrée");
+        tb.add(EstrogenBlocks.MOLTEN_SLIME_BLOCK.get(), "Slime fondu");
+        tb.add(EstrogenBlocks.MOLTEN_AMETHYST_BLOCK.get(), "Améthyste fondue");
+        tb.add(EstrogenBlocks.TESTOSTERONE_MIXTURE_BLOCK.get(), "Mixture de testostérone");
+
         // Fluids
         tb.add("fluid.estrogen.liquid_estrogen", "Œstrogène liquide");
         tb.add("fluid.estrogen.horse_urine", "Urine de cheval");

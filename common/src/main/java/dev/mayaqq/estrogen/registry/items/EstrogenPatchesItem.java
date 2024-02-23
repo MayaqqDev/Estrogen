@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.registry.items;
 
 import com.simibubi.create.foundation.utility.Color;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
-import dev.mayaqq.estrogen.registry.EstrogenCreateItems;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import earth.terrarium.baubly.Baubly;
@@ -14,7 +13,6 @@ import earth.terrarium.botarium.common.fluid.impl.SimpleFluidContainer;
 import earth.terrarium.botarium.common.fluid.impl.WrappedItemFluidContainer;
 import earth.terrarium.botarium.common.item.ItemStackHolder;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -50,7 +48,7 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
         ItemFluidContainer itemFluidManager = FluidContainer.of(holder);
         if (itemFluidManager != null) {
             long amount = FluidConstants.toMillibuckets(itemFluidManager.getFluids().get(0).getFluidAmount());
-            long amountCapacity = itemFluidManager.getTankCapacity(0);
+            long amountCapacity = FluidConstants.toMillibuckets(itemFluidManager.getTankCapacity(0));
             tooltipComponents.add(Component.literal("Liquid Estrogen: " + amount + "mb / " + amountCapacity + "mb").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
         }
     }
@@ -63,7 +61,8 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
         if (EstrogenConfig.server().patchDrain.get() && estrogenAmountTick == EstrogenConfig.server().patchDrainAmount.get()) {
             estrogenAmountTick = 0;
             ItemFluidContainer itemFluidManager = getFluidContainer(stack);
-            itemFluidManager.extractFromSlot(0, FluidHolder.of(EstrogenFluids.LIQUID_ESTROGEN.get(), 1), false);
+            itemFluidManager.extractFromSlot(0, FluidHolder.of(EstrogenFluids.LIQUID_ESTROGEN.get(), FluidConstants.getBucketAmount() / 1000), false);
+            itemFluidManager.serialize(stack.getOrCreateTag());
         }
     }
 
@@ -74,6 +73,7 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
 
     @Override
     public void onUnequip(ItemStack stack, SlotInfo slot) {
+        Bauble.super.onUnequip(stack, slot);
         slot.wearer().removeEffect(EstrogenEffects.ESTROGEN_EFFECT.get());
     }
 
@@ -81,6 +81,7 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
         ItemStack stack = this.getDefaultInstance();
         ItemFluidContainer itemFluidManager = getFluidContainer(stack);
         itemFluidManager.insertFluid(FluidHolder.of(EstrogenFluids.LIQUID_ESTROGEN.get(), FluidConstants.getBucketAmount()), false);
+        itemFluidManager.serialize(stack.getOrCreateTag());
         return stack;
     }
 
@@ -93,7 +94,7 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
 
     @Override
     public WrappedItemFluidContainer getFluidContainer(ItemStack stack) {
-        return  new WrappedItemFluidContainer(stack, new SimpleFluidContainer(FluidConstants.getBucketAmount(), 1, (amount, fluid) -> fluid == EstrogenFluids.LIQUID_ESTROGEN.get()));
+        return new WrappedItemFluidContainer(stack, new SimpleFluidContainer(FluidConstants.getBucketAmount(), 1, (amount, fluid) -> fluid.is(EstrogenFluids.LIQUID_ESTROGEN.get())));
     }
 
     @Override
@@ -118,6 +119,6 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
 
     @Override
     public int getBarColor(@NotNull ItemStack stack) {
-        return Color.SPRING_GREEN.getRGB();
+        return 0x1E323C;
     }
 }

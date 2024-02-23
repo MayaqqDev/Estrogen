@@ -46,6 +46,13 @@ public class CsCz extends FabricLanguageProvider {
 
         // Blocks
         tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifuga");
+        tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Tekutý Estrogen");
+        tb.add(EstrogenBlocks.HORSE_URINE_BLOCK.get(), "Koňská Moč");
+        tb.add(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), "Filtrovaná Koňská Moč");
+        tb.add(EstrogenBlocks.MOLTEN_SLIME_BLOCK.get(), "Rozpuštěný Sliz");
+        tb.add(EstrogenBlocks.MOLTEN_AMETHYST_BLOCK.get(), "Rozpuštěný Ametyst");
+        tb.add(EstrogenBlocks.TESTOSTERONE_MIXTURE_BLOCK.get(), "Testosteronová Směs");
+
         // Fluids
         tb.add("fluid.estrogen.liquid_estrogen", "Tekutý Estrogen");
         tb.add("fluid.estrogen.horse_urine", "Koňská Moč");

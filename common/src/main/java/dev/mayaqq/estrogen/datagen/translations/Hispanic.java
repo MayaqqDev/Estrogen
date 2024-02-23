@@ -89,6 +89,13 @@ public class Hispanic {
 
         // Blocks
         tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifugadora");
+        tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Estrógeno Líquido");
+        tb.add(EstrogenBlocks.HORSE_URINE_BLOCK.get(), "Orina de Caballo");
+        tb.add(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), "Orina de Caballo Filtrada");
+        tb.add(EstrogenBlocks.MOLTEN_SLIME_BLOCK.get(), "Slime Fundido");
+        tb.add(EstrogenBlocks.MOLTEN_AMETHYST_BLOCK.get(), "Amatista Fundida");
+        tb.add(EstrogenBlocks.TESTOSTERONE_MIXTURE_BLOCK.get(), "Mezcla de Testosterona");
+
         // Fluids
         tb.add("fluid.estrogen.liquid_estrogen", "Estrógeno Líquido");
         tb.add("fluid.estrogen.horse_urine", "Orina de Caballo");

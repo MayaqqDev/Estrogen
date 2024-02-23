@@ -46,6 +46,13 @@ public class PtBr extends FabricLanguageProvider {
 
         // Blocks
         tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrífuga");
+        tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Estrogênio Líquido");
+        tb.add(EstrogenBlocks.HORSE_URINE_BLOCK.get(), "Urina de Cavalo");
+        tb.add(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), "Urina de Cavalo Filtrada");
+        tb.add(EstrogenBlocks.MOLTEN_SLIME_BLOCK.get(), "Slime Derretido");
+        tb.add(EstrogenBlocks.MOLTEN_AMETHYST_BLOCK.get(), "Ametista Derretida");
+        tb.add(EstrogenBlocks.TESTOSTERONE_MIXTURE_BLOCK.get(), "Mistura de Testosterona");
+
         // Fluids
         tb.add("fluid.estrogen.liquid_estrogen", "Estrogênio Líquido");
         tb.add("fluid.estrogen.horse_urine", "Urina de Cavalo");
