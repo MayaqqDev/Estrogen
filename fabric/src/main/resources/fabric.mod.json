@@ -60,6 +60,12 @@
       "links": {
         "modmenu.discord": "https://discord.gg/w7PpGax9Bq"
       }
-    }
+    },
+    "resourcefullib:resourcepack": [
+      {
+        "name": "estrogenprogrammerart",
+        "description": "§fOriginal Textures for the Mod Estrogen. (§dBy Mayaqq§f)"
+      }
+    ]
   }
 }

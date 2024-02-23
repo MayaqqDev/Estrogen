@@ -119,6 +119,6 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
 
     @Override
     public int getBarColor(@NotNull ItemStack stack) {
-        return 0x1E323C;
+        return 0x00b3ff;
     }
 }
