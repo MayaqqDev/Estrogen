@@ -83,7 +83,7 @@ public class EstrogenConfig {
         // Accessory Config Group
         public final ConfigGroup accessory = group(1, "accessory", "Settings for Equippable Items");
         public final ConfigBool estrogenPatchRender = b(true, "estrogenPatchRender", "Render estrogen patches on the player");
-
+      
         // Compat Config Group
         public final ConfigGroup compat = group(1, "compat", "Compatibility between other mods settings");
         public final ConfigBool ears = b(true, "ears", "Enable ears Compatibility");

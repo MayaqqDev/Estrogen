@@ -5,6 +5,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.minecraft.client.Minecraft;
+import dev.mayaqq.estrogen.datagen.tags.EstrogenTagsGen;
+import dev.mayaqq.estrogen.registry.common.EstrogenTags;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
