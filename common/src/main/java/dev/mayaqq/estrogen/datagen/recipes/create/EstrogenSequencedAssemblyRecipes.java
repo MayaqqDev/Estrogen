@@ -25,7 +25,7 @@ public class EstrogenSequencedAssemblyRecipes<T extends EstrogenRecipeInterface>
     GeneratedRecipe
         ESTROGEN_PATCH = create("estrogen_patch", b -> b.require(Items.PAPER)
             .transitionTo(EstrogenCreateItems.INCOMPLETE_ESTROGEN_PATCH)
-            .addOutput(EstrogenPatchesItem.getDefaultStack(), 120)
+            .addOutput(EstrogenCreateItems.ESTROGEN_PATCHES.get().getFullStack(), 120)
             .addOutput(EstrogenCreateItems.ESTROGEN_PILL, 16)
             .addOutput(Items.PAPER, 5)
             .addOutput(Items.SLIME_BALL, 5)

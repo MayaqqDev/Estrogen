@@ -16,6 +16,12 @@ tasks.register("multiplatformDatagen") {
     Project forge = project(":forge")
     dependsOn project(":fabric").tasks.named("runDatagen")
     // Copy the fabric only recipes to the generated resources
+    File fabricDir = fabric.file("src/main/generated/data/estrogen/recipes/")
+    File forgeDir = forge.file("src/main/generated/data/estrogen/recipes/")
+
+    delete(fabricDir)
+    delete(forgeDir)
+
     copy {
         from common.file("src/main/generated/data/estrogen/recipes/.fabric")
         include "**/*.json"

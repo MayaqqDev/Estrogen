@@ -7,10 +7,7 @@
   "results": [
     {
       "chance": 120.0,
-      "item": "estrogen:estrogen_patches",
-      "nbt": {
-        "EstrogenAmount": 1000
-      }
+      "item": "estrogen:estrogen_patches"
     },
     {
       "chance": 16.0,

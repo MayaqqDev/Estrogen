@@ -32,12 +32,7 @@ public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends P
             FILTER = create(id("filter"), recipeBuilder -> recipeBuilder
                     .require(EstrogenCreateItems.USED_FILTER)
                     .require(Fluids.WATER, t.getAmount(27000))
-                    .output(AllItems.FILTER.get(), 1)),
-            REFILL_ESTROGEN_PATCH = create(id("refill_estrogen_patch"), recipeBuilder -> recipeBuilder
-                    .require(EstrogenCreateItems.ESTROGEN_PATCHES)
-                    .require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(81000))
-                    .output(EstrogenPatchesItem.getDefaultStack())
-            );
+                    .output(AllItems.FILTER.get(), 1));
 
 
     public EstrogenFillingRecipes(FabricDataOutput output, T t) {

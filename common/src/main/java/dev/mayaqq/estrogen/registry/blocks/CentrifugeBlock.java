@@ -23,8 +23,10 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings({"deprecation", "NullableProblems"})
 public class CentrifugeBlock extends KineticBlock implements IBE<CentrifugeBlockEntity>, ICogWheel, IWrenchable {
 
     public CentrifugeBlock(Properties settings) {
@@ -37,7 +39,7 @@ public class CentrifugeBlock extends KineticBlock implements IBE<CentrifugeBlock
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter blockView, BlockPos blockPos, CollisionContext shapeContext) {
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter blockView, BlockPos blockPos, CollisionContext shapeContext) {
         return Shapes.block();
     }
 
