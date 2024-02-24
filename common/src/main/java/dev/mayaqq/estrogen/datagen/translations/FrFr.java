@@ -35,6 +35,11 @@ public class FrFr extends FabricLanguageProvider {
         //tb.add(EstrogenItems.UWU.get(), ":3");
         //tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
         tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "UwU incomplet");
+        // Potion
+        tb.add("item.minecraft.tipped_arrow.effect.estrogen", "Flèche de force féminine");
+        tb.add("item.minecraft.potion.effect.estrogen", "Potion de force féminine");
+        tb.add("item.minecraft.splash_potion.effect.estrogen", "Potion de force féminine jetable");
+        tb.add("item.minecraft.lingering_potion.effect.estrogen", "Potion de force féminine persistante");
         // Buckets
         tb.add(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(), "Seau d'Œstrogène liquide");
         tb.add(EstrogenItems.HORSE_URINE_BUCKET.get(), "Seau d'rine de cheval");
