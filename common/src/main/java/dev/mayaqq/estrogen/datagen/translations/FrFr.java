@@ -32,8 +32,6 @@ public class FrFr extends FabricLanguageProvider {
         tb.add(EstrogenItems.TESTOSTERONE_CHUNK.get(), "Bloc de testostérone");
         tb.add(EstrogenItems.TESTOSTERONE_POWDER.get(), "Poudre de testostérone");
         tb.add(EstrogenItems.USED_FILTER.get(), "Filtre Usagé");
-        //tb.add(EstrogenItems.UWU.get(), ":3");
-        //tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
         tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "UwU incomplet");
         // Potion
         tb.add("item.minecraft.tipped_arrow.effect.estrogen", "Flèche de force féminine");
@@ -58,6 +56,12 @@ public class FrFr extends FabricLanguageProvider {
         tb.add(EstrogenBlocks.TESTOSTERONE_MIXTURE_BLOCK.get(), "Mixture de testostérone");
 
         // Fluids
+        tb.add("fluid_type.estrogen.liquid_estrogen", "Œstrogène liquide");
+        tb.add("fluid_type.estrogen.horse_urine", "Urine de cheval");
+        tb.add("fluid_type.estrogen.filtrated_horse_urine", "Urine de cheval filtrée");
+        tb.add("fluid_type.estrogen.molten_slime", "Slime fondu");
+        tb.add("fluid_type.estrogen.molten_amethyst", "Améthyste fondue");
+        tb.add("fluid_type.estrogen.testosterone_mixture", "Mixture de testostérone");
         tb.add("fluid.estrogen.liquid_estrogen", "Œstrogène liquide");
         tb.add("fluid.estrogen.horse_urine", "Urine de cheval");
         tb.add("fluid.estrogen.filtrated_horse_urine", "Urine de cheval filtrée");

@@ -59,6 +59,12 @@ public class PtBr extends FabricLanguageProvider {
         tb.add(EstrogenBlocks.TESTOSTERONE_MIXTURE_BLOCK.get(), "Mistura de Testosterona");
 
         // Fluids
+        tb.add("fluid_type.estrogen.liquid_estrogen", "Estrogênio Líquido");
+        tb.add("fluid_type.estrogen.horse_urine", "Urina de Cavalo");
+        tb.add("fluid_type.estrogen.filtrated_horse_urine", "Urina de Cavalo Filtrada");
+        tb.add("fluid_type.estrogen.molten_slime", "Slime Derretido");
+        tb.add("fluid_type.estrogen.molten_amethyst", "Ametista Derretida");
+        tb.add("fluid_type.estrogen.testosterone_mixture", "Mistura de Testosterona");
         tb.add("fluid.estrogen.liquid_estrogen", "Estrogênio Líquido");
         tb.add("fluid.estrogen.horse_urine", "Urina de Cavalo");
         tb.add("fluid.estrogen.filtrated_horse_urine", "Urina de Cavalo Filtrada");

@@ -62,6 +62,12 @@ public class HuHu extends FabricLanguageProvider {
         tb.add(EstrogenBlocks.TESTOSTERONE_MIXTURE_BLOCK.get(), "Tesztoszteron keverék");
 
         // Fluids
+        tb.add("fluid_type.estrogen.liquid_estrogen", "Folyékony ösztrogén");
+        tb.add("fluid_type.estrogen.horse_urine", "Lóvizelet");
+        tb.add("fluid_type.estrogen.filtrated_horse_urine", "Szűrt lóvizelet");
+        tb.add("fluid_type.estrogen.molten_slime", "Olvasztott nyálka");
+        tb.add("fluid_type.estrogen.molten_amethyst", "Olvasztott ametiszt");
+        tb.add("fluid_type.estrogen.testosterone_mixture", "Tesztoszteron keverék");
         tb.add("fluid.estrogen.liquid_estrogen", "Folyékony ösztrogén");
         tb.add("fluid.estrogen.horse_urine", "Lóvizelet");
         tb.add("fluid.estrogen.filtrated_horse_urine", "Szűrt lóvizelet");

@@ -59,6 +59,12 @@ public class EnUs extends FabricLanguageProvider {
         tb.add(EstrogenBlocks.TESTOSTERONE_MIXTURE_BLOCK.get(), "Testosterone Mixture");
 
         // Fluids
+        tb.add("fluid_type.estrogen.liquid_estrogen", "Liquid Estrogen");
+        tb.add("fluid_type.estrogen.horse_urine", "Horse Urine");
+        tb.add("fluid_type.estrogen.filtrated_horse_urine", "Filtrated Horse Urine");
+        tb.add("fluid_type.estrogen.molten_slime", "Molten Slime");
+        tb.add("fluid_type.estrogen.molten_amethyst", "Molten Amethyst");
+        tb.add("fluid_type.estrogen.testosterone_mixture", "Testosterone Mixture");
         tb.add("fluid.estrogen.liquid_estrogen", "Liquid Estrogen");
         tb.add("fluid.estrogen.horse_urine", "Horse Urine");
         tb.add("fluid.estrogen.filtrated_horse_urine", "Filtrated Horse Urine");

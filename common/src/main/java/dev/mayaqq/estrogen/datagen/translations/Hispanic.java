@@ -102,6 +102,12 @@ public class Hispanic {
         tb.add(EstrogenBlocks.TESTOSTERONE_MIXTURE_BLOCK.get(), "Mezcla de Testosterona");
 
         // Fluids
+        tb.add("fluid_type.estrogen.liquid_estrogen", "Estrógeno Líquido");
+        tb.add("fluid_type.estrogen.horse_urine", "Orina de Caballo");
+        tb.add("fluid_type.estrogen.filtrated_horse_urine", "Orina de Caballo Filtrada");
+        tb.add("fluid_type.estrogen.molten_slime", "Slime Fundido");
+        tb.add("fluid_type.estrogen.molten_amethyst", "Amatista Fundida");
+        tb.add("fluid_type.estrogen.testosterone_mixture", "Mezcla de Testosterona");
         tb.add("fluid.estrogen.liquid_estrogen", "Estrógeno Líquido");
         tb.add("fluid.estrogen.horse_urine", "Orina de Caballo");
         tb.add("fluid.estrogen.filtrated_horse_urine", "Orina de Caballo Filtrada");
