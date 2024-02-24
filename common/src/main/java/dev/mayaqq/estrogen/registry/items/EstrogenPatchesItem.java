@@ -46,12 +46,14 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag isAdvanced) {
+        super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
         ItemStackHolder holder = new ItemStackHolder(stack);
         ItemFluidContainer itemFluidManager = FluidContainer.of(holder);
         if (itemFluidManager != null) {
             long amount = FluidConstants.toMillibuckets(itemFluidManager.getFluids().get(0).getFluidAmount());
             long amountCapacity = FluidConstants.toMillibuckets(itemFluidManager.getTankCapacity(0));
-            tooltipComponents.add(Component.literal("Liquid Estrogen: " + amount + "mb / " + amountCapacity + "mb").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+            String fluidString = Component.translatable("fluid_type.estrogen.liquid_estrogen").getString();
+            tooltipComponents.add(Component.literal(String.format("%s: %smb / %smb", fluidString, amount, amountCapacity)).setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
         }
     }
 
@@ -60,7 +62,7 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
             tick = 0;
             player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), 400, stack.getCount() - 1, false, false, false));
         }
-        if (EstrogenConfig.server().patchDrain.get() && estrogenAmountTick == EstrogenConfig.server().patchDrainAmount.get()) {
+        if (EstrogenConfig.server().patchDrain.get() && estrogenAmountTick >= EstrogenConfig.server().patchDrainAmount.get()) {
             estrogenAmountTick = 0;
             ItemFluidContainer itemFluidManager = getFluidContainer(stack);
             itemFluidManager.extractFromSlot(0, FluidHolder.of(EstrogenFluids.LIQUID_ESTROGEN.get(), FluidConstants.getBucketAmount() / 1000), false);
@@ -71,12 +73,6 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
     @Override
     public void onEquip(ItemStack stack, SlotInfo slot) {
         patchTick(stack, slot, true);
-    }
-
-    @Override
-    public void onUnequip(ItemStack stack, SlotInfo slot) {
-        Bauble.super.onUnequip(stack, slot);
-        slot.wearer().removeEffect(EstrogenEffects.ESTROGEN_EFFECT.get());
     }
 
     public ItemStack getFullStack() {

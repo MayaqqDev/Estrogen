@@ -54,6 +54,4 @@ public class EstrogenItems {
     public static Item.Properties bucketProperties() {
         return new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1);
     }
-
-
 }

@@ -16,12 +16,10 @@ public class Estrogen {
 
     public static final Logger LOGGER = LoggerFactory.getLogger("Estrogen");
 
-    // Used to register some of the registry objects, other is done by architectury
+    // Used to register some of the registry objects, other is done by resourcefullib
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create("estrogen");
 
-    // The registering part done by architectury
     static {
-        // Tooltip modifier for Centrifuge
         REGISTRATE.setTooltipModifierFactory(item ->
                 new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
                         .andThen(TooltipModifier.mapNull(KineticStats.create(item)))
@@ -50,5 +48,8 @@ public class Estrogen {
         EstrogenSounds.SOUNDS.init();
         EstrogenCreativeTab.init();
         EstrogenNetworkManager.register();
+        EstrogenItems.ITEMS.stream().forEach(itemEntry -> {
+            TooltipModifier.REGISTRY.registerDeferred(itemEntry.getId(), item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE));
+        });
     }
 }

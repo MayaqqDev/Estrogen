@@ -117,7 +117,7 @@ public class EstrogenConfig {
         // Patch group
         public final ConfigGroup patch = group(1, "patch", "Settings for the estrogen patches");
         public final ConfigBool patchDrain = b(true, "patchDrain", "Enable the estrogen patches to drain");
-        public final ConfigInt patchDrainAmount = i(500, 0, "patchDrainAmount", "The amount of ticks it takes for the estrogen patches to drain a millibucket");
+        public final ConfigInt patchDrainAmount = i(72, 0, "patchDrainAmount", "The amount of ticks it takes for the estrogen patches to drain a millibucket");
 
         // Centrifuge group
         public final ConfigGroup centrifuge = group(1, "centrifuge", "Settings for the centrifuge");
