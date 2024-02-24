@@ -46,6 +46,7 @@ public class EstrogenPatchesRenderer implements BaubleRenderer {
             matrixStack.pushPose();
             ModelPart leg = playerModel.leftLeg;
 
+            // Sync with the player's animation
             if (player.isCrouching() && !playerModel.riding && !player.isSwimming()) {
                 matrixStack.translate(0.0F, 0.0F, 0.25F);
             }
@@ -55,7 +56,10 @@ public class EstrogenPatchesRenderer implements BaubleRenderer {
             matrixStack.mulPose(Axis.XP.rotation(leg.xRot));
             matrixStack.translate(0.0F, 0.75F, 0.0F);
 
-            matrixStack.translate(0.0F, -0.4F, -0.135F);
+            // move the patch to be on the player's thigh
+            matrixStack.translate(0.0F, -0.6F, -0.135F);
+
+            // Make the patch smaller
             matrixStack.scale(0.3F, 0.3F, 0.3F);
 
             Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, light, matrixStack, renderTypeBuffer, player.level(), 0);
