@@ -1,13 +1,12 @@
-package dev.mayaqq.estrogen.platformSpecific.forge;
+package dev.mayaqq.estrogen.platform.forge;
 
-import dev.mayaqq.estrogen.platformSpecific.Mod;
+import dev.mayaqq.estrogen.platform.Mod;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.forgespi.language.IModInfo;
 
 import java.util.Optional;
 
 public class ModImpl {
-    @org.jetbrains.annotations.Contract
     public static Optional<Mod> getOptionalMod(String modid) {
         if (ModList.get().getModContainerById(modid).orElse(null) != null) {
             IModInfo metadata = ModList.get().getModContainerById(modid).get().getModInfo();

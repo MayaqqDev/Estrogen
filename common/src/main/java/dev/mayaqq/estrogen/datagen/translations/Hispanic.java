@@ -79,6 +79,11 @@ public class Hispanic {
         tb.add(EstrogenItems.TESTOSTERONE_POWDER.get(), "Polvo de Testosterona");
         tb.add(EstrogenItems.USED_FILTER.get(), "Filtro usado");
         tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "UwU Incompleto");
+        // Potion
+        tb.add("item.minecraft.tipped_arrow.effect.estrogen", "Flecha de Poder Femenino");
+        tb.add("item.minecraft.potion.effect.estrogen", "Poción de Poder Femenino");
+        tb.add("item.minecraft.splash_potion.effect.estrogen", "Poción Arrojadiza de Poder Femenino");
+        tb.add("item.minecraft.lingering_potion.effect.estrogen", "Poción Persistente de Poder Femenino");
         // Buckets
         tb.add(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(), "Cubo de Estrógeno Líquido");
         tb.add(EstrogenItems.HORSE_URINE_BUCKET.get(), "Cubo de Orina de Caballo");

@@ -39,6 +39,11 @@ public class HuHu extends FabricLanguageProvider {
         tb.add(EstrogenItems.UWU.get(), ":3");
         tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
         tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "Befejezetlen UwU");
+        // Potion
+        tb.add("item.minecraft.tipped_arrow.effect.estrogen", "Lány Erő nyila");
+        tb.add("item.minecraft.potion.effect.estrogen", "Lány Erő bájitala");
+        tb.add("item.minecraft.splash_potion.effect.estrogen", "Lány Erő robbanó bájitala");
+        tb.add("item.minecraft.lingering_potion.effect.estrogen", "Lány Erő időző bájitala");
         // Buckets
         tb.add(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(), "Folyékony ösztrogénes vödör");
         tb.add(EstrogenItems.HORSE_URINE_BUCKET.get(), "Lóvizeletes vödör");

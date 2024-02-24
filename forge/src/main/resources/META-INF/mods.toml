@@ -59,6 +59,7 @@ mandatory = true
 versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
+# TODO: Fix this, currently crashes
 #[modproperties.estrogen]
 #'resourcefullib:resourcepack' = [
 #    { name="estrogenprogrammerart", description="§fOriginal Textures for the Mod Estrogen. (§dBy Mayaqq§f)" }

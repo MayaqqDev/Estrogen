@@ -8,7 +8,7 @@ import com.simibubi.create.content.equipment.armor.BaseArmorItem;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.BoobArmorRenderer;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.PlayerEntityModelExtension;
 import dev.mayaqq.estrogen.integrations.figura.FiguraCompat;
-import dev.mayaqq.estrogen.platformSpecific.Mod;
+import dev.mayaqq.estrogen.platform.Mod;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
