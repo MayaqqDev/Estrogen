@@ -21,7 +21,6 @@ public class EstrogenClient {
         EstrogenKeybinds.register();
         EstrogenPatchesRenderer.register();
 
-        //TODO: Might not work
         ClientHooks.setRenderLayer(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), RenderType.translucent());
         ClientHooks.setRenderLayer(EstrogenBlocks.HORSE_URINE_BLOCK.get(), RenderType.translucent());
         ClientHooks.setRenderLayer(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), RenderType.translucent());

@@ -59,6 +59,9 @@ public class EstrogenPatchesRenderer implements BaubleRenderer {
             // move the patch to be on the player's thigh
             matrixStack.translate(0.0F, -0.6F, -0.135F);
 
+            // Rotate the patch to be on the player's thigh side
+            //TODO: matrixStack.mulPose(Axis.ZP.rotation(90.0F));
+
             // Make the patch smaller
             matrixStack.scale(0.3F, 0.3F, 0.3F);
 
