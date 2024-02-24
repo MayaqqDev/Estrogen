@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.registry;
 
 import dev.mayaqq.estrogen.Estrogen;
+import dev.mayaqq.estrogen.utils.EstrogenColors;
 import earth.terrarium.botarium.common.registry.fluid.FluidData;
 import earth.terrarium.botarium.common.registry.fluid.FluidProperties;
 import earth.terrarium.botarium.common.registry.fluid.FluidRegistry;
@@ -15,7 +16,7 @@ public class EstrogenFluidProperties {
             .flowing(Estrogen.id("block/blank_lava/blank_lava_flow"))
             .overlay(Estrogen.id("block/blank_lava/blank_lava_flow"))
             .temperature(1300)
-            .tintColor(0xFF90EE90)
+            .tintColor(EstrogenColors.MOLTEN_SLIME.value)
             .canConvertToSource(false)
     );
 
@@ -23,7 +24,7 @@ public class EstrogenFluidProperties {
             .still(new ResourceLocation("minecraft", "block/water_still"))
             .flowing(new ResourceLocation("minecraft", "block/water_flow"))
             .overlay(new ResourceLocation("minecraft", "block/water_flow"))
-            .tintColor(0xE8D4AB)
+            .tintColor(EstrogenColors.TESTOSTERONE_MIXTURE.value)
             .canConvertToSource(false)
     );
 
@@ -38,7 +39,7 @@ public class EstrogenFluidProperties {
             .still(new ResourceLocation("minecraft", "block/water_still"))
             .flowing(new ResourceLocation("minecraft", "block/water_flow"))
             .overlay(new ResourceLocation("minecraft", "block/water_flow"))
-            .tintColor(0xFFE1E114)
+            .tintColor(EstrogenColors.FILTRATED_HORSE_URINE.value)
             .canConvertToSource(false)
     );
 
@@ -46,16 +47,16 @@ public class EstrogenFluidProperties {
             .still(new ResourceLocation("minecraft", "block/water_still"))
             .flowing(new ResourceLocation("minecraft", "block/water_flow"))
             .overlay(new ResourceLocation("minecraft", "block/water_flow"))
-            .tintColor(0xFF8C8B05)
+            .tintColor(EstrogenColors.HORSE_URINE.value)
             .canConvertToSource(false)
     );
 
     public static final FluidData MOLTEN_AMETHYST = FLUID_PROPERTIES.register("molten_amethyst", FluidProperties.create()
             .still(Estrogen.id("block/blank_lava/blank_lava_still"))
             .flowing(Estrogen.id("block/blank_lava/blank_lava_flow"))
-            .overlay(new ResourceLocation("minecraft", "block/water_flow"))
+            .overlay(Estrogen.id("block/blank_lava/blank_lava_flow"))
             .temperature(1300)
-            .tintColor(0xFFAE7AFD)
+            .tintColor(EstrogenColors.MOLTEN_AMETHYST.value)
             .canConvertToSource(false)
     );
 }
