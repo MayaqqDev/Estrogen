@@ -14,6 +14,7 @@ public class EstrogenTags {
         public static final TagKey<Item> MUSIC_DISCS = TagKey.create(BuiltInRegistries.ITEM.key(), mcId("music_discs"));
         public static final TagKey<Item> UWUFYING = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("estrogen", "uwufying"));
         public static final TagKey<Item> COPPER_PLATES = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("estrogen", "copper_plates"));
+        public static final TagKey<Item> LAVA_BUCKETS = TagKey.create(BuiltInRegistries.ITEM.key(), commonId("lava_buckets"));
     }
 
     public static class Blocks {
@@ -27,5 +28,9 @@ public class EstrogenTags {
 
     private static ResourceLocation mcId(String path) {
         return new ResourceLocation("minecraft", path);
+    }
+
+    private static ResourceLocation commonId(String path) {
+        return new ResourceLocation("c", path);
     }
 }

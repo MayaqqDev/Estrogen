@@ -1,10 +1,7 @@
 package dev.mayaqq.estrogen.datagen.tags;
 
 import com.simibubi.create.AllTags;
-import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
-import dev.mayaqq.estrogen.registry.EstrogenFluids;
-import dev.mayaqq.estrogen.registry.EstrogenItems;
-import dev.mayaqq.estrogen.registry.EstrogenTags;
+import dev.mayaqq.estrogen.registry.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
@@ -33,6 +30,9 @@ public class EstrogenTagsGen {
                     .add(EstrogenItems.ESTROGEN_PATCHES.get());
             getOrCreateTagBuilder(EstrogenTags.Items.MUSIC_DISCS)
                     .add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get());
+            getOrCreateTagBuilder(EstrogenTags.Items.LAVA_BUCKETS)
+                    .add(EstrogenItems.MOLTEN_SLIME_BUCKET.get())
+                    .add(EstrogenItems.MOLTEN_AMETHYST_BUCKET.get());
         }
     }
 
