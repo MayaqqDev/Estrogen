@@ -53,7 +53,9 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
             long amount = FluidConstants.toMillibuckets(itemFluidManager.getFluids().get(0).getFluidAmount());
             long amountCapacity = FluidConstants.toMillibuckets(itemFluidManager.getTankCapacity(0));
             String fluidString = Component.translatable("fluid_type.estrogen.liquid_estrogen").getString();
+            tooltipComponents.add(Component.literal(" "));
             tooltipComponents.add(Component.literal(String.format("%s: %smb / %smb", fluidString, amount, amountCapacity)).setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+            tooltipComponents.add(Component.literal(" "));
         }
     }
 

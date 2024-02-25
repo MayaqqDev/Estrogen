@@ -54,11 +54,6 @@ public class EstrogenEffect extends MobEffect {
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
-        return true;
-    }
-
-    @Override
     public void applyEffectTick(@NotNull LivingEntity entity, int amplifier) {
         // Check if Dash is enabled on the server
         if (!EstrogenConfig.server().dashEnabled.get()) return;
@@ -71,14 +66,13 @@ public class EstrogenEffect extends MobEffect {
             if (groundCooldown < 0) groundCooldown = 0;
 
             // Dash particles
-            if (dashCooldown > 0 && dashCooldown % 2 == 0 && entity.blockPosition() != lastPos) {
+            if (dashCooldown > 0 && dashCooldown % 2 == 0 && player.blockPosition() != lastPos) {
                 EstrogenNetworkManager.CHANNEL.sendToServer(new DashPacket(false));
             }
-            lastPos = entity.blockPosition();
+            lastPos = player.blockPosition();
 
             // Wave dash
-            Minecraft client = Minecraft.getInstance();
-            if (dashCooldown > 0 && shouldWaveDash && client.options.keyJump.isDown()) {
+            if (dashCooldown > 0 && shouldWaveDash && Minecraft.getInstance().options.keyJump.isDown()) {
                 player.setDeltaMovement(player.getLookAngle().x * 3, 1, player.getLookAngle().z * 3);
                 shouldWaveDash = false;
             }
@@ -161,5 +155,10 @@ public class EstrogenEffect extends MobEffect {
             packet.write(buf);
             EstrogenNetworkManager.CHANNEL.sendToPlayers(new StatusEffectPacket(buf), Arrays.stream(targetPlayers).toList());
         }
+    }
+
+    @Override
+    public boolean isDurationEffectTick(int duration, int amplifier) {
+        return true;
     }
 }

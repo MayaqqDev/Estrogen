@@ -49,6 +49,16 @@ public class EnUs extends FabricLanguageProvider {
         tb.add(EstrogenItems.MOLTEN_AMETHYST_BUCKET.get(), "Bucket of Molten Amethyst");
         tb.add(EstrogenItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Bucket of Testosterone Mixture");
 
+        // Tooltip
+        tb.add("item.estrogen.estrogen_pill.tooltip", "Estrogen Pill");
+        tb.add("item.estrogen.estrogen_pill.tooltip.summary", "Temporary Source of _Girl Power_.");
+        tb.add("item.estrogen.crystal_estrogen_pill.tooltip", "Crystal Estrogen Pill");
+        tb.add("item.estrogen.crystal_estrogen_pill.tooltip.summary", "Temporary Source of _Girl Power_.");
+        tb.add("item.estrogen.estrogen_patches.tooltip", "Estrogen Patches");
+        tb.add("item.estrogen.estrogen_patches.tooltip.summary", "A refillable source of _Girl Power_.");
+        tb.add("item.estrogen.estrogen_patches.tooltip.condition1", "When worn in the Thighs slot");
+        tb.add("item.estrogen.estrogen_patches.tooltip.behaviour1", "Gives the _Girl Power Effect_ for as long as it's worn and is filled with _Liquid Estrogen_.");
+
         // Blocks
         tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifuge");
         tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Liquid Estrogen");
