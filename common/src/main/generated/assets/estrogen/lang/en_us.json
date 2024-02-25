@@ -1,4 +1,6 @@
 {
+  "advancement.estrogen.root.description": "Create Addon Based around expressing yourself, fluid handling and expanding your factory!",
+  "advancement.estrogen.root.title": "Create: Estrogen",
   "attribute.name.estrogen.boob_growing_start_time": "Upper body Start Time",
   "attribute.name.estrogen.boob_initial_size": "Upper Body initial size",
   "attribute.name.estrogen.dash_level": "Dash Level",

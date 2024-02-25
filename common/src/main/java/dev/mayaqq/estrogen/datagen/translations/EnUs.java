@@ -59,6 +59,10 @@ public class EnUs extends FabricLanguageProvider {
         tb.add("item.estrogen.estrogen_patches.tooltip.condition1", "When worn in the Thighs slot");
         tb.add("item.estrogen.estrogen_patches.tooltip.behaviour1", "Gives the _Girl Power Effect_ for as long as it's worn and is filled with _Liquid Estrogen_.");
 
+        // Advancements
+        tb.add("advancement.estrogen.root.title", "Create: Estrogen");
+        tb.add("advancement.estrogen.root.description", "Create Addon Based around expressing yourself, fluid handling and expanding your factory!");
+
         // Blocks
         tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifuge");
         tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Liquid Estrogen");

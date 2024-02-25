@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.registry.items;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
+import dev.mayaqq.estrogen.utils.EstrogenColors;
 import earth.terrarium.baubly.Baubly;
 import earth.terrarium.baubly.common.Bauble;
 import earth.terrarium.baubly.common.SlotInfo;
@@ -29,7 +30,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidItem<WrappedItemFluidContainer> {
-    int tick = 0;
     int estrogenAmountTick = 0;
 
     public EstrogenPatchesItem(Properties properties) {
@@ -39,8 +39,7 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
 
     @Override
     public void tick(ItemStack stack, SlotInfo slot) {
-        patchTick(stack, slot,false);
-        tick++;
+        patchTick(stack, slot);
         estrogenAmountTick++;
     }
 
@@ -59,22 +58,21 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
         }
     }
 
-    public void patchTick(ItemStack stack, SlotInfo info, boolean bypass) {
-        if (info.wearer() instanceof Player player && (bypass || tick == 20) && this.getAmount(stack) > 0) {
-            tick = 0;
-            player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), 400, stack.getCount() - 1, false, false, false));
-        }
-        if (EstrogenConfig.server().patchDrain.get() && estrogenAmountTick >= EstrogenConfig.server().patchDrainAmount.get()) {
-            estrogenAmountTick = 0;
-            ItemFluidContainer itemFluidManager = getFluidContainer(stack);
-            itemFluidManager.extractFromSlot(0, FluidHolder.of(EstrogenFluids.LIQUID_ESTROGEN.get(), FluidConstants.getBucketAmount() / 1000), false);
-            itemFluidManager.serialize(stack.getOrCreateTag());
+    public void patchTick(ItemStack stack, SlotInfo info) {
+        if (info.wearer() instanceof Player player && this.getAmount(stack) > 0) {
+            player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), 401, stack.getCount() - 1, false, false, false));
+            if (EstrogenConfig.server().patchDrain.get() && estrogenAmountTick >= EstrogenConfig.server().patchDrainAmount.get() && !player.isCreative()) {
+                estrogenAmountTick = 0;
+                ItemFluidContainer itemFluidManager = getFluidContainer(stack);
+                itemFluidManager.extractFromSlot(0, FluidHolder.of(EstrogenFluids.LIQUID_ESTROGEN.get(), FluidConstants.getBucketAmount() / 1000), false);
+                itemFluidManager.serialize(stack.getOrCreateTag());
+            }
         }
     }
 
     @Override
     public void onEquip(ItemStack stack, SlotInfo slot) {
-        patchTick(stack, slot, true);
+        patchTick(stack, slot);
     }
 
     public ItemStack getFullStack() {
@@ -119,6 +117,6 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
 
     @Override
     public int getBarColor(@NotNull ItemStack stack) {
-        return 0x00b3ff;
+        return EstrogenColors.ESTROGEN_PATCHES_BAR.value;
     }
 }

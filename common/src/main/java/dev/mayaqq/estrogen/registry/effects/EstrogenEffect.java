@@ -40,9 +40,9 @@ public class EstrogenEffect extends MobEffect {
     private static final UUID DASH_MODIFIER_UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4c");
     public short currentDashes = 0;
     public int dashCooldown = 0;
-    public int groundCooldown = 0;
     public boolean onCooldown = false;
     private boolean shouldWaveDash = false;
+    // Only needed for particles
     private BlockPos lastPos = null;
 
     public EstrogenEffect(MobEffectCategory statusEffectType, int color) {
@@ -61,9 +61,12 @@ public class EstrogenEffect extends MobEffect {
         if (entity instanceof Player player && player.level().isClientSide) {
             // cooldown processing
             dashCooldown--;
-            groundCooldown--;
             if (dashCooldown < 0) dashCooldown = 0;
-            if (groundCooldown < 0) groundCooldown = 0;
+
+            // Refresh number of dashes
+            if (shouldRefreshDash(player)) {
+                currentDashes = (short) player.getAttributeValue(EstrogenAttributes.DASH_LEVEL.get());
+            }
 
             // Dash particles
             if (dashCooldown > 0 && dashCooldown % 2 == 0 && player.blockPosition() != lastPos) {
@@ -71,30 +74,34 @@ public class EstrogenEffect extends MobEffect {
             }
             lastPos = player.blockPosition();
 
-            // Wave dash
+            // Wave dash, we process it near the top so it happens after the dash which triggers this.
             if (dashCooldown > 0 && shouldWaveDash && Minecraft.getInstance().options.keyJump.isDown()) {
                 player.setDeltaMovement(player.getLookAngle().x * 3, 1, player.getLookAngle().z * 3);
                 shouldWaveDash = false;
             }
 
-            // Whole Dash Mechanic
-            if (shouldRefreshDash(player) && groundCooldown == 0) {
-                groundCooldown = 4;
-                currentDashes = (short) player.getAttributeValue(EstrogenAttributes.DASH_LEVEL.get());
-            }
-            onCooldown = dashCooldown > 0 || currentDashes == 0;
-            Dash.onCooldown = onCooldown;
+            cooldown(dashCooldown > 0 || currentDashes == 0);
+            // Here is when the dash happens
             if (EstrogenKeybinds.DASH_KEY.consumeClick() && !onCooldown) {
+                // This makes you wave dash the next tick
                 if (player.getXRot() > 50 && player.getXRot() < 90) {
                     shouldWaveDash = true;
                 }
+                // Reset the cooldown to wait half a second
                 dashCooldown = 10;
+                // Decrement the dash counter
                 currentDashes--;
+                // Dash
                 int dashDeltaModifier = EstrogenConfig.server().dashDeltaModifier.get();
                 EstrogenNetworkManager.CHANNEL.sendToServer(new DashPacket(true));
                 player.setDeltaMovement(player.getLookAngle().x * dashDeltaModifier, player.getLookAngle().y * dashDeltaModifier, player.getLookAngle().z * dashDeltaModifier);
             }
         }
+    }
+
+    public void cooldown(boolean onCooldown) {
+        this.onCooldown = onCooldown;
+        Dash.onCooldown = onCooldown;
     }
 
     @Override

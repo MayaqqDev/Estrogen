@@ -7,7 +7,9 @@ public enum EstrogenColors {
     TESTOSTERONE_MIXTURE(232, 212, 171),
     FILTRATED_HORSE_URINE(225, 225, 20),
     HORSE_URINE(140, 139, 5),
-    MOLTEN_AMETHYST(174, 122, 253);
+    MOLTEN_AMETHYST(174, 122, 253),
+    
+    ESTROGEN_PATCHES_BAR(0, 179, 255);
 
     private final Color color;
     public final int value;

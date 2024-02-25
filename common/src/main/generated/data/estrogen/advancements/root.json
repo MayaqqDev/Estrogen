@@ -1,0 +1,55 @@
+{
+  "criteria": {
+    "root": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "estrogen:estrogen_pill",
+              "estrogen:crystal_estrogen_pill",
+              "estrogen:balls",
+              "estrogen:testosterone_chunk",
+              "estrogen:testosterone_powder",
+              "estrogen:used_filter",
+              "estrogen:estrogen_chip_cookie",
+              "estrogen:horse_urine_bottle",
+              "estrogen:estrogen_patches",
+              "estrogen:incomplete_estrogen_patches",
+              "estrogen:uwu",
+              "estrogen:incomplete_uwu",
+              "estrogen:molten_slime_bucket",
+              "estrogen:testosterone_mixture_bucket",
+              "estrogen:liquid_estrogen_bucket",
+              "estrogen:filtrated_horse_urine_bucket",
+              "estrogen:horse_urine_bucket",
+              "estrogen:molten_amethyst_bucket"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/block/sculk_catalyst_top.png",
+    "description": {
+      "translate": "advancement.estrogen.root.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "estrogen:estrogen_pill"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.estrogen.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "root"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

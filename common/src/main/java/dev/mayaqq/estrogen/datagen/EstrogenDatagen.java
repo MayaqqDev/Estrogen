@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.datagen;
 
+import dev.mayaqq.estrogen.datagen.advancements.EstrogenAdvancements;
 import dev.mayaqq.estrogen.datagen.loottables.EstrogenLootTables;
 import dev.mayaqq.estrogen.datagen.recipes.create.*;
 import dev.mayaqq.estrogen.datagen.recipes.estrogen.EstrogenCentrifugingRecipes;
@@ -38,6 +39,9 @@ public class EstrogenDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(EstrogenTagsGen.BlockTags::new);
         pack.addProvider(EstrogenTagsGen.FluidTags::new);
         pack.addProvider(EstrogenTagsGen.EntityTypeTags::new);
+
+        // Advancements
+        pack.addProvider(EstrogenAdvancements::new);
 
         // Lang
         pack.addProvider(CsCz::new);
