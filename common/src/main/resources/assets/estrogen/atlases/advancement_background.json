@@ -1,0 +1,13 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "background"
+    },
+    {
+      "type": "directory",
+      "source": "estrogen",
+      "prefix": "estrogen/advancements/background"
+    }
+  ]
+}

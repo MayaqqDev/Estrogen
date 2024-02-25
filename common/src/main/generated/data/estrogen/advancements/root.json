@@ -22,7 +22,8 @@
               "estrogen:liquid_estrogen_bucket",
               "estrogen:filtrated_horse_urine_bucket",
               "estrogen:horse_urine_bucket",
-              "estrogen:molten_amethyst_bucket"
+              "estrogen:molten_amethyst_bucket",
+              "estrogen:centrifuge"
             ]
           }
         ]
@@ -31,12 +32,12 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
-    "background": "minecraft:textures/block/sculk_catalyst_top.png",
+    "announce_to_chat": true,
+    "background": "estrogen:textures/advancements/background.png",
     "description": {
       "translate": "advancement.estrogen.root.description"
     },
-    "frame": "challenge",
+    "frame": "task",
     "hidden": false,
     "icon": {
       "item": "estrogen:estrogen_pill"

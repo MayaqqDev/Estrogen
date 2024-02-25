@@ -1,0 +1,38 @@
+{
+  "parent": "estrogen:liquid_estrogen",
+  "criteria": {
+    "estrogen_pill": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "estrogen:estrogen_pill"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.estrogen.estrogen_pill.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "estrogen:estrogen_pill"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.estrogen.estrogen_pill.title"
+    }
+  },
+  "requirements": [
+    [
+      "estrogen_pill"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

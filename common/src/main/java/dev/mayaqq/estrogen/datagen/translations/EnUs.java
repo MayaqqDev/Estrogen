@@ -62,6 +62,20 @@ public class EnUs extends FabricLanguageProvider {
         // Advancements
         tb.add("advancement.estrogen.root.title", "Create: Estrogen");
         tb.add("advancement.estrogen.root.description", "Create Addon Based around expressing yourself, fluid handling and expanding your factory!");
+        tb.add("advancement.estrogen.horse_urine.title", "Ewww!");
+        tb.add("advancement.estrogen.horse_urine.description", "Collect Horse Urine by \"milking\" a horse with a bottle.");
+        tb.add("advancement.estrogen.used_filter.title", "First Step in Processing");
+        tb.add("advancement.estrogen.used_filter.description", "Use a filter to remove the impurities from the Horse Urine you collected.");
+        tb.add("advancement.estrogen.liquid_estrogen.title", "The Source of (Girl) Power");
+        tb.add("advancement.estrogen.liquid_estrogen.description", "Collect a Bucket of Liquid Estrogen.");
+        tb.add("advancement.estrogen.estrogen_pill.title", "Pill up gals!");
+        tb.add("advancement.estrogen.estrogen_pill.description", "Craft the elusive Estrogen Pill.");
+        tb.add("advancement.estrogen.estrogen_patches.title", "(Almost) Permanent!");
+        tb.add("advancement.estrogen.estrogen_patches.description", "Craft the Estrogen Patches and enjoy your long lasting femininity.");
+        tb.add("advancement.estrogen.uwu.title", ":3");
+        tb.add("advancement.estrogen.uwu.description", ":3333333333");
+        tb.add("advancement.estrogen.balls.title", "Hehe");
+        tb.add("advancement.estrogen.balls.description", "What happens when you split the Slime and the Balls?");
 
         // Blocks
         tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifuge");

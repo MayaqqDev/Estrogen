@@ -1,0 +1,38 @@
+{
+  "parent": "estrogen:root",
+  "criteria": {
+    "horse_urine": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "estrogen:horse_urine_bottle"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.estrogen.horse_urine.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "estrogen:horse_urine_bottle"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.estrogen.horse_urine.title"
+    }
+  },
+  "requirements": [
+    [
+      "horse_urine"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

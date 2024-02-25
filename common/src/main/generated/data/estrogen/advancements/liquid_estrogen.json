@@ -1,0 +1,38 @@
+{
+  "parent": "estrogen:used_filter",
+  "criteria": {
+    "liquid_estrogen": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "estrogen:liquid_estrogen_bucket"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.estrogen.liquid_estrogen.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "estrogen:liquid_estrogen_bucket"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.estrogen.liquid_estrogen.title"
+    }
+  },
+  "requirements": [
+    [
+      "liquid_estrogen"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

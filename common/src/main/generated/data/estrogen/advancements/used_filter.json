@@ -1,0 +1,38 @@
+{
+  "parent": "estrogen:horse_urine",
+  "criteria": {
+    "used_filter": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "estrogen:used_filter"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.estrogen.used_filter.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "estrogen:used_filter"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.estrogen.used_filter.title"
+    }
+  },
+  "requirements": [
+    [
+      "used_filter"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

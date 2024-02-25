@@ -1,0 +1,39 @@
+{
+  "parent": "estrogen:liquid_estrogen",
+  "criteria": {
+    "estrogen_patches": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "estrogen:estrogen_patches"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.estrogen.estrogen_patches.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "estrogen:estrogen_patches",
+      "nbt": "{BotariumData:{StoredFluids:[{Amount:81000L,Fluid:\"estrogen:liquid_estrogen\"}]}}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.estrogen.estrogen_patches.title"
+    }
+  },
+  "requirements": [
+    [
+      "estrogen_patches"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

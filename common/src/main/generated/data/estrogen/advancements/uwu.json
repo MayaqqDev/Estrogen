@@ -1,0 +1,38 @@
+{
+  "parent": "estrogen:root",
+  "criteria": {
+    "uwu": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "estrogen:uwu"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.estrogen.uwu.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "estrogen:uwu"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.estrogen.uwu.title"
+    }
+  },
+  "requirements": [
+    [
+      "uwu"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
