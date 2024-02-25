@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.mayaqq.estrogen.client.entity.player.features.boobs.Physics;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
@@ -10,6 +11,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
+
+import java.util.HashMap;
+import java.util.UUID;
 
 public class Dash {
 
@@ -21,9 +26,26 @@ public class Dash {
     public static boolean onCooldown = false;
     // tick counter from 0 to 20
     private static int tick = 0;
+    public static HashMap<UUID, Physics> physicsMap = new HashMap<>();
 
     public static void dashClientTick() {
         Minecraft client = Minecraft.getInstance();
+
+        if (EstrogenConfig.client().chestPhysics.get()) {
+            for (HashMap.Entry<UUID, Physics> physics : physicsMap.entrySet()) {
+                // Cannot invoke "net.minecraft.client.multiplayer.ClientLevel.getPlayerByUUID(java.util.UUID)" because "client.level" is null
+                Player player = client.level.getPlayerByUUID(physics.getKey());
+                if (player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get())) {
+                    physics.getValue().update(player);
+                    if (physics.getValue().expired) {
+                        physicsMap.remove(physics.getKey());
+                    }
+                } else {
+                    physicsMap.remove(physics.getKey());
+                }
+            }
+        }
+
         LocalPlayer player = client.player;
         if (player == null) return;
 

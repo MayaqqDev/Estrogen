@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.client.entity.player.features.boobs;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.mayaqq.estrogen.client.Dash;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.utils.Time;
@@ -43,14 +44,23 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
             stack.pushPose();
             float size;
             double startTime = entity.getAttributeValue(BOOB_GROWING_START_TIME.get());
+            double currentTime = Time.currentTime(entity.level());
             if (startTime >= 0.0) {
                 float initialSize = (float) entity.getAttributeValue(BOOB_INITIAL_SIZE.get());
-                double currentTime = Time.currentTime(entity.level());
                 size = boobSize(startTime, currentTime, initialSize, h);
             } else {
                 size = 0.0F;
             }
-            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobs(stack, vertexConsumer, i, m, entity, size);
+
+            float yOffset = 0;
+            if (EstrogenConfig.client().chestPhysics.get()) {
+                Physics physics = Dash.physicsMap.computeIfAbsent(entity.getUUID(), uuid -> new Physics());
+                if (physics.active) {
+                    size += physics.interpolate(currentTime, h).x;
+                    yOffset = physics.interpolate(currentTime, h).y;
+                }
+            }
+            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobs(stack, vertexConsumer, i, m, entity, size, yOffset);
 
             if (EstrogenConfig.client().chestArmor.get()) {
                 ItemStack itemStack = entity.getItemBySlot(EquipmentSlot.CHEST);
@@ -63,10 +73,10 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
                             float p = (float) (n >> 8 & 255) / 255.0F;
                             float q = (float) (n & 255) / 255.0F;
 
-                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, bl2, o, p, q, null, entity, size);
-                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, bl2, 1.0F, 1.0F, 1.0F, "overlay", entity, size);
+                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, bl2, o, p, q, null, entity, size, yOffset);
+                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, bl2, 1.0F, 1.0F, 1.0F, "overlay", entity, size, yOffset);
                         } else {
-                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, bl2, 1.0F, 1.0F, 1.0F, null, entity, size);
+                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, bl2, 1.0F, 1.0F, 1.0F, null, entity, size, yOffset);
                         }
                         ArmorTrim.getTrim(entity.level().registryAccess(), itemStack).ifPresent((armorTrim) -> {
                             ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmorTrim(stack, bufferSource, i, bl2, armorTrim, armorItem.getMaterial(), this.armorTrimAtlas);
