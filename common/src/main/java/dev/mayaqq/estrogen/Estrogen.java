@@ -48,8 +48,6 @@ public class Estrogen {
         EstrogenSounds.SOUNDS.init();
         EstrogenCreativeTab.init();
         EstrogenNetworkManager.register();
-        EstrogenItems.ITEMS.stream().forEach(itemEntry -> {
-            TooltipModifier.REGISTRY.registerDeferred(itemEntry.getId(), item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE));
-        });
+        EstrogenItems.registerTooltips();
     }
 }

@@ -4,9 +4,9 @@ import dev.mayaqq.estrogen.registry.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
-public class EnUs extends FabricLanguageProvider {
+public class EstrogenTranslations extends FabricLanguageProvider {
 
-    public EnUs(FabricDataOutput output) {
+    public EstrogenTranslations(FabricDataOutput output) {
         super(output, "en_us");
     }
 
@@ -23,7 +23,6 @@ public class EnUs extends FabricLanguageProvider {
         tb.add("itemGroup.estrogen.estrogen", "Estrogen");
         tb.add(EstrogenItems.ESTROGEN_PILL.get(), "Estrogen Pill");
         tb.add(EstrogenItems.ESTROGEN_PATCHES.get(), "Estrogen Patch");
-        tb.add("item.estrogen.estrogen_patches_plural", "Estrogen Patches");
         tb.add(EstrogenItems.INCOMPLETE_ESTROGEN_PATCH.get(), "Incomplete Estrogen Patch");
         tb.add(EstrogenItems.CRYSTAL_ESTROGEN_PILL.get(), "Crystal Estrogen Pill");
         tb.add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get(), "Estrogen Chip Cookie");
@@ -139,8 +138,8 @@ public class EnUs extends FabricLanguageProvider {
         tb.add("estrogen.ponder.basic.text_3", "And output fluids from the top");
 
         // Attributes
-        tb.add("attribute.name.estrogen.dash_level", "Dash Level");
-        tb.add("attribute.name.estrogen.boob_growing_start_time", "Upper body Start Time");
-        tb.add("attribute.name.estrogen.boob_initial_size", "Upper Body initial size");
+        tb.add(EstrogenAttributes.DASH_LEVEL.get(), "Dash Level");
+        tb.add(EstrogenAttributes.BOOB_GROWING_START_TIME.get(), "Upper body Start Time");
+        tb.add(EstrogenAttributes.BOOB_INITIAL_SIZE.get(), "Upper Body initial size");
     }
 }

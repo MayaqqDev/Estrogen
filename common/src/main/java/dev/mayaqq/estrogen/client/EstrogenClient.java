@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.client;
 
 import dev.mayaqq.estrogen.client.registry.EstrogenKeybinds;
-import dev.mayaqq.estrogen.client.registry.EstrogenModelPredicateProviders;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
 import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
@@ -11,7 +10,6 @@ import earth.terrarium.botarium.util.CommonHooks;
 public class EstrogenClient {
     public static void init() {
         EstrogenRenderer.register();
-        EstrogenModelPredicateProviders.register();
         EstrogenPonderScenes.register();
         EstrogenKeybinds.register();
         EstrogenPatchesRenderer.register();

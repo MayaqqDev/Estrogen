@@ -59,8 +59,8 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
     }
 
     public void patchTick(ItemStack stack, SlotInfo info) {
-        if (info.wearer() instanceof Player player && this.getAmount(stack) > 0) {
-            player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), 401, stack.getCount() - 1, false, false, false));
+        if (info.wearer() instanceof Player player && !stack.isEmpty()) {
+            player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), 401, EstrogenConfig.server().patchGirlPowerAmount.get(), false, false, false));
             if (EstrogenConfig.server().patchDrain.get() && estrogenAmountTick >= EstrogenConfig.server().patchDrainAmount.get() && !player.isCreative()) {
                 estrogenAmountTick = 0;
                 ItemFluidContainer itemFluidManager = getFluidContainer(stack);
@@ -93,16 +93,6 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
     @Override
     public WrappedItemFluidContainer getFluidContainer(ItemStack stack) {
         return new WrappedItemFluidContainer(stack, new SimpleFluidContainer(FluidConstants.getBucketAmount(), 1, (amount, fluid) -> fluid.is(EstrogenFluids.LIQUID_ESTROGEN.get())));
-    }
-
-    @Override
-    public @NotNull String getDescriptionId(ItemStack stack) {
-        int count = stack.getCount();
-        if (count == 1) {
-            return super.getDescriptionId(stack);
-        } else {
-            return "item.estrogen.estrogen_patches_plural";
-        }
     }
 
     @Override

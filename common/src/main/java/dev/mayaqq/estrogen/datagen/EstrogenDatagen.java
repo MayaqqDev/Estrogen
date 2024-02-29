@@ -44,12 +44,7 @@ public class EstrogenDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(EstrogenAdvancements::new);
 
         // Lang
-        pack.addProvider(CsCz::new);
-        pack.addProvider(EnUs::new);
-        pack.addProvider(FrFr::new);
-        pack.addProvider(HuHu::new);
-        pack.addProvider(PtBr::new);
-        Hispanic.addAll(pack);
+        pack.addProvider(EstrogenTranslations::new);
 
         // Loot Tables
         pack.addProvider(EstrogenLootTables::new);
