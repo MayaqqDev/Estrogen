@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -44,7 +45,7 @@ public class EstrogenTagsGen {
         @Override
         protected void addTags(HolderLookup.Provider arg) {
             getOrCreateTagBuilder(EstrogenTags.Blocks.PICKAXE_MINABLE)
-                    .add(EstrogenCreateBlocks.CENTRIFUGE.get());
+                    .add(EstrogenBlocks.CENTRIFUGE.get());
         }
     }
 
@@ -75,6 +76,12 @@ public class EstrogenTagsGen {
 
         @Override
         protected void addTags(HolderLookup.Provider arg) {
+            getOrCreateTagBuilder(EstrogenTags.Entities.PISS_GIVING)
+                    .add(EntityType.HORSE)
+                    .add(EntityType.ZOMBIE_HORSE)
+                    .add(EntityType.DONKEY)
+                    .add(EntityType.MULE)
+                    .add(new ResourceLocation("spectrum", "kindling"));
         }
     }
 }

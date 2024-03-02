@@ -11,7 +11,7 @@ public class EstrogenBlockEntities {
     public static final BlockEntityEntry<CentrifugeBlockEntity> CENTRIFUGE = REGISTRATE
             .blockEntity("centrifuge", CentrifugeBlockEntity::new)
             .instance(() -> CentrifugeCogInstance::new)
-            .validBlocks(EstrogenCreateBlocks.CENTRIFUGE)
+            .validBlocks(EstrogenBlocks.CENTRIFUGE::get)
             .renderer(() -> CentrifugeRenderer::new)
             .register();
 

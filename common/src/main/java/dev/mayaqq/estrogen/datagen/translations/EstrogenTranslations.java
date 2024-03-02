@@ -77,7 +77,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("advancement.estrogen.balls.description", "What happens when you split the Slime and the Balls?");
 
         // Blocks
-        tb.add(EstrogenCreateBlocks.CENTRIFUGE.get(), "Centrifuge");
+        tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuge");
         tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Liquid Estrogen");
         tb.add(EstrogenBlocks.HORSE_URINE_BLOCK.get(), "Horse Urine");
         tb.add(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), "Filtrated Horse Urine");

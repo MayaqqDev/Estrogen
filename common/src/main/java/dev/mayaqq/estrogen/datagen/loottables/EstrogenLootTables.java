@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.datagen.loottables;
 
-import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 
@@ -12,6 +12,6 @@ public class EstrogenLootTables extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
-        add(EstrogenCreateBlocks.CENTRIFUGE.get(), createSingleItemTable(EstrogenCreateBlocks.CENTRIFUGE));
+        add(EstrogenBlocks.CENTRIFUGE.get(), createSingleItemTable(EstrogenBlocks.CENTRIFUGE.get()));
     }
 }

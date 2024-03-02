@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.datagen.advancements;
 import com.google.common.collect.ImmutableSet;
 import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
@@ -128,7 +128,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         for (RegistryEntry<Item> item : itemEntries) {
             items.add(item.get());
         }
-        items.add(EstrogenCreateBlocks.CENTRIFUGE.asItem());
+        items.add(EstrogenBlocks.CENTRIFUGE.get().asItem());
         return  new ItemPredicate(null, items.build(),
                 MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, (Potion)null, NbtPredicate.ANY);
     }

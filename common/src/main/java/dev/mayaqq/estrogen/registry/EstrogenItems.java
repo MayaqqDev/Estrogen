@@ -23,6 +23,7 @@ public class EstrogenItems {
 
     public static final ResourcefulRegistry<Item> BASIC_ITEMS = ResourcefulRegistries.create(ITEMS);
     public static final ResourcefulRegistry<Item> BUCKETS = ResourcefulRegistries.create(ITEMS);
+    public static final ResourcefulRegistry<Item> BLOCK_ITEMS = ResourcefulRegistries.create(ITEMS);
 
     // Basic items
     public static final RegistryEntry<Item>
@@ -57,6 +58,9 @@ public class EstrogenItems {
     public static Item.Properties bucketProperties() {
         return new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1);
     }
+
+    // Block Items
+    public static final RegistryEntry<Item> CENTRIFUGE = BLOCK_ITEMS.register("centrifuge", () -> EstrogenBlocks.CENTRIFUGE.get().asItem());
 
     public static void registerTooltips() {
         EstrogenItems.ITEMS.stream().forEach(itemEntry -> TooltipModifier.REGISTRY.registerDeferred(itemEntry.getId(), item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)));

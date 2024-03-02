@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 public class CentrifugeBlock extends KineticBlock implements IBE<CentrifugeBlockEntity>, ICogWheel, IWrenchable {
 
     public CentrifugeBlock(Properties settings) {
-        super(settings.noOcclusion());
+        super(settings);
     }
 
     @Override

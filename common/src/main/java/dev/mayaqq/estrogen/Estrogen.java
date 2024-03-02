@@ -34,7 +34,6 @@ public class Estrogen {
         // Init all the different classes
         EstrogenAttributes.ATTRIBUTES.init();
         EstrogenBlockEntities.register();
-        EstrogenCreateBlocks.register();
         EstrogenFluidProperties.FLUID_PROPERTIES.initialize();
         EstrogenFluids.FLUIDS.init();
         EstrogenBlocks.BLOCKS.init();
@@ -49,5 +48,6 @@ public class Estrogen {
         EstrogenCreativeTab.init();
         EstrogenNetworkManager.register();
         EstrogenItems.registerTooltips();
+        EstrogenBlocks.registerExtraProperties();
     }
 }

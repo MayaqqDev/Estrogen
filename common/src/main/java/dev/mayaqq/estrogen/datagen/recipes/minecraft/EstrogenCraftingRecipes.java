@@ -2,7 +2,7 @@ package dev.mayaqq.estrogen.datagen.recipes.minecraft;
 
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
-import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -28,7 +28,7 @@ public class EstrogenCraftingRecipes extends FabricRecipeProvider {
                 .requires(AllItems.BAR_OF_CHOCOLATE.get())
                 .save(exporter);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, EstrogenCreateBlocks.CENTRIFUGE.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, EstrogenBlocks.CENTRIFUGE.get(), 1)
                 .define('P', AllBlocks.MECHANICAL_PUMP.get())
                 .define('T', AllBlocks.FLUID_TANK.get())
                 .define('C', EstrogenTags.Items.COPPER_PLATES)

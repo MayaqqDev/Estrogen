@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.fabric.integrations.emi;
 import com.simibubi.create.compat.emi.CreateEmiAnimations;
 import dev.emi.emi.api.widget.WidgetHolder;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
-import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 
 public class EstrogenEmiAnimations extends CreateEmiAnimations {
     public static void addCentrifuge(WidgetHolder widgets, int x, int y) {
@@ -15,7 +15,7 @@ public class EstrogenEmiAnimations extends CreateEmiAnimations {
                     .scale(scale)
                     .render(matrices);
 
-            blockElement(EstrogenCreateBlocks.CENTRIFUGE.getDefaultState())
+            blockElement(EstrogenBlocks.CENTRIFUGE.get().defaultBlockState())
                     .rotateBlock(22.5, 22.5, 0)
                     .scale(scale)
                     .render(matrices);

@@ -8,7 +8,7 @@ public class EstrogenPonderScenes {
     static final PonderRegistrationHelper HELPER = new PonderRegistrationHelper("estrogen");
 
     public static void register() {
-        HELPER.forComponents(EstrogenCreateBlocks.CENTRIFUGE)
+        HELPER.forComponents()
                 .addStoryBoard("centrifuge/intro", CentrifugeStoryboard::centrifugeStoryboardIntro)
                 .addStoryBoard("centrifuge/basic", CentrifugeStoryboard::centrifugeStoryboardBasic);
     }

@@ -14,7 +14,7 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
 import dev.architectury.fluid.FluidStack;
 import dev.mayaqq.estrogen.fabric.integrations.rei.categories.CentrifugingCategory;
-import dev.mayaqq.estrogen.registry.EstrogenCreateBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenRecipes;
 import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.RecipeManagerAccessor;
@@ -101,8 +101,8 @@ public class ReiCompat extends CreateREI {
 
         CreateRecipeCategory<CentrifugingRecipe> centrifuging = builder(CentrifugingRecipe.class)
                 .addTypedRecipes(EstrogenRecipes.CENTRIFUGING)
-                .catalyst(EstrogenCreateBlocks.CENTRIFUGE::get)
-                .itemIcon(EstrogenCreateBlocks.CENTRIFUGE.get())
+                .catalyst(EstrogenBlocks.CENTRIFUGE::get)
+                .itemIcon(EstrogenBlocks.CENTRIFUGE.get())
                 .emptyBackground(177, 80)
                 .build("centrifuging", CentrifugingCategory::new);
     }
