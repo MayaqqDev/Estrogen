@@ -1,9 +1,13 @@
 package dev.mayaqq.estrogen.client;
 
+import com.jozufozu.flywheel.backend.instancing.InstancedRenderRegistry;
 import dev.mayaqq.estrogen.client.registry.EstrogenKeybinds;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeCogInstance;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeRenderer;
 import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
 import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
+import dev.mayaqq.estrogen.registry.EstrogenBlockEntities;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenPonderScenes;
 import earth.terrarium.botarium.client.ClientHooks;
@@ -17,6 +21,11 @@ public class EstrogenClient {
         EstrogenKeybinds.register();
         EstrogenPatchesRenderer.register();
         ClientHooks.setRenderLayer(EstrogenBlocks.CENTRIFUGE.get(), RenderType.cutout());
+        ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.CENTRIFUGE.get(), CentrifugeRenderer::new);
+        InstancedRenderRegistry.configure(EstrogenBlockEntities.CENTRIFUGE.get())
+                .factory(CentrifugeCogInstance::new)
+                .skipRender(be -> false)
+                .apply();
 
         // mod compat
         if (CommonHooks.isModLoaded("ears")) {

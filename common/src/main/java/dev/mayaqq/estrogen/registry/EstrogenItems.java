@@ -14,6 +14,7 @@ import dev.mayaqq.estrogen.registry.items.HorseUrineBottleItem;
 import dev.mayaqq.estrogen.registry.items.UwUItem;
 import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
@@ -60,7 +61,7 @@ public class EstrogenItems {
     }
 
     // Block Items
-    public static final RegistryEntry<Item> CENTRIFUGE = BLOCK_ITEMS.register("centrifuge", () -> EstrogenBlocks.CENTRIFUGE.get().asItem());
+    public static final RegistryEntry<Item> CENTRIFUGE = BLOCK_ITEMS.register("centrifuge", () -> new BlockItem(EstrogenBlocks.CENTRIFUGE.get(), new Item.Properties()));
 
     public static void registerTooltips() {
         EstrogenItems.ITEMS.stream().forEach(itemEntry -> TooltipModifier.REGISTRY.registerDeferred(itemEntry.getId(), item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)));

@@ -70,7 +70,7 @@ public class EmiCompat implements EmiPlugin {
 
         ALL.forEach((id, category) -> registry.addCategory(category));
 
-        registry.addWorkstation(CENTRIFUGING, EmiStack.of(EstrogenCreateBlocks.CENTRIFUGE.get()));
+        registry.addWorkstation(CENTRIFUGING, EmiStack.of(EstrogenBlocks.CENTRIFUGE.get()));
 
         addAll(registry, EstrogenRecipes.CENTRIFUGING, CentrifugingEmiRecipe::new);
     }

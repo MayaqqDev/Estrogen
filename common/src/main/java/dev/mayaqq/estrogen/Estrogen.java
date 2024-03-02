@@ -33,10 +33,10 @@ public class Estrogen {
     public static void init() {
         // Init all the different classes
         EstrogenAttributes.ATTRIBUTES.init();
-        EstrogenBlockEntities.register();
-        EstrogenFluidProperties.FLUID_PROPERTIES.initialize();
         EstrogenFluids.FLUIDS.init();
         EstrogenBlocks.BLOCKS.init();
+        EstrogenBlockEntities.BLOCK_ENTITIES.init();
+        EstrogenFluidProperties.FLUID_PROPERTIES.initialize();
         EstrogenEffects.MOB_EFFECTS.init();
         EstrogenPotions.POTIONS.init();
         EstrogenEnchantments.ENCHANTMENTS.init();

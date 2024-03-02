@@ -5,6 +5,6 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class CommonHooksImpl {
     public static double getReach(LivingEntity entity) {
-        return ReachEntityAttributes.getReachDistance(entity, 0);
+        return ReachEntityAttributes.getReachDistance(entity, 3);
     }
 }

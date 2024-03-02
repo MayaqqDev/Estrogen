@@ -80,8 +80,7 @@ public class EstrogenTagsGen {
                     .add(EntityType.HORSE)
                     .add(EntityType.ZOMBIE_HORSE)
                     .add(EntityType.DONKEY)
-                    .add(EntityType.MULE)
-                    .add(new ResourceLocation("spectrum", "kindling"));
+                    .add(EntityType.MULE);
         }
     }
 }
