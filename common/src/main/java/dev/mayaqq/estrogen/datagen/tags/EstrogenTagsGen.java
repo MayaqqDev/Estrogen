@@ -1,7 +1,10 @@
 package dev.mayaqq.estrogen.datagen.tags;
 
 import com.simibubi.create.AllTags;
-import dev.mayaqq.estrogen.registry.*;
+import dev.mayaqq.estrogen.registry.EstrogenBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenFluids;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
+import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
@@ -76,7 +79,7 @@ public class EstrogenTagsGen {
 
         @Override
         protected void addTags(HolderLookup.Provider arg) {
-            getOrCreateTagBuilder(EstrogenTags.Entities.PISS_GIVING)
+            getOrCreateTagBuilder(EstrogenTags.Entities.URINE_GIVING)
                     .add(EntityType.HORSE)
                     .add(EntityType.ZOMBIE_HORSE)
                     .add(EntityType.DONKEY)

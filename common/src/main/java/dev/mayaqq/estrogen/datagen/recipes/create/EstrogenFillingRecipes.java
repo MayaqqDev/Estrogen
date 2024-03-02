@@ -7,23 +7,15 @@ import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeInterface;
-import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenPotions;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.material.Fluids;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
 

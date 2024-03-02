@@ -22,8 +22,6 @@ public class EstrogenFabric implements ModInitializer {
             ForgeConfigRegistry.INSTANCE.register(Estrogen.MOD_ID, pair.getKey(), pair.getValue().specification);
         // init Estrogen main class
         Estrogen.init();
-        // Register everything using REGISTRATE
-        Estrogen.REGISTRATE.register();
         // Register Fabric specific Events
         EstrogenFabricEvents.register();
 

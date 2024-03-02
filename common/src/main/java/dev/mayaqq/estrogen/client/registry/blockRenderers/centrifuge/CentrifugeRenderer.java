@@ -5,7 +5,6 @@ import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.platform.EstrogenFluidRenderer;
 import dev.mayaqq.estrogen.registry.blockEntities.CentrifugeBlockEntity;

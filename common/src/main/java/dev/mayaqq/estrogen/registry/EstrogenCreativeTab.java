@@ -40,5 +40,5 @@ public class EstrogenCreativeTab {
         return items.stream();
     }
 
-    public static void init() {}
+    public static void register() {}
 }

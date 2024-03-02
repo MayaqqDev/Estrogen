@@ -4,13 +4,11 @@
   "package": "dev.mayaqq.estrogen.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BottleItemMixin",
     "PlayerEntityMixin"
   ],
   "client": [
     "client.ClientPlayNetworkHandlerMixin",
     "client.GameOptionsMixin",
-    "client.InGameHudMixin",
     "client.MinecraftClientMixin",
     "client.PlayerEntityModelMixin",
     "client.PlayerEntityRendererMixin",

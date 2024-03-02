@@ -29,7 +29,7 @@ public class EstrogenTags {
     }
 
     public static class Entities {
-        public static final TagKey<EntityType<?>> PISS_GIVING = TagKey.create(BuiltInRegistries.ENTITY_TYPE.key(), Estrogen.id("piss_giving"));
+        public static final TagKey<EntityType<?>> URINE_GIVING = TagKey.create(BuiltInRegistries.ENTITY_TYPE.key(), Estrogen.id("urine_giving"));
     }
 
     private static ResourceLocation mcId(String path) {

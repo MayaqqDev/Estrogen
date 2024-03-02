@@ -11,6 +11,7 @@ public class EstrogenClientFabric implements ClientModInitializer {
     public void onInitializeClient() {
         // init Estrogen Client on fabric
         EstrogenClient.init();
+        EstrogenFabricClientEvents.register();
 
         // Fabric please add conditional dependencies
         if (FabricLoader.getInstance().isModLoaded("roughlyenoughitems") && !FabricLoader.getInstance().isModLoaded("createreibugfix")) {
