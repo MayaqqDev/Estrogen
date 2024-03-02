@@ -59,17 +59,7 @@ public class EstrogenTagsGen {
         }
 
         @Override
-        protected void addTags(HolderLookup.Provider arg) {
-            getOrCreateTagBuilder(EstrogenTags.Fluids.WATER)
-                    .add(EstrogenFluids.LIQUID_ESTROGEN.get()).add(EstrogenFluids.LIQUID_ESTROGEN_FLOWING.get())
-                    .add(EstrogenFluids.HORSE_URINE.get()).add(EstrogenFluids.HORSE_URINE_FLOWING.get())
-                    .add(EstrogenFluids.FILTRATED_HORSE_URINE.get()).add(EstrogenFluids.FILTRATED_HORSE_URINE_FLOWING.get())
-                    .add(EstrogenFluids.TESTOSTERONE_MIXTURE.get()).add(EstrogenFluids.TESTOSTERONE_MIXTURE_FLOWING.get());
-
-            getOrCreateTagBuilder(EstrogenTags.Fluids.LAVA)
-                    .add(EstrogenFluids.MOLTEN_AMETHYST.get()).add(EstrogenFluids.MOLTEN_AMETHYST_FLOWING.get())
-                    .add(EstrogenFluids.MOLTEN_SLIME.get()).add(EstrogenFluids.MOLTEN_SLIME_FLOWING.get());
-        }
+        protected void addTags(HolderLookup.Provider arg) {}
     }
 
     public static class EntityTypeTags extends FabricTagProvider.EntityTypeTagProvider {
