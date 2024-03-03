@@ -30,6 +30,7 @@ public class Estrogen {
         EstrogenRecipeRegistries.RECIPE_TYPES.init();
         EstrogenSounds.SOUNDS.init();
         EstrogenRecipes.register();
+        EstrogenProcessingRecipes.register();
         EstrogenCreativeTab.register();
         EstrogenNetworkManager.register();
         EstrogenItems.registerTooltips();

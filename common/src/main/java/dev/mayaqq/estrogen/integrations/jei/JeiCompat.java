@@ -9,9 +9,8 @@ import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
 import dev.mayaqq.estrogen.integrations.jei.categories.CentrifugingCategory;
-import dev.mayaqq.estrogen.platform.JeiPerPlatform;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
-import dev.mayaqq.estrogen.registry.EstrogenRecipes;
+import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
 import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -55,7 +54,7 @@ public class JeiCompat extends CreateJEI {
         CreateRecipeCategory<?>
 
                 centrifuging = builder(CentrifugingRecipe.class)
-                .addTypedRecipes(EstrogenRecipes.CENTRIFUGING)
+                .addTypedRecipes(EstrogenProcessingRecipes.CENTRIFUGING)
                 .catalyst(EstrogenBlocks.CENTRIFUGE::get)
                 .itemIcon(EstrogenBlocks.CENTRIFUGE.get())
                 .emptyBackground(177, 70)

@@ -4,7 +4,7 @@ import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
-import dev.mayaqq.estrogen.registry.EstrogenRecipes;
+import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
 import dev.mayaqq.estrogen.registry.blockEntities.CentrifugeBlockEntity;
 import earth.terrarium.botarium.common.fluid.base.FluidContainer;
 import earth.terrarium.botarium.common.fluid.base.FluidHolder;
@@ -28,7 +28,7 @@ public class CentrifugingRecipe extends ProcessingRecipe<Inventory> {
     }
 
     public CentrifugingRecipe(ProcessingRecipeBuilder.ProcessingRecipeParams params) {
-        this(EstrogenRecipes.CENTRIFUGING, params);
+        this(EstrogenProcessingRecipes.CENTRIFUGING, params);
     }
 
     public void setBlockEntity(CentrifugeBlockEntity blockEntity) {
