@@ -1,7 +1,9 @@
 package dev.mayaqq.estrogen.registry;
 
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import dev.mayaqq.estrogen.utils.Time;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -60,6 +62,12 @@ public class EstrogenEvents {
             if (EstrogenConfig.common().permaDash.get()) {
                 player.addEffect(new MobEffectInstance(ESTROGEN_EFFECT.get(), 20, EstrogenConfig.common().girlPowerLevel.get(), false, false, false));
             }
+        }
+    }
+
+    public static void playerTracking(Entity trackedEntity, Player player) {
+        if (trackedEntity instanceof ServerPlayer trackedPlayer && player instanceof ServerPlayer trackingPlayer) {
+            EstrogenEffect.sendPlayerStatusEffect(trackedPlayer, EstrogenEffects.ESTROGEN_EFFECT.get(), trackingPlayer);
         }
     }
 }

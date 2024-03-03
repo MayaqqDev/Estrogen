@@ -3,11 +3,15 @@ package dev.mayaqq.estrogen.forge;
 import com.simibubi.create.foundation.config.ConfigBase;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenEvents;
+import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -39,6 +43,17 @@ public class EstrogenForgeEvents {
         if (event.getPhase() == EventPriority.LOWEST) {
             EstrogenEvents.playerTickEnd(event.player);
         }
+    }
+
+    // Player Tracking
+    @SubscribeEvent
+    public static void onPlayerStartTracking(PlayerEvent.StartTracking event) {
+        EstrogenEvents.playerTracking(event.getTarget(), event.getEntity());
+    }
+
+    @SubscribeEvent
+    public static void onPlayerStopTracking(PlayerEvent.StopTracking event) {
+        EstrogenEvents.playerTracking(event.getTarget(), event.getEntity());
     }
 
     // Boob Growing
