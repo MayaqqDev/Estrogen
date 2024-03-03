@@ -1,15 +1,14 @@
-package dev.mayaqq.estrogen.forge.integrations.jei.categories;
+package dev.mayaqq.estrogen.integrations.jei.categories;
 
 
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
-import dev.mayaqq.estrogen.forge.integrations.jei.categories.animations.AnimatedCentrifuge;
+import dev.mayaqq.estrogen.integrations.jei.categories.animations.AnimatedCentrifuge;
+import dev.mayaqq.estrogen.platform.JeiPerPlatform;
 import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.client.gui.GuiGraphics;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -25,15 +24,7 @@ public class CentrifugingCategory extends CreateRecipeCategory<CentrifugingRecip
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, CentrifugingRecipe recipe, IFocusGroup focuses) {
-        builder
-                .addSlot(RecipeIngredientRole.INPUT, 27, 32)
-                .setBackground(getRenderedSlot(), -1, -1)
-                .addIngredients(ForgeTypes.FLUID_STACK, withImprovedVisibility(recipe.getFluidIngredients().get(0).getMatchingFluidStacks()))
-                .addTooltipCallback(addFluidTooltip(recipe.getFluidIngredients().get(0).getRequiredAmount()));
-        builder
-                .addSlot(RecipeIngredientRole.OUTPUT, 132, 51)
-                .setBackground(getRenderedSlot(), -1, -1)
-                .addFluidStack(recipe.getFluidResults().get(0).getFluid(), recipe.getFluidResults().get(0).getAmount());
+        JeiPerPlatform.setRecipe(builder, recipe, focuses);
     }
 
     @Override

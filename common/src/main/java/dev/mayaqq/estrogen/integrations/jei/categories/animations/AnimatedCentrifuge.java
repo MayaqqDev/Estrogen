@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.forge.integrations.jei.categories.animations;
+package dev.mayaqq.estrogen.integrations.jei.categories.animations;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;

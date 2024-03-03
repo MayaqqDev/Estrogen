@@ -44,6 +44,9 @@ dependencies {
     // EMI
     modCompileOnly("dev.emi:emi-fabric:${rootProject.emi_version}:api")
 
+    // JEI
+    modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-fabric-api:${rootProject.jei_version}")
+
     //Mod Menu
     modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}")
 
@@ -56,6 +59,7 @@ dependencies {
             modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}") transitive false
             modLocalRuntime("maven.modrinth:createfabricreibugfix:${rootProject.createreibugfix_version}") transitive false; break
         case "emi": modLocalRuntime("dev.emi:emi-fabric:${rootProject.emi_version}"); break
+        case "jei": modLocalRuntime("curse.maven:jei-238222:${rootProject.jei_file_id_fabric}"); break
         case "disabled": break
         default: println("Invalid item viewer: ${item_viewer} must be REI, EMI or disabled"); break
     }

@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.forge.integrations.jei;
+package dev.mayaqq.estrogen.integrations.jei;
 
 import com.simibubi.create.Create;
 import com.simibubi.create.compat.jei.*;
@@ -8,16 +8,13 @@ import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
-import dev.mayaqq.estrogen.forge.integrations.jei.categories.CentrifugingCategory;
+import dev.mayaqq.estrogen.integrations.jei.categories.CentrifugingCategory;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
-import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.EstrogenRecipes;
 import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.helpers.IPlatformFluidHelper;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IIngredientManager;
@@ -96,13 +93,6 @@ public class JeiCompat extends CreateJEI {
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
         registration.addRecipeTransferHandler(new BlueprintTransferHandler(), RecipeTypes.CRAFTING);
-    }
-
-    @Override
-    public <T> void registerFluidSubtypes(ISubtypeRegistration registration, IPlatformFluidHelper<T> platformFluidHelper) {
-        PotionFluidSubtypeInterpreter interpreter = new PotionFluidSubtypeInterpreter();
-        registration.registerSubtypeInterpreter(ForgeTypes.FLUID_STACK, EstrogenFluids.LIQUID_ESTROGEN.get(), interpreter);
-        registration.registerSubtypeInterpreter(ForgeTypes.FLUID_STACK, EstrogenFluids.LIQUID_ESTROGEN_FLOWING.get(), interpreter);
     }
 
     private class CategoryBuilder<T extends Recipe<?>> {

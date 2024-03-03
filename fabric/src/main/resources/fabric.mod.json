@@ -34,6 +34,9 @@
     "rei_client": [
       "dev.mayaqq.estrogen.fabric.integrations.rei.ReiCompat"
     ],
+    "jei_mod_plugin": [
+      "dev.mayaqq.estrogen.integrations.jei.JeiCompat"
+    ],
     "modmenu": [
       "dev.mayaqq.estrogen.fabric.integrations.modmenu.ModMenuCompat"
     ]
