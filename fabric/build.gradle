@@ -22,7 +22,7 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
 
     // Fapi
-    modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
+    modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}+${rootProject.minecraft_version}")
 
     //Create
     modImplementation("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}")
@@ -42,7 +42,7 @@ dependencies {
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}")
 
     // EMI
-    modCompileOnly("dev.emi:emi-fabric:${rootProject.emi_version}:api")
+    modCompileOnly("dev.emi:emi-fabric:${rootProject.emi_version}+${rootProject.minecraft_version}:api")
 
     // JEI
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-fabric-api:${rootProject.jei_version}")
@@ -58,7 +58,7 @@ dependencies {
         case "rei":
             modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}") transitive false
             modLocalRuntime("maven.modrinth:createfabricreibugfix:${rootProject.createreibugfix_version}") transitive false; break
-        case "emi": modLocalRuntime("dev.emi:emi-fabric:${rootProject.emi_version}"); break
+        case "emi": modLocalRuntime("dev.emi:emi-fabric:${rootProject.emi_version}+${rootProject.minecraft_version}"); break
         case "jei": modLocalRuntime("curse.maven:jei-238222:${rootProject.jei_file_id_fabric}"); break
         case "disabled": break
         default: println("Invalid item viewer: ${item_viewer} must be REI, EMI or disabled"); break
