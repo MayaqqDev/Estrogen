@@ -47,7 +47,7 @@ public record EntityInteractionRecipe(ResourceLocation id, Ingredient ingredient
 
     @Override
     public @NotNull ResourceLocation id() {
-        return null;
+        return id;
     }
 
     @Override

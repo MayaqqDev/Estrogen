@@ -5,6 +5,7 @@ import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import dev.mayaqq.estrogen.registry.recipes.inventory.EntityInteractionInventory;
 import dev.mayaqq.estrogen.utils.Time;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -23,18 +24,24 @@ import static dev.mayaqq.estrogen.utils.Boob.boobSize;
 
 public class EstrogenEvents {
     public static InteractionResult entityInteract(Player player, Entity entity, ItemStack stack, Level level) {
-        AtomicReference<InteractionResult> result = null;
-        level.getServer().getRecipeManager().getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION.get()).forEach(recipe -> {
-            EntityInteractionInventory inv = new EntityInteractionInventory(entity.getType(), stack);
-            if (recipe.matches(inv, level)) {
-                level.playSound(null, player.blockPosition(), BuiltInRegistries.SOUND_EVENT.get(recipe.sound()), SoundSource.PLAYERS);
-                if (!player.isCreative()) stack.shrink(1);
-                player.getInventory().placeItemBackInInventory(recipe.assemble(inv, level.registryAccess()));
-                result.set(InteractionResult.SUCCESS);
-            }
-        });
+        AtomicReference<InteractionResult> result = new AtomicReference<>(InteractionResult.PASS);
+        if (level instanceof ServerLevel) {
+            level.getServer().getRecipeManager().getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION.get()).forEach(recipe -> {
+                EntityInteractionInventory inv = new EntityInteractionInventory(entity.getType(), stack);
+                if (recipe.matches(inv, level)) {
+                    level.playSound(null, player.blockPosition(), BuiltInRegistries.SOUND_EVENT.get(recipe.sound()), SoundSource.PLAYERS);
+                    if (!player.isCreative()) stack.shrink(1);
+                    player.getInventory().placeItemBackInInventory(recipe.assemble(inv, level.registryAccess()));
+                    result.set(InteractionResult.SUCCESS);
+                }
+            });
+        }
 
-        return result.get();
+        if (result.get() == InteractionResult.PASS) {
+            return null;
+        } else {
+            return result.get();
+        }
     }
 
     public static void onPlayerJoin(Entity entity) {
