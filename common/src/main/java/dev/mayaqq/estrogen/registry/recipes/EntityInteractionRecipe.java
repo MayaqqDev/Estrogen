@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.registry.recipes;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.teamresourceful.resourcefullib.common.codecs.recipes.IngredientCodec;
 import com.teamresourceful.resourcefullib.common.codecs.recipes.ItemStackCodec;
 import com.teamresourceful.resourcefullib.common.recipe.CodecRecipe;
@@ -20,6 +21,10 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public record EntityInteractionRecipe(ResourceLocation id, Ingredient ingredient, ItemStack result, EntityObject entity, ResourceLocation sound, Boolean cantBeBaby) implements CodecRecipe<EntityInteractionInventory> {
+
+    public static RecipeTypeInfo getRecipeTypeInfo() {
+        return new RecipeTypeInfo(new ResourceLocation("estrogen", "entity_interaction"), EstrogenRecipes.ENTITY_INTERACTION_SERIALIZER.get(), EstrogenRecipes.ENTITY_INTERACTION.get());
+    }
 
     public static Codec<EntityInteractionRecipe> codec(ResourceLocation id) {
         return RecordCodecBuilder.create(instance -> instance.group(
@@ -73,5 +78,33 @@ public record EntityInteractionRecipe(ResourceLocation id, Ingredient ingredient
     @Override
     public ItemStack assemble(@NotNull EntityInteractionInventory container, @NotNull RegistryAccess access) {
         return result.copy();
+    }
+
+    public static class RecipeTypeInfo implements IRecipeTypeInfo {
+
+        final ResourceLocation id;
+        final RecipeSerializer<?> serializer;
+        final RecipeType<?> type;
+
+        public RecipeTypeInfo(ResourceLocation id, RecipeSerializer<?> serializer, RecipeType<?> type) {
+            this.id = id;
+            this.serializer = serializer;
+            this.type = type;
+        }
+
+        @Override
+        public ResourceLocation getId() {
+            return id;
+        }
+
+        @Override
+        public RecipeSerializer<?> getSerializer() {
+            return serializer;
+        }
+
+        @Override
+        public RecipeType<?> getType() {
+            return type;
+        }
     }
 }

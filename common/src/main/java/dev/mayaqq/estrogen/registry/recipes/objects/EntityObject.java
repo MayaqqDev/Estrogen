@@ -5,9 +5,15 @@ import com.google.gson.JsonObject;
 import dev.mayaqq.estrogen.utils.Either;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
+
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 public record EntityObject(Either<EntityType<?>, TagKey<EntityType<?>>> entity) {
 
@@ -68,5 +74,45 @@ public record EntityObject(Either<EntityType<?>, TagKey<EntityType<?>>> entity) 
         } else {
             return entity.is(this.entity.right().get());
         }
+    }
+
+    static int cycleCounter = 0;
+    static int cycleAmount = 0;
+    static EntityType<?> currentEntity = null;
+
+    public EntityType<?> getCycling() {
+
+        if (entity.isLeft()) {
+            return entity.left().get();
+        } else {
+            if (cycleCounter == 0) {
+                ArrayList<EntityType<?>> entityTypes = getEntityTypes();
+                currentEntity = entityTypes.get(0);
+            }
+            if (cycleCounter >= 100) {
+                cycleCounter = 1;
+                currentEntity = getEntityTypes().get(cycleAmount);
+
+            }
+            cycleAmount++;
+            if (cycleAmount >= getEntityTypes().size()) {
+                cycleAmount = 0;
+            }
+            cycleCounter++;
+            return currentEntity;
+        }
+    }
+
+    private ArrayList<EntityType<?>> getEntityTypes() {
+        ArrayList<EntityType<?>> entityTypes = new ArrayList<>();
+        BuiltInRegistries.ENTITY_TYPE.getTagOrEmpty(entity.right().get()).forEach(entityTypeHolder -> {
+            com.mojang.datafixers.util.Either<ResourceKey<EntityType<?>>, EntityType<?>> either = entityTypeHolder.unwrap();
+            if (either.left().isPresent()) {
+                entityTypes.add(BuiltInRegistries.ENTITY_TYPE.get(either.left().get()));
+            } else {
+                entityTypes.add(either.right().get());
+            }
+        });
+        return entityTypes;
     }
 }
