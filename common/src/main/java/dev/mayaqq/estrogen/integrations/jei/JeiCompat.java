@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.integrations.jei;
 
+import com.simibubi.create.AllItems;
 import com.simibubi.create.Create;
 import com.simibubi.create.compat.jei.*;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
@@ -66,7 +67,7 @@ public class JeiCompat extends CreateJEI {
 
                 entity_interaction = builder(EntityInteractionRecipe.class)
                         .addTypedRecipes(EntityInteractionRecipe.getRecipeTypeInfo())
-                        .itemIcon(Items.ZOMBIE_HEAD)
+                        .doubleItemIcon(Items.ZOMBIE_HEAD, AllItems.BRASS_HAND)
                         .emptyBackground(177, 70)
                         .build("entity_interaction", EntityInteractionCategory::new);
 
