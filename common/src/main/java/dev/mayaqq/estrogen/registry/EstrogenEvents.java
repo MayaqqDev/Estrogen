@@ -25,7 +25,7 @@ public class EstrogenEvents {
     public static InteractionResult entityInteract(Player player, Entity entity, ItemStack stack, Level level) {
         AtomicReference<InteractionResult> result = null;
         level.getServer().getRecipeManager().getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION.get()).forEach(recipe -> {
-            EntityInteractionInventory inv = new EntityInteractionInventory(player, entity.getType(), stack);
+            EntityInteractionInventory inv = new EntityInteractionInventory(entity.getType(), stack);
             if (recipe.matches(inv, level)) {
                 level.playSound(null, player.blockPosition(), BuiltInRegistries.SOUND_EVENT.get(recipe.sound()), SoundSource.PLAYERS);
                 if (!player.isCreative()) stack.shrink(1);

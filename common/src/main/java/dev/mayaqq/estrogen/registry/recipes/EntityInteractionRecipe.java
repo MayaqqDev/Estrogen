@@ -52,10 +52,10 @@ public record EntityInteractionRecipe(ResourceLocation id, Ingredient ingredient
 
     @Override
     public boolean matches(EntityInteractionInventory container, Level level) {
-        if (!ingredient.test(container.stack)) return false;
-        if (!entity.matches(container.entity)) return false;
-        if (container.entity.create(level) instanceof Animal animal) {
-            if (animal.isBaby() && cantBeBaby) return false;
+        if (!ingredient.test(container.stack())) return false;
+        if (!entity.matches(container.entity())) return false;
+        if (container.entity().create(level) instanceof Animal animal) {
+            return !animal.isBaby() || !cantBeBaby;
         }
         return true;
     }

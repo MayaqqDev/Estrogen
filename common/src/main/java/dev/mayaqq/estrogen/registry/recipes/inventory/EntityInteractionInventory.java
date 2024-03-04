@@ -1,18 +1,54 @@
 package dev.mayaqq.estrogen.registry.recipes.inventory;
 
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public class EntityInteractionInventory extends Inventory {
+public record EntityInteractionInventory(EntityType<?> entity, ItemStack stack) implements Container {
 
-    public final EntityType<?> entity;
-    public final ItemStack stack;
+    @Override
+    public int getContainerSize() {
+        return 0;
+    }
 
-    public EntityInteractionInventory(Player player, EntityType<?> entity, ItemStack stack) {
-        super(player);
-        this.entity = entity;
-        this.stack = stack;
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
+    public ItemStack getItem(int slot) {
+        return null;
+    }
+
+    @Override
+    public ItemStack removeItem(int slot, int amount) {
+        return null;
+    }
+
+    @Override
+    public ItemStack removeItemNoUpdate(int slot) {
+        return null;
+    }
+
+    @Override
+    public void setItem(int slot, ItemStack stack) {
+
+    }
+
+    @Override
+    public void setChanged() {
+
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return false;
+    }
+
+    @Override
+    public void clearContent() {
+
     }
 }
