@@ -6,8 +6,14 @@ import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenEvents;
 import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.PathPackResources;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
@@ -15,6 +21,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 
@@ -74,6 +81,16 @@ public class EstrogenForgeEvents {
         if (result != null) {
             event.setCancellationResult(result);
             event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void addResourcePack(AddPackFindersEvent event) {
+        if (event.getPackType() == PackType.CLIENT_RESOURCES) {
+            var resourcePath = ModList.get().getModFileById(Estrogen.MOD_ID).getFile().findResource("resourcepacks/estrogenprogrammerart");
+            var pack = Pack.readMetaAndCreate("builtin/estrogenprogrammerart", Component.literal("Estrogen Programmer Art"), false,
+                    (path) -> new PathPackResources(path, resourcePath, false), PackType.CLIENT_RESOURCES, Pack.Position.BOTTOM, PackSource.BUILT_IN);
+            event.addRepositorySource((packConsumer) -> packConsumer.accept(pack));
         }
     }
 }
