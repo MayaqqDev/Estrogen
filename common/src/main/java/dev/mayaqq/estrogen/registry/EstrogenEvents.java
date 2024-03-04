@@ -4,7 +4,9 @@ import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import dev.mayaqq.estrogen.registry.recipes.inventory.EntityInteractionInventory;
 import dev.mayaqq.estrogen.utils.Time;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -22,12 +24,16 @@ import static dev.mayaqq.estrogen.utils.Boob.boobSize;
 public class EstrogenEvents {
     public static InteractionResult entityInteract(Player player, Entity entity, ItemStack stack, Level level) {
         AtomicReference<InteractionResult> result = null;
-        level.getServer().getRecipeManager().getAllRecipesFor(EstrogenProcessingRecipes.ENTITY_INTERACTION.getType()).forEach(recipe -> {
-            EntityInteractionInventory inv = new EntityInteractionInventory(player, entity, stack);
+        level.getServer().getRecipeManager().getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION.get()).forEach(recipe -> {
+            EntityInteractionInventory inv = new EntityInteractionInventory(player, entity.getType(), stack);
             if (recipe.matches(inv, level)) {
+                level.playSound(null, player.blockPosition(), BuiltInRegistries.SOUND_EVENT.get(recipe.sound()), SoundSource.PLAYERS);
+                if (!player.isCreative()) stack.shrink(1);
+                player.getInventory().placeItemBackInInventory(recipe.assemble(inv, level.registryAccess()));
                 result.set(InteractionResult.SUCCESS);
             }
         });
+
         return result.get();
     }
 
