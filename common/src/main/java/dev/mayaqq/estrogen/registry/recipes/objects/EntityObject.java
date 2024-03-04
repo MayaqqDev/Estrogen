@@ -2,7 +2,7 @@ package dev.mayaqq.estrogen.registry.recipes.objects;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.teamresourceful.bytecodecs.utils.Either;
+import dev.mayaqq.estrogen.utils.Either;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
