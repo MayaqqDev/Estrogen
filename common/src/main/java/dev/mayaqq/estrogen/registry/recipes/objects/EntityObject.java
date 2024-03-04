@@ -9,13 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 
-public class EntityObject {
-
-    public final Either<EntityType<?>, TagKey<EntityType<?>>> entity;
-
-    public EntityObject(Either<EntityType<?>, TagKey<EntityType<?>>> entity) {
-        this.entity = entity;
-    }
+public record EntityObject(Either<EntityType<?>, TagKey<EntityType<?>>> entity) {
 
     public static EntityObject of(EntityType<?> entity) {
         return new EntityObject(Either.ofLeft(entity));
