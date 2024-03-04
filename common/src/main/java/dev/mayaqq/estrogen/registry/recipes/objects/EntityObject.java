@@ -33,10 +33,10 @@ public class EntityObject {
             return new EntityObject(Either.ofLeft(BuiltInRegistries.ENTITY_TYPE.get(new ResourceLocation(entityName))));
         } else if (object.has("tag")) {
             JsonElement tag = object.get("tag");
-            String tagName = tag.getAsString().substring(1);
+            String tagName = tag.getAsString();
             return new EntityObject(Either.ofRight(TagKey.create(BuiltInRegistries.ENTITY_TYPE.key(), new ResourceLocation(tagName))));
         }
-        return null;
+        throw new IllegalArgumentException("Invalid entity object json");
     }
 
     public static JsonElement toJson(EntityObject entityObject) {
@@ -45,7 +45,7 @@ public class EntityObject {
             object.addProperty("entity", BuiltInRegistries.ENTITY_TYPE.getKey(entityObject.entity.left().get()).toString());
             return object;
         } else {
-            object.addProperty("tag", "#" + entityObject.entity.right().get().location());
+            object.addProperty("tag", entityObject.entity.right().get().location().toString());
         }
         return object;
     }
