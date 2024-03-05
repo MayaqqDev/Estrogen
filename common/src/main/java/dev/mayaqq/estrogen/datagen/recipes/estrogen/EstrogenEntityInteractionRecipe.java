@@ -96,7 +96,7 @@ public class EstrogenEntityInteractionRecipe extends FabricRecipeProvider {
 
         @Override
         public void save(Consumer<FinishedRecipe> finishedRecipeConsumer, ResourceLocation recipeId) {
-            this.advancement.parent(Estrogen.id("recipes/root")).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).requirements(RequirementsStrategy.OR);
+            this.advancement.parent(ROOT_RECIPE_ADVANCEMENT).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).requirements(RequirementsStrategy.OR);
             finishedRecipeConsumer.accept(new Result(recipeId, result, count, ingredient, entity, sound, cantBeBaby, advancement, recipeId.withPrefix("recipes/"), showNotification));
         }
 
@@ -109,10 +109,8 @@ public class EstrogenEntityInteractionRecipe extends FabricRecipeProvider {
                 json.add("ingredient", ingredient);
 
                 JsonObject result = new JsonObject();
-                result.addProperty("item", BuiltInRegistries.ITEM.getKey(this.result).toString());
-                if (this.count > 1) {
-                    result.addProperty("count", this.count);
-                }
+                result.addProperty("id", BuiltInRegistries.ITEM.getKey(this.result).toString());
+                result.addProperty("count", this.count);
 
                 json.add("result", result);
 
