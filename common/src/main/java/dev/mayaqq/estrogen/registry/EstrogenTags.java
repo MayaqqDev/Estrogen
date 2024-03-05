@@ -26,6 +26,7 @@ public class EstrogenTags {
     public static class Fluids {
         public static final TagKey<Fluid> WATER = TagKey.create(BuiltInRegistries.FLUID.key(), mcId("water"));
         public static final TagKey<Fluid> LAVA = TagKey.create(BuiltInRegistries.FLUID.key(), mcId("lava"));
+        public static final TagKey<Fluid> URINE = TagKey.create(BuiltInRegistries.FLUID.key(), Estrogen.id("urine"));
     }
 
     public static class Entities {
