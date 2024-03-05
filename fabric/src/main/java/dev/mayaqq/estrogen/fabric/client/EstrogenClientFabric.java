@@ -16,15 +16,5 @@ public class EstrogenClientFabric implements ClientModInitializer {
         EstrogenClient.init();
         EstrogenFabricClientEvents.register();
         EstrogenFluids.FLUIDS.stream().forEach(fluid -> BlockRenderLayerMap.INSTANCE.putFluid(fluid.get(), RenderType.translucent()));
-
-        // Fabric please add conditional dependencies
-        if (FabricLoader.getInstance().isModLoaded("roughlyenoughitems") && !FabricLoader.getInstance().isModLoaded("createreibugfix")) {
-            LOGGER.warn("--------------------------------------------------------------------------------------------------------------------------");
-            LOGGER.warn("");
-            LOGGER.warn("[ESTROGEN] Roughly Enough Items is installed without Create REI Bugfix! This will cause issues with some Estrogen Recipes.");
-            LOGGER.warn("[ESTROGEN] Please install Create REI Bugfix to fix this issue: https://modrinth.com/mod/createfabricreibugfix");
-            LOGGER.warn("");
-            LOGGER.warn("--------------------------------------------------------------------------------------------------------------------------");
-        }
     }
 }
