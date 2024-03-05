@@ -111,8 +111,10 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         // Curios
         tb.add("curios.identifier.thighs", "Thighs");
 
-        // REI
+        // Recipe Viewers
         tb.add("create.recipe.centrifuging", "Centrifuging");
+        tb.add("create.recipe.entity_interaction", "Entity Interaction");
+        tb.add("recipe.entity_interaction.cant_be_baby", "This entity can't be a baby");
 
         // Enchantments
         tb.add(EstrogenEnchantments.UWUFYING_CURSE.get(), "Curse of Uwufying");

@@ -10,6 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
@@ -101,6 +103,15 @@ public record EntityObject(Either<EntityType<?>, TagKey<EntityType<?>>> entity) 
             cycleCounter++;
             return currentEntity;
         }
+    }
+
+    public ItemStack[] spawnEggs() {
+        ArrayList<EntityType<?>> entityTypes = getEntityTypes();
+        ItemStack[] spawnEggs = new ItemStack[entityTypes.size()];
+        for (int i = 0; i < entityTypes.size(); i++) {
+            spawnEggs[i] = SpawnEggItem.byId(entityTypes.get(i)).getDefaultInstance();
+        }
+        return spawnEggs;
     }
 
     private ArrayList<EntityType<?>> getEntityTypes() {
