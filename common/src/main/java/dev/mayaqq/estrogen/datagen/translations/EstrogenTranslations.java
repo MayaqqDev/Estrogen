@@ -122,6 +122,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
 
         // EMI
         tb.add("emi.category.estrogen.centrifuging", "Centrifuging");
+        tb.add("emi.category.estrogen.entity_interaction", "Entity Interaction");
 
         // Tags
         // Items
