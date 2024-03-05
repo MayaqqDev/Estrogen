@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.platform.fabric;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.fluid.FluidRenderer;
 import earth.terrarium.botarium.common.fluid.base.FluidHolder;
-import io.github.fabricators_of_create.porting_lib.util.FluidStack;
+import io.github.fabricators_of_create.porting_lib.fluids.FluidStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 
 public class EstrogenFluidRendererImpl {

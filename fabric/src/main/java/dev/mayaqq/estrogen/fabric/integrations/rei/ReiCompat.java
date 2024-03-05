@@ -335,7 +335,7 @@ public class ReiCompat extends CreateREI {
             return this;
         }
 
-        public com.simibubi.create.compat.rei.category.CreateRecipeCategory<T> build(String name, com.simibubi.create.compat.rei.category.CreateRecipeCategory.Factory<T> factory) {
+        public CreateRecipeCategory<T> build(String name, CreateRecipeCategory.Factory<T> factory) {
             Supplier<List<T>> recipesSupplier;
             if (predicate.test(AllConfigs.server().recipes)) {
                 recipesSupplier = () -> {
