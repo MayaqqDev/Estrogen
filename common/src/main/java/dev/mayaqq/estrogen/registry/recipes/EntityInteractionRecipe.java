@@ -33,7 +33,7 @@ public record EntityInteractionRecipe(ResourceLocation id, Ingredient ingredient
                 ItemStackCodec.CODEC.fieldOf("result").forGetter(EntityInteractionRecipe::result),
                 EntityObjectCodec.CODEC.fieldOf("entity").forGetter(EntityInteractionRecipe::entity),
                 ResourceLocation.CODEC.fieldOf("sound").forGetter(EntityInteractionRecipe::sound),
-                Codec.BOOL.fieldOf("cantBeBaby").forGetter(EntityInteractionRecipe::cantBeBaby)
+                Codec.BOOL.fieldOf("cant_be_baby").forGetter(EntityInteractionRecipe::cantBeBaby)
 
         ).apply(instance, EntityInteractionRecipe::new));
     }
@@ -45,7 +45,7 @@ public record EntityInteractionRecipe(ResourceLocation id, Ingredient ingredient
                 ItemStackCodec.NETWORK_CODEC.fieldOf("result").forGetter(EntityInteractionRecipe::result),
                 EntityObjectCodec.NETWORK_CODEC.fieldOf("entity").forGetter(EntityInteractionRecipe::entity),
                 ResourceLocation.CODEC.fieldOf("sound").forGetter(EntityInteractionRecipe::sound),
-                Codec.BOOL.fieldOf("cantBeBaby").forGetter(EntityInteractionRecipe::cantBeBaby)
+                Codec.BOOL.fieldOf("cant_be_baby").forGetter(EntityInteractionRecipe::cantBeBaby)
 
         ).apply(instance, EntityInteractionRecipe::new));
     }

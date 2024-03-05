@@ -1,5 +1,5 @@
 {
-  "parent": "estrogen:recipes/root",
+  "parent": "minecraft:recipes/root",
   "criteria": {
     "has_the_recipe": {
       "conditions": {

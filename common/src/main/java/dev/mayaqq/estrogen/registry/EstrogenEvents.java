@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.registry;
 
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import dev.mayaqq.estrogen.registry.recipes.inventory.EntityInteractionInventory;
@@ -23,6 +24,7 @@ import static dev.mayaqq.estrogen.registry.EstrogenEffects.ESTROGEN_EFFECT;
 import static dev.mayaqq.estrogen.utils.Boob.boobSize;
 
 public class EstrogenEvents {
+    // Entity Interaction Recipe
     public static InteractionResult entityInteract(Player player, Entity entity, ItemStack stack, Level level) {
         AtomicReference<InteractionResult> result = new AtomicReference<>(InteractionResult.PASS);
         if (level instanceof ServerLevel) {

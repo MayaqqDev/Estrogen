@@ -3,11 +3,8 @@ package dev.mayaqq.estrogen.forge;
 import com.simibubi.create.foundation.config.ConfigBase;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
-import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenEvents;
-import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.PathPackResources;
 import net.minecraft.server.packs.repository.Pack;
@@ -74,7 +71,7 @@ public class EstrogenForgeEvents {
         EstrogenEvents.onPlayerQuit(event.getEntity());
     }
 
-    // Urine Collection
+    // Entity Interaction Recipe
     @SubscribeEvent
     public static void entityInteractEvent(PlayerInteractEvent.EntityInteract event) {
         InteractionResult result = EstrogenEvents.entityInteract(event.getEntity(), event.getTarget(), event.getItemStack(), event.getLevel());
