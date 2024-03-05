@@ -6,7 +6,7 @@ import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeInterface;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
-import dev.mayaqq.estrogen.registry.EstrogenRecipes;
+import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.resources.ResourceLocation;
 
@@ -35,7 +35,7 @@ public class EstrogenCentrifugingRecipes<T extends EstrogenRecipeInterface> exte
 
     @Override
     protected IRecipeTypeInfo getRecipeType() {
-        return EstrogenRecipes.CENTRIFUGING;
+        return EstrogenProcessingRecipes.CENTRIFUGING;
     }
 
     @Override

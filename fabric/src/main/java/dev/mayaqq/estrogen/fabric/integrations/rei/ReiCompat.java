@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.fabric.integrations.rei;
 
+import com.simibubi.create.AllItems;
 import com.simibubi.create.Create;
 import com.simibubi.create.compat.rei.*;
 import com.simibubi.create.compat.rei.category.CreateRecipeCategory;
@@ -14,9 +15,11 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
 import dev.architectury.fluid.FluidStack;
 import dev.mayaqq.estrogen.fabric.integrations.rei.categories.CentrifugingCategory;
+import dev.mayaqq.estrogen.fabric.integrations.rei.categories.EntityInteractionCategory;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
-import dev.mayaqq.estrogen.registry.EstrogenRecipes;
+import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
 import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
+import dev.mayaqq.estrogen.registry.recipes.EntityInteractionRecipe;
 import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.RecipeManagerAccessor;
 import me.shedaniel.rei.api.client.gui.Renderer;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
@@ -31,6 +34,7 @@ import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -100,11 +104,17 @@ public class ReiCompat extends CreateREI {
         ALL.clear();
 
         CreateRecipeCategory<CentrifugingRecipe> centrifuging = builder(CentrifugingRecipe.class)
-                .addTypedRecipes(EstrogenRecipes.CENTRIFUGING)
+                .addTypedRecipes(EstrogenProcessingRecipes.CENTRIFUGING)
                 .catalyst(EstrogenBlocks.CENTRIFUGE::get)
                 .itemIcon(EstrogenBlocks.CENTRIFUGE.get())
                 .emptyBackground(177, 80)
                 .build("centrifuging", CentrifugingCategory::new);
+
+        CreateRecipeCategory<EntityInteractionRecipe> entity_interaction = builder(EntityInteractionRecipe.class)
+                .addTypedRecipes(EntityInteractionRecipe.getRecipeTypeInfo())
+                .doubleItemIcon(Items.ZOMBIE_HEAD, AllItems.BRASS_HAND)
+                .emptyBackground(177, 80)
+                .build("entity_interaction", EntityInteractionCategory::new);
     }
 
     private <T extends Recipe<?>> CategoryBuilder<T> builder(Class<? extends T> recipeClass) {
@@ -325,7 +335,7 @@ public class ReiCompat extends CreateREI {
             return this;
         }
 
-        public com.simibubi.create.compat.rei.category.CreateRecipeCategory<T> build(String name, com.simibubi.create.compat.rei.category.CreateRecipeCategory.Factory<T> factory) {
+        public CreateRecipeCategory<T> build(String name, CreateRecipeCategory.Factory<T> factory) {
             Supplier<List<T>> recipesSupplier;
             if (predicate.test(AllConfigs.server().recipes)) {
                 recipesSupplier = () -> {

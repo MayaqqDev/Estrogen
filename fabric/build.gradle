@@ -27,9 +27,6 @@ dependencies {
     //Create
     modImplementation("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}")
 
-    //Porting Lib
-    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:transfer:${rootProject.porting_lib_version}"))
-
     //Trinkets
     include modImplementation("earth.terrarium.baubly:baubly-fabric-${rootProject.minecraft_version}:${rootProject.baubly_version}") transitive false
     modImplementation("dev.emi:trinkets:${rootProject.trinkets_version}")
@@ -55,9 +52,11 @@ dependencies {
 
     // Item Viewers
     switch (project.item_viewer.toLowerCase()) {
-        case "rei":
-            modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}") transitive false
-            modLocalRuntime("maven.modrinth:createfabricreibugfix:${rootProject.createreibugfix_version}") transitive false; break
+        case "rei": modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}") exclude(
+                group: "net.fabricmc"
+        )
+            modLocalRuntime("maven.modrinth:createfabricreibugfix:${rootProject.createfabricreibugfix_version}")
+        break
         case "emi": modLocalRuntime("dev.emi:emi-fabric:${rootProject.emi_version}+${rootProject.minecraft_version}"); break
         case "jei": modLocalRuntime("curse.maven:jei-238222:${rootProject.jei_file_id_fabric}"); break
         case "disabled": break

@@ -1,7 +1,7 @@
 package dev.mayaqq.estrogen.fabric;
 
 import dev.mayaqq.estrogen.registry.EstrogenEvents;
-import io.github.fabricators_of_create.porting_lib.entity.events.player.PlayerTickEvents;
+import io.github.fabricators_of_create.porting_lib.entity.events.PlayerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;

@@ -1,0 +1,14 @@
+{
+  "type": "estrogen:entity_interaction",
+  "cant_be_baby": true,
+  "entity": {
+    "tag": "estrogen:urine_giving"
+  },
+  "ingredient": {
+    "item": "minecraft:glass_bottle"
+  },
+  "result": {
+    "item": "estrogen:horse_urine_bottle"
+  },
+  "sound": "minecraft:item.bottle.fill"
+}

@@ -4,6 +4,7 @@ import dev.mayaqq.estrogen.datagen.advancements.EstrogenAdvancements;
 import dev.mayaqq.estrogen.datagen.loottables.EstrogenLootTables;
 import dev.mayaqq.estrogen.datagen.recipes.create.*;
 import dev.mayaqq.estrogen.datagen.recipes.estrogen.EstrogenCentrifugingRecipes;
+import dev.mayaqq.estrogen.datagen.recipes.estrogen.EstrogenEntityInteractionRecipe;
 import dev.mayaqq.estrogen.datagen.recipes.minecraft.EstrogenCraftingRecipes;
 import dev.mayaqq.estrogen.datagen.tags.EstrogenTagsGen;
 import dev.mayaqq.estrogen.datagen.translations.EstrogenTranslations;
@@ -33,6 +34,7 @@ public class EstrogenDatagen implements DataGeneratorEntrypoint {
         pack.addProvider((Factory<?>) EstrogenMixingRecipes::buildForge);
         pack.addProvider((Factory<?>) EstrogenSequencedAssemblyRecipes::buildFabric);
         pack.addProvider((Factory<?>) EstrogenSequencedAssemblyRecipes::buildForge);
+        pack.addProvider(EstrogenEntityInteractionRecipe::new);
 
         // tags
         pack.addProvider(EstrogenTagsGen.ItemTags::new);

@@ -1,9 +1,12 @@
 package dev.mayaqq.estrogen.fabric.integrations.emi;
 
+import com.simibubi.create.AllItems;
 import com.simibubi.create.AllRecipeTypes;
+import com.simibubi.create.compat.emi.DoubleItemIcon;
 import com.simibubi.create.content.fluids.VirtualFluid;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.item.TagDependentIngredientItem;
+import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
@@ -14,10 +17,14 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.fabric.integrations.emi.recipes.CentrifugingEmiRecipe;
+import dev.mayaqq.estrogen.fabric.integrations.emi.recipes.EntityInteractionEmiRecipe;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
 import dev.mayaqq.estrogen.registry.EstrogenRecipes;
+import dev.mayaqq.estrogen.registry.recipes.EntityInteractionRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 
 import java.util.LinkedHashMap;
@@ -31,7 +38,8 @@ public class EmiCompat implements EmiPlugin {
     public static final Map<ResourceLocation, EmiRecipeCategory> ALL = new LinkedHashMap<>();
 
     public static final EmiRecipeCategory
-            CENTRIFUGING = register("centrifuging", EmiStack.of(EstrogenBlocks.CENTRIFUGE.get()));
+            CENTRIFUGING = register("centrifuging", EmiStack.of(EstrogenBlocks.CENTRIFUGE.get())),
+            ENTITY_INTERACTION = register("entity_interaction", DoubleItemIcon.of(Items.ZOMBIE_HEAD, AllItems.BRASS_HAND));
 
     public static boolean doInputsMatch(Recipe<?> a, Recipe<?> b) {
         if (!a.getIngredients().isEmpty() && !b.getIngredients().isEmpty()) {
@@ -72,11 +80,12 @@ public class EmiCompat implements EmiPlugin {
 
         registry.addWorkstation(CENTRIFUGING, EmiStack.of(EstrogenBlocks.CENTRIFUGE.get()));
 
-        addAll(registry, EstrogenRecipes.CENTRIFUGING, CentrifugingEmiRecipe::new);
+        addAll(registry, EntityInteractionRecipe.getRecipeTypeInfo(), EntityInteractionEmiRecipe::new);
+        addAll(registry, EstrogenProcessingRecipes.CENTRIFUGING, CentrifugingEmiRecipe::new);
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends Recipe<?>> void addAll(EmiRegistry registry, EstrogenRecipes type, Function<T, EmiRecipe> constructor) {
+    private <T extends Recipe<?>> void addAll(EmiRegistry registry, IRecipeTypeInfo type, Function<T, EmiRecipe> constructor) {
         for (T recipe : (List<T>) registry.getRecipeManager().getAllRecipesFor(type.getType())) {
             registry.addRecipe(constructor.apply(recipe));
         }

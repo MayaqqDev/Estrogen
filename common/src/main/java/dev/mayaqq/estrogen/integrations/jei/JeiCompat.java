@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.integrations.jei;
 
-import com.simibubi.create.Create;
+import com.simibubi.create.AllItems;
 import com.simibubi.create.compat.jei.*;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.foundation.config.ConfigBase.ConfigBool;
@@ -8,11 +8,13 @@ import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.integrations.jei.categories.CentrifugingCategory;
-import dev.mayaqq.estrogen.platform.JeiPerPlatform;
+import dev.mayaqq.estrogen.integrations.jei.categories.EntityInteractionCategory;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
-import dev.mayaqq.estrogen.registry.EstrogenRecipes;
+import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
 import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
+import dev.mayaqq.estrogen.registry.recipes.EntityInteractionRecipe;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -22,6 +24,7 @@ import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IIngredientManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
@@ -55,11 +58,18 @@ public class JeiCompat extends CreateJEI {
         CreateRecipeCategory<?>
 
                 centrifuging = builder(CentrifugingRecipe.class)
-                .addTypedRecipes(EstrogenRecipes.CENTRIFUGING)
-                .catalyst(EstrogenBlocks.CENTRIFUGE::get)
-                .itemIcon(EstrogenBlocks.CENTRIFUGE.get())
-                .emptyBackground(177, 70)
-                .build("centrifuging", CentrifugingCategory::new);
+                    .addTypedRecipes(EstrogenProcessingRecipes.CENTRIFUGING)
+                    .catalyst(EstrogenBlocks.CENTRIFUGE::get)
+                    .itemIcon(EstrogenBlocks.CENTRIFUGE.get())
+                    .emptyBackground(177, 70)
+                    .build("centrifuging", CentrifugingCategory::new),
+
+                entity_interaction = builder(EntityInteractionRecipe.class)
+                        .addTypedRecipes(EntityInteractionRecipe.getRecipeTypeInfo())
+                        .doubleItemIcon(Items.ZOMBIE_HEAD, AllItems.BRASS_HAND)
+                        .emptyBackground(177, 70)
+                        .build("entity_interaction", EntityInteractionCategory::new);
+
     }
 
     private <T extends Recipe<?>> CategoryBuilder<T> builder(Class<? extends T> recipeClass) {
@@ -243,7 +253,7 @@ public class JeiCompat extends CreateJEI {
             }
 
             CreateRecipeCategory.Info<T> info = new CreateRecipeCategory.Info<>(
-                    new mezz.jei.api.recipe.RecipeType<>(Create.asResource(name), recipeClass),
+                    new mezz.jei.api.recipe.RecipeType<>(Estrogen.id(name), recipeClass),
                     Lang.translateDirect("recipe." + name), background, icon, recipesSupplier, catalysts);
             CreateRecipeCategory<T> category = factory.create(info);
             allCategories.add(category);
