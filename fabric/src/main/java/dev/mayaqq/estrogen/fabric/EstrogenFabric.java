@@ -5,7 +5,7 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import net.fabricmc.api.ModInitializer;
 import net.minecraftforge.api.ModLoadingContext;
-import net.minecraftforge.api.fml.event.config.ModConfigEvents;
+import net.minecraftforge.api.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.config.ModConfig;
 
 import java.util.Map;
@@ -24,7 +24,7 @@ public class EstrogenFabric implements ModInitializer {
         // Register Fabric specific Events
         EstrogenFabricEvents.register();
 
-        ModConfigEvents.loading(Estrogen.MOD_ID).register(EstrogenConfig::onLoad);
-        ModConfigEvents.reloading(Estrogen.MOD_ID).register(EstrogenConfig::onReload);
+        ModConfigEvent.LOADING.register(EstrogenConfig::onLoad);
+        ModConfigEvent.RELOADING.register(EstrogenConfig::onReload);
     }
 }

@@ -23,7 +23,7 @@ dependencies {
     modApi("dev.architectury:architectury-forge:${rootProject.architectury_version}")
 
     //Create
-    modImplementation("com.simibubi.create:create-${rootProject.minecraft_version}:${rootProject.create_version}:slim") { transitive = false }
+    modImplementation("com.simibubi.create:create-${rootProject.minecraft_version}:${rootProject.create_version}:slim") transitive false
 
     //Registrate
     modImplementation("com.tterrag.registrate:Registrate:${rootProject.registrate_version}")
@@ -36,9 +36,6 @@ dependencies {
 
     //Mixin Extras
     implementation(include("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras_version}"))
-
-    //Dev Auth
-    modRuntimeOnly("me.djtheredstoner:DevAuth-forge-latest:${rootProject.devauth_version}")
 
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
     compileOnlyApi("mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}")

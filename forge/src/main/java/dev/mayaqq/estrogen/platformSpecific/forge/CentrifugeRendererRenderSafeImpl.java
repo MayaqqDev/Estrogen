@@ -8,8 +8,8 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 public class CentrifugeRendererRenderSafeImpl {
     @org.jetbrains.annotations.Contract
@@ -20,14 +20,14 @@ public class CentrifugeRendererRenderSafeImpl {
         BlockEntity down = getBlockEntity(level, be.getBlockPos().below());
 
         if (up != null) {
-            up.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(handler -> {
+            up.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(handler -> {
                 FluidStack fluid = handler.getFluidInTank(0);
                 if (fluid.isEmpty()) return;
                 renderFluidSafe(fluid, 0.01F, 0.71F, 0.01F, 0.99F, 0.97F, 0.99F, buffer, ms, light, false);
             });
         }
         if (down != null) {
-            down.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(handler -> {
+            down.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(handler -> {
                 FluidStack fluid = handler.getFluidInTank(0);
                 if (fluid.isEmpty()) return;
                 renderFluidSafe(fluid, 0.01F, 0.01F, 0.01F, 0.99F, 0.3F, 0.99F, buffer, ms, light, false);

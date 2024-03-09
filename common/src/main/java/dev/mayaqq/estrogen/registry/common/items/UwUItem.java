@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.registry.common.items;
 
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -16,7 +17,7 @@ public class UwUItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable net.minecraft.world.level.Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
-        tooltip.add(Component.translatable("item.estrogen.uwu.tooltip"));
+        tooltip.add(new TranslatableComponent("item.estrogen.uwu.tooltip"));
     }
 
     @Override

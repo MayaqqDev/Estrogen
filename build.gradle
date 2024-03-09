@@ -50,7 +50,12 @@ subprojects {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
         mappings loom.officialMojangMappings()
 
-        modImplementation include("maven.modrinth:jukeboxfix:${rootProject.jukeboxfix_version}")
+        // currently doesn't work
+        /*
+        if (project.name != "common") {
+            modImplementation include("maven.modrinth:jukeboxfix:${rootProject.jukeboxfix_version}-${project.name}")
+        }
+         */
     }
 }
 
@@ -65,14 +70,12 @@ allprojects {
 
     // repositories for all the build.gradle files, makes it a lot easier to manage
     repositories {
-        maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" } // DevAuth
         maven { url = "https://maven.terraformersmc.com/" } // EMI
         maven { url = "https://maven.shedaniel.me" } // REI
         maven { url = "https://maven.blamejared.com/" } // JEI
         maven { url = "https://maven.tterrag.com" } // Forge Registrate, Forge Flywheel
         maven { url = "https://maven.theillusivec4.top/" } // Curios
-        maven { url = "https://mvn.devos.one/snapshots/" }
-        // Create Fabric, Porting Lib, Forge Tags, Milk Lib, Fabric Registrate
+        maven { url = "https://mvn.devos.one/snapshots/" } // Create Fabric, Porting Lib, Forge Tags, Milk Lib, Fabric Registrate
         maven { url = "https://cursemaven.com" } // Forge Config API Port
         maven { url = "https://maven.cafeteria.dev/releases" } // Fake Player API
         maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
@@ -80,6 +83,7 @@ allprojects {
         maven { url = "https://repo.unascribed.com" } // Ears
         maven { url = "https://api.modrinth.com/maven" } // Create & REI Bug Fix, Jukeboxfix
         maven { url = "https://maven.figuramc.org/releases" } // Figura
+        maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/" } // Forge Config Api Port
         maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM | NOTE: LEAVE THIS AS LAST
     }
 

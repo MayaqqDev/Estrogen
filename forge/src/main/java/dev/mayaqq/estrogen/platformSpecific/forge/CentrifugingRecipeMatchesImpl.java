@@ -5,8 +5,8 @@ import dev.mayaqq.estrogen.registry.common.blockEntities.CentrifugeBlockEntity;
 import dev.mayaqq.estrogen.registry.common.recipes.CentrifugingRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -20,11 +20,11 @@ public class CentrifugingRecipeMatchesImpl {
 
         if (up == null || down == null) return false;
 
-        if (!up.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent() || !down.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent())
+        if (!up.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).isPresent() || !down.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).isPresent())
             return false;
 
-        FluidStack fluidUp = up.getCapability(ForgeCapabilities.FLUID_HANDLER).map(handler -> handler.getFluidInTank(0)).orElse(null);
-        FluidStack fluidDown = down.getCapability(ForgeCapabilities.FLUID_HANDLER).map(handler -> handler.getFluidInTank(0)).orElse(null);
+        FluidStack fluidUp = up.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).map(handler -> handler.getFluidInTank(0)).orElse(null);
+        FluidStack fluidDown = down.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).map(handler -> handler.getFluidInTank(0)).orElse(null);
 
         if (fluidUp == null || fluidDown == null) return false;
 
@@ -39,13 +39,13 @@ public class CentrifugingRecipeMatchesImpl {
 
         AtomicBoolean matches = new AtomicBoolean(false);
 
-        down.getCapability(ForgeCapabilities.FLUID_HANDLER).map(handler -> handler.getTanks()).ifPresent(tanks -> {
+        down.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).map(handler -> handler.getTanks()).ifPresent(tanks -> {
             for (int i = 0; i < tanks; i++) {
                 int finalI = i;
-                down.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(handler -> {
+                down.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(handler -> {
                     FluidStack stack = handler.drain((int) amountRequired, IFluidHandler.FluidAction.SIMULATE);
                     if (fluidIngredient.test(stack)) {
-                        up.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(handler1 -> {
+                        up.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(handler1 -> {
                             int amount = handler.drain((int) amountRequired, IFluidHandler.FluidAction.SIMULATE).getAmount();
                             if (amount == amountRequired) {
                                 if (handler1.isFluidValid(amountOut, recipe.getFluidResults().get(0))) {

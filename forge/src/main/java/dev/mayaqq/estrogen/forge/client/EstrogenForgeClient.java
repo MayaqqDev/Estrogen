@@ -4,7 +4,6 @@ import com.simibubi.create.foundation.config.ui.BaseConfigScreen;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.EstrogenClient;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -18,8 +17,12 @@ public class EstrogenForgeClient {
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
         // Config Button
+        // TODO: Fix this
+        /*
         ModLoadingContext.get().getActiveContainer().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
                 () -> new ConfigScreenHandler.ConfigScreenFactory((minecraft, screen) -> new BaseConfigScreen(screen, MOD_ID)));
+
+         */
         EstrogenClient.init();
     }
 

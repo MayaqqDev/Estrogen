@@ -85,10 +85,16 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         Quaternion bodyRotation = Vector3f.XP.rotation(this.body.xRot);
         Vector3f translation = new Vector3f(0.0F, 4.0F + size * 0.864F * (1 + amplifier), -1.9F + size * -1.944F * (1 + amplifier));
         translation.transform(bodyRotation);
-        this.boobs.offsetPos(translation);
-        this.boobs.yScale = (1 + size * 2.0F * (1 + amplifier)) / 2.0F;
-        this.boobs.zScale = (1 + size * 2.5F * (1 + amplifier)) / 2.0F;
+        translation.add(this.body.xRot, this.body.yRot, this.body.zRot);
+
+        matrices.pushPose();
+        matrices.translate(translation.x() / 16.0F, translation.y() / 16.0F, translation.z() / 16.0F);
+        matrices.mulPose(Vector3f.XP.rotation(this.body.xRot + 1.0F));
+        float yScale = (1 + size * 2.0F * (1 + amplifier)) / 2.0F;
+        float zScale = (1 + size * 2.5F * (1 + amplifier)) / 2.0F;
+        matrices.scale(1.0F, yScale, zScale);
         this.boobs.render(matrices, vertices, light, overlay);
+        matrices.popPose();
     }
 
     @Override

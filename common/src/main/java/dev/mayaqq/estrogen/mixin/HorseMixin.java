@@ -22,7 +22,7 @@ public class HorseMixin {
         Horse horse = (Horse) (Object) this;
         if (stack.getItem() instanceof BottleItem && !horse.isBaby()) {
             stack.shrink(1);
-            player.playSound(SoundEvents.BOTTLE_FILL);
+            player.playSound(SoundEvents.BOTTLE_FILL, 1, 1);
             player.getInventory().placeItemBackInInventory(new ItemStack(EstrogenItems.HORSE_URINE_BOTTLE.get()));
             cir.setReturnValue(InteractionResult.SUCCESS);
         }

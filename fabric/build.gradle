@@ -25,42 +25,54 @@ dependencies {
     modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
 
     //Architectury api
-    modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}")
+    modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}") exclude(
+            group: "net.fabricmc"
+    )
 
     //Create
-    modImplementation("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}")
-
-    //Porting Lib
-    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:transfer:${rootProject.porting_lib_version}"))
+    modImplementation("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}") exclude(
+            group: "net.fabricmc"
+    )
 
     //Trinkets
-    modImplementation("dev.emi:trinkets:${rootProject.trinkets_version}")
+    modImplementation("dev.emi:trinkets:${rootProject.trinkets_version}") exclude(
+            group: "net.fabricmc"
+    )
     project.cardinal_modules.replaceAll(" ", "").split(",").each { module ->
-        modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${rootProject.cardinal_version}")
+        modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${rootProject.cardinal_version}") exclude(
+                group: "net.fabricmc"
+        )
     }
 
     // REI
-    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}")
-    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}")
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}") exclude(
+            group: "net.fabricmc"
+    )
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}") exclude(
+            group: "net.fabricmc"
+    )
 
     // EMI
-    modCompileOnly("dev.emi:emi-fabric:${rootProject.emi_version}:api")
+    modCompileOnly("dev.emi:emi:${rootProject.emi_version}:api") exclude(
+            group: "net.fabricmc"
+    )
 
     //Mod Menu
-    modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}")
+    modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") exclude(
+            group: "net.fabricmc"
+    )
 
     //Mixin Extras
-    implementation(include(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${rootProject.mixin_extras_version}")))
-
-    //Dev Auth
-    modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${rootProject.devauth_version}")
+    implementation(include(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${rootProject.mixin_extras_version}"))) exclude(
+            group: "net.fabricmc"
+    )
 
     // Item Viewers
     switch (item_viewer.toLowerCase()) {
         case "rei":
             modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}")
             modLocalRuntime("maven.modrinth:createfabricreibugfix:${rootProject.createreibugfix_version}"); break
-        case "emi": modLocalRuntime("dev.emi:emi-fabric:${rootProject.emi_version}"); break
+        case "emi": modLocalRuntime("dev.emi:emi:${rootProject.emi_version}"); break
         case "disabled": break
         default: println("Invalid item viewer: ${item_viewer} must be REI, EMI or disabled"); break
     }

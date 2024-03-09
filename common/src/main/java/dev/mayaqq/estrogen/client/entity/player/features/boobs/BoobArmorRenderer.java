@@ -65,9 +65,6 @@ public final class BoobArmorRenderer {
     }
 
     public void copyTransform(ModelPart part) {
-        this.scaleX = part.xScale;
-        this.scaleY = part.yScale;
-        this.scaleZ = part.zScale;
         this.pitch = part.xRot;
         this.yaw = part.yRot;
         this.roll = part.zRot;
