@@ -35,14 +35,5 @@ public class EstrogenClient {
         if (Platform.isModLoaded("ears")) {
             EarsCompat.boob();
         }
-
-        if (Platform.isFabric() && Platform.isModLoaded("roughlyenoughitems") && !Platform.isModLoaded("createreibugfix")) {
-            LOGGER.warn("--------------------------------------------------------------------------------------------------------------------------");
-            LOGGER.warn("");
-            LOGGER.warn("[ESTROGEN] Roughly Enough Items is installed without Create REI Bugfix! This will cause issues with some Estrogen Recipes.");
-            LOGGER.warn("[ESTROGEN] Please install Create REI Bugfix to fix this issue: https://modrinth.com/mod/createfabricreibugfix");
-            LOGGER.warn("");
-            LOGGER.warn("--------------------------------------------------------------------------------------------------------------------------");
-        }
     }
 }

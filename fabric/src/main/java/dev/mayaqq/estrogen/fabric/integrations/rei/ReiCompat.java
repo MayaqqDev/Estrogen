@@ -9,7 +9,6 @@ import com.simibubi.create.foundation.config.ConfigBase;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.item.TagDependentIngredientItem;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
-import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
 import dev.architectury.fluid.FluidStack;
@@ -29,12 +28,14 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -49,7 +50,7 @@ public class ReiCompat extends CreateREI {
     private static final ResourceLocation ID = id("rei_plugin");
     final List<CreateRecipeCategory<?>> ALL = new ArrayList<>();
 
-    public static void consumeAllRecipes(Consumer<Recipe<?>> consumer) {
+    public static void consumeAllRecipes(@NotNull Consumer<Recipe<?>> consumer) {
         Minecraft.getInstance().level.getRecipeManager()
                 .getRecipes()
                 .forEach(consumer);
@@ -326,7 +327,7 @@ public class ReiCompat extends CreateREI {
             return this;
         }
 
-        public com.simibubi.create.compat.rei.category.CreateRecipeCategory<T> build(String name, com.simibubi.create.compat.rei.category.CreateRecipeCategory.Factory<T> factory) {
+        public CreateRecipeCategory<T> build(String name, CreateRecipeCategory.Factory<T> factory) {
             Supplier<List<T>> recipesSupplier;
             if (predicate.test(AllConfigs.server().recipes)) {
                 recipesSupplier = () -> {
@@ -347,7 +348,7 @@ public class ReiCompat extends CreateREI {
 
             CreateRecipeCategory.Info<T> info = new CreateRecipeCategory.Info<>(
                     CategoryIdentifier.of(id(name)),
-                    Lang.translateDirect("recipe." + name), background, icon, recipesSupplier, catalysts, width, height, displayFactory == null ? (recipe) -> new CreateDisplay<>(recipe, CategoryIdentifier.of(id(name))) : displayFactory);
+                    new TranslatableComponent("create.recipe.centrifuging"), background, icon, recipesSupplier, catalysts, width, height, displayFactory == null ? (recipe) -> new CreateDisplay<>(recipe, CategoryIdentifier.of(id(name))) : displayFactory);
             CreateRecipeCategory<T> category = factory.create(info);
             ALL.add(category);
             return category;
