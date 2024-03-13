@@ -12,6 +12,5 @@ public class EstrogenRenderer {
         return new PartialModel(id("block/" + path));
     }
 
-    public static void register() {
-    }
+    public static void register() {}
 }

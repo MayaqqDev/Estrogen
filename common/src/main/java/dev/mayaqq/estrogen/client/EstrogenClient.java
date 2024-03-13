@@ -5,6 +5,7 @@ import dev.mayaqq.estrogen.client.registry.EstrogenKeybinds;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeCogInstance;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeRenderer;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.cookieJar.CookieJarRenderer;
 import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
 import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
 import dev.mayaqq.estrogen.registry.EstrogenBlockEntities;
@@ -13,6 +14,7 @@ import dev.mayaqq.estrogen.registry.EstrogenPonderScenes;
 import earth.terrarium.botarium.client.ClientHooks;
 import earth.terrarium.botarium.util.CommonHooks;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 
 public class EstrogenClient {
     public static void init() {
@@ -22,6 +24,8 @@ public class EstrogenClient {
         EstrogenPatchesRenderer.register();
         ClientHooks.setRenderLayer(EstrogenBlocks.CENTRIFUGE.get(), RenderType.cutout());
         ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.CENTRIFUGE.get(), CentrifugeRenderer::new);
+        ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.COOKIE_JAR.get(), CookieJarRenderer::new);
+
         InstancedRenderRegistry.configure(EstrogenBlockEntities.CENTRIFUGE.get())
                 .factory(CentrifugeCogInstance::new)
                 .skipRender(be -> false)

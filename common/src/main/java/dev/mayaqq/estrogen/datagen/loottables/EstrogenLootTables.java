@@ -13,5 +13,6 @@ public class EstrogenLootTables extends FabricBlockLootTableProvider {
     @Override
     public void generate() {
         add(EstrogenBlocks.CENTRIFUGE.get(), createSingleItemTable(EstrogenBlocks.CENTRIFUGE.get()));
+        add(EstrogenBlocks.COOKIE_JAR.get(), createSingleItemTable(EstrogenBlocks.COOKIE_JAR.get()));
     }
 }

@@ -62,6 +62,7 @@ public class EstrogenItems {
 
     // Block Items
     public static final RegistryEntry<Item> CENTRIFUGE = BLOCK_ITEMS.register("centrifuge", () -> new BlockItem(EstrogenBlocks.CENTRIFUGE.get(), new Item.Properties()));
+    public static final RegistryEntry<Item> COOKIE_JAR = BLOCK_ITEMS.register("cookie_jar", () -> new BlockItem(EstrogenBlocks.COOKIE_JAR.get(), new Item.Properties()));
 
     public static void registerTooltips() {
         EstrogenItems.ITEMS.stream().forEach(itemEntry -> TooltipModifier.REGISTRY.registerDeferred(itemEntry.getId(), item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)));

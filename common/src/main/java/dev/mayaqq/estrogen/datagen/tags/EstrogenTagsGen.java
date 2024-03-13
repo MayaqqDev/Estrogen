@@ -11,6 +11,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Items;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -37,6 +38,9 @@ public class EstrogenTagsGen {
             getOrCreateTagBuilder(EstrogenTags.Items.LAVA_BUCKETS)
                     .add(EstrogenItems.MOLTEN_SLIME_BUCKET.get())
                     .add(EstrogenItems.MOLTEN_AMETHYST_BUCKET.get());
+            getOrCreateTagBuilder(EstrogenTags.Items.COOKIES)
+                    .add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get())
+                    .add(Items.COOKIE);
         }
     }
 
