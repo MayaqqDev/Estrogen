@@ -9,7 +9,9 @@ dependencies {
     modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
 
     // Architectury
-    modApi("dev.architectury:architectury:${rootProject.architectury_version}")
+    modApi("dev.architectury:architectury:${rootProject.architectury_version}") {
+        exclude group: "net.fabricmc"
+    }
 
     // Create
     modCompileOnly("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}")
@@ -21,7 +23,7 @@ dependencies {
     implementation("com.unascribed:ears-api:${rootProject.ears_version}")
 
     // Figura
-    modCompileOnly("org.figuramc:figura-common-mojmap:${rootProject.figura_version}")
+    modCompileOnly("org.figuramc:figura-common-mojmap:${rootProject.figura_version}") transitive false
 
     // Mixin Extras
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}"))

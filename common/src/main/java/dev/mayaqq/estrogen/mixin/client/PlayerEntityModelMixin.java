@@ -79,20 +79,18 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         if (figura != null && figura.getVersion().split("\\.")[2].startsWith("3")) {
             if (!FiguraCompat.renderBoobs(Minecraft.getInstance().player)) return;
         }
-        this.boobs.copyFrom(this.body);
-        this.boobs.xRot = this.body.xRot + 1.0F;
         float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT).getAmplifier() / 10.0F;
         Quaternion bodyRotation = Vector3f.XP.rotation(this.body.xRot);
-        Vector3f translation = new Vector3f(0.0F, 4.0F + size * 0.864F * (1 + amplifier), -1.9F + size * -1.944F * (1 + amplifier));
-        translation.transform(bodyRotation);
-        translation.add(this.body.xRot, this.body.yRot, this.body.zRot);
-
+        Vector3f transform = new Vector3f(0.0F, 4.0F+size*0.864F*(1+amplifier), -1.9F+size*-1.944F*(1+amplifier));
+        transform.transform(bodyRotation);
+        transform.add(this.body.x, this.body.y, this.body.z);
+        float yScale = (1 + size*2.0F*(1+amplifier)) / 2.0F;
+        float zScale = (1 + size*2.5F*(1+amplifier)) / 2.0F;
         matrices.pushPose();
-        matrices.translate(translation.x() / 16.0F, translation.y() / 16.0F, translation.z() / 16.0F);
+        matrices.translate(transform.x() / 16.0F, transform.y() / 16.0F, transform.z() / 16.0F);
         matrices.mulPose(Vector3f.XP.rotation(this.body.xRot + 1.0F));
-        float yScale = (1 + size * 2.0F * (1 + amplifier)) / 2.0F;
-        float zScale = (1 + size * 2.5F * (1 + amplifier)) / 2.0F;
         matrices.scale(1.0F, yScale, zScale);
+
         this.boobs.render(matrices, vertices, light, overlay);
         matrices.popPose();
     }
@@ -121,6 +119,7 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         this.boobArmor.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
     }
 
+    @Unique
     private ResourceLocation getArmorTexture(AbstractClientPlayer player, @Nullable String overlay) {
         String string;
         ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);

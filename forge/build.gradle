@@ -20,7 +20,9 @@ dependencies {
     //Forge
     forge("net.minecraftforge:forge:${rootProject.forge_version}")
     //Architectury
-    modApi("dev.architectury:architectury-forge:${rootProject.architectury_version}")
+    modApi("dev.architectury:architectury-forge:${rootProject.architectury_version}") {
+        exclude group: "net.fabricmc"
+    }
 
     //Create
     modImplementation("com.simibubi.create:create-${rootProject.minecraft_version}:${rootProject.create_version}:slim") transitive false

@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "HorseMixin",
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "JukeboxBlockMixin"
   ],
   "client": [
     "client.LocalPlayerMixin",

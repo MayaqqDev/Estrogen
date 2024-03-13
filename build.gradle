@@ -41,7 +41,7 @@ subprojects {
     configurations.all {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             if (details.requested.group == 'net.fabricmc' && details.requested.name == 'fabric-loader') {
-                details.useVersion '0.15.3'
+                details.useVersion '0.15.6'
             }
         }
     }
@@ -49,13 +49,6 @@ subprojects {
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
         mappings loom.officialMojangMappings()
-
-        // currently doesn't work
-        /*
-        if (project.name != "common") {
-            modImplementation include("maven.modrinth:jukeboxfix:${rootProject.jukeboxfix_version}-${project.name}")
-        }
-         */
     }
 }
 
