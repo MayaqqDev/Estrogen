@@ -6,6 +6,7 @@ import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeCogInstance;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.cookieJar.CookieJarRenderer;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
 import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
 import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
 import dev.mayaqq.estrogen.registry.EstrogenBlockEntities;
@@ -25,6 +26,7 @@ public class EstrogenClient {
         ClientHooks.setRenderLayer(EstrogenBlocks.COOKIE_JAR.get(), RenderType.cutout());
         ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.CENTRIFUGE.get(), CentrifugeRenderer::new);
         ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.COOKIE_JAR.get(), CookieJarRenderer::new);
+        ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.DREAM_BLOCK.get(), DreamBlockRenderer::new);
 
         InstancedRenderRegistry.configure(EstrogenBlockEntities.CENTRIFUGE.get())
                 .factory(CentrifugeCogInstance::new)
