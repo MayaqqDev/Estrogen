@@ -71,6 +71,9 @@ public class EstrogenConfig {
         public final ConfigGroup chest = group(1, "chest", "Settings for the chest feature");
         public final ConfigBool chestFeature = b(true, "chestFeature", "Enable chest feature");
         public final ConfigBool chestArmor = b(true, "chestArmor", "Enable chest feature armor");
+        public final ConfigBool chestPhysics = b(true, "chestPhysics", "Enable chest feature physics");
+        public final ConfigFloat chestBounciness = f(0.27f, 0.0f, 1.0f, "chestBounciness", "Chest feature bounciness");
+        public final ConfigFloat chestDamping = f(0.375f, 0.0f, 1.0f, "chestDamping", "Chest feature physics damping");
 
         // UI Config Group
         public final ConfigGroup ui = group(1, "ui", "UI element Configuration");
