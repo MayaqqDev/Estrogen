@@ -51,7 +51,6 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
             } else {
                 size = 0.0F;
             }
-
             float yOffset = 0;
             if (EstrogenConfig.client().chestPhysics.get()) {
                 Physics physics = Dash.physicsMap.computeIfAbsent(entity.getUUID(), uuid -> new Physics());
