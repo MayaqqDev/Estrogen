@@ -58,6 +58,9 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("item.estrogen.estrogen_patches.tooltip.condition1", "When worn in the Thighs slot");
         tb.add("item.estrogen.estrogen_patches.tooltip.behaviour1", "Gives the _Girl Power Effect_ for as long as it's worn and is filled with _Liquid Estrogen_.");
 
+        tb.add("block.estrogen.cookie_jar.tooltip", "Cookie Jar");
+        tb.add("block.estrogen.cookie_jar.tooltip.summary", "A jar to store all your Cookies!");
+
         // Advancements
         tb.add("advancement.estrogen.root.title", "Create: Estrogen");
         tb.add("advancement.estrogen.root.description", "Create Addon Based around expressing yourself, fluid handling and expanding your factory!");
@@ -78,6 +81,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
 
         // Blocks
         tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuge");
+        tb.add(EstrogenBlocks.COOKIE_JAR.get(), "Cookie Jar");
         tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Liquid Estrogen");
         tb.add(EstrogenBlocks.HORSE_URINE_BLOCK.get(), "Horse Urine");
         tb.add(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), "Filtrated Horse Urine");

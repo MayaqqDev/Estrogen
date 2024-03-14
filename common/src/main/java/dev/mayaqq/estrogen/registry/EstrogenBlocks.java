@@ -19,10 +19,11 @@ import net.minecraft.world.level.material.MapColor;
 public class EstrogenBlocks {
     public static final ResourcefulRegistry<Block> BLOCKS = ResourcefulRegistries.create(BuiltInRegistries.BLOCK, "estrogen");
     public static final ResourcefulRegistry<Block> TRANSPARENT_BLOCKS = ResourcefulRegistries.create(BLOCKS);
+    public static final ResourcefulRegistry<Block> CREATE_LIKE_BLOCKS = ResourcefulRegistries.create(BLOCKS);
 
-    public static final RegistryEntry<CentrifugeBlock> CENTRIFUGE = BLOCKS.register("centrifuge", () -> new CentrifugeBlock(BlockBehaviour.Properties.copy(SharedProperties.copperMetal()).mapColor(MapColor.COLOR_ORANGE).noOcclusion()));
+    public static final RegistryEntry<CentrifugeBlock> CENTRIFUGE = CREATE_LIKE_BLOCKS.register("centrifuge", () -> new CentrifugeBlock(BlockBehaviour.Properties.copy(SharedProperties.copperMetal()).mapColor(MapColor.COLOR_ORANGE).noOcclusion()));
 
-    public static final RegistryEntry<CookieJarBlock> COOKIE_JAR = BLOCKS.register("cookie_jar", () -> new CookieJarBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+    public static final RegistryEntry<CookieJarBlock> COOKIE_JAR = CREATE_LIKE_BLOCKS.register("cookie_jar", () -> new CookieJarBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
 
     public static final RegistryEntry<Block> MOLTEN_SLIME_BLOCK = BLOCKS.register("molten_slime", () -> new LavaLikeLiquidBlock(EstrogenFluidProperties.MOLTEN_SLIME, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_GREEN)));
     public static final RegistryEntry<Block> TESTOSTERONE_MIXTURE_BLOCK = TRANSPARENT_BLOCKS.register("testosterone_mixture", () -> new BotariumLiquidBlock(EstrogenFluidProperties.TESTOSTERONE_MIXTURE, BlockBehaviour.Properties.copy(Blocks.WATER).mapColor(MapColor.TERRACOTTA_YELLOW)));

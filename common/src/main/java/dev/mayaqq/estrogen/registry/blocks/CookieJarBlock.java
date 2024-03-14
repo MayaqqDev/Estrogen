@@ -36,6 +36,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings({"deprecation", "NullableProblems"})
 public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
     private static final BooleanProperty WATERLOGGED;
@@ -62,9 +63,16 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
         ItemStack itemStack = player.getItemInHand(hand);
         if (player.getItemInHand(hand) == ItemStack.EMPTY) {
             if (blockEntity instanceof CookieJarBlockEntity cookieJarBlockEntity) {
-                level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
                 level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-                return InteractionResult.SUCCESS;
+                if (!level.isClientSide) {
+                    ItemStack itemStack2 = cookieJarBlockEntity.getTheItem();
+                    if (!itemStack2.isEmpty()) {
+                        level.playSound(null, pos, SoundEvents.AMETHYST_CLUSTER_PLACE, SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * itemStack2.getCount());
+                        itemStack2.shrink(1);
+                        player.getInventory().placeItemBackInInventory(itemStack2.copyWithCount(1));
+                        return InteractionResult.SUCCESS;
+                    }
+                }
             } else {
                 return InteractionResult.PASS;
             }
@@ -86,10 +94,10 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
                             f = (float)itemStack2.getCount() / (float)itemStack2.getMaxStackSize();
                         }
 
-                        level.playSound(null, pos, SoundEvents.SPYGLASS_USE, SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * f);
+                        level.playSound(null, pos, SoundEvents.AMETHYST_CLUSTER_PLACE, SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * f);
                         if (level instanceof ServerLevel) {
                             ServerLevel serverLevel = (ServerLevel)level;
-                            serverLevel.sendParticles(ParticleTypes.BUBBLE_POP, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
+                            serverLevel.sendParticles(ParticleTypes.CRIT, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
                         }
 
                         cookieJarBlockEntity.setChanged();
@@ -99,10 +107,9 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
                         return InteractionResult.FAIL;
                     }
                 }
-            } else {
-                return InteractionResult.CONSUME;
             }
         }
+        return InteractionResult.CONSUME;
     }
 
     @Override
@@ -184,9 +191,13 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     public static VoxelShape makeShape(){
         VoxelShape shape = Shapes.empty();
-        shape = Shapes.join(shape, Shapes.box(0.375, 0.625, 0.375, 0.625, 0.8125, 0.625), BooleanOp.OR);
-        shape = Shapes.join(shape, Shapes.box(0.25, 0.5625, 0.25, 0.75, 0.625, 0.75), BooleanOp.OR);
+        // Cork
+        shape = Shapes.join(shape, Shapes.box(0.375, 0.625, 0.375, 0.625, 0.8125, 0.625), BooleanOp.AND);
+        // Big lid shape
+        shape = Shapes.join(shape, Shapes.box(0.1875 + 0.0625, 0.6875, 0.1875 + 0.0625, 0.8125 - 0.0625, 0.75, 0.8125 - 0.0625), BooleanOp.OR);
+        // first part
         shape = Shapes.join(shape, Shapes.box(0.3125, 0.625, 0.3125, 0.6875, 0.6875, 0.6875), BooleanOp.OR);
+        // Main square
         shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.625, 0.8125), BooleanOp.OR);
 
         return shape;
