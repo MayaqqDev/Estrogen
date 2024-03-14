@@ -10,9 +10,14 @@ import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.resources.ResourceLocation;
 
 @SuppressWarnings("ClassEscapesDefinedScope")
-public record StatusEffectPacket(FriendlyByteBuf buf) implements Packet<StatusEffectPacket> {
+public class StatusEffectPacket implements Packet<StatusEffectPacket> {
     public static Handler HANDLER = new Handler();
     public static final ResourceLocation ID = Estrogen.id("status_effect");
+    public FriendlyByteBuf buffer;
+
+    public StatusEffectPacket(FriendlyByteBuf buf) {
+        this.buffer = new FriendlyByteBuf(buf.copy());
+    }
 
     @Override
     public ResourceLocation getID() {
@@ -27,7 +32,9 @@ public record StatusEffectPacket(FriendlyByteBuf buf) implements Packet<StatusEf
     private static class Handler implements PacketHandler<StatusEffectPacket> {
 
         @Override
-        public void encode(StatusEffectPacket message, FriendlyByteBuf buffer) {}
+        public void encode(StatusEffectPacket message, FriendlyByteBuf buffer) {
+            buffer.writeBytes(message.buffer);
+        }
 
         @Override
         public StatusEffectPacket decode(FriendlyByteBuf buffer) {
@@ -38,7 +45,7 @@ public record StatusEffectPacket(FriendlyByteBuf buf) implements Packet<StatusEf
         public PacketContext handle(StatusEffectPacket message) {
             return (player, level) -> {
                 Minecraft client = Minecraft.getInstance();
-                ClientboundUpdateMobEffectPacket packet = new ClientboundUpdateMobEffectPacket(message.buf);
+                ClientboundUpdateMobEffectPacket packet = new ClientboundUpdateMobEffectPacket(message.buffer);
                 if (client.getConnection() != null) client.getConnection().handleUpdateMobEffect(packet);
             };
         }
