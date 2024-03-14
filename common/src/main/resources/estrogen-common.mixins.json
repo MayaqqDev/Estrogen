@@ -12,6 +12,7 @@
     "client.MinecraftClientMixin",
     "client.PlayerEntityModelMixin",
     "client.PlayerEntityRendererMixin",
+    "client.ReceivingLevelScreenMixin",
     "client.TextRendererMixin"
   ],
   "injectors": {
