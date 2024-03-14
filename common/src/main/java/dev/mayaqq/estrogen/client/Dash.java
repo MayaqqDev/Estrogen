@@ -31,9 +31,8 @@ public class Dash {
     public static void dashClientTick() {
         Minecraft client = Minecraft.getInstance();
 
-        if (EstrogenConfig.client().chestPhysics.get()) {
+        if (client.level != null && EstrogenConfig.client().chestPhysics.get()) {
             for (HashMap.Entry<UUID, Physics> physics : physicsMap.entrySet()) {
-                // Cannot invoke "net.minecraft.client.multiplayer.ClientLevel.getPlayerByUUID(java.util.UUID)" because "client.level" is null
                 Player player = client.level.getPlayerByUUID(physics.getKey());
                 if (player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get())) {
                     physics.getValue().update(player);
