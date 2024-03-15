@@ -35,6 +35,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add(EstrogenItems.UWU.get(), ":3");
         tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
         tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "Incomplete UwU");
+        tb.add(EstrogenItems.DREAM_BOTTLE.get(), "Bottle of Dreams");
         // Potion
         tb.add("item.minecraft.tipped_arrow.effect.estrogen", "Arrow of Girl Power");
         tb.add("item.minecraft.potion.effect.estrogen", "Potion of Girl Power");
@@ -82,6 +83,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         // Blocks
         tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuge");
         tb.add(EstrogenBlocks.COOKIE_JAR.get(), "Cookie Jar");
+        tb.add(EstrogenBlocks.DREAM_BLOCK.get(), "Dream Block");
         tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Liquid Estrogen");
         tb.add(EstrogenBlocks.HORSE_URINE_BLOCK.get(), "Horse Urine");
         tb.add(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), "Filtrated Horse Urine");

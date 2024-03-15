@@ -5,10 +5,14 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.Physics;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.EstrogenSounds;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
+import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
+import dev.mayaqq.estrogen.registry.sounds.DreamBlockSoundInstance;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -28,8 +32,29 @@ public class Dash {
     private static int tick = 0;
     public static HashMap<UUID, Physics> physicsMap = new HashMap<>();
 
+    // Dream Block
+    private static boolean isInDreamBlock;
+    private static int dreamBlockTick = 0;
+
     public static void dashClientTick() {
         Minecraft client = Minecraft.getInstance();
+
+        if (client.level != null && DreamBlock.isInDreamBlock(client.player)) {
+            dreamBlockTick++;
+            if (dreamBlockTick == 1) {
+                client.player.playSound(EstrogenSounds.DREAM_BLOCK_ENTER.get(), 1.0F, 1.0F);
+            } else if (dreamBlockTick != 0) {
+                client.getSoundManager().play(new DreamBlockSoundInstance(client.player));
+            }
+            isInDreamBlock = true;
+        } else {
+            if (isInDreamBlock) {
+                client.player.playSound(EstrogenSounds.DREAM_BLOCK_EXIT.get(), 1.0F, 1.0F);
+
+            }
+            dreamBlockTick = 0;
+            isInDreamBlock = false;
+        }
 
         if (client.level != null && EstrogenConfig.client().chestPhysics.get()) {
             for (HashMap.Entry<UUID, Physics> physics : physicsMap.entrySet()) {

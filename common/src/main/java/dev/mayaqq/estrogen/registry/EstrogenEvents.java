@@ -69,6 +69,11 @@ public class EstrogenEvents {
     }
 
     public static void playerTickEnd(Player player) {
+        EstrogenEffect.dashing.forEach((uuid, cooldown) -> {
+            if (cooldown > 0) {
+                EstrogenEffect.dashing.put(uuid, cooldown - 1);
+            }
+        });
         if (EstrogenConfig.common().minigameEnabled.get()) {
             if (EstrogenConfig.common().permaDash.get()) {
                 player.addEffect(new MobEffectInstance(ESTROGEN_EFFECT.get(), 20, EstrogenConfig.common().girlPowerLevel.get(), false, false, false));

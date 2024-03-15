@@ -9,5 +9,25 @@
     "sounds": [
       "estrogen:g03c"
     ]
-  }
+  },
+  "trust_yourself": {
+    "sounds": [
+      "estrogen:trust_yourself"
+    ]
+  },
+  "dream_block_enter": {
+    "sounds": [
+      "estrogen:dream_block_enter"
+    ]
+  },
+    "dream_block_exit": {
+        "sounds": [
+        "estrogen:dream_block_exit"
+        ]
+    },
+    "dream_block_tick": {
+        "sounds": [
+        "estrogen:dream_block_tick"
+        ]
+    }
 }
