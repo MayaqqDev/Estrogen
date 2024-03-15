@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.datagen.recipes.estrogen;
 
 import com.google.gson.JsonObject;
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenRecipes;
 import dev.mayaqq.estrogen.registry.EstrogenTags;

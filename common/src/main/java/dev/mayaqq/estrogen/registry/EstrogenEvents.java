@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.registry;
 
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import dev.mayaqq.estrogen.registry.recipes.inventory.EntityInteractionInventory;

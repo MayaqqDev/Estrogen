@@ -1,8 +1,6 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.cookieJar;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.blockEntities.CookieJarBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;

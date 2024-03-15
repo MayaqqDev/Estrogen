@@ -4,10 +4,7 @@ import dev.mayaqq.estrogen.client.EstrogenClient;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.renderer.RenderType;
-
-import static dev.mayaqq.estrogen.Estrogen.LOGGER;
 
 public class EstrogenClientFabric implements ClientModInitializer {
     @Override
