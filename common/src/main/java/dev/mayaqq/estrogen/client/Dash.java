@@ -9,6 +9,7 @@ import dev.mayaqq.estrogen.registry.EstrogenSounds;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
 import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
 import dev.mayaqq.estrogen.registry.sounds.DreamBlockSoundInstance;
+import dev.mayaqq.estrogen.registry.sounds.EstrogenEffectSoundInstance;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
@@ -87,6 +88,28 @@ public class Dash {
         if (player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) && onCooldown && EstrogenConfig.client().dashOverlay.get()) {
             renderOverLayer(guiGraphics, 0.3F, 0.5F, 0.8F);
         }
+    }
+
+    public static void handleSoundInstancing() {
+        Minecraft client = Minecraft.getInstance();
+        if (EstrogenConfig.client().ambientMusic.get() && !client.getSoundManager().isActive(getSoundInstance())) {
+            client.getSoundManager().play(getSoundInstance());
+        }
+    }
+
+    public static void disableSoundInstance() {
+        Minecraft client = Minecraft.getInstance();
+        client.getSoundManager().stop(getSoundInstance());
+        soundInstance = null;
+    }
+
+    private static SoundInstance soundInstance = null;
+
+    private static SoundInstance getSoundInstance() {
+        if (soundInstance == null) {
+            soundInstance = new EstrogenEffectSoundInstance();
+        }
+        return soundInstance;
     }
 
     private static void renderOverLayer(GuiGraphics graphics, float c1, float c2, float c3) {

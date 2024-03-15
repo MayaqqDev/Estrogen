@@ -8,12 +8,10 @@ import dev.mayaqq.estrogen.networking.messages.c2s.DashPacket;
 import dev.mayaqq.estrogen.networking.messages.s2c.StatusEffectPacket;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
 import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
-import dev.mayaqq.estrogen.registry.sounds.EstrogenEffectSoundInstance;
 import dev.mayaqq.estrogen.utils.PlayerLookup;
 import dev.mayaqq.estrogen.utils.Time;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
@@ -65,11 +63,7 @@ public class EstrogenEffect extends MobEffect {
         if (!EstrogenConfig.server().dashEnabled.get()) return;
         // Only tick on the client and if the entity is a player
         if (entity instanceof Player player && player.level().isClientSide) {
-            // Sound
-            Minecraft client = Minecraft.getInstance();
-            if (EstrogenConfig.client().ambientMusic.get() && !client.getSoundManager().isActive(getSoundInstance())) {
-                client.getSoundManager().play(getSoundInstance());
-            }
+            Dash.handleSoundInstancing();
 
             // cooldown processing
             dashCooldown--;
@@ -133,9 +127,7 @@ public class EstrogenEffect extends MobEffect {
 
         if (entity instanceof Player player && player.level().isClientSide) {
             resetDash(entity);
-            Minecraft client = Minecraft.getInstance();
-            client.getSoundManager().stop(getSoundInstance());
-            soundInstance = null;
+            Dash.disableSoundInstance();
         }
 
         if (!entity.hasEffect(ESTROGEN_EFFECT.get()) && entity instanceof Player) {
@@ -149,15 +141,6 @@ public class EstrogenEffect extends MobEffect {
         onCooldown = false;
         Dash.onCooldown = false;
         dashCooldown = 0;
-    }
-
-    private static SoundInstance soundInstance = null;
-
-    private static SoundInstance getSoundInstance() {
-        if (soundInstance == null) {
-            soundInstance = new EstrogenEffectSoundInstance();
-        }
-        return soundInstance;
     }
 
     @Override
