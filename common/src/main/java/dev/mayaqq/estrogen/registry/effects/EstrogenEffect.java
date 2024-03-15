@@ -67,7 +67,7 @@ public class EstrogenEffect extends MobEffect {
         if (entity instanceof Player player && player.level().isClientSide) {
             // Sound
             Minecraft client = Minecraft.getInstance();
-            if (!client.getSoundManager().isActive(getSoundInstance())) {
+            if (EstrogenConfig.client().ambientMusic.get() && !client.getSoundManager().isActive(getSoundInstance())) {
                 client.getSoundManager().play(getSoundInstance());
             }
 
