@@ -3,9 +3,6 @@ package dev.mayaqq.estrogen.forge.client;
 import com.simibubi.create.foundation.config.ui.BaseConfigScreen;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.EstrogenClient;
-import dev.mayaqq.estrogen.registry.EstrogenFluids;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,7 +21,5 @@ public class EstrogenForgeClient {
                 () -> new ConfigScreenHandler.ConfigScreenFactory((minecraft, screen) -> new BaseConfigScreen(screen, MOD_ID)));
         // Common Client Init
         EstrogenClient.init();
-
-        EstrogenFluids.FLUIDS.stream().forEach(fluid -> ItemBlockRenderTypes.setRenderLayer(fluid.get(), RenderType.translucent()));
     }
 }
