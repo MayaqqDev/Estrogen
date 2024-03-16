@@ -24,7 +24,8 @@
               "estrogen:horse_urine_bucket",
               "estrogen:molten_amethyst_bucket",
               "estrogen:centrifuge",
-              "estrogen:cookie_jar"
+              "estrogen:cookie_jar",
+              "estrogen:dream_bottle"
             ]
           }
         ]
@@ -34,7 +35,7 @@
   },
   "display": {
     "announce_to_chat": true,
-    "background": "estrogen:textures/advancements/background.png",
+    "background": "estrogen:textures/advancements/dream_block_background.png",
     "description": {
       "translate": "advancement.estrogen.root.description"
     },

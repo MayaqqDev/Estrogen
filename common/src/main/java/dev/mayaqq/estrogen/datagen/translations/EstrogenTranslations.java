@@ -83,7 +83,6 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         // Blocks
         tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuge");
         tb.add(EstrogenBlocks.COOKIE_JAR.get(), "Cookie Jar");
-        tb.add(EstrogenBlocks.DREAM_BLOCK.get(), "Dream Block");
         tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Liquid Estrogen");
         tb.add(EstrogenBlocks.HORSE_URINE_BLOCK.get(), "Horse Urine");
         tb.add(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), "Filtrated Horse Urine");
