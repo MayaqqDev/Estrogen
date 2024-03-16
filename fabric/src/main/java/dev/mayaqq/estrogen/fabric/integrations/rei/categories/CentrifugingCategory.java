@@ -44,7 +44,7 @@ public class CentrifugingCategory extends CreateRecipeCategory<CentrifugingRecip
         Slot fluidInputSlot = basicSlot(xInput, y, origin).markInput().entries(EntryIngredients.of(convertToREIFluid(inputStack)));
         widgets.add(fluidInputSlot);
 
-        Slot fluidOutputSlot = basicSlot(xOutput, y, origin).markInput().entries(EntryIngredients.of(convertToREIFluid(outputStack)));
+        Slot fluidOutputSlot = basicSlot(xOutput, y, origin).markOutput().entries(EntryIngredients.of(convertToREIFluid(outputStack)));
         widgets.add(fluidOutputSlot);
 
         widgets.add(WidgetUtil.textured(AllGuiTextures.JEI_ARROW, origin.getX() + 60, origin.getY() + (y - 1)));

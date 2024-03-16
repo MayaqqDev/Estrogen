@@ -10,6 +10,7 @@ import me.shedaniel.rei.api.client.gui.widgets.Slot;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.util.ClientEntryStacks;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
+import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -49,7 +50,7 @@ public class EntityInteractionCategory extends CreateRecipeCategory<EntityIntera
 
         Slot outputSlot = basicSlot(132, 38, origin)
                 .markOutput()
-                .entries(display.getOutputEntries().get(0));
+                .entry(EntryStacks.of(display.getRecipe().result()));
 
         ingredients.add(outputSlot);
     }
