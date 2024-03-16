@@ -16,6 +16,7 @@ import com.simibubi.create.infrastructure.config.CRecipes;
 import dev.architectury.fluid.FluidStack;
 import dev.mayaqq.estrogen.fabric.integrations.rei.categories.CentrifugingCategory;
 import dev.mayaqq.estrogen.fabric.integrations.rei.categories.EntityInteractionCategory;
+import dev.mayaqq.estrogen.fabric.integrations.rei.displays.EstrogenDisplays;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
 import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
@@ -108,12 +109,14 @@ public class ReiCompat extends CreateREI {
                 .catalyst(EstrogenBlocks.CENTRIFUGE::get)
                 .itemIcon(EstrogenBlocks.CENTRIFUGE.get())
                 .emptyBackground(177, 80)
+                .displayFactory(EstrogenDisplays::centrifuging)
                 .build("centrifuging", CentrifugingCategory::new);
 
         CreateRecipeCategory<EntityInteractionRecipe> entity_interaction = builder(EntityInteractionRecipe.class)
                 .addTypedRecipes(EntityInteractionRecipe.getRecipeTypeInfo())
                 .doubleItemIcon(Items.ZOMBIE_HEAD, AllItems.BRASS_HAND)
                 .emptyBackground(177, 80)
+                .displayFactory(EstrogenDisplays::entityInteraction)
                 .build("entity_interaction", EntityInteractionCategory::new);
     }
 

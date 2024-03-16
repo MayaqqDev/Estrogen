@@ -36,11 +36,13 @@ public class EntityInteractionCategory extends CreateRecipeCategory<EntityIntera
                 .entries(EntryIngredients.ofIngredient(Ingredient.of(display.getRecipe().entity().spawnEggs())));
         ingredients.add(eggSlot);
         slot = eggSlot;
-        ClientEntryStacks.setTooltipProcessor(eggSlot.getCurrentEntry(), (entryStack, tooltip) -> {
-            if (display.getRecipe().cantBeBaby())
-                tooltip.add(Component.translatable("recipe.entity_interaction.cant_be_baby")
-                        .withStyle(ChatFormatting.GOLD));
-            return tooltip;
+        eggSlot.getEntries().forEach(entry -> {
+            ClientEntryStacks.setTooltipProcessor(entry, (entryStack, tooltip) -> {
+                if (display.getRecipe().cantBeBaby())
+                    tooltip.add(Component.translatable("recipe.entity_interaction.cant_be_baby")
+                            .withStyle(ChatFormatting.GOLD));
+                return tooltip;
+            });
         });
 
         Slot slot = basicSlot(51, 5, origin)

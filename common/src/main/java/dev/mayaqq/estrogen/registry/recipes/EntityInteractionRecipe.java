@@ -80,6 +80,11 @@ public record EntityInteractionRecipe(ResourceLocation id, Ingredient ingredient
         return result.copy();
     }
 
+    @Override
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
+        return result.copy();
+    }
+
     public static class RecipeTypeInfo implements IRecipeTypeInfo {
 
         final ResourceLocation id;
