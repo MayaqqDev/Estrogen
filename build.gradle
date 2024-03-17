@@ -102,8 +102,12 @@ allprojects {
     }
 }
 
+tasks.register("testFile") {
+    println file("CHANGELOG.md").text
+}
+
 publishMods {
-    changelog = "${rootProject.changelog}"
+    changelog = file("CHANGELOG.md").text
     type = STABLE
 
     def optionsCurseforge = curseforgeOptions {
