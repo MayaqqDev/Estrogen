@@ -8,6 +8,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 
 public class EstrogenRecipes {
 
+    public static final EstrogenRecipes RECIPES = new EstrogenRecipes();
+
     public static final RegistryEntry<RecipeType<EntityInteractionRecipe>> ENTITY_INTERACTION = register("entity_interaction");
     public static final RegistryEntry<CodecRecipeSerializer<EntityInteractionRecipe>> ENTITY_INTERACTION_SERIALIZER =
             EstrogenRecipeRegistries.RECIPE_SERIALIZERS.register("entity_interaction", () -> new CodecRecipeSerializer<>(ENTITY_INTERACTION.get(), EntityInteractionRecipe::codec, EntityInteractionRecipe::netCodec));
@@ -20,5 +22,5 @@ public class EstrogenRecipes {
         });
     }
 
-    public static void register() {}
+    public void init() {}
 }
