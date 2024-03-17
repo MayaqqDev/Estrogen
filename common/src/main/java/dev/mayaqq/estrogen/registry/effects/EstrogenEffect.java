@@ -5,6 +5,7 @@ import dev.mayaqq.estrogen.client.registry.EstrogenKeybinds;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.networking.messages.c2s.DashPacket;
+import dev.mayaqq.estrogen.networking.messages.s2c.RemoveStatusEffectPacket;
 import dev.mayaqq.estrogen.networking.messages.s2c.StatusEffectPacket;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
 import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
@@ -16,6 +17,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
@@ -118,7 +120,7 @@ public class EstrogenEffect extends MobEffect {
         dashing.remove(entity.getUUID());
 
         if (entity instanceof ServerPlayer player) {
-            sendPlayerStatusEffect(player, ESTROGEN_EFFECT.get(), PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
+            sendRemovePlayerStatusEffect(player, ESTROGEN_EFFECT.get(), PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
         }
 
         if (entity instanceof Player) {
@@ -174,6 +176,13 @@ public class EstrogenEffect extends MobEffect {
             packet.write(buf);
             EstrogenNetworkManager.CHANNEL.sendToPlayers(new StatusEffectPacket(buf), Arrays.stream(targetPlayers).toList());
         }
+    }
+
+    public static void sendRemovePlayerStatusEffect(ServerPlayer player, MobEffect effect, ServerPlayer... targetPlayers) {
+        Packet<ClientGamePacketListener> packet = new ClientboundRemoveMobEffectPacket(player.getId(), effect);
+        FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
+        packet.write(buf);
+        EstrogenNetworkManager.CHANNEL.sendToPlayers(new RemoveStatusEffectPacket(buf), Arrays.stream(targetPlayers).toList());
     }
 
     @Override
