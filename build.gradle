@@ -102,10 +102,6 @@ allprojects {
     }
 }
 
-tasks.register("testFile") {
-    println file("CHANGELOG.md").text
-}
-
 publishMods {
     changelog = file("CHANGELOG.md").text
     type = STABLE
