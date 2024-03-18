@@ -1,6 +1,8 @@
 package dev.mayaqq.estrogen.mixin;
 
+import dev.mayaqq.estrogen.config.ChestConfig;
 import dev.mayaqq.estrogen.Estrogen;
+import dev.mayaqq.estrogen.config.PlayerEntityExtension;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.networking.messages.c2s.SpawnHeartsPacket;
@@ -17,13 +19,27 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
-public abstract class PlayerEntityMixin {
+public class PlayerEntityMixin implements PlayerEntityExtension {
+    @Unique
+    public ChestConfig estrogenChestConfig = null;
+
+    @Unique
+    public ChestConfig estrogen$getChestConfig() {
+        return this.estrogenChestConfig;
+    }
+
+    @Unique
+    public void estrogen$setChestConfig(ChestConfig chestConfig) {
+        this.estrogenChestConfig = chestConfig;
+    }
+
     /*
      * Registers additional attributes for players without the use of events.
      * Should be compatible with any other mod.

@@ -57,7 +57,7 @@ public class Dash {
                 isInDreamBlock = false;
             }
 
-            if (EstrogenConfig.client().chestPhysics.get()) {
+            if (client.level != null && EstrogenConfig.client().chestPhysicsRendering.get()) {
                 for (HashMap.Entry<UUID, Physics> physics : physicsMap.entrySet()) {
                     Player player = client.level.getPlayerByUUID(physics.getKey());
                     if (player != null && player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get())) {
@@ -83,6 +83,7 @@ public class Dash {
             client.updateTitle();
         }
     }
+
 
     public static void renderOverlayTick(GuiGraphics guiGraphics) {
         LocalPlayer player = Minecraft.getInstance().player;

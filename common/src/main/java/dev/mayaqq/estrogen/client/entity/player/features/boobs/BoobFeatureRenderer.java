@@ -2,8 +2,10 @@ package dev.mayaqq.estrogen.client.entity.player.features.boobs;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.mayaqq.estrogen.config.ChestConfig;
 import dev.mayaqq.estrogen.client.Dash;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.config.PlayerEntityExtension;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.utils.Time;
 import net.fabricmc.api.EnvType;
@@ -38,7 +40,8 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
     }
 
     public void render(PoseStack stack, MultiBufferSource bufferSource, int i, AbstractClientPlayer entity, float f, float g, float h, float j, float k, float l) {
-        if (entity.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) && EstrogenConfig.client().chestFeature.get() && entity.isSkinLoaded() && !entity.isInvisible()) {
+        ChestConfig chestConfig = ((PlayerEntityExtension) entity).estrogen$getChestConfig();
+        if (entity.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) && EstrogenConfig.client().chestFeatureRendering.get() && chestConfig != null && chestConfig.enabled() && entity.isSkinLoaded() && !entity.isInvisible()) {
             VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entitySolid(entity.getSkinTextureLocation()));
             int m = LivingEntityRenderer.getOverlayCoords(entity, 0.0F);
             stack.pushPose();
@@ -52,7 +55,7 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
                 size = 0.0F;
             }
             float yOffset = 0;
-            if (EstrogenConfig.client().chestPhysics.get()) {
+            if (EstrogenConfig.client().chestPhysicsRendering.get() && chestConfig.physicsEnabled()) {
                 Physics physics = Dash.physicsMap.computeIfAbsent(entity.getUUID(), uuid -> new Physics());
                 if (physics.active) {
                     size += physics.interpolate(currentTime, h).x;
@@ -61,7 +64,7 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
             }
             ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobs(stack, vertexConsumer, i, m, entity, size, yOffset);
 
-            if (EstrogenConfig.client().chestArmor.get()) {
+            if (EstrogenConfig.client().chestArmorRendering.get() && chestConfig.armorEnabled()) {
                 ItemStack itemStack = entity.getItemBySlot(EquipmentSlot.CHEST);
                 if (itemStack.getItem() instanceof ArmorItem armorItem) {
                     if (armorItem.getEquipmentSlot() == EquipmentSlot.CHEST) {

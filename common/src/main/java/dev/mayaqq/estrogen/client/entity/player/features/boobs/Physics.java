@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.client.entity.player.features.boobs;
 
-import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.config.ChestConfig;
+import dev.mayaqq.estrogen.config.PlayerEntityExtension;
 import dev.mayaqq.estrogen.utils.Time;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -41,11 +42,17 @@ public class Physics {
              return;
         }
 
+        ChestConfig chestConfig = ((PlayerEntityExtension) player).estrogen$getChestConfig();
+        if (chestConfig == null) {
+            this.active = false;
+            return;
+        }
+        final float SPRING_COEFFICIENT = 1.0f/(chestConfig.bounciness()*10.0f);
+        final float DAMPING_COEFFICIENT = chestConfig.damping();
+
         this.previousPosition = player.position();
         Vec2 acceleration = velocity.add(this.previousVelocity.negated());
         this.previousVelocity = velocity;
-        float SPRING_COEFFICIENT = 1.0f/(EstrogenConfig.client().chestBounciness.get().floatValue()*10.0f);
-        float DAMPING_COEFFICIENT = EstrogenConfig.client().chestDamping.get().floatValue();
         this.boobAcceleration = this.boobPosition.scale(-SPRING_COEFFICIENT).add(this.boobVelocity.scale(DAMPING_COEFFICIENT).negated());
         if (this.boobAcceleration.length() < 0.002) {
             this.boobPosition = new Vec2(0.0f, 0.0f);
@@ -56,7 +63,7 @@ public class Physics {
             this.boobPosition = this.boobPosition.add(this.boobVelocity);
         }
 
-        this.boobPosition = this.boobPosition.add(acceleration.add(this.previousAcceleration.negated()).scale(1.0f/ SPRING_COEFFICIENT).negated());
+        this.boobPosition = this.boobPosition.add(acceleration.add(this.previousAcceleration.negated()).scale(1.0f/SPRING_COEFFICIENT).negated());
         this.boobPosition = new Vec2(Mth.clamp(this.boobPosition.x, -1.0f, 1.0f), Mth.clamp(this.boobPosition.y, -1.0f, 1.0f));
         this.previousAcceleration = acceleration;
 
