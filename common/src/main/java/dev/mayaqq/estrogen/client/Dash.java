@@ -16,11 +16,13 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.AmbientSoundHandler;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Dash {
 
@@ -108,7 +110,9 @@ public class Dash {
 
     private static SoundInstance getSoundInstance() {
         if (soundInstance == null) {
-            soundInstance = new EstrogenEffectSoundInstance();
+            // Random sound event
+            SoundEvent soundEvent = EstrogenSounds.AMBIENT_MUSIC.getEntries().stream().map(entry -> entry.get()).collect(Collectors.toList()).get((Minecraft.getInstance().level.getRandom().nextInt(EstrogenSounds.SOUNDS.getEntries().size())));
+            soundInstance = new EstrogenEffectSoundInstance(soundEvent);
         }
         return soundInstance;
     }

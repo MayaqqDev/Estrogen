@@ -29,5 +29,10 @@
         "sounds": [
         "estrogen:dream_block_tick"
         ]
-    }
+    },
+  "amphitrite": {
+    "sounds": [
+      "estrogen:amphitrite"
+    ]
+  }
 }
