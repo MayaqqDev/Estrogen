@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.Physics;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
@@ -12,8 +13,8 @@ import dev.mayaqq.estrogen.registry.sounds.DreamBlockSoundInstance;
 import dev.mayaqq.estrogen.registry.sounds.EstrogenEffectSoundInstance;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.resources.sounds.AmbientSoundHandler;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -22,7 +23,6 @@ import net.minecraft.world.entity.player.Player;
 
 import java.util.HashMap;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class Dash {
 
@@ -43,33 +43,36 @@ public class Dash {
     public static void dashClientTick() {
         Minecraft client = Minecraft.getInstance();
 
-        if (client.level != null && DreamBlock.isInDreamBlock(client.player)) {
-            dreamBlockTick++;
-            if (dreamBlockTick == 1) {
-                client.player.playSound(EstrogenSounds.DREAM_BLOCK_ENTER.get(), 1.0F, 1.0F);
-            } else if (dreamBlockTick != 0) {
-                client.getSoundManager().play(new DreamBlockSoundInstance(client.player));
-            }
-            isInDreamBlock = true;
-        } else {
-            if (isInDreamBlock) {
-                client.player.playSound(EstrogenSounds.DREAM_BLOCK_EXIT.get(), 1.0F, 1.0F);
+        // client.player nullability check to stop IDE complaints (be safe out there!)
+        if(client.player != null && client.level != null) {
+            if (DreamBlock.isInDreamBlock(client.player)) {
+                dreamBlockTick++;
+                if (dreamBlockTick == 1) {
+                    client.player.playSound(EstrogenSounds.DREAM_BLOCK_ENTER.get(), 1.0F, 1.0F);
+                } else if (dreamBlockTick != 0) {
+                    client.getSoundManager().play(new DreamBlockSoundInstance(client.player));
+                }
+                isInDreamBlock = true;
+            } else {
+                if (isInDreamBlock) {
+                    client.player.playSound(EstrogenSounds.DREAM_BLOCK_EXIT.get(), 1.0F, 1.0F);
 
+                }
+                dreamBlockTick = 0;
+                isInDreamBlock = false;
             }
-            dreamBlockTick = 0;
-            isInDreamBlock = false;
-        }
 
-        if (client.level != null && EstrogenConfig.client().chestPhysics.get()) {
-            for (HashMap.Entry<UUID, Physics> physics : physicsMap.entrySet()) {
-                Player player = client.level.getPlayerByUUID(physics.getKey());
-                if (player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get())) {
-                    physics.getValue().update(player);
-                    if (physics.getValue().expired) {
+            if (EstrogenConfig.client().chestPhysics.get()) {
+                for (HashMap.Entry<UUID, Physics> physics : physicsMap.entrySet()) {
+                    Player player = client.level.getPlayerByUUID(physics.getKey());
+                    if (player != null && player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get())) {
+                        physics.getValue().update(player);
+                        if (physics.getValue().expired) {
+                            physicsMap.remove(physics.getKey());
+                        }
+                    } else {
                         physicsMap.remove(physics.getKey());
                     }
-                } else {
-                    physicsMap.remove(physics.getKey());
                 }
             }
         }
@@ -82,6 +85,7 @@ public class Dash {
         if (tick == 20) {
             tick = 0;
             uwufy = player.getInventory().contains(EstrogenTags.Items.UWUFYING);
+            client.updateTitle();
         }
     }
 
@@ -109,14 +113,22 @@ public class Dash {
     private static SoundInstance soundInstance = null;
 
     private static SoundInstance getSoundInstance() {
-        if (soundInstance == null) {
+        ClientLevel level = Minecraft.getInstance().level;
+        if (level != null && soundInstance == null) {
             // Random sound event
-            SoundEvent soundEvent = EstrogenSounds.AMBIENT_MUSIC.getEntries().stream().map(entry -> entry.get()).collect(Collectors.toList()).get((Minecraft.getInstance().level.getRandom().nextInt(EstrogenSounds.SOUNDS.getEntries().size())));
+            SoundEvent soundEvent =
+                    EstrogenSounds.AMBIENT_MUSIC
+                            .getEntries()
+                            .stream()
+                            .map(RegistryEntry::get)
+                            .toList()
+                            .get((level.getRandom().nextInt(EstrogenSounds.AMBIENT_MUSIC.getEntries().size())));
             soundInstance = new EstrogenEffectSoundInstance(soundEvent);
         }
         return soundInstance;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static void renderOverLayer(GuiGraphics graphics, float c1, float c2, float c3) {
         int i = graphics.guiWidth();
         int j = graphics.guiHeight();

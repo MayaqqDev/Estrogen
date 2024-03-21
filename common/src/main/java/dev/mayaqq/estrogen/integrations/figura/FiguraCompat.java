@@ -21,9 +21,9 @@ public class FiguraCompat {
         if (EstrogenConfig.client().figura.get()) {
             Avatar avatar = AvatarManager.getAvatar(player);
             if (RenderUtils.vanillaModelAndScript(avatar)) {
-                return avatar.luaRuntime.vanilla_model.CHESTPLATE_BODY.checkVisible();
+                return !avatar.luaRuntime.vanilla_model.CHESTPLATE_BODY.checkVisible();
             }
         }
-        return true;
+        return false;
     }
 }

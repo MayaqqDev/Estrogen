@@ -41,5 +41,7 @@ public class EstrogenClient {
         if (CommonHooks.isModLoaded("ears")) {
             EarsCompat.boob();
         }
+
+
     }
 }

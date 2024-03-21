@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(Font.class)
 public class TextRendererMixin {
-
     @ModifyVariable(
             method = "drawInternal(Ljava/lang/String;FFIZLorg/joml/Matrix4f;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/client/gui/Font$DisplayMode;IIZ)I",
             at = @At(

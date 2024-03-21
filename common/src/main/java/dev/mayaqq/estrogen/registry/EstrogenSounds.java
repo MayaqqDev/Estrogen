@@ -7,6 +7,7 @@ import dev.mayaqq.estrogen.Estrogen;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 
+@SuppressWarnings("unused")
 public class EstrogenSounds {
     public static final ResourcefulRegistry<SoundEvent> SOUNDS = ResourcefulRegistries.create(BuiltInRegistries.SOUND_EVENT, Estrogen.MOD_ID);
     public static final ResourcefulRegistry<SoundEvent> AMBIENT_MUSIC = ResourcefulRegistries.create(SOUNDS);
