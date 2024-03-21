@@ -84,16 +84,12 @@ public class DreamBlock extends BaseEntityBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack stack = player.getItemInHand(hand);
         if (stack.getItem() == Items.GLASS_BOTTLE) {
-            if (!level.isClientSide) {
-                if (!player.isCreative()) stack.shrink(1);
-                level.setBlock(pos, Blocks.AIR.defaultBlockState(), 0);
-                level.playSound(null, pos, SoundEvents.BOTTLE_FILL_DRAGONBREATH, SoundSource.BLOCKS, 1.0F, 1.0F);
-                player.getInventory().placeItemBackInInventory(new ItemStack(EstrogenItems.DREAM_BOTTLE.get()));
-                return InteractionResult.SUCCESS;
-            } else {
-                return InteractionResult.CONSUME;
-            }
+            if (!player.isCreative()) stack.shrink(1);
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), 0);
+            level.playSound(null, pos, SoundEvents.BOTTLE_FILL_DRAGONBREATH, SoundSource.BLOCKS, 1.0F, 1.0F);
+            player.getInventory().placeItemBackInInventory(new ItemStack(EstrogenItems.DREAM_BOTTLE.get()));
+            return InteractionResult.SUCCESS;
         }
-        return InteractionResult.PASS;
+        return super.use(state, level, pos, player, hand, hit);
     }
 }
