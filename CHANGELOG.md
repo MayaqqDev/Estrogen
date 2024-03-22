@@ -7,9 +7,10 @@
 - **Dream Block** from celeste 🌌 (currently unobtainable in survival) (Mayaqq)
 - **Cookie Jar** Block 🫙 (Mayaqq & Naomi)
 - **Advancements**! 💡 (Mayaqq)
+- You can now **pat** players! 🤚 (Mayaqq)
 - Item **Descriptions** and **Tooltips** 📙 (Mayaqq)
 - **Chest Feature physics** ⛹️‍♂️ (PrincessDoreena)
-- So **many** new **config options** ⚙️ (Mayaqq)
+- So **many** new **config options** ⚙️ (Mayaqq & PrincessDoreena)
 - Entity Interaction Recipe 👆 (Mayaqq)
 - Library switch Architectury Lib -> **Resourceful Lib & Botarium** 🔀 (Mayaqq)
 - And finally, so many **BUG FIXES!** 🐛
