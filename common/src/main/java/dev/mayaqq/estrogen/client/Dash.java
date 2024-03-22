@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.Physics;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
@@ -10,14 +9,10 @@ import dev.mayaqq.estrogen.registry.EstrogenSounds;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
 import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
 import dev.mayaqq.estrogen.registry.sounds.DreamBlockSoundInstance;
-import dev.mayaqq.estrogen.registry.sounds.EstrogenEffectSoundInstance;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 
@@ -95,37 +90,6 @@ public class Dash {
         if (player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) && onCooldown && EstrogenConfig.client().dashOverlay.get()) {
             renderOverLayer(guiGraphics, 0.3F, 0.5F, 0.8F);
         }
-    }
-
-    public static void handleSoundInstancing() {
-        Minecraft client = Minecraft.getInstance();
-        if (EstrogenConfig.client().ambientMusic.get() && !client.getSoundManager().isActive(getSoundInstance())) {
-            client.getSoundManager().play(getSoundInstance());
-        }
-    }
-
-    public static void disableSoundInstance() {
-        Minecraft client = Minecraft.getInstance();
-        client.getSoundManager().stop(getSoundInstance());
-        soundInstance = null;
-    }
-
-    private static SoundInstance soundInstance = null;
-
-    private static SoundInstance getSoundInstance() {
-        ClientLevel level = Minecraft.getInstance().level;
-        if (level != null && soundInstance == null) {
-            // Random sound event
-            SoundEvent soundEvent =
-                    EstrogenSounds.AMBIENT_MUSIC
-                            .getEntries()
-                            .stream()
-                            .map(RegistryEntry::get)
-                            .toList()
-                            .get((level.getRandom().nextInt(EstrogenSounds.AMBIENT_MUSIC.getEntries().size())));
-            soundInstance = new EstrogenEffectSoundInstance(soundEvent);
-        }
-        return soundInstance;
     }
 
     @SuppressWarnings("SameParameterValue")

@@ -137,6 +137,13 @@ loom {
             runDir "build/datagen"
         }
     }
+    runs {
+        mixinDebug {
+            inherit client
+            name "Mixin Debug"
+            vmArg "-Dmixin.debug.export=true"
+        }
+    }
 }
 
 sourceSets {

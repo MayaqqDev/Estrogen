@@ -20,19 +20,25 @@
       "estrogen:dream_block_enter"
     ]
   },
-    "dream_block_exit": {
-        "sounds": [
-        "estrogen:dream_block_exit"
-        ]
-    },
-    "dream_block_loop": {
-        "sounds": [
-        "estrogen:dream_block_loop"
-        ]
-    },
+  "dream_block_exit": {
+      "sounds": [
+      "estrogen:dream_block_exit"
+      ]
+  },
+  "dream_block_loop": {
+      "sounds": [
+      "estrogen:dream_block_loop"
+      ]
+  },
   "amphitrite": {
     "sounds": [
       "estrogen:amphitrite"
+    ]
+  },
+  "estrogen_ambient": {
+    "sounds": [
+      "estrogen:amphitrite",
+      "estrogen:trust_yourself"
     ]
   }
 }

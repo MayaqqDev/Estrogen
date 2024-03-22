@@ -65,7 +65,6 @@ public class EstrogenEffect extends MobEffect {
         if (!EstrogenConfig.server().dashEnabled.get()) return;
         // Only tick on the client and if the entity is a player
         if (entity instanceof Player player && player.level().isClientSide) {
-            Dash.handleSoundInstancing();
 
             // cooldown processing
             dashCooldown--;
@@ -129,7 +128,6 @@ public class EstrogenEffect extends MobEffect {
 
         if (entity instanceof Player player && player.level().isClientSide) {
             resetDash(entity);
-            Dash.disableSoundInstance();
         }
 
         if (!entity.hasEffect(ESTROGEN_EFFECT.get()) && entity instanceof Player) {

@@ -25,7 +25,7 @@ public class DreamBlockSoundInstance extends AbstractTickableSoundInstance {
     public void tick() {
         f++;
         if (DreamBlock.isInDreamBlock(player)) {
-            this.pitch = 0.5F + f * 0.1F;
+            this.pitch = 0.5F + f * 0.01F;
             this.volume = 1.0F + f * 0.1F;
         } else {
             f = 0.0F;
