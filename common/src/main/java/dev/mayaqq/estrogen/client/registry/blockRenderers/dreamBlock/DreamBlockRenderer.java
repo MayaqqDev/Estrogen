@@ -17,7 +17,7 @@ import org.joml.Matrix4f;
 public class DreamBlockRenderer implements BlockEntityRenderer<DreamBlockEntity> {
 
     public static final ResourceLocation BACKGROUND_LOCATION = Estrogen.id("textures/misc/dream_block_background.png");
-    public static final ResourceLocation DREAM_BLOCK_LOCATION = Estrogen.id("textures/misc/dream_block.png");
+    public static final ResourceLocation DREAM_BLOCK_LOCATION = Estrogen.id("textures/block/dream_block/dream_block.png");
 
     public DreamBlockRenderer(BlockEntityRendererProvider.Context context) {}
 

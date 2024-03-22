@@ -25,9 +25,9 @@
         "estrogen:dream_block_exit"
         ]
     },
-    "dream_block_tick": {
+    "dream_block_loop": {
         "sounds": [
-        "estrogen:dream_block_tick"
+        "estrogen:dream_block_loop"
         ]
     },
   "amphitrite": {

@@ -49,7 +49,7 @@ public class Dash {
                 dreamBlockTick++;
                 if (dreamBlockTick == 1) {
                     client.player.playSound(EstrogenSounds.DREAM_BLOCK_ENTER.get(), 1.0F, 1.0F);
-                } else if (dreamBlockTick != 0) {
+                } else if (dreamBlockTick == 2) {
                     client.getSoundManager().play(new DreamBlockSoundInstance(client.player));
                 }
                 isInDreamBlock = true;

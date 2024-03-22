@@ -13,15 +13,14 @@ public class DreamBlockSoundInstance extends AbstractTickableSoundInstance {
 
     public DreamBlockSoundInstance(LocalPlayer player) {
         super(EstrogenSounds.DREAM_BLOCK_LOOP.get(), SoundSource.BLOCKS, SoundInstance.createUnseededRandom());
-        this.attenuation = Attenuation.LINEAR;
+        this.attenuation = Attenuation.NONE;
         this.looping = true;
-        this.delay = 2;
+        this.delay = 0;
         this.volume = 1.0F;
         this.player = player;
     }
 
     private float f = 0.0F;
-
     @Override
     public void tick() {
         f++;

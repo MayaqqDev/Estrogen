@@ -7,7 +7,7 @@
     {
       "type": "directory",
       "source": "estrogen",
-      "prefix": "estrogen/misc/dream_block"
+      "prefix": "estrogen/block/dream_block"
     }
   ]
 }
