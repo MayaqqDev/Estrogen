@@ -3,7 +3,11 @@ package dev.mayaqq.estrogen.networking.messages.c2s;
 import com.teamresourceful.resourcefullib.common.networking.base.Packet;
 import com.teamresourceful.resourcefullib.common.networking.base.PacketContext;
 import com.teamresourceful.resourcefullib.common.networking.base.PacketHandler;
+import dev.mayaqq.estrogen.config.ChestConfig;
 import dev.mayaqq.estrogen.Estrogen;
+import dev.mayaqq.estrogen.config.PlayerEntityExtension;
+import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
+import dev.mayaqq.estrogen.networking.messages.s2c.ChestConfigPacket;
 import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import dev.mayaqq.estrogen.utils.PlayerLookup;
 import net.minecraft.network.FriendlyByteBuf;
@@ -44,6 +48,11 @@ public record FinishLoadingPacket() implements Packet<FinishLoadingPacket> {
                 if (entity instanceof ServerPlayer targetPlayer) {
                     for (ServerPlayer player: PlayerLookup.tracking(entity)) {
                         EstrogenEffect.sendPlayerStatusEffect(player, ESTROGEN_EFFECT.get(), targetPlayer);
+
+                        ChestConfig chestConfig = ((PlayerEntityExtension) player).estrogen$getChestConfig();
+                        if (chestConfig != null) {
+                            EstrogenNetworkManager.CHANNEL.sendToPlayer(new ChestConfigPacket(player.getUUID(), chestConfig.enabled(), chestConfig.armorEnabled(), chestConfig.physicsEnabled(), chestConfig.bounciness(), chestConfig.damping()), targetPlayer);
+                        }
                     }
                 }
             };
