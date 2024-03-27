@@ -6,6 +6,7 @@ import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.blockEntities.CentrifugeBlockEntity;
 import dev.mayaqq.estrogen.registry.blockEntities.CookieJarBlockEntity;
+import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
 import earth.terrarium.botarium.common.registry.RegistryHelpers;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -27,6 +28,14 @@ public class EstrogenBlockEntities {
             () -> RegistryHelpers.createBlockEntityType(
                     CookieJarBlockEntity::new,
                     EstrogenBlocks.COOKIE_JAR.get()
+            )
+    );
+
+    public static final RegistryEntry<BlockEntityType<DreamBlockEntity>> DREAM_BLOCK = BLOCK_ENTITIES.register(
+            "dream_block",
+            () -> RegistryHelpers.createBlockEntityType(
+                    DreamBlockEntity::new,
+                    EstrogenBlocks.DREAM_BLOCK.get()
             )
     );
 }

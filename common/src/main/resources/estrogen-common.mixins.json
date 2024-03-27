@@ -8,10 +8,12 @@
   ],
   "client": [
     "client.ClientPlayNetworkHandlerMixin",
+    "client.ConfigValueMixin",
     "client.GameOptionsMixin",
     "client.MinecraftClientMixin",
     "client.PlayerEntityModelMixin",
     "client.PlayerEntityRendererMixin",
+    "client.ReceivingLevelScreenMixin",
     "client.TextRendererMixin"
   ],
   "injectors": {

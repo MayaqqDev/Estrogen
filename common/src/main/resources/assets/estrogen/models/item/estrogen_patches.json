@@ -2,13 +2,5 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "estrogen:item/estrogen_patches"
-  },
-  "overrides": [
-    {
-      "predicate": {
-        "stacked": 1
-      },
-      "model": "estrogen:item/estrogen_patches_plural"
-    }
-  ]
+  }
 }

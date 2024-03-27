@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.integrations.ears;
 import com.unascribed.ears.api.EarsFeatureType;
 import com.unascribed.ears.api.registry.EarsInhibitorRegistry;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.config.PlayerEntityExtension;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import net.minecraft.world.entity.player.Player;
 
@@ -13,7 +14,9 @@ public class EarsCompat {
                 EstrogenConfig.client().ears.get() &&
                 part == EarsFeatureType.CHEST &&
                 ((Player) peer).hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) &&
-                EstrogenConfig.client().chestFeature.get()
+                EstrogenConfig.client().chestFeatureRendering.get() &&
+                ((PlayerEntityExtension) peer).estrogen$getChestConfig() != null &&
+                ((PlayerEntityExtension) peer).estrogen$getChestConfig().enabled()
         );
     }
 }

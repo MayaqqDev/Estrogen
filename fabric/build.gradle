@@ -52,11 +52,7 @@ dependencies {
 
     // Item Viewers
     switch (project.item_viewer.toLowerCase()) {
-        case "rei": modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}") exclude(
-                group: "net.fabricmc"
-        )
-            modLocalRuntime("maven.modrinth:createfabricreibugfix:${rootProject.createfabricreibugfix_version}")
-        break
+        case "rei": modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}") exclude(group: "net.fabricmc"); break
         case "emi": modLocalRuntime("dev.emi:emi-fabric:${rootProject.emi_version}+${rootProject.minecraft_version}"); break
         case "jei": modLocalRuntime("curse.maven:jei-238222:${rootProject.jei_file_id_fabric}"); break
         case "disabled": break
@@ -139,6 +135,13 @@ loom {
             vmArg "-Dporting_lib.datagen.existing_resources=${common.file("src/main/resources")}"
 
             runDir "build/datagen"
+        }
+    }
+    runs {
+        mixinDebug {
+            inherit client
+            name "Mixin Debug"
+            vmArg "-Dmixin.debug.export=true"
         }
     }
 }

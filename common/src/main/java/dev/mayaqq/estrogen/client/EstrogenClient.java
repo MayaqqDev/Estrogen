@@ -6,10 +6,13 @@ import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeCogInstance;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.cookieJar.CookieJarRenderer;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
 import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
 import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
+import dev.mayaqq.estrogen.platform.ClientPlatform;
 import dev.mayaqq.estrogen.registry.EstrogenBlockEntities;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.EstrogenPonderScenes;
 import earth.terrarium.botarium.client.ClientHooks;
 import earth.terrarium.botarium.util.CommonHooks;
@@ -25,6 +28,9 @@ public class EstrogenClient {
         ClientHooks.setRenderLayer(EstrogenBlocks.COOKIE_JAR.get(), RenderType.cutout());
         ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.CENTRIFUGE.get(), CentrifugeRenderer::new);
         ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.COOKIE_JAR.get(), CookieJarRenderer::new);
+        ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.DREAM_BLOCK.get(), DreamBlockRenderer::new);
+
+        EstrogenFluids.FLUIDS.stream().forEach(fluid -> ClientPlatform.fluidRenderLayerMap(fluid.get(), RenderType.translucent()));
 
         InstancedRenderRegistry.configure(EstrogenBlockEntities.CENTRIFUGE.get())
                 .factory(CentrifugeCogInstance::new)
@@ -35,5 +41,7 @@ public class EstrogenClient {
         if (CommonHooks.isModLoaded("ears")) {
             EarsCompat.boob();
         }
+
+
     }
 }

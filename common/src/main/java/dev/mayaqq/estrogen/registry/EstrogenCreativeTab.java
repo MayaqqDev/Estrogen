@@ -32,6 +32,7 @@ public class EstrogenCreativeTab {
         items.add(UWU.get().getDefaultInstance());
         items.add(EstrogenBlocks.CENTRIFUGE.get().asItem().getDefaultInstance());
         items.add(EstrogenBlocks.COOKIE_JAR.get().asItem().getDefaultInstance());
+        items.add(DREAM_BOTTLE.get().getDefaultInstance());
         items.add(MOLTEN_SLIME_BUCKET.get().getDefaultInstance());
         items.add(TESTOSTERONE_MIXTURE_BUCKET.get().getDefaultInstance());
         items.add(LIQUID_ESTROGEN_BUCKET.get().getDefaultInstance());

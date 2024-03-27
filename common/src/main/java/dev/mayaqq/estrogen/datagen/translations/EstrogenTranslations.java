@@ -35,6 +35,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add(EstrogenItems.UWU.get(), ":3");
         tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
         tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "Incomplete UwU");
+        tb.add(EstrogenItems.DREAM_BOTTLE.get(), "Bottle of Dreams");
         // Potion
         tb.add("item.minecraft.tipped_arrow.effect.estrogen", "Arrow of Girl Power");
         tb.add("item.minecraft.potion.effect.estrogen", "Potion of Girl Power");
@@ -59,7 +60,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("item.estrogen.estrogen_patches.tooltip.behaviour1", "Gives the _Girl Power Effect_ for as long as it's worn and is filled with _Liquid Estrogen_.");
 
         tb.add("block.estrogen.cookie_jar.tooltip", "Cookie Jar");
-        tb.add("block.estrogen.cookie_jar.tooltip.summary", "A jar to store all your Cookies!");
+        tb.add("block.estrogen.cookie_jar.tooltip.summary", "A jar to _store_ all your _Cookies_!");
 
         // Advancements
         tb.add("advancement.estrogen.root.title", "Create: Estrogen");

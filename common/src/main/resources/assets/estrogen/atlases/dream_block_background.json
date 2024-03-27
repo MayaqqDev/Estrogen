@@ -1,0 +1,13 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "dream_block"
+    },
+    {
+      "type": "directory",
+      "source": "estrogen",
+      "prefix": "estrogen/misc/dream_block_background"
+    }
+  ]
+}

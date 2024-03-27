@@ -29,11 +29,13 @@ public class Estrogen {
         EstrogenRecipeRegistries.RECIPE_SERIALIZERS.init();
         EstrogenRecipeRegistries.RECIPE_TYPES.init();
         EstrogenSounds.SOUNDS.init();
-        EstrogenRecipes.register();
+        EstrogenRecipes.RECIPES.init();
         EstrogenProcessingRecipes.register();
         EstrogenCreativeTab.register();
         EstrogenNetworkManager.register();
         EstrogenItems.registerTooltips();
         EstrogenBlocks.registerExtraProperties();
+
+        LOGGER.info("Estrogen finished initializing!");
     }
 }

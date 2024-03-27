@@ -5,17 +5,19 @@ import dev.mayaqq.estrogen.client.registry.EstrogenKeybinds;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.networking.messages.c2s.DashPacket;
+import dev.mayaqq.estrogen.networking.messages.s2c.RemoveStatusEffectPacket;
 import dev.mayaqq.estrogen.networking.messages.s2c.StatusEffectPacket;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
+import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
 import dev.mayaqq.estrogen.utils.PlayerLookup;
 import dev.mayaqq.estrogen.utils.Time;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
@@ -30,6 +32,7 @@ import net.minecraft.world.level.block.LiquidBlock;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.UUID;
 
 import static dev.mayaqq.estrogen.registry.EstrogenAttributes.*;
@@ -37,11 +40,14 @@ import static dev.mayaqq.estrogen.registry.EstrogenEffects.ESTROGEN_EFFECT;
 
 public class EstrogenEffect extends MobEffect {
 
+    public static HashMap<UUID, Integer> dashing = new HashMap<>();
+
     private static final UUID DASH_MODIFIER_UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4c");
-    public short currentDashes = 0;
+    static public short currentDashes = 0;
     public int dashCooldown = 0;
     public boolean onCooldown = false;
     private boolean shouldWaveDash = false;
+
     // Only needed for particles
     private BlockPos lastPos = null;
 
@@ -59,6 +65,7 @@ public class EstrogenEffect extends MobEffect {
         if (!EstrogenConfig.server().dashEnabled.get()) return;
         // Only tick on the client and if the entity is a player
         if (entity instanceof Player player && player.level().isClientSide) {
+
             // cooldown processing
             dashCooldown--;
             if (dashCooldown < 0) dashCooldown = 0;
@@ -83,6 +90,9 @@ public class EstrogenEffect extends MobEffect {
             cooldown(dashCooldown > 0 || currentDashes == 0);
             // Here is when the dash happens
             if (EstrogenKeybinds.DASH_KEY.consumeClick() && !onCooldown) {
+                DreamBlock.lookAngle = null;
+                EstrogenNetworkManager.CHANNEL.sendToServer(new DashPacket(true));
+                EstrogenEffect.dashing.put(player.getUUID(), 20);
                 // This makes you wave dash the next tick
                 if (player.getXRot() > 50 && player.getXRot() < 90) {
                     shouldWaveDash = true;
@@ -91,9 +101,9 @@ public class EstrogenEffect extends MobEffect {
                 dashCooldown = 10;
                 // Decrement the dash counter
                 currentDashes--;
+
                 // Dash
                 int dashDeltaModifier = EstrogenConfig.server().dashDeltaModifier.get();
-                EstrogenNetworkManager.CHANNEL.sendToServer(new DashPacket(true));
                 player.setDeltaMovement(player.getLookAngle().x * dashDeltaModifier, player.getLookAngle().y * dashDeltaModifier, player.getLookAngle().z * dashDeltaModifier);
             }
         }
@@ -106,15 +116,17 @@ public class EstrogenEffect extends MobEffect {
 
     @Override
     public void removeAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
+        dashing.remove(entity.getUUID());
+
         if (entity instanceof ServerPlayer player) {
-            sendPlayerStatusEffect(player, ESTROGEN_EFFECT.get(), PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
+            sendRemovePlayerStatusEffect(player, ESTROGEN_EFFECT.get(), PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));
         }
 
         if (entity instanceof Player) {
             entity.getAttribute(EstrogenAttributes.DASH_LEVEL.get()).removeModifier(DASH_MODIFIER_UUID);
         }
 
-        if (entity instanceof Player player && player.level().isClientSide && player instanceof LocalPlayer) {
+        if (entity instanceof Player player && player.level().isClientSide) {
             resetDash(entity);
         }
 
@@ -162,6 +174,13 @@ public class EstrogenEffect extends MobEffect {
             packet.write(buf);
             EstrogenNetworkManager.CHANNEL.sendToPlayers(new StatusEffectPacket(buf), Arrays.stream(targetPlayers).toList());
         }
+    }
+
+    public static void sendRemovePlayerStatusEffect(ServerPlayer player, MobEffect effect, ServerPlayer... targetPlayers) {
+        Packet<ClientGamePacketListener> packet = new ClientboundRemoveMobEffectPacket(player.getId(), effect);
+        FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
+        packet.write(buf);
+        EstrogenNetworkManager.CHANNEL.sendToPlayers(new RemoveStatusEffectPacket(buf), Arrays.stream(targetPlayers).toList());
     }
 
     @Override

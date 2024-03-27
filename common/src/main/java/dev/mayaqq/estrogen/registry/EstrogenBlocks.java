@@ -7,6 +7,7 @@ import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries;
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
 import dev.mayaqq.estrogen.registry.blocks.CentrifugeBlock;
 import dev.mayaqq.estrogen.registry.blocks.CookieJarBlock;
+import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
 import dev.mayaqq.estrogen.registry.blocks.fluids.EstrogenLiquidBlock;
 import dev.mayaqq.estrogen.registry.blocks.fluids.LavaLikeLiquidBlock;
 import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock;
@@ -24,6 +25,8 @@ public class EstrogenBlocks {
     public static final RegistryEntry<CentrifugeBlock> CENTRIFUGE = CREATE_LIKE_BLOCKS.register("centrifuge", () -> new CentrifugeBlock(BlockBehaviour.Properties.copy(SharedProperties.copperMetal()).mapColor(MapColor.COLOR_ORANGE).noOcclusion()));
 
     public static final RegistryEntry<CookieJarBlock> COOKIE_JAR = CREATE_LIKE_BLOCKS.register("cookie_jar", () -> new CookieJarBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
+
+    public static final RegistryEntry<Block> DREAM_BLOCK = BLOCKS.register("dream_block", () -> new DreamBlock(BlockBehaviour.Properties.copy(Blocks.END_GATEWAY)));
 
     public static final RegistryEntry<Block> MOLTEN_SLIME_BLOCK = BLOCKS.register("molten_slime", () -> new LavaLikeLiquidBlock(EstrogenFluidProperties.MOLTEN_SLIME, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_GREEN)));
     public static final RegistryEntry<Block> TESTOSTERONE_MIXTURE_BLOCK = TRANSPARENT_BLOCKS.register("testosterone_mixture", () -> new BotariumLiquidBlock(EstrogenFluidProperties.TESTOSTERONE_MIXTURE, BlockBehaviour.Properties.copy(Blocks.WATER).mapColor(MapColor.TERRACOTTA_YELLOW)));

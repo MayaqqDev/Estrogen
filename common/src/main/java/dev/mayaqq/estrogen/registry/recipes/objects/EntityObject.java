@@ -8,14 +8,11 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
-import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
 
 public record EntityObject(Either<EntityType<?>, TagKey<EntityType<?>>> entity) {
 

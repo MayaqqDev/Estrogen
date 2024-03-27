@@ -20,7 +20,6 @@ import dev.mayaqq.estrogen.fabric.integrations.emi.recipes.CentrifugingEmiRecipe
 import dev.mayaqq.estrogen.fabric.integrations.emi.recipes.EntityInteractionEmiRecipe;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
-import dev.mayaqq.estrogen.registry.EstrogenRecipes;
 import dev.mayaqq.estrogen.registry.recipes.EntityInteractionRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
