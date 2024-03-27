@@ -30,7 +30,7 @@ public class CookieJarRenderer implements BlockEntityRenderer<CookieJarBlockEnti
         if ((state = Objects.requireNonNull(be.getLevel()).getBlockState(be.getBlockPos())).is(EstrogenBlocks.COOKIE_JAR.get())) {
             poseStack.mulPose(Axis.XP.rotationDegrees(90));
             poseStack.translate(0.5, 0.35, -0.032F);
-            for (int i = 0; i < state.getValue(CookieJarBlock.STORED_COOKIES); ++i) {
+            for (int i = 0; i < state.getValue(CookieJarBlock.COOKIE_LEVEL); ++i) {
                 poseStack.translate(0, 0, -0.032F);
                 itemRenderer.renderStatic(
                         COOKIE, ItemDisplayContext.GROUND,

@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.registry.blocks;
 
-import dev.mayaqq.estrogen.registry.EstrogenTags;
 import dev.mayaqq.estrogen.registry.blockEntities.CookieJarBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -15,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -42,14 +41,14 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     private static final BooleanProperty WATERLOGGED;
     private static final VoxelShape BOUNDING_BOX = makeShape();
-    public static final IntegerProperty STORED_COOKIES;
+    public static final IntegerProperty COOKIE_LEVEL;
 
     public CookieJarBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(
                 this.stateDefinition.any()
                         .setValue(WATERLOGGED, false)
-                        .setValue(STORED_COOKIES, 0)
+                        .setValue(COOKIE_LEVEL, 0)
         );
     }
 
@@ -64,23 +63,22 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
     }
 
     private static void setStoredCookies(Level level, CookieJarBlockEntity blockEntity, BlockState state) {
-        int amount = blockEntity.getTheItem().getCount() == 0 ? 0 : Math.min(Math.floorDiv(blockEntity.getTheItem().getCount(), 16) + 1, 5);
-        level.setBlock(blockEntity.getBlockPos(), state.setValue(STORED_COOKIES, amount), 3);
+        int amount = blockEntity.getCookieCount() == 0 ? 0 : Math.floorDiv(blockEntity.getCookieCount(), 128) + 1;
+        level.setBlock(blockEntity.getBlockPos(), state.setValue(COOKIE_LEVEL, amount), 3);
     }
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        ItemStack itemStack = player.getItemInHand(hand);
+        ItemStack itemInHand = player.getItemInHand(hand);
         if (player.getItemInHand(hand) == ItemStack.EMPTY) {
             if (blockEntity instanceof CookieJarBlockEntity cookieJarBlockEntity) {
                 level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
                 if (!level.isClientSide) {
-                    ItemStack itemStack2 = cookieJarBlockEntity.getTheItem();
-                    if (!itemStack2.isEmpty()) {
-                        level.playSound(null, pos, SoundEvents.AMETHYST_CLUSTER_PLACE, SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * itemStack2.getCount());
-                        itemStack2.shrink(1);
-                        player.getInventory().placeItemBackInInventory(itemStack2.copyWithCount(1));
+                    if (cookieJarBlockEntity.canRemoveCookie()) {
+                        level.playSound(null, pos, SoundEvents.AMETHYST_CLUSTER_PLACE, SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * ((float) cookieJarBlockEntity.getCookieCount() / 8));
+                        cookieJarBlockEntity.removeCookie();
+                        player.getInventory().placeItemBackInInventory(new ItemStack(Items.COOKIE, 1));
                         setStoredCookies(level, cookieJarBlockEntity, state);
                         return InteractionResult.SUCCESS;
                     }
@@ -93,22 +91,14 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
                 if (level.isClientSide) {
                     return InteractionResult.CONSUME;
                 } else {
-                    ItemStack itemStack2 = cookieJarBlockEntity.getTheItem();
-                    if (!itemStack.isEmpty() && (itemStack2.isEmpty() || ItemStack.isSameItem(itemStack2, itemStack) && itemStack2.getCount() < itemStack2.getMaxStackSize()) && itemStack.is(EstrogenTags.Items.COOKIES)) {
-                        player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
-                        ItemStack itemStack3 = player.isCreative() ? itemStack.copyWithCount(1) : itemStack.split(1);
-                        float f;
-                        if (cookieJarBlockEntity.isEmpty()) {
-                            cookieJarBlockEntity.setTheItem(itemStack3);
-                            f = (float)itemStack3.getCount() / (float)itemStack3.getMaxStackSize();
-                        } else {
-                            itemStack2.grow(1);
-                            f = (float)itemStack2.getCount() / (float)itemStack2.getMaxStackSize();
-                        }
+                    if (!itemInHand.isEmpty() && (cookieJarBlockEntity.getCookieCount() == 0 || cookieJarBlockEntity.canAddCookie())) {
+                        player.awardStat(Stats.ITEM_USED.get(itemInHand.getItem()));
+                        cookieJarBlockEntity.addCookie();
+                        if (!player.isCreative()) itemInHand.shrink(1);
 
                         setStoredCookies(level, cookieJarBlockEntity, state);
 
-                        level.playSound(null, pos, SoundEvents.AMETHYST_CLUSTER_PLACE, SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * f);
+                        level.playSound(null, pos, SoundEvents.AMETHYST_CLUSTER_PLACE, SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * ((float) cookieJarBlockEntity.getCookieCount() / 8));
                         if (level instanceof ServerLevel) {
                             ServerLevel serverLevel = (ServerLevel)level;
                             serverLevel.sendParticles(ParticleTypes.CRIT, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
@@ -138,7 +128,7 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{WATERLOGGED, STORED_COOKIES});
+        builder.add(WATERLOGGED, COOKIE_LEVEL);
     }
 
     @Nullable
@@ -157,7 +147,7 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     @Override
     public FluidState getFluidState(BlockState blockState) {
-        return (Boolean)blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
+        return blockState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(blockState);
     }
 
     @Override
@@ -204,7 +194,7 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     static {
         WATERLOGGED = BlockStateProperties.WATERLOGGED;
-        STORED_COOKIES = IntegerProperty.create("stored_cookies", 0, 5);
+        COOKIE_LEVEL = IntegerProperty.create("stored_cookies", 0, 5);
     }
 
     public static VoxelShape makeShape(){
