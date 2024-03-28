@@ -36,6 +36,6 @@ public class Estrogen {
         EstrogenItems.registerTooltips();
         EstrogenBlocks.registerExtraProperties();
 
-        LOGGER.info("Estrogen finished initializing!");
+        LOGGER.info("Injecting Estrogen into your veins!");
     }
 }

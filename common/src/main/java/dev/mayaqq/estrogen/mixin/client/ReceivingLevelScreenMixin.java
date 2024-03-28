@@ -2,8 +2,8 @@ package dev.mayaqq.estrogen.mixin.client;
 
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
-import dev.mayaqq.estrogen.networking.messages.c2s.SetChestConfigPacket;
 import dev.mayaqq.estrogen.networking.messages.c2s.FinishLoadingPacket;
+import dev.mayaqq.estrogen.networking.messages.c2s.SetChestConfigPacket;
 import net.minecraft.client.gui.screens.ReceivingLevelScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
