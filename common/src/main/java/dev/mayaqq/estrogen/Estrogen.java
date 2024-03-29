@@ -31,9 +31,9 @@ public class Estrogen {
         EstrogenSounds.SOUNDS.init();
         EstrogenRecipes.RECIPES.init();
         EstrogenAdvancementCriteria.CRITERIAS.init();
+        EstrogenCreativeTab.TABS.init();
+        EstrogenNetworkManager.NETWORK_MANAGER.init();
         EstrogenProcessingRecipes.register();
-        EstrogenCreativeTab.register();
-        EstrogenNetworkManager.register();
         EstrogenItems.registerTooltips();
         EstrogenBlocks.registerExtraProperties();
 
