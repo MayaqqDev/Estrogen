@@ -60,5 +60,6 @@ sourceSets {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/estrogen.accesswidener")
+    Project fabric = project(":fabric")
+    accessWidenerPath = fabric.file("src/main/resources/estrogen.accesswidener")
 }
