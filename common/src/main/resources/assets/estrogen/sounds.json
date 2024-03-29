@@ -7,12 +7,12 @@
   },
   "g03c": {
     "sounds": [
-      "estrogen:g03c"
+      "estrogen:music/g03c"
     ]
   },
   "trust_yourself": {
     "sounds": [
-      "estrogen:trust_yourself"
+      "estrogen:music/trust_yourself"
     ]
   },
   "dream_block_enter": {
@@ -32,13 +32,51 @@
   },
   "amphitrite": {
     "sounds": [
-      "estrogen:amphitrite"
+      "estrogen:music/amphitrite"
+    ]
+  },
+  "allum_berry": {
+    "sounds": [
+      "estrogen:music/allum_berry"
     ]
   },
   "estrogen_ambient": {
     "sounds": [
-      "estrogen:amphitrite",
-      "estrogen:trust_yourself"
+      "estrogen:music/amphitrite",
+      "estrogen:music/trust_yourself",
+      "estrogen:music/allum_berry"
+    ]
+  },
+  "jar_crystal_place": {
+    "sounds": [
+      "estrogen:cookie_jar/crystal_place/crystal_place1",
+      "estrogen:cookie_jar/crystal_place/crystal_place2",
+      "estrogen:cookie_jar/crystal_place/crystal_place3",
+      "estrogen:cookie_jar/crystal_place/crystal_place4"
+    ]
+  },
+  "jar_crystal_full": {
+    "sounds": [
+      "estrogen:cookie_jar/crystal_full/crystal_full1",
+      "estrogen:cookie_jar/crystal_full/crystal_full2",
+      "estrogen:cookie_jar/crystal_full/crystal_full3",
+      "estrogen:cookie_jar/crystal_full/crystal_full4"
+    ]
+  },
+  "jar_full": {
+    "sounds": [
+      "estrogen:cookie_jar/full/full1",
+      "estrogen:cookie_jar/full/full2",
+      "estrogen:cookie_jar/full/full3",
+      "estrogen:cookie_jar/full/full4"
+    ]
+  },
+  "jar_place": {
+    "sounds": [
+      "estrogen:cookie_jar/place/place1",
+      "estrogen:cookie_jar/place/place2",
+      "estrogen:cookie_jar/place/place3",
+      "estrogen:cookie_jar/place/place4"
     ]
   }
 }
