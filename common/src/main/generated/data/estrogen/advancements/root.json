@@ -35,7 +35,7 @@
   },
   "display": {
     "announce_to_chat": true,
-    "background": "estrogen:textures/advancements/dream_block_background.png",
+    "background": "estrogen:textures/advancements/background.png",
     "description": {
       "translate": "advancement.estrogen.root.description"
     },

@@ -1,0 +1,30 @@
+{
+  "parent": "estrogen:estrogen_pill",
+  "criteria": {
+    "cookie_jar_place": {
+      "conditions": {},
+      "trigger": "estrogen:insert_jar"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.estrogen.cookie_jar.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "estrogen:cookie_jar"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.estrogen.cookie_jar.title"
+    }
+  },
+  "requirements": [
+    [
+      "cookie_jar_place"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

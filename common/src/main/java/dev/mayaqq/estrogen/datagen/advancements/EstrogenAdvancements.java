@@ -5,6 +5,7 @@ import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
+import dev.mayaqq.estrogen.registry.advancements.triggers.InsertJarTrigger;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
@@ -27,7 +28,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         Advancement root = Advancement.Builder.advancement().display(EstrogenItems.ESTROGEN_PILL.get(),
                 Component.translatable("advancement.estrogen.root.title"),
                 Component.translatable("advancement.estrogen.root.description"),
-                Estrogen.id("textures/advancements/dream_block_background.png"),
+                Estrogen.id("textures/advancements/background.png"),
                 FrameType.TASK,
                 true,
                 true,
@@ -112,6 +113,17 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         ).addCriterion("balls", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.BALLS.get()))
                 .build(Estrogen.id("balls"));
 
+        Advancement cookie_jar = Advancement.Builder.advancement().parent(estrogenPill).display(EstrogenItems.COOKIE_JAR.get(),
+                Component.translatable("advancement.estrogen.cookie_jar.title"),
+                Component.translatable("advancement.estrogen.cookie_jar.description"),
+                null,
+                FrameType.GOAL,
+                true,
+                true,
+                false
+        ).addCriterion("cookie_jar_place", InsertJarTrigger.TriggerInstance.insertJar())
+                .build(Estrogen.id("cookie_jar"));
+
         consumer.accept(root);
         consumer.accept(horseUrine);
         consumer.accept(usedFilter);
@@ -120,6 +132,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         consumer.accept(estrogenPatches);
         consumer.accept(uwu);
         consumer.accept(balls);
+        consumer.accept(cookie_jar);
     }
 
     public static ItemPredicate getItems() {
