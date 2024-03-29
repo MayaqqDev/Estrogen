@@ -8,3 +8,4 @@ accessible class net/minecraft/server/level/ChunkMap$TrackedEntity
 accessible field net/minecraft/server/level/ChunkMap$TrackedEntity seenBy Ljava/util/Set;
 accessible method net/minecraft/world/entity/Mob getAmbientSound ()Lnet/minecraft/sounds/SoundEvent;
 accessible field net/minecraft/client/KeyMapping CATEGORY_SORT_ORDER Ljava/util/Map;
+accessible method net/minecraft/client/Minecraft createTitle ()Ljava/lang/String;
