@@ -9,6 +9,7 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 public class Physics {
+    private boolean previousSneaking;
     private Vec3 previousPosition;
     private Vec2 previousVelocity;
     private Vec2 previousAcceleration = new Vec2(0.0f, 0.0f);
@@ -29,6 +30,7 @@ public class Physics {
         }
 
         if (this.previousPosition == null) {
+            this.previousSneaking = player.isShiftKeyDown();
             this.previousPosition = player.position();
             return;
         }
@@ -36,6 +38,12 @@ public class Physics {
         Vec3 movement = player.position().subtract(this.previousPosition);
 
         Vec2 velocity = new Vec2(Mth.sqrt(((float) (Mth.square(movement.x*Mth.sin(player.yBodyRot*Mth.DEG_TO_RAD)) + Mth.square(movement.z*Mth.cos(player.yBodyRot*Mth.DEG_TO_RAD))))), (float) movement.y);
+
+        if (player.isShiftKeyDown() != this.previousSneaking) {
+            float sign = this.previousSneaking ? -1.0f : 1.0f;
+            velocity = velocity.add(new Vec2(sign*0.3f, -sign*0.2f));
+        }
+        this.previousSneaking = player.isShiftKeyDown();
 
         if (this.previousVelocity == null) {
              this.previousVelocity = velocity;
