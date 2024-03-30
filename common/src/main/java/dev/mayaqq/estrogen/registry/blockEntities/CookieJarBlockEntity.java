@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.registry.blockEntities;
 
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.backport.BlockContainerSingleItem;
 import dev.mayaqq.estrogen.registry.EstrogenBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -32,9 +31,7 @@ public class CookieJarBlockEntity extends BlockEntity implements BlockContainerS
         int toAdd = stack.getCount();
         for (int i = 0; i < this.items.size(); i++) {
             ItemStack stackInSlot = getItem(i);
-            Estrogen.LOGGER.warn(stackInSlot.toString());
             int canAdd = stackInSlot.getMaxStackSize() - stackInSlot.getCount();
-            Estrogen.LOGGER.warn(String.valueOf(stackInSlot.getMaxStackSize()));
             if (canAdd >= toAdd) {
                 this.setItem(i, stack.copyWithCount(stackInSlot.getCount() + toAdd));
                 stackInSlot.setCount(stackInSlot.getCount() + toAdd);
@@ -53,8 +50,6 @@ public class CookieJarBlockEntity extends BlockEntity implements BlockContainerS
     public void removeCookie() {
         for (int i = this.items.size() - 1; i >= 0; i--) {
             ItemStack stackInSlot = getItem(i);
-            Estrogen.LOGGER.warn(String.valueOf(i));
-            Estrogen.LOGGER.warn(stackInSlot.toString());
             if (stackInSlot.isEmpty()) {
                 continue;
             }
