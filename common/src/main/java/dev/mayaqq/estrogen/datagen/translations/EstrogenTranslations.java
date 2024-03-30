@@ -14,6 +14,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
     public void generateTranslations(TranslationBuilder tb) {
         // Status Effects
         tb.add(EstrogenEffects.ESTROGEN_EFFECT.get(), "Girl Power");
+        tb.add(EstrogenEffects.ESTROGEN_EFFECT.get().getDescriptionId() + ".description", "Allows the player to dash and gives them some additional \"features\"");
 
         // Controls
         tb.add("category.estrogen", "Estrogen");
