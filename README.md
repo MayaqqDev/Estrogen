@@ -3,10 +3,18 @@
 
 <center>
 
-[![Modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/modrinth_vector.svg)](https://modrinth.com/mod/estrogen/versions)
-[![Curseforge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/curseforge_vector.svg)](https://www.curseforge.com/minecraft/mc-mods/estrogen)
-[![Github](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/github_vector.svg)](https://github.com/MayaqqDev/estrogen/)
-[![Discord](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-plural_vector.svg)](https://discord.gg/hue)
+<a href="https://modrinth.com/mod/estrogen/versions">
+    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/modrinth_vector.svg" width="100" height="100" alt="Modrinth">
+</a>
+<a href="https://www.curseforge.com/minecraft/mc-mods/estrogen">
+    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/curseforge_vector.svg" width="100" height="100" alt="Curseforge">
+</a>
+<a href="https://github.com/MayaqqDev/estrogen/">
+    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/github_vector.svg" width="100" height="100" alt="Github">
+</a>
+<a href="https://discord.gg/hue">
+    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-plural_vector.svg" width="100" height="100" alt="Discord">
+</a>
 </center>
 
 ## `Information`
