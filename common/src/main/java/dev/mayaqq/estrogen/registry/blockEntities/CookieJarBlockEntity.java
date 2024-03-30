@@ -14,24 +14,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-
-/* TODO: Change to Container instead of BlockContainerSingleItem
- *  Should allow easier implementation of cookie jar
- */
 public class CookieJarBlockEntity extends BlockEntity implements BlockContainerSingleItem {
     private final NonNullList<ItemStack> items = NonNullList.withSize(8, ItemStack.EMPTY);
 
     public CookieJarBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(EstrogenBlockEntities.COOKIE_JAR.get(), blockPos, blockState);
-    }
-
-    @Deprecated
-    public ItemStack getAllCookies() {
-        return this.items.get(0);
-    }
-
-    public boolean canAddStack(ItemStack stack) {
-        return stack.is(Items.COOKIE) && getCookieCount() + stack.getCount() > 512;
     }
 
     public boolean canRemoveCookie() {
@@ -41,24 +28,22 @@ public class CookieJarBlockEntity extends BlockEntity implements BlockContainerS
     public boolean canAddCookie() {
         return getCookieCount() < 512;
     }
-
-    /**
-     * Don't call without calling canAddStack
-     */
-    public void addStack(ItemStack stack) {
-        AtomicInteger toAdd = new AtomicInteger(stack.getCount());
-        Estrogen.LOGGER.info(toAdd.toString());
-        this.items.iterator().forEachRemaining(
-             item -> {
-                 int canAdd = item.getMaxStackSize() - item.getCount();
-                 if (canAdd >= toAdd.get()) {
-                     item.setCount(item.getCount() + toAdd.get());
-                 } else {
-                     item.setCount(item.getCount() + canAdd);
-                     toAdd.addAndGet(-canAdd);
-                 }
-             }
-        );
+    private void addStack(ItemStack stack) {
+        int toAdd = stack.getCount();
+        for (int i = 0; i < this.items.size(); i++) {
+            ItemStack stackInSlot = getItem(i);
+            Estrogen.LOGGER.warn(stackInSlot.toString());
+            int canAdd = stackInSlot.getMaxStackSize() - stackInSlot.getCount();
+            Estrogen.LOGGER.warn(String.valueOf(stackInSlot.getMaxStackSize()));
+            if (canAdd >= toAdd) {
+                this.setItem(i, stack.copyWithCount(stackInSlot.getCount() + toAdd));
+                stackInSlot.setCount(stackInSlot.getCount() + toAdd);
+                break;
+            } else {
+                this.setItem(i, stack.copyWithCount(stackInSlot.getCount() + canAdd));
+                toAdd -= canAdd;
+            }
+        }
     }
 
 
@@ -68,10 +53,13 @@ public class CookieJarBlockEntity extends BlockEntity implements BlockContainerS
     public void removeCookie() {
         for (int i = this.items.size() - 1; i >= 0; i--) {
             ItemStack stackInSlot = getItem(i);
+            Estrogen.LOGGER.warn(String.valueOf(i));
+            Estrogen.LOGGER.warn(stackInSlot.toString());
             if (stackInSlot.isEmpty()) {
                 continue;
             }
-            setItem(i, stackInSlot.copyWithCount(stackInSlot.getCount() - 1));
+            this.setItem(i, stackInSlot.copyWithCount(stackInSlot.getCount() - 1));
+            break;
         }
     }
 
@@ -90,18 +78,13 @@ public class CookieJarBlockEntity extends BlockEntity implements BlockContainerS
         return count.get();
     }
 
-    @Deprecated
-    public void setTheItem(ItemStack itemStack) {
-        this.items.set(0, itemStack);
-    }
-
     public BlockEntity getContainerBlockEntity() {
         return this;
     }
 
     @Override
     public ItemStack getItem(int slot) {
-        return this.items.get(0);
+        return this.items.get(slot);
     }
 
     @Override
@@ -111,7 +94,7 @@ public class CookieJarBlockEntity extends BlockEntity implements BlockContainerS
 
     @Override
     public void setItem(int slot, ItemStack stack) {
-        this.items.set(0, stack);
+        this.items.set(slot, stack);
     }
 
     @Override
