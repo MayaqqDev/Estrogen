@@ -35,16 +35,16 @@
       "estrogen:music/amphitrite"
     ]
   },
-  "allum_berry": {
+  "aurum_berry": {
     "sounds": [
-      "estrogen:music/allum_berry"
+      "estrogen:music/aurum_berry"
     ]
   },
   "estrogen_ambient": {
     "sounds": [
       "estrogen:music/amphitrite",
       "estrogen:music/trust_yourself",
-      "estrogen:music/allum_berry"
+      "estrogen:music/aurum_berry"
     ]
   },
   "jar_crystal_place": {
