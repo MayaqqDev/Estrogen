@@ -1,16 +1,19 @@
-# `Estrogen`
 
-[![Modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/cozy/available/modrinth_64h.png)](https://modrinth.com/mod/estrogen/versions)
-[![Curseforge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/cozy/available/curseforge_64h.png)](https://www.curseforge.com/minecraft/mc-mods/estrogen)
-[![Github](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/cozy/available/github_64h.png)](https://github.com/MayaqqDev/estrogen/)
+![banner](https://cdn.modrinth.com/data/HhIJW8n1/images/bfde9c03d8e75f73b469d51b5f41ef31dc8c29de.png)
+
+<center>
+
+[![Modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/modrinth_vector.svg)](https://modrinth.com/mod/estrogen/versions)
+[![Curseforge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/curseforge_vector.svg)](https://www.curseforge.com/minecraft/mc-mods/estrogen)
+[![Github](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/github_vector.svg)](https://github.com/MayaqqDev/estrogen/)
+[![Discord](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-plural_vector.svg)](https://discord.gg/hue)
+</center>
 
 ## `Information`
 
 > [!WARNING]
-> **[EMI](https://modrinth.com/mod/emi)** is highly recommended to be installed with this mod to see all the recipes and
+> **[EMI](https://modrinth.com/mod/emi)/[JEI](https://modrinth.com/mod/jei)/[REI](https://modrinth.com/mod/rei)** is highly recommended to be installed with this mod to see all the recipes and
 > progression!
-> <br> Additionally if used with **[REI](https://modrinth.com/mod/rei)**, you will have to install the *
-*[CreateFabric&REIBugFix](https://modrinth.com/mod/createfabricreibugfix)** mod to fix some recipes in the viewer.
 
 Create Addon Based around expressing yourself, fluid handling and expanding your factory. This mod add a lot of new
 Items, Blocks, Mechanics and more!
@@ -32,14 +35,14 @@ This mod adds a lot of other features related to Estrogen and its production. Th
 - a new block called the Centrifuge, with a new mechanic for fluid processing which is used to make the Estrogen fluid.
   🌀 <br>
   <img src="https://i.imgur.com/cqXBcVw.png" alt="centrifuge" width="256"/>
-- Estrogen Patches with their own slots, allowing you to have the Estrogen Effect forever active. 🩹<br>
-  <img src="https://i.imgur.com/5MEMDcY.png" alt="patches" width="256"/>
+- Estrogen Patches with their own slots, allowing you to have the Estrogen Effect active for long amounts of time. 🩹<br>
+  <img src="https://i.imgur.com/QfI4vWJ.png" alt="patches" width="256"/>
 - Some custom mechanics you may discover when dashing around! 💨<br>
   <img src="https://static.miraheze.org/celestewiki/thumb/6/67/Wavedashing.gif/240px-Wavedashing.gif" alt="dashing" width="256"/>
 - New Model Features for the player when Estrogen effect is active 👀<br>
-  <img src="https://i.imgur.com/SGCSS5Y.png" alt="me :3" width="256"/>
+  <img src="https://i.imgur.com/MFRFoFN.png" alt="me :3" width="256"/>
 - A new type of cookie (musical?) 😋 🍪<br>
-  <img src="https://i.imgur.com/vq9XZh3.png" alt="Estrogen Chip Cookie" width="256"/>
+  <img src="https://i.imgur.com/lrPWwPT.png" alt="Estrogen Chip Cookie" width="256"/>
 - And many more (including some easter eggs)! 🥚<br>
   <img src="https://i.imgur.com/mkVcXQA.png" alt=":3" width="256"/>
 
@@ -47,7 +50,7 @@ This mod adds a lot of other features related to Estrogen and its production. Th
 
 This mod is still in development, so expect some bugs and missing features. If you find any bugs or suggestions, please
 report them on my [discord](https://discord.gg/w7PpGax9Bq). This mod has been inspired by the game Celeste and I would
-love to thank to everyone who contributed with ideas and features (mainly trans girls >w<)!
+love to thank to everyone who contributed with ideas and features!
 
 ## `Bisect Partnership`
 
@@ -57,4 +60,4 @@ love to thank to everyone who contributed with ideas and features (mainly trans 
 
 For any questions or support you can join my discord by clicking the button below!
 
-[![Discord Server](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/cozy/social/discord-singular_64h.png)](https://discord.gg/w7PpGax9Bq)
+[![Discord Server](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/social/discord-plural_vector.svg)](https://discord.gg/w7PpGax9Bq)
