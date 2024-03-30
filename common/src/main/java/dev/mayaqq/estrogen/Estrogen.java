@@ -30,12 +30,13 @@ public class Estrogen {
         EstrogenRecipeRegistries.RECIPE_TYPES.init();
         EstrogenSounds.SOUNDS.init();
         EstrogenRecipes.RECIPES.init();
+        EstrogenAdvancementCriteria.CRITERIAS.init();
+        EstrogenCreativeTab.TABS.init();
+        EstrogenNetworkManager.NETWORK_MANAGER.init();
         EstrogenProcessingRecipes.register();
-        EstrogenCreativeTab.register();
-        EstrogenNetworkManager.register();
         EstrogenItems.registerTooltips();
         EstrogenBlocks.registerExtraProperties();
 
-        LOGGER.info("Estrogen finished initializing!");
+        LOGGER.info("Injecting Estrogen into your veins!");
     }
 }

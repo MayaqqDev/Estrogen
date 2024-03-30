@@ -9,6 +9,8 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.InteractionResult;
 
+import java.util.Objects;
+
 public class EstrogenFabricEvents {
     public static void register() {
         // Player Tracking
@@ -31,10 +33,8 @@ public class EstrogenFabricEvents {
 
         // Entity Interaction Recipe
         UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
-            if (hitResult == null) return null;
-            InteractionResult result = EstrogenEvents.entityInteract(player, entity, player.getItemInHand(hand), world);
-            if (result != null) return result;
-            return InteractionResult.PASS;
+            if (hitResult == null) return InteractionResult.PASS;
+            return Objects.requireNonNullElse(EstrogenEvents.entityInteract(player, entity, player.getItemInHand(hand), world), InteractionResult.PASS);
         });
     }
 }

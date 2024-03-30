@@ -12,6 +12,9 @@ import java.util.stream.Stream;
 import static dev.mayaqq.estrogen.registry.EstrogenItems.*;
 
 public class EstrogenCreativeTab {
+
+    public static final EstrogenCreativeTab TABS = new EstrogenCreativeTab();
+
     public static final Supplier<CreativeModeTab> ESTROGEN_TAB = new ResourcefulCreativeTab(Estrogen.id("estrogen"))
             .setItemIcon(EstrogenItems.ESTROGEN_PILL)
             .addContent(EstrogenCreativeTab::creativeTabItems)
@@ -42,5 +45,5 @@ public class EstrogenCreativeTab {
         return items.stream();
     }
 
-    public static void register() {}
+    public void init() {}
 }

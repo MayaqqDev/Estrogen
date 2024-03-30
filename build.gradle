@@ -56,7 +56,7 @@ subprojects {
         modApi("com.teamresourceful.resourcefullib:resourcefullib-${project.name}-${rootProject.minecraft_version}:${rootProject.resourcefullib_version}")
         modApi("earth.terrarium.botarium:botarium-${project.name}-${rootProject.minecraft_version}:${rootProject.botarium_version}")
 
-        modImplementation include("maven.modrinth:jukeboxfix:${rootProject.jukeboxfix_version}")
+        modImplementation include("maven.modrinth:jukeboxfix:${rootProject.jukeboxfix_version}-${rootProject.minecraft_version}")
 
         // JEI
         modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")

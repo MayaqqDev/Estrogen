@@ -1,16 +1,21 @@
 package dev.mayaqq.estrogen.registry;
 
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
+import dev.mayaqq.estrogen.networking.messages.c2s.SpawnHeartsPacket;
 import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import dev.mayaqq.estrogen.registry.recipes.inventory.EntityInteractionInventory;
 import dev.mayaqq.estrogen.utils.Time;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -25,7 +30,7 @@ import static dev.mayaqq.estrogen.utils.Boob.boobSize;
 public class EstrogenEvents {
     // Entity Interaction Recipe
     public static InteractionResult entityInteract(Player player, Entity entity, ItemStack stack, Level level) {
-        AtomicReference<InteractionResult> result = new AtomicReference<>(InteractionResult.PASS);
+        AtomicReference<InteractionResult> result = new AtomicReference<>(null);
         if (level instanceof ServerLevel) {
             level.getServer().getRecipeManager().getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION.get()).forEach(recipe -> {
                 EntityInteractionInventory inv = new EntityInteractionInventory(entity.getType(), stack);
@@ -38,11 +43,17 @@ public class EstrogenEvents {
             });
         }
 
-        if (result.get() == InteractionResult.PASS) {
-            return null;
-        } else {
-            return result.get();
+        if (player.level().isClientSide && EstrogenConfig.client().entityPatting.get() && player.isCrouching() && stack.isEmpty()) {
+            ResourceLocation sound = Estrogen.id("empty");
+            if (entity instanceof Mob mob) {
+                if (mob.getAmbientSound() != null) {
+                    sound = mob.getAmbientSound().getLocation();
+                }
+            }
+            EstrogenNetworkManager.CHANNEL.sendToServer(new SpawnHeartsPacket(entity.position(), sound));
         }
+
+        return result.get();
     }
 
     public static void onPlayerJoin(Entity entity) {

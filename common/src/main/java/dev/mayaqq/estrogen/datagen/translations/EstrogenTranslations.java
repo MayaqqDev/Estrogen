@@ -14,6 +14,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
     public void generateTranslations(TranslationBuilder tb) {
         // Status Effects
         tb.add(EstrogenEffects.ESTROGEN_EFFECT.get(), "Girl Power");
+        tb.add(EstrogenEffects.ESTROGEN_EFFECT.get().getDescriptionId() + ".description", "Allows the player to dash and gives them some additional \"features\"");
 
         // Controls
         tb.add("category.estrogen", "Estrogen");
@@ -79,6 +80,8 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("advancement.estrogen.uwu.description", ":3333333333");
         tb.add("advancement.estrogen.balls.title", "Hehe");
         tb.add("advancement.estrogen.balls.description", "What happens when you split the Slime and the Balls?");
+        tb.add("advancement.estrogen.cookie_jar.title", "Accept & Continue");
+        tb.add("advancement.estrogen.cookie_jar.description", "This mod requires cookies to work properly. Please insert them into the jar");
 
         // Blocks
         tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuge");
@@ -135,6 +138,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("tag.item.estrogen.uwufying", "Uwufying");
         tb.add("tag.item.curios.thighs", "Thighs");
         tb.add("tag.item.estrogen.copper_plates", "Copper Plates");
+        tb.add("tag.item.c.cookies", "Cookies");
         // Fluids
         tb.add("tag.fluid.estrogen.urine", "Urine");
 
