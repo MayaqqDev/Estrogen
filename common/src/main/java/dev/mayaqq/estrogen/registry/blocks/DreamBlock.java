@@ -85,7 +85,7 @@ public class DreamBlock extends BaseEntityBlock {
         ItemStack stack = player.getItemInHand(hand);
         if (stack.getItem() == Items.GLASS_BOTTLE) {
             if (!player.isCreative()) stack.shrink(1);
-            level.setBlock(pos, Blocks.AIR.defaultBlockState(), 0);
+            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
             level.playSound(null, pos, EstrogenSounds.DREAM_BLOCK_PLACE.get(), SoundSource.BLOCKS, 1.0F, 0.5F);
             player.getInventory().placeItemBackInInventory(new ItemStack(EstrogenItems.DREAM_BOTTLE.get()));
             return InteractionResult.SUCCESS;

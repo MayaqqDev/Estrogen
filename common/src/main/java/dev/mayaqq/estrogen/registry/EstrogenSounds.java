@@ -29,6 +29,12 @@ public class EstrogenSounds {
     public static final RegistryEntry<SoundEvent> DREAM_BLOCK_EXIT = SOUNDS.register("dream_block_exit", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("dream_block_exit")));
     public static final RegistryEntry<SoundEvent> DREAM_BLOCK_PLACE = SOUNDS.register("dream_block_place", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("dream_block_place")));
 
+    // Dormant Dream Block
+    public static final RegistryEntry<SoundEvent> DREAM_BLOCK_DORMANT_BREAK = SOUNDS.register("dream_block_dormant_break", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("dream_block_dormant_break")));
+    public static final RegistryEntry<SoundEvent> DREAM_BLOCK_DORMANT_PLACE = SOUNDS.register("dream_block_dormant_place", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("dream_block_dormant_place")));
+    public static final RegistryEntry<SoundEvent> DREAM_BLOCK_DORMANT_STEP = SOUNDS.register("dream_block_dormant_step", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("dream_block_dormant_step")));
+    public static final RegistryEntry<SoundEvent> DREAM_BLOCK_DORMANT_FALL = SOUNDS.register("dream_block_dormant_fall", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("dream_block_dormant_fall")));
+
     // Cookie Jar
     public static final RegistryEntry<SoundEvent> JAR_CRYSTAL_PLACE = SOUNDS.register("jar_crystal_place", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("jar_crystal_place")));
     public static final RegistryEntry<SoundEvent> JAR_CRYSTAL_FULL = SOUNDS.register("jar_crystal_full", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("jar_crystal_full")));

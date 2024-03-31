@@ -39,6 +39,42 @@
       "estrogen:dream_block/place/dream_block_place_5"
     ]
   },
+  "dream_block_dormant_break": {
+    "sounds": [
+      "estrogen:dormant_dream_block/dream_block_dormant_break_1",
+      "estrogen:dormant_dream_block/dream_block_dormant_break_2",
+      "estrogen:dormant_dream_block/dream_block_dormant_break_3",
+      "estrogen:dormant_dream_block/dream_block_dormant_break_4",
+      "estrogen:dormant_dream_block/dream_block_dormant_break_5"
+    ]
+  },
+  "dream_block_dormant_fall": {
+    "sounds": [
+      "estrogen:dormant_dream_block/dream_block_dormant_fall_1",
+      "estrogen:dormant_dream_block/dream_block_dormant_fall_2",
+      "estrogen:dormant_dream_block/dream_block_dormant_fall_3",
+      "estrogen:dormant_dream_block/dream_block_dormant_fall_4",
+      "estrogen:dormant_dream_block/dream_block_dormant_fall_5"
+    ]
+  },
+  "dream_block_dormant_place": {
+    "sounds": [
+      "estrogen:dormant_dream_block/dream_block_dormant_place_1",
+      "estrogen:dormant_dream_block/dream_block_dormant_place_2",
+      "estrogen:dormant_dream_block/dream_block_dormant_place_3",
+      "estrogen:dormant_dream_block/dream_block_dormant_place_4",
+      "estrogen:dormant_dream_block/dream_block_dormant_place_5"
+    ]
+  },
+  "dream_block_dormant_step": {
+    "sounds": [
+      "estrogen:dormant_dream_block/dream_block_dormant_step_1",
+      "estrogen:dormant_dream_block/dream_block_dormant_step_2",
+      "estrogen:dormant_dream_block/dream_block_dormant_step_3",
+      "estrogen:dormant_dream_block/dream_block_dormant_step_4",
+      "estrogen:dormant_dream_block/dream_block_dormant_step_5"
+    ]
+  },
   "amphitrite": {
     "sounds": [
       "estrogen:music/amphitrite"

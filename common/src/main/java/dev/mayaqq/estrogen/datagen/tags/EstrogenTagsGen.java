@@ -52,7 +52,17 @@ public class EstrogenTagsGen {
         @Override
         protected void addTags(HolderLookup.Provider arg) {
             getOrCreateTagBuilder(EstrogenTags.Blocks.PICKAXE_MINABLE)
-                    .add(EstrogenBlocks.CENTRIFUGE.get());
+                    .add(EstrogenBlocks.CENTRIFUGE.get())
+                    .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get());
+
+            getOrCreateTagBuilder(EstrogenTags.Blocks.MAGNET)
+                    .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get());
+            getOrCreateTagBuilder(EstrogenTags.Blocks.MAGNET_12)
+                    .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get());
+            getOrCreateTagBuilder(EstrogenTags.Blocks.MAGNET_OLD)
+                    .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get());
+            getOrCreateTagBuilder(EstrogenTags.Blocks.MAGNET_12_OLD)
+                    .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get());
         }
     }
 

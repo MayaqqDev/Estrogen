@@ -20,6 +20,9 @@ dependencies {
     // Figura
     modCompileOnly("org.figuramc:figura-common-mojmap:${rootProject.figura_version}+${rootProject.minecraft_version}")
 
+    // Create New Age
+    modCompileOnly("maven.modrinth:create-new-age:${rootProject.new_age_version}")
+
     // Mixin Extras
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}"))
 
