@@ -27,6 +27,7 @@ public class EstrogenSounds {
     public static final RegistryEntry<SoundEvent> DREAM_BLOCK_ENTER = SOUNDS.register("dream_block_enter", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("dream_block_enter")));
     public static final RegistryEntry<SoundEvent> DREAM_BLOCK_LOOP = SOUNDS.register("dream_block_loop", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("dream_block_loop")));
     public static final RegistryEntry<SoundEvent> DREAM_BLOCK_EXIT = SOUNDS.register("dream_block_exit", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("dream_block_exit")));
+    public static final RegistryEntry<SoundEvent> DREAM_BLOCK_PLACE = SOUNDS.register("dream_block_place", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("dream_block_place")));
 
     // Cookie Jar
     public static final RegistryEntry<SoundEvent> JAR_CRYSTAL_PLACE = SOUNDS.register("jar_crystal_place", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("jar_crystal_place")));

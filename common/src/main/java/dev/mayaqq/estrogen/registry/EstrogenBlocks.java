@@ -26,7 +26,8 @@ public class EstrogenBlocks {
 
     public static final RegistryEntry<CookieJarBlock> COOKIE_JAR = CREATE_LIKE_BLOCKS.register("cookie_jar", () -> new CookieJarBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
 
-    public static final RegistryEntry<Block> DREAM_BLOCK = BLOCKS.register("dream_block", () -> new DreamBlock(BlockBehaviour.Properties.copy(Blocks.END_GATEWAY)));
+    public static final RegistryEntry<Block> DREAM_BLOCK = BLOCKS.register("dream_block", () -> new DreamBlock(BlockBehaviour.Properties.copy(Blocks.END_GATEWAY).sound(EstrogenSoundTypes.DREAM_BLOCK)));
+    public static final RegistryEntry<Block> DORMANT_DREAM_BLOCK = BLOCKS.register("dormant_dream_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BEACON)));
 
     public static final RegistryEntry<Block> MOLTEN_SLIME_BLOCK = BLOCKS.register("molten_slime", () -> new LavaLikeLiquidBlock(EstrogenFluidProperties.MOLTEN_SLIME, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_GREEN)));
     public static final RegistryEntry<Block> TESTOSTERONE_MIXTURE_BLOCK = TRANSPARENT_BLOCKS.register("testosterone_mixture", () -> new BotariumLiquidBlock(EstrogenFluidProperties.TESTOSTERONE_MIXTURE, BlockBehaviour.Properties.copy(Blocks.WATER).mapColor(MapColor.TERRACOTTA_YELLOW)));

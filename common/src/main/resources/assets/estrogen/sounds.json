@@ -17,18 +17,27 @@
   },
   "dream_block_enter": {
     "sounds": [
-      "estrogen:dream_block_enter"
+      "estrogen:dream_block/dream_block_enter"
     ]
   },
   "dream_block_exit": {
       "sounds": [
-      "estrogen:dream_block_exit"
+      "estrogen:dream_block/dream_block_exit"
       ]
   },
   "dream_block_loop": {
       "sounds": [
-      "estrogen:dream_block_loop"
+      "estrogen:dream_block/dream_block_loop"
       ]
+  },
+  "dream_block_place": {
+    "sounds": [
+      "estrogen:dream_block/place/dream_block_place_1",
+      "estrogen:dream_block/place/dream_block_place_2",
+      "estrogen:dream_block/place/dream_block_place_3",
+      "estrogen:dream_block/place/dream_block_place_4",
+      "estrogen:dream_block/place/dream_block_place_5"
+    ]
   },
   "amphitrite": {
     "sounds": [
