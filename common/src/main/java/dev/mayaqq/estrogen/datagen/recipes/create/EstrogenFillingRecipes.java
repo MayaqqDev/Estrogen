@@ -38,7 +38,11 @@ public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends P
             ESTROGEN_TIPPED_ARROW = create(id("estrogen_tipped_arrow"), recipeBuilder -> recipeBuilder
                     .require(Items.ARROW)
                     .require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(27000))
-                    .output(tippedArrow()));
+                    .output(tippedArrow())),
+            BLAHAJ = create(id("blahaj"), recipeBuilder -> recipeBuilder
+                    .require(Items.LIGHT_BLUE_WOOL)
+                    .require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(81))
+                    .output(100, new ResourceLocation("blahaj", "blue_shark"), 1));
 
     public EstrogenFillingRecipes(FabricDataOutput output, T t) {
         super(output);

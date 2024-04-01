@@ -1,0 +1,19 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "minecraft:light_blue_wool"
+    },
+    {
+      "amount": 81,
+      "fluid": "estrogen:liquid_estrogen",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "chance": 100.0,
+      "item": "blahaj:blue_shark"
+    }
+  ]
+}
