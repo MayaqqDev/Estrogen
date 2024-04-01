@@ -7,14 +7,17 @@ import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries;
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
 import dev.mayaqq.estrogen.registry.blocks.CentrifugeBlock;
 import dev.mayaqq.estrogen.registry.blocks.CookieJarBlock;
+import dev.mayaqq.estrogen.registry.blocks.DormantDreamBlock;
 import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
 import dev.mayaqq.estrogen.registry.blocks.fluids.EstrogenLiquidBlock;
 import dev.mayaqq.estrogen.registry.blocks.fluids.LavaLikeLiquidBlock;
+import dev.mayaqq.estrogen.utils.StatePredicates;
 import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 
 public class EstrogenBlocks {
@@ -26,7 +29,21 @@ public class EstrogenBlocks {
 
     public static final RegistryEntry<CookieJarBlock> COOKIE_JAR = CREATE_LIKE_BLOCKS.register("cookie_jar", () -> new CookieJarBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
 
-    public static final RegistryEntry<Block> DREAM_BLOCK = BLOCKS.register("dream_block", () -> new DreamBlock(BlockBehaviour.Properties.copy(Blocks.END_GATEWAY)));
+    public static final RegistryEntry<Block> DREAM_BLOCK = BLOCKS.register("dream_block", () -> new DreamBlock(BlockBehaviour.Properties.copy(Blocks.END_GATEWAY).sound(EstrogenSoundTypes.DREAM_BLOCK)));
+    public static final RegistryEntry<Block> DORMANT_DREAM_BLOCK = BLOCKS.register("dormant_dream_block", () -> new DormantDreamBlock(
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.DIAMOND)
+                    .instrument(NoteBlockInstrument.HAT)
+                    .strength(3.0F)
+                    .noOcclusion()
+                    .isRedstoneConductor(StatePredicates::always)
+                    .sound(EstrogenSoundTypes.DORMANT_DREAM_BLOCK)
+                    .isValidSpawn(StatePredicates::never)
+                    .isSuffocating(StatePredicates::never)
+                    .isViewBlocking(StatePredicates::never)
+    ));
+
+    public static final RegistryEntry<Block> ESTROGEN_PILL_BLOCK = BLOCKS.register("estrogen_pill_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(1.0F, 1.0F)));
 
     public static final RegistryEntry<Block> MOLTEN_SLIME_BLOCK = BLOCKS.register("molten_slime", () -> new LavaLikeLiquidBlock(EstrogenFluidProperties.MOLTEN_SLIME, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_GREEN)));
     public static final RegistryEntry<Block> TESTOSTERONE_MIXTURE_BLOCK = TRANSPARENT_BLOCKS.register("testosterone_mixture", () -> new BotariumLiquidBlock(EstrogenFluidProperties.TESTOSTERONE_MIXTURE, BlockBehaviour.Properties.copy(Blocks.WATER).mapColor(MapColor.TERRACOTTA_YELLOW)));

@@ -38,7 +38,11 @@ public class EstrogenMixingRecipes<T extends EstrogenRecipeInterface> extends Pr
                     .require(EstrogenItems.TESTOSTERONE_POWDER.get())
                     .require(Items.COAL)
                     .output(EstrogenFluids.TESTOSTERONE_MIXTURE.get(), t.getAmount(54000))
-                    .requiresHeat(HeatCondition.HEATED));
+                    .requiresHeat(HeatCondition.HEATED)),
+            TINTED_GLASS = create(id("tinted_glass"), recipeBuilder -> recipeBuilder
+                    .require(Items.GLASS)
+                    .require(EstrogenFluids.MOLTEN_AMETHYST.get(), t.getAmount(27000))
+                    .output(Items.TINTED_GLASS));
 
     public EstrogenMixingRecipes(FabricDataOutput output, T t) {
         super(output);

@@ -59,6 +59,10 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("item.estrogen.estrogen_patches.tooltip.summary", "A refillable source of _Girl Power_.");
         tb.add("item.estrogen.estrogen_patches.tooltip.condition1", "When worn in the Thighs slot");
         tb.add("item.estrogen.estrogen_patches.tooltip.behaviour1", "Gives the _Girl Power Effect_ for as long as it's worn and is filled with _Liquid Estrogen_.");
+        tb.add("block.estrogen.dormant_dream_block.tooltip", "Dormant Dream Block");
+        tb.add("block.estrogen.dormant_dream_block.tooltip.summary", "A block with some _very_ powerful properties...");
+        tb.add("block.estrogen.dormant_dream_block.tooltip.condition1", "When powered by a Redstone Signal");
+        tb.add("block.estrogen.dormant_dream_block.tooltip.behaviour1", "At _night_, it will §kturn into its active form");
 
         tb.add("block.estrogen.cookie_jar.tooltip", "Cookie Jar");
         tb.add("block.estrogen.cookie_jar.tooltip.summary", "A jar to _store_ all your _Cookies_!");
@@ -86,6 +90,8 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         // Blocks
         tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuge");
         tb.add(EstrogenBlocks.COOKIE_JAR.get(), "Cookie Jar");
+        tb.add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get(), "Dormant Dream Block");
+        tb.add(EstrogenBlocks.ESTROGEN_PILL_BLOCK.get(), "Estrogen Pill Box");
         tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Liquid Estrogen");
         tb.add(EstrogenBlocks.HORSE_URINE_BLOCK.get(), "Horse Urine");
         tb.add(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), "Filtrated Horse Urine");

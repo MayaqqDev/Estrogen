@@ -22,6 +22,10 @@ public class EstrogenTags {
 
     public static class Blocks {
         public static final TagKey<Block> PICKAXE_MINABLE = TagKey.create(BuiltInRegistries.BLOCK.key(), new ResourceLocation("minecraft", "mineable/pickaxe"));
+        public static final TagKey<Block> MAGNET_OLD = TagKey.create(BuiltInRegistries.BLOCK.key(), new ResourceLocation("create_new_age", "custom_magnet"));
+        public static final TagKey<Block> MAGNET = TagKey.create(BuiltInRegistries.BLOCK.key(), new ResourceLocation("create_new_age", "magnet"));
+        public static final TagKey<Block> MAGNET_12_OLD = TagKey.create(BuiltInRegistries.BLOCK.key(), new ResourceLocation("create_new_age", "magnets/strength_12"));
+        public static final TagKey<Block> MAGNET_12 = TagKey.create(BuiltInRegistries.BLOCK.key(), new ResourceLocation("create_new_age", "magnets/force_12"));
     }
 
     public static class Fluids {

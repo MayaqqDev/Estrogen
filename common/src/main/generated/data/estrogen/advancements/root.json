@@ -25,7 +25,9 @@
               "estrogen:molten_amethyst_bucket",
               "estrogen:centrifuge",
               "estrogen:cookie_jar",
-              "estrogen:dream_bottle"
+              "estrogen:dream_bottle",
+              "estrogen:dormant_dream_block",
+              "estrogen:estrogen_pill_block"
             ]
           }
         ]

@@ -28,6 +28,16 @@ public class EstrogenCraftingRecipes extends FabricRecipeProvider {
                 .requires(AllItems.BAR_OF_CHOCOLATE.get())
                 .save(exporter);
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, EstrogenItems.ESTROGEN_PILL_BLOCK.get())
+                        .requires(EstrogenItems.ESTROGEN_PILL.get(), 9)
+                        .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.ESTROGEN_PILL.get()), FabricRecipeProvider.has(EstrogenItems.ESTROGEN_PILL.get()))
+                        .save(exporter);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, EstrogenItems.ESTROGEN_PILL.get(), 9)
+                        .requires(EstrogenItems.ESTROGEN_PILL_BLOCK.get())
+                        .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.ESTROGEN_PILL_BLOCK.get()), FabricRecipeProvider.has(EstrogenItems.ESTROGEN_PILL_BLOCK.get()))
+                        .save(exporter);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, EstrogenBlocks.CENTRIFUGE.get(), 1)
                 .define('P', AllBlocks.MECHANICAL_PUMP.get())
                 .define('T', AllBlocks.FLUID_TANK.get())

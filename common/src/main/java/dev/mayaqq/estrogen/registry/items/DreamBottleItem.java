@@ -1,8 +1,8 @@
 package dev.mayaqq.estrogen.registry.items;
 
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenSounds;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Items;
@@ -16,7 +16,7 @@ public class DreamBottleItem extends BlockItem {
 
     @Override
     public SoundEvent getPlaceSound(BlockState state) {
-        return SoundEvents.BOTTLE_FILL_DRAGONBREATH;
+        return EstrogenSounds.DREAM_BLOCK_PLACE.get();
     }
 
     @Override

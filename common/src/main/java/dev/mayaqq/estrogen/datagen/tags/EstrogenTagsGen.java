@@ -52,7 +52,19 @@ public class EstrogenTagsGen {
         @Override
         protected void addTags(HolderLookup.Provider arg) {
             getOrCreateTagBuilder(EstrogenTags.Blocks.PICKAXE_MINABLE)
-                    .add(EstrogenBlocks.CENTRIFUGE.get());
+                    .add(EstrogenBlocks.CENTRIFUGE.get())
+                    .add(EstrogenBlocks.COOKIE_JAR.get())
+                    .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get())
+                    .add(EstrogenBlocks.ESTROGEN_PILL_BLOCK.get());
+
+            getOrCreateTagBuilder(EstrogenTags.Blocks.MAGNET)
+                    .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get());
+            getOrCreateTagBuilder(EstrogenTags.Blocks.MAGNET_12)
+                    .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get());
+            getOrCreateTagBuilder(EstrogenTags.Blocks.MAGNET_OLD)
+                    .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get());
+            getOrCreateTagBuilder(EstrogenTags.Blocks.MAGNET_12_OLD)
+                    .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get());
         }
     }
 
@@ -70,6 +82,8 @@ public class EstrogenTagsGen {
             getOrCreateTagBuilder(EstrogenTags.Fluids.URINE)
                     .add(EstrogenFluids.HORSE_URINE.get())
                     .add(EstrogenFluids.FILTRATED_HORSE_URINE.get());
+            getOrCreateTagBuilder(AllTags.AllFluidTags.FAN_PROCESSING_CATALYSTS_BLASTING.tag)
+                    .add(EstrogenFluids.MOLTEN_SLIME.get());
         }
     }
 
