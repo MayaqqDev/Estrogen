@@ -53,7 +53,9 @@ public class EstrogenTagsGen {
         protected void addTags(HolderLookup.Provider arg) {
             getOrCreateTagBuilder(EstrogenTags.Blocks.PICKAXE_MINABLE)
                     .add(EstrogenBlocks.CENTRIFUGE.get())
-                    .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get());
+                    .add(EstrogenBlocks.COOKIE_JAR.get())
+                    .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get())
+                    .add(EstrogenBlocks.ESTROGEN_PILL_BLOCK.get());
 
             getOrCreateTagBuilder(EstrogenTags.Blocks.MAGNET)
                     .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get());

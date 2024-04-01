@@ -1,9 +1,9 @@
 {
   "type": "create:filling",
-  "forge:mod_loaded": [
+  "conditions": [
     {
       "type": "forge:mod_loaded",
-      "modid": "createnewage"
+      "modid": "blahaj"
     }
   ],
   "ingredients": [

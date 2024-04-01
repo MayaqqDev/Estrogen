@@ -15,5 +15,6 @@ public class EstrogenLootTables extends FabricBlockLootTableProvider {
         add(EstrogenBlocks.CENTRIFUGE.get(), createSingleItemTable(EstrogenBlocks.CENTRIFUGE.get()));
         add(EstrogenBlocks.COOKIE_JAR.get(), createSilkTouchOnlyTable(EstrogenBlocks.COOKIE_JAR.get()));
         add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get(), createSingleItemTable(EstrogenBlocks.DORMANT_DREAM_BLOCK.get()));
+        add(EstrogenBlocks.ESTROGEN_PILL_BLOCK.get(), createSingleItemTable(EstrogenBlocks.ESTROGEN_PILL_BLOCK.get()));
     }
 }

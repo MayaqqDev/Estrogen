@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "estrogen:centrifuge",
-    "estrogen:dormant_dream_block"
+    "estrogen:cookie_jar",
+    "estrogen:dormant_dream_block",
+    "estrogen:estrogen_pill_block"
   ]
 }
