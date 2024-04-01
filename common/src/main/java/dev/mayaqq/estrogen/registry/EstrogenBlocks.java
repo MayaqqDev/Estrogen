@@ -11,6 +11,7 @@ import dev.mayaqq.estrogen.registry.blocks.DormantDreamBlock;
 import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
 import dev.mayaqq.estrogen.registry.blocks.fluids.EstrogenLiquidBlock;
 import dev.mayaqq.estrogen.registry.blocks.fluids.LavaLikeLiquidBlock;
+import dev.mayaqq.estrogen.utils.StatePredicates;
 import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
@@ -35,11 +36,11 @@ public class EstrogenBlocks {
                     .instrument(NoteBlockInstrument.HAT)
                     .strength(3.0F)
                     .noOcclusion()
-                    .isRedstoneConductor(Blocks::always)
+                    .isRedstoneConductor(StatePredicates::always)
                     .sound(EstrogenSoundTypes.DORMANT_DREAM_BLOCK)
-                    .isValidSpawn(Blocks::never)
-                    .isSuffocating(Blocks::never)
-                    .isViewBlocking(Blocks::never)
+                    .isValidSpawn(StatePredicates::never)
+                    .isSuffocating(StatePredicates::never)
+                    .isViewBlocking(StatePredicates::never)
     ));
 
     public static final RegistryEntry<Block> ESTROGEN_PILL_BLOCK = BLOCKS.register("estrogen_pill_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(1.0F, 1.0F)));

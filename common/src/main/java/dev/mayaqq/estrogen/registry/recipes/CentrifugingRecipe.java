@@ -2,8 +2,8 @@ package dev.mayaqq.estrogen.registry.recipes;
 
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
-import com.simibubi.create.foundation.fluid.FluidIngredient;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
+import dev.mayaqq.estrogen.platform.IngredientUtils;
 import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
 import dev.mayaqq.estrogen.registry.blockEntities.CentrifugeBlockEntity;
 import earth.terrarium.botarium.common.fluid.base.FluidContainer;
@@ -50,24 +50,23 @@ public class CentrifugingRecipe extends ProcessingRecipe<Inventory> {
 
         if (speed != 256 && speed != -256) return false;
 
-        FluidIngredient fluidIngredient = this.getFluidIngredients().get(0);
-        long amountRequired = fluidIngredient.getRequiredAmount();
 
-        int amountOut = (int) this.getFluidResults().get(0).getAmount();
+        FluidHolder input = IngredientUtils.getFluidIngredients(this).get(0);
+
+        FluidHolder output = IngredientUtils.getFluidResults(this).get(0);
+        long amountOut = output.getFluidAmount();
 
         AtomicBoolean matches = new AtomicBoolean(false);
 
-        FluidHolder fluidIngredientHolder = FluidHolder.of(fluidIngredient.getMatchingFluidStacks().get(0).getFluid(), amountRequired);
-        FluidHolder fluidResultHolder = FluidHolder.of(this.getFluidResults().get(0).getFluid(), amountOut);
 
         fluidContainerDown.getFluids().forEach(fluidBottom -> {
-            if (fluidBottom.matches(fluidIngredientHolder)) {
-                if (fluidBottom.getFluidAmount() >= amountRequired) {
-                    if (fluidContainerUp.insertFluid(fluidResultHolder, true) >= amountOut) {
+            if (fluidBottom.matches(input)) {
+                if (fluidBottom.getFluidAmount() >= input.getFluidAmount()) {
+                    if (fluidContainerUp.insertFluid(output, true) >= amountOut) {
                         fluidContainerUp.getFluids().forEach(fluidTop -> {
-                            if (fluidTop.matches(fluidResultHolder)) {
-                                fluidContainerDown.extractFluid(fluidIngredientHolder, false);
-                                fluidContainerUp.insertFluid(fluidResultHolder, false);
+                            if (fluidTop.matches(output) || fluidTop.isEmpty()) {
+                                fluidContainerDown.extractFluid(input, false);
+                                fluidContainerUp.insertFluid(output, false);
                                 matches.set(true);
                             }
                         });

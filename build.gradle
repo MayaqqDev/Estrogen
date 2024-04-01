@@ -78,7 +78,7 @@ allprojects {
         maven { name = "Terraformers Maven"; description = "EMI & Mod Menu"; url = "https://maven.terraformersmc.com/" }
         maven { name = "Shedaniel Maven"; description = "REI"; url = "https://maven.shedaniel.me" }
         maven { name = "Blamejared Maven"; description = "JEI"; url = "https://maven.blamejared.com/" }
-        maven { name = "Tterrag Maven"; description = "Forge Registrate & Forge Flywheel"; url = "https://maven.tterrag.com" }
+        maven { name = "Tterrag Maven"; description = "Create, Forge Registrate & Forge Flywheel"; url = "https://maven.tterrag.com" }
         maven { name = "TheIllusivec4 Maven"; description = "Curios"; url = "https://maven.theillusivec4.top/" }
         maven { name = "Devos Maven"; description = "Create Fabric, Porting Lib, Forge Tags, Milk Lib & Fabric Registrate"; url = "https://mvn.devos.one/snapshots/" }
         maven { name = "Curseforge Maven"; description = "Forge Config API Port"; url = "https://cursemaven.com" }
