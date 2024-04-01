@@ -1,5 +1,7 @@
 package dev.mayaqq.estrogen.datagen.recipes;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
 
 import static dev.mayaqq.estrogen.Estrogen.MOD_ID;
@@ -22,5 +24,15 @@ public class EstrogenRecipeForgeImpl implements EstrogenRecipeInterface {
     @Override
     public String getName(String name) {
         return name + " (Forge)";
+    }
+
+    @Override
+    public EstrogenLoadCondition isModLoaded(String modid) {
+        JsonArray conditions = new JsonArray();
+        JsonObject object = new JsonObject();
+        object.addProperty("type", "forge:mod_loaded");
+        object.addProperty("modid", modid);
+        conditions.add(object);
+        return new EstrogenLoadCondition("conditions", conditions);
     }
 }

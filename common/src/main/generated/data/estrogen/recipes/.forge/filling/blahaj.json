@@ -1,5 +1,11 @@
 {
   "type": "create:filling",
+  "forge:mod_loaded": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "createnewage"
+    }
+  ],
   "ingredients": [
     {
       "item": "minecraft:light_blue_wool"

@@ -2,8 +2,8 @@ package dev.mayaqq.estrogen.datagen.recipes.create;
 
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllRecipeTypes;
-import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
+import dev.mayaqq.estrogen.datagen.custom.EstrogenProcessingRecipeGen;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeInterface;
@@ -11,6 +11,7 @@ import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenPotions;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -19,7 +20,7 @@ import net.minecraft.world.level.material.Fluids;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
 
-public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends ProcessingRecipeGen {
+public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends EstrogenProcessingRecipeGen {
 
     private T t;
     GeneratedRecipe
@@ -39,10 +40,13 @@ public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends P
                     .require(Items.ARROW)
                     .require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(27000))
                     .output(tippedArrow())),
-            BLAHAJ = create(id("blahaj"), recipeBuilder -> recipeBuilder
+            BLAHAJ = createMulti(id("blahaj"), recipeBuilder -> recipeBuilder
+                    .whenModLoaded("createnewage")
                     .require(Items.LIGHT_BLUE_WOOL)
                     .require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(81))
-                    .output(100, new ResourceLocation("blahaj", "blue_shark"), 1));
+                    .output(100, new ResourceLocation("blahaj", "blue_shark"), 1),
+                    () -> t.isModLoaded("blahaj")
+            );
 
     public EstrogenFillingRecipes(FabricDataOutput output, T t) {
         super(output);
