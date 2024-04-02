@@ -101,8 +101,8 @@ components.java {
 }
 
 loom {
-    Project fabric = project(":fabric")
-    accessWidenerPath = fabric.file("src/main/resources/estrogen.accesswidener")
+    Project common = project(":common")
+    accessWidenerPath = common.file("src/main/resources/estrogen.accesswidener")
 
     forge {
         convertAccessWideners = true

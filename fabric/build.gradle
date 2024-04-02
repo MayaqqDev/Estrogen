@@ -144,6 +144,8 @@ loom {
             vmArg "-Dmixin.debug.export=true"
         }
     }
+
+    accessWidenerPath = common.file("src/main/resources/estrogen.accesswidener")
 }
 
 sourceSets {
