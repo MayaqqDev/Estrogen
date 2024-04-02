@@ -4,6 +4,7 @@
   "package": "dev.mayaqq.estrogen.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BottleItemMixin",
     "PlayerEntityMixin"
   ],
   "client": [

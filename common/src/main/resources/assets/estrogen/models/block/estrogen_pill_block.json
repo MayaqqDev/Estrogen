@@ -6,10 +6,12 @@
     "north": "estrogen:block/estrogen_pill_block/north",
     "east": "estrogen:block/estrogen_pill_block/east",
     "south": "estrogen:block/estrogen_pill_block/south",
-    "west": "estrogen:block/estrogen_pill_block/west"
+    "west": "estrogen:block/estrogen_pill_block/west",
+    "particle": "estrogen:block/estrogen_pill_block/top"
   },
   "elements": [
-    {   "from": [ 0, 0, 0 ],
+    {
+      "from": [ 0, 0, 0 ],
       "to": [ 16, 16, 16 ],
       "faces": {
         "down":  { "texture": "#down", "cullface": "down" },

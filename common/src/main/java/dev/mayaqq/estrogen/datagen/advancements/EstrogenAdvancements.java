@@ -124,6 +124,20 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         ).addCriterion("cookie_jar_place", InsertJarTrigger.TriggerInstance.insertJar())
                 .build(Estrogen.id("cookie_jar"));
 
+        // TODO: Custom Trigger for this, right now its nothing
+        /*
+        Advancement hard_to_catch = Advancement.Builder.advancement().parent(estrogenPill).display(Items.PHANTOM_MEMBRANE,
+                Component.translatable("advancement.estrogen.hard_to_catch.title"),
+                Component.translatable("advancement.estrogen.hard_to_catch.description"),
+                null,
+                FrameType.CHALLENGE,
+                true,
+                true,
+                true
+        ).addCriterion("hard_to_catch", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.ANY, DamageSourcePredicate.Builder.damageType()))
+                .build(Estrogen.id("hard_to_catch");
+         */
+
         consumer.accept(root);
         consumer.accept(horseUrine);
         consumer.accept(usedFilter);
