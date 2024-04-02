@@ -62,8 +62,7 @@ public class DreamBlock extends BaseEntityBlock {
 
     public static boolean isInDreamBlock(Player player) {
         BlockPos pos = player.blockPosition();
-        BlockPos headpos = pos.above();
-        return player.level().getBlockState(pos).getBlock() instanceof DreamBlock || player.level().getBlockState(headpos).getBlock() instanceof DreamBlock;
+        return player.level().getBlockState(pos).getBlock() instanceof DreamBlock || player.level().getBlockState(pos.above()).getBlock() instanceof DreamBlock;
     }
 
     public static Vec3 lookAngle = null;

@@ -35,6 +35,8 @@ public class Dash {
     private static boolean isInDreamBlock;
     private static int dreamBlockTick = 0;
 
+    private static DreamBlockSoundInstance dreamBlockSoundInstance = null;
+
     public static void dashClientTick() {
         Minecraft client = Minecraft.getInstance();
 
@@ -45,13 +47,20 @@ public class Dash {
                 if (dreamBlockTick == 1) {
                     client.player.playSound(EstrogenSounds.DREAM_BLOCK_ENTER.get(), 1.0F, 1.0F);
                 } else if (dreamBlockTick == 2) {
-                    client.getSoundManager().play(new DreamBlockSoundInstance(client.player));
+                    if (dreamBlockSoundInstance == null) {
+                        dreamBlockSoundInstance = new DreamBlockSoundInstance(client.player);
+                    }
+                    client.getSoundManager().play(dreamBlockSoundInstance);
                 }
                 isInDreamBlock = true;
             } else {
                 if (isInDreamBlock) {
                     client.player.playSound(EstrogenSounds.DREAM_BLOCK_EXIT.get(), 1.0F, 1.0F);
 
+                }
+                if (dreamBlockSoundInstance != null) {
+                    client.getSoundManager().stop(dreamBlockSoundInstance);
+                    dreamBlockSoundInstance = null;
                 }
                 dreamBlockTick = 0;
                 isInDreamBlock = false;
