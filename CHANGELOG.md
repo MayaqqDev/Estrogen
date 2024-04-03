@@ -7,6 +7,7 @@
 - **Dream Block** from celeste 🌌 (currently unobtainable in survival) (Mayaqq)
 - **Cookie Jar** Block 🫙 (Mayaqq & Naomi)
 - **Advancements**! 💡 (Mayaqq)
+- A **lot** of mod compatibility 🤝 (Mayaqq)
 - You can now **pat** players! 🤚 (Mayaqq)
 - Item **Descriptions** and **Tooltips** 📙 (Mayaqq)
 - **Chest Feature physics** ⛹️‍♂️ (PrincessDoreena)
