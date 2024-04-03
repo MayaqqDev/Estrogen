@@ -4,6 +4,9 @@ import com.teamresourceful.resourcefullib.common.item.tabs.ResourcefulCreativeTa
 import dev.mayaqq.estrogen.Estrogen;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
@@ -38,6 +41,7 @@ public class EstrogenCreativeTab {
         items.add(DREAM_BOTTLE.get().getDefaultInstance());
         items.add(DORMANT_DREAM_BLOCK.get().getDefaultInstance());
         items.add(ESTROGEN_PILL_BLOCK.get().getDefaultInstance());
+        items.add(tippedArrow(EstrogenPotions.ESTROGEN_POTION.get()));
         items.add(MOLTEN_SLIME_BUCKET.get().getDefaultInstance());
         items.add(TESTOSTERONE_MIXTURE_BUCKET.get().getDefaultInstance());
         items.add(LIQUID_ESTROGEN_BUCKET.get().getDefaultInstance());
@@ -48,4 +52,10 @@ public class EstrogenCreativeTab {
     }
 
     public void init() {}
+
+    public static ItemStack tippedArrow(Potion potion) {
+        ItemStack stack = new ItemStack(Items.TIPPED_ARROW);
+        PotionUtils.setPotion(stack, potion);
+        return stack;
+    }
 }

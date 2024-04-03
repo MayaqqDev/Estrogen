@@ -7,6 +7,7 @@ import dev.mayaqq.estrogen.datagen.custom.EstrogenProcessingRecipeGen;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.datagen.recipes.EstrogenRecipeInterface;
+import dev.mayaqq.estrogen.registry.EstrogenCreativeTab;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenPotions;
@@ -38,7 +39,7 @@ public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends E
             ESTROGEN_TIPPED_ARROW = create(id("estrogen_tipped_arrow"), recipeBuilder -> recipeBuilder
                     .require(Items.ARROW)
                     .require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(27000))
-                    .output(tippedArrow())),
+                    .output(EstrogenCreativeTab.tippedArrow(EstrogenPotions.ESTROGEN_POTION.get()))),
             BLAHAJ = createMulti(id("blahaj"), recipeBuilder -> recipeBuilder
                     .whenModLoaded("createnewage")
                     .require(Items.LIGHT_BLUE_WOOL)
@@ -73,11 +74,5 @@ public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends E
     @Override
     public String getName() {
         return t.getName(super.getName());
-    }
-
-    public ItemStack tippedArrow() {
-        ItemStack stack = new ItemStack(Items.TIPPED_ARROW);
-        PotionUtils.setPotion(stack, EstrogenPotions.ESTROGEN_POTION.get());
-        return stack;
     }
 }
