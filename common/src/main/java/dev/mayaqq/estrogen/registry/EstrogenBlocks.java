@@ -25,17 +25,18 @@ public class EstrogenBlocks {
     public static final ResourcefulRegistry<Block> TRANSPARENT_BLOCKS = ResourcefulRegistries.create(BLOCKS);
     public static final ResourcefulRegistry<Block> CREATE_LIKE_BLOCKS = ResourcefulRegistries.create(BLOCKS);
 
-    public static final RegistryEntry<CentrifugeBlock> CENTRIFUGE = CREATE_LIKE_BLOCKS.register("centrifuge", () -> new CentrifugeBlock(BlockBehaviour.Properties.copy(SharedProperties.copperMetal()).mapColor(MapColor.COLOR_ORANGE).noOcclusion()));
+    public static final RegistryEntry<CentrifugeBlock> CENTRIFUGE = CREATE_LIKE_BLOCKS.register("centrifuge", () -> new CentrifugeBlock(BlockBehaviour.Properties.copy(SharedProperties.copperMetal()).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_ORANGE).noOcclusion()));
 
     public static final RegistryEntry<CookieJarBlock> COOKIE_JAR = CREATE_LIKE_BLOCKS.register("cookie_jar", () -> new CookieJarBlock(BlockBehaviour.Properties.copy(Blocks.GLASS)));
 
-    public static final RegistryEntry<Block> DREAM_BLOCK = BLOCKS.register("dream_block", () -> new DreamBlock(BlockBehaviour.Properties.copy(Blocks.END_GATEWAY).sound(EstrogenSoundTypes.DREAM_BLOCK)));
+    public static final RegistryEntry<Block> DREAM_BLOCK = BLOCKS.register("dream_block", () -> new DreamBlock(BlockBehaviour.Properties.copy(Blocks.END_GATEWAY).isSuffocating(StatePredicates::never).sound(EstrogenSoundTypes.DREAM_BLOCK)));
     public static final RegistryEntry<Block> DORMANT_DREAM_BLOCK = BLOCKS.register("dormant_dream_block", () -> new DormantDreamBlock(
             BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DIAMOND)
                     .instrument(NoteBlockInstrument.HAT)
                     .strength(3.0F)
                     .noOcclusion()
+                    .requiresCorrectToolForDrops()
                     .isRedstoneConductor(StatePredicates::always)
                     .sound(EstrogenSoundTypes.DORMANT_DREAM_BLOCK)
                     .isValidSpawn(StatePredicates::never)
