@@ -1,0 +1,22 @@
+{
+  "type": "thermal:centrifuge",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ],
+  "ingredient": {
+    "item": "estrogen:filtrated_horse_urine_bucket"
+  },
+  "result": [
+    {
+      "item": "minecraft:bucket"
+    },
+    {
+      "fluid": "estrogen:liquid_estrogen",
+      "amount": 1000
+    }
+  ],
+  "energy": 500
+}

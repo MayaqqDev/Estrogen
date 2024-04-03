@@ -1,0 +1,18 @@
+{
+  "type": "enderio:tank",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "enderio"
+    }
+  ],
+  "fluid": {
+    "Amount": 250,
+    "FluidName": "estrogen:liquid_estrogen"
+  },
+  "input": {
+    "item": "minecraft:cookie"
+  },
+  "is_emptying": false,
+  "output": "estrogen:estrogen_pill"
+}

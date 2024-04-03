@@ -1,0 +1,22 @@
+{
+  "type": "mekanism:reaction",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "duration": 100,
+  "fluidInput": {
+    "amount": 100,
+    "fluid": "estrogen:molten_amethyst"
+  },
+  "itemInput": {
+    "ingredient": {
+      "item": "estrogen:estrogen_pill"
+    }
+  },
+  "itemOutput": {
+    "item": "estrogen:crystal_estrogen_pill"
+  }
+}

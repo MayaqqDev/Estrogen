@@ -1,0 +1,26 @@
+{
+  "type": "cyclic:solidifier",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "cyclic"
+    }
+  ],
+  "ingredients":[ {
+    "item": "minecraft:cookie",
+    "count": 3
+  }
+  ],
+  "mix": {
+    "fluid": "estrogen:liquid_estrogen",
+    "count": 200
+  },
+  "energy": {
+    "rfpertick": 100,
+    "ticks": 120
+  },
+  "result": {
+    "item": "estrogen:estrogen_pill",
+    "count": 3
+  }
+}

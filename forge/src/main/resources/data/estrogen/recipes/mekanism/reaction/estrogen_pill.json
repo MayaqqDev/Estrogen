@@ -1,0 +1,22 @@
+{
+  "type": "mekanism:reaction",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "duration": 100,
+  "fluidInput": {
+    "amount": 100,
+    "fluid": "estrogen:liquid_estrogen"
+  },
+  "itemInput": {
+    "ingredient": {
+      "item": "minecraft:cookie"
+    }
+  },
+  "itemOutput": {
+    "item": "estrogen:estrogen_pill"
+  }
+}
