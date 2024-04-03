@@ -1,68 +1,141 @@
 {
-  "attribute.name.estrogen.boob_growing_start_time": "Instant de début de poitrine",
-  "attribute.name.estrogen.boob_initial_size": "Taille initiale de poitrine",
-  "attribute.name.estrogen.dash_level": "Niveau de propulsion",
-  "block.estrogen.centrifuge": "Centrifugeuse",
-  "block.estrogen.filtrated_horse_urine": "Urine de cheval filtrée",
-  "block.estrogen.horse_urine": "Urine de cheval",
-  "block.estrogen.liquid_estrogen": "Œstrogène liquide",
-  "block.estrogen.molten_amethyst": "Améthyste fondue",
-  "block.estrogen.molten_slime": "Slime fondu",
-  "block.estrogen.testosterone_mixture": "Mixture de testostérone",
-  "category.estrogen": "Œstrogène",
-  "create.recipe.centrifuging": "Centrifugeage",
-  "curios.identifier.thighs": "Cuisse",
-  "death.attack.girlpower": "%s a trop joué à la patronne",
-  "death.attack.girlpower.player": "%s a trop joué à la patronne",
   "effect.estrogen.estrogen": "Force Féminine",
-  "emi.category.estrogen.centrifuging": "Centrifugeage",
-  "enchantment.estrogen.uwufy_curse": "Malédiction d'uwufication",
-  "enchantment.estrogen.uwufy_curse.desc": "UwUifie vos messages dans le chat >///<",
-  "estrogen.ponder.basic.header": "Comment utiliser la centrifugeuse",
-  "estrogen.ponder.basic.text_1": "La centrifuge ne dispose pas d'un inventaire, vous devez lui fournir l'espace de stockage avec des réservoirs à fluide au dessus et en dessous pour la faire fonctionner.",
-  "estrogen.ponder.basic.text_2": "L'entrée de fluide se fait par le dessous",
-  "estrogen.ponder.basic.text_3": "Et la sortie se fait par le dessus",
-  "estrogen.ponder.intro.header": "Besoins de la centrifugeuse",
-  "estrogen.ponder.intro.text_1": "La centrifugeuse requiert la vitesse de rotation maximum pour fonctionner (par défaut 256 RPM).",
-  "fluid.estrogen.filtrated_horse_urine": "Urine de cheval filtrée",
-  "fluid.estrogen.horse_urine": "Urine de cheval",
-  "fluid.estrogen.liquid_estrogen": "Œstrogène liquide",
-  "fluid.estrogen.molten_amethyst": "Améthyste fondue",
-  "fluid.estrogen.molten_slime": "Slime fondu",
-  "fluid.estrogen.testosterone_mixture": "Mixture de testostérone",
-  "fluid_type.estrogen.filtrated_horse_urine": "Urine de cheval filtrée",
-  "fluid_type.estrogen.horse_urine": "Urine de cheval",
-  "fluid_type.estrogen.liquid_estrogen": "Œstrogène liquide",
-  "fluid_type.estrogen.molten_amethyst": "Améthyste fondue",
-  "fluid_type.estrogen.molten_slime": "Slime fondu",
-  "fluid_type.estrogen.testosterone_mixture": "Mixture de testostérone",
-  "item.estrogen.balls": "Boules",
+  "effect.estrogen.estrogen.description": "Permet au joueur de se propulser et lui donnes des \"attributs\" supplémentaires",
+
+
+  "category.estrogen": "Œstrogène",
+  "key.estrogen.dash": "Propulsion",
+
+
+  "item.estrogen.estrogen_pill": "Pilule d'Œstrogène",
+  "item.estrogen.estrogen_patches": "Patch d'Œstrogène",
+  "item.estrogen.incomplete_estrogen_patches": "Patch d'Œstrogène Incomplet",
   "item.estrogen.crystal_estrogen_pill": "Pilule de cristal d'Œstrogène",
   "item.estrogen.estrogen_chip_cookie": "Cookie aux pépites d'Œstrogène",
-  "item.estrogen.estrogen_patches": "Patch d'Œstrogène",
-  "item.estrogen.estrogen_pill": "Pilule d'Œstrogène",
-  "item.estrogen.filtrated_horse_urine_bucket": "Seau d'urine de cheval",
+  "item.estrogen.balls": "Boules",
   "item.estrogen.horse_urine_bottle": "Fiole d'urine de cheval",
-  "item.estrogen.horse_urine_bucket": "Seau d'rine de cheval",
-  "item.estrogen.incomplete_estrogen_patches": "Patch d'Œstrogène Incomplet",
-  "item.estrogen.incomplete_uwu": "UwU incomplet",
-  "item.estrogen.liquid_estrogen_bucket": "Seau d'Œstrogène liquide",
-  "item.estrogen.molten_amethyst_bucket": "Seau d'améthyste fondue",
-  "item.estrogen.molten_slime_bucket": "Seau de Slime fondu",
-  "item.estrogen.testosterone_chunk": "Bloc de testostérone",
-  "item.estrogen.testosterone_mixture_bucket": "Seau de mixture de testostérone",
+  "item.estrogen.testosterone_chunk": "Tesson de testostérone",
   "item.estrogen.testosterone_powder": "Poudre de testostérone",
   "item.estrogen.used_filter": "Filtre Usagé",
+  "item.estrogen.incomplete_uwu": "UwU incomplet",
+  "item.estrogen.dream_bottle": "Fiole onirique",
+
   "item.minecraft.lingering_potion.effect.estrogen": "Potion de force féminine persistante",
   "item.minecraft.potion.effect.estrogen": "Potion de force féminine",
   "item.minecraft.splash_potion.effect.estrogen": "Potion de force féminine jetable",
   "item.minecraft.tipped_arrow.effect.estrogen": "Flèche de force féminine",
-  "itemGroup.estrogen.estrogen": "Œstrogène",
-  "key.estrogen.dash": "Propulsion",
+
+  "item.estrogen.horse_urine_bucket": "Seau d'urine de cheval",
+  "item.estrogen.filtrated_horse_urine_bucket": "Seau d'urine de cheval filtrée",
+  "item.estrogen.liquid_estrogen_bucket": "Seau d'Œstrogène liquide",
+  "item.estrogen.molten_amethyst_bucket": "Seau d'améthyste fondue",
+  "item.estrogen.molten_slime_bucket": "Seau de Slime fondu",
+  "item.estrogen.testosterone_mixture_bucket": "Seau de mixture de testostérone",
+
+
+  "item.estrogen.estrogen_pill.tooltip": "Pilule d'Œstrogène",
+  "item.estrogen.estrogen_pill.tooltip.summary": "Source temporaire de _Force Féminine_",
+  "item.estrogen.crystal_estrogen_pill.tooltip": "Pilule de cristal d'Œstrogène",
+  "item.estrogen.crystal_estrogen_pill.tooltip.summary": "Source temporaire de _Force Féminine_",
+  "item.estrogen.estrogen_patches.tooltip": "Patch d'Œstrogène",
+  "item.estrogen.estrogen_patches.tooltip.summary": "Une source rechargeable de _Force Féminie_",
+  "item.estrogen.estrogen_patches.tooltip.condition1": "Quand porté sur les cuisses",
+  "item.estrogen.estrogen_patches.tooltip.behaviour1": "Fourni l'_effet de Force Féminine_ aussi longtemps qu'est porté et rempli d'_Œstrogène liquide_",
+  "block.estrogen.dormant_dream_block.tooltip": "Bloc onirique dormant",
+  "block.estrogen.dormant_dream_block.tooltip.summary": "Un bloc avec des propriétés _très_ puissantes...",
+  "block.estrogen.dormant_dream_block.tooltip.condition1": "Quand alimenté avec un signal de redstone",
+  "block.estrogen.dormant_dream_block.tooltip.behaviour1": "La _nuit_, il va §ks'éveiller",
+  "block.estrogen.cookie_jar.tooltip": "Jarre à cookies",
+  "block.estrogen.cookie_jar.tooltip.summary": "Une jarre pour _stocker_ tous vos _cookies_!",
+
+
+  "advancement.estrogen.root.title": "Create: Estrogen",
+  "advancement.estrogen.root.description": "A addon pour Create basé surl'expression de soi, la gestion de fluides et l'expansion de votre usine!",
+  "advancement.estrogen.horse_urine.title": "Beurk!",
+  "advancement.estrogen.horse_urine.description": "Récupérer de l'urine de cheval en \"trayant\" un cheval avec une fiole de verre.",
+  "advancement.estrogen.used_filter.title": "Première étape du processus",
+  "advancement.estrogen.used_filter.description": "Utiliser un filtre pour supprimer les impuretés de votre urine de cheval.",
+  "advancement.estrogen.liquid_estrogen.title": "La source de la Force (Féminine)",
+  "advancement.estrogen.liquid_estrogen.description": "Obtenir un seau d'Œstrogène liquide.",
+  "advancement.estrogen.estrogen_pill.title": "Il est l'heure de la pilule",
+  "advancement.estrogen.estrogen_pill.description": "Fabriquer l'élusive Pilule d'Œstrogène.",
+  "advancement.estrogen.estrogen_patches.title": "Permanent! (ou presque)",
+  "advancement.estrogen.estrogen_patches.description": "Fabriquer des Patch d'Œstrogène, et profiter d'une longue fémininité.",
+  "advancement.estrogen.balls.description": "Que se passe-t-il quand on sépare le Slime et les Boules?",
+  "advancement.estrogen.cookie_jar.title": "Accepter et continuer",
+  "advancement.estrogen.cookie_jar.description": "Ce mod recquiert des cookies pour fonctionner normalement. Veuiller les insérer dans la jarre.",
+
+
+  "block.estrogen.centrifuge": "Centrifugeuse",
+  "block.estrogen.cookie_jar": "Jarre à cookies",
+  "block.estrogen.dream_block": "Bloc onirique",
+  "block.estrogen.dormant_dream_block": "Bloc onirique endormi",
+  "block.estrogen.estrogen_pill_block": "Boite de pilules d'Œstrogène",
+  "block.estrogen.liquid_estrogen": "Œstrogène liquide",
+  "block.estrogen.horse_urine": "Urine de cheval",
+  "block.estrogen.filtrated_horse_urine": "Urine de cheval filtrée",
+  "block.estrogen.molten_slime": "Slime fondu",
+  "block.estrogen.molten_amethyst": "Améthyste fondue",
+  "block.estrogen.testosterone_mixture": "Mixture de testostérone",
+
+
+  "fluid.estrogen.liquid_estrogen": "Œstrogène liquide",
+  "fluid.estrogen.horse_urine": "Urine de cheval",
+  "fluid.estrogen.filtrated_horse_urine": "Urine de cheval filtrée",
+  "fluid.estrogen.molten_slime": "Slime fondu",
+  "fluid.estrogen.molten_amethyst": "Améthyste fondue",
+  "fluid.estrogen.testosterone_mixture": "Mixture de testostérone",
+
+  "fluid_type.estrogen.liquid_estrogen": "Œstrogène liquide",
+  "fluid_type.estrogen.horse_urine": "Urine de cheval",
+  "fluid_type.estrogen.filtrated_horse_urine": "Urine de cheval filtrée",
+  "fluid_type.estrogen.molten_slime": "Slime fondu",
+  "fluid_type.estrogen.molten_amethyst": "Améthyste fondue",
+  "fluid_type.estrogen.testosterone_mixture": "Mixture de testostérone",
+
+
   "subtitles.estrogen.dash": "Propulsion de forcé féminine",
+
+
+  "death.attack.girlpower": "%s a trop joué à la patronne",
+  "death.attack.girlpower.player": "%s a trop joué à la patronne",
+
+
+  "curios.identifier.thighs": "Cuisse",
+
+  "trinkets.slot.legs.thighs": "Cuisse",
+
+
+  "create.recipe.centrifuging": "Centrifugeage",
+  "create.recipe.entity_interaction": "Interaction avec une entité",
+  "recipe.entity_interaction.cant_be_baby": "Cette entité ne peut pas être un bébé",
+
+  "emi.category.estrogen.centrifuging": "Centrifugeage",
+  "emi.category.estrogen.entity_interaction": "Interaction avec une entité",
+
+
+  "enchantment.estrogen.uwufy_curse": "Malédiction d'uwufication",
+  "enchantment.estrogen.uwufy_curse.desc": "UwUifie vos messages dans le chat >///<",
+
+
+  "tag.item.trinkets.legs.thighs": "Cuisses",
+  "tag.item.estrogen.uwufying": "Uwuificateur",
   "tag.item.curios.thighs": "Cuisses",
   "tag.item.estrogen.copper_plates": "Plaques de cuivre",
   "tag.item.estrogen.uwufying": "Uwufication",
-  "tag.item.trinkets.legs.thighs": "Cuisses",
-  "trinkets.slot.legs.thighs": "Cuisse"
+
+  "tag.fluid.estrogen.urine": "Urine",
+
+
+  "estrogen.ponder.intro.header": "Besoins de la centrifugeuse",
+  "estrogen.ponder.intro.text_1": "La centrifugeuse requiert la vitesse de rotation maximum pour fonctionner (par défaut 256 RPM).",
+  "estrogen.ponder.basic.header": "Comment utiliser la centrifugeuse",
+  "estrogen.ponder.basic.text_1": "La centrifuge ne dispose pas d'un inventaire, vous devez lui fournir l'espace de stockage avec des réservoirs à fluide au dessus et en dessous pour la faire fonctionner.",
+  "estrogen.ponder.basic.text_2": "L'entrée de fluide se fait par le dessous",
+  "estrogen.ponder.basic.text_3": "Et la sortie se fait par le dessus",
+
+
+  "attribute.name.estrogen.dash_level": "Niveau de propulsion",
+  "attribute.name.estrogen.boob_growing_start_time": "Instant de début de poitrine",
+  "attribute.name.estrogen.boob_initial_size": "Taille initiale de poitrine"
 }
