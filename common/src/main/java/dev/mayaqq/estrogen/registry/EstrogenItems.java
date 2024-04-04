@@ -37,14 +37,10 @@ public class EstrogenItems {
             new EstrogenCookieItem(new Item.Properties().food(EstrogenFoodComponents.ESTROGEN_CHIP_COOKIE).stacksTo(64).rarity(Rarity.RARE)));
     public static final RegistryEntry<Item> HORSE_URINE_BOTTLE = BASIC_ITEMS.register("horse_urine_bottle", () ->
             new HorseUrineBottleItem(new Item.Properties().food(EstrogenFoodComponents.HORSE_URINE_BOTTLE).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)));
-    public static final RegistryEntry<EstrogenPatchesItem> ESTROGEN_PATCHES = BASIC_ITEMS.register("estrogen_patches", () ->
-            new EstrogenPatchesItem(new Item.Properties().stacksTo(1)));
-    public static final RegistryEntry<Item> INCOMPLETE_ESTROGEN_PATCH = BASIC_ITEMS.register("incomplete_estrogen_patches", () ->
-            new SequencedAssemblyItem(new Item.Properties().stacksTo(1)));
-    public static final RegistryEntry<Item> UWU = BASIC_ITEMS.register("uwu", () ->
-            new UwUItem(new Item.Properties().stacksTo(1)));
-    public static final RegistryEntry<Item> INCOMPLETE_UWU = BASIC_ITEMS.register("incomplete_uwu", () ->
-            new SequencedAssemblyItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryEntry<EstrogenPatchesItem> ESTROGEN_PATCHES = BASIC_ITEMS.register("estrogen_patches", () -> new EstrogenPatchesItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryEntry<Item> INCOMPLETE_ESTROGEN_PATCH = BASIC_ITEMS.register("incomplete_estrogen_patches", () -> new SequencedAssemblyItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryEntry<Item> UWU = BASIC_ITEMS.register("uwu", () -> new UwUItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryEntry<Item> INCOMPLETE_UWU = BASIC_ITEMS.register("incomplete_uwu", () -> new SequencedAssemblyItem(new Item.Properties().stacksTo(1)));
 
     // Buckets
     public static final RegistryEntry<Item> MOLTEN_SLIME_BUCKET = BUCKETS.register("molten_slime_bucket", () -> new FluidBucketItem(EstrogenFluidProperties.MOLTEN_SLIME, bucketProperties()));
