@@ -15,10 +15,6 @@ import org.joml.Matrix4f;
 
 public class DreamBlockRenderer extends SafeBlockEntityRenderer<DreamBlockEntity> {
 
-    // Kept these here from the old renderer incase u need maya
-    public static final ResourceLocation BACKGROUND_LOCATION = Estrogen.id("textures/misc/dream_block_background.png");
-    public static final ResourceLocation DREAM_BLOCK_LOCATION = Estrogen.id("textures/block/dream_block/dream_block.png");
-
     public DreamBlockRenderer(BlockEntityRendererProvider.Context context) {
     }
 

@@ -109,7 +109,7 @@ public class DreamBlockTexture {
                 boolean reverse = false;
 
                 if(posY > 2 && posX < 14 && posX > 2 && posY < 14) {
-                    boolean hasAnim = (style == NodeStyle.STAR && random.nextBoolean());
+                    boolean hasAnim = (style == NodeStyle.STAR_ANIMATED);
                     startTick = hasAnim ? random.nextIntBetweenInclusive(0, 15) : -1;
                     endTick = hasAnim ? startTick + 15 : -1;
                     reverse = random.nextBoolean();
@@ -224,6 +224,12 @@ public class DreamBlockTexture {
                         context.setPixelColor(x, y + 1, col);
                         context.setPixelColor(x - 1, y, col);
                         context.setPixelColor(x, y - 1, col);
+                    }
+                    case STAR_ANIMATED -> {
+                        context.setPixelColor(x + 1, y, col);
+                        context.setPixelColor(x, y + 1, col);
+                        context.setPixelColor(x - 1, y, col);
+                        context.setPixelColor(x, y - 1, col);
                         if(testAnimation(animTick)) {
                             context.setPixelColorSafe(x + 2, y, col);
                             context.setPixelColorSafe(x - 2, y,  col);
@@ -291,7 +297,8 @@ public class DreamBlockTexture {
     private enum NodeStyle {
         PIXEL(2), // Pixel has a lower weight because any node drawn on a border becomes a pixel
         STAR(3),
-        THINGY(1);
+        THINGY(1),
+        STAR_ANIMATED(3);
 
         final int weight;
         NodeStyle(int weight) {
@@ -300,7 +307,8 @@ public class DreamBlockTexture {
         public static NodeStyle weighted(RandomSource rng) {
             NodeStyle[] weighted = new NodeStyle[] {
                     PIXEL,
-                    STAR, STAR, STAR,
+                    STAR_ANIMATED, STAR_ANIMATED,
+                    STAR,
                     THINGY
             };
 
