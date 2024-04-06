@@ -16,6 +16,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.random.Weight;
+import net.minecraft.util.random.WeightedEntry;
+import net.minecraft.util.random.WeightedRandom;
+import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.level.Level;
 import org.joml.Math;
 import org.joml.Matrix3f;
@@ -294,33 +298,27 @@ public class DreamBlockTexture {
         }
     }
 
-    private enum NodeStyle {
+    private enum NodeStyle implements WeightedEntry {
         PIXEL(2), // Pixel has a lower weight because any node drawn on a border becomes a pixel
         STAR(3),
         THINGY(1),
         STAR_ANIMATED(3);
 
-        final int weight;
+        final Weight weight;
         NodeStyle(int weight) {
-            this.weight = weight;
+            this.weight = Weight.of(weight);
         }
+
+        @Override
+        public Weight getWeight() {
+            return this.weight;
+        }
+
         public static NodeStyle weighted(RandomSource rng) {
-            NodeStyle[] weighted = new NodeStyle[] {
-                    PIXEL,
-                    STAR_ANIMATED, STAR_ANIMATED,
-                    STAR,
-                    THINGY
-            };
+            WeightedRandomList<NodeStyle> weightedRandomList = WeightedRandomList.create(PIXEL, STAR, THINGY, STAR_ANIMATED);
 
-//            NodeStyle[] weighted = new NodeStyle[Arrays.stream(values()).mapToInt(s -> s.weight).sum()];
-//            Iterator<NodeStyle> i = Arrays.stream(values()).iterator();
-//            while (i.hasNext()) {
-//                i.
-//            }
-
-            return weighted[rng.nextIntBetweenInclusive(0, weighted.length - 1)];
+            return weightedRandomList.getRandom(rng).get();
         }
-
     }
 
 }
