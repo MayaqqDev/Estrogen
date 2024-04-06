@@ -52,11 +52,12 @@ public class DreamBlockTexture {
         map.drawAll(this::draw);
     }
 
-    public void tick() {
+    public void animate() {
         if(!Minecraft.useFancyGraphics()) return;
+        int ct = currentAnimationTick;
         for(Direction direction : Direction.values()) {
             for(Node node : nodes.get(direction)) {
-                if(currentAnimationTick == node.startTick() || currentAnimationTick == node.endTick()) {
+                if(ct == node.startTick() || ct == node.endTick()) {
                     map.draw(direction, this::draw);
                 }
             }
