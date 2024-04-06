@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
 import dev.mayaqq.estrogen.utils.DynamicTextureMap;
@@ -32,7 +33,7 @@ import java.util.function.BiPredicate;
 @Environment(EnvType.CLIENT)
 public class DreamBlockTexture {
 
-    public static int maxAnimTick = useFabulousGraphics() ? 15 : 30;
+    public static int maxAnimTick = useFabulousGraphics() ? EstrogenConfig.client().animSpeedFabulous.get() : EstrogenConfig.client().animSpeedNormal.get();
     public static int currentAnimationTick = 0;
     private final DynamicTextureMap map;
     private final DreamBlockEntity blockEntity;
