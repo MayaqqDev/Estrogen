@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.Physics;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
@@ -10,6 +11,7 @@ import dev.mayaqq.estrogen.registry.EstrogenTags;
 import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
 import dev.mayaqq.estrogen.registry.sounds.DreamBlockSoundInstance;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -23,6 +25,7 @@ public class Dash {
 
     // the overlay texture
     private static final ResourceLocation DASH_OVERLAY = new ResourceLocation("textures/misc/nausea.png");
+    private static final ResourceLocation DREAM_BLOCK_OVERLAY = Estrogen.id("textures/misc/dream_block_overlay.png");
     // should the player be uwufied
     public static boolean uwufy = false;
     // is the dash on cooldown
@@ -100,6 +103,11 @@ public class Dash {
         if (player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) && onCooldown && EstrogenConfig.client().dashOverlay.get()) {
             renderOverLayer(guiGraphics, 0.3F, 0.5F, 0.8F);
         }
+        if (isInDreamBlock) {
+            renderOverLayer(guiGraphics, 0.2F, 0.0F, 0.2F);
+            // TODO: Texture
+            //renderTextureOverlay(guiGraphics, DREAM_BLOCK_OVERLAY, 255);
+        }
     }
 
     @SuppressWarnings("SameParameterValue")
@@ -125,5 +133,15 @@ public class Dash {
         RenderSystem.enableDepthTest();
         graphics.setColor(1f, 1f, 1f, 1f);
         graphics.pose().popPose();
+    }
+
+    private static void renderTextureOverlay(GuiGraphics guiGraphics, ResourceLocation shaderLocation, float alpha) {
+        RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
+        guiGraphics.setColor(1.0F, 1.0F, 1.0F, alpha);
+        guiGraphics.blit(shaderLocation, 0, 0, -90, 0.0F, 0.0F, guiGraphics.guiWidth(), guiGraphics.guiHeight(), guiGraphics.guiWidth(), guiGraphics.guiHeight());
+        RenderSystem.depthMask(true);
+        RenderSystem.enableDepthTest();
+        guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
 }
