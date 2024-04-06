@@ -24,7 +24,7 @@ public class DreamBottleItem extends ItemNameBlockItem {
     @Override
     public InteractionResult place(BlockPlaceContext context) {
         InteractionResult result = super.place(context);
-        if (result == InteractionResult.SUCCESS) {
+        if (result == InteractionResult.SUCCESS && context.getPlayer() != null && !context.getPlayer().isCreative()) {
             context.getPlayer().getInventory().placeItemBackInInventory(Items.GLASS_BOTTLE.getDefaultInstance());
         }
         return result;

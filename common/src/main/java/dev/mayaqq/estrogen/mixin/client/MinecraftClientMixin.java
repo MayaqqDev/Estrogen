@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.mixin.client;
 
 import dev.mayaqq.estrogen.client.Dash;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.DreamBlockTexture;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenMusic;
@@ -19,6 +20,7 @@ public class MinecraftClientMixin {
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo info) {
         Dash.dashClientTick();
+        DreamBlockTexture.animationTick();
     }
 
     @Inject(method = "updateTitle()V", at = @At("HEAD"), cancellable = true)
