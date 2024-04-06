@@ -2,12 +2,12 @@
   "sources": [
     {
       "type": "single",
-      "resource": "dream_block"
+      "resource": "particle"
     },
     {
       "type": "directory",
       "source": "estrogen",
-      "prefix": "estrogen/block/dream_block"
+      "prefix": "estrogen/block/dream_block/particle"
     }
   ]
 }

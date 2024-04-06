@@ -28,7 +28,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         Advancement root = Advancement.Builder.advancement().display(EstrogenItems.ESTROGEN_PILL.get(),
                 Component.translatable("advancement.estrogen.root.title"),
                 Component.translatable("advancement.estrogen.root.description"),
-                Estrogen.id("textures/advancements/background.png"),
+                Estrogen.id("textures/block/dream_block/particle.png"),
                 FrameType.TASK,
                 true,
                 true,
