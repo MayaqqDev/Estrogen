@@ -15,8 +15,7 @@ import org.joml.Matrix4f;
 
 public class DreamBlockRenderer extends SafeBlockEntityRenderer<DreamBlockEntity> {
 
-    public DreamBlockRenderer(BlockEntityRendererProvider.Context context) {
-    }
+    public DreamBlockRenderer(BlockEntityRendererProvider.Context context) {}
 
     public void renderSafe(@NotNull DreamBlockEntity be, float f, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j) {
         // if(Backend.canUseInstancing(be.getLevel())) return;

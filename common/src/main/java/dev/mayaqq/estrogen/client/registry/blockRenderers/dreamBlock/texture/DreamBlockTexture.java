@@ -8,6 +8,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.GraphicsStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.RenderType;
@@ -18,7 +19,6 @@ import net.minecraft.util.FastColor;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.Weight;
 import net.minecraft.util.random.WeightedEntry;
-import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.level.Level;
 import org.joml.Math;
@@ -125,7 +125,9 @@ public class DreamBlockTexture {
                         style,
                         startTick,
                         endTick,
-                        reverse);
+                        reverse,
+                        random.nextInt(0, 3) == 0
+                );
 
                 nodes.get(dir).add(node);
             }
@@ -204,7 +206,7 @@ public class DreamBlockTexture {
         return output;
     }
 
-    private record Node(int x, int y, NodeColor color, NodeStyle style, int startTick, int endTick, boolean reverse) {
+    private record Node(int x, int y, NodeColor color, NodeStyle style, int startTick, int endTick, boolean reverse, boolean lessOpacity) {
         @Override
         public boolean equals(Object obj) {
             if(obj instanceof Node n) return effectivelyEqual(n); // Hacky but private class so ehh
@@ -219,6 +221,10 @@ public class DreamBlockTexture {
 
         public void draw(DynamicTextureMap.DrawContext context, int animTick) {
             int col = color.color;
+            if (lessOpacity) {
+                col = FastColor.ARGB32.multiply(col, 0xFE999999);
+                col = FastColor.ARGB32.multiply(col, 0xFE999999);
+            }
 
             if(x < 15 && y < 15 && x > 0 && y > 0) {
                 switch(style) {
@@ -314,11 +320,14 @@ public class DreamBlockTexture {
             return this.weight;
         }
 
-        public static NodeStyle weighted(RandomSource rng) {
-            WeightedRandomList<NodeStyle> weightedRandomList = WeightedRandomList.create(PIXEL, STAR, THINGY, STAR_ANIMATED);
+        private static final WeightedRandomList<NodeStyle> weightedRandomList = WeightedRandomList.create(PIXEL, STAR, THINGY, STAR_ANIMATED);
 
+        public static NodeStyle weighted(RandomSource rng) {
             return weightedRandomList.getRandom(rng).get();
         }
     }
 
+    public static boolean useFabulousGraphics() {
+        return (Minecraft.getInstance().options.graphicsMode().get()).getId() >= GraphicsStatus.FABULOUS.getId();
+    }
 }
