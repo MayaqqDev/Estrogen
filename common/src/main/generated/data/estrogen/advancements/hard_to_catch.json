@@ -1,0 +1,41 @@
+{
+  "parent": "estrogen:estrogen_pill",
+  "criteria": {
+    "hard_to_catch": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:phantom"
+            }
+          }
+        ],
+        "mobeffect": 34
+      },
+      "trigger": "estrogen:killed_with_effect"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.estrogen.hard_to_catch.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "minecraft:phantom_membrane"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.estrogen.hard_to_catch.title"
+    }
+  },
+  "requirements": [
+    [
+      "hard_to_catch"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -4,15 +4,19 @@ import com.google.common.collect.ImmutableSet;
 import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
+import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.advancements.triggers.InsertJarTrigger;
+import dev.mayaqq.estrogen.registry.advancements.triggers.KilledWithEffectTrigger;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 
 import java.util.Collection;
@@ -124,8 +128,6 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         ).addCriterion("cookie_jar_place", InsertJarTrigger.TriggerInstance.insertJar())
                 .build(Estrogen.id("cookie_jar"));
 
-        // TODO: Custom Trigger for this, right now its nothing
-        /*
         Advancement hard_to_catch = Advancement.Builder.advancement().parent(estrogenPill).display(Items.PHANTOM_MEMBRANE,
                 Component.translatable("advancement.estrogen.hard_to_catch.title"),
                 Component.translatable("advancement.estrogen.hard_to_catch.description"),
@@ -134,9 +136,12 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                 true,
                 true,
                 true
-        ).addCriterion("hard_to_catch", KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.ANY, DamageSourcePredicate.Builder.damageType()))
-                .build(Estrogen.id("hard_to_catch");
-         */
+        ).addCriterion("hard_to_catch", KilledWithEffectTrigger.TriggerInstance.killedWithEffect(
+                                EntityPredicate.wrap(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityType.PHANTOM)).build()),
+                                EstrogenEffects.ESTROGEN_EFFECT.get(), ContextAwarePredicate.ANY
+                        )
+                )
+                .build(Estrogen.id("hard_to_catch"));
 
         consumer.accept(root);
         consumer.accept(horseUrine);
@@ -147,6 +152,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         consumer.accept(uwu);
         consumer.accept(balls);
         consumer.accept(cookie_jar);
+        consumer.accept(hard_to_catch);
     }
 
     public static ItemPredicate getItems() {
@@ -155,7 +161,6 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         for (RegistryEntry<Item> item : itemEntries) {
             items.add(item.get());
         }
-        items.add(EstrogenBlocks.CENTRIFUGE.get().asItem());
         return  new ItemPredicate(null, items.build(),
                 MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, (Potion)null, NbtPredicate.ANY);
     }

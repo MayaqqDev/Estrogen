@@ -13,8 +13,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -94,6 +96,13 @@ public class EstrogenEvents {
     public static void playerTracking(Entity trackedEntity, Player player) {
         if (trackedEntity instanceof ServerPlayer trackedPlayer && player instanceof ServerPlayer trackingPlayer) {
             EstrogenEffect.sendPlayerStatusEffect(trackedPlayer, EstrogenEffects.ESTROGEN_EFFECT.get(), trackingPlayer);
+        }
+    }
+
+    public static void onEntityDeath(LivingEntity entity, DamageSource source) {
+        if (source.getEntity() instanceof ServerPlayer player) {
+            EstrogenAdvancementCriteria.KILLED_WITH_EFFECT.trigger(player, entity);
+
         }
     }
 }

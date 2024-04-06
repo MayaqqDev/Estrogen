@@ -48,14 +48,11 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements BlockCont
      * Don't call without calling canRemoveCookie
      */
     public void removeCookie() {
-        Estrogen.LOGGER.info("Removing cookie...");
         for (int i = this.items.size() - 1; i >= 0; i--) {
             ItemStack stackInSlot = getItem(i);
             if (stackInSlot.isEmpty()) {
-                Estrogen.LOGGER.info("Empty slot..");
                 continue;
             }
-            Estrogen.LOGGER.info("Found slot with item");
             this.setItem(i, stackInSlot.copyWithCount(stackInSlot.getCount() - 1));
             break;
         }

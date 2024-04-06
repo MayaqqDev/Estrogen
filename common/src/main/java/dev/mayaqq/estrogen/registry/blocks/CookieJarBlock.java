@@ -1,10 +1,12 @@
 package dev.mayaqq.estrogen.registry.blocks;
 
+import dev.mayaqq.estrogen.registry.EstrogenAdvancementCriteria;
 import dev.mayaqq.estrogen.registry.EstrogenSounds;
 import dev.mayaqq.estrogen.registry.blockEntities.CookieJarBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.Containers;
@@ -83,6 +85,7 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
                     if (!player.isCreative()) itemInHand.shrink(1);
                     level.playSound(null, pos, EstrogenSounds.JAR_PLACE.get(), SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * ((float) cookieJarBlockEntity.getCookieCount() / 512));
                     if (level instanceof ServerLevel serverLevel) {
+                        EstrogenAdvancementCriteria.INSERT_JAR.trigger((ServerPlayer) player);
                         serverLevel.sendParticles(ParticleTypes.CRIT, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
                     }
 

@@ -18,9 +18,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.random.Weight;
-import net.minecraft.util.random.WeightedEntry;
-import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.util.random.*;
 import net.minecraft.world.level.Level;
 import org.joml.Math;
 import org.joml.Matrix3f;
@@ -103,7 +101,7 @@ public class DreamBlockTexture {
 
         for(Direction dir : Direction.values()) {
             if(!nodes.containsKey(dir)) nodes.put(dir, new ObjectArraySet<>());
-            int nodeCount = random.nextIntBetweenInclusive(4, 8);
+            int nodeCount = random.nextIntBetweenInclusive(6, 12);
 
             for (int i = 0; i < nodeCount; i++) {
                 NodeColor color = NodeColor.values()[random.nextIntBetweenInclusive(0, 5)];
@@ -128,7 +126,7 @@ public class DreamBlockTexture {
                         startTick,
                         endTick,
                         reverse,
-                        random.nextInt(0, 3) == 0
+                        getTransparency(random)
                 );
 
                 nodes.get(dir).add(node);
@@ -208,7 +206,7 @@ public class DreamBlockTexture {
         return output;
     }
 
-    private record Node(int x, int y, NodeColor color, NodeStyle style, int startTick, int endTick, boolean reverse, boolean lessOpacity) {
+    private record Node(int x, int y, NodeColor color, NodeStyle style, int startTick, int endTick, boolean reverse, int lessOpacity) {
         @Override
         public boolean equals(Object obj) {
             if(obj instanceof Node n) return effectivelyEqual(n); // Hacky but private class so ehh
@@ -223,9 +221,17 @@ public class DreamBlockTexture {
 
         public void draw(DynamicTextureMap.DrawContext context, int animTick) {
             int col = color.color;
-            if (lessOpacity) {
-                col = FastColor.ARGB32.multiply(col, 0xFE999999);
-                col = FastColor.ARGB32.multiply(col, 0xFE999999);
+
+            switch (lessOpacity) {
+                case 1: {
+                    col = FastColor.ARGB32.multiply(col, 0xFE999999);
+                    col = FastColor.ARGB32.multiply(col, 0xFE999999);
+                }
+                case 2: {
+                    col = FastColor.ARGB32.multiply(col, 0xFE999999);
+                    col = FastColor.ARGB32.multiply(col, 0xFE999999);
+                    col = FastColor.ARGB32.multiply(col, 0xFE999999);
+                }
             }
 
             if(x < 15 && y < 15 && x > 0 && y > 0) {
@@ -331,5 +337,11 @@ public class DreamBlockTexture {
 
     public static boolean useFabulousGraphics() {
         return (Minecraft.getInstance().options.graphicsMode().get()).getId() >= GraphicsStatus.FABULOUS.getId();
+    }
+
+    private static final SimpleWeightedRandomList<Object> transparency = new SimpleWeightedRandomList.Builder<>().add(0, 5).add(1, 2).add(2, 1).build();
+
+    public static int getTransparency(RandomSource rng) {
+        return (int) transparency.getRandom(rng).get().getData();
     }
 }
