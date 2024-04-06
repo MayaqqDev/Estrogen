@@ -32,6 +32,7 @@ import java.util.function.BiPredicate;
 @Environment(EnvType.CLIENT)
 public class DreamBlockTexture {
 
+    public static int maxAnimTick = useFabulousGraphics() ? 15 : 30;
     public static int currentAnimationTick = 0;
     private final DynamicTextureMap map;
     private final DreamBlockEntity blockEntity;
@@ -47,7 +48,7 @@ public class DreamBlockTexture {
 
     public static void animationTick() {
         currentAnimationTick++;
-        if(currentAnimationTick > 30) currentAnimationTick = 0;
+        if(currentAnimationTick > maxAnimTick) currentAnimationTick = 0;
     }
 
     public void init() {
@@ -114,8 +115,8 @@ public class DreamBlockTexture {
 
                 if(posY > 2 && posX < 14 && posX > 2 && posY < 14) {
                     boolean hasAnim = (style == NodeStyle.STAR_ANIMATED);
-                    startTick = hasAnim ? random.nextIntBetweenInclusive(0, 15) : -1;
-                    endTick = hasAnim ? startTick + 15 : -1;
+                    startTick = hasAnim ? random.nextIntBetweenInclusive(0, maxAnimTick / 2) : -1;
+                    endTick = hasAnim ? startTick + maxAnimTick / 2 : -1;
                     reverse = random.nextBoolean();
                 }
 
