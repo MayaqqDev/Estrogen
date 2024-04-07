@@ -40,7 +40,7 @@ public class DreamBlockTexture {
     public static int currentAnimationTick = 0;
     private final DynamicTextureMap map;
     private final DreamBlockEntity blockEntity;
-    private final Map<Direction, Set<Node>> nodes = new Object2ObjectArrayMap<>(6);
+    private final Map<Direction, Set<Goober>> nodes = new Object2ObjectArrayMap<>(6);
     private final RandomSource random;
 
     public DreamBlockTexture(DreamBlockEntity blockEntity) {
@@ -65,8 +65,8 @@ public class DreamBlockTexture {
         if(!Minecraft.useFancyGraphics()) return;
         int ct = currentAnimationTick;
         for(Direction direction : Direction.values()) {
-            for(Node node : nodes.get(direction)) {
-                if(ct == node.startTick() || ct == node.endTick()) {
+            for(Goober goober : nodes.get(direction)) {
+                if(ct == goober.startTick() || ct == goober.endTick()) {
                     map.draw(direction, this::draw);
                 }
             }
@@ -108,8 +108,8 @@ public class DreamBlockTexture {
             int nodeCount = random.nextIntBetweenInclusive(6, 12);
 
             for (int i = 0; i < nodeCount; i++) {
-                NodeColor color = NodeColor.values()[random.nextIntBetweenInclusive(0, 5)];
-                NodeStyle style = NodeStyle.weighted(random);
+                GooberColor color = GooberColor.values()[random.nextIntBetweenInclusive(0, 5)];
+                GooberStyle style = GooberStyle.weighted(random);
 
                 int posX = random.nextInt(0, 16);
                 int posY = random.nextInt(0, 16);
@@ -117,13 +117,13 @@ public class DreamBlockTexture {
                 boolean reverse = false;
 
                 if(posY > 2 && posX < 14 && posX > 2 && posY < 14) {
-                    boolean hasAnim = (style == NodeStyle.STAR_ANIMATED);
+                    boolean hasAnim = (style == GooberStyle.STAR_ANIMATED);
                     startTick = hasAnim ? random.nextIntBetweenInclusive(0, maxAnimTick / 2) : -1;
                     endTick = hasAnim ? startTick + maxAnimTick / 2 : -1;
                     reverse = random.nextBoolean();
                 }
 
-                Node node = new Node(posX,
+                Goober goober = new Goober(posX,
                         posY,
                         color,
                         style,
@@ -133,7 +133,7 @@ public class DreamBlockTexture {
                         getTransparency(random)
                 );
 
-                nodes.get(dir).add(node);
+                nodes.get(dir).add(goober);
             }
         }
     }
@@ -149,8 +149,8 @@ public class DreamBlockTexture {
         ctx.applyToPixels(i -> 0xEE100005); // Draw the background
 
         // Draw the silly stars
-        for(Node node : nodes.get(ctx.face())) {
-            node.draw(ctx, currentAnimationTick);
+        for(Goober goober : nodes.get(ctx.face())) {
+            goober.draw(ctx, currentAnimationTick);
         }
 
          drawBorder(ctx); // Draw the connected border
@@ -230,16 +230,16 @@ public class DreamBlockTexture {
 
     }
 
-    private record Node(int x, int y, NodeColor color, NodeStyle style, int startTick, int endTick, boolean reverse, int lessOpacity) {
+    private record Goober(int x, int y, GooberColor color, GooberStyle style, int startTick, int endTick, boolean reverse, int lessOpacity) {
         @Override
         public boolean equals(Object obj) {
-            if(obj instanceof Node n) return effectivelyEqual(n); // Hacky but private class so ehh
+            if(obj instanceof Goober n) return effectivelyEqual(n); // Hacky but private class so ehh
             return false;
         };
 
-        public boolean effectivelyEqual(Node node) {
-            int difX = Math.abs(this.x - node.x);
-            int difY = Math.abs(this.y - node.y);
+        public boolean effectivelyEqual(Goober goober) {
+            int difX = Math.abs(this.x - goober.x);
+            int difY = Math.abs(this.y - goober.y);
             return (difX < 4 && difY < 4 || difX < 2 || difY < 2);
         }
 
@@ -305,7 +305,7 @@ public class DreamBlockTexture {
         }
     }
 
-    private enum NodeColor {
+    private enum GooberColor {
 
         YELLOW(rgb(255, 255, 0)),
         CYAN(rgb(0, 241, 254)),
@@ -315,7 +315,7 @@ public class DreamBlockTexture {
         GREEN2(rgb(0, 158, 13));
 
         final int color;
-        NodeColor(int color) {
+        GooberColor(int color) {
             this.color = color;
         }
 
@@ -336,14 +336,14 @@ public class DreamBlockTexture {
         }
     }
 
-    private enum NodeStyle implements WeightedEntry {
+    private enum GooberStyle implements WeightedEntry {
         PIXEL(2), // Pixel has a lower weight because any node drawn on a border becomes a pixel
         STAR(3),
         THINGY(1),
         STAR_ANIMATED(3);
 
         final Weight weight;
-        NodeStyle(int weight) {
+        GooberStyle(int weight) {
             this.weight = Weight.of(weight);
         }
 
@@ -352,9 +352,9 @@ public class DreamBlockTexture {
             return this.weight;
         }
 
-        private static final WeightedRandomList<NodeStyle> weightedRandomList = WeightedRandomList.create(values());
+        private static final WeightedRandomList<GooberStyle> weightedRandomList = WeightedRandomList.create(values());
 
-        public static NodeStyle weighted(RandomSource rng) {
+        public static GooberStyle weighted(RandomSource rng) {
             return weightedRandomList.getRandom(rng).get();
         }
     }
