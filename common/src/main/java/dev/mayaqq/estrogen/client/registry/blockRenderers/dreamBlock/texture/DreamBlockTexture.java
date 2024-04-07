@@ -20,6 +20,8 @@ import net.minecraft.util.FastColor;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Math;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
@@ -35,7 +37,8 @@ public class DreamBlockTexture {
     public static int currentAnimationTick = 0;
     private final DynamicTextureMap map;
     private final DreamBlockEntity blockEntity;
-    private final Map<Direction, Set<Node>> nodes = new Object2ObjectArrayMap<>();
+    private final Map<Direction, Set<Node>> nodes = new Object2ObjectArrayMap<>(6);
+    private final Map<Direction, BiPredicate<Integer, Integer>> border = new Object2ObjectArrayMap<>(6);
     private final RandomSource random;
 
     public DreamBlockTexture(DreamBlockEntity blockEntity) {
@@ -69,6 +72,7 @@ public class DreamBlockTexture {
     }
 
     public void redraw() {
+        border.clear();
         map.drawAll(this::draw);
     }
 
@@ -175,33 +179,54 @@ public class DreamBlockTexture {
     }
 
     private BiPredicate<Integer, Integer> connectedBorder(DreamBlockEntity be, Direction face) {
+        if(border.containsKey(face)) return border.get(face);
+
         BlockPos pos = be.getBlockPos();
         Level level = be.getLevel();
+        Block dreamBlock = EstrogenBlocks.DREAM_BLOCK.get();
 
         BiPredicate<Integer, Integer> output = (x, y) -> false;
-
 
         boolean positive = face.getAxisDirection() == Direction.AxisDirection.POSITIVE;
         Direction right = getRightDirection(face);
         Direction up = getUpDirection(face);
 
-        right = positive ? right.getOpposite() : right;
         if (face.getAxis() == Direction.Axis.X) {
             up = up.getOpposite();
             right = right.getOpposite();
         }
 
-        if(!level.getBlockState(pos.relative(right.getOpposite())).is(EstrogenBlocks.DREAM_BLOCK.get()))
-            output = positive ? output.or((x, y) -> x == 0) : output.or((x, y) -> x == 15);
+        up = positive ? up.getOpposite() : up;
 
-        if(!level.getBlockState(pos.relative(right)).is(EstrogenBlocks.DREAM_BLOCK.get()))
-            output = positive ? output.or((x, y) -> x == 15) : output.or((x, y) -> x == 0);
+        if(level == null) return output;
 
-        if(!level.getBlockState(pos.relative(up.getOpposite())).is(EstrogenBlocks.DREAM_BLOCK.get()))
-            output = positive ? output.or((x, y) -> y == 0) : output.or((x, y) -> y == 15);
+        BlockState stateR = level.getBlockState(pos.relative(right));
+        BlockState stateL = level.getBlockState(pos.relative(right.getOpposite()));
+        BlockState stateUp = level.getBlockState(pos.relative(up));
+        BlockState stateDown = level.getBlockState(pos.relative(up.getOpposite()));
 
-        if(!level.getBlockState(pos.relative(up)).is(EstrogenBlocks.DREAM_BLOCK.get()))
-            output = positive ? output.or((x, y) -> y == 15) : output.or((x, y) -> y == 0);
+        if(!stateL.is(dreamBlock)) output = output.or((x, y) -> x == 15);
+
+        if(!stateR.is(dreamBlock)) output = output.or((x, y) -> x == 0);
+
+        if(!stateDown.is(dreamBlock)) output = output.or((x, y) -> y == 15);
+
+        if(!stateUp.is(dreamBlock)) output = output.or((x, y) -> y == 0);
+
+        BlockState cornerUpRight = level.getBlockState(pos.relative(up).relative(right));
+        BlockState cornerUpLeft = level.getBlockState(pos.relative(up).relative(right.getOpposite()));
+        BlockState cornerDownRight = level.getBlockState(pos.relative(up.getOpposite()).relative(right));
+        BlockState corderDownLeft = level.getBlockState(pos.relative(up.getOpposite()).relative(right.getOpposite()));
+
+        if(!cornerUpLeft.is(dreamBlock)) output = output.or((x, y) -> (x == 15 && y == 0));
+
+        if(!cornerUpRight.is(dreamBlock)) output = output.or((x, y) -> (x == 0 && y == 0));
+
+        if(!corderDownLeft.is(dreamBlock)) output = output.or((x, y) -> (x == 15 && y == 15));
+
+        if(!cornerDownRight.is(dreamBlock)) output = output.or((x, y) -> (x == 0 && y == 15));
+
+        border.put(face, output);
 
         return output;
     }

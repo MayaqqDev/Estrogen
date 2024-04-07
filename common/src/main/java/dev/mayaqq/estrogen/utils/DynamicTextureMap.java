@@ -1,12 +1,14 @@
 package dev.mayaqq.estrogen.utils;
 
 import com.mojang.blaze3d.platform.NativeImage;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 
 /**
