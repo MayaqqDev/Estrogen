@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture;
 
-import com.jozufozu.flywheel.core.hardcoded.ModelPart;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
@@ -19,7 +18,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.random.*;
+import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.Weight;
+import net.minecraft.util.random.WeightedEntry;
+import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
