@@ -40,7 +40,7 @@ public class DreamBlockTexture {
     public static int currentAnimationTick = 0;
     private final DynamicTextureMap map;
     private final DreamBlockEntity blockEntity;
-    private final Map<Direction, Set<Goober>> nodes = new Object2ObjectArrayMap<>(6);
+    private final Map<Direction, Set<Goober>> goobers = new Object2ObjectArrayMap<>(6);
     private final RandomSource random;
 
     public DreamBlockTexture(DreamBlockEntity blockEntity) {
@@ -65,7 +65,7 @@ public class DreamBlockTexture {
         if(!Minecraft.useFancyGraphics()) return;
         int ct = currentAnimationTick;
         for(Direction direction : Direction.values()) {
-            for(Goober goober : nodes.get(direction)) {
+            for(Goober goober : goobers.get(direction)) {
                 if(ct == goober.startTick() || ct == goober.endTick()) {
                     map.draw(direction, this::draw);
                 }
@@ -104,7 +104,7 @@ public class DreamBlockTexture {
 
     private void populateNodes() {
         for(Direction dir : Direction.values()) {
-            if(!nodes.containsKey(dir)) nodes.put(dir, new ObjectArraySet<>());
+            if(!goobers.containsKey(dir)) goobers.put(dir, new ObjectArraySet<>());
             int nodeCount = random.nextIntBetweenInclusive(6, 12);
 
             for (int i = 0; i < nodeCount; i++) {
@@ -133,7 +133,7 @@ public class DreamBlockTexture {
                         getTransparency(random)
                 );
 
-                nodes.get(dir).add(goober);
+                goobers.get(dir).add(goober);
             }
         }
     }
@@ -149,7 +149,7 @@ public class DreamBlockTexture {
         ctx.applyToPixels(i -> 0xEE100005); // Draw the background
 
         // Draw the silly stars
-        for(Goober goober : nodes.get(ctx.face())) {
+        for(Goober goober : goobers.get(ctx.face())) {
             goober.draw(ctx, currentAnimationTick);
         }
 
