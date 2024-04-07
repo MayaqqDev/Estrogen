@@ -3,7 +3,7 @@
   "effect.estrogen.estrogen.description": "Permet au joueur de se propulser et lui donnes des \"attributs\" supplémentaires",
 
 
-  "category.estrogen": "Œstrogène",
+  "category.estrogen": "Estrogen",
   "key.estrogen.dash": "Propulsion",
 
 
@@ -64,6 +64,8 @@
   "advancement.estrogen.balls.description": "Que se passe-t-il quand on sépare le Slime et les Boules?",
   "advancement.estrogen.cookie_jar.title": "Accepter et continuer",
   "advancement.estrogen.cookie_jar.description": "Ce mod recquiert des cookies pour fonctionner normalement. Veuiller les insérer dans la jarre.",
+  "advancement.estrogen.hard_to_catch.title": "Et oui Jammy ! Les oiseaux sont difficile à attraper !",
+  "advancement.estrogen.hard_to_catch.description": "Wow ! Ça va vite !",
 
 
   "block.estrogen.centrifuge": "Centrifugeuse",
