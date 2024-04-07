@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture;
 
+import com.jozufozu.flywheel.core.hardcoded.ModelPart;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
@@ -38,7 +39,6 @@ public class DreamBlockTexture {
     private final DynamicTextureMap map;
     private final DreamBlockEntity blockEntity;
     private final Map<Direction, Set<Node>> nodes = new Object2ObjectArrayMap<>(6);
-    private final Map<Direction, BiPredicate<Integer, Integer>> border = new Object2ObjectArrayMap<>(6);
     private final RandomSource random;
 
     public DreamBlockTexture(DreamBlockEntity blockEntity) {
@@ -72,7 +72,6 @@ public class DreamBlockTexture {
     }
 
     public void redraw() {
-        border.clear();
         map.drawAll(this::draw);
     }
 
@@ -179,7 +178,6 @@ public class DreamBlockTexture {
     }
 
     private BiPredicate<Integer, Integer> connectedBorder(DreamBlockEntity be, Direction face) {
-        if(border.containsKey(face)) return border.get(face);
 
         BlockPos pos = be.getBlockPos();
         Level level = be.getLevel();
@@ -226,9 +224,9 @@ public class DreamBlockTexture {
 
         if(!cornerDownRight.is(dreamBlock)) output = output.or((x, y) -> (x == 0 && y == 15));
 
-        border.put(face, output);
 
         return output;
+
     }
 
     private record Node(int x, int y, NodeColor color, NodeStyle style, int startTick, int endTick, boolean reverse, int lessOpacity) {
