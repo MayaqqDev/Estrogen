@@ -52,8 +52,9 @@ public class ClientPlayNetworkHandlerMixin {
             BlockPos pos = packet.getPos().relative(dir);
             BlockEntity be = level.getBlockEntity(pos);
             if(be instanceof DreamBlockEntity dream) {
-                dream.updateTexture();
+                dream.updateTexture(dir.getAxis() != Direction.Axis.Y);
             }
+
 
         }
 

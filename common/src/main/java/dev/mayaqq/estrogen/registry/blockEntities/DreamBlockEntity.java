@@ -34,8 +34,16 @@ public class DreamBlockEntity extends BlockEntity {
     }
 
     @Environment(EnvType.CLIENT)
-    public void updateTexture() {
+    public void updateTexture(boolean propagateUpDown) {
         if(this.texture != null)
             texture.redraw();
+
+        if(propagateUpDown && level != null) {
+            BlockEntity above = level.getBlockEntity(worldPosition.above());
+            BlockEntity below = level.getBlockEntity(worldPosition.below());
+            if(above instanceof DreamBlockEntity dUp) dUp.updateTexture(false);
+            if(below instanceof DreamBlockEntity dDown) dDown.updateTexture(false);
+        }
+
     }
 }
