@@ -22,7 +22,8 @@ public class EstrogenSounds {
     public static final RegistryEntry<SoundEvent> AMPHITRITE = SOUNDS.register("amphitrite", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("amphitrite")));
     public static final RegistryEntry<SoundEvent> AURUM_BERRY = SOUNDS.register("aurum_berry", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("aurum_berry")));
     public static final RegistryEntry<SoundEvent> ESTROGEN_AMBIENT = SOUNDS.register("estrogen_ambient", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("estrogen_ambient")));
-    public static final RegistryEntry<SoundEvent> AN_INFFERED_DREAM = SOUNDS.register("an_inffered_dream", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("an_inffered_dream")));
+    public static final RegistryEntry<SoundEvent> INFERRED_DREAMS = SOUNDS.register("inferred_dreams", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("inferred_dreams")));
+    public static final RegistryEntry<SoundEvent> WAKING_HOURS = SOUNDS.register("waking_hours", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("waking_hours")));
 
     // Dream Blocks
     public static final RegistryEntry<SoundEvent> DREAM_BLOCK_ENTER = SOUNDS.register("dream_block_enter", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("dream_block_enter")));

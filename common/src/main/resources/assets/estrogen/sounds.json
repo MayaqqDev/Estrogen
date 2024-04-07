@@ -85,17 +85,23 @@
       "estrogen:music/aurum_berry"
     ]
   },
-  "an_inferred_dream": {
+  "inferred_dreams": {
       "sounds": [
-      "estrogen:music/an_inferred_dream"
+      "estrogen:music/inferred_dreams"
       ]
+  },
+  "waking_hours": {
+    "sounds": [
+      "estrogen:music/waking_hours"
+    ]
   },
   "estrogen_ambient": {
     "sounds": [
       "estrogen:music/amphitrite",
       "estrogen:music/trust_yourself",
       "estrogen:music/aurum_berry",
-      "estrogen:music/an_inferred_dream"
+      "estrogen:music/inferred_dreams",
+      "estrogen:music/waking_hours"
     ]
   },
   "jar_crystal_place": {
