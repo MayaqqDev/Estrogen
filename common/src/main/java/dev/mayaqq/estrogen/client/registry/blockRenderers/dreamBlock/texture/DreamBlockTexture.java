@@ -103,7 +103,6 @@ public class DreamBlockTexture {
     }
 
     private void populateNodes() {
-
         for(Direction dir : Direction.values()) {
             if(!nodes.containsKey(dir)) nodes.put(dir, new ObjectArraySet<>());
             int nodeCount = random.nextIntBetweenInclusive(6, 12);
@@ -353,7 +352,7 @@ public class DreamBlockTexture {
             return this.weight;
         }
 
-        private static final WeightedRandomList<NodeStyle> weightedRandomList = WeightedRandomList.create(PIXEL, STAR, THINGY, STAR_ANIMATED);
+        private static final WeightedRandomList<NodeStyle> weightedRandomList = WeightedRandomList.create(values());
 
         public static NodeStyle weighted(RandomSource rng) {
             return weightedRandomList.getRandom(rng).get();
