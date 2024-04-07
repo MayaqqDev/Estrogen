@@ -48,7 +48,7 @@
   "depends": {
     "fabricloader": ">=0.15.3",
     "minecraft": "${minecraft_version}",
-    "create": "*",
+    "create": ">=0.5.1-f-build.1224",
     "trinkets": "*",
     "botarium": "*",
     "resourcefullib": "*"
@@ -60,7 +60,7 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.discord": "https://discord.gg/w7PpGax9Bq"
+        "modmenu.discord": "https://discord.gg/hue"
       }
     },
     "resourcefullib:resourcepack": [
