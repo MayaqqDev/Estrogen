@@ -88,6 +88,8 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("advancement.estrogen.cookie_jar.description", "This mod requires cookies to work properly. Please insert them into the jar");
         tb.add("advancement.estrogen.hard_to_catch.title", "Fact: Birds are hard to catch");
         tb.add("advancement.estrogen.hard_to_catch.description", "Wow. It's fast!");
+        tb.add("advancement.estrogen.estrogen_dealer.title", "Estrogen Dealer");
+        tb.add("advancement.estrogen.estrogen_dealer.description", "I am the one who knocks");
 
         // Blocks
         tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuge");

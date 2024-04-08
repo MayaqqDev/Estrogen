@@ -1,0 +1,37 @@
+{
+  "parent": "estrogen:estrogen_pill",
+  "criteria": {
+    "estrogen_dealer": {
+      "conditions": {
+        "item": {
+          "items": [
+            "estrogen:estrogen_pill",
+            "estrogen:crystal_estrogen_pill"
+          ]
+        }
+      },
+      "trigger": "minecraft:thrown_item_picked_up_by_player"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.estrogen.estrogen_dealer.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:sugar"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.estrogen.estrogen_dealer.title"
+    }
+  },
+  "requirements": [
+    [
+      "estrogen_dealer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

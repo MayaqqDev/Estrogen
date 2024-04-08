@@ -143,6 +143,23 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                 )
                 .build(Estrogen.id("hard_to_catch"));
 
+        Advancement estrogen_dealer = Advancement.Builder.advancement().parent(estrogenPill).display(Items.SUGAR,
+                Component.translatable("advancement.estrogen.estrogen_dealer.title"),
+                Component.translatable("advancement.estrogen.estrogen_dealer.description"),
+                null,
+                FrameType.GOAL,
+                true,
+                true,
+                false
+        ).addCriterion(
+                "estrogen_dealer",
+                        PickedUpItemTrigger.TriggerInstance.thrownItemPickedUpByPlayer(
+                                ContextAwarePredicate.ANY,
+                                ItemPredicate.Builder.item().of(EstrogenItems.ESTROGEN_PILL.get(), EstrogenItems.CRYSTAL_ESTROGEN_PILL.get()).build(),
+                                ContextAwarePredicate.ANY)
+                )
+                .build(Estrogen.id("estrogen_dealer"));
+
         consumer.accept(root);
         consumer.accept(horseUrine);
         consumer.accept(usedFilter);
@@ -153,6 +170,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         consumer.accept(balls);
         consumer.accept(cookie_jar);
         consumer.accept(hard_to_catch);
+        consumer.accept(estrogen_dealer);
     }
 
     public static ItemPredicate getItems() {
