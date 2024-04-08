@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "estrogen:block/estrogen_pill_block",
+      "y": 90
+    },
+    "facing=north": {
       "model": "estrogen:block/estrogen_pill_block"
+    },
+    "facing=south": {
+      "model": "estrogen:block/estrogen_pill_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "estrogen:block/estrogen_pill_block",
+      "y": 270
     }
   }
 }
