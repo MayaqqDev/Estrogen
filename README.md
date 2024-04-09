@@ -15,11 +15,12 @@
 <a href="https://discord.gg/hue">
     <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-plural_vector.svg" width="100" height="100" alt="Discord">
 </a>
+
 </div>
 
 ## `Information`
 
-> [!WARNING]
+> [!TIP]
 > **[EMI](https://modrinth.com/mod/emi)/[JEI](https://modrinth.com/mod/jei)/[REI](https://modrinth.com/mod/rei)** is highly recommended to be installed with this mod to see all the recipes and
 > progression!
 
