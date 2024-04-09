@@ -4,6 +4,7 @@ import dev.mayaqq.estrogen.client.Dash;
 import dev.mayaqq.estrogen.registry.EstrogenEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.PlayerTickEvents;
+import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -37,5 +38,8 @@ public class EstrogenFabricEvents {
             if (hitResult == null) return InteractionResult.PASS;
             return Objects.requireNonNullElse(EstrogenEvents.entityInteract(player, entity, player.getItemInHand(hand), world), InteractionResult.PASS);
         });
+
+        // Entity Death
+        ServerLivingEntityEvents.AFTER_DEATH.register(EstrogenEvents::onEntityDeath);
     }
 }
