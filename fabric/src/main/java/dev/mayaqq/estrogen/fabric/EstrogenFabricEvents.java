@@ -37,10 +37,5 @@ public class EstrogenFabricEvents {
             if (hitResult == null) return InteractionResult.PASS;
             return Objects.requireNonNullElse(EstrogenEvents.entityInteract(player, entity, player.getItemInHand(hand), world), InteractionResult.PASS);
         });
-
-        LivingEntityEvents.DROPS.register((target, source, drops, lootingLevel, recentlyHit) -> {
-            EstrogenEvents.onEntityDeath(target, source);
-            return true;
-        });
     }
 }
