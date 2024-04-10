@@ -37,8 +37,6 @@ public class Estrogen {
         EstrogenItems.registerTooltips();
         EstrogenBlocks.registerExtraProperties();
 
-        EstrogenPotatoProjectiles.register();
-
         LOGGER.info("Injecting Estrogen into your veins!");
     }
 }

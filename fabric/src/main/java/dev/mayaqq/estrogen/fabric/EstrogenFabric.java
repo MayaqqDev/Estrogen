@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.fabric;
 import com.simibubi.create.foundation.config.ConfigBase;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.registry.EstrogenPotatoProjectiles;
 import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import fuzs.forgeconfigapiport.api.config.v2.ModConfigEvents;
 import net.fabricmc.api.ModInitializer;
@@ -19,6 +20,10 @@ public class EstrogenFabric implements ModInitializer {
             ForgeConfigRegistry.INSTANCE.register(Estrogen.MOD_ID, pair.getKey(), pair.getValue().specification);
         // init Estrogen main class
         Estrogen.init();
+
+        // Projectiles, its here because forge :puke:
+        EstrogenPotatoProjectiles.register();
+
         // Register Fabric specific Events
         EstrogenFabricEvents.register();
 

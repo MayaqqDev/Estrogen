@@ -90,9 +90,14 @@
       "estrogen:music/inferred_dreams"
       ]
   },
-  "waking_hours": {
+  "sleeping": {
     "sounds": [
-      "estrogen:music/waking_hours"
+      "estrogen:music/sleeping"
+    ]
+  },
+  "inner_selfrealization": {
+    "sounds": [
+      "estrogen:music/inner_self-realization"
     ]
   },
   "estrogen_ambient": {
@@ -101,7 +106,7 @@
       "estrogen:music/trust_yourself",
       "estrogen:music/aurum_berry",
       "estrogen:music/inferred_dreams",
-      "estrogen:music/waking_hours"
+      "estrogen:music/sleeping"
     ]
   },
   "jar_crystal_place": {
