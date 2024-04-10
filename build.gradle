@@ -103,7 +103,7 @@ allprojects {
 }
 
 publishMods {
-    changelog = file("CHANGELOG.md").text
+    changelog = file("CHANGELOG.md").text.replace("@VERSION@", rootProject.mod_version)
     type = STABLE
 
     def optionsCurseforge = curseforgeOptions {

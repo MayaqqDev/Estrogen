@@ -4,7 +4,6 @@ import com.simibubi.create.foundation.config.ConfigBase;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEvents;
-import dev.mayaqq.estrogen.registry.EstrogenPotatoProjectiles;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.PathPackResources;
@@ -23,7 +22,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @Mod.EventBusSubscriber(modid = Estrogen.MOD_ID)
 public class EstrogenForgeEvents {
@@ -97,10 +95,5 @@ public class EstrogenForgeEvents {
     @SubscribeEvent
     public static void onEntityDeath(LivingDeathEvent event) {
         EstrogenEvents.onEntityDeath(event.getEntity(), event.getSource());
-    }
-
-    @SubscribeEvent
-    public static void init(final FMLCommonSetupEvent event) {
-        event.enqueueWork(EstrogenPotatoProjectiles::register);
     }
 }
