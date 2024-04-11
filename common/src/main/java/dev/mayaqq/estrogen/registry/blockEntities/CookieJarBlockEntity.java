@@ -1,19 +1,19 @@
 package dev.mayaqq.estrogen.registry.blockEntities;
 
 import com.simibubi.create.foundation.blockEntity.SyncedBlockEntity;
-import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.backport.BlockContainerSingleItem;
 import dev.mayaqq.estrogen.registry.EstrogenBlockEntities;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class CookieJarBlockEntity extends SyncedBlockEntity implements BlockContainerSingleItem {
+public class CookieJarBlockEntity extends SyncedBlockEntity implements Container {
     private final NonNullList<ItemStack> items = NonNullList.withSize(8, ItemStack.EMPTY);
 
     public CookieJarBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -78,18 +78,38 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements BlockCont
     }
 
     @Override
+    public int getContainerSize() {
+        return items.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+
+    @Override
     public ItemStack getItem(int slot) {
         return this.items.get(slot);
     }
 
     @Override
     public ItemStack removeItem(int slot, int amount) {
-        return ItemStack.EMPTY;
+        return items.set(slot, items.get(slot).copyWithCount(items.get(slot).getCount() - amount));
+    }
+
+    @Override
+    public ItemStack removeItemNoUpdate(int slot) {
+        return removeItem(slot, 1);
     }
 
     @Override
     public void setItem(int slot, ItemStack stack) {
         this.items.set(slot, stack);
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return true;
     }
 
     @Override
@@ -114,5 +134,10 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements BlockCont
     public void readClient(CompoundTag tag) {
         super.readClient(tag);
         ContainerHelper.loadAllItems(tag, items);
+    }
+
+    @Override
+    public void clearContent() {
+        items.clear();
     }
 }
