@@ -2,7 +2,7 @@
 ![banner](https://cdn.modrinth.com/data/HhIJW8n1/images/bfde9c03d8e75f73b469d51b5f41ef31dc8c29de.png)
 
 <div align="center">
-
+<center>
 <a href="https://modrinth.com/mod/estrogen/versions">
     <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/modrinth_vector.svg" width="100" height="100" alt="Modrinth">
 </a>
@@ -15,7 +15,7 @@
 <a href="https://discord.gg/hue">
     <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-plural_vector.svg" width="100" height="100" alt="Discord">
 </a>
-
+</center>
 </div>
 
 ## `Information`
