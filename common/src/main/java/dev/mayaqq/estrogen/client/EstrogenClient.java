@@ -9,6 +9,7 @@ import com.simibubi.create.foundation.item.render.CustomRenderedItemModelRendere
 import com.simibubi.create.foundation.item.render.CustomRenderedItems;
 import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
+import dev.mayaqq.estrogen.client.config.ConfigSync;
 import dev.mayaqq.estrogen.client.registry.EstrogenKeybinds;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeCogInstance;
@@ -32,6 +33,7 @@ import java.util.function.Supplier;
 
 public class EstrogenClient {
     public static void init() {
+        ConfigSync.cacheConfig();
         EstrogenRenderer.register();
         EstrogenPonderScenes.register();
         EstrogenKeybinds.register();
