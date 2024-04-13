@@ -3,7 +3,6 @@ package dev.mayaqq.estrogen.datagen.advancements;
 import com.google.common.collect.ImmutableSet;
 import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.advancements.triggers.InsertJarTrigger;

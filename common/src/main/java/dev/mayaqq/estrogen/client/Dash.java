@@ -11,7 +11,6 @@ import dev.mayaqq.estrogen.registry.EstrogenTags;
 import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
 import dev.mayaqq.estrogen.registry.sounds.DreamBlockSoundInstance;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;

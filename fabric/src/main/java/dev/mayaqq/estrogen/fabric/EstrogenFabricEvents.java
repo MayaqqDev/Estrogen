@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.fabric;
 
 import dev.mayaqq.estrogen.client.Dash;
 import dev.mayaqq.estrogen.registry.EstrogenEvents;
-import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.PlayerTickEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
