@@ -90,12 +90,6 @@ public class EstrogenConfig {
         public final ConfigGroup misc = group(1, "misc", "Miscellaneous settings");
         public final ConfigBool entityPatting = b(true, "entityPatting", "Allows you to pat entities by shift right-clicking them!");
 
-        // Blocks Config Group
-        public final ConfigGroup blocks = group(2, "blocks", "Settings for blocks and such, usually rendering");
-        public final ConfigGroup dreamBlock = group(1, "dreamBlock", "Configuration for the dream block");
-        public final ConfigInt animSpeedNormal = i(30, 0, 120,  "fancyAnimationSpeed", "Speed of the animation on Fancy graphics");
-        public final ConfigInt animSpeedFabulous = i(15, 0, 120,  "fabulousAnimationSpeed", "Speed of the animation on Fabulous graphics");
-
         // Accessory Config Group
         public final ConfigGroup accessory = group(1, "accessory", "Settings for Equippable Items");
         public final ConfigBool estrogenPatchRender = b(true, "estrogenPatchRender", "Render estrogen patches on the player");

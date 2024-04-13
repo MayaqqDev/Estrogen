@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
 import dev.mayaqq.estrogen.utils.DynamicTextureMap;
@@ -9,7 +8,6 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.GraphicsStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.RenderType;
@@ -36,7 +34,7 @@ import java.util.function.BiPredicate;
 @Environment(EnvType.CLIENT)
 public class DreamBlockTexture {
 
-    public static int maxAnimTick = useFabulousGraphics() ? EstrogenConfig.client().animSpeedFabulous.get() : EstrogenConfig.client().animSpeedNormal.get();
+    public static int maxAnimTick = 30;
     public static int currentAnimationTick = 0;
     private final DynamicTextureMap map;
     private final DreamBlockEntity blockEntity;
@@ -357,10 +355,6 @@ public class DreamBlockTexture {
         public static GooberStyle weighted(RandomSource rng) {
             return weightedRandomList.getRandom(rng).get();
         }
-    }
-
-    public static boolean useFabulousGraphics() {
-        return (Minecraft.getInstance().options.graphicsMode().get()).getId() >= GraphicsStatus.FABULOUS.getId();
     }
 
     private static final SimpleWeightedRandomList<Object> transparency = new SimpleWeightedRandomList.Builder<>().add(0, 5).add(1, 2).add(2, 1).build();
