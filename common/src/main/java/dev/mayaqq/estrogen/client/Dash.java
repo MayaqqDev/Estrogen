@@ -17,8 +17,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Dash {
 
@@ -31,7 +31,7 @@ public class Dash {
     public static boolean onCooldown = false;
     // tick counter from 0 to 20
     private static int tick = 0;
-    public static HashMap<UUID, Physics> physicsMap = new HashMap<>();
+    public static ConcurrentHashMap<UUID, Physics> physicsMap = new ConcurrentHashMap<>();
 
     // Dream Block
     private static boolean isInDreamBlock;
@@ -69,7 +69,7 @@ public class Dash {
             }
 
             if (client.level != null && EstrogenConfig.client().chestPhysicsRendering.get()) {
-                for (HashMap.Entry<UUID, Physics> physics : physicsMap.entrySet()) {
+                for (ConcurrentHashMap.Entry<UUID, Physics> physics : physicsMap.entrySet()) {
                     Player player = client.level.getPlayerByUUID(physics.getKey());
                     if (player != null && player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get())) {
                         physics.getValue().update(player);
