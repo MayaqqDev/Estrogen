@@ -4,16 +4,19 @@ import com.simibubi.create.foundation.blockEntity.SyncedBlockEntity;
 import dev.mayaqq.estrogen.registry.EstrogenBlockEntities;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
-public class CookieJarBlockEntity extends SyncedBlockEntity implements Container {
+public class CookieJarBlockEntity extends SyncedBlockEntity implements WorldlyContainer {
     private final NonNullList<ItemStack> items = NonNullList.withSize(8, ItemStack.EMPTY);
 
     public CookieJarBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -84,7 +87,11 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements Container
 
     @Override
     public boolean isEmpty() {
-        return items.isEmpty();
+        for (ItemStack itemStack : this.items) {
+            if (itemStack.isEmpty()) continue;
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -94,22 +101,28 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements Container
 
     @Override
     public ItemStack removeItem(int slot, int amount) {
-        return items.set(slot, items.get(slot).copyWithCount(items.get(slot).getCount() - amount));
+        return ContainerHelper.removeItem(this.items, slot, amount);
     }
 
     @Override
     public ItemStack removeItemNoUpdate(int slot) {
-        return removeItem(slot, 1);
+        return ContainerHelper.takeItem(this.items, slot);
     }
 
     @Override
     public void setItem(int slot, ItemStack stack) {
         this.items.set(slot, stack);
+        this.setChanged();
     }
 
     @Override
     public boolean stillValid(Player player) {
-        return true;
+        return Container.stillValidBlockEntity(this, player);
+    }
+
+    @Override
+    public boolean canPlaceItem(int index, ItemStack stack) {
+        return canAddItem(stack);
     }
 
     @Override
@@ -139,5 +152,20 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements Container
     @Override
     public void clearContent() {
         items.clear();
+    }
+
+    @Override
+    public int[] getSlotsForFace(Direction side) {
+        return new int[8];
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int index, ItemStack itemStack, @Nullable Direction direction) {
+        return canAddItem(itemStack);
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
+        return canRemoveCookie();
     }
 }

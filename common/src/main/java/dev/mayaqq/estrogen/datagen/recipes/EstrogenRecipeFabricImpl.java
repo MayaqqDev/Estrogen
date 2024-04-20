@@ -2,7 +2,10 @@ package dev.mayaqq.estrogen.datagen.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 
 import static dev.mayaqq.estrogen.Estrogen.MOD_ID;
 
@@ -32,5 +35,10 @@ public class EstrogenRecipeFabricImpl implements EstrogenRecipeInterface {
         object.add("values", values);
         array.add(object);
         return new EstrogenLoadCondition("fabric:load_conditions", array);
+    }
+
+    @Override
+    public TagKey<Item> getCommonTag(String name) {
+        return TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("c", name));
     }
 }

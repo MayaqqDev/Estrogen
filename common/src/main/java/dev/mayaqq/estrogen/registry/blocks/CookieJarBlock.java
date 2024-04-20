@@ -79,7 +79,7 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
             }
         } else {
             if (blockEntity instanceof CookieJarBlockEntity cookieJarBlockEntity) {
-                if (!itemInHand.isEmpty() && (cookieJarBlockEntity.getCookieCount() == 0 || cookieJarBlockEntity.canAddItem(itemInHand))) {
+                if (!itemInHand.isEmpty() && cookieJarBlockEntity.canAddItem(itemInHand)) {
                     player.awardStat(Stats.ITEM_USED.get(itemInHand.getItem()));
                     cookieJarBlockEntity.addCookie(itemInHand);
                     if (!player.isCreative()) itemInHand.shrink(1);
@@ -123,11 +123,11 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
     }
 
     @Override
-    public void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState blockState2, boolean bl) {
-        if (!blockState.is(blockState2.getBlock())) {
+    public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean bl) {
+        if (!state.is(newState.getBlock())) {
             Containers.dropContents(level, blockPos, (CookieJarBlockEntity)level.getBlockEntity(blockPos));
         }
-        super.onRemove(blockState, level, blockPos, blockState2, bl);
+        super.onRemove(state, level, blockPos, newState, bl);
     }
 
     @Override
@@ -149,12 +149,13 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
     }
 
     @Override
-    public boolean hasAnalogOutputSignal(BlockState blockState) {
+    public boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
-    public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos blockPos) {
-        return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(blockPos));
+    @Override
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+        return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
     }
 
     @Override

@@ -148,7 +148,6 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("tag.item.trinkets.legs.thighs", "Thighs");
         tb.add("tag.item.estrogen.uwufying", "Uwufying");
         tb.add("tag.item.curios.thighs", "Thighs");
-        tb.add("tag.item.estrogen.copper_plates", "Copper Plates");
         tb.add("tag.item.c.cookies", "Cookies");
         // Fluids
         tb.add("tag.fluid.estrogen.urine", "Urine");

@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "C": {
-      "tag": "estrogen:copper_plates"
+      "tag": "forge:plates/copper"
     },
     "M": {
       "item": "create:precision_mechanism"

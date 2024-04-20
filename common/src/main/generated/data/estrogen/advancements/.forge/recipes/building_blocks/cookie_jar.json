@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "estrogen:cookie_jar"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_zinc_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "create:zinc_nugget"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_zinc_nugget",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "estrogen:cookie_jar"
+    ]
+  },
+  "sends_telemetry_event": false
+}

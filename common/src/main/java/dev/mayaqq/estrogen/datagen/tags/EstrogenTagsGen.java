@@ -8,8 +8,6 @@ import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 
@@ -28,9 +26,6 @@ public class EstrogenTagsGen {
                     .add(EstrogenItems.ESTROGEN_PATCHES.get());
             getOrCreateTagBuilder(EstrogenTags.Items.UWUFYING)
                     .add(EstrogenItems.UWU.get());
-            getOrCreateTagBuilder(EstrogenTags.Items.COPPER_PLATES)
-                    .addOptionalTag(AllTags.forgeItemTag("copper_plates"))
-                    .addOptionalTag(AllTags.optionalTag(BuiltInRegistries.ITEM, new ResourceLocation("forge", "plates/copper")));
             getOrCreateTagBuilder(EstrogenTags.Items.CURIOS_THIGHS)
                     .add(EstrogenItems.ESTROGEN_PATCHES.get());
             getOrCreateTagBuilder(EstrogenTags.Items.MUSIC_DISCS)
