@@ -42,7 +42,7 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
     public void render(PoseStack stack, MultiBufferSource bufferSource, int i, AbstractClientPlayer entity, float f, float g, float h, float j, float k, float l) {
         ChestConfig chestConfig = ((PlayerEntityExtension) entity).estrogen$getChestConfig();
         if (entity.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) && EstrogenConfig.client().chestFeatureRendering.get() && chestConfig != null && chestConfig.enabled() && entity.isSkinLoaded() && !entity.isInvisible()) {
-            VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entitySolid(entity.getSkinTextureLocation()));
+            VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityCutout(entity.getSkinTextureLocation()));
             int m = LivingEntityRenderer.getOverlayCoords(entity, 0.0F);
             stack.pushPose();
             float size;
