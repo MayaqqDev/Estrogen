@@ -47,7 +47,6 @@ public class DreamBlock extends BaseEntityBlock {
                 }
             }
         }
-
         return state.getShape(level, pos);
     }
 

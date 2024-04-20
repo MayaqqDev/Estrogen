@@ -12,6 +12,8 @@ import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
 import dev.mayaqq.estrogen.utils.PlayerLookup;
 import dev.mayaqq.estrogen.utils.Time;
 import io.netty.buffer.Unpooled;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -33,15 +35,15 @@ import net.minecraft.world.level.block.LiquidBlock;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static dev.mayaqq.estrogen.registry.EstrogenAttributes.*;
 import static dev.mayaqq.estrogen.registry.EstrogenEffects.ESTROGEN_EFFECT;
 
 public class EstrogenEffect extends MobEffect {
 
-    public static HashMap<UUID, Integer> dashing = new HashMap<>();
+    public static ConcurrentHashMap<UUID, Integer> dashing = new ConcurrentHashMap<>();
 
     private static final UUID DASH_MODIFIER_UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4c");
     static public short currentDashes = 0;
@@ -61,6 +63,7 @@ public class EstrogenEffect extends MobEffect {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void applyEffectTick(@NotNull LivingEntity entity, int amplifier) {
         // Check if Dash is enabled on the server
         if (!EstrogenConfig.server().dashEnabled.get()) return;
