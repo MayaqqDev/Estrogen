@@ -61,7 +61,7 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
     public void patchTick(ItemStack stack, SlotInfo info) {
         ItemFluidContainer itemFluidManager = getFluidContainer(stack);
         if (info.wearer() instanceof Player player && !stack.isEmpty() && !itemFluidManager.isEmpty()) {
-            player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), 401, EstrogenConfig.server().patchGirlPowerAmount.get(), false, false, false));
+            player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), 401, EstrogenConfig.server().patchGirlPowerAmount.get() -1, false, false, false));
             if (EstrogenConfig.server().patchDrain.get() && estrogenAmountTick >= EstrogenConfig.server().patchDrainAmount.get() && !player.isCreative()) {
                 estrogenAmountTick = 0;
                 itemFluidManager.extractFromSlot(0, FluidHolder.of(EstrogenFluids.LIQUID_ESTROGEN.get(), FluidConstants.getBucketAmount() / 1000), false);

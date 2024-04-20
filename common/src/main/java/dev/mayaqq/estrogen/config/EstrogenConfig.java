@@ -129,7 +129,7 @@ public class EstrogenConfig {
 
         // Patch group
         public final ConfigGroup patch = group(1, "patch", "Settings for the estrogen patches");
-        public final ConfigInt patchGirlPowerAmount = i(1, 0, 255, "patchGirlPowerAmount", "The level of girlpower you get from Estrogen Patches");
+        public final ConfigInt patchGirlPowerAmount = i(1, 1, 255, "patchGirlPowerAmount", "The level of girlpower you get from Estrogen Patches");
         public final ConfigBool patchDrain = b(true, "patchDrain", "Enable the estrogen patches to drain");
         public final ConfigInt patchDrainAmount = i(72, 0, "patchDrainAmount", "The amount of ticks it takes for the estrogen patches to drain a millibucket");
 
