@@ -95,7 +95,7 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
                 } else {
                     level.playSound(null, pos, EstrogenSounds.JAR_FULL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                     cookieJarBlockEntity.notifyUpdate();
-                    return InteractionResult.FAIL;
+                    return InteractionResult.SUCCESS;
                 }
             }
         }

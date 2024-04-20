@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.Vec3;
 
 @SuppressWarnings("ClassEscapesDefinedScope")
@@ -53,6 +54,7 @@ public record SpawnHeartsPacket(Vec3 pos, ResourceLocation ambientSound) impleme
                     BlockPos blockPos = new BlockPos((int) message.pos.x, (int) message.pos.y, (int) message.pos.z);
                     SoundEvent soundEvent = SoundEvent.createVariableRangeEvent(sound);
                     serverLevel.playSound(null, blockPos, soundEvent, SoundSource.PLAYERS, 1.0F, 10.0F);
+                    player.swing(InteractionHand.MAIN_HAND, true);
                 }
             };
         }

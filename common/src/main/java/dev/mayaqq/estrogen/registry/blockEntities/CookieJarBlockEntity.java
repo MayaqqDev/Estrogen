@@ -10,13 +10,15 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class CookieJarBlockEntity extends SyncedBlockEntity implements WorldlyContainer {
+public class CookieJarBlockEntity extends SyncedBlockEntity implements WorldlyContainer, WorldlyContainerHolder {
     private final NonNullList<ItemStack> items = NonNullList.withSize(8, ItemStack.EMPTY);
 
     public CookieJarBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -45,6 +47,7 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements WorldlyCo
                 toAdd -= canAdd;
             }
         }
+        this.notifyUpdate();
     }
 
     /**
@@ -66,6 +69,7 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements WorldlyCo
      */
     public void addCookie(ItemStack stack) {
         this.addStack(stack.copyWithCount(1));
+        this.notifyUpdate();
     }
 
     public int getCookieCount() {
@@ -113,6 +117,7 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements WorldlyCo
     public void setItem(int slot, ItemStack stack) {
         this.items.set(slot, stack);
         this.setChanged();
+        this.notifyUpdate();
     }
 
     @Override
@@ -167,5 +172,10 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements WorldlyCo
     @Override
     public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
         return canRemoveCookie();
+    }
+
+    @Override
+    public WorldlyContainer getContainer(BlockState state, LevelAccessor level, BlockPos pos) {
+        return this;
     }
 }
