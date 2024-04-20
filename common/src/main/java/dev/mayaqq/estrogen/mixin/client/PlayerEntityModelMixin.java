@@ -10,6 +10,7 @@ import dev.mayaqq.estrogen.client.entity.player.features.boobs.PlayerEntityModel
 import dev.mayaqq.estrogen.integrations.figura.FiguraCompat;
 import dev.mayaqq.estrogen.platform.Mod;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
@@ -89,6 +90,10 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         Mod figura = Mod.getOptionalMod("figura").orElse(null);
         if (figura != null && figura.version().split("\\.")[2].startsWith("3")) {
             if (!FiguraCompat.renderBoobs(Minecraft.getInstance().player)) return;
+        }
+
+        if (player.getItemBySlot(EquipmentSlot.CHEST).is(EstrogenTags.Items.CHEST_FEATURE_DISABLED)) {
+            return;
         }
         this.estrogen$boobs.copyFrom(this.body);
         this.estrogen$boobs.xRot = this.body.xRot + 1.0F;
