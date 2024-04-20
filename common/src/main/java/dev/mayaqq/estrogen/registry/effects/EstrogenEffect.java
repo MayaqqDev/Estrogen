@@ -13,6 +13,7 @@ import dev.mayaqq.estrogen.utils.PlayerLookup;
 import dev.mayaqq.estrogen.utils.Time;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
@@ -64,7 +65,7 @@ public class EstrogenEffect extends MobEffect {
         // Check if Dash is enabled on the server
         if (!EstrogenConfig.server().dashEnabled.get()) return;
         // Only tick on the client and if the entity is a player
-        if (entity instanceof Player player && player.level().isClientSide) {
+        if (entity instanceof Player player && player.level().isClientSide && player instanceof LocalPlayer) {
 
             // cooldown processing
             dashCooldown--;
