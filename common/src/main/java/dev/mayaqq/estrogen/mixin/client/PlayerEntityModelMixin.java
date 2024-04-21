@@ -124,7 +124,7 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         this.estrogen$boobArmor.pitch = this.body.xRot;
         float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT.get()).getAmplifier() / 10.0F;
         Quaternionf bodyRotation = (new Quaternionf()).rotationZYX(this.body.zRot, this.body.yRot, this.body.xRot);
-        this.estrogen$boobArmor.translate((new Vector3f(0.0F, 4.0F + size * 0.864F * (1 + amplifier) + yOffset, -3.9F + size * -1.944F * (1 + amplifier))).rotate(bodyRotation));
+        this.estrogen$boobArmor.translate((new Vector3f(0.0F, 4.0F + size * 0.864F * (1 + amplifier) + yOffset, -4.0F + size * (-1.944F - 0.24F*3.0F) * (1 + amplifier))).rotate(bodyRotation));
         this.estrogen$boobArmor.scaleY = (1 + size * 2.0F * (1 + amplifier)) / 2.0F;
         this.estrogen$boobArmor.scaleZ = (1 + size * 2.5F * (1 + amplifier)) / 2.0F;
         this.estrogen$boobArmor.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
