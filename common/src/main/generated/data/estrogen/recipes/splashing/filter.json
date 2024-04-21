@@ -1,0 +1,13 @@
+{
+  "type": "create:splashing",
+  "ingredients": [
+    {
+      "item": "estrogen:used_filter"
+    }
+  ],
+  "results": [
+    {
+      "item": "create:filter"
+    }
+  ]
+}

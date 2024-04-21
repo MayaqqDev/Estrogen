@@ -35,6 +35,7 @@ public class EstrogenDatagen implements DataGeneratorEntrypoint {
         pack.addProvider((Factory<?>) EstrogenMixingRecipes::buildForge);
         pack.addProvider((Factory<?>) EstrogenSequencedAssemblyRecipes::buildFabric);
         pack.addProvider((Factory<?>) EstrogenSequencedAssemblyRecipes::buildForge);
+        pack.addProvider(EstrogenWashingRecipes::new);
         pack.addProvider(EstrogenEntityInteractionRecipe::new);
         pack.addProvider(EstrogenItemApplicationRecipes::new);
 
