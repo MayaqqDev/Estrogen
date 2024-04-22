@@ -70,20 +70,20 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
                 ItemStack itemStack = entity.getItemBySlot(EquipmentSlot.CHEST);
                 if (itemStack.getItem() instanceof ArmorItem armorItem) {
                     if (armorItem.getEquipmentSlot() == EquipmentSlot.CHEST) {
-                        boolean bl2 = itemStack.hasFoil();
+                        boolean glint = itemStack.hasFoil();
                         if (armorItem instanceof DyeableArmorItem dyeable) {
-                            int n = dyeable.getColor(itemStack);
-                            float o = (float) (n >> 16 & 255) / 255.0F;
-                            float p = (float) (n >> 8 & 255) / 255.0F;
-                            float q = (float) (n & 255) / 255.0F;
+                            int dyeColor = dyeable.getColor(itemStack);
+                            float o = (float) (dyeColor >> 16 & 255) / 255.0F;
+                            float p = (float) (dyeColor >> 8 & 255) / 255.0F;
+                            float q = (float) (dyeColor & 255) / 255.0F;
 
-                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, bl2, o, p, q, null, entity, size, yOffset);
-                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, bl2, 1.0F, 1.0F, 1.0F, "overlay", entity, size, yOffset);
+                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, glint, o, p, q, null, entity, size, yOffset);
+                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, glint, 1.0F, 1.0F, 1.0F, "overlay", entity, size, yOffset);
                         } else {
-                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, bl2, 1.0F, 1.0F, 1.0F, null, entity, size, yOffset);
+                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, glint, 1.0F, 1.0F, 1.0F, null, entity, size, yOffset);
                         }
                         ArmorTrim.getTrim(entity.level().registryAccess(), itemStack).ifPresent((armorTrim) -> {
-                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmorTrim(stack, bufferSource, i, bl2, armorTrim, armorItem.getMaterial(), this.armorTrimAtlas);
+                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmorTrim(stack, bufferSource, i, glint, armorTrim, armorItem.getMaterial(), this.armorTrimAtlas);
                         });
                     }
                 }
