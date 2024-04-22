@@ -7,6 +7,7 @@ import dev.mayaqq.estrogen.config.ChestConfig;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.config.PlayerEntityExtension;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.EstrogenTags;
 import dev.mayaqq.estrogen.utils.Time;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -42,6 +43,7 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
     public void render(PoseStack stack, MultiBufferSource bufferSource, int i, AbstractClientPlayer entity, float f, float g, float h, float j, float k, float l) {
         ChestConfig chestConfig = ((PlayerEntityExtension) entity).estrogen$getChestConfig();
         if (entity.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) && EstrogenConfig.client().chestFeatureRendering.get() && chestConfig != null && chestConfig.enabled() && entity.isSkinLoaded() && !entity.isInvisible()) {
+            if (entity.getItemBySlot(EquipmentSlot.CHEST).is(EstrogenTags.Items.CHEST_FEATURE_DISABLED)) return;
             VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityCutout(entity.getSkinTextureLocation()));
             int m = LivingEntityRenderer.getOverlayCoords(entity, 0.0F);
             stack.pushPose();
