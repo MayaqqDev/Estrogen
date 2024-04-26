@@ -159,12 +159,12 @@ public final class BoobArmorRenderer {
         public BoobArmorModel(int textureWidth, int textureHeight, float sizeX, float sizeY, float sizeZ, boolean mirror, float squishU, float squishV) {
             this.sides = new ModelPart.Polygon[4];
 
-            ModelPart.Vertex vertex = new ModelPart.Vertex(-4.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-            ModelPart.Vertex vertex2 = new ModelPart.Vertex(4.0F, 0.0F, 0.0F, 0.0F, 8.0F);
-            ModelPart.Vertex vertex3 = new ModelPart.Vertex(4.0F, 1.08F, 1.68F, 8.0F, 8.0F);
-            ModelPart.Vertex vertex4 = new ModelPart.Vertex(-4.0F, 1.08F, 1.68F, 8.0F, 0.0F);
-            ModelPart.Vertex vertex5 = new ModelPart.Vertex(-4.0F, -1.68F, 1.68F, 0.0F, 0.0F);
-            ModelPart.Vertex vertex6 = new ModelPart.Vertex(4.0F, -1.68F, 1.68F, 0.0F, 8.0F);
+            ModelPart.Vertex vertex = new ModelPart.Vertex(-4.0F*1.24F, 0.0F, 0.0F, 0.0F, 0.0F);
+            ModelPart.Vertex vertex2 = new ModelPart.Vertex(4.0F*1.24F, 0.0F, 0.0F, 0.0F, 8.0F);
+            ModelPart.Vertex vertex3 = new ModelPart.Vertex(4.0F*1.24F, 1.08F*1.25F, 1.68F*1.25F, 8.0F, 8.0F);
+            ModelPart.Vertex vertex4 = new ModelPart.Vertex(-4.0F*1.24F, 1.08F*1.25F, 1.68F*1.25F, 8.0F, 0.0F);
+            ModelPart.Vertex vertex5 = new ModelPart.Vertex(-4.0F*1.24F, -1.68F*1.25F, 1.68F*1.25F, 0.0F, 0.0F);
+            ModelPart.Vertex vertex6 = new ModelPart.Vertex(4.0F*1.24F, -1.68F*1.25F, 1.68F*1.25F, 0.0F, 8.0F);
             float j = textureWidth;
             float k = (float) textureWidth + sizeZ;
             float l = (float) textureWidth + sizeZ + sizeX;
