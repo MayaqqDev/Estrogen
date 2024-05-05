@@ -18,65 +18,66 @@ configurations {
 repositories {}
 
 dependencies {
+    println("fabric loader $fabric_loader_version")
     // Fabric
     modImplementation("net.fabricmc:fabric-loader:$fabric_loader_version")
 
     // Fapi
-    modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
+    modApi("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
 
     //Architectury api
-    modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}") exclude(
+    modApi("dev.architectury:architectury-fabric:${architectury_version}") exclude(
             group: "net.fabricmc",
             module: "fabric-loader"
     )
 
     //Create
-    modImplementation("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}") exclude(
+    modImplementation("com.simibubi.create:create-fabric-${minecraft_version}:${create_fabric_version}+mc${minecraft_version}") exclude(
             group: "net.fabricmc",
             module: "fabric-loader"
     )
 
     //Trinkets
-    modImplementation("dev.emi:trinkets:${rootProject.trinkets_version}") exclude(
+    modImplementation("dev.emi:trinkets:${trinkets_version}") exclude(
             group: "net.fabricmc",
             module: "fabric-loader"
     )
     project.cardinal_modules.replaceAll(" ", "").split(",").each { module ->
-        modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${rootProject.cardinal_version}") exclude(
+        modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${cardinal_version}") exclude(
                 group: "net.fabricmc",
                 module: "fabric-loader"
         )
     }
 
     // REI
-    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}") exclude(
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rei_version}") exclude(
             group: "net.fabricmc",
             module: "fabric-loader"
     )
-    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}") exclude(
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:${rei_version}") exclude(
             group: "net.fabricmc",
             module: "fabric-loader"
     )
 
     // EMI
-    modCompileOnly("dev.emi:emi:${rootProject.emi_version}:api") exclude(
+    modCompileOnly("dev.emi:emi:${emi_version}:api") exclude(
             group: "net.fabricmc",
             module: "fabric-loader"
     )
 
     //Mod Menu
-    modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") exclude(
+    modImplementation("com.terraformersmc:modmenu:${modmenu_version}") exclude(
             group: "net.fabricmc",
             module: "fabric-loader"
     )
 
     // Item Viewers
     switch (item_viewer.toLowerCase()) {
-        case "rei": modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}") exclude(
+        case "rei": modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}") exclude(
                 group: "net.fabricmc",
                 module: "fabric-loader"
         ); break
-        case "emi": modLocalRuntime("dev.emi:emi:${rootProject.emi_version}")exclude(
+        case "emi": modLocalRuntime("dev.emi:emi:${emi_version}")exclude(
                 group: "net.fabricmc",
                 module: "fabric-loader"
         ); break
@@ -92,13 +93,13 @@ processResources {
     Project common = project(":common")
 
     inputs.property "version", project.version
-    inputs.property "contributors", rootProject.contributors
-    inputs.property "minecraft_version", rootProject.minecraft_version
+    inputs.property "contributors", contributors
+    inputs.property "minecraft_version", minecraft_version
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version,
-                "contributors": rootProject.contributors,
-                "minecraft_version": rootProject.minecraft_version
+                "contributors": contributors,
+                "minecraft_version": minecraft_version
     }
 }
 
@@ -114,7 +115,7 @@ remapJar {
 }
 
 tasks.register("buildBothFabric") {
-    remapJar.destinationDirectory = project.rootProject.file("build/libs")
+    remapJar.destinationDirectory = project.file("build/libs")
     dependsOn remapJar
 }
 
@@ -138,7 +139,7 @@ components.java {
 publishing {
     publications {
         mavenFabric(MavenPublication) {
-            artifactId = rootProject.archives_base_name + "-" + project.name
+            artifactId = archives_base_name + "-" + project.name
             from components.java
         }
     }
