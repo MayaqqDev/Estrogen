@@ -3,30 +3,36 @@ repositories {}
 dependencies {
     // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
     // Do NOT use other classes from fabric loader
-    modImplementation("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
+    modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
 
     // Fapi
-    modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
+    modApi("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
 
     // Architectury
-    modApi("dev.architectury:architectury:${rootProject.architectury_version}") {
+    modApi("dev.architectury:architectury:${architectury_version}") {
         exclude group: "net.fabricmc"
     }
 
     // Create
-    modCompileOnly("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}")
+    modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${create_fabric_version}+mc${minecraft_version}") {
+        exclude group: "net.fabricmc"
+    }
 
     // Trinkets
-    modCompileOnly("dev.emi:trinkets:${rootProject.trinkets_version}")
+    modCompileOnly("dev.emi:trinkets:${trinkets_version}") {
+        exclude group: "net.fabricmc"
+    }
 
     // Ears
-    implementation("com.unascribed:ears-api:${rootProject.ears_version}")
+    implementation("com.unascribed:ears-api:${ears_version}") {
+        exclude group: "net.fabricmc"
+    }
 
     // Figura
-    modCompileOnly("org.figuramc:figura-common-mojmap:${rootProject.figura_version}") transitive false
+    modCompileOnly("org.figuramc:figura-common-mojmap:${figura_version}") transitive false
 
     // Mixin Extras
-    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}"))
+    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixin_extras_version}"))
 }
 
 architectury {
@@ -38,7 +44,7 @@ processResources.duplicatesStrategy = DuplicatesStrategy.INCLUDE
 publishing {
     publications {
         mavenCommon(MavenPublication) {
-            artifactId = rootProject.archives_base_name
+            artifactId = archives_base_name
             from components.java
         }
     }

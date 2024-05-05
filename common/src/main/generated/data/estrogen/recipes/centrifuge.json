@@ -1,24 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "key": {
-    "C": {
-      "tag": "estrogen:copper_plates"
-    },
-    "M": {
-      "item": "create:precision_mechanism"
-    },
-    "P": {
-      "item": "create:mechanical_pump"
-    },
-    "T": {
-      "item": "create:fluid_tank"
-    }
-  },
   "pattern": [
     "CTC",
     "PMP",
     "CTC"
   ],
+  "key": {
+    "P": {
+      "item": "create:mechanical_pump"
+    },
+    "T": {
+      "item": "create:fluid_tank"
+    },
+    "C": {
+      "tag": "estrogen:copper_plates"
+    },
+    "M": {
+      "item": "create:precision_mechanism"
+    }
+  },
   "result": {
     "item": "estrogen:centrifuge"
   }

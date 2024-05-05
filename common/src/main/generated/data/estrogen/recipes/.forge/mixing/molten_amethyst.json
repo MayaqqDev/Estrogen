@@ -1,6 +1,5 @@
 {
   "type": "create:mixing",
-  "heatRequirement": "heated",
   "ingredients": [
     {
       "item": "minecraft:amethyst_shard"
@@ -8,8 +7,9 @@
   ],
   "results": [
     {
-      "amount": 250,
-      "fluid": "estrogen:molten_amethyst"
+      "fluid": "estrogen:molten_amethyst",
+      "amount": 250
     }
-  ]
+  ],
+  "heatRequirement": "heated"
 }

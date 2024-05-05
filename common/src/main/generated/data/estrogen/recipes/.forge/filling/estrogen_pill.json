@@ -5,9 +5,9 @@
       "item": "minecraft:cookie"
     },
     {
-      "amount": 250,
       "fluid": "estrogen:liquid_estrogen",
-      "nbt": {}
+      "nbt": {},
+      "amount": 250
     }
   ],
   "results": [
