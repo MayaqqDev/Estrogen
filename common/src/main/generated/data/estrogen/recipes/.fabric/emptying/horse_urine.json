@@ -10,8 +10,8 @@
       "item": "minecraft:glass_bottle"
     },
     {
-      "amount": 27000,
-      "fluid": "estrogen:horse_urine"
+      "fluid": "estrogen:horse_urine",
+      "amount": 27000
     }
   ]
 }

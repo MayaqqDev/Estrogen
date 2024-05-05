@@ -3,12 +3,9 @@
   "ingredient": {
     "item": "minecraft:netherite_ingot"
   },
-  "loops": 10,
-  "results": [
-    {
-      "item": "estrogen:uwu"
-    }
-  ],
+  "transitionalItem": {
+    "item": "estrogen:incomplete_uwu"
+  },
   "sequence": [
     {
       "type": "create:deploying",
@@ -98,7 +95,10 @@
       ]
     }
   ],
-  "transitionalItem": {
-    "item": "estrogen:incomplete_uwu"
-  }
+  "results": [
+    {
+      "item": "estrogen:uwu"
+    }
+  ],
+  "loops": 10
 }

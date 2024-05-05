@@ -1,6 +1,5 @@
 {
   "type": "create:mixing",
-  "heatRequirement": "heated",
   "ingredients": [
     {
       "item": "minecraft:slime_ball"
@@ -11,8 +10,9 @@
       "item": "estrogen:balls"
     },
     {
-      "amount": 250,
-      "fluid": "estrogen:molten_slime"
+      "fluid": "estrogen:molten_slime",
+      "amount": 250
     }
-  ]
+  ],
+  "heatRequirement": "heated"
 }

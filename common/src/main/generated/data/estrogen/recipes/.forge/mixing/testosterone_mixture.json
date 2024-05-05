@@ -1,6 +1,5 @@
 {
   "type": "create:mixing",
-  "heatRequirement": "heated",
   "ingredients": [
     {
       "item": "estrogen:testosterone_powder"
@@ -11,8 +10,9 @@
   ],
   "results": [
     {
-      "amount": 500,
-      "fluid": "estrogen:testosterone_mixture"
+      "fluid": "estrogen:testosterone_mixture",
+      "amount": 500
     }
-  ]
+  ],
+  "heatRequirement": "heated"
 }

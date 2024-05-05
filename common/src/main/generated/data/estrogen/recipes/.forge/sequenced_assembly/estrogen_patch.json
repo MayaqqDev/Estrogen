@@ -3,29 +3,9 @@
   "ingredient": {
     "item": "minecraft:paper"
   },
-  "loops": 5,
-  "results": [
-    {
-      "chance": 120.0,
-      "item": "estrogen:estrogen_patches"
-    },
-    {
-      "chance": 16.0,
-      "item": "estrogen:estrogen_pill"
-    },
-    {
-      "chance": 5.0,
-      "item": "minecraft:paper"
-    },
-    {
-      "chance": 5.0,
-      "item": "minecraft:slime_ball"
-    },
-    {
-      "chance": 4.0,
-      "item": "estrogen:horse_urine_bottle"
-    }
-  ],
+  "transitionalItem": {
+    "item": "estrogen:incomplete_estrogen_patches"
+  },
   "sequence": [
     {
       "type": "create:filling",
@@ -34,9 +14,9 @@
           "item": "estrogen:incomplete_estrogen_patches"
         },
         {
-          "amount": 250,
           "fluid": "estrogen:molten_slime",
-          "nbt": {}
+          "nbt": {},
+          "amount": 250
         }
       ],
       "results": [
@@ -52,9 +32,9 @@
           "item": "estrogen:incomplete_estrogen_patches"
         },
         {
-          "amount": 250,
           "fluid": "estrogen:liquid_estrogen",
-          "nbt": {}
+          "nbt": {},
+          "amount": 250
         }
       ],
       "results": [
@@ -80,7 +60,27 @@
       ]
     }
   ],
-  "transitionalItem": {
-    "item": "estrogen:incomplete_estrogen_patches"
-  }
+  "results": [
+    {
+      "item": "estrogen:estrogen_patches",
+      "chance": 120.0
+    },
+    {
+      "item": "estrogen:estrogen_pill",
+      "chance": 16.0
+    },
+    {
+      "item": "minecraft:paper",
+      "chance": 5.0
+    },
+    {
+      "item": "minecraft:slime_ball",
+      "chance": 5.0
+    },
+    {
+      "item": "estrogen:horse_urine_bottle",
+      "chance": 4.0
+    }
+  ],
+  "loops": 5
 }
