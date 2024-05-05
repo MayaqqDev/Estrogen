@@ -19,60 +19,67 @@ repositories {}
 
 dependencies {
     // Fabric
-    modImplementation("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
+    modImplementation("net.fabricmc:fabric-loader:$fabric_loader_version")
 
     // Fapi
     modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
 
     //Architectury api
     modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}") exclude(
-            group: "net.fabricmc"
+            group: "net.fabricmc",
+            module: "fabric-loader"
     )
 
     //Create
     modImplementation("com.simibubi.create:create-fabric-${rootProject.minecraft_version}:${rootProject.create_fabric_version}+mc${rootProject.minecraft_version}") exclude(
-            group: "net.fabricmc"
+            group: "net.fabricmc",
+            module: "fabric-loader"
     )
 
     //Trinkets
     modImplementation("dev.emi:trinkets:${rootProject.trinkets_version}") exclude(
-            group: "net.fabricmc"
+            group: "net.fabricmc",
+            module: "fabric-loader"
     )
     project.cardinal_modules.replaceAll(" ", "").split(",").each { module ->
         modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-${module}:${rootProject.cardinal_version}") exclude(
-                group: "net.fabricmc"
+                group: "net.fabricmc",
+                module: "fabric-loader"
         )
     }
 
     // REI
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rootProject.rei_version}") exclude(
-            group: "net.fabricmc"
+            group: "net.fabricmc",
+            module: "fabric-loader"
     )
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:${rootProject.rei_version}") exclude(
-            group: "net.fabricmc"
+            group: "net.fabricmc",
+            module: "fabric-loader"
     )
 
     // EMI
     modCompileOnly("dev.emi:emi:${rootProject.emi_version}:api") exclude(
-            group: "net.fabricmc"
+            group: "net.fabricmc",
+            module: "fabric-loader"
     )
 
     //Mod Menu
     modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") exclude(
-            group: "net.fabricmc"
-    )
-
-    //Mixin Extras
-    implementation(include(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${rootProject.mixin_extras_version}"))) exclude(
-            group: "net.fabricmc"
+            group: "net.fabricmc",
+            module: "fabric-loader"
     )
 
     // Item Viewers
     switch (item_viewer.toLowerCase()) {
-        case "rei":
-            modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}")
-            modLocalRuntime("maven.modrinth:createfabricreibugfix:${rootProject.createreibugfix_version}"); break
-        case "emi": modLocalRuntime("dev.emi:emi:${rootProject.emi_version}"); break
+        case "rei": modLocalRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}") exclude(
+                group: "net.fabricmc",
+                module: "fabric-loader"
+        ); break
+        case "emi": modLocalRuntime("dev.emi:emi:${rootProject.emi_version}")exclude(
+                group: "net.fabricmc",
+                module: "fabric-loader"
+        ); break
         case "disabled": break
         default: println("Invalid item viewer: ${item_viewer} must be REI, EMI or disabled"); break
     }
@@ -165,4 +172,14 @@ sourceSets {
             exclude ".cache/**"
         }
     }
+}
+
+// Force fabric loader version to fix duplicate loader classes problem
+configurations.configureEach {
+    resolutionStrategy.force("net.fabricmc:fabric-loader:$fabric_loader_version")
+}
+
+configurations.modLocalRuntime {
+    println("Forcing fabric loader version $fabric_loader_version")
+    resolutionStrategy.force("net.fabricmc:fabric-loader:$fabric_loader_version")
 }
