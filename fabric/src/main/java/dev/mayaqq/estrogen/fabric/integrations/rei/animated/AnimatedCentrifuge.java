@@ -10,9 +10,8 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import java.util.List;
 
 public class AnimatedCentrifuge extends AnimatedKinetics {
-
     @Override
-    public void render(PoseStack matrixStack, int xOffset, int yOffset, float f) {
+    public void draw(PoseStack matrixStack, int xOffset, int yOffset) {
         matrixStack.pushPose();
         matrixStack.translate(xOffset, yOffset, 0);
         AllGuiTextures.JEI_SHADOW.render(matrixStack, -16, 13);
@@ -30,10 +29,5 @@ public class AnimatedCentrifuge extends AnimatedKinetics {
                 .render(matrixStack);
 
         matrixStack.popPose();
-    }
-
-    @Override
-    public List<? extends GuiEventListener> children() {
-        return null;
     }
 }
