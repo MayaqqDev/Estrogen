@@ -38,14 +38,6 @@ subprojects {
         silentMojangMappingsLicense()
     }
 
-    configurations.all {
-        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-            if (details.requested.group == 'net.fabricmc' && details.requested.name == 'fabric-loader') {
-                details.useVersion '0.15.6'
-            }
-        }
-    }
-
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
         mappings loom.officialMojangMappings()
