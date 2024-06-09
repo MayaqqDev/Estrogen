@@ -40,6 +40,9 @@ smooth dashin' from there!
 This mod also features a [complete soundtrack](https://erora.bandcamp.com/album/create-estrogen) that automatically plays while you have the Girl Power effect. 
 To hear it, make sure you have your music sound category turned up!
 
+### `Amazing Video Showcase`
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/kdn3qYwzMDQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ### `Additional Features`
 
 This mod adds a lot of other features related to Estrogen and its production. This includes but is not limited to:
