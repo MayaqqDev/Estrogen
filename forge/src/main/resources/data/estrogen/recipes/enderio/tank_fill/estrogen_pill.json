@@ -7,8 +7,8 @@
     }
   ],
   "fluid": {
-    "Amount": 250,
-    "FluidName": "estrogen:liquid_estrogen"
+    "amount": 250,
+    "fluid": "estrogen:liquid_estrogen"
   },
   "input": {
     "item": "minecraft:cookie"
