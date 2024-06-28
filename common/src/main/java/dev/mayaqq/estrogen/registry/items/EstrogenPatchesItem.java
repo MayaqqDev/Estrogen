@@ -1,5 +1,7 @@
 package dev.mayaqq.estrogen.registry.items;
 
+import com.simibubi.create.AllEnchantments;
+import com.simibubi.create.content.equipment.armor.CapacityEnchantment;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
@@ -23,13 +25,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidItem<WrappedItemFluidContainer> {
+public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidItem<WrappedItemFluidContainer>, CapacityEnchantment.ICapacityEnchantable {
     int estrogenAmountTick = 0;
 
     public EstrogenPatchesItem(Properties properties) {
@@ -41,6 +44,10 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
     public void tick(ItemStack stack, SlotInfo slot) {
         patchTick(stack, slot);
         estrogenAmountTick++;
+    }
+
+    public long getMaxCapacity(ItemStack stack) {
+        return FluidConstants.getBucketAmount() + ((FluidConstants.getBucketAmount() / 2) * EnchantmentHelper.getEnchantments(stack).getOrDefault(AllEnchantments.CAPACITY.get(), 0));
     }
 
     @Override
@@ -92,17 +99,17 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
 
     @Override
     public WrappedItemFluidContainer getFluidContainer(ItemStack stack) {
-        return new WrappedItemFluidContainer(stack, new SimpleFluidContainer(FluidConstants.getBucketAmount(), 1, (amount, fluid) -> fluid.is(EstrogenFluids.LIQUID_ESTROGEN.get())));
+        return new WrappedItemFluidContainer(stack, new SimpleFluidContainer(getMaxCapacity(stack), 1, (amount, fluid) -> fluid.is(EstrogenFluids.LIQUID_ESTROGEN.get())));
     }
 
     @Override
     public boolean isBarVisible(@NotNull ItemStack stack) {
-        return getAmount(stack) != FluidConstants.getBucketAmount();
+        return getAmount(stack) != getMaxCapacity(stack);
     }
 
     @Override
     public int getBarWidth(@NotNull ItemStack stack) {
-        return (int) ((double) getAmount(stack) / FluidConstants.getBucketAmount() * 13);
+        return (int) ((double) getAmount(stack) / getMaxCapacity(stack) * 13);
     }
 
     @Override
