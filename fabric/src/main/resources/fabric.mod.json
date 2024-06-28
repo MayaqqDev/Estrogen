@@ -62,12 +62,6 @@
       "links": {
         "modmenu.discord": "https://discord.gg/hue"
       }
-    },
-    "resourcefullib:resourcepack": [
-      {
-        "name": "estrogenprogrammerart",
-        "description": "§fOriginal Textures for the Mod Estrogen. (§dBy Mayaqq§f)"
-      }
-    ]
+    }
   }
 }

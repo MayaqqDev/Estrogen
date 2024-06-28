@@ -25,6 +25,6 @@ public class EstrogenForgeClientEvents {
 
     @SubscribeEvent
     public static void onRegisterParticles(RegisterParticleProvidersEvent event) {
-
+        EstrogenClientEvents.onRegisterParticles((particle, provider) -> event.registerSpriteSet(particle, provider::create));
     }
 }
