@@ -24,7 +24,6 @@ public class Dash {
 
     // the overlay texture
     private static final ResourceLocation DASH_OVERLAY = new ResourceLocation("textures/misc/nausea.png");
-    private static final ResourceLocation DREAM_BLOCK_OVERLAY = Estrogen.id("textures/misc/dream_block_overlay.png");
     // should the player be uwufied
     public static boolean uwufy = false;
     // is the dash on cooldown

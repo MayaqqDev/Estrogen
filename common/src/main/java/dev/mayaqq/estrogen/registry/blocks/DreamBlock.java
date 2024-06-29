@@ -47,7 +47,7 @@ public class DreamBlock extends BaseEntityBlock {
                 }
             }
         }
-        return state.getShape(level, pos);
+        return Shapes.block();
     }
 
     public static boolean isInDreamBlock(Player player) {

@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.registry.items;
 
 import com.simibubi.create.AllEnchantments;
-import com.simibubi.create.content.equipment.armor.CapacityEnchantment;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
@@ -32,7 +31,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidItem<WrappedItemFluidContainer>, CapacityEnchantment.ICapacityEnchantable {
+// Currently can't be enchanted with Capacity, broken thing in botarium.
+public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidItem<WrappedItemFluidContainer>/*, CapacityEnchantment.ICapacityEnchantable*/ {
     int estrogenAmountTick = 0;
 
     public EstrogenPatchesItem(Properties properties) {

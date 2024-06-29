@@ -3,7 +3,6 @@ package dev.mayaqq.estrogen.forge.client;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.Dash;
 import dev.mayaqq.estrogen.client.registry.EstrogenClientEvents;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.event.RenderGuiEvent;
