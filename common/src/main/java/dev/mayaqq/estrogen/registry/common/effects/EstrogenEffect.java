@@ -44,7 +44,7 @@ public class EstrogenEffect extends MobEffect {
     private double dashDeltaModifier = 0.0;
     private final double dashSpeed = 1.0;
     private final double dashEndSpeed = 0.4;
-    private final double hyperHSpeed = 3.5;
+    private final double hyperHSpeed = 3.0;
     private final double hyperVSpeed = 0.5;
     private final double superHSpeed = 0.8;
     private final double superVSpeed = 1.0;
@@ -80,34 +80,33 @@ public class EstrogenEffect extends MobEffect {
         onCooldown = dashCooldown > 0 || currentDashes == 0;
         Dash.onCooldown = onCooldown;
 
+        // Hyper (Wavedash)
+        if (willHyper) {
+            willHyper = false;
+            Vec3 hyperMotion = new Vec3(
+                    player.getLookAngle().x * hyperHSpeed,
+                    hyperVSpeed,
+                    player.getLookAngle().z * hyperHSpeed
+            );
+            player.setDeltaMovement(hyperMotion);
+            dashCooldown = 0;
+        }
+        // Super
+        if (willSuper) {
+            willSuper = false;
+            Vec3 superMotion = new Vec3(
+                    player.getLookAngle().x * superHSpeed,
+                    superVSpeed,
+                    player.getLookAngle().z * superHSpeed
+            );
+            player.setDeltaMovement(superMotion);
+            dashCooldown = 0;
+        }
+
         // During Dash
         Dash: if (dashCooldown > 0) {
             dashCooldown--;
 
-            // Hyper (Wavedash)
-            if (willHyper) {
-                willHyper = false;
-                Vec3 hyperMotion = new Vec3(
-                        player.getLookAngle().x * hyperHSpeed,
-                        hyperVSpeed,
-                        player.getLookAngle().z * hyperHSpeed
-                );
-                player.setDeltaMovement(hyperMotion);
-                dashCooldown = 0;
-                break Dash;
-            }
-            // Super
-            if (willSuper) {
-                willSuper = false;
-                Vec3 superMotion = new Vec3(
-                        player.getLookAngle().x * superHSpeed,
-                        superVSpeed,
-                        player.getLookAngle().z * superHSpeed
-                );
-                player.setDeltaMovement(superMotion);
-                dashCooldown = 0;
-                break Dash;
-            }
             // End Dash
             if (dashCooldown == 0) {
                 player.setDeltaMovement(dashDirection.scale(dashEndSpeed).scale(dashDeltaModifier));
@@ -121,7 +120,7 @@ public class EstrogenEffect extends MobEffect {
                 // Player's jumpFromGround overrides setDeltaMovement when on ground,
                 // therefore, this will wait for 1 tick before applying motion.
                 if (dashXRot > 15 && dashXRot < 60) willHyper = true;
-                if (dashXRot > 0 && dashXRot < 15) willSuper = true;
+                else if (dashXRot > 0 && dashXRot < 15) willSuper = true;
             }
 
             // Dash Particles
