@@ -25,6 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static dev.mayaqq.estrogen.registry.common.EstrogenAttributes.*;
@@ -39,15 +40,16 @@ public class EstrogenEffect extends MobEffect {
     public boolean onCooldown = false;
     private BlockPos lastPos = null;
     private Vec3 dashDirection = null;
+    private double dashXRot = 0.0;
     private double dashDeltaModifier = 0.0;
     private final double dashSpeed = 1.0;
     private final double dashEndSpeed = 0.4;
-    private final double hyperHSpeed = 2.5;
+    private final double hyperHSpeed = 3.5;
     private final double hyperVSpeed = 0.5;
-    private final double superHSpeed = 1.8;
+    private final double superHSpeed = 0.8;
     private final double superVSpeed = 1.0;
-    private boolean canHyper = false;
-    private boolean canSuper = false;
+    private boolean willHyper = false;
+    private boolean willSuper = false;
 
     public EstrogenEffect(MobEffectCategory statusEffectType, int color) {
         super(statusEffectType, color);
@@ -82,6 +84,30 @@ public class EstrogenEffect extends MobEffect {
         Dash: if (dashCooldown > 0) {
             dashCooldown--;
 
+            // Hyper (Wavedash)
+            if (willHyper) {
+                willHyper = false;
+                Vec3 hyperMotion = new Vec3(
+                        player.getLookAngle().x * hyperHSpeed,
+                        hyperVSpeed,
+                        player.getLookAngle().z * hyperHSpeed
+                );
+                player.setDeltaMovement(hyperMotion);
+                dashCooldown = 0;
+                break Dash;
+            }
+            // Super
+            if (willSuper) {
+                willSuper = false;
+                Vec3 superMotion = new Vec3(
+                        player.getLookAngle().x * superHSpeed,
+                        superVSpeed,
+                        player.getLookAngle().z * superHSpeed
+                );
+                player.setDeltaMovement(superMotion);
+                dashCooldown = 0;
+                break Dash;
+            }
             // End Dash
             if (dashCooldown == 0) {
                 player.setDeltaMovement(dashDirection.scale(dashEndSpeed).scale(dashDeltaModifier));
@@ -90,32 +116,16 @@ public class EstrogenEffect extends MobEffect {
 
             player.setDeltaMovement(dashDirection.scale(dashSpeed).scale(dashDeltaModifier));
 
-            // Hyper (Wavedash)
             Minecraft client = Minecraft.getInstance();
-            if (canHyper && client.options.keyJump.isDown() && player.isOnGround()) {
-                player.setDeltaMovement(
-                        player.getLookAngle().x * hyperHSpeed,
-                        hyperVSpeed,
-                        player.getLookAngle().z * hyperHSpeed
-                );
-                canHyper = false;
-                dashCooldown = 0;
-                break Dash;
-            }
-            // Super
-            if (canSuper && client.options.keyJump.isDown() && player.isOnGround()) {
-                player.setDeltaMovement(
-                        player.getLookAngle().x * superHSpeed,
-                        superVSpeed,
-                        player.getLookAngle().z * superHSpeed
-                );
-                canSuper = false;
-                dashCooldown = 0;
-                break Dash;
+            if (client.options.keyJump.isDown() && player.isOnGround()) {
+                // Player's jumpFromGround overrides setDeltaMovement when on ground,
+                // therefore, this will wait for 1 tick before applying motion.
+                if (dashXRot > 15 && dashXRot < 60) willHyper = true;
+                if (dashXRot > 0 && dashXRot < 15) willSuper = true;
             }
 
             // Dash Particles
-            if (dashCooldown > 0 && dashCooldown % 2 == 0 && entity.blockPosition() != lastPos) {
+            if (entity.blockPosition() != lastPos) {
                 NetworkManager.sendToServer(EstrogenC2S.DASH_PARTICLES, new FriendlyByteBuf(Unpooled.buffer()));
             }
             lastPos = entity.blockPosition();
@@ -126,10 +136,8 @@ public class EstrogenEffect extends MobEffect {
             dashCooldown = 5;
             currentDashes--;
             dashDirection = player.getLookAngle();
+            dashXRot = player.getXRot();
             dashDeltaModifier = EstrogenConfig.server().dashDeltaModifier.get();
-
-            if (player.getXRot() > 22.5 && player.getXRot() < 67.5) canHyper = true;
-            else if (player.getXRot() > -22.5 && player.getXRot() < 22.5) canSuper = true;
 
             NetworkManager.sendToServer(EstrogenC2S.DASH, new FriendlyByteBuf(Unpooled.buffer()));
         }
@@ -160,7 +168,6 @@ public class EstrogenEffect extends MobEffect {
         onCooldown = false;
         Dash.onCooldown = false;
         dashCooldown = 0;
-        groundCooldown = 0;
     }
 
     @Override
