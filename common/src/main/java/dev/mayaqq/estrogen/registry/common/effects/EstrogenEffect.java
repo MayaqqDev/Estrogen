@@ -23,6 +23,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.UUID;
 
@@ -36,8 +37,17 @@ public class EstrogenEffect extends MobEffect {
     public int dashCooldown = 0;
     public int groundCooldown = 0;
     public boolean onCooldown = false;
-    private boolean shouldWaveDash = false;
     private BlockPos lastPos = null;
+    private Vec3 dashDirection = null;
+    private double dashDeltaModifier = 0.0;
+    private final double dashSpeed = 1.0;
+    private final double dashEndSpeed = 0.4;
+    private final double hyperHSpeed = 2.5;
+    private final double hyperVSpeed = 0.5;
+    private final double superHSpeed = 1.8;
+    private final double superVSpeed = 1.0;
+    private boolean canHyper = false;
+    private boolean canSuper = false;
 
     public EstrogenEffect(MobEffectCategory statusEffectType, int color) {
         super(statusEffectType, color);
@@ -55,41 +65,73 @@ public class EstrogenEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         if (!EstrogenConfig.server().dashEnabled.get()) return;
-        if (entity instanceof Player player && player.getLevel().isClientSide && player instanceof LocalPlayer) {
-            dashCooldown--;
-            groundCooldown--;
-            if (dashCooldown < 0) dashCooldown = 0;
-            if (groundCooldown < 0) groundCooldown = 0;
+        if (!(entity instanceof Player player && player.getLevel().isClientSide && player instanceof LocalPlayer)) return;
 
-            // Dash particles
+        groundCooldown--;
+        if (groundCooldown < 0) groundCooldown = 0;
+
+        // Whole Dash Mechanic
+        if (shouldRefreshDash(player) && groundCooldown == 0) {
+            groundCooldown = 4;
+            currentDashes = (short) player.getAttributeValue(EstrogenAttributes.DASH_LEVEL.get());
+        }
+        onCooldown = dashCooldown > 0 || currentDashes == 0;
+        Dash.onCooldown = onCooldown;
+
+        // During Dash
+        Dash: if (dashCooldown > 0) {
+            dashCooldown--;
+
+            // End Dash
+            if (dashCooldown == 0) {
+                player.setDeltaMovement(dashDirection.scale(dashEndSpeed).scale(dashDeltaModifier));
+                break Dash;
+            }
+
+            player.setDeltaMovement(dashDirection.scale(dashSpeed).scale(dashDeltaModifier));
+
+            // Hyper (Wavedash)
+            Minecraft client = Minecraft.getInstance();
+            if (canHyper && client.options.keyJump.isDown() && player.isOnGround()) {
+                player.setDeltaMovement(
+                        player.getLookAngle().x * hyperHSpeed,
+                        hyperVSpeed,
+                        player.getLookAngle().z * hyperHSpeed
+                );
+                canHyper = false;
+                dashCooldown = 0;
+                break Dash;
+            }
+            // Super
+            if (canSuper && client.options.keyJump.isDown() && player.isOnGround()) {
+                player.setDeltaMovement(
+                        player.getLookAngle().x * superHSpeed,
+                        superVSpeed,
+                        player.getLookAngle().z * superHSpeed
+                );
+                canSuper = false;
+                dashCooldown = 0;
+                break Dash;
+            }
+
+            // Dash Particles
             if (dashCooldown > 0 && dashCooldown % 2 == 0 && entity.blockPosition() != lastPos) {
                 NetworkManager.sendToServer(EstrogenC2S.DASH_PARTICLES, new FriendlyByteBuf(Unpooled.buffer()));
             }
             lastPos = entity.blockPosition();
-            // Wave dash
-            Minecraft client = Minecraft.getInstance();
-            if (dashCooldown > 0 && shouldWaveDash && client.options.keyJump.isDown()) {
-                player.setDeltaMovement(player.getLookAngle().x * 3, 1, player.getLookAngle().z * 3);
-                shouldWaveDash = false;
-            }
+        }
 
-            // Whole Dash Mechanic
-            if (shouldRefreshDash(player) && groundCooldown == 0) {
-                groundCooldown = 4;
-                currentDashes = (short) player.getAttributeValue(EstrogenAttributes.DASH_LEVEL.get());
-            }
-            onCooldown = dashCooldown > 0 || currentDashes == 0;
-            Dash.onCooldown = onCooldown;
-            if (EstrogenKeybinds.dashKey.consumeClick() && !onCooldown) {
-                if (player.getXRot() > 50 && player.getXRot() < 90) {
-                    shouldWaveDash = true;
-                }
-                dashCooldown = 10;
-                currentDashes--;
-                int dashDeltaModifier = EstrogenConfig.server().dashDeltaModifier.get();
-                player.setDeltaMovement(player.getLookAngle().x * dashDeltaModifier, player.getLookAngle().y * dashDeltaModifier, player.getLookAngle().z * dashDeltaModifier);
-                NetworkManager.sendToServer(EstrogenC2S.DASH, new FriendlyByteBuf(Unpooled.buffer()));
-            }
+        // Begin Dash
+        if (EstrogenKeybinds.dashKey.consumeClick() && !onCooldown) {
+            dashCooldown = 5;
+            currentDashes--;
+            dashDirection = player.getLookAngle();
+            dashDeltaModifier = EstrogenConfig.server().dashDeltaModifier.get();
+
+            if (player.getXRot() > 22.5 && player.getXRot() < 67.5) canHyper = true;
+            else if (player.getXRot() > -22.5 && player.getXRot() < 22.5) canSuper = true;
+
+            NetworkManager.sendToServer(EstrogenC2S.DASH, new FriendlyByteBuf(Unpooled.buffer()));
         }
     }
 
@@ -118,6 +160,7 @@ public class EstrogenEffect extends MobEffect {
         onCooldown = false;
         Dash.onCooldown = false;
         dashCooldown = 0;
+        groundCooldown = 0;
     }
 
     @Override
