@@ -32,6 +32,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -49,7 +50,19 @@ public class EstrogenEffect extends MobEffect {
     static public short currentDashes = 0;
     public int dashCooldown = 0;
     public boolean onCooldown = false;
-    private boolean shouldWaveDash = false;
+
+    private Vec3 dashDirection = null;
+    private double dashXRot = 0.0;
+    private double dashDeltaModifier = 0.0;
+    private final double dashSpeed = 1.0;
+    private final double dashEndSpeed = 0.4;
+    private final double hyperHSpeed = 3.0;
+    private final double hyperVSpeed = 0.5;
+    private final double superHSpeed = 0.8;
+    private final double superVSpeed = 1.0;
+    private boolean willHyper = false;
+    private boolean willSuper = false;
+    private short groundCooldown = 0;
 
     // Only needed for particles
     private BlockPos lastPos = null;
@@ -68,48 +81,80 @@ public class EstrogenEffect extends MobEffect {
         // Check if Dash is enabled on the server
         if (!EstrogenConfig.server().dashEnabled.get()) return;
         // Only tick on the client and if the entity is a player
-        if (entity instanceof Player player && player.level().isClientSide && player instanceof LocalPlayer) {
+        if (!(entity instanceof Player player && player.level().isClientSide && player instanceof LocalPlayer)) return;
 
-            // cooldown processing
+        // Refresh number of dashes
+        if (shouldRefreshDash(player) && groundCooldown == 0) {
+            groundCooldown = 4;
+            currentDashes = (short) player.getAttributeValue(EstrogenAttributes.DASH_LEVEL.get());
+        }
+
+        groundCooldown--;
+        if (groundCooldown < 0) groundCooldown = 0;
+
+        // Hyper
+        if (willHyper) {
+            willHyper = false;
+            Vec3 hyperMotion = new Vec3(
+                    player.getLookAngle().x * hyperHSpeed,
+                    hyperVSpeed,
+                    player.getLookAngle().z * hyperHSpeed
+            );
+            player.setDeltaMovement(hyperMotion);
+            dashCooldown = 0;
+        }
+        // Super
+        if (willSuper) {
+            willSuper = false;
+            Vec3 superMotion = new Vec3(
+                    player.getLookAngle().x * superHSpeed,
+                    superVSpeed,
+                    player.getLookAngle().z * superHSpeed
+            );
+            player.setDeltaMovement(superMotion);
+            dashCooldown = 0;
+        }
+
+        // During Dash
+        Dash: if (dashCooldown > 0) {
             dashCooldown--;
-            if (dashCooldown < 0) dashCooldown = 0;
 
-            // Refresh number of dashes
-            if (shouldRefreshDash(player)) {
-                currentDashes = (short) player.getAttributeValue(EstrogenAttributes.DASH_LEVEL.get());
+            // End Dash
+            if (dashCooldown == 0) {
+                player.setDeltaMovement(dashDirection.scale(dashEndSpeed).scale(dashDeltaModifier));
+                break Dash;
+            }
+
+            player.setDeltaMovement(dashDirection.scale(dashSpeed).scale(dashDeltaModifier));
+
+            // Hyper and Super Detection
+            if (Minecraft.getInstance().options.keyJump.isDown() && player.onGround()) {
+                if (dashXRot > 15 && dashXRot < 60) willHyper = true;
+                else if (dashXRot > 0 && dashXRot < 15) willSuper = true;
             }
 
             // Dash particles
-            if (dashCooldown > 0 && dashCooldown % 2 == 0 && player.blockPosition() != lastPos) {
+            if (player.blockPosition() != lastPos) {
                 EstrogenNetworkManager.CHANNEL.sendToServer(new DashPacket(false));
             }
             lastPos = player.blockPosition();
+        }
 
-            // Wave dash, we process it near the top so it happens after the dash which triggers this.
-            if (dashCooldown > 0 && shouldWaveDash && Minecraft.getInstance().options.keyJump.isDown()) {
-                player.setDeltaMovement(player.getLookAngle().x * 3, 1, player.getLookAngle().z * 3);
-                shouldWaveDash = false;
-            }
+        cooldown(dashCooldown > 0 || currentDashes == 0);
+        // Here is when the dash happens
+        if (EstrogenKeybinds.DASH_KEY.consumeClick() && !onCooldown) {
+            DreamBlock.lookAngle = null;
+            EstrogenNetworkManager.CHANNEL.sendToServer(new DashPacket(true));
+            EstrogenEffect.dashing.put(player.getUUID(), 20);
 
-            cooldown(dashCooldown > 0 || currentDashes == 0);
-            // Here is when the dash happens
-            if (EstrogenKeybinds.DASH_KEY.consumeClick() && !onCooldown) {
-                DreamBlock.lookAngle = null;
-                EstrogenNetworkManager.CHANNEL.sendToServer(new DashPacket(true));
-                EstrogenEffect.dashing.put(player.getUUID(), 20);
-                // This makes you wave dash the next tick
-                if (player.getXRot() > 50 && player.getXRot() < 90) {
-                    shouldWaveDash = true;
-                }
-                // Reset the cooldown to wait half a second
-                dashCooldown = 10;
-                // Decrement the dash counter
-                currentDashes--;
+            // Set counter to duration of dash
+            dashCooldown = 5;
+            // Decrement the dash counter
+            currentDashes--;
 
-                // Dash
-                int dashDeltaModifier = EstrogenConfig.server().dashDeltaModifier.get();
-                player.setDeltaMovement(player.getLookAngle().x * dashDeltaModifier, player.getLookAngle().y * dashDeltaModifier, player.getLookAngle().z * dashDeltaModifier);
-            }
+            dashDirection = player.getLookAngle();
+            dashXRot = player.getXRot();
+            dashDeltaModifier = EstrogenConfig.server().dashDeltaModifier.get();
         }
     }
 
