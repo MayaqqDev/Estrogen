@@ -1,9 +1,8 @@
 {
   "effect.estrogen.estrogen": "Force Féminine",
-  "effect.estrogen.estrogen.description": "Permet au joueur de se propulser et lui donnes des \"attributs\" supplémentaires",
+  "effect.estrogen.estrogen.description": "Permet au joueur de se propulser et lui donne des \"attributs\" supplémentaires",
 
 
-  "category.estrogen": "Estrogen",
   "key.estrogen.dash": "Propulsion",
 
 
@@ -38,9 +37,9 @@
   "item.estrogen.crystal_estrogen_pill.tooltip": "Pilule de cristal d'Œstrogène",
   "item.estrogen.crystal_estrogen_pill.tooltip.summary": "Source temporaire de _Force Féminine_",
   "item.estrogen.estrogen_patches.tooltip": "Patch d'Œstrogène",
-  "item.estrogen.estrogen_patches.tooltip.summary": "Une source rechargeable de _Force Féminie_",
+  "item.estrogen.estrogen_patches.tooltip.summary": "Une source rechargeable de _Force Féminine_",
   "item.estrogen.estrogen_patches.tooltip.condition1": "Quand porté sur les cuisses",
-  "item.estrogen.estrogen_patches.tooltip.behaviour1": "Fourni l'_effet de Force Féminine_ aussi longtemps qu'est porté et rempli d'_Œstrogène liquide_",
+  "item.estrogen.estrogen_patches.tooltip.behaviour1": "Fourni l'_effet de Force Féminine_ aussi longtemps qu'il porté et rempli d'_Œstrogène liquide_",
   "block.estrogen.dormant_dream_block.tooltip": "Bloc onirique dormant",
   "block.estrogen.dormant_dream_block.tooltip.summary": "Un bloc avec des propriétés _très_ puissantes...",
   "block.estrogen.dormant_dream_block.tooltip.condition1": "Quand alimenté avec un signal de redstone",
@@ -50,22 +49,24 @@
 
 
   "advancement.estrogen.root.title": "Create: Estrogen",
-  "advancement.estrogen.root.description": "A addon pour Create basé surl'expression de soi, la gestion de fluides et l'expansion de votre usine!",
+  "advancement.estrogen.root.description": "Un addon pour Create basé sur l'expression de soi, la gestion de fluides et l'expansion de votre usine!",
   "advancement.estrogen.horse_urine.title": "Beurk!",
-  "advancement.estrogen.horse_urine.description": "Récupérer de l'urine de cheval en \"trayant\" un cheval avec une fiole de verre.",
+  "advancement.estrogen.horse_urine.description": "Récupérez de l'urine de cheval en \"trayant\" un cheval avec une fiole.",
   "advancement.estrogen.used_filter.title": "Première étape du processus",
-  "advancement.estrogen.used_filter.description": "Utiliser un filtre pour supprimer les impuretés de votre urine de cheval.",
+  "advancement.estrogen.used_filter.description": "Utilisez un filtre pour supprimer les impuretés de votre urine de cheval.",
   "advancement.estrogen.liquid_estrogen.title": "La source de la Force (Féminine)",
-  "advancement.estrogen.liquid_estrogen.description": "Obtenir un seau d'Œstrogène liquide.",
+  "advancement.estrogen.liquid_estrogen.description": "Obtenez un seau d'Œstrogène liquide.",
   "advancement.estrogen.estrogen_pill.title": "Il est l'heure de la pilule",
-  "advancement.estrogen.estrogen_pill.description": "Fabriquer l'élusive Pilule d'Œstrogène.",
+  "advancement.estrogen.estrogen_pill.description": "Fabriquez la si rare Pilule d'Œstrogène.",
   "advancement.estrogen.estrogen_patches.title": "Permanent! (ou presque)",
-  "advancement.estrogen.estrogen_patches.description": "Fabriquer des Patch d'Œstrogène, et profiter d'une longue fémininité.",
+  "advancement.estrogen.estrogen_patches.description": "Fabriquez des Patch d'Œstrogène et profitez d'une longue fémininité.",
   "advancement.estrogen.balls.description": "Que se passe-t-il quand on sépare le Slime et les Boules?",
   "advancement.estrogen.cookie_jar.title": "Accepter et continuer",
-  "advancement.estrogen.cookie_jar.description": "Ce mod recquiert des cookies pour fonctionner normalement. Veuiller les insérer dans la jarre.",
-  "advancement.estrogen.hard_to_catch.title": "Et oui Jammy ! Les oiseaux sont difficile à attraper !",
+  "advancement.estrogen.cookie_jar.description": "Ce mod requiert des cookies pour fonctionner correctement. Veuillez les insérer dans la jarre.",
+  "advancement.estrogen.hard_to_catch.title": "Eh oui Jamy ! Les oiseaux sont difficiles à attraper !",
   "advancement.estrogen.hard_to_catch.description": "Wow ! Ça va vite !",
+  "advancement.estrogen.estrogen_dealer.description": "Je suis la femme qui frappe à la porte",
+  "advancement.estrogen.estrogen_dealer.title": "Dealeuse d'Œstrogène",
 
 
   "block.estrogen.centrifuge": "Centrifugeuse",
@@ -96,16 +97,16 @@
   "fluid_type.estrogen.testosterone_mixture": "Mixture de testostérone",
 
 
-  "subtitles.estrogen.dash": "Propulsion de forcé féminine",
+  "subtitles.estrogen.dash": "Propulsion de force féminine",
 
 
   "death.attack.girlpower": "%s a trop joué à la patronne",
   "death.attack.girlpower.player": "%s a trop joué à la patronne",
 
 
-  "curios.identifier.thighs": "Cuisse",
+  "curios.identifier.thighs": "Cuisses",
 
-  "trinkets.slot.legs.thighs": "Cuisse",
+  "trinkets.slot.legs.thighs": "Cuisses",
 
 
   "create.recipe.centrifuging": "Centrifugeage",
@@ -119,20 +120,16 @@
   "enchantment.estrogen.uwufy_curse": "Malédiction d'uwufication",
   "enchantment.estrogen.uwufy_curse.desc": "UwUifie vos messages dans le chat >///<",
 
-
   "tag.item.trinkets.legs.thighs": "Cuisses",
   "tag.item.estrogen.uwufying": "Uwuificateur",
   "tag.item.curios.thighs": "Cuisses",
-  "tag.item.estrogen.copper_plates": "Plaques de cuivre",
-  "tag.item.estrogen.uwufying": "Uwufication",
 
   "tag.fluid.estrogen.urine": "Urine",
 
-
   "estrogen.ponder.intro.header": "Besoins de la centrifugeuse",
-  "estrogen.ponder.intro.text_1": "La centrifugeuse requiert la vitesse de rotation maximum pour fonctionner (par défaut 256 RPM).",
+  "estrogen.ponder.intro.text_1": "La centrifugeuse requiert la vitesse de rotation maximum (256 RPM par défaut) pour fonctionner !",
   "estrogen.ponder.basic.header": "Comment utiliser la centrifugeuse",
-  "estrogen.ponder.basic.text_1": "La centrifuge ne dispose pas d'un inventaire, vous devez lui fournir l'espace de stockage avec des réservoirs à fluide au dessus et en dessous pour la faire fonctionner.",
+  "estrogen.ponder.basic.text_1": "La centrifugeuse ne dispose pas de son propre inventaire, il faudra placer des réservoirs à fluide au dessus et en dessous pour la faire fonctionner!",
   "estrogen.ponder.basic.text_2": "L'entrée de fluide se fait par le dessous",
   "estrogen.ponder.basic.text_3": "Et la sortie se fait par le dessus",
 
