@@ -76,7 +76,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("advancement.estrogen.used_filter.description", "Use a filter to remove the impurities from the Horse Urine you collected.");
         tb.add("advancement.estrogen.liquid_estrogen.title", "The Source of (Girl) Power");
         tb.add("advancement.estrogen.liquid_estrogen.description", "Collect a Bucket of Liquid Estrogen.");
-        tb.add("advancement.estrogen.estrogen_pill.title", "Pill up gals!");
+        tb.add("advancement.estrogen.estrogen_pill.title", "Pill up, gals!");
         tb.add("advancement.estrogen.estrogen_pill.description", "Craft the elusive Estrogen Pill.");
         tb.add("advancement.estrogen.estrogen_patches.title", "(Almost) Permanent!");
         tb.add("advancement.estrogen.estrogen_patches.description", "Craft the Estrogen Patches and enjoy your long lasting femininity.");
@@ -155,7 +155,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         // Ponder
         // Centrifuge
         tb.add("estrogen.ponder.intro.header", "The Centrifuge Requirements");
-        tb.add("estrogen.ponder.intro.text_1", "The centrifuge needs the maximum speed (256 RPM) to work!");
+        tb.add("estrogen.ponder.intro.text_1", "The Centrifuge needs the maximum speed (256 RPM) to work!");
         tb.add("estrogen.ponder.basic.header", "How to use the Centrifuge");
         tb.add("estrogen.ponder.basic.text_1", "The Centrifuge doesn't have any inventory, you will need to place fluid containers around it to make it work!");
         tb.add("estrogen.ponder.basic.text_2", "You can input fluids from the bottom");
@@ -163,7 +163,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
 
         // Attributes
         tb.add(EstrogenAttributes.DASH_LEVEL.get(), "Dash Level");
-        tb.add(EstrogenAttributes.BOOB_GROWING_START_TIME.get(), "Upper body Start Time");
+        tb.add(EstrogenAttributes.BOOB_GROWING_START_TIME.get(), "Upper Body Start Time");
         tb.add(EstrogenAttributes.BOOB_INITIAL_SIZE.get(), "Upper Body initial size");
     }
 }
