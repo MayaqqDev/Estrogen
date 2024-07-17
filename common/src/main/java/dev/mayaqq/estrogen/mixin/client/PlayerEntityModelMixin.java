@@ -27,10 +27,13 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -124,8 +127,15 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         String string;
         ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
         ArmorItem item = (ArmorItem) itemStack.getItem();
+        ResourceLocation itemId = Registry.ITEM.getKey(item);
         if (item instanceof BaseArmorItem) {
             string = ((BaseArmorItem) item).getArmorTexture(itemStack, player, EquipmentSlot.CHEST, overlay);
+        } else if (itemId.getNamespace().contains("ad_astra")) {
+            if (itemId.getPath().contains("jet_suit")) {
+                string = String.format("ad_astra:textures/entity/armour/jet_suit/%s.png", "jet_suit_0");
+            } else {
+                string = String.format("ad_astra:textures/entity/armour/%s.png", itemId.getPath());
+            }
         } else {
             String texture = item.getMaterial().getName();
             String domain = "minecraft";
