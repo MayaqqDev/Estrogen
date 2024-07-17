@@ -3,6 +3,8 @@ package dev.mayaqq.estrogen.forge;
 import com.simibubi.create.foundation.config.ConfigBase;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -38,5 +40,13 @@ public class EstrogenForgeEvents {
                         .icon(Estrogen.id("slot/thighs"))
                         .build()
         );
+    }
+
+    // Forge only, fixes issue with deployers deleting horses
+    @SubscribeEvent
+    public static void onEntityMount(EntityMountEvent event) {
+        if (event.getEntity() instanceof FakePlayer) {
+            event.setCanceled(true);
+        }
     }
 }
