@@ -46,6 +46,10 @@ dependencies {
         default: println("Invalid item viewer: ${item_viewer} must be JEI or disabled"); break
     }
 
+    // Resourceful Lib (This is needed because it does not unpackage correctly on forge)
+    forgeRuntimeLibrary("com.teamresourceful:yabn:1.0.3")
+    forgeRuntimeLibrary("com.teamresourceful:bytecodecs:1.0.2")
+
     //Forge stuff
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
