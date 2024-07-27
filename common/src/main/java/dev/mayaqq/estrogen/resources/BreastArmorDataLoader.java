@@ -17,7 +17,7 @@ public class BreastArmorDataLoader extends SimpleJsonResourceReloadListener {
     public final Map<ResourceLocation, BreastArmorData> data = new HashMap<>();
 
     public BreastArmorDataLoader() {
-        super(new Gson(), "breast_armor_data");
+        super(new Gson(), "estrogen_armor_data");
     }
 
 

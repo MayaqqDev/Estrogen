@@ -28,7 +28,7 @@ public class EstrogenClientFabric implements ClientModInitializer {
 
         @Override
         public ResourceLocation getFabricId() {
-            return Estrogen.id("breast_armor_data");
+            return Estrogen.id("estrogen_armor_data");
         }
 
         @Override
