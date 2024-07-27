@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.fabric;
 
 import dev.mayaqq.estrogen.registry.EstrogenEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.PlayerTickEvents;
+import io.github.fabricators_of_create.porting_lib.event.common.AdvancementCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
@@ -34,5 +35,7 @@ public class EstrogenFabricEvents {
 
         // Entity Death
         ServerLivingEntityEvents.AFTER_DEATH.register(EstrogenEvents::onEntityDeath);
+
+        AdvancementCallback.EVENT.register(EstrogenEvents::onAdvancement);
     }
 }

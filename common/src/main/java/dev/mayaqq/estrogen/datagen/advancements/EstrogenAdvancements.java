@@ -36,8 +36,8 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                 true,
                 true,
                 false
-        ).addCriterion("root", InventoryChangeTrigger.TriggerInstance.hasItems(getItems()))
-                .build(Estrogen.id("root"));
+            ).addCriterion("root", InventoryChangeTrigger.TriggerInstance.hasItems(getItems())
+        ).build(Estrogen.id("root"));
 
         Advancement horseUrine = Advancement.Builder.advancement().parent(root).display(EstrogenItems.HORSE_URINE_BOTTLE.get(),
                 Component.translatable("advancement.estrogen.horse_urine.title"),
@@ -47,8 +47,8 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                 true,
                 true,
                 false
-        ).addCriterion("horse_urine", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.HORSE_URINE_BOTTLE.get()))
-                .build(Estrogen.id("horse_urine"));
+            ).addCriterion("horse_urine", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.HORSE_URINE_BOTTLE.get())
+        ).build(Estrogen.id("horse_urine"));
 
         Advancement usedFilter = Advancement.Builder.advancement().parent(horseUrine).display(EstrogenItems.USED_FILTER.get(),
                 Component.translatable("advancement.estrogen.used_filter.title"),
@@ -58,8 +58,8 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                 true,
                 true,
                 false
-        ).addCriterion("used_filter", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.USED_FILTER.get()))
-                .build(Estrogen.id("used_filter"));
+            ).addCriterion("used_filter", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.USED_FILTER.get())
+        ).build(Estrogen.id("used_filter"));
 
         Advancement liquidEstrogen = Advancement.Builder.advancement().parent(usedFilter).display(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(),
                 Component.translatable("advancement.estrogen.liquid_estrogen.title"),
@@ -69,8 +69,8 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                 true,
                 true,
                 false
-        ).addCriterion("liquid_estrogen", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get()))
-                .build(Estrogen.id("liquid_estrogen"));
+            ).addCriterion("liquid_estrogen", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get())
+        ).build(Estrogen.id("liquid_estrogen"));
 
         Advancement estrogenPill = Advancement.Builder.advancement().parent(liquidEstrogen).display(EstrogenItems.ESTROGEN_PILL.get(),
                 Component.translatable("advancement.estrogen.estrogen_pill.title"),
@@ -80,8 +80,8 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                 true,
                 true,
                 false
-        ).addCriterion("estrogen_pill", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.ESTROGEN_PILL.get()))
-                .build(Estrogen.id("estrogen_pill"));
+            ).addCriterion("estrogen_pill", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.ESTROGEN_PILL.get())
+        ).build(Estrogen.id("estrogen_pill"));
 
         Advancement estrogenPatches = Advancement.Builder.advancement().parent(liquidEstrogen).display(EstrogenItems.ESTROGEN_PATCHES.get().getFullStack(),
                 Component.translatable("advancement.estrogen.estrogen_patches.title"),
@@ -91,8 +91,8 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                 true,
                 true,
                 false
-        ).addCriterion("estrogen_patches", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.ESTROGEN_PATCHES.get()))
-                .build(Estrogen.id("estrogen_patches"));
+            ).addCriterion("estrogen_patches", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.ESTROGEN_PATCHES.get())
+        ).build(Estrogen.id("estrogen_patches"));
 
         Advancement uwu = Advancement.Builder.advancement().parent(root).display(EstrogenItems.UWU.get(),
                 Component.translatable("advancement.estrogen.uwu.title"),
@@ -102,8 +102,8 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                 true,
                 true,
                 true
-        ).addCriterion("uwu", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.UWU.get()))
-                .build(Estrogen.id("uwu"));
+            ).addCriterion("uwu", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.UWU.get())
+        ).build(Estrogen.id("uwu"));
 
         Advancement balls = Advancement.Builder.advancement().parent(root).display(EstrogenItems.BALLS.get(),
                 Component.translatable("advancement.estrogen.balls.title"),
@@ -113,8 +113,8 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                 true,
                 true,
                 true
-        ).addCriterion("balls", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.BALLS.get()))
-                .build(Estrogen.id("balls"));
+            ).addCriterion("balls", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.BALLS.get())
+        ).build(Estrogen.id("balls"));
 
         Advancement cookie_jar = Advancement.Builder.advancement().parent(estrogenPill).display(EstrogenItems.COOKIE_JAR.get(),
                 Component.translatable("advancement.estrogen.cookie_jar.title"),
@@ -124,8 +124,8 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                 true,
                 true,
                 false
-        ).addCriterion("cookie_jar_place", InsertJarTrigger.TriggerInstance.insertJar())
-                .build(Estrogen.id("cookie_jar"));
+            ).addCriterion("cookie_jar_place", InsertJarTrigger.TriggerInstance.insertJar()
+        ).build(Estrogen.id("cookie_jar"));
 
         Advancement hard_to_catch = Advancement.Builder.advancement().parent(estrogenPill).display(Items.PHANTOM_MEMBRANE,
                 Component.translatable("advancement.estrogen.hard_to_catch.title"),
@@ -139,8 +139,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                                 EntityPredicate.wrap(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityType.PHANTOM)).build()),
                                 EstrogenEffects.ESTROGEN_EFFECT.get(), ContextAwarePredicate.ANY
                         )
-                )
-                .build(Estrogen.id("hard_to_catch"));
+        ).build(Estrogen.id("hard_to_catch"));
 
         Advancement estrogen_dealer = Advancement.Builder.advancement().parent(estrogenPill).display(Items.SUGAR,
                 Component.translatable("advancement.estrogen.estrogen_dealer.title"),
@@ -156,8 +155,24 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                                 ContextAwarePredicate.ANY,
                                 ItemPredicate.Builder.item().of(EstrogenItems.ESTROGEN_PILL.get(), EstrogenItems.CRYSTAL_ESTROGEN_PILL.get()).build(),
                                 ContextAwarePredicate.ANY)
-                )
-                .build(Estrogen.id("estrogen_dealer"));
+        ).build(Estrogen.id("estrogen_dealer"));
+
+        Advancement what_happens_if = Advancement.Builder.advancement().parent(root).display(EstrogenItems.TESTOSTERONE_CHUNK.get(),
+                Component.translatable("advancement.estrogen.what_happens_if.title"),
+                Component.translatable("advancement.estrogen.what_happens_if.description"),
+                null,
+                FrameType.CHALLENGE,
+                true,
+                true,
+                false
+        ).addCriterion(
+                "what_happens_if",
+                    EffectsChangedTrigger.TriggerInstance.hasEffects(
+                            MobEffectsPredicate.effects()
+                                    .and(EstrogenEffects.ESTROGEN_EFFECT.get())
+                                    .and(EstrogenEffects.TESTOSTERONE_EFFECT.get())
+                    )
+        ).build(Estrogen.id("what_happens_if"));
 
         consumer.accept(root);
         consumer.accept(horseUrine);
@@ -170,6 +185,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         consumer.accept(cookie_jar);
         consumer.accept(hard_to_catch);
         consumer.accept(estrogen_dealer);
+        consumer.accept(what_happens_if);
     }
 
     public static ItemPredicate getItems() {
@@ -179,6 +195,6 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
             items.add(item.get());
         }
         return  new ItemPredicate(null, items.build(),
-                MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, (Potion)null, NbtPredicate.ANY);
+                MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY);
     }
 }

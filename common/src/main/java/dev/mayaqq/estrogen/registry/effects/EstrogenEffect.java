@@ -116,7 +116,8 @@ public class EstrogenEffect extends MobEffect {
         }
 
         // During Dash
-        Dash: if (dashCooldown > 0) {
+        Dash:
+        if (dashCooldown > 0) {
             dashCooldown--;
 
             // End Dash
@@ -230,10 +231,5 @@ public class EstrogenEffect extends MobEffect {
         FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
         packet.write(buf);
         EstrogenNetworkManager.CHANNEL.sendToPlayers(new RemoveStatusEffectPacket(buf), Arrays.stream(targetPlayers).toList());
-    }
-
-    @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
-        return true;
     }
 }

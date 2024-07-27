@@ -17,6 +17,7 @@ import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
 import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -105,5 +106,10 @@ public class EstrogenForgeEvents {
         if (event.getEntity() instanceof FakePlayer) {
             event.setCanceled(true);
         }
+    }
+
+    @SubscribeEvent
+    public static void onAdvancementUnlock(AdvancementEvent.AdvancementEarnEvent event) {
+        EstrogenEvents.onAdvancement(event.getEntity(), event.getAdvancement());
     }
 }

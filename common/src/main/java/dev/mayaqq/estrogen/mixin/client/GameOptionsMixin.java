@@ -25,7 +25,9 @@ public class GameOptionsMixin {
     public void loadHook(CallbackInfo info) {
         List<KeyMapping> allKeys = Lists.newArrayList(keyMappings);
         allKeys.remove(EstrogenKeybinds.DASH_KEY);
+        allKeys.remove(EstrogenKeybinds.NANOHORMONE_KEY);
         allKeys.add(EstrogenKeybinds.DASH_KEY);
+        allKeys.add(EstrogenKeybinds.NANOHORMONE_KEY);
         keyMappings = allKeys.toArray(new KeyMapping[0]);
     }
 }

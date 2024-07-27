@@ -7,6 +7,7 @@ import dev.mayaqq.estrogen.networking.messages.c2s.DashPacket;
 import dev.mayaqq.estrogen.networking.messages.c2s.FinishLoadingPacket;
 import dev.mayaqq.estrogen.networking.messages.c2s.SetChestConfigPacket;
 import dev.mayaqq.estrogen.networking.messages.c2s.SpawnHeartsPacket;
+import dev.mayaqq.estrogen.networking.messages.s2c.AdvancementUnlockClientPacket;
 import dev.mayaqq.estrogen.networking.messages.s2c.ChestConfigPacket;
 import dev.mayaqq.estrogen.networking.messages.s2c.RemoveStatusEffectPacket;
 import dev.mayaqq.estrogen.networking.messages.s2c.StatusEffectPacket;
@@ -27,5 +28,6 @@ public class EstrogenNetworkManager {
         CHANNEL.registerPacket(NetworkDirection.SERVER_TO_CLIENT, StatusEffectPacket.ID, StatusEffectPacket.HANDLER, StatusEffectPacket.class);
         CHANNEL.registerPacket(NetworkDirection.SERVER_TO_CLIENT, RemoveStatusEffectPacket.ID, RemoveStatusEffectPacket.HANDLER, RemoveStatusEffectPacket.class);
         CHANNEL.registerPacket(NetworkDirection.SERVER_TO_CLIENT, ChestConfigPacket.ID, ChestConfigPacket.HANDLER, ChestConfigPacket.class);
+        CHANNEL.registerPacket(NetworkDirection.SERVER_TO_CLIENT, AdvancementUnlockClientPacket.ID, AdvancementUnlockClientPacket.HANDLER, AdvancementUnlockClientPacket.class);
     }
 }

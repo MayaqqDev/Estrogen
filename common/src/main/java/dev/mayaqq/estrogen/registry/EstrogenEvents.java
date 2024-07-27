@@ -4,9 +4,11 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.networking.messages.c2s.SpawnHeartsPacket;
+import dev.mayaqq.estrogen.networking.messages.s2c.AdvancementUnlockClientPacket;
 import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import dev.mayaqq.estrogen.registry.recipes.inventory.EntityInteractionInventory;
 import dev.mayaqq.estrogen.utils.Time;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -104,5 +106,9 @@ public class EstrogenEvents {
             EstrogenAdvancementCriteria.KILLED_WITH_EFFECT.trigger(player, entity);
 
         }
+    }
+
+    public static void onAdvancement(Player player, Advancement advancement) {
+        EstrogenNetworkManager.CHANNEL.sendToPlayer(new AdvancementUnlockClientPacket(advancement.getId()), player);
     }
 }

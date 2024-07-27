@@ -9,6 +9,7 @@ import java.util.Optional;
 @SuppressWarnings("SameParameterValue")
 public class EstrogenKeybinds {
     public static final KeyMapping DASH_KEY = new KeyMapping("key.estrogen.dash", GLFW.GLFW_KEY_X, "category.estrogen");
+    public static final KeyMapping NANOHORMONE_KEY = new KeyMapping("key.estrogen.nanohormone", GLFW.GLFW_KEY_Y, "category.estrogen");
 
     public static void register() {
         addCategory("category.estrogen");

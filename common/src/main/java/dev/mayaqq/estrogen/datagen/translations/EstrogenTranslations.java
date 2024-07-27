@@ -15,10 +15,13 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         // Status Effects
         tb.add(EstrogenEffects.ESTROGEN_EFFECT.get(), "Girl Power");
         tb.add(EstrogenEffects.ESTROGEN_EFFECT.get().getDescriptionId() + ".description", "Allows the player to dash and gives them some additional \"features\"");
+        tb.add(EstrogenEffects.TESTOSTERONE_EFFECT.get(), "Testosterone");
+        tb.add(EstrogenEffects.TESTOSTERONE_EFFECT.get().getDescriptionId() + ".description", "The player is filled with nanohormones, allowing them to utilize them and active them for Extreme defense and or offense! Don't overdo it though!");
 
         // Controls
         tb.add("category.estrogen", "Estrogen");
         tb.add("key.estrogen.dash", "Activate Dash");
+        tb.add("key.estrogen.nanohormone", "Activate Nanohormone ability");
 
         // Items
         tb.add("itemGroup.estrogen.estrogen", "Estrogen");
@@ -90,6 +93,8 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("advancement.estrogen.hard_to_catch.description", "Wow. It's fast!");
         tb.add("advancement.estrogen.estrogen_dealer.title", "Estrogen Dealer");
         tb.add("advancement.estrogen.estrogen_dealer.description", "I am the one who knocks");
+        tb.add("advancement.estrogen.what_happens_if.title", "What happens if...");
+        tb.add("advancement.estrogen.what_happens_if.description", "Your body takes a screenshot!");
 
         // Blocks
         tb.add(EstrogenBlocks.CENTRIFUGE.get(), "Centrifuge");

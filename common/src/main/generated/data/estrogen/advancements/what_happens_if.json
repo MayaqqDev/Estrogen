@@ -1,0 +1,35 @@
+{
+  "parent": "estrogen:root",
+  "criteria": {
+    "what_happens_if": {
+      "conditions": {
+        "effects": {
+          "estrogen:estrogen": {},
+          "estrogen:testosterone": {}
+        }
+      },
+      "trigger": "minecraft:effects_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.estrogen.what_happens_if.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "estrogen:testosterone_chunk"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.estrogen.what_happens_if.title"
+    }
+  },
+  "requirements": [
+    [
+      "what_happens_if"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
