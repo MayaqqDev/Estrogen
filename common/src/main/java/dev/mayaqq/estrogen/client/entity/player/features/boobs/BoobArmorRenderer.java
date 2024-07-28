@@ -9,13 +9,14 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.core.Direction;
 import org.joml.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.random.RandomGenerator;
 
 @Environment(value = EnvType.CLIENT)
 public final class BoobArmorRenderer {
     public static final float DEFAULT_SCALE = 1.0f;
-    private final List<BoobArmorModel> models;
+    private List<BoobArmorModel> models;
     public float pivotX;
     public float pivotY;
     public float pivotZ;
@@ -28,9 +29,17 @@ public final class BoobArmorRenderer {
     public boolean visible = true;
     public boolean skipDraw;
     private PartPose initalTransform = PartPose.ZERO;
+    private int u;
+    private int v;
+    private float textureWidth;
+    private float textureHeight;
 
-    public BoobArmorRenderer(List<BoobArmorModel> models) {
-        this.models = models;
+    public BoobArmorRenderer() {
+        this.u = 18;
+        this.v = 23;
+        this.textureWidth = 32.0F;
+        this.textureHeight = 64.0F;
+        this.createModel();
     }
 
     public PartPose getTransform() {
@@ -85,16 +94,26 @@ public final class BoobArmorRenderer {
         this.roll = roll;
     }
 
-    public void render(PoseStack stack, VertexConsumer vertices, int light, int overlay) {
-        this.render(stack, vertices, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
+//    public void render(PoseStack stack, VertexConsumer vertices, int light, int overlay) {
+//        this.render(stack, vertices, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
+//    }
+    public void createModel() {
+        this.models = Collections.singletonList(new BoobArmorRenderer.BoobArmorModel(this.u, this.v, 8, 2, 2, false, this.textureWidth, this.textureHeight));
     }
 
-    public void render(PoseStack stack, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
+    public void render(PoseStack stack, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, int u, int v, float textureWidth, float textureHeight) {
         if (!this.visible) {
             return;
         }
         if (this.models.isEmpty()) {
             return;
+        }
+        if (this.u != u || this.v != v || this.textureWidth != textureWidth || this.textureHeight != textureHeight) {
+            this.u = u;
+            this.v = v;
+            this.textureWidth = textureWidth;
+            this.textureHeight = textureHeight;
+            this.createModel();
         }
         stack.pushPose();
         this.rotate(stack);
