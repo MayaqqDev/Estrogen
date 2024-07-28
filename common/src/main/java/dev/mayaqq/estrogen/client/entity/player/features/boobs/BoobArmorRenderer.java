@@ -31,14 +31,22 @@ public final class BoobArmorRenderer {
     private PartPose initalTransform = PartPose.ZERO;
     private int u;
     private int v;
+    private int leftU;
+    private int leftV;
+    private int rightU;
+    private int rightV;
     private float textureWidth;
     private float textureHeight;
 
     public BoobArmorRenderer() {
-        this.u = 18;
+        this.u = 20;
         this.v = 23;
-        this.textureWidth = 32.0F;
-        this.textureHeight = 64.0F;
+        this.leftU = 18;
+        this.leftV = 23;
+        this.rightU = 28;
+        this.rightV = 23;
+        this.textureWidth = 64.0F;
+        this.textureHeight = 32.0F;
         this.createModel();
     }
 
@@ -98,19 +106,23 @@ public final class BoobArmorRenderer {
 //        this.render(stack, vertices, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
 //    }
     public void createModel() {
-        this.models = Collections.singletonList(new BoobArmorRenderer.BoobArmorModel(this.u, this.v, 8, 2, 2, false, this.textureWidth, this.textureHeight));
+        this.models = Collections.singletonList(new BoobArmorRenderer.BoobArmorModel(this.u, this.v, this.leftU, this.leftV, this.rightU, this.rightV, 8, 2, 2, false, this.textureWidth, this.textureHeight));
     }
 
-    public void render(PoseStack stack, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, int u, int v, float textureWidth, float textureHeight) {
+    public void render(PoseStack stack, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, int u, int v, int leftU, int leftV, int rightU, int rightV, float textureWidth, float textureHeight) {
         if (!this.visible) {
             return;
         }
         if (this.models.isEmpty()) {
             return;
         }
-        if (this.u != u || this.v != v || this.textureWidth != textureWidth || this.textureHeight != textureHeight) {
+        if (this.u != u || this.v != v || this.leftU != leftU || this.leftV != leftV || this.rightU != rightU || this.rightV != rightV || this.textureWidth != textureWidth || this.textureHeight != textureHeight) {
             this.u = u;
             this.v = v;
+            this.leftU = leftU;
+            this.leftV = leftV;
+            this.rightU = rightU;
+            this.rightV = rightV;
             this.textureWidth = textureWidth;
             this.textureHeight = textureHeight;
             this.createModel();
@@ -175,7 +187,7 @@ public final class BoobArmorRenderer {
     public static class BoobArmorModel {
         private final ModelPart.Polygon[] sides; //private, add to AW/AT or smth, same deal with modelpart.vertex
 
-        public BoobArmorModel(int textureWidth, int textureHeight, float sizeX, float sizeY, float sizeZ, boolean mirror, float squishU, float squishV) {
+        public BoobArmorModel(int u, int v, int leftU, int leftV, int rightU, int rightV, float sizeX, float sizeY, float sizeZ, boolean mirror, float squishU, float squishV) {
             this.sides = new ModelPart.Polygon[4];
 
             ModelPart.Vertex vertex = new ModelPart.Vertex(-4.0F*1.24F, 0.0F, 0.0F, 0.0F, 0.0F);
@@ -184,17 +196,10 @@ public final class BoobArmorRenderer {
             ModelPart.Vertex vertex4 = new ModelPart.Vertex(-4.0F*1.24F, 1.08F*1.25F, 1.68F*1.25F, 8.0F, 0.0F);
             ModelPart.Vertex vertex5 = new ModelPart.Vertex(-4.0F*1.24F, -1.68F*1.25F, 1.68F*1.25F, 0.0F, 0.0F);
             ModelPart.Vertex vertex6 = new ModelPart.Vertex(4.0F*1.24F, -1.68F*1.25F, 1.68F*1.25F, 0.0F, 8.0F);
-            float j = textureWidth;
-            float k = (float) textureWidth + sizeZ;
-            float l = (float) textureWidth + sizeZ + sizeX;
-            float n = (float) textureWidth + sizeZ + sizeX + sizeZ;
-            float p = textureHeight;
-            float q = (float) textureHeight + sizeZ;
-            float r = (float) textureHeight + sizeZ + sizeY;
-            this.sides[2] = new ModelPart.Polygon(new ModelPart.Vertex[]{vertex6, vertex5, vertex, vertex2}, k, p, l, q, squishU, squishV, mirror, Direction.DOWN);
-            this.sides[1] = new ModelPart.Polygon(new ModelPart.Vertex[]{vertex, vertex5, vertex5, vertex4}, j, q, k, r, squishU, squishV, mirror, Direction.WEST);
-            this.sides[3] = new ModelPart.Polygon(new ModelPart.Vertex[]{vertex2, vertex, vertex4, vertex3}, k, q, l, r, squishU, squishV, mirror, Direction.NORTH);
-            this.sides[0] = new ModelPart.Polygon(new ModelPart.Vertex[]{vertex6, vertex2, vertex3, vertex3}, l, q, n, r, squishU, squishV, mirror, Direction.EAST);
+            this.sides[2] = new ModelPart.Polygon(new ModelPart.Vertex[]{vertex6, vertex5, vertex, vertex2}, u, v, u+8, v+2, squishU, squishV, mirror, Direction.DOWN);
+            this.sides[1] = new ModelPart.Polygon(new ModelPart.Vertex[]{vertex, vertex5, vertex5, vertex4}, leftU, leftV, leftU+2, leftV+2, squishU, squishV, mirror, Direction.WEST);
+            this.sides[3] = new ModelPart.Polygon(new ModelPart.Vertex[]{vertex2, vertex, vertex4, vertex3}, u, v+2, u+8, v+4, squishU, squishV, mirror, Direction.NORTH);
+            this.sides[0] = new ModelPart.Polygon(new ModelPart.Vertex[]{vertex6, vertex2, vertex3, vertex3}, rightU, rightV, rightU+2, rightV+2, squishU, squishV, mirror, Direction.EAST);
         }
 
         public void renderCuboid(PoseStack.Pose entry, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {

@@ -48,6 +48,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Mixin(PlayerModel.class)
 public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidModel<T> implements PlayerEntityModelExtension {
@@ -121,10 +122,11 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         if (figura != null && figura.version().split("\\.")[2].startsWith("3")) {
             if (FiguraCompat.renderBoobArmor(Minecraft.getInstance().player)) return;
         }
-        TextureData textureData = this.estrogen$getArmorTexture(player, overlay);
-        if (textureData.location() == null) {
+        Optional<TextureData> opt = this.estrogen$getArmorTexture(player, overlay);
+        if (opt.isEmpty()) {
             return;
         }
+        TextureData textureData = opt.get();
         VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(textureData.location()), false, glint);
         this.estrogen$boobArmor.copyTransform(this.body);
         this.estrogen$boobArmor.pitch = this.body.xRot;
@@ -133,7 +135,7 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         this.estrogen$boobArmor.translate((new Vector3f(0.0F, 4.0F + size * 0.864F * (1 + amplifier) + yOffset, -4.0F + size * (-1.944F - 0.24F*3.0F) * (1 + amplifier))).rotate(bodyRotation));
         this.estrogen$boobArmor.scaleY = (1 + size * 2.0F * (1 + amplifier)) / 2.0F;
         this.estrogen$boobArmor.scaleZ = (1 + size * 2.5F * (1 + amplifier)) / 2.0F;
-        this.estrogen$boobArmor.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F, textureData.u(), textureData.v(), textureData.textureWidth(), textureData.textureHeight());
+        this.estrogen$boobArmor.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F, textureData.u(), textureData.v(), textureData.leftU(), textureData.leftV(), textureData.rightU(), textureData.rightV(), textureData.textureWidth(), textureData.textureHeight());
     }
 
     @Override
@@ -144,20 +146,20 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         }
         TextureAtlasSprite textureAtlasSprite = armorTrimAtlas.getSprite(bl ? armorTrim.innerTexture(armorMaterial) : armorTrim.outerTexture(armorMaterial));
         VertexConsumer vertexConsumer = textureAtlasSprite.wrap(vertexConsumers.getBuffer(Sheets.armorTrimsSheet()));
-        this.estrogen$boobArmorTrim.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F, 18, 23, 32.0F, 64.0F);
+        this.estrogen$boobArmorTrim.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F, 20, 23, 18, 23, 28, 23, 64.0F, 32.0F);
     }
 
     @Unique
-    private TextureData estrogen$getArmorTexture(AbstractClientPlayer player, boolean overlay) {
+    private Optional<TextureData> estrogen$getArmorTexture(AbstractClientPlayer player, boolean overlay) {
         String string;
         ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
         ArmorItem item = (ArmorItem) itemStack.getItem();
         BreastArmorData data;
         if ((data = BreastArmorDataLoader.INSTANCE.getData(BuiltInRegistries.ITEM.getKey(item))) != null) {
             if (overlay) {
-                return new TextureData(data.overlayLocation, data.uv.getFirst(), data.uv.getSecond(), data.textureSize.getFirst(), data.textureSize.getSecond());
+                return Optional.of(new TextureData(data.overlayLocation, data.uv.getFirst(), data.uv.getSecond(), data.leftUV.getFirst(), data.leftUV.getSecond(), data.rightUV.getFirst(), data.rightUV.getSecond(), data.textureSize.getFirst(), data.textureSize.getSecond()));
             } else {
-                return new TextureData(data.textureLocation, data.uv.getFirst(), data.uv.getSecond(), data.textureSize.getFirst(), data.textureSize.getSecond());
+                return Optional.of(new TextureData(data.textureLocation, data.uv.getFirst(), data.uv.getSecond(), data.leftUV.getFirst(), data.leftUV.getSecond(), data.rightUV.getFirst(), data.rightUV.getSecond(), data.textureSize.getFirst(), data.textureSize.getSecond()));
             }
         } else {
             if (item instanceof BaseArmorItem) {
@@ -170,9 +172,12 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
                     domain = texture.substring(0, idx);
                     texture = texture.substring(idx + 1);
                 }
-                string = String.format(java.util.Locale.ROOT, "%s:textures/models/armor/%s_layer_1%s.png", domain, texture, overlay ? "" : "_overlay");
+                string = String.format(java.util.Locale.ROOT, "%s:textures/models/armor/%s_layer_1%s.png", domain, texture, overlay ? "_overlay" : "");
             }
-            return new TextureData(ARMOR_TEXTURE_CACHE.computeIfAbsent(string, ResourceLocation::tryParse), 18, 23, 32.0F, 64.0F);
+            ResourceLocation location;
+            return (location = ARMOR_TEXTURE_CACHE.computeIfAbsent(string, ResourceLocation::tryParse)) != null ?
+                    Optional.of(new TextureData(location, 20, 23, 18, 23, 28, 23, 64.0F, 32.0F)) :
+                    Optional.empty();
         }
     }
 
