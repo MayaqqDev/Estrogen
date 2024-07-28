@@ -13,9 +13,9 @@ public class EstrogenCommand {
         Player player = Minecraft.getInstance().player;
         player.sendSystemMessage(Component.literal("Dumping data format..."));
         BreastArmorDataLoader.INSTANCE.data.forEach((key, value) -> {
-            ResourceLocation texture = value.textureLocation();
-            Pair<Integer, Integer> uv = value.uv();
-            player.sendSystemMessage(Component.literal("Texture: " + texture + ", UV: " + uv.getFirst() + ", " + uv.getSecond()));
+            ResourceLocation texture = value.textureLocation;
+            Pair<Integer, Integer> uv = value.uv;
+            player.sendSystemMessage(Component.literal("Key: " + key + ", Texture: " + texture + ", UV: " + uv.getFirst() + ", " + uv.getSecond()));
         });
 
         return 1;

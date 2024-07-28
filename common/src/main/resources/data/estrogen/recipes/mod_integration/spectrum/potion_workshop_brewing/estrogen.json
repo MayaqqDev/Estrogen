@@ -1,0 +1,28 @@
+{
+  "type": "spectrum:potion_workshop_brewing",
+  "ingredient1": {
+    "item": "minecraft:nether_wart"
+  },
+  "ingredient2": {
+    "item": "estrogen:liquid_estrogen_bucket"
+  },
+  "ingredient3": {
+    "item": "minecraft:cookie"
+  },
+  "effect": "estrogen:estrogen",
+  "base_duration_ticks": 6000,
+  "potency_modifier": 1.0,
+  "applicable_to_potions": true,
+  "applicable_to_tipped_arrows": true,
+  "applicable_to_potion_fillables": true,
+  "ink_color": "light_gray",
+  "ink_cost": 2,
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "spectrum"
+      ]
+    }
+  ]
+}
