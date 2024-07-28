@@ -4,9 +4,9 @@ import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.client.Dash;
 import dev.mayaqq.estrogen.client.command.EstrogenClientCommands;
 import dev.mayaqq.estrogen.client.config.ConfigSync;
+import dev.mayaqq.estrogen.client.features.dash.DashOverlay;
 import dev.mayaqq.estrogen.client.registry.EstrogenClientEvents;
 import fuzs.forgeconfigapiport.api.config.v2.ModConfigEvents;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
@@ -20,7 +20,7 @@ import net.minecraft.network.chat.Component;
 public class EstrogenFabricClientEvents {
     public static void register() {
         HudRenderCallback.EVENT.register((guiGraphics, delta) -> {
-            Dash.renderOverlayTick(guiGraphics);
+            DashOverlay.drawOverlay(guiGraphics);
         });
         ModConfigEvents.loading(Estrogen.MOD_ID).register(ConfigSync::onLoad);
         ModConfigEvents.reloading(Estrogen.MOD_ID).register(ConfigSync::onReload);

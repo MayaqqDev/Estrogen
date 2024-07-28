@@ -4,8 +4,8 @@ import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.client.Dash;
 import dev.mayaqq.estrogen.client.command.EstrogenClientCommands;
+import dev.mayaqq.estrogen.client.features.dash.DashOverlay;
 import dev.mayaqq.estrogen.client.registry.EstrogenClientEvents;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -22,7 +22,7 @@ import net.minecraftforge.fml.common.Mod;
 public class EstrogenForgeClientEvents {
     @SubscribeEvent
     public static void onGuiRenderEvent(RenderGuiEvent event) {
-        Dash.renderOverlayTick(event.getGuiGraphics());
+        DashOverlay.drawOverlay(event.getGuiGraphics());
     }
 
     @SubscribeEvent

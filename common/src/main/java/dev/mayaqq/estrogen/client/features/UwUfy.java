@@ -1,7 +1,11 @@
-package dev.mayaqq.estrogen.utils;
+package dev.mayaqq.estrogen.client.features;
 
-public final class UwUfy {
-    static String[] randomPhrases = {
+import dev.mayaqq.estrogen.registry.EstrogenTags;
+import net.minecraft.client.Minecraft;
+
+public class UwUfy {
+
+    private static final String[] PHRASES = {
             "UwU",
             "owo",
             "OwO",
@@ -14,6 +18,22 @@ public final class UwUfy {
             "^w^",
             ":3"
     };
+
+    // should the player be uwufied
+    private static boolean isEnabled = false;
+
+    public static void tick() {
+        Minecraft client = Minecraft.getInstance();
+        if (client.player == null) return;
+        if (client.player.tickCount % 20 == 0) {
+            isEnabled = client.player.getInventory().contains(EstrogenTags.Items.UWUFYING);
+            client.updateTitle();
+        }
+    }
+
+    public static void disconnect() {
+        isEnabled = false;
+    }
 
     public static String uwufyString(String input) {
         int stringLength = input.length();
@@ -40,6 +60,10 @@ public final class UwUfy {
             input = input.replaceAll("\\b([a-zA-Z])([a-zA-Z]*)\\b", "$1-$1$2");
         }
 
-        return input + " " + randomPhrases[stringLength % randomPhrases.length];
+        return input + " " + PHRASES[stringLength % PHRASES.length];
+    }
+
+    public static boolean isEnabled() {
+        return isEnabled;
     }
 }

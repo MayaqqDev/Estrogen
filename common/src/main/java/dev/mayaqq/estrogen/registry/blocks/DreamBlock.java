@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.registry.blocks;
 
-import dev.mayaqq.estrogen.registry.EstrogenAttributes;
+import dev.mayaqq.estrogen.client.features.dash.Dash;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
 import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import net.minecraft.core.BlockPos;
@@ -61,7 +61,7 @@ public class DreamBlock extends BaseEntityBlock {
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         entity.resetFallDistance();
         if (entity instanceof Player player && level.isClientSide) {
-            EstrogenEffect.currentDashes = (short) player.getAttributeValue(EstrogenAttributes.DASH_LEVEL.get());
+            Dash.refresh(player);
             if (lookAngle == null) {
                 lookAngle = player.getLookAngle();
             }

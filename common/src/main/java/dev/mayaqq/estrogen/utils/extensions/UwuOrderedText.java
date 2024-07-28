@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.utils.extensions;
 
-import dev.mayaqq.estrogen.utils.UwUfy;
+import dev.mayaqq.estrogen.client.features.UwUfy;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.FormattedCharSink;
 import org.jetbrains.annotations.NotNull;

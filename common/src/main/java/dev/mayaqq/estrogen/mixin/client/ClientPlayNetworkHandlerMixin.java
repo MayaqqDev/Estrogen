@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.mixin.client;
 
+import dev.mayaqq.estrogen.client.features.UwUfy;
 import dev.mayaqq.estrogen.registry.EstrogenEnchantments;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
 import net.minecraft.client.Minecraft;
@@ -17,8 +18,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static dev.mayaqq.estrogen.utils.UwUfy.uwufyString;
-
 @Mixin(ClientPacketListener.class)
 public class ClientPlayNetworkHandlerMixin {
     /*
@@ -34,7 +33,7 @@ public class ClientPlayNetworkHandlerMixin {
     private String modifyMessage(String message) {
         LocalPlayer player = Minecraft.getInstance().player;
         if (EnchantmentHelper.getEnchantments(player.getInventory().getArmor(3)).containsKey(EstrogenEnchantments.UWUFYING_CURSE.get())) {
-            message = uwufyString(message);
+            message = UwUfy.uwufyString(message);
 
         }
         return message;
