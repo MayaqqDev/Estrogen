@@ -1,44 +1,35 @@
 package dev.mayaqq.estrogen.networking.messages.s2c;
 
-import com.teamresourceful.resourcefullib.common.networking.base.Packet;
-import com.teamresourceful.resourcefullib.common.networking.base.PacketContext;
-import com.teamresourceful.resourcefullib.common.networking.base.PacketHandler;
+import com.teamresourceful.bytecodecs.base.object.ObjectByteCodec;
+import com.teamresourceful.resourcefullib.common.bytecodecs.ExtraByteCodecs;
+import com.teamresourceful.resourcefullib.common.network.Packet;
+import com.teamresourceful.resourcefullib.common.network.base.ClientboundPacketType;
+import com.teamresourceful.resourcefullib.common.network.base.PacketType;
+import com.teamresourceful.resourcefullib.common.network.defaults.CodecPacketType;
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.client.registry.EstrogenClientEvents;
-import net.minecraft.network.FriendlyByteBuf;
+import dev.mayaqq.estrogen.client.EstrogenClientNetworkManager;
 import net.minecraft.resources.ResourceLocation;
 
-@SuppressWarnings("ClassEscapesDefinedScope")
 public record AdvancementUnlockClientPacket(ResourceLocation advancement) implements Packet<AdvancementUnlockClientPacket> {
-    public static Handler HANDLER = new Handler();
-    public static final ResourceLocation ID = Estrogen.id("advancement_unlock_client");
+    public static ClientboundPacketType<AdvancementUnlockClientPacket> TYPE = new AdvancementUnlockClientPacket.Type();
 
     @Override
-    public ResourceLocation getID() {
-        return ID;
+    public PacketType<AdvancementUnlockClientPacket> type() {
+        return null;
     }
 
-    @Override
-    public PacketHandler<AdvancementUnlockClientPacket> getHandler() {
-        return HANDLER;
-    }
 
-    private static class Handler implements PacketHandler<AdvancementUnlockClientPacket> {
-        @Override
-        public void encode(AdvancementUnlockClientPacket message, FriendlyByteBuf buffer) {
-            buffer.writeResourceLocation(message.advancement);
+    private static class Type extends CodecPacketType.Client<AdvancementUnlockClientPacket> {
+        public Type() {
+            super(AdvancementUnlockClientPacket.class, Estrogen.id("advancement_unlock_client"), ObjectByteCodec.create(
+                    ExtraByteCodecs.RESOURCE_LOCATION.fieldOf(AdvancementUnlockClientPacket::advancement),
+                    AdvancementUnlockClientPacket::new
+            ));
         }
 
         @Override
-        public AdvancementUnlockClientPacket decode(FriendlyByteBuf buffer) {
-            return new AdvancementUnlockClientPacket(buffer.readResourceLocation());
-        }
-
-        @Override
-        public PacketContext handle(AdvancementUnlockClientPacket message) {
-            return (player, level) -> {
-                EstrogenClientEvents.onAdvancementUnlockClient(message.advancement);
-            };
+        public Runnable handle(AdvancementUnlockClientPacket message) {
+            return () -> EstrogenClientNetworkManager.handleAdvancementUnlockClient(message);
         }
     }
 }

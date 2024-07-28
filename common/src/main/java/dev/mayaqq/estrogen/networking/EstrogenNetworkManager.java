@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.networking;
 
 import com.teamresourceful.resourcefullib.common.network.NetworkChannel;
-import com.teamresourceful.resourcefullib.common.networking.base.NetworkDirection;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.networking.messages.c2s.DashPacket;
 import dev.mayaqq.estrogen.networking.messages.c2s.FinishLoadingPacket;
@@ -24,6 +23,6 @@ public class EstrogenNetworkManager {
 
         // S2C
         CHANNEL.register(ChestConfigPacket.TYPE);
-        CHANNEL.registerPacket(NetworkDirection.SERVER_TO_CLIENT, AdvancementUnlockClientPacket.ID, AdvancementUnlockClientPacket.HANDLER, AdvancementUnlockClientPacket.class);
+        CHANNEL.register(AdvancementUnlockClientPacket.TYPE);
     }
 }
