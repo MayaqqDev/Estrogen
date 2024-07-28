@@ -34,6 +34,7 @@ import java.util.List;
 // Currently can't be enchanted with Capacity, broken thing in botarium.
 public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidItem<WrappedItemFluidContainer>/*, CapacityEnchantment.ICapacityEnchantable*/ {
     int estrogenAmountTick = 0;
+    int estrogenReapplyTick = 0;
 
     public EstrogenPatchesItem(Properties properties) {
         super(properties);
@@ -44,6 +45,7 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
     public void tick(ItemStack stack, SlotInfo slot) {
         patchTick(stack, slot);
         estrogenAmountTick++;
+        estrogenReapplyTick++;
     }
 
     public long getMaxCapacity(ItemStack stack) {
@@ -68,7 +70,10 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
     public void patchTick(ItemStack stack, SlotInfo info) {
         ItemFluidContainer itemFluidManager = getFluidContainer(stack);
         if (info.wearer() instanceof Player player && !stack.isEmpty() && !itemFluidManager.isEmpty()) {
-            player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), 401, EstrogenConfig.server().patchGirlPowerAmount.get() -1, false, false, false));
+            if (estrogenReapplyTick >= 201 || estrogenReapplyTick == 0) {
+                estrogenReapplyTick = 1;
+                player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), 401, EstrogenConfig.server().patchGirlPowerAmount.get() -1, false, false, true));
+            }
             if (EstrogenConfig.server().patchDrain.get() && estrogenAmountTick >= EstrogenConfig.server().patchDrainAmount.get() && !player.isCreative()) {
                 estrogenAmountTick = 0;
                 itemFluidManager.extractFromSlot(0, FluidHolder.of(EstrogenFluids.LIQUID_ESTROGEN.get(), FluidConstants.getBucketAmount() / 1000), false);
