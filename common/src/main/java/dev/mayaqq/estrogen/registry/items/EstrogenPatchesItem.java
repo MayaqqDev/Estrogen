@@ -47,7 +47,7 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
         Level level = slot.wearer().level();
         if (!level.isClientSide && slot.wearer() instanceof Player player) {
             if (level.getGameTime() % TRIGGER_EVERY_X_TICKS == 0) {
-                player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), EFFECT_DURATION, EstrogenConfig.server().patchGirlPowerAmount.get() -1, false, false, true));
+                player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), EFFECT_DURATION, EstrogenConfig.server().patchGirlPowerAmount.get() -1, false, false, false));
             }
             if (EstrogenConfig.server().patchDrain.get() && level.getGameTime() % EstrogenConfig.server().patchDrainAmount.get() == 0 && !player.isCreative()) {
                 itemFluidManager.extractFromSlot(0, FluidHolder.of(EstrogenFluids.LIQUID_ESTROGEN.get(), FluidConstants.getBucketAmount() / 1000), false);
