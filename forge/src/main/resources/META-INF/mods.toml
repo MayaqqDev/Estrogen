@@ -56,6 +56,6 @@ side = "BOTH"
 [[dependencies.estrogen]]
 modId = "resourcefullib"
 mandatory = true
-versionRange = "*"
+versionRange = "[2.1.28,)"
 ordering = "NONE"
 side = "BOTH"
