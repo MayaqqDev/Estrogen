@@ -47,13 +47,17 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
         Level level = slot.wearer().level();
         if (!level.isClientSide && slot.wearer() instanceof Player player) {
             if (level.getGameTime() % TRIGGER_EVERY_X_TICKS == 0) {
-                player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), EFFECT_DURATION, EstrogenConfig.server().patchGirlPowerAmount.get() -1, false, false, false));
+                addEffect(player, level);
             }
             if (EstrogenConfig.server().patchDrain.get() && level.getGameTime() % EstrogenConfig.server().patchDrainAmount.get() == 0 && !player.isCreative()) {
                 itemFluidManager.extractFromSlot(0, FluidHolder.of(EstrogenFluids.LIQUID_ESTROGEN.get(), FluidConstants.getBucketAmount() / 1000), false);
                 itemFluidManager.serialize(stack.getOrCreateTag());
             }
         }
+    }
+
+    public void addEffect(Player player, Level level) {
+        player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), EFFECT_DURATION, EstrogenConfig.server().patchGirlPowerAmount.get() -1, false, false, false));
     }
 
     public long getMaxCapacity(ItemStack stack) {
@@ -79,8 +83,8 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
     @Override
     public void onEquip(ItemStack stack, SlotInfo slot) {
         Level level = slot.wearer().level();
-        if (!level.isClientSide) {
-            tick(stack, slot);
+        if (!level.isClientSide && slot.wearer() instanceof Player player) {
+            addEffect(player, level);
         }
     }
 
