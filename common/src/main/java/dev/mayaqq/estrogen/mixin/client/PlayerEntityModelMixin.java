@@ -157,7 +157,9 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         BreastArmorData data;
         if ((data = BreastArmorDataLoader.INSTANCE.getData(BuiltInRegistries.ITEM.getKey(item))) != null) {
             if (overlay) {
-                return Optional.of(new TextureData(data.overlayLocation, data.uv.getFirst(), data.uv.getSecond(), data.leftUV.getFirst(), data.leftUV.getSecond(), data.rightUV.getFirst(), data.rightUV.getSecond(), data.textureSize.getFirst(), data.textureSize.getSecond()));
+                return data.overlayLocation != null ?
+                        Optional.of(new TextureData(data.overlayLocation, data.uv.getFirst(), data.uv.getSecond(), data.leftUV.getFirst(), data.leftUV.getSecond(), data.rightUV.getFirst(), data.rightUV.getSecond(), data.textureSize.getFirst(), data.textureSize.getSecond())) :
+                        Optional.empty();
             } else {
                 return Optional.of(new TextureData(data.textureLocation, data.uv.getFirst(), data.uv.getSecond(), data.leftUV.getFirst(), data.leftUV.getSecond(), data.rightUV.getFirst(), data.rightUV.getSecond(), data.textureSize.getFirst(), data.textureSize.getSecond()));
             }
