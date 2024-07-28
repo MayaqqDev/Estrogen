@@ -51,7 +51,7 @@
     "create": ">=0.5.1-f-build.1224",
     "trinkets": "*",
     "botarium": "*",
-    "resourcefullib": "*"
+    "resourcefullib": ">=2.1.28"
   },
   "suggests": {
     "emi": "*",

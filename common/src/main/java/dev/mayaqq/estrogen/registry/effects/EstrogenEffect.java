@@ -5,21 +5,16 @@ import dev.mayaqq.estrogen.client.registry.EstrogenKeybinds;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.networking.messages.c2s.DashPacket;
-import dev.mayaqq.estrogen.networking.messages.s2c.RemoveStatusEffectPacket;
-import dev.mayaqq.estrogen.networking.messages.s2c.StatusEffectPacket;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
 import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
 import dev.mayaqq.estrogen.utils.PlayerLookup;
 import dev.mayaqq.estrogen.utils.Time;
-import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -35,7 +30,6 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -218,18 +212,17 @@ public class EstrogenEffect extends MobEffect {
 
     public static void sendPlayerStatusEffect(ServerPlayer player, MobEffect effect, ServerPlayer... targetPlayers) {
         MobEffectInstance effectInstance = player.getEffect(effect);
-        if (effectInstance != null) {
-            Packet<ClientGamePacketListener> packet = new ClientboundUpdateMobEffectPacket(player.getId(), effectInstance);
-            FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
-            packet.write(buf);
-            EstrogenNetworkManager.CHANNEL.sendToPlayers(new StatusEffectPacket(buf), Arrays.stream(targetPlayers).toList());
-        }
+        if (effectInstance == null) return;
+        sendPacket(new ClientboundUpdateMobEffectPacket(player.getId(), effectInstance), targetPlayers);
     }
 
     public static void sendRemovePlayerStatusEffect(ServerPlayer player, MobEffect effect, ServerPlayer... targetPlayers) {
-        Packet<ClientGamePacketListener> packet = new ClientboundRemoveMobEffectPacket(player.getId(), effect);
-        FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
-        packet.write(buf);
-        EstrogenNetworkManager.CHANNEL.sendToPlayers(new RemoveStatusEffectPacket(buf), Arrays.stream(targetPlayers).toList());
+        sendPacket(new ClientboundRemoveMobEffectPacket(player.getId(), effect), targetPlayers);
+    }
+
+    private static void sendPacket(Packet<?> packet, ServerPlayer... players) {
+        for (ServerPlayer player : players) {
+            player.connection.send(packet);
+        }
     }
 }
