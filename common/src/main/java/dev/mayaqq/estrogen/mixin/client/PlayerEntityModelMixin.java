@@ -120,7 +120,7 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
     public void estrogen$renderBoobArmor(PoseStack matrices, MultiBufferSource vertexConsumers, int light, boolean glint, float red, float green, float blue, boolean overlay, AbstractClientPlayer player, float size, float yOffset) {
         Mod figura = Mod.getOptionalMod("figura").orElse(null);
         if (figura != null && figura.version().split("\\.")[2].startsWith("3")) {
-            if (FiguraCompat.renderBoobArmor(Minecraft.getInstance().player)) return;
+            if (!FiguraCompat.renderBoobArmor(Minecraft.getInstance().player)) return;
         }
         Optional<TextureData> opt = this.estrogen$getArmorTexture(player, overlay);
         if (opt.isEmpty()) {
@@ -142,7 +142,7 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
     public void estrogen$renderBoobArmorTrim(PoseStack matrices, MultiBufferSource vertexConsumers, int light, boolean bl, ArmorTrim armorTrim, ArmorMaterial armorMaterial, TextureAtlas armorTrimAtlas) {
         Mod figura = Mod.getOptionalMod("figura").orElse(null);
         if (figura != null && figura.version().split("\\.")[2].startsWith("3")) {
-            if (FiguraCompat.renderBoobArmor(Minecraft.getInstance().player)) return;
+            if (!FiguraCompat.renderBoobArmor(Minecraft.getInstance().player)) return;
         }
         TextureAtlasSprite textureAtlasSprite = armorTrimAtlas.getSprite(bl ? armorTrim.innerTexture(armorMaterial) : armorTrim.outerTexture(armorMaterial));
         VertexConsumer vertexConsumer = textureAtlasSprite.wrap(vertexConsumers.getBuffer(Sheets.armorTrimsSheet()));
