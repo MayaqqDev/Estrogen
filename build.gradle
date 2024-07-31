@@ -16,14 +16,9 @@ tasks.register("multiplatformDatagen") {
     Project forge = project(":forge")
     dependsOn project(":fabric").tasks.named("runDatagen")
     // Delete previously genearted files
+    delete(common.file("src/main/generated/"))
     delete(fabric.file("src/main/generated/"))
     delete(forge.file("src/main/generated/"))
-    doLast {
-        // Copy the fabric only recipes to the generated resources
-        findDirectories(common.file("src/main/generated/"), "fabric", [])
-        // Copy the forge only recipes to the generated resources
-        findDirectories(common.file("src/main/generated/"), "forge", [])
-    }
 }
 
 def performActionOnDirectory(File dir, String loader) {

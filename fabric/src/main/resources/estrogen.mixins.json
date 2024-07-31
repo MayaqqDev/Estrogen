@@ -3,7 +3,9 @@
   "minVersion": "0.8",
   "package": "dev.mayaqq.estrogen.fabric.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [],
+  "mixins": [
+    "PackInvoker"
+  ],
   "client": [],
   "injectors": {
     "defaultRequire": 1
