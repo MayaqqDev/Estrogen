@@ -82,6 +82,8 @@ public class EstrogenTagsGen {
         }
     }
 
+    //TODO: Fabric only fluid tags
+
     public static class EntityTypeTags extends FabricTagProvider.EntityTypeTagProvider {
         public EntityTypeTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
             super(output, completableFuture);

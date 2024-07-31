@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.datagen.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import dev.mayaqq.estrogen.Estrogen;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -17,7 +18,7 @@ public class EstrogenRecipeFabricImpl implements EstrogenRecipeInterface {
 
     @Override
     public ResourceLocation getRecipeIdentifier(ResourceLocation identifier) {
-        return new ResourceLocation(MOD_ID, ".fabric/" + identifier.getPath());
+        return Estrogen.id(".fabric/" + identifier.getPath());
     }
 
     @Override
