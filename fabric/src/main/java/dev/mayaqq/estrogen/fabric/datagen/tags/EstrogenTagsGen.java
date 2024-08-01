@@ -81,6 +81,21 @@ public class EstrogenTagsGen {
                     .add(EstrogenFluids.FILTRATED_HORSE_URINE.get());
             getOrCreateTagBuilder(AllTags.AllFluidTags.FAN_PROCESSING_CATALYSTS_BLASTING.tag)
                     .add(EstrogenFluids.MOLTEN_SLIME.get());
+
+            if (t instanceof EstrogenTagsFabricImpl) {
+                getOrCreateTagBuilder(EstrogenTags.Fluids.WATER)
+                        .add(EstrogenFluids.LIQUID_ESTROGEN.get())
+                        .add(EstrogenFluids.LIQUID_ESTROGEN_FLOWING.get())
+                        .add(EstrogenFluids.HORSE_URINE_FLOWING.get())
+                        .add(EstrogenFluids.FILTRATED_HORSE_URINE_FLOWING.get())
+                        .add(EstrogenFluids.TESTOSTERONE_MIXTURE.get())
+                        .add(EstrogenFluids.TESTOSTERONE_MIXTURE_FLOWING.get());
+                getOrCreateTagBuilder(EstrogenTags.Fluids.LAVA)
+                        .add(EstrogenFluids.MOLTEN_SLIME.get())
+                        .add(EstrogenFluids.MOLTEN_SLIME_FLOWING.get())
+                        .add(EstrogenFluids.MOLTEN_AMETHYST.get())
+                        .add(EstrogenFluids.MOLTEN_AMETHYST_FLOWING.get());
+            }
         }
 
         public static FluidTags<?> buildFabric(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
@@ -96,8 +111,6 @@ public class EstrogenTagsGen {
             return this.t.getName(super.getName());
         }
     }
-
-    //TODO: Fabric only fluid tags
 
     public static class EntityTypeTags extends FabricTagProvider.EntityTypeTagProvider {
         public EntityTypeTags(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
