@@ -15,23 +15,41 @@ tasks.register("multiplatformDatagen") {
     Project fabric = project(":fabric")
     Project forge = project(":forge")
     dependsOn project(":fabric").tasks.named("runDatagen")
-    // Copy the fabric only recipes to the generated resources
-    File fabricDir = fabric.file("src/main/generated/data/estrogen/recipes/")
-    File forgeDir = forge.file("src/main/generated/data/estrogen/recipes/")
+    // Delete previously genearted files
+    delete(common.file("src/main/generated/"))
+    delete(fabric.file("src/main/generated/"))
+    delete(forge.file("src/main/generated/"))
+}
 
-    delete(fabricDir)
-    delete(forgeDir)
-
+def performActionOnDirectory(File dir, String loader) {
+    File origin = dir
+    File target = dir.toString().replace("/.${loader}", "").replace("common", loader) as File
+    println("copying from: " + origin + " to: " + target)
     copy {
-        from common.file("src/main/generated/data/estrogen/recipes/.fabric")
+        from origin
         include "**/*.json"
-        into fabric.file("src/main/generated/data/estrogen/recipes/")
+        into target
     }
-    // Copy the forge only recipes to the generated resources
-    copy {
-        from common.file("src/main/generated/data/estrogen/recipes/.forge")
-        include "**/*.json"
-        into forge.file("src/main/generated/data/estrogen/recipes/")
+}
+
+def findDirectories(File rootDir, String loader, List<File> foundDirs) {
+
+    String targetDirName = ".${loader}"
+
+    if (rootDir == null || !rootDir.isDirectory()) return
+
+    File[] files = rootDir.listFiles()
+    if (files == null) return
+
+    for (File file : files) {
+        if (file.isDirectory()) {
+            if (file.getName().equals(targetDirName)) {
+                foundDirs.add(file)
+                // Perform an action on the found directory
+                performActionOnDirectory(file, loader)
+            }
+            findDirectories(file, loader, foundDirs)
+        }
     }
 }
 
