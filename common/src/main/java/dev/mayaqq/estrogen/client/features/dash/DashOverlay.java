@@ -17,7 +17,7 @@ public class DashOverlay {
     public static void drawOverlay(GuiGraphics guiGraphics) {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return;
-        if (player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) && Dash.isOnCooldown() && EstrogenConfig.client().dashOverlay.get()) {
+        if (player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) && ClientDash.isOnCooldown() && EstrogenConfig.client().dashOverlay.get()) {
             renderOverlay(guiGraphics, 0.3F, 0.5F, 0.8F);
         }
         if (DreamBlockEffect.isInDreamBlock()) {

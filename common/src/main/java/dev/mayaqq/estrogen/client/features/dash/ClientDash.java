@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.phys.Vec3;
 
-public class Dash {
+public class ClientDash {
 
     private static final double DASH_SPEED = 1.0;
     private static final double DASH_END_SPEED = 0.4;

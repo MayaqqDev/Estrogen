@@ -84,7 +84,7 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
                             ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, glint, 1.0F, 1.0F, 1.0F, false, entity, size, yOffset);
                         }
                         ArmorTrim.getTrim(entity.level().registryAccess(), itemStack).ifPresent((armorTrim) -> {
-                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmorTrim(stack, bufferSource, i, glint, armorTrim, armorItem.getMaterial(), this.armorTrimAtlas);
+                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmorTrim(stack, bufferSource, i, glint, armorTrim, armorItem.getMaterial(), this.armorTrimAtlas, entity);
                         });
                     }
                 }

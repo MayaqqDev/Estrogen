@@ -5,15 +5,14 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.content.equipment.armor.BaseArmorItem;
+import com.teamresourceful.resourcefullib.common.utils.modinfo.ModInfoUtils;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.BoobArmorRenderer;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.PlayerEntityModelExtension;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.TextureData;
 import dev.mayaqq.estrogen.integrations.figura.FiguraCompat;
-import dev.mayaqq.estrogen.platform.Mod;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.resources.BreastArmorData;
 import dev.mayaqq.estrogen.resources.BreastArmorDataLoader;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -93,10 +92,8 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
 
     @Override
     public void estrogen$renderBoobs(PoseStack matrices, VertexConsumer vertices, int light, int overlay, AbstractClientPlayer player, float size, float yOffset) {
-        Mod figura = Mod.getOptionalMod("figura").orElse(null);
-        if (figura != null && figura.version().split("\\.")[2].startsWith("3")) {
-            if (!FiguraCompat.renderBoobs(Minecraft.getInstance().player)) return;
-        }
+        if (ModInfoUtils.isModLoaded("figura") && !FiguraCompat.renderBoobs(player)) return;
+
         this.estrogen$boobs.copyFrom(this.body);
         this.estrogen$boobs.xRot = this.body.xRot + 1.0F;
         float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT.get()).getAmplifier() / 10.0F;
@@ -118,10 +115,8 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
 
     @Override
     public void estrogen$renderBoobArmor(PoseStack matrices, MultiBufferSource vertexConsumers, int light, boolean glint, float red, float green, float blue, boolean overlay, AbstractClientPlayer player, float size, float yOffset) {
-        Mod figura = Mod.getOptionalMod("figura").orElse(null);
-        if (figura != null && figura.version().split("\\.")[2].startsWith("3")) {
-            if (!FiguraCompat.renderBoobArmor(Minecraft.getInstance().player)) return;
-        }
+        if (ModInfoUtils.isModLoaded("figura") && !FiguraCompat.renderBoobArmor(player)) return;
+
         Optional<TextureData> opt = this.estrogen$getArmorTexture(player, overlay);
         if (opt.isEmpty()) {
             return;
@@ -139,11 +134,9 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
     }
 
     @Override
-    public void estrogen$renderBoobArmorTrim(PoseStack matrices, MultiBufferSource vertexConsumers, int light, boolean bl, ArmorTrim armorTrim, ArmorMaterial armorMaterial, TextureAtlas armorTrimAtlas) {
-        Mod figura = Mod.getOptionalMod("figura").orElse(null);
-        if (figura != null && figura.version().split("\\.")[2].startsWith("3")) {
-            if (!FiguraCompat.renderBoobArmor(Minecraft.getInstance().player)) return;
-        }
+    public void estrogen$renderBoobArmorTrim(PoseStack matrices, MultiBufferSource vertexConsumers, int light, boolean bl, ArmorTrim armorTrim, ArmorMaterial armorMaterial, TextureAtlas armorTrimAtlas, AbstractClientPlayer player) {
+        if (ModInfoUtils.isModLoaded("figura") && !FiguraCompat.renderBoobArmor(player)) return;
+
         TextureAtlasSprite textureAtlasSprite = armorTrimAtlas.getSprite(bl ? armorTrim.innerTexture(armorMaterial) : armorTrim.outerTexture(armorMaterial));
         VertexConsumer vertexConsumer = textureAtlasSprite.wrap(vertexConsumers.getBuffer(Sheets.armorTrimsSheet()));
         this.estrogen$boobArmorTrim.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F, 20, 23, 18, 23, 28, 23, 64.0F, 32.0F);

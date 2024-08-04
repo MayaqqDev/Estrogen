@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.registry.effects;
 
-import dev.mayaqq.estrogen.client.features.dash.Dash;
+import dev.mayaqq.estrogen.client.features.dash.ClientDash;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
 import dev.mayaqq.estrogen.utils.PlayerLookup;
@@ -46,7 +46,7 @@ public class EstrogenEffect extends MobEffect {
         // Only tick on the client and if the entity is a player
         if (!(entity instanceof LocalPlayer player && player.level().isClientSide)) return;
 
-        Dash.tick();
+        ClientDash.tick();
     }
 
     @Override
