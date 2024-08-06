@@ -39,7 +39,6 @@ public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends E
                     .require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(27000))
                     .output(EstrogenCreativeTab.tippedArrow(EstrogenPotions.ESTROGEN_POTION.get()))),
             BLAHAJ = createMulti(id("blahaj"), recipeBuilder -> recipeBuilder
-                    .whenModLoaded("blahaj")
                     .require(Items.LIGHT_BLUE_WOOL)
                     .require(EstrogenFluids.LIQUID_ESTROGEN.get(), t.getAmount(81))
                     .output(100, new ResourceLocation("blahaj", "blue_shark"), 1),
