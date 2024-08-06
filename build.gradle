@@ -10,49 +10,6 @@ tasks.register("buildBoth") {
     dependsOn project(":forge").tasks.named("buildBothForge")
 }
 
-tasks.register("multiplatformDatagen") {
-    Project common = project(":common")
-    Project fabric = project(":fabric")
-    Project forge = project(":forge")
-    dependsOn project(":fabric").tasks.named("runDatagen")
-    // Delete previously genearted files
-    delete(common.file("src/main/generated/"))
-    delete(fabric.file("src/main/generated/"))
-    delete(forge.file("src/main/generated/"))
-}
-
-def performActionOnDirectory(File dir, String loader) {
-    File origin = dir
-    File target = dir.toString().replace("/.${loader}", "").replace("common", loader) as File
-    println("copying from: " + origin + " to: " + target)
-    copy {
-        from origin
-        include "**/*.json"
-        into target
-    }
-}
-
-def findDirectories(File rootDir, String loader, List<File> foundDirs) {
-
-    String targetDirName = ".${loader}"
-
-    if (rootDir == null || !rootDir.isDirectory()) return
-
-    File[] files = rootDir.listFiles()
-    if (files == null) return
-
-    for (File file : files) {
-        if (file.isDirectory()) {
-            if (file.getName().equals(targetDirName)) {
-                foundDirs.add(file)
-                // Perform an action on the found directory
-                performActionOnDirectory(file, loader)
-            }
-            findDirectories(file, loader, foundDirs)
-        }
-    }
-}
-
 architectury {
     minecraft = rootProject.minecraft_version
 }
