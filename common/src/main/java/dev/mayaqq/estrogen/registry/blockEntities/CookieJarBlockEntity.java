@@ -116,6 +116,26 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements Container
     public NonNullList<ItemStack> getItems() {
         return this.items;
     }
+
+    /**
+     * Returns true if the provided ItemStack matches the first item in the jar,
+     * or if the jar is empty.
+     */
+    public boolean matchesFirstItem(ItemStack itemStack) {
+        // this is because chutes do NOT obey Container.canTakeItem.
+        // so they ignore FILO, which can allow for different cookies in the same jar.
+        for (ItemStack jarItemStack : items) {
+            if (jarItemStack.isEmpty()) {
+                continue;
+            }
+            if (!ItemStack.isSameItemSameTags(jarItemStack, itemStack)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return true;
+    }
     
     @Override
     protected void saveAdditional(CompoundTag compoundTag) {
@@ -186,12 +206,11 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements Container
         if (!itemStack.is(EstrogenTags.Items.COOKIES)) {
             return false;
         }
-        if (!items.get(0).isEmpty() && !ItemStack.isSameItemSameTags(items.get(0), itemStack)) {
+        if (!matchesFirstItem(itemStack)) {
             return false;
         }
         return true;
     }
-
 
     @Override
     public void clearContent() {
