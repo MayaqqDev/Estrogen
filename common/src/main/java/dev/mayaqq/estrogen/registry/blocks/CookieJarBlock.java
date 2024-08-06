@@ -1,8 +1,8 @@
 package dev.mayaqq.estrogen.registry.blocks;
 
 import dev.mayaqq.estrogen.registry.EstrogenAdvancementCriteria;
+import dev.mayaqq.estrogen.registry.EstrogenSoundTypes;
 import dev.mayaqq.estrogen.registry.EstrogenSounds;
-import dev.mayaqq.estrogen.registry.EstrogenTags;
 import dev.mayaqq.estrogen.registry.blockEntities.CookieJarBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -79,7 +79,7 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
                 if (!player.isCreative()) handItem.shrink(1);
 
                 player.awardStat(Stats.ITEM_USED.get(handItem.getItem()));
-                level.playSound(null, pos, EstrogenSounds.JAR_PLACE.get(), SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * ((float) cookieJarBlockEntity.getCount() / 512));
+                level.playSound(null, pos, EstrogenSounds.JAR_INSERT.get(), SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * ((float) cookieJarBlockEntity.getCount() / 512));
                 if (level instanceof ServerLevel serverLevel) {
                     EstrogenAdvancementCriteria.INSERT_JAR.trigger((ServerPlayer) player);
                     serverLevel.sendParticles(ParticleTypes.CRIT, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
@@ -92,7 +92,7 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
             ItemStack itemStack = cookieJarBlockEntity.remove1Item();
             if (!itemStack.isEmpty()) {
                 // removing item from jar
-                level.playSound(null, pos, EstrogenSounds.JAR_PLACE.get(), SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * ((float) cookieJarBlockEntity.getCount() / 512));
+                level.playSound(null, pos, EstrogenSounds.JAR_INSERT.get(), SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * ((float) cookieJarBlockEntity.getCount() / 512));
                 if (level instanceof ServerLevel) {
                     player.getInventory().placeItemBackInInventory(itemStack);
                 }
@@ -140,7 +140,7 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     @Override
     public SoundType getSoundType(BlockState blockState) {
-        return SoundType.GLASS;
+        return EstrogenSoundTypes.COOKIE_JAR;
     }
 
     @Override
