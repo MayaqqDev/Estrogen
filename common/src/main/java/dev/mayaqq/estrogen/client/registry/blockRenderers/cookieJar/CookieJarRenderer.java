@@ -17,8 +17,11 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Objects;
 
 public class CookieJarRenderer implements BlockEntityRenderer<CookieJarBlockEntity> {
+    private final ItemRenderer itemRenderer;
 
-    public CookieJarRenderer(BlockEntityRendererProvider.Context context) {}
+    public CookieJarRenderer(BlockEntityRendererProvider.Context context) {
+        itemRenderer = context.getItemRenderer();
+    }
 
     @Override
     public void render(CookieJarBlockEntity be, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlay) {
@@ -26,17 +29,11 @@ public class CookieJarRenderer implements BlockEntityRenderer<CookieJarBlockEnti
             return;
         }
 
-        // TODO: all this lol
-
-        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-
         poseStack.pushPose();
         poseStack.mulPose(Axis.XP.rotationDegrees(90));
         poseStack.translate(0.5, 0.35, -0.032F);
 
-        for (int i = 0; i < 8; i++) {
-            ItemStack jarItem = be.getItem(i);
-
+        for (ItemStack jarItem : be.getItems()) {
             if (jarItem.isEmpty()) {
                 continue;
             }

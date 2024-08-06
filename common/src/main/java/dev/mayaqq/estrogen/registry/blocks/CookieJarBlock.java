@@ -73,7 +73,7 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
         ItemStack handItem = player.getItemInHand(hand);
 
         if (!handItem.isEmpty()) {
-            if (cookieJarBlockEntity.canAddItem(handItem) && handItem.is(EstrogenTags.Items.COOKIES)) {
+            if (cookieJarBlockEntity.canAddItem(handItem)) {
                 // adding item to jar
                 cookieJarBlockEntity.add1Item(handItem);
                 if (!player.isCreative()) handItem.shrink(1);
@@ -89,15 +89,15 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
                 level.playSound(null, pos, EstrogenSounds.JAR_FULL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
             }
         } else {
-            if (!cookieJarBlockEntity.isEmpty()) {
+            ItemStack itemStack = cookieJarBlockEntity.remove1Item();
+            if (!itemStack.isEmpty()) {
                 // removing item from jar
-                ItemStack itemStack = cookieJarBlockEntity.remove1Item();
                 level.playSound(null, pos, EstrogenSounds.JAR_PLACE.get(), SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * ((float) cookieJarBlockEntity.getCount() / 512));
                 if (level instanceof ServerLevel) {
                     player.getInventory().placeItemBackInInventory(itemStack);
                 }
             } else {
-                ; // jar was empty, couldn't remove item from jar
+                // jar was empty, couldn't remove item from jar
             }
         }
 

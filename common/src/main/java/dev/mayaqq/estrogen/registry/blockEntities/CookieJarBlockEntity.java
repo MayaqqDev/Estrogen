@@ -15,10 +15,12 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.ticks.ContainerSingleItem;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,23 +53,36 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements Container
     }
 
     /**
-     * Remove 1 count of the first-most item from the jar.
+     * Remove and returns 1 count of the last-most item from the jar.
+     * returns ItemStack.EMPTY if jar was empty
      */
     public ItemStack remove1Item() {
-        for (ItemStack jarItemStack : items) {
+        for (int i = items.size() - 1; i >= 0; i--) {
+            ItemStack jarItemStack = items.get(i);
             if (jarItemStack.isEmpty()) {
                 continue;
             }
+            ItemStack itemStack = jarItemStack.split(1);
             notifyUpdate();
-            return jarItemStack.split(1);
+            return itemStack;
         }
         return ItemStack.EMPTY;
     }
 
     /**
-     * Returns true if 1 of the item can be added to the jar.
+     * Returns true if 1 of the item can be added to the jar
+     * and that item is a cookie
+     * and that cookie matches the cookie already in the jar.
      */
     public boolean canAddItem(ItemStack itemStack) {
+        if (!itemStack.is(EstrogenTags.Items.COOKIES)) {
+            return false;
+        }
+        if (!items.get(0).isEmpty() && !ItemStack.isSameItemSameTags(items.get(0), itemStack)) {
+            return false;
+        }
+
+        // if the top two conditions are removed, then the jar can work for any item
         for (ItemStack jarItemStack : items) {
             if (jarItemStack.isEmpty()) {
                 return true;
@@ -84,8 +99,7 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements Container
     }
 
     /**
-     * Returns a weighted count of items inside jar.
-     * (1 egg is worth 4, 1 armor piece is worth 64)
+     * Returns number of items.
      */
     public int getCount() {
         int count = 0;
@@ -93,7 +107,7 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements Container
             if (jarItemStack.isEmpty()) {
                 continue;
             }
-            count += jarItemStack.getCount() / jarItemStack.getMaxStackSize() * 64;
+            count += jarItemStack.getCount();
         }
         return count;
     }
@@ -104,7 +118,7 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements Container
     public NonNullList<ItemStack> getItems() {
         return this.items;
     }
-
+    
     @Override
     protected void saveAdditional(CompoundTag compoundTag) {
         super.saveAdditional(compoundTag);
@@ -114,8 +128,10 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements Container
     @Override
     public void load(CompoundTag compoundTag) {
         super.load(compoundTag);
+        this.items.clear();
         ContainerHelper.loadAllItems(compoundTag, items);
     }
+
 
     @Override
     public int getContainerSize() {
