@@ -4,6 +4,9 @@
 - Spectrum potion workshop compatibility (Thanks 800020h)
 - Updated Lava Texture (Both Molten Amethyst & Molten Slime affected)
 - No longer decreases mipmap levels!
-- Fluid physics on fabric fixed (Added missing fluids to the water/lava tag on fabric only)
+- Fluid physics on fabric fixed [Added missing fluids to the water/lava tag on fabric only]
 - Recipes now have their unlock achievements work properly
 - Patches now work more consistently
+- Bunch of fixes and reworks to make things more consistent (ThatGravyBoat)
+- Cookie jar basically fixed! (TheRobbie72)
+- New Cookie jar and Estrogen Pill Box (erora)
