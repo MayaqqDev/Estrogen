@@ -75,14 +75,12 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements Container
      * and that cookie matches the cookie already in the jar.
      */
     public boolean canAddItem(ItemStack itemStack) {
-        if (!itemStack.is(EstrogenTags.Items.COOKIES)) {
-            return false;
-        }
-        if (!items.get(0).isEmpty() && !ItemStack.isSameItemSameTags(items.get(0), itemStack)) {
+        // cookie condition
+        if (!canPlaceItem(0, itemStack)) {
             return false;
         }
 
-        // if the top two conditions are removed, then the jar can work for any item
+        // if the top condition is removed, then the jar can work for any item
         for (ItemStack jarItemStack : items) {
             if (jarItemStack.isEmpty()) {
                 return true;
@@ -181,6 +179,17 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements Container
     @Override
     public boolean stillValid(Player player) {
         return Container.stillValidBlockEntity(this, player);
+    }
+
+    @Override
+    public boolean canPlaceItem(int slot, ItemStack itemStack) {
+        if (!itemStack.is(EstrogenTags.Items.COOKIES)) {
+            return false;
+        }
+        if (!items.get(0).isEmpty() && !ItemStack.isSameItemSameTags(items.get(0), itemStack)) {
+            return false;
+        }
+        return true;
     }
 
 
