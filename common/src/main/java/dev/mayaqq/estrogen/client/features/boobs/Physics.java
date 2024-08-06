@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.client.entity.player.features.boobs;
+package dev.mayaqq.estrogen.client.features.boobs;
 
 import dev.mayaqq.estrogen.config.ChestConfig;
 import dev.mayaqq.estrogen.config.PlayerEntityExtension;

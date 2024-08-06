@@ -1,11 +1,12 @@
 package dev.mayaqq.estrogen.mixin.client;
 
-import dev.mayaqq.estrogen.client.Dash;
+import dev.mayaqq.estrogen.client.features.UwUfy;
+import dev.mayaqq.estrogen.client.features.boobs.BoobPhysicsManager;
+import dev.mayaqq.estrogen.client.features.dash.DreamBlockEffect;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.DreamBlockTexture;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenMusic;
-import dev.mayaqq.estrogen.utils.UwUfy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.Music;
@@ -19,13 +20,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MinecraftClientMixin {
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo info) {
-        Dash.dashClientTick();
+        BoobPhysicsManager.tick();
+        DreamBlockEffect.tick();
         DreamBlockTexture.animationTick();
     }
 
     @Inject(method = "updateTitle()V", at = @At("HEAD"), cancellable = true)
     private void updateTitle(final CallbackInfo info) {
-        if(Dash.uwufy) {
+        if(UwUfy.isEnabled()) {
             info.cancel();
             Minecraft instance = Minecraft.getInstance();
             instance.getWindow().setTitle(UwUfy.uwufyString(instance.createTitle()));
