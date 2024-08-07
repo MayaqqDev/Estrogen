@@ -4,22 +4,22 @@
 <div align="center">
 <center>
 <a href="https://modrinth.com/mod/estrogen/versions">
-    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/modrinth_vector.svg" width="100" height="100" alt="Modrinth">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/modrinth_vector.svg&w=100&h=100" alt="Modrinth">
 </a>
 <a href="https://www.curseforge.com/minecraft/mc-mods/estrogen">
-    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/curseforge_vector.svg" width="100" height="100" alt="Curseforge">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/curseforge_vector.svg&w=100&h=100" alt="Curseforge">
 </a>
 <a href="https://github.com/MayaqqDev/estrogen/">
-    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/github_vector.svg" width="100" height="100" alt="Github">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/github_vector.svg&w=100&h=100" alt="Github">
 </a>
 <a href="https://discord.gg/hue">
-    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-plural_vector.svg" width="100" height="100" alt="Discord">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-plural_vector.svg&w=100&h=100" alt="Discord">
 </a>
 <a href="https://github.com/MayaqqDev/Estrogen/wiki">
-    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/documentation/ghpages_vector.svg" width="100" height="100" alt="Wiki">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/documentation/ghpages_vector.svg&w=100&h=100" alt="Wiki">
 </a>
 <a href="https://ko-fi.com/mayaqq">
-    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/donate/kofi-plural-alt_vector.svg" width="100" height="100" alt="Ko-fi">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/donate/kofi-plural-alt_vector.svg&w=100&h=100" alt="Ko-fi">
 </a>
 </center>
 </div>
