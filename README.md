@@ -15,6 +15,12 @@
 <a href="https://discord.gg/hue">
     <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-plural_vector.svg" width="100" height="100" alt="Discord">
 </a>
+<a href="https://github.com/MayaqqDev/Estrogen/wiki">
+    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/documentation/ghpages_vector.svg" width="100" height="100" alt="Wiki">
+</a>
+<a href="https://ko-fi.com/mayaqq">
+    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/donate/kofi-plural-alt_vector.svg" width="100" height="100" alt="Ko-fi">
+</a>
 </center>
 </div>
 
@@ -62,6 +68,8 @@ This mod adds a lot of other features related to Estrogen and its production. Th
   <img src="https://i.imgur.com/mkVcXQA.png" alt=":3" width="256"/>
 
 ### `Extra information`
+
+You can read more about this mods features, mechanics and some guides on the [wiki](https://github.com/MayaqqDev/Estrogen/wiki)!
 
 This mod is still in development, so expect some bugs and missing features. If you find any bugs or suggestions, please
 report them on my [discord](https://discord.gg/w7PpGax9Bq). This mod has been inspired by the game Celeste and I would

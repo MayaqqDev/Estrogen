@@ -60,7 +60,11 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.discord": "https://discord.gg/hue"
+        "modmenu.discord": "https://discord.gg/hue",
+        "modmenu.kofi": "https://ko-fi.com/mayaqq",
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/estrogen",
+        "modmenu.modrinth": "https://modrinth.com/mod/estrogen",
+        "modmenu.wiki": "https://github.com/MayaqqDev/Estrogen/wiki"
       }
     }
   }
