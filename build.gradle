@@ -220,5 +220,7 @@ publishMods {
 
         Files.write(Paths.get(outputPathModrinth), modrinth.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)
         Files.write(Paths.get(outputPathCurseforge), curseforge.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)
+
+        // do not forget to convert the curseforge markdown to html at https://markdowntohtml.com/
     }
 }
