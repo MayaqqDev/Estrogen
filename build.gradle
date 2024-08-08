@@ -207,11 +207,13 @@ publishMods {
 
         // Replace elements as needed
         content = content.replace("> [!TIP]\n", "")
-        String modrinth = content
-        String curseforge = content.replace("<center>", "<div style=text-align:center;>").replace("</center>", "</div>").replaceAll("<iframe\\b[^>]*>(.*?)<\\/iframe>", "<iframe src=\"https://www.youtube.com/embed/kdn3qYwzMDQ?si=6so3WtHV2DH4cmnt\" width=\"560\" height=\"314\" allowfullscreen=\"allowfullscreen\"></iframe>")
+        String modrinth = content.replace("<div align=\"center\">", "<center>").replace("</div>", "</center>")
+        String curseforge = content
+                .replace("align=\"center\"", "style=\"text-align:center;\"")
+                .replaceAll("<iframe\\b[^>]*>(.*?)<\\/iframe>", "<iframe src=\"https://www.youtube.com/embed/kdn3qYwzMDQ?si=6so3WtHV2DH4cmnt\" width=\"560\" height=\"314\" allowfullscreen=\"allowfullscreen\"></iframe>")
 
         // Regex to find elements between <div align="center"> and </div>
-        curseforge = curseforge.replaceAll(/<div style=text-align:center;>([\s\S]*?)<\/div>/) { match ->
+        curseforge = curseforge.replaceAll(/<div style="text-align:center;">([\s\S]*?)<\/div>/) { match ->
             def innerContent = match[1]
             // Remove all spaces and line breaks that are not within < and >
             innerContent = innerContent.replaceAll(/(?<=^|>)[^<]+(?=<|$)/) { it.replaceAll(/\s+/, "") }
