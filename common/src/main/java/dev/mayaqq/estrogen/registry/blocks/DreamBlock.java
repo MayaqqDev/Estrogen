@@ -83,10 +83,11 @@ public class DreamBlock extends BaseEntityBlock {
                 lookAngle = player.getLookAngle();
             }
 
-            Vec3 movement = player.getDeltaMovement();
-            if (movement.x() == 0 && lookAngle.x() != 0) lookAngle = lookAngle.multiply(-1, 1, 1);
-            if (movement.y() == 0 && lookAngle.y() != 0) lookAngle = lookAngle.multiply(1, -1, 1);
-            if (movement.z() == 0 && lookAngle.z() != 0) lookAngle = lookAngle.multiply(1, 1, -1);
+            // if player hits a wall while inside dream blocks, make them bounce
+            // Vec3 movement = player.getDeltaMovement();
+            // if (movement.x() == 0 && lookAngle.x() != 0) lookAngle = lookAngle.multiply(-1, 1, 1);
+            // if (movement.y() == 0 && lookAngle.y() != 0) lookAngle = lookAngle.multiply(1, -1, 1);
+            // if (movement.z() == 0 && lookAngle.z() != 0) lookAngle = lookAngle.multiply(1, 1, -1);
 
             player.setDeltaMovement(lookAngle.scale(2));
         }
