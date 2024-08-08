@@ -52,7 +52,9 @@ public class DreamBlock extends BaseEntityBlock {
         return Shapes.block();
     }
 
-    // checks every block the player intersects with (min 2, max 12)
+    /**
+     * Checks for if the player is colliding with a dream block.
+     */
     public static boolean isInDreamBlock(Player player) {
         AABB playerAABB = player.getBoundingBox();
         BlockPos minPos = BlockPos.containing(playerAABB.minX, playerAABB.minY, playerAABB.minZ);
@@ -64,12 +66,12 @@ public class DreamBlock extends BaseEntityBlock {
         return BlockPos.betweenClosedStream(minPos, maxPos).anyMatch(
                 pos -> player.level().getBlockState(pos).getBlock() instanceof DreamBlock
         );
-        // this returns true when the player touches the bottom, western or northern side of a dream block
-        // due to the implementation of betweenClosedStream(AABB aabb) >:(
-        // ergo workaround (that i hate) above. (it could've been so simple :'( )
-        // return BlockPos.betweenClosedStream(playerAABB).anyMatch(
-        //         pos -> player.level().getBlockState(pos).getBlock() instanceof DreamBlock
-        // );
+
+        // can't use betweenClosedStream because it also sometimes includes blocks that the player
+        // is touching the face of, but not colliding with. >:(
+        //return BlockPos.betweenClosedStream(playerAABB).anyMatch(
+        //        pos -> player.level().getBlockState(pos).getBlock() instanceof DreamBlock
+        //);
     }
 
     public static Vec3 lookAngle = null;
