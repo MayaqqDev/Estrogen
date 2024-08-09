@@ -36,6 +36,19 @@ public class EstrogenTagsGen {
             getOrCreateTagBuilder(EstrogenTags.Items.COOKIES)
                     .add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get())
                     .add(Items.COOKIE);
+            getOrCreateTagBuilder(EstrogenTags.Items.LEATHER_ITEMS)
+                    .add(Items.LEATHER)
+                    .add(Items.LEATHER_BOOTS)
+                    .add(Items.LEATHER_CHESTPLATE)
+                    .add(Items.LEATHER_HELMET)
+                    .add(Items.LEATHER_LEGGINGS)
+                    .add(Items.LEATHER_HORSE_ARMOR);
+            getOrCreateTagBuilder(EstrogenTags.Items.LIGHT_EMITTERS)
+                    .add(Items.TORCH)
+                    .add(Items.TORCHFLOWER)
+                    .add(Items.LANTERN)
+                    .add(Items.SOUL_LANTERN)
+                    .add(Items.CANDLE);
         }
     }
 

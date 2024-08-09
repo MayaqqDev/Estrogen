@@ -18,6 +18,8 @@ public class EstrogenTags {
         public static final TagKey<Item> LAVA_BUCKETS = TagKey.create(BuiltInRegistries.ITEM.key(), commonId("lava_buckets"));
         public static final TagKey<Item> COOKIES = TagKey.create(BuiltInRegistries.ITEM.key(), commonId("cookies"));
         public static final TagKey<Item> CHEST_FEATURE_DISABLED = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("estrogen", "chest_feature_disabled"));
+        public static final TagKey<Item> LEATHER_ITEMS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("c", "leather_items"));
+        public static final TagKey<Item> LIGHT_EMITTERS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("c", "light_emitters"));
     }
 
     public static class Blocks {

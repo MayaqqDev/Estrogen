@@ -20,6 +20,7 @@ public class Estrogen {
         EstrogenAttributes.ATTRIBUTES.init();
         EstrogenFluids.FLUIDS.init();
         EstrogenBlocks.BLOCKS.init();
+        EstrogenEntities.ENTITIES.init();
         EstrogenBlockEntities.BLOCK_ENTITIES.init();
         EstrogenFluidProperties.FLUID_PROPERTIES.initialize();
         EstrogenEffects.MOB_EFFECTS.init();
