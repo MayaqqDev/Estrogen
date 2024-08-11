@@ -13,6 +13,7 @@ import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeC
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.cookieJar.CookieJarRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
+import dev.mayaqq.estrogen.client.registry.entityRenderers.moth.MothRenderer;
 import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
 import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
 import dev.mayaqq.estrogen.platform.ClientPlatform;
@@ -37,6 +38,8 @@ public class EstrogenClient {
         ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.CENTRIFUGE.get(), CentrifugeRenderer::new);
         ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.COOKIE_JAR.get(), CookieJarRenderer::new);
         ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.DREAM_BLOCK.get(), DreamBlockRenderer::new);
+
+        ClientHooks.registerEntityRenderer(EstrogenEntities.MOTH, MothRenderer::new);
 
         CreateClient.MODEL_SWAPPER.getCustomBlockModels().register(EstrogenBlocks.DORMANT_DREAM_BLOCK.getId(), new CTModelProvider(new SimpleCTBehaviour(EstrogenSpriteShifts.DORMANT_DREAM_BLOCK)));
 

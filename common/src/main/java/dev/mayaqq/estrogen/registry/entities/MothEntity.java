@@ -1,5 +1,7 @@
 package dev.mayaqq.estrogen.registry.entities;
 
+import dev.mayaqq.estrogen.registry.EstrogenEntities;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
 import dev.mayaqq.estrogen.registry.entities.goals.TemptByLightBlockGoal;
 import net.minecraft.core.BlockPos;
@@ -8,32 +10,45 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.Shearable;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.phys.Vec3;
 
 public class MothEntity extends Animal implements FlyingAnimal, Shearable {
 
-    private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(MothEntity.class, EntityDataSerializers.BYTE);
-
-    private boolean fluffy;
+    private static final EntityDataAccessor<Boolean> DATA_FLUFFY = SynchedEntityData.defineId(MothEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final int TICKS_PER_FLAP = 2;
+    public int ticksToFlufUp = 0;
 
     public MothEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
-        this.lookControl = new MothLookControl(this);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0f);
         this.setPathfindingMalus(BlockPathTypes.WATER, -1.0f);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0f);
@@ -41,9 +56,100 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        if (!this.level().isClientSide && !this.isFluffy()) {
+            if (this.level().getGameTime() % this.getTicksToFlufUp() == 0) {
+                this.setFluffy();
+                //TODO: maybe shake and make cool sound?
+            }
+        }
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (source.is(DamageTypeTags.IS_FIRE)) {
+            //TODO: make upset sound :(
+            this.setSheared();
+        }
+        return super.hurt(source, amount);
+    }
+
+        @Override
+    public InteractionResult mobInteract(Player player2, InteractionHand hand) {
+        ItemStack itemStack = player2.getItemInHand(hand);
+        //TODO: Make it a shears tag instead of hardcoded item, see how mod loaders handle it
+        if (itemStack.is(Items.SHEARS)) {
+            if (!this.level().isClientSide && this.readyForShearing()) {
+                this.shear(SoundSource.PLAYERS);
+                this.gameEvent(GameEvent.SHEAR, player2);
+                itemStack.hurtAndBreak(1, player2, player -> player.broadcastBreakEvent(hand));
+                return InteractionResult.SUCCESS;
+            }
+            return InteractionResult.CONSUME;
+        }
+        return super.mobInteract(player2, hand);
+    }
+
+    @Override
+    public void shear(SoundSource source) {
+        // TODO: custom shear sound?
+        this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, source, 1.0f, 1.0f);
+        this.setSheared();
+        int i = 1 + this.random.nextInt(3);
+        for (int j = 0; j < i; ++j) {
+            ItemEntity itemEntity = this.spawnAtLocation(EstrogenItems.MOTH_FLUF.get(), 1);
+            if (itemEntity == null) continue;
+            itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().add((this.random.nextFloat() - this.random.nextFloat()) * 0.1f, this.random.nextFloat() * 0.05f, (this.random.nextFloat() - this.random.nextFloat()) * 0.1f));
+        }
+    }
+
+    @Override
+    public boolean readyForShearing() {
+        return this.isAlive() && this.isFluffy() && !this.isBaby();
+    }
+
+    public int getTicksToFlufUp() {
+        if (ticksToFlufUp == 0) {
+            ticksToFlufUp = this.random.nextIntBetweenInclusive(12000, 36000);
+        }
+        return ticksToFlufUp;
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("TicksToFlufUp", this.getTicksToFlufUp());
+        compound.putBoolean("Fluffy", this.isFluffy());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.ticksToFlufUp = compound.getInt("TicksToFlufUp");
+        this.setFluffy(compound.getBoolean("Fluffy"));
+    }
+
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(DATA_FLAGS_ID, (byte) 0);
+        this.entityData.define(DATA_FLUFFY, false);
+    }
+
+    public boolean isFluffy() {
+        return this.entityData.get(DATA_FLUFFY);
+    }
+
+    public void setFluffy(boolean fluffy) {
+        this.entityData.set(DATA_FLUFFY, fluffy);
+    }
+
+    public void setFluffy() {
+        this.setFluffy(true);
+    }
+
+    public void setSheared() {
+        this.setFluffy(false);
     }
 
     @Override
@@ -67,41 +173,93 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        compound.putBoolean("fluffy", this.fluffy);
-        super.addAdditionalSaveData(compound);
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        this.fluffy = compound.getBoolean("fluffy");
-        super.readAdditionalSaveData(compound);
-    }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return null;
-    }
-
-    @Override
     public boolean isFlying() {
         return !this.onGround();
     }
 
-    @Override
-    public void shear(SoundSource source) {
-
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0).add(Attributes.FLYING_SPEED, 0.6f).add(Attributes.MOVEMENT_SPEED, 0.3f).add(Attributes.FOLLOW_RANGE, 48.0);
     }
 
     @Override
-    public boolean readyForShearing() {
-        return false;
+    protected PathNavigation createNavigation(Level level) {
+        FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level){
+
+            @Override
+            public boolean isStableDestination(BlockPos pos) {
+                return !this.level.getBlockState(pos.below()).isAir();
+            }
+        };
+        flyingPathNavigation.setCanOpenDoors(false);
+        flyingPathNavigation.setCanFloat(false);
+        flyingPathNavigation.setCanPassDoors(true);
+        return flyingPathNavigation;
     }
 
-    static class MothLookControl extends LookControl {
-        public MothLookControl(Mob mob) {
-            super(mob);
+    @Override
+    public boolean isFood(ItemStack stack) {
+        return stack.is(EstrogenTags.Items.LEATHER_ITEMS);
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {}
+
+    @Override
+    public SoundEvent getAmbientSound() {
+        // TODO: maybe ambient sound?
+        return null;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        // TODO: custom hurt sound?
+        return SoundEvents.BEE_HURT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        // TODO: custom death sound?
+        return SoundEvents.BEE_DEATH;
+    }
+
+    @Override
+    protected float getSoundVolume() {
+        return 0.4f;
+    }
+
+    @Override
+    public MothEntity getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+        return EstrogenEntities.MOTH.get().create(level);
+    }
+
+    @Override
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
+        if (this.isBaby()) {
+            return dimensions.height * 0.25f;
         }
+        return dimensions.height * 0.5f;
+    }
+
+    @Override
+    public boolean isFlapping() {
+        return this.isFlying() && this.tickCount % TICKS_PER_FLAP == 0;
+    }
+
+    @Override
+    protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {}
+
+    @Override
+    public MobType getMobType() {
+        return MobType.ARTHROPOD;
+    }
+
+    @Override
+    protected void jumpInLiquid(TagKey<Fluid> fluidTag) {
+        this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.01, 0.0));
+    }
+
+    @Override
+    public Vec3 getLeashOffset() {
+        return new Vec3(0.0, 0.5f * this.getEyeHeight(), this.getBbWidth() * 0.2f);
     }
 }

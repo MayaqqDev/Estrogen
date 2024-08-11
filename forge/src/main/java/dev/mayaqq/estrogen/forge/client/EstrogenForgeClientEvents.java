@@ -11,6 +11,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.event.RenderGuiEvent;
@@ -38,6 +39,11 @@ public class EstrogenForgeClientEvents {
     @SubscribeEvent
     public static void registerClientCommands(RegisterClientCommandsEvent event) {
         EstrogenClientCommands.register(event.getDispatcher(), new ForgeClientCommandManager());
+    }
+
+    @SubscribeEvent
+    public static void registerModelLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        EstrogenClientEvents.registerModelLayer(event::registerLayerDefinition);
     }
 
     private static class ForgeClientCommandManager implements EstrogenClientCommands.ClientCommandManager<CommandSourceStack> {

@@ -5,6 +5,7 @@ import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.networking.messages.c2s.SpawnHeartsPacket;
 import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
+import dev.mayaqq.estrogen.registry.entities.MothEntity;
 import dev.mayaqq.estrogen.registry.recipes.inventory.EntityInteractionInventory;
 import dev.mayaqq.estrogen.utils.Time;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -16,12 +17,15 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static dev.mayaqq.estrogen.registry.EstrogenAttributes.BOOB_GROWING_START_TIME;
@@ -104,5 +108,13 @@ public class EstrogenEvents {
             EstrogenAdvancementCriteria.KILLED_WITH_EFFECT.trigger(player, entity);
 
         }
+    }
+
+    public static HashMap<EntityType<? extends LivingEntity>, AttributeSupplier> onEntityAttributeCreation() {
+        HashMap<EntityType<? extends LivingEntity>, AttributeSupplier> map = new HashMap<>();
+
+        map.put(EstrogenEntities.MOTH.get(), MothEntity.createAttributes().build());
+
+        return map;
     }
 }

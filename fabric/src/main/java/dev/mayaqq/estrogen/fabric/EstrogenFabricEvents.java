@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.world.InteractionResult;
 
 import java.util.Objects;
@@ -34,5 +35,7 @@ public class EstrogenFabricEvents {
 
         // Entity Death
         ServerLivingEntityEvents.AFTER_DEATH.register(EstrogenEvents::onEntityDeath);
+
+        EstrogenEvents.onEntityAttributeCreation().forEach(FabricDefaultAttributeRegistry::register);
     }
 }

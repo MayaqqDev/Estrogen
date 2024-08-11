@@ -30,7 +30,8 @@ public class EstrogenItems {
         BALLS = BASIC_ITEMS.register("balls", () -> new Item(new Item.Properties())),
         TESTOSTERONE_CHUNK = BASIC_ITEMS.register("testosterone_chunk", () -> new Item(new Item.Properties())),
         TESTOSTERONE_POWDER = BASIC_ITEMS.register("testosterone_powder", () -> new Item(new Item.Properties())),
-        USED_FILTER = BASIC_ITEMS.register("used_filter", () -> new Item(new Item.Properties()));
+        USED_FILTER = BASIC_ITEMS.register("used_filter", () -> new Item(new Item.Properties())),
+        MOTH_FLUF = BASIC_ITEMS.register("moth_fluf", () -> new Item(new Item.Properties()));
 
     // Special items
     public static final RegistryEntry<Item> ESTROGEN_CHIP_COOKIE = BASIC_ITEMS.register("estrogen_chip_cookie", () ->

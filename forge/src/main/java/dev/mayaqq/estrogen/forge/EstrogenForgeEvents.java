@@ -13,6 +13,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
 import net.minecraftforge.event.entity.EntityMountEvent;
@@ -97,6 +98,11 @@ public class EstrogenForgeEvents {
     @SubscribeEvent
     public static void onEntityDeath(LivingDeathEvent event) {
         EstrogenEvents.onEntityDeath(event.getEntity(), event.getSource());
+    }
+
+    @SubscribeEvent
+    public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
+        EstrogenEvents.onEntityAttributeCreation().forEach(event::put);
     }
 
     // Forge only, fixes issue with deployers deleting horses

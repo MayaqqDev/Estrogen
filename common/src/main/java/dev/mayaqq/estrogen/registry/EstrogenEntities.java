@@ -13,8 +13,9 @@ public class EstrogenEntities {
     public static final ResourcefulRegistry<EntityType<?>> ENTITIES = ResourcefulRegistries.create(BuiltInRegistries.ENTITY_TYPE, Estrogen.MOD_ID);
 
     public static final RegistryEntry<EntityType<MothEntity>> MOTH = ENTITIES.register("moth", () ->
-            EntityType.Builder.<MothEntity>of(MothEntity::new, MobCategory.CREATURE)
+            EntityType.Builder.of(MothEntity::new, MobCategory.CREATURE)
                     .sized(0.6F, 0.6F)
                     .clientTrackingRange(80)
+                    .fireImmune()
                     .build("moth"));
 }

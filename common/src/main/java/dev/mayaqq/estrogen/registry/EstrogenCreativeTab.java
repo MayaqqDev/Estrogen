@@ -28,6 +28,7 @@ public class EstrogenCreativeTab {
         items.add(ESTROGEN_PILL.get().getDefaultInstance());
         items.add(CRYSTAL_ESTROGEN_PILL.get().getDefaultInstance());
         items.add(BALLS.get().getDefaultInstance());
+        items.add(MOTH_FLUF.get().getDefaultInstance());
         items.add(TESTOSTERONE_CHUNK.get().getDefaultInstance());
         items.add(TESTOSTERONE_POWDER.get().getDefaultInstance());
         items.add(USED_FILTER.get().getDefaultInstance());
