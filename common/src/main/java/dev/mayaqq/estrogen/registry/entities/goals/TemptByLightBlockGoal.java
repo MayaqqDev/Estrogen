@@ -42,9 +42,7 @@ public class TemptByLightBlockGoal extends Goal {
     @Override
     public boolean canUse() {
         Level level = this.moth.level();
-        if (this.moth.getRandom().nextInt(20) != 0) {
-            return false;
-        }
+        if (this.moth.getRandom().nextInt(20) != 0) return false;
         BlockPos mothPos = this.moth.blockPosition();
         BlockPos.MutableBlockPos pos = this.moth.blockPosition().mutable();
 

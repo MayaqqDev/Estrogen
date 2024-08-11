@@ -57,8 +57,7 @@ public class EstrogenClient {
     }
 
     @Environment(EnvType.CLIENT)
-    private record CTModelProvider(
-            ConnectedTextureBehaviour behavior) implements NonNullFunction<BakedModel, BakedModel> {
+    private record CTModelProvider(ConnectedTextureBehaviour behavior) implements NonNullFunction<BakedModel, BakedModel> {
         @Override
         public BakedModel apply(BakedModel bakedModel) {
             return new CTModel(bakedModel, behavior);

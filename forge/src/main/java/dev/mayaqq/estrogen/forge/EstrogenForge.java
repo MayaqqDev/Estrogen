@@ -4,8 +4,10 @@ import com.simibubi.create.foundation.config.ConfigBase;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.registry.EstrogenEvents;
 import dev.mayaqq.estrogen.registry.EstrogenPotatoProjectiles;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -35,9 +37,14 @@ public class EstrogenForge {
             EstrogenRenderer.register();
         }
         modEventBus.addListener(EstrogenForge::init);
+        modEventBus.addListener(EstrogenForge::onEntityAttributeCreation);
     }
 
     public static void init(final FMLCommonSetupEvent event) {
         event.enqueueWork(EstrogenPotatoProjectiles::register);
+    }
+
+    public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
+        EstrogenEvents.onEntityAttributeCreation().forEach(event::put);
     }
 }
