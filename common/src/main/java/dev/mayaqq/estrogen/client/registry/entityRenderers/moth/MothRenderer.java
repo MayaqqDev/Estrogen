@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class MothRenderer extends MobRenderer<MothEntity, MothModel> {
 
-    private static final ResourceLocation FLUFFY_TEXTURE = new ResourceLocation("estrogen", "textures/entity/moth/fluffy.png");
+    private static final ResourceLocation FUZZY_TEXTURE = new ResourceLocation("estrogen", "textures/entity/moth/fuzzy.png");
     private static final ResourceLocation NORMAL_TEXTURE = new ResourceLocation("estrogen", "textures/entity/moth/normal.png");
 
     public MothRenderer(EntityRendererProvider.Context context) {
@@ -16,8 +16,8 @@ public class MothRenderer extends MobRenderer<MothEntity, MothModel> {
 
     @Override
     public ResourceLocation getTextureLocation(MothEntity entity) {
-        if (entity.isFluffy()) {
-            return FLUFFY_TEXTURE;
+        if (entity.isFuzzy()) {
+            return FUZZY_TEXTURE;
         } else {
             return NORMAL_TEXTURE;
         }

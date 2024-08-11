@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.registry.entities;
 
+import dev.mayaqq.estrogen.platform.CommonPlatform;
 import dev.mayaqq.estrogen.registry.EstrogenEntities;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
@@ -42,9 +43,9 @@ import net.minecraft.world.phys.Vec3;
 
 public class MothEntity extends Animal implements FlyingAnimal, Shearable {
 
-    private static final EntityDataAccessor<Boolean> DATA_FLUFFY = SynchedEntityData.defineId(MothEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_FUZZY = SynchedEntityData.defineId(MothEntity.class, EntityDataSerializers.BOOLEAN);
     public static final int TICKS_PER_FLAP = 2;
-    public int ticksToFlufUp = 0;
+    public int ticksToFuzzUp = 0;
 
     public MothEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -58,9 +59,9 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
     @Override
     public void tick() {
         super.tick();
-        if (!this.level().isClientSide && !this.isFluffy()) {
-            if (this.level().getGameTime() % this.getTicksToFlufUp() == 0) {
-                this.setFluffy();
+        if (!this.level().isClientSide && !this.isFuzzy()) {
+            if (this.level().getGameTime() % this.getTicksToFuzzUp() == 0) {
+                this.setFuzzy();
                 //TODO: maybe shake and make cool sound?
             }
         }
@@ -78,8 +79,7 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
         @Override
     public InteractionResult mobInteract(Player player2, InteractionHand hand) {
         ItemStack itemStack = player2.getItemInHand(hand);
-        //TODO: Make it a shears tag instead of hardcoded item, see how mod loaders handle it
-        if (itemStack.is(Items.SHEARS)) {
+        if (itemStack.is(CommonPlatform.getShearsTag())) {
             if (!this.level().isClientSide && this.readyForShearing()) {
                 this.shear(SoundSource.PLAYERS);
                 this.gameEvent(GameEvent.SHEAR, player2);
@@ -98,7 +98,7 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
         this.setSheared();
         int i = 1 + this.random.nextInt(3);
         for (int j = 0; j < i; ++j) {
-            ItemEntity itemEntity = this.spawnAtLocation(EstrogenItems.MOTH_FLUF.get(), 1);
+            ItemEntity itemEntity = this.spawnAtLocation(EstrogenItems.MOTH_FUZZ.get(), 1);
             if (itemEntity == null) continue;
             itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().add((this.random.nextFloat() - this.random.nextFloat()) * 0.1f, this.random.nextFloat() * 0.05f, (this.random.nextFloat() - this.random.nextFloat()) * 0.1f));
         }
@@ -106,50 +106,50 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
 
     @Override
     public boolean readyForShearing() {
-        return this.isAlive() && this.isFluffy() && !this.isBaby();
+        return this.isAlive() && this.isFuzzy() && !this.isBaby();
     }
 
-    public int getTicksToFlufUp() {
-        if (ticksToFlufUp == 0) {
-            ticksToFlufUp = this.random.nextIntBetweenInclusive(12000, 36000);
+    public int getTicksToFuzzUp() {
+        if (ticksToFuzzUp == 0) {
+            ticksToFuzzUp = this.random.nextIntBetweenInclusive(12000, 36000);
         }
-        return ticksToFlufUp;
+        return ticksToFuzzUp;
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("TicksToFlufUp", this.getTicksToFlufUp());
-        compound.putBoolean("Fluffy", this.isFluffy());
+        compound.putInt("TicksToFuzzUp", this.getTicksToFuzzUp());
+        compound.putBoolean("Fuzzy", this.isFuzzy());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.ticksToFlufUp = compound.getInt("TicksToFlufUp");
-        this.setFluffy(compound.getBoolean("Fluffy"));
+        this.ticksToFuzzUp = compound.getInt("TicksToFuzzUp");
+        this.setFuzzy(compound.getBoolean("Fuzzy"));
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(DATA_FLUFFY, false);
+        this.entityData.define(DATA_FUZZY, false);
     }
 
-    public boolean isFluffy() {
-        return this.entityData.get(DATA_FLUFFY);
+    public boolean isFuzzy() {
+        return this.entityData.get(DATA_FUZZY);
     }
 
-    public void setFluffy(boolean fluffy) {
-        this.entityData.set(DATA_FLUFFY, fluffy);
+    public void setFuzzy(boolean fuzzy) {
+        this.entityData.set(DATA_FUZZY, fuzzy);
     }
 
-    public void setFluffy() {
-        this.setFluffy(true);
+    public void setFuzzy() {
+        this.setFuzzy(true);
     }
 
     public void setSheared() {
-        this.setFluffy(false);
+        this.setFuzzy(false);
     }
 
     @Override
