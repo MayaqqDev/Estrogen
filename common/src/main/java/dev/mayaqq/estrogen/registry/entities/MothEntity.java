@@ -31,7 +31,6 @@ import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -42,6 +41,9 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 
 public class MothEntity extends Animal implements FlyingAnimal, Shearable {
+
+    public final AnimationState flying = new AnimationState();
+    public final AnimationState idle = new AnimationState();
 
     private static final EntityDataAccessor<Boolean> DATA_FUZZY = SynchedEntityData.defineId(MothEntity.class, EntityDataSerializers.BOOLEAN);
     public static final int TICKS_PER_FLAP = 2;
@@ -59,10 +61,11 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
     @Override
     public void tick() {
         super.tick();
+        flying.start(tickCount);
         if (!this.level().isClientSide && !this.isFuzzy()) {
             if (this.level().getGameTime() % this.getTicksToFuzzUp() == 0) {
                 this.setFuzzy();
-                //TODO: maybe shake and make cool sound?
+                //TODO: maybe shake and make cool sound? also particles? maybe jsut make the moth spawn particles when fuzzy
             }
         }
     }
