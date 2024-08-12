@@ -6,7 +6,7 @@ import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
 public class MothAnimations {
-    public static final AnimationDefinition flying = AnimationDefinition.Builder.withLength(0.5F).looping()
+    public static final AnimationDefinition FLYING = AnimationDefinition.Builder.withLength(0.5F).looping()
             .addAnimation("legs", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(0.25F, KeyframeAnimations.degreeVec(5.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
@@ -34,7 +34,7 @@ public class MothAnimations {
             ))
             .build();
 
-    public static final AnimationDefinition idle = AnimationDefinition.Builder.withLength(0.75F)
+    public static final AnimationDefinition IDLE = AnimationDefinition.Builder.withLength(0.75F)
             .addAnimation("ass", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(0.75F, KeyframeAnimations.degreeVec(-7.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)

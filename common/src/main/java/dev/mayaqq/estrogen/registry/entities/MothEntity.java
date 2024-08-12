@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.registry.entities;
 
 import dev.mayaqq.estrogen.platform.CommonPlatform;
+import dev.mayaqq.estrogen.registry.EstrogenDataSerializers;
 import dev.mayaqq.estrogen.registry.EstrogenEntities;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
@@ -8,6 +9,7 @@ import dev.mayaqq.estrogen.registry.entities.goals.TemptByLightBlockGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -42,15 +44,17 @@ import net.minecraft.world.phys.Vec3;
 
 public class MothEntity extends Animal implements FlyingAnimal, Shearable {
 
-    public final AnimationState flying = new AnimationState();
-    public final AnimationState idle = new AnimationState();
+    public final AnimationState flyingAnimationState = new AnimationState();
+    public final AnimationState idleAnimationState = new AnimationState();
 
     private static final EntityDataAccessor<Boolean> DATA_FUZZY = SynchedEntityData.defineId(MothEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<State> ANIMATION_STATES = SynchedEntityData.defineId(MothEntity.class, EstrogenDataSerializers.MothAnimationStateSerializer);
     public static final int TICKS_PER_FLAP = 2;
     public int ticksToFuzzUp = 0;
 
     public MothEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
+        this.entityData.define(ANIMATION_STATES, State.IDLE);
         this.moveControl = new FlyingMoveControl(this, 20, true);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0f);
         this.setPathfindingMalus(BlockPathTypes.WATER, -1.0f);
@@ -61,13 +65,39 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
     @Override
     public void tick() {
         super.tick();
-        flying.start(tickCount);
+        if (this.isFlying()) {
+            this.setState(State.FLYING);
+        } else {
+            this.setState(State.IDLE);
+        }
         if (!this.level().isClientSide && !this.isFuzzy()) {
             if (this.level().getGameTime() % this.getTicksToFuzzUp() == 0) {
                 this.setFuzzy();
                 //TODO: maybe shake and make cool sound? also particles? maybe jsut make the moth spawn particles when fuzzy
             }
         }
+    }
+
+    private State getState() {
+        return this.entityData.get(ANIMATION_STATES);
+    }
+
+    private void setState(State state) {
+        this.entityData.set(ANIMATION_STATES, state);
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        if (ANIMATION_STATES.equals(key)) {
+            this.flyingAnimationState.stop();
+            this.idleAnimationState.stop();
+
+            switch (this.getState()) {
+                case FLYING -> this.flyingAnimationState.start(this.age);
+                case IDLE -> this.idleAnimationState.start(this.age);
+            }
+        }
+        super.onSyncedDataUpdated(key);
     }
 
     @Override
@@ -264,5 +294,10 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
     @Override
     public Vec3 getLeashOffset() {
         return new Vec3(0.0, 0.5f * this.getEyeHeight(), this.getBbWidth() * 0.2f);
+    }
+
+    public enum State {
+        FLYING,
+        IDLE
     }
 }
