@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#estrogen:spawns_moth",
+  "spawners":
+  {
+    "type": "estrogen:moth",
+    "weight": 25,
+    "minCount": 1,
+    "maxCount": 3
+  }
+}
