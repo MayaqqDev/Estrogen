@@ -1,16 +1,12 @@
 package dev.mayaqq.estrogen.registry.entities;
 
 import dev.mayaqq.estrogen.platform.CommonPlatform;
-import dev.mayaqq.estrogen.registry.EstrogenDataSerializers;
-import dev.mayaqq.estrogen.registry.EstrogenEntities;
-import dev.mayaqq.estrogen.registry.EstrogenItems;
-import dev.mayaqq.estrogen.registry.EstrogenTags;
+import dev.mayaqq.estrogen.registry.*;
 import dev.mayaqq.estrogen.registry.entities.goals.TemptByLightBlockGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -43,7 +39,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
 
 public class MothEntity extends Animal implements FlyingAnimal, Shearable {
 
@@ -94,7 +89,7 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
 
     private ParticleOptions getParticleType() {
         // TODO: Custom particle
-        return ParticleTypes.CHERRY_LEAVES;
+        return EstrogenParticles.MOTH_FUZZ.get();
     }
 
     // Stolen from bee code :3
