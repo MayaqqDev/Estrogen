@@ -1,7 +1,5 @@
 package dev.mayaqq.estrogen.client.registry.entityRenderers.moth;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.mayaqq.estrogen.registry.entities.MothEntity;
 import net.minecraft.client.model.AgeableHierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -10,24 +8,27 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 
-public class MothModel extends AgeableHierarchicalModel<MothEntity> {
-    // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "mothmodel"), "main");
-    private final ModelPart ass;
-    private final ModelPart left_wing;
+public class MothModel<T extends MothEntity> extends AgeableHierarchicalModel<T> {
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("estrogen", "mothmodel"), "main");
+    private final ModelPart main;
+    private final ModelPart wings;
     private final ModelPart right_wing;
+    private final ModelPart left_wing;
     private final ModelPart legs;
     private final ModelPart head;
-    private final ModelPart bb_main;
+    private final ModelPart ass;
+    private final ModelPart body;
 
     public MothModel(ModelPart root) {
-        super(0.5f, -20);
-        this.ass = root.getChild("ass");
-        this.left_wing = root.getChild("left_wing");
-        this.right_wing = root.getChild("right_wing");
-        this.legs = root.getChild("legs");
-        this.head = root.getChild("head");
-        this.bb_main = root.getChild("bb_main");
+        super(0.5f, 16);
+        this.main = root.getChild("main");
+        this.wings = main.getChild("wings");
+        this.right_wing = wings.getChild("right_wing");
+        this.left_wing = wings.getChild("left_wing");
+        this.legs = main.getChild("legs");
+        this.head = main.getChild("head");
+        this.ass = main.getChild("ass");
+        this.body = main.getChild("body");
     }
 
 
@@ -35,40 +36,44 @@ public class MothModel extends AgeableHierarchicalModel<MothEntity> {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
-        PartDefinition ass = partdefinition.addOrReplaceChild("ass", CubeListBuilder.create(), PartPose.offset(0.0F, 19.0F, 4.0F));
+        PartDefinition main = partdefinition.addOrReplaceChild("main", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        PartDefinition fur7_r1 = ass.addOrReplaceChild("fur7_r1", CubeListBuilder.create().texOffs(44, 25).addBox(-8.0F, -13.0F, -5.0F, 0.0F, 10.0F, 10.0F, new CubeDeformation(0.0F))
-                .texOffs(40, 35).addBox(-6.0F, -13.0F, -5.0F, 0.0F, 10.0F, 10.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 26).addBox(-9.0F, -11.0F, -3.0F, 5.0F, 7.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 8.0002F, -4.0367F, 0.0F, 1.5708F, 0.0F));
+        PartDefinition wings = main.addOrReplaceChild("wings", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition left_wing = partdefinition.addOrReplaceChild("left_wing", CubeListBuilder.create(), PartPose.offset(-4.0F, 16.0F, 0.0F));
-
-        PartDefinition left_wing_r1 = left_wing.addOrReplaceChild("left_wing_r1", CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, -11.5F, -13.0F, 8.0F, 0.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, 11.0F, 0.0F, 0.0F, 1.5708F, 0.0F));
-
-        PartDefinition right_wing = partdefinition.addOrReplaceChild("right_wing", CubeListBuilder.create(), PartPose.offset(4.0F, 16.0F, 0.0F));
+        PartDefinition right_wing = wings.addOrReplaceChild("right_wing", CubeListBuilder.create(), PartPose.offset(4.0F, -8.0F, 0.0F));
 
         PartDefinition right_wing_r1 = right_wing.addOrReplaceChild("right_wing_r1", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, -12.2829F, 3.0F, 8.0F, 0.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-4.1475F, 11.7829F, 0.0F, 0.0F, 1.5708F, 0.0F));
 
-        PartDefinition legs = partdefinition.addOrReplaceChild("legs", CubeListBuilder.create(), PartPose.offset(0.0F, 23.0F, 0.0F));
+        PartDefinition left_wing = wings.addOrReplaceChild("left_wing", CubeListBuilder.create(), PartPose.offset(-4.0F, -8.0F, 0.0F));
+
+        PartDefinition left_wing_r1 = left_wing.addOrReplaceChild("left_wing_r1", CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, -11.5F, -13.0F, 8.0F, 0.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0F, 11.0F, 0.0F, 0.0F, 1.5708F, 0.0F));
+
+        PartDefinition legs = main.addOrReplaceChild("legs", CubeListBuilder.create(), PartPose.offset(0.0F, -1.0F, 0.0F));
 
         PartDefinition back_legs_r1 = legs.addOrReplaceChild("back_legs_r1", CubeListBuilder.create().texOffs(16, 23).addBox(-3.0F, -4.0F, -3.0F, 0.0F, 2.0F, 6.0F, new CubeDeformation(0.0F))
                 .texOffs(26, 0).addBox(0.0F, -4.0F, -3.0F, 0.0F, 2.0F, 6.0F, new CubeDeformation(0.0F))
                 .texOffs(30, 23).addBox(3.0F, -4.0F, -3.0F, 0.0F, 2.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 4.0009F, 0.0733F, 0.0F, 1.5708F, 0.0F));
 
-        PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
+        PartDefinition head = main.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition headtop_r1 = head.addOrReplaceChild("headtop_r1", CubeListBuilder.create().texOffs(0, 16).addBox(5.0F, -11.0F, -2.0F, 1.0F, 1.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(22, 29).addBox(5.0F, -10.0F, -3.0F, 1.0F, 5.0F, 6.0F, new CubeDeformation(0.0F))
                 .texOffs(16, 16).addBox(6.0F, -13.0F, -5.0F, 0.0F, 3.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 3.0F, 0.0F, 0.0F, 1.5708F, 0.0F));
 
-        PartDefinition bb_main = partdefinition.addOrReplaceChild("bb_main", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
+        PartDefinition ass = main.addOrReplaceChild("ass", CubeListBuilder.create(), PartPose.offset(0.0F, -5.0F, 4.0F));
 
-        PartDefinition fur5_r1 = bb_main.addOrReplaceChild("fur5_r1", CubeListBuilder.create().texOffs(20, 35).addBox(-4.0F, -13.0F, -5.0F, 0.0F, 10.0F, 10.0F, new CubeDeformation(0.0F))
+        PartDefinition fur7_r1 = ass.addOrReplaceChild("fur7_r1", CubeListBuilder.create().texOffs(44, 25).addBox(-8.0F, -13.0F, -5.0F, 0.0F, 10.0F, 10.0F, new CubeDeformation(0.0F))
+                .texOffs(40, 35).addBox(-6.0F, -13.0F, -5.0F, 0.0F, 10.0F, 10.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 26).addBox(-9.0F, -11.0F, -3.0F, 5.0F, 7.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 8.0002F, -4.0367F, 0.0F, 1.5708F, 0.0F));
+
+        PartDefinition body = main.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
+
+        PartDefinition body_middle_r1 = body.addOrReplaceChild("body_middle_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -12.0F, -4.0F, 9.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
+                .texOffs(20, 35).addBox(-4.0F, -13.0F, -5.0F, 0.0F, 10.0F, 10.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 35).addBox(-2.0F, -13.0F, -5.0F, 0.0F, 10.0F, 10.0F, new CubeDeformation(0.0F))
                 .texOffs(40, 44).addBox(0.0F, -13.0F, -5.0F, 0.0F, 10.0F, 10.0F, new CubeDeformation(0.0F))
                 .texOffs(20, 44).addBox(2.0F, -13.0F, -5.0F, 0.0F, 10.0F, 10.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 44).addBox(4.0F, -13.0F, -5.0F, 0.0F, 10.0F, 10.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 0).addBox(-4.0F, -12.0F, -4.0F, 9.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 3.0F, 0.0F, 0.0F, 1.5708F, 0.0F));
+                .texOffs(0, 44).addBox(4.0F, -13.0F, -5.0F, 0.0F, 10.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 3.0F, 0.0F, 0.0F, 1.5708F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
@@ -79,21 +84,11 @@ public class MothModel extends AgeableHierarchicalModel<MothEntity> {
 
         this.animate(entity.flyingAnimationState, MothAnimations.FLYING, ageInTicks);
         this.animate(entity.idleAnimationState, MothAnimations.IDLE, ageInTicks);
+        this.animate(entity.fuzzUpAnimationState, MothAnimations.FUZZUP, ageInTicks);
     }
 
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        ass.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        left_wing.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        right_wing.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        legs.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        bb_main.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-    }
-
-    //TODO: what does this mean :sob:
     @Override
     public ModelPart root() {
-        return this.bb_main;
+        return this.main;
     }
 }

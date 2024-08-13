@@ -7,6 +7,7 @@ import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
 import dev.mayaqq.estrogen.registry.entities.goals.TemptByLightBlockGoal;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializer;
@@ -18,6 +19,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -41,11 +43,13 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 public class MothEntity extends Animal implements FlyingAnimal, Shearable {
 
     public final AnimationState flyingAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState fuzzUpAnimationState = new AnimationState();
 
     private static final EntityDataAccessor<Boolean> DATA_FUZZY = SynchedEntityData.defineId(MothEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<State> ANIMATION_STATES = SynchedEntityData.defineId(MothEntity.class, EstrogenDataSerializers.MothAnimationStateSerializer);
@@ -70,12 +74,32 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
         } else {
             this.setState(State.IDLE);
         }
-        if (!this.level().isClientSide && !this.isFuzzy()) {
-            if (this.level().getGameTime() % this.getTicksToFuzzUp() == 0) {
-                this.setFuzzy();
-                //TODO: maybe shake and make cool sound? also particles? maybe jsut make the moth spawn particles when fuzzy
+
+        if (this.isFuzzy()) {
+            if (this.random.nextFloat() < 0.05f) {
+                for (int i = 0; i < this.random.nextInt(2) + 1; ++i) {
+                    this.spawnFuzzyParticle(this.level(), this.getX() - (double)0.3f, this.getX() + (double)0.3f, this.getZ() - (double)0.3f, this.getZ() + (double)0.3f, this.getY(0.5), getParticleType());
+                }
             }
         }
+
+        if (!this.level().isClientSide && !this.isFuzzy() && !this.isBaby()) {
+            if (this.level().getGameTime() % this.getTicksToFuzzUp() == 0) {
+                this.setFuzzy();
+                // TODO: Maybe play a cool sound?
+                this.setState(State.FUZZUP);
+            }
+        }
+    }
+
+    private ParticleOptions getParticleType() {
+        // TODO: Custom particle
+        return ParticleTypes.CHERRY_LEAVES;
+    }
+
+    // Stolen from bee code :3
+    private void spawnFuzzyParticle(Level level, double startX, double endX, double startZ, double endZ, double posY, ParticleOptions particleOption) {
+        level.addParticle(particleOption, Mth.lerp(level.random.nextDouble(), startX, endX), posY, Mth.lerp(level.random.nextDouble(), startZ, endZ), 0.0, 0.0, 0.0);
     }
 
     private State getState() {
@@ -91,10 +115,12 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
         if (ANIMATION_STATES.equals(key)) {
             this.flyingAnimationState.stop();
             this.idleAnimationState.stop();
+            this.fuzzUpAnimationState.stop();
 
             switch (this.getState()) {
                 case FLYING -> this.flyingAnimationState.start(this.age);
                 case IDLE -> this.idleAnimationState.start(this.age);
+                case FUZZUP -> this.fuzzUpAnimationState.start(this.age);
             }
         }
         super.onSyncedDataUpdated(key);
@@ -298,6 +324,7 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
 
     public enum State {
         FLYING,
-        IDLE
+        IDLE,
+        FUZZUP
     }
 }
