@@ -8,6 +8,7 @@ import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import dev.mayaqq.estrogen.registry.entities.MothEntity;
 import dev.mayaqq.estrogen.registry.recipes.inventory.EntityInteractionInventory;
 import dev.mayaqq.estrogen.utils.Time;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -57,6 +58,8 @@ public class EstrogenEvents {
                 }
             }
             EstrogenNetworkManager.CHANNEL.sendToServer(new SpawnHeartsPacket(entity.position(), sound));
+            LocalPlayer localPlayer = (LocalPlayer) player;
+            localPlayer.swing(player.getUsedItemHand());
         }
 
         return result.get();

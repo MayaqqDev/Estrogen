@@ -2,10 +2,12 @@ package dev.mayaqq.estrogen.registry;
 
 import dev.mayaqq.estrogen.Estrogen;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
@@ -38,6 +40,10 @@ public class EstrogenTags {
 
     public static class Entities {
         public static final TagKey<EntityType<?>> URINE_GIVING = TagKey.create(BuiltInRegistries.ENTITY_TYPE.key(), Estrogen.id("urine_giving"));
+    }
+
+    public static class Biomes {
+        public static final TagKey<Biome> SPAWNS_MOTH = TagKey.create(Registries.BIOME, Estrogen.id("spawns_moth"));
     }
 
     private static ResourceLocation mcId(String path) {

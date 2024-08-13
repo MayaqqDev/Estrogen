@@ -4,6 +4,7 @@ import com.simibubi.create.foundation.config.ConfigBase;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.registry.EstrogenEntities;
 import dev.mayaqq.estrogen.registry.EstrogenEvents;
 import dev.mayaqq.estrogen.registry.EstrogenPotatoProjectiles;
 import net.minecraftforge.api.distmarker.Dist;
@@ -42,6 +43,7 @@ public class EstrogenForge {
 
     public static void init(final FMLCommonSetupEvent event) {
         event.enqueueWork(EstrogenPotatoProjectiles::register);
+        event.enqueueWork(EstrogenEntities::registerSpawnPlacements);
     }
 
     public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
