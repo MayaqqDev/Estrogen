@@ -36,6 +36,7 @@ public class EstrogenCreativeTab {
         items.add(HORSE_URINE_BOTTLE.get().getDefaultInstance());
         items.add(ESTROGEN_PATCHES.get().getFullStack());
         items.add(ESTROGEN_PATCHES.get().getDefaultInstance());
+        items.add(THIGH_HIGHS.get().getDefaultInstance());
         items.add(UWU.get().getDefaultInstance());
         items.add(CENTRIFUGE.get().getDefaultInstance());
         items.add(COOKIE_JAR.get().getDefaultInstance());

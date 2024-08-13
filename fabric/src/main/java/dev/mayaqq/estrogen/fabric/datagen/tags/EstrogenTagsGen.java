@@ -23,11 +23,13 @@ public class EstrogenTagsGen {
         @Override
         protected void addTags(HolderLookup.Provider arg) {
             getOrCreateTagBuilder(EstrogenTags.Items.THIGHS)
-                    .add(EstrogenItems.ESTROGEN_PATCHES.get());
+                    .add(EstrogenItems.ESTROGEN_PATCHES.get())
+                    .add(EstrogenItems.THIGH_HIGHS.get());
             getOrCreateTagBuilder(EstrogenTags.Items.UWUFYING)
                     .add(EstrogenItems.UWU.get());
             getOrCreateTagBuilder(EstrogenTags.Items.CURIOS_THIGHS)
-                    .add(EstrogenItems.ESTROGEN_PATCHES.get());
+                    .add(EstrogenItems.ESTROGEN_PATCHES.get())
+                    .add(EstrogenItems.THIGH_HIGHS.get());
             getOrCreateTagBuilder(EstrogenTags.Items.MUSIC_DISCS)
                     .add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get());
             getOrCreateTagBuilder(EstrogenTags.Items.LAVA_BUCKETS)

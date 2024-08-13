@@ -33,9 +33,11 @@ public class EstrogenEffect extends MobEffect {
     public static ConcurrentHashMap<UUID, Integer> dashing = new ConcurrentHashMap<>();
 
     private static final UUID DASH_MODIFIER_UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4c");
+    private static final UUID FALL_DAMAGE_RESISTANCE_UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4d");
 
     public EstrogenEffect(MobEffectCategory statusEffectType, int color) {
         super(statusEffectType, color);
+        addAttributeModifier(FALL_DAMAGE_RESISTANCE.get(), FALL_DAMAGE_RESISTANCE_UUID.toString(), 2, AttributeModifier.Operation.ADDITION);
     }
 
     @Override
@@ -51,6 +53,7 @@ public class EstrogenEffect extends MobEffect {
 
     @Override
     public void removeAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
+        super.removeAttributeModifiers(entity, attributes, amplifier);
         dashing.remove(entity.getUUID());
 
         if (entity instanceof ServerPlayer player) {
@@ -69,7 +72,7 @@ public class EstrogenEffect extends MobEffect {
 
     @Override
     public void addAttributeModifiers(@NotNull LivingEntity entity, @NotNull AttributeMap attributes, int amplifier) {
-
+        super.addAttributeModifiers(entity, attributes, amplifier);
         if (!(entity instanceof Player)) return;
 
         if (entity instanceof ServerPlayer player) {

@@ -5,6 +5,7 @@ import dev.mayaqq.estrogen.config.PlayerEntityExtension;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
 import dev.mayaqq.estrogen.registry.EstrogenDamageSources;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -40,7 +41,8 @@ public class PlayerEntityMixin implements PlayerEntityExtension {
         cir.getReturnValue()
                 .add(EstrogenAttributes.DASH_LEVEL.get())
                 .add(EstrogenAttributes.BOOB_INITIAL_SIZE.get())
-                .add(EstrogenAttributes.BOOB_GROWING_START_TIME.get());
+                .add(EstrogenAttributes.BOOB_GROWING_START_TIME.get())
+                .add(EstrogenAttributes.FALL_DAMAGE_RESISTANCE.get());
     }
 
     // Modifies the damage source of fall damage if the player has the estrogen effect.
@@ -66,8 +68,13 @@ public class PlayerEntityMixin implements PlayerEntityExtension {
             argsOnly = true
     )
     private float modifyFallDamage(float damage, DamageSource source) {
-        if (source.is(EstrogenDamageSources.GIRLPOWER_DAMAGE_TYPE)) {
-            return damage / 1.5f;
+        Player player = (Player) (Object) this;
+        if (source.is(DamageTypeTags.IS_FALL)) {
+            if (player.getAttributeValue(EstrogenAttributes.FALL_DAMAGE_RESISTANCE.get()) > damage) {
+                return 0.0f;
+            } else {
+                return (float) (damage / player.getAttributeValue(EstrogenAttributes.FALL_DAMAGE_RESISTANCE.get()));
+            }
         }
         return damage;
     }

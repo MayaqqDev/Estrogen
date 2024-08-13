@@ -39,6 +39,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add(EstrogenItems.DREAM_BOTTLE.get(), "Bottle of Dreams");
         tb.add(EstrogenItems.MOTH_FUZZ.get(), "Moth Fuzz");
         tb.add(EstrogenItems.MOTH_EGG.get(), "Rosy Maple Moth Spawn Egg");
+        tb.add(EstrogenItems.THIGH_HIGHS.get(), "Thigh Highs");
         // Potion
         tb.add("item.minecraft.tipped_arrow.effect.estrogen", "Arrow of Girl Power");
         tb.add("item.minecraft.potion.effect.estrogen", "Potion of Girl Power");
@@ -68,6 +69,8 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("block.estrogen.dormant_dream_block.tooltip.summary", "A block with some _very_ powerful properties...");
         tb.add("block.estrogen.dormant_dream_block.tooltip.condition1", "When powered by a Redstone Signal");
         tb.add("block.estrogen.dormant_dream_block.tooltip.behaviour1", "At _night_, it will §kturn into its active form");
+        tb.add("item.estrogen.thigh_highs.tooltip", "Thigh Highs");
+        tb.add("item.estrogen.thigh_highs.tooltip.summary", "A pair of Thigh Highs that give you _Fall Damage Resistance_.");
 
         tb.add("block.estrogen.cookie_jar.tooltip", "Cookie Jar");
         tb.add("block.estrogen.cookie_jar.tooltip.summary", "A jar to _store_ all your _Cookies_!");
@@ -194,5 +197,6 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add(EstrogenAttributes.DASH_LEVEL.get(), "Dash Level");
         tb.add(EstrogenAttributes.BOOB_GROWING_START_TIME.get(), "Upper Body Start Time");
         tb.add(EstrogenAttributes.BOOB_INITIAL_SIZE.get(), "Upper Body initial size");
+        tb.add(EstrogenAttributes.FALL_DAMAGE_RESISTANCE.get(), "Fall Damage Resistance");
     }
 }
