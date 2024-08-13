@@ -12,3 +12,4 @@
 - Cookie jar basically fixed! (TheRobbie72)
 - New Cookie jar and Estrogen Pill Box (erora)
 - New wiki! Not in the mod itself but on github [here](https://github.com/MayaqqDev/Estrogen/wiki) (Mayaqq & Erora)
+- Entity Patting now plays patting Animation
