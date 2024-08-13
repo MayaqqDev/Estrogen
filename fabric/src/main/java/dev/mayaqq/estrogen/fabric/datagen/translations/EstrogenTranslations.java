@@ -37,6 +37,8 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("item.estrogen.uwu.tooltip", "§r§dUwU");
         tb.add(EstrogenItems.INCOMPLETE_UWU.get(), "Incomplete UwU");
         tb.add(EstrogenItems.DREAM_BOTTLE.get(), "Bottle of Dreams");
+        tb.add(EstrogenItems.MOTH_FUZZ.get(), "Moth Fuzz");
+        tb.add(EstrogenItems.MOTH_EGG.get(), "Rosy Maple Moth Spawn Egg");
         // Potion
         tb.add("item.minecraft.tipped_arrow.effect.estrogen", "Arrow of Girl Power");
         tb.add("item.minecraft.potion.effect.estrogen", "Potion of Girl Power");
@@ -49,6 +51,9 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add(EstrogenItems.MOLTEN_SLIME_BUCKET.get(), "Bucket of Molten Slime");
         tb.add(EstrogenItems.MOLTEN_AMETHYST_BUCKET.get(), "Bucket of Molten Amethyst");
         tb.add(EstrogenItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Bucket of Testosterone Mixture");
+
+        // Entities
+        tb.add(EstrogenEntities.MOTH.get(), "Rosy Maple Moth");
 
         // Tooltip
         tb.add("item.estrogen.estrogen_pill.tooltip", "Estrogen Pill");
@@ -120,6 +125,28 @@ public class EstrogenTranslations extends FabricLanguageProvider {
 
         // Sounds
         tb.add("subtitles.estrogen.dash", "Girl Power Dash");
+        tb.add("subtitles.estrogen.music.g03c", "erora - G03C");
+        tb.add("subtitles.estrogen.music.trust_yourself", "erora - Trust Yourself");
+        tb.add("subtitles.estrogen.music.amphitrite", "erora - Amphitrite");
+        tb.add("subtitles.estrogen.music.aurum_berry", "erora - Aurum Berry");
+        tb.add("subtitles.estrogen.music.inferred_dreams", "erora - Inferred Dreams");
+        tb.add("subtitles.estrogen.music.sleeping_dreams", "erora - Sleeping Dreams");
+        tb.add("subtitles.estrogen.music.inner_selfrealization", "erora - Inner Selfrealization");
+        tb.add("subtitles.estrogen.cookie_jar.full", "Cookie Jar Full");
+        tb.add("subtitles.estrogen.cookie_jar.place", "Cookie Jar Place");
+        tb.add("subtitles.estrogen.cookie_jar.break", "Cookie Jar Break");
+        tb.add("subtitles.estrogen.cookie_jar.insert", "Cookie Jar Insert");
+        tb.add("subtitles.estrogen.cookie_jar.step", "Cookie Jar Step");
+        tb.add("subtitles.estrogen.pill_box.break", "Estrogen Pill Box Break");
+        tb.add("subtitles.estrogen.pill_box.place", "Estrogen Pill Box Place");
+        tb.add("subtitles.estrogen.pill_box.step", "Estrogen Pill Box Step");
+        tb.add("subtitles.estrogen.dream_block.enter", "Dream Block Enter");
+        tb.add("subtitles.estrogen.dream_block.exit", "Dream Block Exit");
+        tb.add("subtitles.estrogen.dream_block.place", "Dream Block Place");
+        tb.add("subtitles.estrogen.dream_block.dormant_break", "Dormant Dream Block Break");
+        tb.add("subtitles.estrogen.dream_block.dormant_fall", "Dormant Dream Block Fall");
+        tb.add("subtitles.estrogen.dream_block.dormant_place", "Dormant Dream Block Place");
+        tb.add("subtitles.estrogen.dream_block.dormant_step", "Dormant Dream Block Step");
 
         // Death
         tb.add("death.attack.girlpower", "%s Girlbossed too hard");
@@ -149,6 +176,8 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("tag.item.estrogen.uwufying", "Uwufying");
         tb.add("tag.item.curios.thighs", "Thighs");
         tb.add("tag.item.c.cookies", "Cookies");
+        tb.add("tag.item.c.leather_items", "Leather Items");
+        tb.add("tag.item.c.light_emitters", "Light Emitters");
         // Fluids
         tb.add("tag.fluid.estrogen.urine", "Urine");
 
