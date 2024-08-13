@@ -4,10 +4,12 @@ import dev.mayaqq.estrogen.client.features.dash.ClientDash;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
 import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -48,6 +50,15 @@ public class DreamBlock extends BaseEntityBlock {
             }
         }
         return Shapes.block();
+    }
+
+    @Override
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+        BlockEntity be = level.getBlockEntity(pos);
+        if(be instanceof DreamBlockEntity dream) {
+            dream.updateTexture(direction.getAxis() != Direction.Axis.Y);
+        }
+        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
     public static boolean isInDreamBlock(Player player) {
