@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_moth_fuzz": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "estrogen:moth_fuzz"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "estrogen:thigh_highs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_moth_fuzz",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "estrogen:thigh_highs"
+    ]
+  },
+  "sends_telemetry_event": false
+}

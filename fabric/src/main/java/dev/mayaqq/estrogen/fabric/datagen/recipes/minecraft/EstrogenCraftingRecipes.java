@@ -57,6 +57,14 @@ public class EstrogenCraftingRecipes<T extends EstrogenRecipeInterface> extends 
                 .pattern("GGG")
                 .unlockedBy(FabricRecipeProvider.getHasName(AllItems.ZINC_NUGGET.get()), FabricRecipeProvider.has(AllItems.ZINC_NUGGET.get()))
                 .save(exporter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, EstrogenItems.THIGH_HIGHS.get(), 1)
+                .define('F', EstrogenItems.MOTH_FUZZ.get())
+                .pattern("FFF")
+                .pattern("F F")
+                .pattern("F F")
+                .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.MOTH_FUZZ.get()), FabricRecipeProvider.has(EstrogenItems.MOTH_FUZZ.get()))
+                .save(exporter);
     }
 
     public EstrogenCraftingRecipes(FabricDataOutput output, T t) {
