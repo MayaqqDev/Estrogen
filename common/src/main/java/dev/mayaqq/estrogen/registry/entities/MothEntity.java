@@ -83,6 +83,9 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
         if (!this.level().isClientSide && !this.isFuzzy() && !this.isBaby()) {
             if (this.level().getGameTime() % this.getTicksToFuzzUp() == 0) {
                 this.setFuzzy();
+                for (int i = 0; i <= 6; ++i) {
+                    this.spawnFuzzyParticle(this.level(), this.getX() - (double)0.3f, this.getX() + (double)0.3f, this.getZ() - (double)0.3f, this.getZ() + (double)0.3f, this.getY(0.5), getParticleType());
+                }
                 // TODO: Maybe play a cool sound?
                 this.setState(State.FUZZUP);
             }
