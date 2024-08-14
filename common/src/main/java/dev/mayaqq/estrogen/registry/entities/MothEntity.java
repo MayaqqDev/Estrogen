@@ -2,9 +2,10 @@ package dev.mayaqq.estrogen.registry.entities;
 
 import dev.mayaqq.estrogen.platform.CommonPlatform;
 import dev.mayaqq.estrogen.registry.*;
+import dev.mayaqq.estrogen.registry.entities.goals.MothWanderGoal;
 import dev.mayaqq.estrogen.registry.entities.goals.TemptByLightBlockGoal;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.*;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -44,13 +45,17 @@ import net.minecraft.world.phys.Vec3;
 
 public class MothEntity extends Animal implements FlyingAnimal, Shearable {
 
-    public final AnimationState flyingAnimationState = new AnimationState();
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState fuzzUpAnimationState = new AnimationState();
-
+    public static final int TICKS_PER_FLAP = 2;
     private static final EntityDataAccessor<Boolean> DATA_FUZZY = SynchedEntityData.defineId(MothEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<State> ANIMATION_STATES = SynchedEntityData.defineId(MothEntity.class, EstrogenDataSerializers.MothAnimationStateSerializer);
-    public static final int TICKS_PER_FLAP = 2;
+    public final AnimationState flyingAnimationState = new AnimationState();
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState fuzzUpFlyingAnimationState = new AnimationState();
+    public final AnimationState fuzzUpIdleAnimationState = new AnimationState();
+    public final AnimationState landingAnimationState = new AnimationState();
+    public final AnimationState takingOffAnimationState = new AnimationState();
+
+    private int tickSinceLastAnimation = 0;
     public int ticksToFuzzUp = 0;
 
     public MothEntity(EntityType<? extends Animal> entityType, Level level) {
@@ -63,19 +68,28 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
         this.setPathfindingMalus(BlockPathTypes.FENCE, -1.0f);
     }
 
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0).add(Attributes.FLYING_SPEED, 0.6f).add(Attributes.MOVEMENT_SPEED, 0.3f).add(Attributes.FOLLOW_RANGE, 48.0);
+    }
+
+    public static boolean checkMobSpawnRules(EntityType<? extends Mob> type, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return Mob.checkMobSpawnRules(type, level, spawnType, pos, random) && getDayTime(level) >= 1300 && getDayTime(level) <= 23999 && level.getMoonPhase() != 4;
+    }
+
+    private static int getDayTime(LevelAccessor level) {
+        return (int) (level.dayTime() % 24000L);
+    }
+
     @Override
     public void tick() {
         super.tick();
-        if (this.isFlying()) {
-            this.setState(State.FLYING);
-        } else {
-            this.setState(State.IDLE);
-        }
+
+        animationTick();
 
         if (this.isFuzzy()) {
             if (this.random.nextFloat() < 0.05f) {
                 for (int i = 0; i < this.random.nextInt(2) + 1; ++i) {
-                    this.spawnFuzzyParticle(this.level(), this.getX() - (double)0.3f, this.getX() + (double)0.3f, this.getZ() - (double)0.3f, this.getZ() + (double)0.3f, this.getY(0.5), getParticleType());
+                    this.spawnFuzzyParticle(this.level(), this.getX() - (double) 0.3f, this.getX() + (double) 0.3f, this.getZ() - (double) 0.3f, this.getZ() + (double) 0.3f, this.getY(0.5), getParticleType());
                 }
             }
         }
@@ -84,11 +98,42 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
             if (this.level().getGameTime() % this.getTicksToFuzzUp() == 0) {
                 this.setFuzzy();
                 for (int i = 0; i <= 6; ++i) {
-                    this.spawnFuzzyParticle(this.level(), this.getX() - (double)0.3f, this.getX() + (double)0.3f, this.getZ() - (double)0.3f, this.getZ() + (double)0.3f, this.getY(0.5), getParticleType());
+                    this.spawnFuzzyParticle(this.level(), this.getX() - (double) 0.3f, this.getX() + (double) 0.3f, this.getZ() - (double) 0.3f, this.getZ() + (double) 0.3f, this.getY(0.5), getParticleType());
                 }
                 // TODO: Maybe play a cool sound?
-                this.setState(State.FUZZUP);
+                if (this.isFlying()) {
+                    this.setState(State.FUZZUP_FLYING);
+                } else {
+                    this.setState(State.FUZZUP_IDLE);
+                }
             }
+        }
+    }
+
+    public void animationTick() {
+        tickSinceLastAnimation++;
+        if (this.isFlying() && this.getState() == State.IDLE) {
+            this.setState(State.TAKING_OFF);
+        }
+
+        if (this.getState() == State.TAKING_OFF && this.isFlying() && State.TAKING_OFF.duration <= tickSinceLastAnimation) {
+            this.setState(State.FLYING);
+        }
+
+        if (this.getState() == State.FLYING && !this.isFlying()) {
+            this.setState(State.LANDING);
+        }
+
+        if (this.getState() == State.LANDING && this.isFlying() && State.LANDING.duration <= tickSinceLastAnimation) {
+            this.setState(State.IDLE);
+        }
+
+        if (this.getState() == State.FUZZUP_FLYING && this.isFlying() && State.FUZZUP_FLYING.duration <= tickSinceLastAnimation) {
+            this.setState(State.FLYING);
+        }
+
+        if (this.getState() == State.FUZZUP_IDLE && this.isFlying() && State.FUZZUP_IDLE.duration <= tickSinceLastAnimation) {
+            this.setState(State.IDLE);
         }
     }
 
@@ -112,15 +157,22 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
 
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        tickSinceLastAnimation = 0;
         if (ANIMATION_STATES.equals(key)) {
             this.flyingAnimationState.stop();
             this.idleAnimationState.stop();
-            this.fuzzUpAnimationState.stop();
+            this.fuzzUpFlyingAnimationState.stop();
+            this.fuzzUpIdleAnimationState.stop();
+            this.landingAnimationState.stop();
+            this.takingOffAnimationState.stop();
 
             switch (this.getState()) {
-                case FLYING -> this.flyingAnimationState.start(this.age);
-                case IDLE -> this.idleAnimationState.start(this.age);
-                case FUZZUP -> this.fuzzUpAnimationState.start(this.age);
+                case FLYING -> this.flyingAnimationState.startIfStopped(this.age);
+                case IDLE -> this.idleAnimationState.startIfStopped(this.age);
+                case TAKING_OFF -> this.takingOffAnimationState.startIfStopped(this.age);
+                case LANDING -> this.landingAnimationState.startIfStopped(this.age);
+                case FUZZUP_FLYING -> this.fuzzUpFlyingAnimationState.startIfStopped(this.age);
+                case FUZZUP_IDLE -> this.fuzzUpIdleAnimationState.startIfStopped(this.age);
             }
         }
         super.onSyncedDataUpdated(key);
@@ -129,13 +181,12 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
     @Override
     public boolean hurt(DamageSource source, float amount) {
         if (source.is(DamageTypeTags.IS_FIRE)) {
-            //TODO: make upset sound :(
             this.setSheared();
         }
         return super.hurt(source, amount);
     }
 
-        @Override
+    @Override
     public InteractionResult mobInteract(Player player2, InteractionHand hand) {
         ItemStack itemStack = player2.getItemInHand(hand);
         if (itemStack.is(CommonPlatform.getShearsTag())) {
@@ -152,7 +203,6 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
 
     @Override
     public void shear(SoundSource source) {
-        // TODO: custom shear sound?
         this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, source, 1.0f, 1.0f);
         this.setSheared();
         int i = 1 + this.random.nextInt(3);
@@ -223,7 +273,7 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
+        this.goalSelector.addGoal(2, new MothWanderGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptByLightBlockGoal(this, 1.0, 5));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.25, Ingredient.of(EstrogenTags.Items.LIGHT_EMITTERS), false));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.25, Ingredient.of(EstrogenTags.Items.LEATHER_ITEMS), false));
@@ -236,13 +286,9 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
         return !this.onGround();
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0).add(Attributes.FLYING_SPEED, 0.6f).add(Attributes.MOVEMENT_SPEED, 0.3f).add(Attributes.FOLLOW_RANGE, 48.0);
-    }
-
     @Override
     protected PathNavigation createNavigation(Level level) {
-        FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level){
+        FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level) {
 
             @Override
             public boolean isStableDestination(BlockPos pos) {
@@ -261,7 +307,8 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
     }
 
     @Override
-    protected void playStepSound(BlockPos pos, BlockState state) {}
+    protected void playStepSound(BlockPos pos, BlockState state) {
+    }
 
     @Override
     public SoundEvent getAmbientSound() {
@@ -305,7 +352,8 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
     }
 
     @Override
-    protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {}
+    protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
+    }
 
     @Override
     public MobType getMobType() {
@@ -322,17 +370,18 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
         return new Vec3(0.0, 0.5f * this.getEyeHeight(), this.getBbWidth() * 0.2f);
     }
 
-    public static boolean checkMobSpawnRules(EntityType<? extends Mob> type, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return Mob.checkMobSpawnRules(type, level, spawnType, pos, random) && getDayTime(level) >= 1300 && getDayTime(level) <= 23999 && level.getMoonPhase() != 4;
-    }
-
-    private static int getDayTime(LevelAccessor level) {
-        return (int)(level.dayTime() % 24000L);
-    }
-
     public enum State {
-        FLYING,
-        IDLE,
-        FUZZUP
+        FLYING(-1),
+        IDLE(-1),
+        FUZZUP_FLYING(60),
+        FUZZUP_IDLE(60),
+        LANDING(60),
+        TAKING_OFF(60);
+
+        private final float duration;
+
+        State(float duration) {
+            this.duration = duration;
+        }
     }
 }
