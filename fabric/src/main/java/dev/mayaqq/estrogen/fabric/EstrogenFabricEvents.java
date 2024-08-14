@@ -1,13 +1,17 @@
 package dev.mayaqq.estrogen.fabric;
 
 import dev.mayaqq.estrogen.registry.EstrogenEvents;
+import dev.mayaqq.estrogen.registry.items.MothElytraItem;
 import io.github.fabricators_of_create.porting_lib.entity.events.PlayerTickEvents;
+import net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Objects;
 
@@ -37,5 +41,14 @@ public class EstrogenFabricEvents {
         ServerLivingEntityEvents.AFTER_DEATH.register(EstrogenEvents::onEntityDeath);
 
         EstrogenEvents.onEntityAttributeCreation().forEach(FabricDefaultAttributeRegistry::register);
+
+        EntityElytraEvents.CUSTOM.register((entity, tickElytra) -> {
+            ItemStack chestStack = entity.getItemBySlot(EquipmentSlot.CHEST);
+            if (chestStack.getItem() instanceof MothElytraItem) {
+                return MothElytraItem.isFlyEnabled(chestStack);
+            } else {
+                return false;
+            }
+        });
     }
 }

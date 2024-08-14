@@ -23,6 +23,7 @@ public class MinecraftClientMixin {
         BoobPhysicsManager.tick();
         DreamBlockEffect.tick();
         DreamBlockTexture.animationTick();
+        UwUfy.tick();
     }
 
     @Inject(method = "updateTitle()V", at = @At("HEAD"), cancellable = true)

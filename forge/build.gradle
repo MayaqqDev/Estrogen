@@ -33,6 +33,10 @@ dependencies {
     include modImplementation("earth.terrarium.baubly:baubly-forge-${rootProject.minecraft_version}:${rootProject.baubly_version}") transitive false
     modImplementation("top.theillusivec4.curios:curios-forge:${rootProject.curios_version}+${rootProject.minecraft_version}")
 
+    // Caelus API
+    modRuntimeOnly("top.theillusivec4.caelus:caelus-forge:${rootProject.caelus_version}+${rootProject.minecraft_version}")
+    modCompileOnly("top.theillusivec4.caelus:caelus-forge:${rootProject.caelus_version}+${rootProject.minecraft_version}:api")
+
     //Mixin Extras
     implementation(include("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras_version}"))
 

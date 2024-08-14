@@ -1,0 +1,19 @@
+{
+  "type": "create:deploying",
+  "ingredients": [
+    {
+      "item": "minecraft:elytra"
+    },
+    {
+      "item": "estrogen:moth_fuzz"
+    }
+  ],
+  "results": [
+    {
+      "item": "estrogen:moth_elytra",
+      "nbt": {
+        "Damage": 0
+      }
+    }
+  ]
+}
