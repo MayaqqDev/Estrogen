@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.registry.entities;
 
 import dev.mayaqq.estrogen.platform.CommonPlatform;
 import dev.mayaqq.estrogen.registry.*;
-import dev.mayaqq.estrogen.registry.entities.goals.MothWanderGoal;
 import dev.mayaqq.estrogen.registry.entities.goals.TemptByLightBlockGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -55,8 +54,9 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
     public final AnimationState landingAnimationState = new AnimationState();
     public final AnimationState takingOffAnimationState = new AnimationState();
 
-    private int tickSinceLastAnimation = 0;
     public int ticksToFuzzUp = 0;
+    private boolean fuzzingUp = false;
+    private int fuzzupCooldown = 0;
 
     public MothEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -82,9 +82,14 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
 
     @Override
     public void tick() {
+        fuzzupCooldown--;
+        if (fuzzupCooldown < 0) {
+            fuzzupCooldown = 0;
+        }
+        if (fuzzupCooldown == 0) {
+            this.fuzzingUp = false;
+        }
         super.tick();
-
-        animationTick();
 
         if (this.isFuzzy()) {
             if (this.random.nextFloat() < 0.05f) {
@@ -101,39 +106,38 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
                     this.spawnFuzzyParticle(this.level(), this.getX() - (double) 0.3f, this.getX() + (double) 0.3f, this.getZ() - (double) 0.3f, this.getZ() + (double) 0.3f, this.getY(0.5), getParticleType());
                 }
                 // TODO: Maybe play a cool sound?
-                if (this.isFlying()) {
-                    this.setState(State.FUZZUP_FLYING);
-                } else {
-                    this.setState(State.FUZZUP_IDLE);
-                }
+                this.fuzzingUp();
             }
         }
     }
 
-    public void animationTick() {
-        tickSinceLastAnimation++;
-        if (this.isFlying() && this.getState() == State.IDLE) {
-            this.setState(State.TAKING_OFF);
-        }
+    private void fuzzingUp() {
+        fuzzupCooldown = 48;
+        this.fuzzingUp = true;
+    }
 
-        if (this.getState() == State.TAKING_OFF && this.isFlying() && State.TAKING_OFF.duration <= tickSinceLastAnimation) {
+    private boolean isFuzzingUp() {
+        return this.fuzzingUp;
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        boolean isMoving = this.getX() - this.xo != 0 || this.getZ() - this.zo != 0;
+        if (this.isFlying()) {
+            if (this.isFuzzingUp()) {
+                this.setState(State.FUZZUP_FLYING);
+            }
             this.setState(State.FLYING);
-        }
-
-        if (this.getState() == State.FLYING && !this.isFlying()) {
-            this.setState(State.LANDING);
-        }
-
-        if (this.getState() == State.LANDING && this.isFlying() && State.LANDING.duration <= tickSinceLastAnimation) {
-            this.setState(State.IDLE);
-        }
-
-        if (this.getState() == State.FUZZUP_FLYING && this.isFlying() && State.FUZZUP_FLYING.duration <= tickSinceLastAnimation) {
-            this.setState(State.FLYING);
-        }
-
-        if (this.getState() == State.FUZZUP_IDLE && this.isFlying() && State.FUZZUP_IDLE.duration <= tickSinceLastAnimation) {
-            this.setState(State.IDLE);
+        } else {
+            if (this.isFuzzingUp()) {
+                this.setState(State.FUZZUP_FLYING);
+            }
+            if (this.getState() == State.FLYING) {
+                this.setState(State.LANDING);
+            } else {
+                this.setState(isMoving ? State.TAKING_OFF : State.IDLE);
+            }
         }
     }
 
@@ -157,14 +161,8 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
 
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
-        tickSinceLastAnimation = 0;
         if (ANIMATION_STATES.equals(key)) {
-            this.flyingAnimationState.stop();
-            this.idleAnimationState.stop();
-            this.fuzzUpFlyingAnimationState.stop();
-            this.fuzzUpIdleAnimationState.stop();
-            this.landingAnimationState.stop();
-            this.takingOffAnimationState.stop();
+            stopAll();
 
             switch (this.getState()) {
                 case FLYING -> this.flyingAnimationState.startIfStopped(this.age);
@@ -176,6 +174,15 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
             }
         }
         super.onSyncedDataUpdated(key);
+    }
+
+    public void stopAll() {
+        this.flyingAnimationState.stop();
+        this.idleAnimationState.stop();
+        this.fuzzUpFlyingAnimationState.stop();
+        this.fuzzUpIdleAnimationState.stop();
+        this.landingAnimationState.stop();
+        this.takingOffAnimationState.stop();
     }
 
     @Override
@@ -273,7 +280,7 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(2, new MothWanderGoal(this, 1.0D));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptByLightBlockGoal(this, 1.0, 5));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.25, Ingredient.of(EstrogenTags.Items.LIGHT_EMITTERS), false));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.25, Ingredient.of(EstrogenTags.Items.LEATHER_ITEMS), false));
@@ -371,17 +378,11 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
     }
 
     public enum State {
-        FLYING(-1),
-        IDLE(-1),
-        FUZZUP_FLYING(60),
-        FUZZUP_IDLE(60),
-        LANDING(60),
-        TAKING_OFF(60);
-
-        private final float duration;
-
-        State(float duration) {
-            this.duration = duration;
-        }
+        FLYING,
+        IDLE,
+        FUZZUP_FLYING,
+        FUZZUP_IDLE,
+        LANDING,
+        TAKING_OFF;
     }
 }
