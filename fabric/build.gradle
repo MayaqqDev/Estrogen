@@ -59,6 +59,12 @@ dependencies {
         default: println("Invalid item viewer: ${item_viewer} must be REI, EMI or disabled"); break
     }
 
+    // Ad Astra Testing
+    if (rootProject.ad_astra_testing == "true") {
+        modRuntimeOnly("maven.modrinth:ad-astra:${rootProject.ad_astra_version_fabric}")
+        modRuntimeOnly("maven.modrinth:resourceful-config:${rootProject.resourceful_config_version_fabric}")
+    }
+
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }
@@ -125,6 +131,7 @@ publishing {
 
 loom {
     Project common = project(":common")
+    Project forge = project(":forge")
     // Datagen, while this is in fabric only, it generates files for forge too
     runs {
         datagen {
@@ -132,6 +139,8 @@ loom {
             name "Data Generation (client)"
             vmArg "-Dfabric-api.datagen"
             vmArg "-Dfabric-api.datagen.output-dir=${common.file("src/main/generated")}"
+            vmArg "-Destrogen.datagen.fabric-output-dir=${file("src/main/generated")}"
+            vmArg "-Destrogen.datagen.forge-output-dir=${forge.file("src/main/generated")}"
             vmArg "-Dfabric-api.datagen.modid=estrogen"
             vmArg "-Dporting_lib.datagen.existing_resources=${common.file("src/main/resources")}"
 

@@ -2,7 +2,8 @@ package dev.mayaqq.estrogen.client.entity.player.features.boobs;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import dev.mayaqq.estrogen.client.Dash;
+import dev.mayaqq.estrogen.client.features.boobs.BoobPhysicsManager;
+import dev.mayaqq.estrogen.client.features.boobs.Physics;
 import dev.mayaqq.estrogen.config.ChestConfig;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.config.PlayerEntityExtension;
@@ -58,7 +59,7 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
             }
             float yOffset = 0;
             if (EstrogenConfig.client().chestPhysicsRendering.get() && chestConfig.physicsEnabled()) {
-                Physics physics = Dash.physicsMap.computeIfAbsent(entity.getUUID(), uuid -> new Physics());
+                Physics physics = BoobPhysicsManager.getPhysicsForPlayer(entity);
                 if (physics.active) {
                     size += physics.interpolate(currentTime, h).x;
                     yOffset = physics.interpolate(currentTime, h).y;
@@ -77,13 +78,13 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
                             float p = (float) (dyeColor >> 8 & 255) / 255.0F;
                             float q = (float) (dyeColor & 255) / 255.0F;
 
-                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, glint, o, p, q, null, entity, size, yOffset);
-                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, glint, 1.0F, 1.0F, 1.0F, "overlay", entity, size, yOffset);
+                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, glint, o, p, q, false, entity, size, yOffset);
+                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, glint, 1.0F, 1.0F, 1.0F, true, entity, size, yOffset);
                         } else {
-                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, glint, 1.0F, 1.0F, 1.0F, null, entity, size, yOffset);
+                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmor(stack, bufferSource, i, glint, 1.0F, 1.0F, 1.0F, false, entity, size, yOffset);
                         }
                         ArmorTrim.getTrim(entity.level().registryAccess(), itemStack).ifPresent((armorTrim) -> {
-                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmorTrim(stack, bufferSource, i, glint, armorTrim, armorItem.getMaterial(), this.armorTrimAtlas);
+                            ((PlayerEntityModelExtension) this.getParentModel()).estrogen$renderBoobArmorTrim(stack, bufferSource, i, glint, armorTrim, armorItem.getMaterial(), this.armorTrimAtlas, entity);
                         });
                     }
                 }

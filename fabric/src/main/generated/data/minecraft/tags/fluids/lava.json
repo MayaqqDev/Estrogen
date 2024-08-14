@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "estrogen:molten_slime",
+    "estrogen:flowing_molten_slime",
+    "estrogen:molten_amethyst",
+    "estrogen:flowing_molten_amethyst"
+  ]
+}

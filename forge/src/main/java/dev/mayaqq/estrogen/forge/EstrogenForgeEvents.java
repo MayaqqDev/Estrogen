@@ -10,10 +10,12 @@ import net.minecraft.server.packs.PathPackResources;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.AddPackFindersEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
+import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -95,5 +97,13 @@ public class EstrogenForgeEvents {
     @SubscribeEvent
     public static void onEntityDeath(LivingDeathEvent event) {
         EstrogenEvents.onEntityDeath(event.getEntity(), event.getSource());
+    }
+
+    // Forge only, fixes issue with deployers deleting horses
+    @SubscribeEvent
+    public static void onEntityMount(EntityMountEvent event) {
+        if (event.getEntity() instanceof FakePlayer) {
+            event.setCanceled(true);
+        }
     }
 }

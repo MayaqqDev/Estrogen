@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.registry.blocks;
 
 import dev.mayaqq.estrogen.registry.EstrogenAdvancementCriteria;
+import dev.mayaqq.estrogen.registry.EstrogenSoundTypes;
 import dev.mayaqq.estrogen.registry.EstrogenSounds;
 import dev.mayaqq.estrogen.registry.blockEntities.CookieJarBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -62,43 +63,46 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        BlockEntity blockEntity = level.getBlockEntity(pos);
-        ItemStack itemInHand = player.getItemInHand(hand);
-        if (player.getItemInHand(hand) == ItemStack.EMPTY) {
-            if (blockEntity instanceof CookieJarBlockEntity cookieJarBlockEntity) {
-                level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-                if (cookieJarBlockEntity.canRemoveCookie()) {
-                    level.playSound(null, pos, EstrogenSounds.JAR_PLACE.get(), SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * ((float) cookieJarBlockEntity.getCookieCount() / 512));
-                    player.getInventory().placeItemBackInInventory(cookieJarBlockEntity.getItem(0).copyWithCount(1));
-                    cookieJarBlockEntity.removeCookie();
-                    cookieJarBlockEntity.notifyUpdate();
-                    return InteractionResult.SUCCESS;
+        if (!(level.getBlockEntity(pos) instanceof CookieJarBlockEntity cookieJarBlockEntity)) {
+            return InteractionResult.PASS;
+        }
+        if (level.isClientSide) {
+            return InteractionResult.CONSUME;
+        }
+
+        ItemStack handItem = player.getItemInHand(hand);
+
+        if (!handItem.isEmpty()) {
+            if (cookieJarBlockEntity.canAddItem(handItem)) {
+                // adding item to jar
+                cookieJarBlockEntity.add1Item(handItem);
+                if (!player.isCreative()) handItem.shrink(1);
+
+                player.awardStat(Stats.ITEM_USED.get(handItem.getItem()));
+                level.playSound(null, pos, EstrogenSounds.JAR_INSERT.get(), SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * ((float) cookieJarBlockEntity.getCount() / 512));
+                if (level instanceof ServerLevel serverLevel) {
+                    EstrogenAdvancementCriteria.INSERT_JAR.trigger((ServerPlayer) player);
+                    serverLevel.sendParticles(ParticleTypes.CRIT, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
                 }
             } else {
-                return InteractionResult.PASS;
+                // jar was full, couldn't add item to jar
+                level.playSound(null, pos, EstrogenSounds.JAR_FULL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
             }
         } else {
-            if (blockEntity instanceof CookieJarBlockEntity cookieJarBlockEntity) {
-                if (!itemInHand.isEmpty() && cookieJarBlockEntity.canAddItem(itemInHand)) {
-                    player.awardStat(Stats.ITEM_USED.get(itemInHand.getItem()));
-                    cookieJarBlockEntity.addCookie(itemInHand);
-                    if (!player.isCreative()) itemInHand.shrink(1);
-                    level.playSound(null, pos, EstrogenSounds.JAR_PLACE.get(), SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * ((float) cookieJarBlockEntity.getCookieCount() / 512));
-                    if (level instanceof ServerLevel serverLevel) {
-                        EstrogenAdvancementCriteria.INSERT_JAR.trigger((ServerPlayer) player);
-                        serverLevel.sendParticles(ParticleTypes.CRIT, (double)pos.getX() + 0.5, (double)pos.getY() + 1.2, (double)pos.getZ() + 0.5, 7, 0.0, 0.0, 0.0, 0.0);
-                    }
-
-                    cookieJarBlockEntity.notifyUpdate();
-                    level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-                } else {
-                    level.playSound(null, pos, EstrogenSounds.JAR_FULL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
-                    cookieJarBlockEntity.notifyUpdate();
+            ItemStack itemStack = cookieJarBlockEntity.remove1Item();
+            if (!itemStack.isEmpty()) {
+                // removing item from jar
+                level.playSound(null, pos, EstrogenSounds.JAR_INSERT.get(), SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * ((float) cookieJarBlockEntity.getCount() / 512));
+                if (level instanceof ServerLevel) {
+                    player.getInventory().placeItemBackInInventory(itemStack);
                 }
-                return InteractionResult.SUCCESS;
+            } else {
+                // jar was empty, couldn't remove item from jar
             }
         }
-        return InteractionResult.CONSUME;
+
+        level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+        return InteractionResult.SUCCESS;
     }
 
     @Override
@@ -136,7 +140,7 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     @Override
     public SoundType getSoundType(BlockState blockState) {
-        return SoundType.GLASS;
+        return EstrogenSoundTypes.COOKIE_JAR;
     }
 
     @Override

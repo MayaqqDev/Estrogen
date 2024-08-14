@@ -1,3 +1,7 @@
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.nio.file.StandardOpenOption
+
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "1.5-SNAPSHOT" apply false
@@ -8,31 +12,6 @@ plugins {
 tasks.register("buildBoth") {
     dependsOn project(":fabric").tasks.named("buildBothFabric")
     dependsOn project(":forge").tasks.named("buildBothForge")
-}
-
-tasks.register("multiplatformDatagen") {
-    Project common = project(":common")
-    Project fabric = project(":fabric")
-    Project forge = project(":forge")
-    dependsOn project(":fabric").tasks.named("runDatagen")
-    // Copy the fabric only recipes to the generated resources
-    File fabricDir = fabric.file("src/main/generated/data/estrogen/recipes/")
-    File forgeDir = forge.file("src/main/generated/data/estrogen/recipes/")
-
-    delete(fabricDir)
-    delete(forgeDir)
-
-    copy {
-        from common.file("src/main/generated/data/estrogen/recipes/.fabric")
-        include "**/*.json"
-        into fabric.file("src/main/generated/data/estrogen/recipes/")
-    }
-    // Copy the forge only recipes to the generated resources
-    copy {
-        from common.file("src/main/generated/data/estrogen/recipes/.forge")
-        include "**/*.json"
-        into forge.file("src/main/generated/data/estrogen/recipes/")
-    }
 }
 
 architectury {
@@ -86,7 +65,7 @@ allprojects {
         maven { name = "JamiesWhiteShirt Maven"; description = "Reach Entity Attributes"; url = "https://maven.jamieswhiteshirt.com/libs-release" }
         maven { name = "Ladysnake Maven"; description = "Trinkets"; url = "https://maven.ladysnake.org/releases" }
         maven { name = "Unascribed Maven"; description = "Ears"; url = "https://repo.unascribed.com" }
-        maven { name = "Modrinth Maven"; description = "Jukeboxfix"; url = "https://api.modrinth.com/maven" }
+        maven { name = "Modrinth Maven"; description = "Jukeboxfix, Ad Astra"; url = "https://api.modrinth.com/maven" }
         maven { name = "Resourceful Maven"; description = "Baubly, Botarium & ResourcefulLib"; url = "https://maven.teamresourceful.com/repository/maven-public/" }
         maven { name = "Figura Maven"; description = "Figura"; url = "https://maven.figuramc.org/releases" }
         maven { name = "Jitpack maven"; description = "Mixin Extras & Fabric ASM"; url = "https://jitpack.io/" } //NOTE: LEAVE THIS AS LAST
@@ -216,5 +195,34 @@ publishMods {
         optional {
             slug = "jei"
         }
+    }
+
+    tasks.register("genDescriptions") {
+        String readmePath = "README.md"
+        String outputPathModrinth = "descriptions/modrinth.md"
+        String outputPathCurseforge = "descriptions/curseforge.md"
+         // Read the file content
+        File file = new File(readmePath)
+        String content = file.text
+
+        // Replace elements as needed
+        content = content.replace("> [!TIP]\n", "")
+        String modrinth = content.replace("<div align=\"center\">", "<center>").replace("</div>", "</center>")
+        String curseforge = content
+                .replace("align=\"center\"", "style=\"text-align:center;\"")
+                .replaceAll("<iframe\\b[^>]*>(.*?)<\\/iframe>", "<iframe src=\"https://www.youtube.com/embed/kdn3qYwzMDQ?si=6so3WtHV2DH4cmnt\" width=\"560\" height=\"314\" allowfullscreen=\"allowfullscreen\"></iframe>")
+
+        // Regex to find elements between <div align="center"> and </div>
+        curseforge = curseforge.replaceAll(/<div style="text-align:center;">([\s\S]*?)<\/div>/) { match ->
+            def innerContent = match[1]
+            // Remove all spaces and line breaks that are not within < and >
+            innerContent = innerContent.replaceAll(/(?<=^|>)[^<]+(?=<|$)/) { it.replaceAll(/\s+/, "") }
+            return "<div align=\"center\">${innerContent}</div>"
+        }
+
+        Files.write(Paths.get(outputPathModrinth), modrinth.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)
+        Files.write(Paths.get(outputPathCurseforge), curseforge.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)
+
+        // do not forget to convert the curseforge markdown to html at https://markdowntohtml.com/
     }
 }

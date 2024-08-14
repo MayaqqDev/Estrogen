@@ -1,53 +1,56 @@
 package dev.mayaqq.estrogen.networking.messages.c2s;
 
-import com.teamresourceful.resourcefullib.common.networking.base.Packet;
-import com.teamresourceful.resourcefullib.common.networking.base.PacketContext;
-import com.teamresourceful.resourcefullib.common.networking.base.PacketHandler;
+import com.teamresourceful.bytecodecs.base.object.ObjectByteCodec;
+import com.teamresourceful.resourcefullib.common.bytecodecs.ExtraByteCodecs;
+import com.teamresourceful.resourcefullib.common.network.Packet;
+import com.teamresourceful.resourcefullib.common.network.base.PacketType;
+import com.teamresourceful.resourcefullib.common.network.base.ServerboundPacketType;
+import com.teamresourceful.resourcefullib.common.network.defaults.CodecPacketType;
 import dev.mayaqq.estrogen.Estrogen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
-@SuppressWarnings("ClassEscapesDefinedScope")
-public record SpawnHeartsPacket(Vec3 pos, ResourceLocation ambientSound) implements Packet<SpawnHeartsPacket> {
-    public static Handler HANDLER = new Handler();
-    public static final ResourceLocation ID = Estrogen.id("spawnhearts");
+import java.util.function.Consumer;
 
-    @Override
-    public ResourceLocation getID() {
-        return ID;
+public record SpawnHeartsPacket(Vector3f pos, ResourceLocation ambientSound) implements Packet<SpawnHeartsPacket> {
+
+    public static final ServerboundPacketType<SpawnHeartsPacket> TYPE = new Type();
+
+    public SpawnHeartsPacket(Vec3 pos, ResourceLocation ambientSound) {
+        this(pos.toVector3f(), ambientSound);
     }
 
     @Override
-    public PacketHandler<SpawnHeartsPacket> getHandler() {
-        return HANDLER;
+    public PacketType<SpawnHeartsPacket> type() {
+        return TYPE;
     }
 
-    private static class Handler implements PacketHandler<SpawnHeartsPacket> {
+    private static class Type extends CodecPacketType.Server<SpawnHeartsPacket> {
 
-        @Override
-        public void encode(SpawnHeartsPacket message, FriendlyByteBuf buffer) {
-            buffer.writeDouble(message.pos.x);
-            buffer.writeDouble(message.pos.y);
-            buffer.writeDouble(message.pos.z);
-            buffer.writeResourceLocation(message.ambientSound);
+        public Type() {
+            super(
+                    SpawnHeartsPacket.class,
+                    Estrogen.id("spawnhearts"),
+                    ObjectByteCodec.create(
+                            ExtraByteCodecs.VECTOR_3F.fieldOf(SpawnHeartsPacket::pos),
+                            ExtraByteCodecs.RESOURCE_LOCATION.fieldOf(SpawnHeartsPacket::ambientSound),
+                            SpawnHeartsPacket::new
+                    )
+            );
         }
 
         @Override
-        public SpawnHeartsPacket decode(FriendlyByteBuf buffer) {
-            return new SpawnHeartsPacket(new Vec3(buffer.readDouble(), buffer.readDouble(), buffer.readDouble()), buffer.readResourceLocation());
-        }
-
-        @Override
-        public PacketContext handle(SpawnHeartsPacket message) {
-            return (player, level) -> {
-                ServerLevel serverLevel = (ServerLevel) level;
+        public Consumer<Player> handle(SpawnHeartsPacket message) {
+            return (player) -> {
+                ServerLevel serverLevel = (ServerLevel) player.level();
                 ResourceLocation sound = message.ambientSound;
                 serverLevel.sendParticles(ParticleTypes.HEART, message.pos.x, message.pos.y, message.pos.z, 1, 0.5, 0.5, 0.5, 0.5);
                 if (!sound.equals(Estrogen.id("empty"))) {

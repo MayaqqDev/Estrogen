@@ -5,12 +5,14 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.content.equipment.armor.BaseArmorItem;
+import com.teamresourceful.resourcefullib.common.utils.modinfo.ModInfoUtils;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.BoobArmorRenderer;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.PlayerEntityModelExtension;
+import dev.mayaqq.estrogen.client.entity.player.features.boobs.TextureData;
 import dev.mayaqq.estrogen.integrations.figura.FiguraCompat;
-import dev.mayaqq.estrogen.platform.Mod;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
-import net.minecraft.client.Minecraft;
+import dev.mayaqq.estrogen.resources.BreastArmorData;
+import dev.mayaqq.estrogen.resources.BreastArmorDataLoader;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -27,6 +29,7 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,7 +38,6 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,8 +46,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
 @Mixin(PlayerModel.class)
 public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidModel<T> implements PlayerEntityModelExtension {
@@ -61,6 +63,9 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
 
     @Unique
     private BoobArmorRenderer estrogen$boobArmor;
+
+    @Unique
+    private BoobArmorRenderer estrogen$boobArmorTrim;
 
     public PlayerEntityModelMixin(ModelPart root) {
         super(root);
@@ -81,15 +86,14 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
     private void estrogen$init(ModelPart root, boolean thinArms, CallbackInfo ci) {
         estrogen$boobs = root.getChild("boobs");
         estrogen$boobJacket = root.getChild("boobs_jacket");
-        estrogen$boobArmor = new BoobArmorRenderer(Collections.singletonList(new BoobArmorRenderer.BoobArmorModel(18, 23, 8, 2, 2, false, 64.0F, 32.0F)));
+        estrogen$boobArmor = new BoobArmorRenderer();
+        estrogen$boobArmorTrim = new BoobArmorRenderer();
     }
 
     @Override
     public void estrogen$renderBoobs(PoseStack matrices, VertexConsumer vertices, int light, int overlay, AbstractClientPlayer player, float size, float yOffset) {
-        Mod figura = Mod.getOptionalMod("figura").orElse(null);
-        if (figura != null && figura.version().split("\\.")[2].startsWith("3")) {
-            if (!FiguraCompat.renderBoobs(Minecraft.getInstance().player)) return;
-        }
+        if (ModInfoUtils.isModLoaded("figura") && !FiguraCompat.renderBoobs(player)) return;
+
         this.estrogen$boobs.copyFrom(this.body);
         this.estrogen$boobs.xRot = this.body.xRot + 1.0F;
         float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT.get()).getAmplifier() / 10.0F;
@@ -110,16 +114,15 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
     }
 
     @Override
-    public void estrogen$renderBoobArmor(PoseStack matrices, MultiBufferSource vertexConsumers, int light, boolean glint, float red, float green, float blue, @Nullable String overlay, AbstractClientPlayer player, float size, float yOffset) {
-        Mod figura = Mod.getOptionalMod("figura").orElse(null);
-        if (figura != null && figura.version().split("\\.")[2].startsWith("3")) {
-            if (FiguraCompat.renderBoobArmor(Minecraft.getInstance().player)) return;
-        }
-        ResourceLocation texture = this.estrogen$getArmorTexture(player, overlay);
-        if (texture == null) {
+    public void estrogen$renderBoobArmor(PoseStack matrices, MultiBufferSource vertexConsumers, int light, boolean glint, float red, float green, float blue, boolean overlay, AbstractClientPlayer player, float size, float yOffset) {
+        if (ModInfoUtils.isModLoaded("figura") && !FiguraCompat.renderBoobArmor(player)) return;
+
+        Optional<TextureData> opt = this.estrogen$getArmorTexture(player, overlay);
+        if (opt.isEmpty()) {
             return;
         }
-        VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(texture), false, glint);
+        TextureData textureData = opt.get();
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(textureData.location()), false, glint);
         this.estrogen$boobArmor.copyTransform(this.body);
         this.estrogen$boobArmor.pitch = this.body.xRot;
         float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT.get()).getAmplifier() / 10.0F;
@@ -127,38 +130,50 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         this.estrogen$boobArmor.translate((new Vector3f(0.0F, 4.0F + size * 0.864F * (1 + amplifier) + yOffset, -4.0F + size * (-1.944F - 0.24F*3.0F) * (1 + amplifier))).rotate(bodyRotation));
         this.estrogen$boobArmor.scaleY = (1 + size * 2.0F * (1 + amplifier)) / 2.0F;
         this.estrogen$boobArmor.scaleZ = (1 + size * 2.5F * (1 + amplifier)) / 2.0F;
-        this.estrogen$boobArmor.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
+        this.estrogen$boobArmor.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F, textureData.u(), textureData.v(), textureData.leftU(), textureData.leftV(), textureData.rightU(), textureData.rightV(), textureData.textureWidth(), textureData.textureHeight());
     }
 
     @Override
-    public void estrogen$renderBoobArmorTrim(PoseStack matrices, MultiBufferSource vertexConsumers, int light, boolean bl, ArmorTrim armorTrim, ArmorMaterial armorMaterial, TextureAtlas armorTrimAtlas) {
-        Mod figura = Mod.getOptionalMod("figura").orElse(null);
-        if (figura != null && figura.version().split("\\.")[2].startsWith("3")) {
-            if (FiguraCompat.renderBoobArmor(Minecraft.getInstance().player)) return;
-        }
+    public void estrogen$renderBoobArmorTrim(PoseStack matrices, MultiBufferSource vertexConsumers, int light, boolean bl, ArmorTrim armorTrim, ArmorMaterial armorMaterial, TextureAtlas armorTrimAtlas, AbstractClientPlayer player) {
+        if (ModInfoUtils.isModLoaded("figura") && !FiguraCompat.renderBoobArmor(player)) return;
+
         TextureAtlasSprite textureAtlasSprite = armorTrimAtlas.getSprite(bl ? armorTrim.innerTexture(armorMaterial) : armorTrim.outerTexture(armorMaterial));
         VertexConsumer vertexConsumer = textureAtlasSprite.wrap(vertexConsumers.getBuffer(Sheets.armorTrimsSheet()));
-        this.estrogen$boobArmor.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.estrogen$boobArmorTrim.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F, 20, 23, 18, 23, 28, 23, 64.0F, 32.0F);
     }
 
     @Unique
-    private ResourceLocation estrogen$getArmorTexture(AbstractClientPlayer player, @Nullable String overlay) {
+    private Optional<TextureData> estrogen$getArmorTexture(AbstractClientPlayer player, boolean overlay) {
         String string;
         ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
         ArmorItem item = (ArmorItem) itemStack.getItem();
-        if (item instanceof BaseArmorItem) {
-            string = ((BaseArmorItem) item).getArmorTexture(itemStack, player, EquipmentSlot.CHEST, overlay);
-        } else {
-            String texture = item.getMaterial().getName();
-            String domain = "minecraft";
-            int idx = texture.indexOf(':');
-            if (idx != -1) {
-                domain = texture.substring(0, idx);
-                texture = texture.substring(idx + 1);
+        BreastArmorData data;
+        if ((data = BreastArmorDataLoader.INSTANCE.getData(BuiltInRegistries.ITEM.getKey(item))) != null) {
+            if (overlay) {
+                return data.overlayLocation != null ?
+                        Optional.of(new TextureData(data.overlayLocation, data.uv.getFirst(), data.uv.getSecond(), data.leftUV.getFirst(), data.leftUV.getSecond(), data.rightUV.getFirst(), data.rightUV.getSecond(), data.textureSize.getFirst(), data.textureSize.getSecond())) :
+                        Optional.empty();
+            } else {
+                return Optional.of(new TextureData(data.textureLocation, data.uv.getFirst(), data.uv.getSecond(), data.leftUV.getFirst(), data.leftUV.getSecond(), data.rightUV.getFirst(), data.rightUV.getSecond(), data.textureSize.getFirst(), data.textureSize.getSecond()));
             }
-            string = String.format(java.util.Locale.ROOT, "%s:textures/models/armor/%s_layer_1%s.png", domain, texture, overlay == null ? "" : String.format(java.util.Locale.ROOT, "_%s", overlay));
+        } else {
+            if (item instanceof BaseArmorItem) {
+                string = ((BaseArmorItem) item).getArmorTexture(itemStack, player, EquipmentSlot.CHEST, "overlay");
+            } else {
+                String texture = item.getMaterial().getName();
+                String domain = "minecraft";
+                int idx = texture.indexOf(':');
+                if (idx != -1) {
+                    domain = texture.substring(0, idx);
+                    texture = texture.substring(idx + 1);
+                }
+                string = String.format(java.util.Locale.ROOT, "%s:textures/models/armor/%s_layer_1%s.png", domain, texture, overlay ? "_overlay" : "");
+            }
+            ResourceLocation location;
+            return (location = ARMOR_TEXTURE_CACHE.computeIfAbsent(string, ResourceLocation::tryParse)) != null ?
+                    Optional.of(new TextureData(location, 20, 23, 18, 23, 28, 23, 64.0F, 32.0F)) :
+                    Optional.empty();
         }
-        return ARMOR_TEXTURE_CACHE.computeIfAbsent(string, ResourceLocation::tryParse);
     }
 
     @Inject(method = "setAllVisible", at = @At("RETURN"))

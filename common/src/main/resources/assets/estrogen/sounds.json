@@ -109,36 +109,60 @@
       "estrogen:music/sleeping"
     ]
   },
-  "jar_crystal_place": {
-    "sounds": [
-      "estrogen:cookie_jar/crystal_place/crystal_place1",
-      "estrogen:cookie_jar/crystal_place/crystal_place2",
-      "estrogen:cookie_jar/crystal_place/crystal_place3",
-      "estrogen:cookie_jar/crystal_place/crystal_place4"
-    ]
-  },
-  "jar_crystal_full": {
-    "sounds": [
-      "estrogen:cookie_jar/crystal_full/crystal_full1",
-      "estrogen:cookie_jar/crystal_full/crystal_full2",
-      "estrogen:cookie_jar/crystal_full/crystal_full3",
-      "estrogen:cookie_jar/crystal_full/crystal_full4"
-    ]
-  },
   "jar_full": {
     "sounds": [
       "estrogen:cookie_jar/full/full1",
       "estrogen:cookie_jar/full/full2",
-      "estrogen:cookie_jar/full/full3",
-      "estrogen:cookie_jar/full/full4"
+      "estrogen:cookie_jar/full/full3"
     ]
   },
   "jar_place": {
     "sounds": [
       "estrogen:cookie_jar/place/place1",
       "estrogen:cookie_jar/place/place2",
-      "estrogen:cookie_jar/place/place3",
-      "estrogen:cookie_jar/place/place4"
+      "estrogen:cookie_jar/place/place3"
+    ]
+  },
+  "jar_break": {
+    "sounds": [
+      "estrogen:cookie_jar/break/break1",
+      "estrogen:cookie_jar/break/break2",
+      "estrogen:cookie_jar/break/break3"
+    ]
+  },
+  "jar_insert": {
+    "sounds": [
+      "estrogen:cookie_jar/insert/insert1",
+      "estrogen:cookie_jar/insert/insert2",
+      "estrogen:cookie_jar/insert/insert3"
+    ]
+  },
+  "jar_step": {
+    "sounds": [
+      "estrogen:cookie_jar/step/step1",
+      "estrogen:cookie_jar/step/step2",
+      "estrogen:cookie_jar/step/step3"
+    ]
+  },
+  "pill_box_break": {
+    "sounds": [
+      "estrogen:pill_box/break/break1",
+      "estrogen:pill_box/break/break2",
+      "estrogen:pill_box/break/break3"
+    ]
+  },
+  "pill_box_place": {
+    "sounds": [
+      "estrogen:pill_box/place/place1",
+      "estrogen:pill_box/place/place2",
+      "estrogen:pill_box/place/place3"
+    ]
+  },
+  "pill_box_step": {
+    "sounds": [
+      "estrogen:pill_box/step/step1",
+      "estrogen:pill_box/step/step2",
+      "estrogen:pill_box/step/step3"
     ]
   }
 }

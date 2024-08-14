@@ -26,7 +26,7 @@
       "dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric"
     ],
     "fabric-datagen": [
-      "dev.mayaqq.estrogen.datagen.EstrogenDatagen"
+      "dev.mayaqq.estrogen.fabric.datagen.EstrogenDatagen"
     ],
     "emi": [
       "dev.mayaqq.estrogen.fabric.integrations.emi.EmiCompat"
@@ -51,7 +51,7 @@
     "create": ">=0.5.1-f-build.1224",
     "trinkets": "*",
     "botarium": "*",
-    "resourcefullib": "*"
+    "resourcefullib": ">=2.1.28"
   },
   "suggests": {
     "emi": "*",
@@ -60,7 +60,11 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.discord": "https://discord.gg/hue"
+        "modmenu.discord": "https://discord.gg/hue",
+        "modmenu.kofi": "https://ko-fi.com/mayaqq",
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/estrogen",
+        "modmenu.modrinth": "https://modrinth.com/mod/estrogen",
+        "modmenu.wiki": "https://github.com/MayaqqDev/Estrogen/wiki"
       }
     }
   }

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "estrogen:horse_urine",
+    "estrogen:filtrated_horse_urine",
+    "estrogen:liquid_estrogen",
+    "estrogen:flowing_liquid_estrogen",
+    "estrogen:flowing_horse_urine",
+    "estrogen:flowing_filtrated_horse_urine",
+    "estrogen:testosterone_mixture",
+    "estrogen:flowing_testosterone_mixture"
+  ]
+}

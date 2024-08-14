@@ -7,82 +7,149 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.ticks.ContainerSingleItem;
 import org.jetbrains.annotations.Nullable;
 
-public class CookieJarBlockEntity extends SyncedBlockEntity implements WorldlyContainer, WorldlyContainerHolder {
-    private final NonNullList<ItemStack> items = NonNullList.withSize(8, ItemStack.EMPTY);
+public class CookieJarBlockEntity extends SyncedBlockEntity implements Container {
+    private NonNullList<ItemStack> items = NonNullList.withSize(8, ItemStack.EMPTY);
 
     public CookieJarBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(EstrogenBlockEntities.COOKIE_JAR.get(), blockPos, blockState);
     }
 
-    public boolean canRemoveCookie() {
-        return this.getCookieCount() > 0;
-    }
-
-    public boolean canAddItem(ItemStack stack) {
-        return this.getCookieCount() < 512 && (this.getCookieCount() == 0 ? stack.is(EstrogenTags.Items.COOKIES) : stack.is(this.getItem(0).getItem()));
-    }
-
-    private void addStack(ItemStack stack) {
-        int toAdd = stack.getCount();
-        for (int i = 0; i < this.items.size(); i++) {
-            ItemStack stackInSlot = getItem(i);
-            int canAdd = stackInSlot.getMaxStackSize() - stackInSlot.getCount();
-            if (canAdd >= toAdd) {
-                this.setItem(i, stack.copyWithCount(stackInSlot.getCount() + toAdd));
-                stackInSlot.setCount(stackInSlot.getCount() + toAdd);
-                break;
-            } else {
-                this.setItem(i, stack.copyWithCount(stackInSlot.getCount() + canAdd));
-                toAdd -= canAdd;
+    /**
+     * Add 1 count of the item to the jar.
+     * Does not decrement the input itemStack.
+     */
+    public void add1Item(ItemStack itemStack) {
+        int i = 0;
+        for (ItemStack jarItemStack : items) {
+            if (jarItemStack.isEmpty()) {
+                items.set(i, itemStack.copyWithCount(1));
+                notifyUpdate();
+                return;
             }
+            if (ItemStack.isSameItemSameTags(jarItemStack, itemStack) && jarItemStack.getCount() < jarItemStack.getMaxStackSize()) {
+                jarItemStack.grow(1);
+                notifyUpdate();
+                return;
+            }
+            i++;
         }
-        this.notifyUpdate();
     }
 
     /**
-     * Don't call without calling canRemoveCookie
+     * Remove and returns 1 count of the last-most item from the jar.
+     * returns ItemStack.EMPTY if jar was empty
      */
-    public void removeCookie() {
-        for (int i = this.items.size() - 1; i >= 0; i--) {
-            ItemStack stackInSlot = getItem(i);
-            if (stackInSlot.isEmpty()) {
+    public ItemStack remove1Item() {
+        for (int i = items.size() - 1; i >= 0; i--) {
+            ItemStack jarItemStack = items.get(i);
+            if (jarItemStack.isEmpty()) {
                 continue;
             }
-            this.setItem(i, stackInSlot.copyWithCount(stackInSlot.getCount() - 1));
-            break;
+            ItemStack itemStack = jarItemStack.split(1);
+            notifyUpdate();
+            return itemStack;
         }
+        return ItemStack.EMPTY;
     }
 
     /**
-     * Don't call without calling canAddCookie
+     * Returns true if 1 of the item can be added to the jar
+     * and that item is a cookie
+     * and that cookie matches the cookie already in the jar.
      */
-    public void addCookie(ItemStack stack) {
-        this.addStack(stack.copyWithCount(1));
-        this.notifyUpdate();
+    public boolean canAddItem(ItemStack itemStack) {
+        // cookie condition
+        if (!canPlaceItem(0, itemStack)) {
+            return false;
+        }
+
+        // if the top condition is removed, then the jar can work for any item
+        for (ItemStack jarItemStack : items) {
+            if (jarItemStack.isEmpty()) {
+                return true;
+            }
+            if (!ItemStack.isSameItemSameTags(jarItemStack, itemStack)) {
+                continue;
+            }
+            if (jarItemStack.getCount() >= jarItemStack.getMaxStackSize()) {
+                continue;
+            }
+            return true;
+        }
+        return false;
     }
 
-    public int getCookieCount() {
+    /**
+     * Returns number of items.
+     */
+    public int getCount() {
         int count = 0;
-        for (ItemStack item : items) {
-            count += item.getCount();
+        for (ItemStack jarItemStack : items) {
+            if (jarItemStack.isEmpty()) {
+                continue;
+            }
+            count += jarItemStack.getCount();
         }
         return count;
     }
 
-    public BlockEntity getContainerBlockEntity() {
-        return this;
+    /**
+     * Gets items. For use in rendering.
+     */
+    public NonNullList<ItemStack> getItems() {
+        return this.items;
     }
+
+    /**
+     * Returns true if the provided ItemStack matches the first item in the jar,
+     * or if the jar is empty.
+     */
+    public boolean matchesFirstItem(ItemStack itemStack) {
+        // this is because chutes do NOT obey Container.canTakeItem.
+        // so they ignore FILO, which can allow for different cookies in the same jar.
+        for (ItemStack jarItemStack : items) {
+            if (jarItemStack.isEmpty()) {
+                continue;
+            }
+            if (!ItemStack.isSameItemSameTags(jarItemStack, itemStack)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return true;
+    }
+    
+    @Override
+    protected void saveAdditional(CompoundTag compoundTag) {
+        super.saveAdditional(compoundTag);
+        ContainerHelper.saveAllItems(compoundTag, items);
+    }
+
+    @Override
+    public void load(CompoundTag compoundTag) {
+        super.load(compoundTag);
+        this.items.clear();
+        ContainerHelper.loadAllItems(compoundTag, items);
+    }
+
 
     @Override
     public int getContainerSize() {
@@ -91,33 +158,42 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements WorldlyCo
 
     @Override
     public boolean isEmpty() {
-        for (ItemStack itemStack : this.items) {
-            if (itemStack.isEmpty()) continue;
-            return false;
-        }
-        return true;
+        return items.stream().allMatch(ItemStack::isEmpty);
     }
 
     @Override
     public ItemStack getItem(int slot) {
-        return this.items.get(slot);
+        if (slot >= items.size()) {
+            return null;
+        }
+        return getItems().get(slot);
     }
 
     @Override
-    public ItemStack removeItem(int slot, int amount) {
-        return ContainerHelper.removeItem(this.items, slot, amount);
+    public ItemStack removeItem(int slot, int count) {
+        ItemStack itemStack = ContainerHelper.removeItem(items, slot, count);
+        if (!itemStack.isEmpty()) {
+            notifyUpdate();
+        }
+
+        return itemStack;
     }
 
     @Override
     public ItemStack removeItemNoUpdate(int slot) {
-        return ContainerHelper.takeItem(this.items, slot);
+        return ContainerHelper.takeItem(items, slot);
     }
 
     @Override
-    public void setItem(int slot, ItemStack stack) {
-        this.items.set(slot, stack);
-        this.setChanged();
-        this.notifyUpdate();
+    public void setItem(int slot, ItemStack itemStack) {
+        // teehee! this doesn't actually test for the item type!
+        // do the testing in CookieJarBlock.onUse()!
+        items.set(slot, itemStack);
+        if (itemStack.getCount() > this.getMaxStackSize()) {
+            itemStack.setCount(this.getMaxStackSize());
+        }
+
+        notifyUpdate();
     }
 
     @Override
@@ -126,56 +202,18 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements WorldlyCo
     }
 
     @Override
-    public boolean canPlaceItem(int index, ItemStack stack) {
-        return canAddItem(stack);
-    }
-
-    @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
-        ContainerHelper.loadAllItems(tag, items);
-    }
-
-    @Override
-    protected void saveAdditional(CompoundTag tag) {
-        ContainerHelper.saveAllItems(tag, items);
-        super.saveAdditional(tag);
-    }
-
-    @Override
-    public CompoundTag writeClient(CompoundTag tag) {
-        ContainerHelper.saveAllItems(tag, items);
-        return super.writeClient(tag);
-    }
-
-    @Override
-    public void readClient(CompoundTag tag) {
-        super.readClient(tag);
-        ContainerHelper.loadAllItems(tag, items);
+    public boolean canPlaceItem(int slot, ItemStack itemStack) {
+        if (!itemStack.is(EstrogenTags.Items.COOKIES)) {
+            return false;
+        }
+        if (!matchesFirstItem(itemStack)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public void clearContent() {
         items.clear();
-    }
-
-    @Override
-    public int[] getSlotsForFace(Direction side) {
-        return new int[8];
-    }
-
-    @Override
-    public boolean canPlaceItemThroughFace(int index, ItemStack itemStack, @Nullable Direction direction) {
-        return canAddItem(itemStack);
-    }
-
-    @Override
-    public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
-        return canRemoveCookie();
-    }
-
-    @Override
-    public WorldlyContainer getContainer(BlockState state, LevelAccessor level, BlockPos pos) {
-        return this;
     }
 }

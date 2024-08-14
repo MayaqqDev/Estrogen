@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.mixin.client;
 
-import dev.mayaqq.estrogen.client.Dash;
-import dev.mayaqq.estrogen.utils.UwUfy;
+import dev.mayaqq.estrogen.client.features.UwUfy;
 import dev.mayaqq.estrogen.utils.extensions.UwuOrderedText;
 import net.minecraft.client.gui.Font;
 import net.minecraft.util.FormattedCharSequence;
@@ -20,7 +19,7 @@ public class TextRendererMixin {
             argsOnly = true
     )
     private String modifyString(String text) {
-        if (Dash.uwufy) return UwUfy.uwufyString(text);
+        if (UwUfy.isEnabled()) return UwUfy.uwufyString(text);
         else return text;
     }
 
@@ -33,7 +32,7 @@ public class TextRendererMixin {
             argsOnly = true
     )
     private FormattedCharSequence modifyText(FormattedCharSequence text) {
-        if (Dash.uwufy) return new UwuOrderedText(text);
+        if (UwUfy.isEnabled()) return new UwuOrderedText(text);
         else return text;
     }
 }

@@ -2,20 +2,24 @@
 ![banner](https://cdn.modrinth.com/data/HhIJW8n1/images/bfde9c03d8e75f73b469d51b5f41ef31dc8c29de.png)
 
 <div align="center">
-<center>
 <a href="https://modrinth.com/mod/estrogen/versions">
-    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/modrinth_vector.svg" width="100" height="100" alt="Modrinth">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/modrinth_vector.svg&w=100&h=100" alt="Modrinth">
 </a>
 <a href="https://www.curseforge.com/minecraft/mc-mods/estrogen">
-    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/curseforge_vector.svg" width="100" height="100" alt="Curseforge">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/curseforge_vector.svg&w=100&h=100" alt="Curseforge">
 </a>
 <a href="https://github.com/MayaqqDev/estrogen/">
-    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/github_vector.svg" width="100" height="100" alt="Github">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/github_vector.svg&w=100&h=100" alt="Github">
 </a>
 <a href="https://discord.gg/hue">
-    <img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-plural_vector.svg" width="100" height="100" alt="Discord">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-plural_vector.svg&w=100&h=100" alt="Discord">
 </a>
-</center>
+<a href="https://github.com/MayaqqDev/Estrogen/wiki">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/documentation/ghpages_vector.svg&w=100&h=100" alt="Wiki">
+</a>
+<a href="https://ko-fi.com/mayaqq">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/donate/kofi-plural-alt_vector.svg&w=100&h=100" alt="Ko-fi">
+</a>
 </div>
 
 ## `Information`
@@ -62,6 +66,8 @@ This mod adds a lot of other features related to Estrogen and its production. Th
   <img src="https://i.imgur.com/mkVcXQA.png" alt=":3" width="256"/>
 
 ### `Extra information`
+
+You can read more about this mods features, mechanics and some guides on the [wiki](https://github.com/MayaqqDev/Estrogen/wiki)!
 
 This mod is still in development, so expect some bugs and missing features. If you find any bugs or suggestions, please
 report them on my [discord](https://discord.gg/w7PpGax9Bq). This mod has been inspired by the game Celeste and I would

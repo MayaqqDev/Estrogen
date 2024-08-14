@@ -33,7 +33,8 @@ import java.util.List;
 
 // Currently can't be enchanted with Capacity, broken thing in botarium.
 public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidItem<WrappedItemFluidContainer>/*, CapacityEnchantment.ICapacityEnchantable*/ {
-    int estrogenAmountTick = 0;
+    private final static int TRIGGER_EVERY_X_TICKS = 300;
+    private final static int EFFECT_DURATION = TRIGGER_EVERY_X_TICKS + 220;
 
     public EstrogenPatchesItem(Properties properties) {
         super(properties);
@@ -42,8 +43,21 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
 
     @Override
     public void tick(ItemStack stack, SlotInfo slot) {
-        patchTick(stack, slot);
-        estrogenAmountTick++;
+        ItemFluidContainer itemFluidManager = getFluidContainer(stack);
+        Level level = slot.wearer().level();
+        if (!level.isClientSide && slot.wearer() instanceof Player player) {
+            if (level.getGameTime() % TRIGGER_EVERY_X_TICKS == 0) {
+                addEffect(player, level);
+            }
+            if (EstrogenConfig.server().patchDrain.get() && level.getGameTime() % EstrogenConfig.server().patchDrainAmount.get() == 0 && !player.isCreative()) {
+                itemFluidManager.extractFromSlot(0, FluidHolder.of(EstrogenFluids.LIQUID_ESTROGEN.get(), FluidConstants.getBucketAmount() / 1000), false);
+                itemFluidManager.serialize(stack.getOrCreateTag());
+            }
+        }
+    }
+
+    public void addEffect(Player player, Level level) {
+        player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), EFFECT_DURATION, EstrogenConfig.server().patchGirlPowerAmount.get() -1, false, false, false));
     }
 
     public long getMaxCapacity(ItemStack stack) {
@@ -65,21 +79,13 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
         }
     }
 
-    public void patchTick(ItemStack stack, SlotInfo info) {
-        ItemFluidContainer itemFluidManager = getFluidContainer(stack);
-        if (info.wearer() instanceof Player player && !stack.isEmpty() && !itemFluidManager.isEmpty()) {
-            player.addEffect(new MobEffectInstance(EstrogenEffects.ESTROGEN_EFFECT.get(), 401, EstrogenConfig.server().patchGirlPowerAmount.get() -1, false, false, false));
-            if (EstrogenConfig.server().patchDrain.get() && estrogenAmountTick >= EstrogenConfig.server().patchDrainAmount.get() && !player.isCreative()) {
-                estrogenAmountTick = 0;
-                itemFluidManager.extractFromSlot(0, FluidHolder.of(EstrogenFluids.LIQUID_ESTROGEN.get(), FluidConstants.getBucketAmount() / 1000), false);
-                itemFluidManager.serialize(stack.getOrCreateTag());
-            }
-        }
-    }
 
     @Override
     public void onEquip(ItemStack stack, SlotInfo slot) {
-        patchTick(stack, slot);
+        Level level = slot.wearer().level();
+        if (!level.isClientSide && slot.wearer() instanceof Player player) {
+            addEffect(player, level);
+        }
     }
 
     public ItemStack getFullStack() {

@@ -46,6 +46,16 @@ dependencies {
         default: println("Invalid item viewer: ${item_viewer} must be JEI or disabled"); break
     }
 
+    // Resourceful Lib (This is needed because it does not unpackage correctly on forge)
+    forgeRuntimeLibrary("com.teamresourceful:yabn:1.0.3")
+    forgeRuntimeLibrary("com.teamresourceful:bytecodecs:1.0.2")
+    
+    // Ad Astra Testing
+    if (rootProject.ad_astra_testing == "true") {
+        modRuntimeOnly("maven.modrinth:ad-astra:${rootProject.ad_astra_version_forge}")
+        modRuntimeOnly("maven.modrinth:resourceful-config:${rootProject.resourceful_config_version_forge}")
+    }
+    
     //Forge stuff
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }

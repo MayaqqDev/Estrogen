@@ -13,10 +13,14 @@ authors = "Mayaqq"
 # Description
 description = '''
 Create Addon Based around expressing yourself, fluid handling and expanding your factory. This mods add a lot of new Items, Blocks, Mechanics and more!
+
+Wiki: https://github.com/MayaqqDev/Estrogen/wiki
+Discord: https://discord.gg/hue
+Ko-fi: https://ko-fi.com/mayaqq
 '''
 
 # forge
-[[dependencies.estrogen]] #optional
+[[dependencies.estrogen]]
 modId = "forge"
 mandatory = true
 versionRange = "[47,)"
@@ -56,6 +60,6 @@ side = "BOTH"
 [[dependencies.estrogen]]
 modId = "resourcefullib"
 mandatory = true
-versionRange = "*"
+versionRange = "[2.1.28,)"
 ordering = "NONE"
 side = "BOTH"
