@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.registry.entities.goals;
 
-import io.github.fabricators_of_create.porting_lib.block.LightEmissiveBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -39,7 +38,7 @@ public class MothWanderGoal extends WaterAvoidingRandomFlyingGoal {
         for (BlockPos blockPos2 : iterable) {
             BlockState blockState;
             boolean bl;
-            if (blockPos.equals(blockPos2) || !(bl = (blockState = this.mob.level().getBlockState(mutableBlockPos2.setWithOffset(blockPos2, Direction.DOWN))).getBlock() instanceof LightEmissiveBlock || blockState.getLightEmission() > 0 || !this.mob.level().isEmptyBlock(blockPos2) || !this.mob.level().isEmptyBlock(mutableBlockPos.setWithOffset(blockPos2, Direction.UP)))) continue;
+            if (blockPos.equals(blockPos2) || !(bl = (blockState = this.mob.level().getBlockState(mutableBlockPos2.setWithOffset(blockPos2, Direction.DOWN))).getLightEmission() > 0 || !this.mob.level().isEmptyBlock(blockPos2) || !this.mob.level().isEmptyBlock(mutableBlockPos.setWithOffset(blockPos2, Direction.UP)))) continue;
             return Vec3.atBottomCenterOf(blockPos2);
         }
         return null;
