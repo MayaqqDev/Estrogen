@@ -65,6 +65,8 @@ public class EstrogenItems {
     public static final RegistryEntry<Item> DREAM_BOTTLE = BLOCK_ITEMS.register("dream_bottle", () -> new DreamBottleItem(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryEntry<Item> DORMANT_DREAM_BLOCK = BLOCK_ITEMS.register("dormant_dream_block", () -> new BlockItem(EstrogenBlocks.DORMANT_DREAM_BLOCK.get(), new Item.Properties()));
     public static final RegistryEntry<Item> ESTROGEN_PILL_BLOCK = BLOCK_ITEMS.register("estrogen_pill_block", () -> new BlockItem(EstrogenBlocks.ESTROGEN_PILL_BLOCK.get(), new Item.Properties()));
+    public static final RegistryEntry<Item> MOTH_WOOL = BLOCK_ITEMS.register("moth_wool", () -> new BlockItem(EstrogenBlocks.MOTH_WOOL.get(), new Item.Properties()));
+    public static final RegistryEntry<Item> MOTH_SEAT = BLOCK_ITEMS.register("moth_seat", () -> new BlockItem(EstrogenBlocks.MOTH_SEAT.get(), new Item.Properties()));
 
     public static void registerTooltips() {
         EstrogenItems.ITEMS.stream().forEach(itemEntry -> TooltipModifier.REGISTRY.registerDeferred(itemEntry.getId(), item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)));

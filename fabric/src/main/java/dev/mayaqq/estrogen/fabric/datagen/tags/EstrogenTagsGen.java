@@ -8,6 +8,7 @@ import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 
@@ -51,6 +52,8 @@ public class EstrogenTagsGen {
                     .add(Items.LANTERN)
                     .add(Items.SOUL_LANTERN)
                     .add(Items.CANDLE);
+            getOrCreateTagBuilder(AllTags.AllItemTags.SEATS.tag)
+                    .add(EstrogenItems.MOTH_SEAT.get());
         }
     }
 
@@ -66,6 +69,11 @@ public class EstrogenTagsGen {
                     .add(EstrogenBlocks.COOKIE_JAR.get())
                     .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get())
                     .add(EstrogenBlocks.ESTROGEN_PILL_BLOCK.get());
+            getOrCreateTagBuilder(net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE)
+                    .add(EstrogenBlocks.MOTH_SEAT.get());
+
+            getOrCreateTagBuilder(AllTags.AllBlockTags.SEATS.tag)
+                    .add(EstrogenBlocks.MOTH_SEAT.get());
 
             getOrCreateTagBuilder(EstrogenTags.Blocks.MAGNET)
                     .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get());
@@ -75,6 +83,8 @@ public class EstrogenTagsGen {
                     .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get());
             getOrCreateTagBuilder(EstrogenTags.Blocks.MAGNET_12_OLD)
                     .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get());
+            getOrCreateTagBuilder(net.minecraft.tags.BlockTags.WOOL)
+                    .add(EstrogenBlocks.MOTH_WOOL.get());
         }
     }
 

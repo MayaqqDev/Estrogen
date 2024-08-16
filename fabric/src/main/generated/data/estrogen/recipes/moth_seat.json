@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "estrogen:moth_seat"
+    },
+    {
+      "tag": "minecraft:wooden_slabs"
+    }
+  ],
+  "result": {
+    "item": "estrogen:moth_seat"
+  }
+}

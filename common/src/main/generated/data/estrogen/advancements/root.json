@@ -31,7 +31,9 @@
               "estrogen:cookie_jar",
               "estrogen:dream_bottle",
               "estrogen:dormant_dream_block",
-              "estrogen:estrogen_pill_block"
+              "estrogen:estrogen_pill_block",
+              "estrogen:moth_wool",
+              "estrogen:moth_seat"
             ]
           }
         ]

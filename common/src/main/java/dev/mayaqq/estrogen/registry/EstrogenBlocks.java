@@ -1,6 +1,14 @@
 package dev.mayaqq.estrogen.registry;
 
+import com.simibubi.create.AllBlocks;
+import com.simibubi.create.AllInteractionBehaviours;
+import com.simibubi.create.AllMovementBehaviours;
+import com.simibubi.create.content.contraptions.actors.seat.SeatBlock;
+import com.simibubi.create.content.contraptions.actors.seat.SeatInteractionBehaviour;
+import com.simibubi.create.content.contraptions.actors.seat.SeatMovementBehaviour;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
+import com.simibubi.create.content.redstone.displayLink.AllDisplayBehaviours;
+import com.simibubi.create.content.redstone.displayLink.source.EntityNameDisplaySource;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries;
@@ -11,6 +19,7 @@ import dev.mayaqq.estrogen.registry.blocks.fluids.LavaLikeLiquidBlock;
 import dev.mayaqq.estrogen.utils.StatePredicates;
 import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -41,6 +50,9 @@ public class EstrogenBlocks {
                     .isViewBlocking(StatePredicates::never)
     ));
 
+    public static final RegistryEntry<Block> MOTH_WOOL = BLOCKS.register("moth_wool", () -> new Block(BlockBehaviour.Properties.copy(Blocks.ORANGE_WOOL)));
+    public static final RegistryEntry<SeatBlock> MOTH_SEAT = BLOCKS.register("moth_seat", () -> new SeatBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_SPRUCE_WOOD).mapColor(DyeColor.ORANGE), null));
+
     public static final RegistryEntry<Block> ESTROGEN_PILL_BLOCK = BLOCKS.register("estrogen_pill_block", () -> new EstrogenPillBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(1.0F, 1.0F).sound(EstrogenSoundTypes.PILL_BOX)));
 
     public static final RegistryEntry<Block> MOLTEN_SLIME_BLOCK = BLOCKS.register("molten_slime", () -> new LavaLikeLiquidBlock(EstrogenFluidProperties.MOLTEN_SLIME, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_GREEN)));
@@ -52,5 +64,10 @@ public class EstrogenBlocks {
 
     public static void registerExtraProperties() {
         BlockStressDefaults.setDefaultImpact(CENTRIFUGE.getId(), 8.0);
+        SeatMovementBehaviour movementBehaviour = new SeatMovementBehaviour();
+        SeatInteractionBehaviour interactionBehaviour = new SeatInteractionBehaviour();
+        AllMovementBehaviours.registerBehaviour(EstrogenBlocks.MOTH_SEAT.getId(), movementBehaviour);
+        AllInteractionBehaviours.registerBehaviour(EstrogenBlocks.MOTH_SEAT.getId(), interactionBehaviour);
+        AllDisplayBehaviours.assignBlock(new EntityNameDisplaySource(), EstrogenBlocks.MOTH_SEAT.getId());
     }
 }

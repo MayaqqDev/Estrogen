@@ -106,6 +106,8 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add(EstrogenBlocks.DREAM_BLOCK.get(), "Dream Block");
         tb.add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get(), "Dormant Dream Block");
         tb.add(EstrogenBlocks.ESTROGEN_PILL_BLOCK.get(), "Estrogen Pill Box");
+        tb.add(EstrogenBlocks.MOTH_WOOL.get(), "Rosy Maple Wool");
+        tb.add(EstrogenBlocks.MOTH_SEAT.get(), "Rosy Maple Seat");
         tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Liquid Estrogen");
         tb.add(EstrogenBlocks.HORSE_URINE_BLOCK.get(), "Horse Urine");
         tb.add(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), "Filtrated Horse Urine");

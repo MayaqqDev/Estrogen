@@ -2,6 +2,9 @@ package dev.mayaqq.estrogen.fabric.datagen.recipes.minecraft;
 
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
+import com.simibubi.create.Create;
+import com.simibubi.create.foundation.utility.DyeHelper;
+import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeInterface;
@@ -13,6 +16,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.tags.ItemTags;
 
 import java.util.function.Consumer;
 
@@ -63,6 +67,19 @@ public class EstrogenCraftingRecipes<T extends EstrogenRecipeInterface> extends 
                 .pattern("FFF")
                 .pattern("F F")
                 .pattern("F F")
+                .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.MOTH_FUZZ.get()), FabricRecipeProvider.has(EstrogenItems.MOTH_FUZZ.get()))
+                .save(exporter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, EstrogenItems.MOTH_FUZZ.get(), 1)
+                .define('F', EstrogenItems.MOTH_FUZZ.get())
+                .pattern("FF")
+                .pattern("FF")
+                .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.MOTH_FUZZ.get()), FabricRecipeProvider.has(EstrogenItems.MOTH_FUZZ.get()))
+                .save(exporter);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, EstrogenItems.MOTH_SEAT.get())
+                .requires(EstrogenItems.MOTH_SEAT.get(), 1)
+                .requires(ItemTags.WOODEN_SLABS)
                 .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.MOTH_FUZZ.get()), FabricRecipeProvider.has(EstrogenItems.MOTH_FUZZ.get()))
                 .save(exporter);
     }
