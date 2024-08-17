@@ -68,7 +68,7 @@ public class EstrogenCraftingRecipes<T extends EstrogenRecipeInterface> extends 
                 .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.MOTH_FUZZ.get()), FabricRecipeProvider.has(EstrogenItems.MOTH_FUZZ.get()))
                 .save(exporter);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, EstrogenItems.MOTH_FUZZ.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, EstrogenItems.MOTH_WOOL.get(), 1)
                 .define('F', EstrogenItems.MOTH_FUZZ.get())
                 .pattern("FF")
                 .pattern("FF")
@@ -76,7 +76,7 @@ public class EstrogenCraftingRecipes<T extends EstrogenRecipeInterface> extends 
                 .save(exporter);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, EstrogenItems.MOTH_SEAT.get())
-                .requires(EstrogenItems.MOTH_SEAT.get(), 1)
+                .requires(EstrogenItems.MOTH_WOOL.get(), 1)
                 .requires(ItemTags.WOODEN_SLABS)
                 .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.MOTH_FUZZ.get()), FabricRecipeProvider.has(EstrogenItems.MOTH_FUZZ.get()))
                 .save(exporter);
