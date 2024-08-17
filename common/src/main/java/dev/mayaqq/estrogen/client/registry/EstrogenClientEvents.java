@@ -8,12 +8,13 @@ import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenParticles;
 import dev.mayaqq.estrogen.registry.items.ThighHighsItem;
 import dev.mayaqq.estrogen.utils.EstrogenParticleRegistrator;
+import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
@@ -31,12 +32,8 @@ public class EstrogenClientEvents {
     public static void registerModelLayer(LayerDefinitionRegistry consumer) {
         consumer.register(MothModel.LAYER_LOCATION, MothModel::createBodyLayer);
     }
-
-    public static int registerItemColorThings(ItemStack stack, int tintIndex) {
-        if (stack.is(EstrogenItems.THIGH_HIGHS.get())) {
-            return ((ThighHighsItem) stack.getItem()).getColor(stack, tintIndex);
-        }
-        return -1;
+    public static void registerItemColorProviders(BiConsumer<ItemColor, Item[]> consumer) {
+        consumer.accept((stack, tintIndex) -> ((ThighHighsItem) stack.getItem()).getColor(stack, tintIndex), new Item[]{EstrogenItems.THIGH_HIGHS.get()});
     }
 
     @FunctionalInterface

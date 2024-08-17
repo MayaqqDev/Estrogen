@@ -7,13 +7,11 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.command.EstrogenClientCommands;
 import dev.mayaqq.estrogen.client.features.dash.DashOverlay;
 import dev.mayaqq.estrogen.client.registry.EstrogenClientEvents;
-import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.event.RenderGuiEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -40,11 +38,6 @@ public class EstrogenForgeClientEvents {
     @SubscribeEvent
     public static void registerClientCommands(RegisterClientCommandsEvent event) {
         EstrogenClientCommands.register(event.getDispatcher(), new ForgeClientCommandManager());
-    }
-
-    @SubscribeEvent
-    public static void registerColorHandlersItem(RegisterColorHandlersEvent.Item event) {
-        event.register(EstrogenClientEvents::registerItemColorThings);
     }
 
     private static class ForgeClientCommandManager implements EstrogenClientCommands.ClientCommandManager<CommandSourceStack> {
