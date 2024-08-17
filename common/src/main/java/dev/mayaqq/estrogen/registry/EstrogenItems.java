@@ -42,7 +42,7 @@ public class EstrogenItems {
     public static final RegistryEntry<Item> INCOMPLETE_ESTROGEN_PATCH = BASIC_ITEMS.register("incomplete_estrogen_patches", () -> new SequencedAssemblyItem(new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<Item> UWU = BASIC_ITEMS.register("uwu", () -> new UwUItem(new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<Item> INCOMPLETE_UWU = BASIC_ITEMS.register("incomplete_uwu", () -> new SequencedAssemblyItem(new Item.Properties().stacksTo(1)));
-    public static final RegistryEntry<ThighHighsItem> THIGH_HIGHS = BASIC_ITEMS.register("thigh_highs", () -> new ThighHighsItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryEntry<ThighHighsItem> THIGH_HIGHS = BASIC_ITEMS.register("thigh_highs", () -> new ThighHighsItem(new Item.Properties().stacksTo(1), Color.parseColor("#ff4ea5"), Color.parseColor("#ffa600")));
     public static final RegistryEntry<MothElytraItem> MOTH_ELYTRA = BASIC_ITEMS.register("moth_elytra", () -> new MothElytraItem(new Item.Properties().stacksTo(1).durability(626).rarity(Rarity.UNCOMMON)));
 
     // Eggs
