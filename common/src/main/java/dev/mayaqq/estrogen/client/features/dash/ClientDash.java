@@ -2,12 +2,12 @@ package dev.mayaqq.estrogen.client.features.dash;
 
 import dev.mayaqq.estrogen.client.registry.EstrogenKeybinds;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.features.dash.CommonDash;
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.networking.messages.c2s.DashPacket;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
-import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -111,7 +111,7 @@ public class ClientDash {
         if (EstrogenKeybinds.DASH_KEY.consumeClick() && !isOnCooldown()) {
             DreamBlock.lookAngle = null;
             EstrogenNetworkManager.CHANNEL.sendToServer(new DashPacket(true));
-            EstrogenEffect.dashing.put(player.getUUID(), 20);
+            CommonDash.setDashing(player.getUUID());
 
             // Set counter to duration of dash
             dashCooldown = 5;
