@@ -19,7 +19,6 @@ import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -47,9 +46,8 @@ public class EstrogenForgeEvents {
     // Minigame ticking
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.getPhase() == EventPriority.LOWEST) {
-            EstrogenEvents.playerTickEnd(event.player);
-        }
+        if (event.phase != TickEvent.Phase.END) return;
+        EstrogenEvents.playerTickEnd(event.player);
     }
 
     // Player Tracking

@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.registry.effects;
 
 import dev.mayaqq.estrogen.client.features.dash.ClientDash;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
+import dev.mayaqq.estrogen.features.dash.CommonDash;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
 import dev.mayaqq.estrogen.utils.PlayerLookup;
 import dev.mayaqq.estrogen.utils.Time;
@@ -23,14 +24,11 @@ import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static dev.mayaqq.estrogen.registry.EstrogenAttributes.*;
 import static dev.mayaqq.estrogen.registry.EstrogenEffects.ESTROGEN_EFFECT;
 
 public class EstrogenEffect extends MobEffect {
-
-    public static ConcurrentHashMap<UUID, Integer> dashing = new ConcurrentHashMap<>();
 
     private static final UUID DASH_MODIFIER_UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4c");
     private static final UUID FALL_DAMAGE_RESISTANCE_UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4d");
@@ -54,7 +52,7 @@ public class EstrogenEffect extends MobEffect {
     @Override
     public void removeAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
         super.removeAttributeModifiers(entity, attributes, amplifier);
-        dashing.remove(entity.getUUID());
+        CommonDash.removeDashing(entity.getUUID());
 
         if (entity instanceof ServerPlayer player) {
             sendRemovePlayerStatusEffect(player, ESTROGEN_EFFECT.get(), PlayerLookup.tracking(player).toArray(ServerPlayer[]::new));

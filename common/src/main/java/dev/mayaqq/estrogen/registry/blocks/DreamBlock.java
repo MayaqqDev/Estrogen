@@ -1,11 +1,11 @@
 package dev.mayaqq.estrogen.registry.blocks;
 
 import dev.mayaqq.estrogen.client.features.dash.ClientDash;
+import dev.mayaqq.estrogen.features.dash.CommonDash;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
-import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -45,10 +45,8 @@ public class DreamBlock extends BaseEntityBlock {
     public @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         if (context instanceof EntityCollisionContext entityCollisionContext) {
             Entity entity = entityCollisionContext.getEntity();
-            if (entity instanceof Player player){
-                if (EstrogenEffect.dashing.getOrDefault(player.getUUID(), 0) > 0 || isInDreamBlock(player)) {
-                    return Shapes.empty();
-                }
+            if (entity instanceof Player player && (CommonDash.isPlayerDashing(player.getUUID()) || isInDreamBlock(player))){
+                return Shapes.empty();
             }
         }
         return Shapes.block();
