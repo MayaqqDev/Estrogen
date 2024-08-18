@@ -63,9 +63,3 @@ mandatory = true
 versionRange = "[2.1.28,)"
 ordering = "NONE"
 side = "BOTH"
-[[dependencies.estrogen]]
-modId = "caelus"
-mandatory = true
-versionRange = "[3.2.0,)"
-ordering = "NONE"
-side = "BOTH"
