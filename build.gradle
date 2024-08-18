@@ -154,6 +154,9 @@ publishMods {
         requires {
             slug = "curios"
         }
+        requires {
+            slug = "caelus"
+        }
         optional {
             slug = "jei"
         }
@@ -191,6 +194,9 @@ publishMods {
         }
         requires {
             slug = "curios"
+        }
+        requires {
+            slug = "caelus"
         }
         optional {
             slug = "jei"
