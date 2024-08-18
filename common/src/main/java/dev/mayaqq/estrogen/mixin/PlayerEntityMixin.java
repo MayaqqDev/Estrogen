@@ -69,11 +69,12 @@ public class PlayerEntityMixin implements PlayerEntityExtension {
     )
     private float modifyFallDamage(float damage, DamageSource source) {
         Player player = (Player) (Object) this;
-        if (source.is(DamageTypeTags.IS_FALL)) {
-            if (player.getAttributeValue(EstrogenAttributes.FALL_DAMAGE_RESISTANCE.get()) > damage) {
+        double attributeValue = player.getAttributeValue(EstrogenAttributes.FALL_DAMAGE_RESISTANCE.get());
+        if (source.is(DamageTypeTags.IS_FALL) && attributeValue > 0.0) {
+            if (attributeValue > damage) {
                 return 0.0f;
             } else {
-                return (float) (damage / player.getAttributeValue(EstrogenAttributes.FALL_DAMAGE_RESISTANCE.get()));
+                return (float) (damage / attributeValue);
             }
         }
         return damage;
