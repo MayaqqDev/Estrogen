@@ -13,5 +13,5 @@ public class EstrogenAttributes {
     // Boob growing client sided sync
     public static final RegistryEntry<Attribute> BOOB_GROWING_START_TIME = ATTRIBUTES.register("boob_growing_start_time", () -> (new RangedAttribute("attribute.name.estrogen.boob_growing_start_time", -1.0, -1.0, Math.pow(2, 53))).setSyncable(true));
     public static final RegistryEntry<Attribute> BOOB_INITIAL_SIZE = ATTRIBUTES.register("boob_initial_size", () -> (new RangedAttribute("attribute.name.estrogen.boob_initial_size", 0.0, 0.0, 1.0)).setSyncable(true));
-    public static final RegistryEntry<Attribute> FALL_DAMAGE_RESISTANCE = ATTRIBUTES.register("fall_damage_resistance", () -> (new RangedAttribute("attribute.name.estrogen.fall_damage_resistance", 0.0, 0.0, 100.0)).setSyncable(true));
+    public static final RegistryEntry<Attribute> FALL_DAMAGE_RESISTANCE = ATTRIBUTES.register("fall_damage_resistance", () -> (new RangedAttribute("attribute.name.estrogen.fall_damage_resistance", 1.0, 1.0, 100.0)).setSyncable(true));
 }
