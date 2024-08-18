@@ -18,6 +18,7 @@ import dev.mayaqq.estrogen.registry.blocks.fluids.LavaLikeLiquidBlock;
 import dev.mayaqq.estrogen.utils.StatePredicates;
 import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -67,6 +68,13 @@ public class EstrogenBlocks {
         SeatInteractionBehaviour interactionBehaviour = new SeatInteractionBehaviour();
         AllMovementBehaviours.registerBehaviour(EstrogenBlocks.MOTH_SEAT.getId(), movementBehaviour);
         AllInteractionBehaviours.registerBehaviour(EstrogenBlocks.MOTH_SEAT.getId(), interactionBehaviour);
-        AllDisplayBehaviours.assignBlock(new EntityNameDisplaySource(), EstrogenBlocks.MOTH_SEAT.getId());
+        ResourceLocation mothSeatRL = EstrogenBlocks.MOTH_SEAT.getId();
+        AllDisplayBehaviours.assignBlock(
+                AllDisplayBehaviours.register(
+                        new ResourceLocation(mothSeatRL.getNamespace(), mothSeatRL.getPath() + "_source_entity_name"),
+                        new EntityNameDisplaySource()
+                ),
+                mothSeatRL
+        );
     }
 }
