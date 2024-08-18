@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.registry;
 
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllInteractionBehaviours;
 import com.simibubi.create.AllMovementBehaviours;
 import com.simibubi.create.content.contraptions.actors.seat.SeatBlock;
@@ -51,7 +50,7 @@ public class EstrogenBlocks {
     ));
 
     public static final RegistryEntry<Block> MOTH_WOOL = BLOCKS.register("moth_wool", () -> new Block(BlockBehaviour.Properties.copy(Blocks.ORANGE_WOOL)));
-    public static final RegistryEntry<SeatBlock> MOTH_SEAT = BLOCKS.register("moth_seat", () -> new SeatBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_SPRUCE_WOOD).mapColor(DyeColor.ORANGE), null));
+    public static final RegistryEntry<Block> MOTH_SEAT = BLOCKS.register("moth_seat", () -> new SeatBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_SPRUCE_WOOD).mapColor(DyeColor.ORANGE), null));
 
     public static final RegistryEntry<Block> ESTROGEN_PILL_BLOCK = BLOCKS.register("estrogen_pill_block", () -> new EstrogenPillBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(1.0F, 1.0F).sound(EstrogenSoundTypes.PILL_BOX)));
 

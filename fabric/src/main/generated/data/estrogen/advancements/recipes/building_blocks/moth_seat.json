@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_moth_fuzz": {
+    "has_moth_wool": {
       "conditions": {
         "items": [
           {
             "items": [
-              "estrogen:moth_fuzz"
+              "estrogen:moth_wool"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_moth_fuzz",
+      "has_moth_wool",
       "has_the_recipe"
     ]
   ],

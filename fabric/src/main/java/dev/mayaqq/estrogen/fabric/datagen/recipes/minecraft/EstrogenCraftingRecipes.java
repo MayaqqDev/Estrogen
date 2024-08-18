@@ -78,7 +78,7 @@ public class EstrogenCraftingRecipes<T extends EstrogenRecipeInterface> extends 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, EstrogenItems.MOTH_SEAT.get())
                 .requires(EstrogenItems.MOTH_WOOL.get(), 1)
                 .requires(ItemTags.WOODEN_SLABS)
-                .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.MOTH_FUZZ.get()), FabricRecipeProvider.has(EstrogenItems.MOTH_FUZZ.get()))
+                .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.MOTH_WOOL.get()), FabricRecipeProvider.has(EstrogenItems.MOTH_WOOL.get()))
                 .save(exporter);
 
         SpecialRecipeBuilder.special(EstrogenRecipes.THIGH_HIGH_DYE_SERIALIZER.get()).save(exporter, "estrogen:thigh_high_dye");
