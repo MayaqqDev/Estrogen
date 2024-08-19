@@ -2,6 +2,8 @@ package dev.mayaqq.estrogen;
 
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.registry.*;
+import dev.mayaqq.estrogen.registry.items.ThighHighsItem;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,9 +39,15 @@ public class Estrogen {
         EstrogenCreativeTab.TABS.init();
         EstrogenNetworkManager.NETWORK_MANAGER.init();
         EstrogenProcessingRecipes.register();
-        EstrogenItems.registerTooltips();
-        EstrogenBlocks.registerExtraProperties();
 
         LOGGER.info("Injecting Estrogen into your veins!");
+    }
+
+    public static void postInit() {
+        EstrogenPotatoProjectiles.register();
+        EstrogenEntities.registerSpawnPlacements();
+        EstrogenBlocks.registerExtraProperties();
+        EstrogenItems.registerTooltips();
+        CauldronInteraction.WATER.put(EstrogenItems.THIGH_HIGHS.get(), ThighHighsItem.CAULDRON_INTERACTION);
     }
 }

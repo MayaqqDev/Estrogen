@@ -23,9 +23,7 @@ public class EstrogenFabric implements ModInitializer {
         // init Estrogen main class
         Estrogen.init();
 
-        // Projectiles, its here because forge :puke:
-        EstrogenPotatoProjectiles.register();
-        EstrogenEntities.registerSpawnPlacements();
+        Estrogen.postInit();
         EstrogenBiomeModifications.addBiomeModifications();
 
         // Register Fabric specific Events
