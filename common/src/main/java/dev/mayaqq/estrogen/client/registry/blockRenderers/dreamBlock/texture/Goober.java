@@ -90,14 +90,14 @@ public class Goober {
 
     public enum Style implements WeightedEntry {
         PIXEL(2, List.of(NativeImage::setPixelRGBA)), // Pixel has a lower weight because any node drawn on a border becomes a pixel
-        STAR(3, List.of((image, x, y, color) -> {
+        STAR(5, List.of((image, x, y, color) -> {
                 image.setPixelRGBA(x + 1, y, color);
                 image.setPixelRGBA(x, y + 1, color);
                 image.setPixelRGBA(x - 1, y, color);
                 image.setPixelRGBA(x, y - 1, color);
             }
         )),
-        THINGY(1, List.of((pixels, x, y, col) -> {
+        THINGY(2, List.of((pixels, x, y, col) -> {
             pixels.setPixelRGBA(x + 1, y, col);
             pixels.setPixelRGBA(x, y + 1, col);
             pixels.setPixelRGBA(x - 1, y, col);
@@ -108,7 +108,7 @@ public class Goober {
             pixels.setPixelRGBA(x - 1, y - 1, transCol);
         }
         )),
-        STAR_ANIMATED(3, List.of(
+        STAR_ANIMATED(4, List.of(
             (image, x, y, color) -> {
                 image.setPixelRGBA(x + 1, y, color);
                 image.setPixelRGBA(x, y + 1, color);

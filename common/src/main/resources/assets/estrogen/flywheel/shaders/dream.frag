@@ -8,7 +8,7 @@ const mat4 SCALE_TRANSLATE = mat4(
 );
 
 in vec4 texProj;
-in vec3 vertNormal;
+in vec4 vertColor;
 
 struct Fragment {
     vec2 texCoords;
@@ -35,8 +35,8 @@ mat4 dreamBlockLayer(float layer) {
 
 vec4 fragment(Fragment r) {
     r.light = vec2(1.0, 1.0);
-    if(vertNormal.y == 1.0) {
-        return vec4(1.0, 1.0, 1.0, 1.0);
+    if(vertColor.w > 0.1) {
+        return vertColor;
     } else {
         vec3 color = textureProj(uBlockAtlas, texProj).rgb;
         for (int i = 0; i < 8; i++) {

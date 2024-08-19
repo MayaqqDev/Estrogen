@@ -35,7 +35,7 @@ public class DynamicDreamTexture {
         texture = new DynamicTexture(128, 128, false);
         texID = Minecraft.getInstance().getTextureManager().register("dreamy", texture);
         renderType = EstrogenRenderTypes.DREAM_BLOCK.apply(texID);
-        generateGoobers(80085L); // TODO: world-based seed
+        generateGoobers(8008135L); // TODO: world-based seed
     }
 
     public RenderType getRenderType() {
@@ -48,13 +48,13 @@ public class DynamicDreamTexture {
         if(!goobers.isEmpty()) goobers.clear();
 
         int count = random.nextIntBetweenInclusive(50, 60);
-        int attempts = 5;
+        int attempts = 16;
 
         while (count > 0) {
             boolean canPlace = true;
 
-            int posX = random.nextInt(5, 120);
-            int posY = random.nextInt(5, 120);
+            int posX = random.nextInt(4, 124);
+            int posY = random.nextInt(4, 124);
 
             Goober.Style style = Goober.Style.weighted(random);
 
@@ -79,7 +79,7 @@ public class DynamicDreamTexture {
                 attempts--;
                 if(attempts == 0) {
                     count--;
-                    attempts = 5;
+                    attempts = 16;
                 }
             }
         }
@@ -126,6 +126,5 @@ public class DynamicDreamTexture {
     public static void clearActive() {
         activeCount = 0;
     }
-
 
 }
