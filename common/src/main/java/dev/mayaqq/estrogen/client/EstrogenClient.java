@@ -12,6 +12,7 @@ import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeCogInstance;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.cookieJar.CookieJarRenderer;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockInstance;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
 import dev.mayaqq.estrogen.client.registry.entityRenderers.moth.MothRenderer;
 import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
@@ -48,6 +49,11 @@ public class EstrogenClient {
         InstancedRenderRegistry.configure(EstrogenBlockEntities.CENTRIFUGE.get())
                 .factory(CentrifugeCogInstance::new)
                 .skipRender(be -> false)
+                .apply();
+
+        InstancedRenderRegistry.configure(EstrogenBlockEntities.DREAM_BLOCK.get())
+                .factory(DreamBlockInstance::new)
+                .alwaysSkipRender()
                 .apply();
 
         // mod compat
