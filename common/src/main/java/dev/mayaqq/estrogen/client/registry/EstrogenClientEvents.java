@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.client.registry;
 
 import dev.mayaqq.estrogen.client.features.UwUfy;
 import dev.mayaqq.estrogen.client.registry.entityRenderers.moth.MothModel;
+import dev.mayaqq.estrogen.client.registry.entityRenderers.mothElytra.MothElytraModel;
 import dev.mayaqq.estrogen.client.registry.particles.DashParticle;
 import dev.mayaqq.estrogen.client.registry.particles.MothFuzzParticle;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
@@ -31,6 +32,7 @@ public class EstrogenClientEvents {
 
     public static void registerModelLayer(LayerDefinitionRegistry consumer) {
         consumer.register(MothModel.LAYER_LOCATION, MothModel::createBodyLayer);
+        consumer.register(MothElytraModel.LAYER_LOCATION, MothElytraModel::createBodyLayer);
     }
     public static void registerItemColorProviders(BiConsumer<ItemColor, Item[]> consumer) {
         consumer.accept((stack, tintIndex) -> ((ThighHighsItem) stack.getItem()).getColor(stack, tintIndex), new Item[]{EstrogenItems.THIGH_HIGHS.get()});
