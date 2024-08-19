@@ -15,6 +15,7 @@ import dev.mayaqq.estrogen.client.registry.blockRenderers.cookieJar.CookieJarRen
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
 import dev.mayaqq.estrogen.client.registry.entityRenderers.moth.MothRenderer;
 import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
+import dev.mayaqq.estrogen.client.registry.trinkets.ThighHighRenderer;
 import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
 import dev.mayaqq.estrogen.platform.ClientPlatform;
 import dev.mayaqq.estrogen.registry.*;
@@ -31,7 +32,10 @@ public class EstrogenClient {
         EstrogenRenderer.register();
         EstrogenPonderScenes.register();
         EstrogenKeybinds.register();
+        // Trinket renderers
         EstrogenPatchesRenderer.register();
+        ThighHighRenderer.register();
+        // Block renderers
         ClientHooks.setRenderLayer(EstrogenBlocks.CENTRIFUGE.get(), RenderType.cutout());
         ClientHooks.setRenderLayer(EstrogenBlocks.COOKIE_JAR.get(), RenderType.cutout());
         ClientHooks.setRenderLayer(EstrogenBlocks.DORMANT_DREAM_BLOCK.get(), RenderType.translucent());
