@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.fabric.client;
 
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.EstrogenClient;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.DynamicDreamTexture;
 import dev.mayaqq.estrogen.resources.BreastArmorDataLoader;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;

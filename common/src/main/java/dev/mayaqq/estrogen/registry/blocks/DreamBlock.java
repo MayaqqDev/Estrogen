@@ -95,8 +95,6 @@ public class DreamBlock extends BaseEntityBlock {
         } else {
             return state.setValue(directionProperty(direction), false);
         }
-
-        // return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
     public static BooleanProperty directionProperty(Direction direction) {

@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.client.registry;
 
 import dev.mayaqq.estrogen.client.features.UwUfy;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.DynamicDreamTexture;
 import dev.mayaqq.estrogen.client.registry.entityRenderers.moth.MothModel;
 import dev.mayaqq.estrogen.client.registry.particles.DashParticle;
 import dev.mayaqq.estrogen.client.registry.particles.MothFuzzParticle;
@@ -22,6 +23,7 @@ import java.util.function.Supplier;
 public class EstrogenClientEvents {
     public static void onDisconnect() {
         UwUfy.disconnect();
+        DynamicDreamTexture.clearActive();
     }
 
     public static void onRegisterParticles(BiConsumer<ParticleType<SimpleParticleType>, EstrogenParticleRegistrator<SimpleParticleType>> consumer) {

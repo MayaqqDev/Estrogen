@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.fabric.client;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
+import dev.architectury.event.events.client.ClientPlayerEvent;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.command.EstrogenClientCommands;
 import dev.mayaqq.estrogen.client.config.ConfigSync;
@@ -28,6 +29,7 @@ public class EstrogenFabricClientEvents {
         ModConfigEvents.reloading(Estrogen.MOD_ID).register(ConfigSync::onReload);
 
         EstrogenClientEvents.onRegisterParticles((particle, provider) -> ParticleFactoryRegistry.getInstance().register(particle, provider::create));
+
 
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
             EstrogenClientEvents.onDisconnect();
