@@ -201,5 +201,8 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add(EstrogenAttributes.BOOB_GROWING_START_TIME.get(), "Upper Body Start Time");
         tb.add(EstrogenAttributes.BOOB_INITIAL_SIZE.get(), "Upper Body initial size");
         tb.add(EstrogenAttributes.FALL_DAMAGE_RESISTANCE.get(), "Fall Damage Resistance");
+
+        // Display Sources
+        tb.add("estrogen.display_source.entity_name", "Entity Name");
     }
 }
