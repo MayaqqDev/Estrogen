@@ -35,7 +35,7 @@ public class EstrogenBlocks {
 
     public static final RegistryEntry<CookieJarBlock> COOKIE_JAR = CREATE_LIKE_BLOCKS.register("cookie_jar", () -> new CookieJarBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).sound(EstrogenSoundTypes.COOKIE_JAR)));
 
-    public static final RegistryEntry<Block> DREAM_BLOCK = BLOCKS.register("dream_block", () -> new DreamBlock(BlockBehaviour.Properties.copy(Blocks.END_GATEWAY).isSuffocating(StatePredicates::never).sound(EstrogenSoundTypes.DREAM_BLOCK)));
+    public static final RegistryEntry<Block> DREAM_BLOCK = BLOCKS.register("dream_block", () -> new DreamBlock(BlockBehaviour.Properties.copy(Blocks.END_GATEWAY).isSuffocating(StatePredicates::never).sound(EstrogenSoundTypes.DREAM_BLOCK).dynamicShape()));
     public static final RegistryEntry<Block> DORMANT_DREAM_BLOCK = BLOCKS.register("dormant_dream_block", () -> new DormantDreamBlock(
             BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DIAMOND)

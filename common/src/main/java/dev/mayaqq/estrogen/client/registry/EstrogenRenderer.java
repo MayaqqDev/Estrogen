@@ -6,6 +6,7 @@ import static dev.mayaqq.estrogen.Estrogen.id;
 
 public class EstrogenRenderer {
 
+
     public static final PartialModel CENTRIFUGE_COG = block("centrifuge/cog");
 
     private static PartialModel block(String path) {

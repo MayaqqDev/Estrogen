@@ -1,7 +1,9 @@
 package dev.mayaqq.estrogen.registry.blocks;
 
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.features.dash.ClientDash;
 import dev.mayaqq.estrogen.features.dash.CommonDash;
+import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,8 +14,13 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -26,8 +33,29 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class DreamBlock extends BaseEntityBlock {
+
+    public static final BooleanProperty UP = BooleanProperty.create("up");
+    public static final BooleanProperty DOWN = BooleanProperty.create("down");
+    public static final BooleanProperty NORTH = BooleanProperty.create("north");
+    public static final BooleanProperty SOUTH = BooleanProperty.create("south");
+    public static final BooleanProperty EAST = BooleanProperty.create("east");
+    public static final BooleanProperty WEST = BooleanProperty.create("west");
+
     public DreamBlock(Properties properties) {
         super(properties);
+        registerDefaultState(defaultBlockState()
+            .setValue(UP, false)
+            .setValue(DOWN, false)
+            .setValue(NORTH, false)
+            .setValue(SOUTH, false)
+            .setValue(EAST, false)
+            .setValue(WEST, false)
+        );
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(UP, DOWN, NORTH, SOUTH, EAST, WEST);
     }
 
     @Nullable
@@ -61,7 +89,25 @@ public class DreamBlock extends BaseEntityBlock {
         if(be instanceof DreamBlockEntity dream) {
             dream.updateTexture(direction.getAxis() != Direction.Axis.Y);
         }
-        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+
+        if(neighborState.is(this)) {
+            return state.setValue(directionProperty(direction), true);
+        } else {
+            return state.setValue(directionProperty(direction), false);
+        }
+
+        // return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+    }
+
+    public static BooleanProperty directionProperty(Direction direction) {
+        return switch (direction) {
+            case UP -> UP;
+            case DOWN -> DOWN;
+            case NORTH -> NORTH;
+            case SOUTH -> SOUTH;
+            case EAST -> EAST;
+            case WEST -> WEST;
+        };
     }
 
     public static boolean isInDreamBlock(Player player) {

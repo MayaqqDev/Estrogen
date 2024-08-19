@@ -1,6 +1,7 @@
 #use "estrogen:include/projection.glsl"
 
 out vec4 texProj;
+out vec3 vertNormal;
 
 struct Dream {
     vec2 light;
@@ -9,9 +10,10 @@ struct Dream {
 };
 
 void vertex(inout Vertex v, Dream instance) {
-    v.pos = v.pos + instance.pos;
     v.color = instance.color;
     v.light = instance.light;
+    v.pos = v.pos + instance.pos;
 
-    texProj = projection_from_position(vec4(v.pos * uCameraPos, 1) * uViewProjection);
+    texProj = projection_from_position(FLWVertex(v));
+    vertNormal = v.normal;
 }

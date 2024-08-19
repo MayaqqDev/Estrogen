@@ -67,6 +67,8 @@ dependencies {
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+
+    modCompileOnly "maven.modrinth:iris:1.7.2+1.20.1"
 }
 
 processResources {

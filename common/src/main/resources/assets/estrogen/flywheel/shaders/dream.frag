@@ -8,6 +8,7 @@ const mat4 SCALE_TRANSLATE = mat4(
 );
 
 in vec4 texProj;
+in vec3 vertNormal;
 
 struct Fragment {
     vec2 texCoords;
@@ -19,7 +20,7 @@ struct Fragment {
 mat4 end_portal_layer(float layer) {
     mat4 translate = mat4(
     1.0, 0.0, 0.0, 17.0 / layer,
-    0.0, 1.0, 0.0, (2.0 + layer / 1.5) * (uTime * 1.5),
+    0.0, 1.0, 0.0, (2.0 + layer / 1.5) * (uTime / 3000),
     0.0, 0.0, 1.0, 0.0,
     0.0, 0.0, 0.0, 1.0
     );
@@ -33,15 +34,13 @@ mat4 end_portal_layer(float layer) {
 
 
 vec4 fragment(Fragment r) {
-    //vec4 tex = FLWBlockTexture(r.texCoords);
-
-    //if(tex.x > 0.5) {
-     //   return tex;
-    //} else {
-    vec3 color = textureProj(uBlockAtlas, texProj).rgb;
-    for (int i = 0; i < 8; i++) {
-        color += textureProj(uBlockAtlas, texProj * end_portal_layer(float(i + 1) * 2)).rgb;
+    if(vertNormal.y == 1.0) {
+        return vec4(1.0, 1.0, 1.0, 1.0);
+    } else {
+        vec3 color = textureProj(uBlockAtlas, texProj).rgb;
+        for (int i = 0; i < 8; i++) {
+            color += textureProj(uBlockAtlas, texProj * end_portal_layer(float(i + 1) * 2)).rgb;
+        }
+        return vec4(color, 1.0);
     }
-    return vec4(color, 1.0);
-    //}
 }

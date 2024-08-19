@@ -2,9 +2,12 @@ package dev.mayaqq.estrogen.registry.blockEntities;
 
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.DreamBlockTexture;
 import dev.mayaqq.estrogen.registry.EstrogenBlockEntities;
+import dev.mayaqq.estrogen.registry.blocks.DreamBlock;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -40,5 +43,10 @@ public class DreamBlockEntity extends BlockEntity {
             if(below instanceof DreamBlockEntity dDown) dDown.updateTexture(false);
         }
 
+    }
+
+    public boolean isTouchingDreamBlock(Direction face) {
+       // return this.level.getBlockEntity(this.getBlockPos().relative(face)) instanceof DreamBlockEntity;
+        return getBlockState().getValue(DreamBlock.directionProperty(face));
     }
 }
