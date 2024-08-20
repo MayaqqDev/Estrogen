@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.forge.client;
 
+import com.jozufozu.flywheel.event.ReloadRenderersEvent;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
@@ -38,6 +39,11 @@ public class EstrogenForgeClientEvents {
     @SubscribeEvent
     public static void registerClientCommands(RegisterClientCommandsEvent event) {
         EstrogenClientCommands.register(event.getDispatcher(), new ForgeClientCommandManager());
+    }
+
+    @SubscribeEvent
+    public static void reloadRenderer(ReloadRenderersEvent event) {
+        EstrogenClientEvents.onReloadRenderer();
     }
 
     private static class ForgeClientCommandManager implements EstrogenClientCommands.ClientCommandManager<CommandSourceStack> {
