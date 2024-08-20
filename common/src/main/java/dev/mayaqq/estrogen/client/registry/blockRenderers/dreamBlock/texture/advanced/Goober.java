@@ -70,9 +70,9 @@ public class Goober {
 
         YELLOW(rgb(255, 255, 0)),
         CYAN(rgb(0, 241, 254)),
-        PURPLE(rgb(106, 106, 198)),
+        PURPLE(rgb(126, 126, 218)),
         MAGENTA(rgb(255, 71, 231)),
-        GREEN1(rgb(40, 125, 77)),
+        GREEN1(rgb(60, 145, 97)),
         GREEN2(rgb(40, 198, 53));
 
         final int color;
