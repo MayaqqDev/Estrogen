@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.client.features;
 
 import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.minecraft.client.Minecraft;
+import java.util.regex.Pattern;
 
 public class UwUfy {
 
@@ -51,6 +52,9 @@ public class UwUfy {
         if (stringLength % 3 == 0) {
             input = input.toUpperCase();
         }
+
+        input = Pattern.compile("%([A-Za-z])").matcher(input).replaceAll(m -> "%" + m.group(1).toLowerCase());
+        input = Pattern.compile("\\$([A-Za-z])").matcher(input).replaceAll(m -> "\\$" + m.group(1).toLowerCase());
 
         if (stringLength % 2 == 0) {
             // Add more letters to the end of words (Not numbers!)
