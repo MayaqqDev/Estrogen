@@ -10,12 +10,8 @@ import com.simibubi.create.foundation.render.SuperByteBufferCache;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel.DreamData;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel.DreamType;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
-import net.minecraft.core.BlockPos;
-
-import java.util.UUID;
-
-import static dev.mayaqq.estrogen.Estrogen.id;
 import static com.mojang.blaze3d.vertex.DefaultVertexFormat.*;
+import static dev.mayaqq.estrogen.Estrogen.id;
 
 public class EstrogenRenderer {
 

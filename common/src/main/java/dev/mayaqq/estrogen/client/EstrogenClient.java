@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.client;
 
+import com.jozufozu.flywheel.backend.ShadersModHandler;
 import com.jozufozu.flywheel.backend.instancing.InstancedRenderRegistry;
 import com.simibubi.create.CreateClient;
 import com.simibubi.create.foundation.block.connected.CTModel;
@@ -53,7 +54,7 @@ public class EstrogenClient {
 
         InstancedRenderRegistry.configure(EstrogenBlockEntities.DREAM_BLOCK.get())
                 .factory(DreamBlockInstance::new)
-                .alwaysSkipRender()
+                .skipRender(be -> !ShadersModHandler.isShaderPackInUse())
                 .apply();
 
         // mod compat

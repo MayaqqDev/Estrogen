@@ -16,8 +16,6 @@ public class DreamBlockRenderer extends SafeBlockEntityRenderer<DreamBlockEntity
     public DreamBlockRenderer(BlockEntityRendererProvider.Context context) {}
 
     public void renderSafe(@NotNull DreamBlockEntity be, float f, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j) {
-        // if(Backend.canUseInstancing(be.getLevel())) return;
-
         Matrix4f matrix4f = poseStack.last().pose();
         if(be.getTexture() == null) be.setTexture(new DreamBlockTexture(be));
 

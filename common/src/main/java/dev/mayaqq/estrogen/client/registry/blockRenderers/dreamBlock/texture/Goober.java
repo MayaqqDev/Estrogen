@@ -29,13 +29,6 @@ public class Goober {
         this.currentFrame = beginFrame;
     }
 
-
-    @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof Goober n) return tooClose(n.x, n.y); // Hacky but private class so ehh
-        return false;
-    };
-
     public boolean tooClose(int x, int y) {
         int difX = Math.abs(this.x - x);
         int difY = Math.abs(this.y - y);
@@ -61,26 +54,14 @@ public class Goober {
 
         YELLOW(rgb(255, 255, 0)),
         CYAN(rgb(0, 241, 254)),
-        PURPLE(rgb(66, 66, 158)),
+        PURPLE(rgb(106, 106, 198)),
         MAGENTA(rgb(255, 71, 231)),
         GREEN1(rgb(40, 125, 77)),
-        GREEN2(rgb(0, 158, 13));
+        GREEN2(rgb(40, 198, 53));
 
         final int color;
         Color(int color) {
             this.color = color;
-        }
-
-        public int red() {
-            return FastColor.ARGB32.red(color);
-        }
-
-        public int green() {
-            return FastColor.ARGB32.green(color);
-        }
-
-        public int blue() {
-            return FastColor.ARGB32.blue(color);
         }
 
         public static int rgb(int r, int g, int b) {

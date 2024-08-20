@@ -3,20 +3,12 @@ package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture;
 import com.mojang.blaze3d.platform.NativeImage;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderTypes;
-import dev.mayaqq.estrogen.config.EstrogenConfig;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
-import net.minecraft.util.FastColor;
 import net.minecraft.util.RandomSource;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class DynamicDreamTexture {
@@ -25,10 +17,9 @@ public class DynamicDreamTexture {
     private static int activeCount = 0;
 
     private final List<Goober> goobers = new ArrayList<>(); //:
-
-    public DynamicTexture texture;
-    private ResourceLocation texID;
-    private RenderType renderType;
+    private final DynamicTexture texture;
+    private final ResourceLocation texID;
+    private final RenderType renderType;
     private int animationTick = 0;
 
     public DynamicDreamTexture() {

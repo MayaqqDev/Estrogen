@@ -3,10 +3,6 @@ package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel;
 import com.jozufozu.flywheel.api.struct.StructType;
 import com.jozufozu.flywheel.backend.gl.buffer.VecBuffer;
 import com.jozufozu.flywheel.core.materials.BasicWriterUnsafe;
-import com.jozufozu.flywheel.core.materials.model.ModelType;
-import com.jozufozu.flywheel.core.materials.model.ModelWriterUnsafe;
-import com.jozufozu.flywheel.core.vertex.BlockVertexList;
-import com.jozufozu.flywheel.util.MatrixWrite;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.system.MemoryUtil;
 

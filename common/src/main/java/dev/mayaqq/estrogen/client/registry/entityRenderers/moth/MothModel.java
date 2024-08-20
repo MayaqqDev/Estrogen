@@ -1,10 +1,7 @@
 package dev.mayaqq.estrogen.client.registry.entityRenderers.moth;
 
 import dev.mayaqq.estrogen.registry.entities.MothEntity;
-import net.minecraft.client.animation.AnimationDefinition;
-import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.AgeableHierarchicalModel;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

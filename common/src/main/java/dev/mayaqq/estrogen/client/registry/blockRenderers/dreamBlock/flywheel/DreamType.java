@@ -2,14 +2,11 @@ package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel;
 
 import com.jozufozu.flywheel.api.struct.Batched;
 import com.jozufozu.flywheel.api.struct.Instanced;
-import com.jozufozu.flywheel.api.struct.StructType;
 import com.jozufozu.flywheel.api.struct.StructWriter;
 import com.jozufozu.flywheel.backend.gl.buffer.VecBuffer;
-import com.jozufozu.flywheel.backend.gl.shader.GlShader;
 import com.jozufozu.flywheel.core.layout.BufferLayout;
 import com.jozufozu.flywheel.core.layout.CommonItems;
 import com.jozufozu.flywheel.core.model.ModelTransformer;
-import com.jozufozu.flywheel.core.vertex.PosTexNormalVertex;
 import dev.mayaqq.estrogen.Estrogen;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;

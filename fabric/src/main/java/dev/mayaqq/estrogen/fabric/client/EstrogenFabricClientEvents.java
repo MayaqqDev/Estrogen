@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.fabric.client;
 
+import com.jozufozu.flywheel.fabric.event.FlywheelEvents;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;

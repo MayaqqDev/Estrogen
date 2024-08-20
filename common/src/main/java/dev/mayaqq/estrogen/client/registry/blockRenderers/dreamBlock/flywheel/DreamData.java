@@ -1,9 +1,7 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel;
 
 import com.jozufozu.flywheel.core.materials.BasicData;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.core.BlockPos;
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 public class DreamData extends BasicData {

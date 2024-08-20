@@ -1,10 +1,12 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock;
 
 import com.jozufozu.flywheel.api.MaterialManager;
+import com.jozufozu.flywheel.backend.ShadersModHandler;
 import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstance;
 import com.jozufozu.flywheel.core.model.BlockModel;
 import com.jozufozu.flywheel.core.model.Model;
-import com.mojang.blaze3d.vertex.*;
+
+
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel.DreamData;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.DynamicDreamTexture;
@@ -23,6 +25,7 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
 
     @Override
     public void init() {
+        if(ShadersModHandler.isShaderPackInUse()) return;
         data = materialManager.transparent(DynamicDreamTexture.INSTANCE.getRenderType())
             .material(EstrogenRenderer.DREAM)
             .model(blockState, this::buildModel)
@@ -108,6 +111,7 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
 
     @Override
     protected void remove() {
+        if(ShadersModHandler.isShaderPackInUse()) return;
         DynamicDreamTexture.removeActive();
         data.delete();
     }
