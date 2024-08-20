@@ -10,6 +10,7 @@ public class ShaderHelper {
     private static BooleanSupplier shaderPackInUse;
 
     public static boolean isShaderPackInUse() {
+        if(shaderPackInUse == null) init();
         return shaderPackInUse.getAsBoolean();
     }
 

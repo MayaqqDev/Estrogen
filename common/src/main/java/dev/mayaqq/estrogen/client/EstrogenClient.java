@@ -30,7 +30,6 @@ import net.minecraft.client.resources.model.BakedModel;
 
 public class EstrogenClient {
     public static void init() {
-        ShaderHelper.init();
         ConfigSync.cacheConfig();
         EstrogenRenderer.register();
         EstrogenPonderScenes.register();
