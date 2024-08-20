@@ -17,6 +17,8 @@ import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockI
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
 import dev.mayaqq.estrogen.client.registry.entityRenderers.moth.MothRenderer;
 import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
+import dev.mayaqq.estrogen.config.AdvancedRender;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
 import dev.mayaqq.estrogen.platform.ClientPlatform;
 import dev.mayaqq.estrogen.registry.*;
@@ -54,13 +56,21 @@ public class EstrogenClient {
 
         InstancedRenderRegistry.configure(EstrogenBlockEntities.DREAM_BLOCK.get())
                 .factory(DreamBlockInstance::new)
-                .skipRender(be -> !ShadersModHandler.isShaderPackInUse())
+                .skipRender(be -> useAdvancedRenderer())
                 .apply();
 
         // mod compat
         if (CommonHooks.isModLoaded("ears")) {
             EarsCompat.boob();
         }
+    }
+
+    public static boolean useAdvancedRenderer() {
+        return switch (EstrogenConfig.client().advancedRendering.get()) {
+            case ALWAYS -> true;
+            case NEVER -> false;
+            case DEFAULT -> !ShadersModHandler.isShaderPackInUse();
+        };
     }
 
     @Environment(EnvType.CLIENT)

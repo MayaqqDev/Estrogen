@@ -11,9 +11,11 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import dev.mayaqq.estrogen.client.EstrogenClient;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel.DreamData;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.DynamicDreamTexture;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -29,7 +31,7 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
 
     @Override
     public void init() {
-        if(ShadersModHandler.isShaderPackInUse()) return;
+        if(!EstrogenClient.useAdvancedRenderer()) return;
         data = materialManager.transparent(DynamicDreamTexture.INSTANCE.getRenderType())
             .material(EstrogenRenderer.DREAM)
             .model(blockState, this::buildModel)
@@ -115,7 +117,7 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
 
     @Override
     protected void remove() {
-        if(ShadersModHandler.isShaderPackInUse()) return;
+        if(data == null) return;
         DynamicDreamTexture.removeActive();
         data.delete();
     }

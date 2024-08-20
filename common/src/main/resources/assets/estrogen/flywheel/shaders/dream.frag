@@ -38,10 +38,10 @@ vec4 fragment(Fragment r) {
     if(vertColor.w > 0.1) {
         return vertColor;
     } else {
-        vec3 color = textureProj(uBlockAtlas, texProj).rgb;
+        vec4 color = textureProj(uBlockAtlas, texProj).rgba;
         for (int i = 0; i < 8; i++) {
-            color += textureProj(uBlockAtlas, texProj * dreamBlockLayer(float(i + 1) * 2)).rgb;
+            color += textureProj(uBlockAtlas, texProj * dreamBlockLayer(float(i + 1) * 2)).rgba;
         }
-        return vec4(color, 1.0);
+        return color;
     }
 }

@@ -8,6 +8,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.random.WeightedEntry;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,8 +64,11 @@ public class DynamicDreamTexture {
                 Goober.Color color = Goober.Color.values()[random.nextIntBetweenInclusive(0, 5)];
                 int animTick = style.hasAnimation() ? random.nextIntBetweenInclusive(0, 10) : 0;
                 int beginFrame = random.nextInt(0, style.frameCount());
+                int transparency = Goober.TRANSPARENCY.getRandom(random)
+                    .map(WeightedEntry.Wrapper::getData)
+                    .orElse(0);
 
-                Goober goober = new Goober(posX, posY, color, style, animTick, beginFrame);
+                Goober goober = new Goober(posX, posY, color, style, animTick, beginFrame, transparency);
                 goobers.add(goober);
                 count--;
             } else {

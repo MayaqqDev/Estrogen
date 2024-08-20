@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.random.Weight;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.util.random.WeightedRandomList;
@@ -13,20 +14,24 @@ import java.util.List;
 
 public class Goober {
 
+    static final SimpleWeightedRandomList<Integer> TRANSPARENCY = new SimpleWeightedRandomList.Builder<Integer>().add(0, 5).add(1, 2).add(2, 1).build();
+
     private final int x;
     private final int y;
     private final Color color;
     private final Style style;
     private final int frameTick;
+    private final int transparencyLevel;
     private int currentFrame;
 
-    public Goober(int x, int y, Color color, Style style, int frameTick, int beginFrame) {
+    public Goober(int x, int y, Color color, Style style, int frameTick, int beginFrame, int transparencyLevel) {
         this.x = x;
         this.y = y;
         this.color = color;
         this.style = style;
         this.frameTick = frameTick;
         this.currentFrame = beginFrame;
+        this.transparencyLevel = transparencyLevel;
     }
 
     public boolean tooClose(int x, int y) {
@@ -37,6 +42,17 @@ public class Goober {
 
     public void draw(NativeImage pixels) {
         int col = color.color;
+        switch (transparencyLevel) {
+            case 1: {
+                col = FastColor.ARGB32.multiply(col, 0xFEFFFFFF);
+                col = FastColor.ARGB32.multiply(col, 0xFEFFFFFF);
+            }
+            case 2: {
+                col = FastColor.ARGB32.multiply(col, 0xFEFFFFFF);
+                col = FastColor.ARGB32.multiply(col, 0xFEFFFFFF);
+                col = FastColor.ARGB32.multiply(col, 0xFEFFFFFF);
+            }
+        }
         style.draw(pixels, x, y, col, currentFrame);
     }
 
@@ -89,7 +105,7 @@ public class Goober {
             pixels.setPixelRGBA(x - 1, y - 1, transCol);
         }
         )),
-        STAR_ANIMATED(4, List.of(
+        STAR_ANIMATED(3, List.of(
             (image, x, y, color) -> {
                 image.setPixelRGBA(x + 1, y, color);
                 image.setPixelRGBA(x, y + 1, color);

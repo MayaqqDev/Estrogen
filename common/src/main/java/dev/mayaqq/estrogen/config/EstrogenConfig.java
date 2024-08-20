@@ -89,6 +89,7 @@ public class EstrogenConfig {
         // Misc Config Group
         public final ConfigGroup misc = group(1, "misc", "Miscellaneous settings");
         public final ConfigBool entityPatting = b(true, "entityPatting", "Allows you to pat entities by shift right-clicking them!");
+        public final ConfigEnum<AdvancedRender> advancedRendering = e(AdvancedRender.DEFAULT, "advancedRendering", "Use advanced renderer for dream blocks, possibly incompatible with iris shaders. DEFAULT disables it automatically when shaders are in use");
 
         // Accessory Config Group
         public final ConfigGroup accessory = group(1, "accessory", "Settings for Equippable Items");
