@@ -9,11 +9,6 @@ struct Dream {
     vec3 pos;
 };
 
-vec4 makeProjection(Vertex v) {
-    // FragDistance = cylindrical_distance(v.pos, uCameraPos / 2);
-
-    return uViewProjection * vec4(v.pos, 1.);
-}
 
 void vertex(inout Vertex v, Dream instance) {
     vertColor = v.color;
