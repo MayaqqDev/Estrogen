@@ -8,12 +8,15 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.command.EstrogenClientCommands;
 import dev.mayaqq.estrogen.client.features.dash.DashOverlay;
 import dev.mayaqq.estrogen.client.registry.EstrogenClientEvents;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockShader;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.client.event.RenderGuiEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -44,6 +47,14 @@ public class EstrogenForgeClientEvents {
     @SubscribeEvent
     public static void reloadRenderer(ReloadRenderersEvent event) {
         EstrogenClientEvents.onReloadRenderer(event.getWorld());
+    }
+
+    @SubscribeEvent
+    public static void registerShaders(RegisterShadersEvent event) {
+        DreamBlockShader.register((id, format, shaderConsumer) -> {
+            ShaderInstance instance = new ShaderInstance(event.getResourceProvider(), id, format);
+            event.registerShader(instance, shaderConsumer);
+        });
     }
 
     private static class ForgeClientCommandManager implements EstrogenClientCommands.ClientCommandManager<CommandSourceStack> {
