@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -40,8 +41,8 @@ public class EstrogenClientEvents {
         consumer.accept((stack, tintIndex) -> ((ThighHighsItem) stack.getItem()).getColor(stack, tintIndex), new Item[]{EstrogenItems.THIGH_HIGHS.get()});
     }
 
-    public static void onReloadRenderer() {
-        if(!Backend.isOn()) DynamicDreamTexture.clearActive();
+    public static void onReloadRenderer(ClientLevel world) {
+        if(!Backend.canUseInstancing(world)) DynamicDreamTexture.clearActive();
     }
 
     @FunctionalInterface

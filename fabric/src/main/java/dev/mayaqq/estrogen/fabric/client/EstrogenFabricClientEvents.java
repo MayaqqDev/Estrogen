@@ -30,7 +30,7 @@ public class EstrogenFabricClientEvents {
         ModConfigEvents.reloading(Estrogen.MOD_ID).register(ConfigSync::onReload);
 
         EstrogenClientEvents.onRegisterParticles((particle, provider) -> ParticleFactoryRegistry.getInstance().register(particle, provider::create));
-        FlywheelEvents.RELOAD_RENDERERS.register($ -> EstrogenClientEvents.onReloadRenderer());
+        FlywheelEvents.RELOAD_RENDERERS.register(event -> EstrogenClientEvents.onReloadRenderer(event.getWorld()));
 
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
             EstrogenClientEvents.onDisconnect();

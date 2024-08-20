@@ -43,7 +43,7 @@ public class EstrogenForgeClientEvents {
 
     @SubscribeEvent
     public static void reloadRenderer(ReloadRenderersEvent event) {
-        EstrogenClientEvents.onReloadRenderer();
+        EstrogenClientEvents.onReloadRenderer(event.getWorld());
     }
 
     private static class ForgeClientCommandManager implements EstrogenClientCommands.ClientCommandManager<CommandSourceStack> {
