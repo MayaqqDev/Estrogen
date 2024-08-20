@@ -109,6 +109,8 @@ public class DreamBlock extends BaseEntityBlock {
     }
 
     public static boolean isInDreamBlock(Player player) {
+        if (player.isSpectator()) return false;
+
         AABB playerAABB = player.getBoundingBox();
         BlockPos minPos = BlockPos.containing(playerAABB.minX, playerAABB.minY, playerAABB.minZ);
         BlockPos maxPos = new BlockPos(
