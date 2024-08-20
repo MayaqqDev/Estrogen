@@ -2,8 +2,10 @@ package dev.mayaqq.estrogen.fabric.client;
 
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.EstrogenClient;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockShader;
 import dev.mayaqq.estrogen.resources.BreastArmorDataLoader;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resources.ResourceLocation;
@@ -20,6 +22,10 @@ public class EstrogenClientFabric implements ClientModInitializer {
         // init Estrogen Client on fabric
         EstrogenClient.init();
         EstrogenFabricClientEvents.register();
+        CoreShaderRegistrationCallback.EVENT.register(context -> {
+                DreamBlockShader.register(context::register);
+            }
+        );
 
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new Listener());
     }
