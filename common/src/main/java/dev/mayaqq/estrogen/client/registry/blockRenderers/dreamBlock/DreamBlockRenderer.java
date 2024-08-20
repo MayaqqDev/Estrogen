@@ -7,8 +7,10 @@ import dev.mayaqq.estrogen.client.EstrogenClient;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.DreamBlockTexture;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.DynamicDreamTexture;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
@@ -95,7 +97,11 @@ public class DreamBlockRenderer extends SafeBlockEntityRenderer<DreamBlockEntity
         } else {
             consumer.color(0, 0, 0, 255);
         }
-        consumer.endVertex();
+        consumer.uv(0, 0)
+            .overlayCoords(OverlayTexture.NO_OVERLAY)
+            .uv2(LightTexture.FULL_BRIGHT)
+            .normal(0, 0, 0)
+            .endVertex();
     }
 
     public int getViewDistance() {
