@@ -2,7 +2,7 @@ package dev.mayaqq.estrogen.client.registry;
 
 import com.jozufozu.flywheel.backend.Backend;
 import dev.mayaqq.estrogen.client.features.UwUfy;
-import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.DynamicDreamTexture;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced.DynamicDreamTexture;
 import dev.mayaqq.estrogen.client.registry.entityRenderers.moth.MothModel;
 import dev.mayaqq.estrogen.client.registry.entityRenderers.mothElytra.MothElytraModel;
 import dev.mayaqq.estrogen.client.registry.particles.DashParticle;
@@ -11,7 +11,6 @@ import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenParticles;
 import dev.mayaqq.estrogen.registry.items.ThighHighsItem;
 import dev.mayaqq.estrogen.utils.EstrogenParticleRegistrator;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;

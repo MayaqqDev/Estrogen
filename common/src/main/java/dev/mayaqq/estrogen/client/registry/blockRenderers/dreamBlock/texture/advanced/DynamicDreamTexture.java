@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture;
+package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced;
 
 import com.jozufozu.flywheel.backend.Backend;
 import com.mojang.blaze3d.platform.NativeImage;
