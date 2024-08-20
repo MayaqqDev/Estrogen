@@ -1,8 +1,7 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture;
 
 import com.mojang.blaze3d.platform.NativeImage;
-import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.client.registry.EstrogenRenderTypes;
+import dev.mayaqq.estrogen.client.registry.EstrogenRenderType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -27,7 +26,7 @@ public class DynamicDreamTexture {
     public DynamicDreamTexture() {
         texture = new DynamicTexture(128, 128, false);
         texID = Minecraft.getInstance().getTextureManager().register("dreamy", texture);
-        renderType = EstrogenRenderTypes.DREAM_BLOCK.apply(texID);
+        renderType = EstrogenRenderType.DREAM_BLOCK.apply(texID);
         generateGoobers(8008135L); // TODO: world-based seed
     }
 
