@@ -120,4 +120,9 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
         DynamicDreamTexture.removeActive();
         data.delete();
     }
+
+    @Override
+    public boolean shouldReset() {
+        return super.shouldReset() || !EstrogenClient.useAdvancedRenderer();
+    }
 }

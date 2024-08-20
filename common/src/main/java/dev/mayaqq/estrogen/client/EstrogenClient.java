@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.client;
 
-import com.jozufozu.flywheel.backend.ShadersModHandler;
 import com.jozufozu.flywheel.backend.instancing.InstancedRenderRegistry;
 import com.simibubi.create.CreateClient;
 import com.simibubi.create.foundation.block.connected.CTModel;
@@ -17,7 +16,6 @@ import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockI
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
 import dev.mayaqq.estrogen.client.registry.entityRenderers.moth.MothRenderer;
 import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
-import dev.mayaqq.estrogen.config.AdvancedRender;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.client.registry.trinkets.ThighHighRenderer;
 import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
@@ -32,6 +30,7 @@ import net.minecraft.client.resources.model.BakedModel;
 
 public class EstrogenClient {
     public static void init() {
+        ShaderHelper.init();
         ConfigSync.cacheConfig();
         EstrogenRenderer.register();
         EstrogenPonderScenes.register();
@@ -63,6 +62,8 @@ public class EstrogenClient {
                 .skipRender(be -> useAdvancedRenderer())
                 .apply();
 
+
+
         // mod compat
         if (CommonHooks.isModLoaded("ears")) {
             EarsCompat.boob();
@@ -73,7 +74,7 @@ public class EstrogenClient {
         return switch (EstrogenConfig.client().advancedRendering.get()) {
             case ALWAYS -> true;
             case NEVER -> false;
-            case DEFAULT -> !ShadersModHandler.isShaderPackInUse();
+            case DEFAULT -> !ShaderHelper.isShaderPackInUse();
         };
     }
 
