@@ -45,6 +45,9 @@ public class EstrogenCreativeTab {
         items.add(DORMANT_DREAM_BLOCK.get().getDefaultInstance());
         items.add(ESTROGEN_PILL_BLOCK.get().getDefaultInstance());
         items.add(MOTH_WOOL.get().getDefaultInstance());
+        items.add(QUILTED_MOTH_WOOL.get().getDefaultInstance());
+        items.add(MOTH_WOOL_CARPET.get().getDefaultInstance());
+        items.add(QUILTED_MOTH_WOOL_CARPET.get().getDefaultInstance());
         items.add(MOTH_SEAT.get().getDefaultInstance());
         items.add(tippedArrow(EstrogenPotions.ESTROGEN_POTION.get()));
         items.add(MOLTEN_SLIME_BUCKET.get().getDefaultInstance());

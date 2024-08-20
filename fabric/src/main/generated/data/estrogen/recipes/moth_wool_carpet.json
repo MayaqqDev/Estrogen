@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "F": {
+      "item": "estrogen:moth_wool"
+    }
+  },
+  "pattern": [
+    "FF"
+  ],
+  "result": {
+    "count": 3,
+    "item": "estrogen:moth_wool_carpet"
+  },
+  "show_notification": true
+}

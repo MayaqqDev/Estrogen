@@ -22,9 +22,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 
 public class EstrogenBlocks {
     public static final ResourcefulRegistry<Block> BLOCKS = ResourcefulRegistries.create(BuiltInRegistries.BLOCK, "estrogen");
@@ -35,7 +37,7 @@ public class EstrogenBlocks {
 
     public static final RegistryEntry<CookieJarBlock> COOKIE_JAR = CREATE_LIKE_BLOCKS.register("cookie_jar", () -> new CookieJarBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).sound(EstrogenSoundTypes.COOKIE_JAR)));
 
-    public static final RegistryEntry<Block> DREAM_BLOCK = BLOCKS.register("dream_block", () -> new DreamBlock(BlockBehaviour.Properties.copy(Blocks.END_GATEWAY).isSuffocating(StatePredicates::never).sound(EstrogenSoundTypes.DREAM_BLOCK).dynamicShape()));
+    public static final RegistryEntry<Block> DREAM_BLOCK = BLOCKS.register("dream_block", () -> new DreamBlock(BlockBehaviour.Properties.copy(Blocks.END_GATEWAY).pushReaction(PushReaction.NORMAL).isSuffocating(StatePredicates::never).sound(EstrogenSoundTypes.DREAM_BLOCK).dynamicShape()));
     public static final RegistryEntry<Block> DORMANT_DREAM_BLOCK = BLOCKS.register("dormant_dream_block", () -> new DormantDreamBlock(
             BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DIAMOND)
@@ -51,6 +53,9 @@ public class EstrogenBlocks {
     ));
 
     public static final RegistryEntry<Block> MOTH_WOOL = BLOCKS.register("moth_wool", () -> new Block(BlockBehaviour.Properties.copy(Blocks.ORANGE_WOOL)));
+    public static final RegistryEntry<Block> QUILTED_MOTH_WOOL = BLOCKS.register("quilted_moth_wool", () -> new Block(BlockBehaviour.Properties.copy(Blocks.ORANGE_WOOL)));
+    public static final RegistryEntry<Block> MOTH_WOOL_CARPET = BLOCKS.register("moth_wool_carpet", () -> new CarpetBlock(BlockBehaviour.Properties.copy(Blocks.ORANGE_CARPET)));
+    public static final RegistryEntry<Block> QUILTED_MOTH_WOOL_CARPET = BLOCKS.register("quilted_moth_wool_carpet", () -> new CarpetBlock(BlockBehaviour.Properties.copy(Blocks.ORANGE_CARPET)));
     public static final RegistryEntry<Block> MOTH_SEAT = BLOCKS.register("moth_seat", () -> new SeatBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_SPRUCE_WOOD).mapColor(DyeColor.ORANGE), null));
 
     public static final RegistryEntry<Block> ESTROGEN_PILL_BLOCK = BLOCKS.register("estrogen_pill_block", () -> new EstrogenPillBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(1.0F, 1.0F).sound(EstrogenSoundTypes.PILL_BOX)));

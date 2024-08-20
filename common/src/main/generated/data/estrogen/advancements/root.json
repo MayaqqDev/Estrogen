@@ -33,7 +33,10 @@
               "estrogen:dormant_dream_block",
               "estrogen:estrogen_pill_block",
               "estrogen:moth_wool",
-              "estrogen:moth_seat"
+              "estrogen:quilted_moth_wool",
+              "estrogen:moth_seat",
+              "estrogen:moth_wool_carpet",
+              "estrogen:quilted_moth_wool_carpet"
             ]
           }
         ]
