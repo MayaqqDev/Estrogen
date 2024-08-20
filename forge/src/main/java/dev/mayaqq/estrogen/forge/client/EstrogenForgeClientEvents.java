@@ -49,14 +49,6 @@ public class EstrogenForgeClientEvents {
         EstrogenClientEvents.onReloadRenderer(event.getWorld());
     }
 
-    @SubscribeEvent
-    public static void registerShaders(RegisterShadersEvent event) {
-        DreamBlockShader.register((id, format, shaderConsumer) -> {
-            ShaderInstance instance = new ShaderInstance(event.getResourceProvider(), id, format);
-            event.registerShader(instance, shaderConsumer);
-        });
-    }
-
     private static class ForgeClientCommandManager implements EstrogenClientCommands.ClientCommandManager<CommandSourceStack> {
 
         @Override
