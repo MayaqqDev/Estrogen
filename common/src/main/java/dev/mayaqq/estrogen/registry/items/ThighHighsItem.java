@@ -5,11 +5,15 @@ import dev.mayaqq.estrogen.registry.EstrogenAttributes;
 import earth.terrarium.baubly.Baubly;
 import earth.terrarium.baubly.common.Bauble;
 import earth.terrarium.baubly.common.SlotInfo;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
 
 import java.util.UUID;
 
@@ -64,4 +68,20 @@ public class ThighHighsItem extends Item implements Bauble {
         defaultModifiers.put(EstrogenAttributes.FALL_DAMAGE_RESISTANCE.get(), new AttributeModifier(uuid, "ThighHighsFallDamageResistance", 100, AttributeModifier.Operation.ADDITION));
         return defaultModifiers;
     }
+
+    public static final CauldronInteraction CAULDRON_INTERACTION = (blockState, level, blockPos, player, interactionHand, itemStack) -> {
+        Item item = itemStack.getItem();
+        if (!(item instanceof ThighHighsItem thighHighsItem)) {
+            return InteractionResult.PASS;
+        }
+        if (!thighHighsItem.hasCustomColor(itemStack)) {
+            return InteractionResult.PASS;
+        }
+        if (!level.isClientSide) {
+            thighHighsItem.clearColor(itemStack);
+            player.awardStat(Stats.CLEAN_ARMOR);
+            LayeredCauldronBlock.lowerFillLevel(blockState, level, blockPos);
+        }
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    };
 }

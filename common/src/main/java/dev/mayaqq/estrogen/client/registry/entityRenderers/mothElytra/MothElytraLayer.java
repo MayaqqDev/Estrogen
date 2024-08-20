@@ -1,13 +1,11 @@
-package dev.mayaqq.estrogen.client.entity.player.features;
+package dev.mayaqq.estrogen.client.registry.entityRenderers.mothElytra;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
-import net.minecraft.client.model.ElytraModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -21,11 +19,11 @@ import net.minecraft.world.item.ItemStack;
 
 public class MothElytraLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
     private static final ResourceLocation WINGS_LOCATION = Estrogen.id("textures/entity/moth_elytra.png");
-    private final ElytraModel<T> elytraModel;
+    private final MothElytraModel<T> elytraModel;
 
     public MothElytraLayer(RenderLayerParent<T, M> renderer, EntityModelSet modelSet) {
         super(renderer);
-        this.elytraModel = new ElytraModel<>(modelSet.bakeLayer(ModelLayers.ELYTRA));
+        this.elytraModel = new MothElytraModel<>(modelSet.bakeLayer(MothElytraModel.LAYER_LOCATION));
     }
 
     @Override
@@ -35,7 +33,15 @@ public class MothElytraLayer<T extends LivingEntity, M extends EntityModel<T>> e
             return;
         }
         poseStack.pushPose();
-        poseStack.translate(0.0f, 0.0f, 0.125f);
+        String name = itemStack.getDisplayName().getString().replace("[", "").replace("]", "");
+        if (name.equalsIgnoreCase("big")) {
+            poseStack.scale(2f, 2f, 2f);
+        } else if (name.equalsIgnoreCase("small")) {
+            poseStack.scale(1f, 1f, 1f);
+        } else {
+            poseStack.scale(1.5f, 1.5f, 1.5f);
+        }
+        poseStack.translate(0.0f, 0.15f, -0.05f);
         this.getParentModel().copyPropertiesTo(this.elytraModel);
         this.elytraModel.setupAnim(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(buffer, RenderType.armorCutoutNoCull(WINGS_LOCATION), false, itemStack.hasFoil());

@@ -20,7 +20,7 @@ public class MothModel<T extends MothEntity> extends AgeableHierarchicalModel<T>
     private final ModelPart body;
 
     public MothModel(ModelPart root) {
-        super(0.5f, 18);
+        super(0.5f, 24);
         this.main = root.getChild("main");
         this.body = main.getChild("body");
         this.wings = body.getChild("wings");
