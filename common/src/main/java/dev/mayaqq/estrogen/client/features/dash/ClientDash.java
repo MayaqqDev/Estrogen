@@ -86,7 +86,9 @@ public class ClientDash {
 
             // End Dash
             if (dashCooldown == 0) {
-                player.setDeltaMovement(dashDirection.scale(DASH_END_SPEED).scale(dashDeltaModifier));
+                if (!player.isFallFlying()) {
+                    player.setDeltaMovement(dashDirection.scale(DASH_END_SPEED).scale(dashDeltaModifier));
+                }
                 break Dash;
             }
 
