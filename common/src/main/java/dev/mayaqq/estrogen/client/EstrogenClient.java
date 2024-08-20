@@ -12,9 +12,11 @@ import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeCogInstance;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.cookieJar.CookieJarRenderer;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockInstance;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
 import dev.mayaqq.estrogen.client.registry.entityRenderers.moth.MothRenderer;
 import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.client.registry.trinkets.ThighHighRenderer;
 import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
 import dev.mayaqq.estrogen.platform.ClientPlatform;
@@ -54,10 +56,25 @@ public class EstrogenClient {
                 .skipRender(be -> false)
                 .apply();
 
+        InstancedRenderRegistry.configure(EstrogenBlockEntities.DREAM_BLOCK.get())
+                .factory(DreamBlockInstance::new)
+                .skipRender(be -> useAdvancedRenderer())
+                .apply();
+
+
+
         // mod compat
         if (CommonHooks.isModLoaded("ears")) {
             EarsCompat.boob();
         }
+    }
+
+    public static boolean useAdvancedRenderer() {
+        return switch (EstrogenConfig.client().advancedRendering.get()) {
+            case ALWAYS -> true;
+            case NEVER -> false;
+            case DEFAULT -> !ShaderHelper.isShaderPackInUse();
+        };
     }
 
     @Environment(EnvType.CLIENT)

@@ -4,6 +4,7 @@ import dev.mayaqq.estrogen.client.features.UwUfy;
 import dev.mayaqq.estrogen.client.features.boobs.BoobPhysicsManager;
 import dev.mayaqq.estrogen.client.features.dash.DreamBlockEffect;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.DreamBlockTexture;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced.DynamicDreamTexture;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenMusic;
@@ -23,6 +24,7 @@ public class MinecraftClientMixin {
         BoobPhysicsManager.tick();
         DreamBlockEffect.tick();
         DreamBlockTexture.animationTick();
+        DynamicDreamTexture.tickInstance();
         UwUfy.tick();
     }
 
