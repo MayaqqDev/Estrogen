@@ -38,7 +38,6 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
             .createInstance();
 
         data.setPosition(this.getInstancePosition())
-            .setColor(0xFFFFFFFF)
             .setBlockLight(255)
             .setSkyLight(255);
 
