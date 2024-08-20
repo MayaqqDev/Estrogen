@@ -31,7 +31,7 @@ mat4 dreamBlockLayer(float layer) {
 out vec4 fragColor;
 
 void main() {
-    if (vertexColor.x > 0.5) {
+    if (vertexColor.w > 0.1) {
         fragColor = vertexColor;
     } else {
         vec3 color = textureProj(Sampler0, texProj0).rgb;

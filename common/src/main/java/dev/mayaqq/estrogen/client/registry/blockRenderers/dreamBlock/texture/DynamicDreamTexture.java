@@ -1,6 +1,8 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture;
 
+import com.jozufozu.flywheel.backend.Backend;
 import com.mojang.blaze3d.platform.NativeImage;
+import dev.mayaqq.estrogen.client.EstrogenClient;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
@@ -15,7 +17,7 @@ import java.util.List;
 public class DynamicDreamTexture {
 
     public static final DynamicDreamTexture INSTANCE = new DynamicDreamTexture();
-    private static int activeCount = 0;
+    private static int instanceCount = 0;
 
     private final List<Goober> goobers = new ArrayList<>(); //:
     private final DynamicTexture texture;
@@ -93,7 +95,7 @@ public class DynamicDreamTexture {
     }
 
     public void tick() {
-        if(activeCount == 0) return;
+        if(cancelAnimation()) return;
         animationTick++;
         if(animationTick == 10) {
             animationTick = 0;
@@ -103,22 +105,29 @@ public class DynamicDreamTexture {
         }
     }
 
+    private boolean cancelAnimation() {
+        boolean ar = EstrogenClient.useAdvancedRenderer();
+        if(Backend.isOn() && ar) return instanceCount == 0;
+        if(!ar) clearActive();
+        return !ar;
+    }
+
     public static void tickInstance() {
         if(INSTANCE != null) INSTANCE.tick();
     }
 
     public static void addActive() {
-        activeCount++;
+        instanceCount++;
     }
 
     public static void removeActive() {
-        if(activeCount > 0) {
-            activeCount--;
+        if(instanceCount > 0) {
+            instanceCount--;
         }
     }
 
     public static void clearActive() {
-        activeCount = 0;
+        instanceCount = 0;
     }
 
 }

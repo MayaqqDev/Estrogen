@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
+import java.io.IOException;
 import java.util.function.Consumer;
 
 public final class DreamBlockShader {
@@ -23,15 +24,19 @@ public final class DreamBlockShader {
     }
 
     public static void register(CoreShaderCallback callback) {
-        callback.accept(
-            Estrogen.id("rendertype_estrogen_dream"),
-            DefaultVertexFormat.BLOCK,
-            program -> {
-                shaderInstance = program;
-            });
+        try {
+            callback.accept(
+                Estrogen.id("rendertype_estrogen_dream"),
+                DefaultVertexFormat.BLOCK,
+                program -> {
+                    shaderInstance = program;
+                });
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     public interface CoreShaderCallback {
-        void accept(ResourceLocation id, VertexFormat format, Consumer<ShaderInstance> shaderConsumer);
+        void accept(ResourceLocation id, VertexFormat format, Consumer<ShaderInstance> shaderConsumer) throws IOException;
     }
 }

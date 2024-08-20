@@ -95,7 +95,7 @@ public class DreamBlockRenderer extends SafeBlockEntityRenderer<DreamBlockEntity
         if (isBorder) {
             consumer.color(255, 255, 255, 255);
         } else {
-            consumer.color(0, 0, 0, 255);
+            consumer.color(0, 0, 0, 0);
         }
         consumer.uv(0, 0)
             .overlayCoords(OverlayTexture.NO_OVERLAY)
