@@ -91,7 +91,6 @@ public class DynamicDreamTexture {
         }
 
         texture.upload();
-        Estrogen.LOGGER.info(String.valueOf(activeCount));
     }
 
     public void tick() {
