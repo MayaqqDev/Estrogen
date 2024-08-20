@@ -23,7 +23,7 @@ public class ConfigSync {
     public static void onReload(ModConfig modConfig) {
         if (EstrogenConfig.client().specification == modConfig.getSpec()) {
             ChestConfig config = currentConfig();
-            if (!ConfigSync.cache.equals(config)) {
+            if (ConfigSync.cache == null || !ConfigSync.cache.equals(config)) {
                 sendConfig(config);
                 ConfigSync.cache = config;
             }
