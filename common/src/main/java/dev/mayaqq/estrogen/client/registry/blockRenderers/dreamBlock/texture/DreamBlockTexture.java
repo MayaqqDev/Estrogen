@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
 import dev.mayaqq.estrogen.utils.DynamicTextureMap;
@@ -60,7 +61,7 @@ public class DreamBlockTexture {
     }
 
     public void animate() {
-        if(!Minecraft.useFancyGraphics()) return;
+        if(!EstrogenConfig.client().animateTexture.get()) return;
         int ct = currentAnimationTick;
         for(Direction direction : Direction.values()) {
             for(Goober goober : goobers.get(direction)) {

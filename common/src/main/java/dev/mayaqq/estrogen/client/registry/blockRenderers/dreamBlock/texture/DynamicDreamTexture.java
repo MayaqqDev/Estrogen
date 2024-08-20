@@ -4,6 +4,7 @@ import com.jozufozu.flywheel.backend.Backend;
 import com.mojang.blaze3d.platform.NativeImage;
 import dev.mayaqq.estrogen.client.EstrogenClient;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderType;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -106,6 +107,8 @@ public class DynamicDreamTexture {
     }
 
     private boolean cancelAnimation() {
+        if(!EstrogenConfig.client().animateTexture.get()) return true;
+
         boolean ar = EstrogenClient.useAdvancedRenderer();
         if(Backend.isOn() && ar) return instanceCount == 0;
         if(!ar) clearActive();

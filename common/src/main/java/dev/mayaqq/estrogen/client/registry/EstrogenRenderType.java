@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.client.registry;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockShader;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.DynamicDreamTexture;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
@@ -23,8 +24,6 @@ public class EstrogenRenderType extends RenderType {
             .setShaderState(new ShaderStateShard(DreamBlockShader::getDreamShader))
             .setTextureState(new RenderStateShard.TextureStateShard(tex, false, false))
             .createCompositeState(false));
-
-
 
     public EstrogenRenderType(String name, VertexFormat format, VertexFormat.Mode mode, int bufferSize, boolean affectsCrumbling, boolean sortOnUpload, Runnable setupState, Runnable clearState) {
         super(name, format, mode, bufferSize, affectsCrumbling, sortOnUpload, setupState, clearState);
