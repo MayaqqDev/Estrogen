@@ -25,16 +25,56 @@
   },
   "dream_block_exit": {
     "subtitle": "subtitles.estrogen.dream_block.exit",
-      "sounds": [
+    "sounds": [
       "estrogen:dream_block/dream_block_exit"
-      ]
+    ]
   },
   "dream_block_loop": {
-      "sounds": [
+    "sounds": [
       "estrogen:dream_block/dream_block_loop"
-      ]
+    ]
   },
   "dream_block_place": {
+    "sounds": [
+      "estrogen:dream_block/place/dream_block_place_1",
+      "estrogen:dream_block/place/dream_block_place_2",
+      "estrogen:dream_block/place/dream_block_place_3",
+      "estrogen:dream_block/place/dream_block_place_4",
+      "estrogen:dream_block/place/dream_block_place_5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "dream_block_break": {
+    "sounds": [
+      "estrogen:dream_block/place/dream_block_place_1",
+      "estrogen:dream_block/place/dream_block_place_2",
+      "estrogen:dream_block/place/dream_block_place_3",
+      "estrogen:dream_block/place/dream_block_place_4",
+      "estrogen:dream_block/place/dream_block_place_5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "dream_block_step": {
+    "sounds": [
+      "estrogen:dream_block/place/dream_block_place_1",
+      "estrogen:dream_block/place/dream_block_place_2",
+      "estrogen:dream_block/place/dream_block_place_3",
+      "estrogen:dream_block/place/dream_block_place_4",
+      "estrogen:dream_block/place/dream_block_place_5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "dream_block_hit": {
+    "sounds": [
+      "estrogen:dream_block/place/dream_block_place_1",
+      "estrogen:dream_block/place/dream_block_place_2",
+      "estrogen:dream_block/place/dream_block_place_3",
+      "estrogen:dream_block/place/dream_block_place_4",
+      "estrogen:dream_block/place/dream_block_place_5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "dream_block_fall": {
     "sounds": [
       "estrogen:dream_block/place/dream_block_place_1",
       "estrogen:dream_block/place/dream_block_place_2",
@@ -50,7 +90,18 @@
       "estrogen:dormant_dream_block/dream_block_dormant_break_3",
       "estrogen:dormant_dream_block/dream_block_dormant_break_4",
       "estrogen:dormant_dream_block/dream_block_dormant_break_5"
-    ]
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "dream_block_dormant_hit": {
+    "sounds": [
+      "estrogen:dormant_dream_block/dream_block_dormant_step_1",
+      "estrogen:dormant_dream_block/dream_block_dormant_step_2",
+      "estrogen:dormant_dream_block/dream_block_dormant_step_3",
+      "estrogen:dormant_dream_block/dream_block_dormant_step_4",
+      "estrogen:dormant_dream_block/dream_block_dormant_step_5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
   },
   "dream_block_dormant_fall": {
     "sounds": [
@@ -68,7 +119,8 @@
       "estrogen:dormant_dream_block/dream_block_dormant_place_3",
       "estrogen:dormant_dream_block/dream_block_dormant_place_4",
       "estrogen:dormant_dream_block/dream_block_dormant_place_5"
-    ]
+    ],
+    "subtitle": "subtitles.block.generic.place"
   },
   "dream_block_dormant_step": {
     "sounds": [
@@ -77,7 +129,8 @@
       "estrogen:dormant_dream_block/dream_block_dormant_step_3",
       "estrogen:dormant_dream_block/dream_block_dormant_step_4",
       "estrogen:dormant_dream_block/dream_block_dormant_step_5"
-    ]
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
   },
   "amphitrite": {
     "subtitle": "subtitles.estrogen.music.amphitrite",
@@ -93,9 +146,9 @@
   },
   "inferred_dreams": {
     "subtitle": "subtitles.estrogen.music.inferred_dreams",
-      "sounds": [
+    "sounds": [
       "estrogen:music/inferred_dreams"
-      ]
+    ]
   },
   "sleeping": {
     "subtitle": "subtitles.estrogen.music.sleeping",
@@ -123,16 +176,34 @@
       "estrogen:cookie_jar/full/full1",
       "estrogen:cookie_jar/full/full2",
       "estrogen:cookie_jar/full/full3"
-    ]
+    ],
+    "subtitle": "subtitles.estrogen.block.cookie_jar.full"
   },
   "jar_place": {
     "sounds": [
       "estrogen:cookie_jar/place/place1",
       "estrogen:cookie_jar/place/place2",
       "estrogen:cookie_jar/place/place3"
-    ]
+    ],
+    "subtitle": "subtitles.block.generic.place"
   },
   "jar_break": {
+    "sounds": [
+      "estrogen:cookie_jar/break/break1",
+      "estrogen:cookie_jar/break/break2",
+      "estrogen:cookie_jar/break/break3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "jar_hit": {
+    "sounds": [
+      "estrogen:cookie_jar/step/step1",
+      "estrogen:cookie_jar/step/step2",
+      "estrogen:cookie_jar/step/step3"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "jar_fall": {
     "sounds": [
       "estrogen:cookie_jar/break/break1",
       "estrogen:cookie_jar/break/break2",
@@ -144,16 +215,26 @@
       "estrogen:cookie_jar/insert/insert1",
       "estrogen:cookie_jar/insert/insert2",
       "estrogen:cookie_jar/insert/insert3"
-    ]
+    ],
+    "subtitle": "subtitles.estrogen.block.cookie_jar.insert"
   },
   "jar_step": {
     "sounds": [
       "estrogen:cookie_jar/step/step1",
       "estrogen:cookie_jar/step/step2",
       "estrogen:cookie_jar/step/step3"
-    ]
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
   },
   "pill_box_break": {
+    "sounds": [
+      "estrogen:pill_box/break/break1",
+      "estrogen:pill_box/break/break2",
+      "estrogen:pill_box/break/break3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "pill_box_fall": {
     "sounds": [
       "estrogen:pill_box/break/break1",
       "estrogen:pill_box/break/break2",
@@ -165,13 +246,95 @@
       "estrogen:pill_box/place/place1",
       "estrogen:pill_box/place/place2",
       "estrogen:pill_box/place/place3"
-    ]
+    ],
+    "subtitle": "subtitles.block.generic.place"
   },
   "pill_box_step": {
     "sounds": [
       "estrogen:pill_box/step/step1",
       "estrogen:pill_box/step/step2",
       "estrogen:pill_box/step/step3"
-    ]
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "pill_box_hit": {
+    "sounds": [
+      "estrogen:pill_box/step/step1",
+      "estrogen:pill_box/step/step2",
+      "estrogen:pill_box/step/step3"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "moth_death": {
+    "sounds": [
+      "mob/bee/death1",
+      "mob/bee/death2"
+    ],
+    "subtitle": "subtitles.estrogen.entity.moth.death"
+  },
+  "moth_hurt": {
+    "sounds": [
+      "mob/bee/hurt1",
+      {
+        "name": "mob/bee/hurt1",
+        "pitch": 1.2
+      },
+      "mob/bee/hurt2",
+      {
+        "name": "mob/bee/hurt2",
+        "pitch": 1.2
+      },
+      "mob/bee/hurt3",
+      {
+        "name": "mob/bee/hurt3",
+        "pitch": 1.2
+      }
+    ],
+    "subtitle": "subtitles.estrogen.entity.moth.hurt"
+  },
+  "moth_loop": {
+    "sounds": [
+      {
+        "attenuation_distance": 6,
+        "name": "mob/bee/loop1",
+        "volume": 0.6
+      },
+      {
+        "attenuation_distance": 6,
+        "name": "mob/bee/loop2",
+        "volume": 0.6
+      },
+      {
+        "attenuation_distance": 6,
+        "name": "mob/bee/loop3",
+        "volume": 0.65
+      },
+      {
+        "attenuation_distance": 6,
+        "name": "mob/bee/loop4",
+        "volume": 0.65
+      },
+      {
+        "attenuation_distance": 6,
+        "name": "mob/bee/loop5",
+        "volume": 0.7
+      },
+      {
+        "attenuation_distance": 6,
+        "name": "mob/bee/loop5",
+        "volume": 0.75
+      }
+    ],
+    "subtitle": "subtitles.estrogen.entity.moth.loop"
+  },
+  "moth_fuzz_up": {
+    "sounds": [
+      "mob/bee/sting",
+      {
+        "name": "mob/bee/sting",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.estrogen.entity.moth.sting"
   }
 }

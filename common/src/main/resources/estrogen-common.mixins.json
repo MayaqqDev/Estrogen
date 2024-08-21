@@ -8,6 +8,7 @@
     "PlayerEntityMixin"
   ],
   "client": [
+    "client.ClientPacketListenerMixin",
     "client.ClientPlayNetworkHandlerMixin",
     "client.GameOptionsMixin",
     "client.MinecraftClientMixin",
