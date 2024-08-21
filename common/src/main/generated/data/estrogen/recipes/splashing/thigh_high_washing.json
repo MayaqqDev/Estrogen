@@ -1,0 +1,14 @@
+{
+  "type": "create:splashing",
+  "ingredients": [
+    {
+      "item": "estrogen:thigh_highs"
+    }
+  ],
+  "processingTime": 800,
+  "results": [
+    {
+      "item": "estrogen:thigh_highs"
+    }
+  ]
+}

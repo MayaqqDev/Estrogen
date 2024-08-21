@@ -14,6 +14,7 @@ import dev.mayaqq.estrogen.registry.EstrogenPotions;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluids;
 
 import static dev.mayaqq.estrogen.Estrogen.id;

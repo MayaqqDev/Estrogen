@@ -52,6 +52,7 @@ public class EstrogenDatagen implements DataGeneratorEntrypoint {
         common.addProvider(EstrogenEntityInteractionRecipe::new);
         common.addProvider(EstrogenItemApplicationRecipes::new);
         common.addProvider(EstrogenDeployingRecipes::new);
+        common.addProvider(EstrogenSplashingRecipes::new);
 
         // tags
         common.addProvider(EstrogenTagsGen.ItemTags::new);
