@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 public record SetChestConfigPacket(ChestConfig config) implements Packet<SetChestConfigPacket> {
 
-    public static ServerboundPacketType<SetChestConfigPacket> TYPE = new Type();
+    public static final ServerboundPacketType<SetChestConfigPacket> TYPE = new Type();
 
     @Override
     public PacketType<SetChestConfigPacket> type() {
