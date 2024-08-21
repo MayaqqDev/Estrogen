@@ -1,7 +1,9 @@
 package dev.mayaqq.estrogen.client;
 
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced.DynamicDreamTexture;
 import dev.mayaqq.estrogen.config.PlayerEntityExtension;
 import dev.mayaqq.estrogen.networking.messages.s2c.ChestConfigPacket;
+import dev.mayaqq.estrogen.networking.messages.s2c.DreamBlockSeedPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.Level;
 
@@ -17,5 +19,9 @@ public class EstrogenClientNetworkManager {
         PlayerEntityExtension player = (PlayerEntityExtension) level.getPlayerByUUID(packet.uuid());
         if (player == null) return;
         player.estrogen$setChestConfig(packet.config());
+    }
+
+    public static void handleDreamBlockSeed(DreamBlockSeedPacket packet) {
+        DynamicDreamTexture.INSTANCE.changeSeed(packet.newSeed());
     }
 }

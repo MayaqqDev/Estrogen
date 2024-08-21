@@ -4,10 +4,12 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.networking.messages.c2s.SpawnHeartsPacket;
+import dev.mayaqq.estrogen.networking.messages.s2c.DreamBlockSeedPacket;
 import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import dev.mayaqq.estrogen.registry.entities.MothEntity;
 import dev.mayaqq.estrogen.registry.recipes.inventory.EntityInteractionInventory;
 import dev.mayaqq.estrogen.utils.Time;
+import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -25,9 +27,15 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.WorldOptions;
+import org.apache.commons.codec.digest.MessageDigestAlgorithms;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Stream;
 
 import static dev.mayaqq.estrogen.registry.EstrogenAttributes.BOOB_GROWING_START_TIME;
 import static dev.mayaqq.estrogen.registry.EstrogenAttributes.BOOB_INITIAL_SIZE;
@@ -71,6 +79,24 @@ public class EstrogenEvents {
                 double currentTime = Time.currentTime(player.level());
                 player.getAttribute(BOOB_GROWING_START_TIME.get()).setBaseValue(currentTime);
             }
+
+            if(!player.level().isClientSide) {
+                ServerLevel serverLevel = (ServerLevel) player.level();
+                String seedAsString = String.valueOf(serverLevel.getSeed());
+
+                try {
+                    MessageDigest md5 = MessageDigest.getInstance(MessageDigestAlgorithms.MD5);
+                    byte[] digest = md5.digest(seedAsString.getBytes());
+
+                    long newSeed = WorldOptions.parseSeed(new String(digest)).getAsLong();
+
+                    EstrogenNetworkManager.CHANNEL.sendToPlayer(new DreamBlockSeedPacket(newSeed), player);
+
+                } catch (NoSuchAlgorithmException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+
         }
     }
 
