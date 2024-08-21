@@ -4,8 +4,6 @@ import com.simibubi.create.foundation.config.ConfigBase;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.fabric.biome.EstrogenBiomeModifications;
-import dev.mayaqq.estrogen.registry.EstrogenEntities;
-import dev.mayaqq.estrogen.registry.EstrogenPotatoProjectiles;
 import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import fuzs.forgeconfigapiport.api.config.v2.ModConfigEvents;
 import net.fabricmc.api.ModInitializer;

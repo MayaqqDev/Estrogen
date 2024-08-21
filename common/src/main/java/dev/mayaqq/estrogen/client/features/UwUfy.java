@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.client.features;
 
 import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.minecraft.client.Minecraft;
+
 import java.util.regex.Pattern;
 
 public class UwUfy {

@@ -16,8 +16,8 @@ import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockI
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
 import dev.mayaqq.estrogen.client.registry.entityRenderers.moth.MothRenderer;
 import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
-import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.client.registry.trinkets.ThighHighRenderer;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.integrations.ears.EarsCompat;
 import dev.mayaqq.estrogen.platform.ClientPlatform;
 import dev.mayaqq.estrogen.registry.*;

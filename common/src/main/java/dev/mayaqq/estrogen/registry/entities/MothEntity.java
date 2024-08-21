@@ -106,6 +106,7 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
                     this.spawnFuzzyParticle(this.level(), this.getX() - (double) 0.3f, this.getX() + (double) 0.3f, this.getZ() - (double) 0.3f, this.getZ() + (double) 0.3f, this.getY(0.5), getParticleType());
                 }
                 // TODO: Maybe play a cool sound?
+                this.playSound(EstrogenSounds.MOTH_FUZZ_UP.get());
                 this.fuzzingUp();
             }
         }
@@ -142,7 +143,6 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
     }
 
     private ParticleOptions getParticleType() {
-        // TODO: Custom particle
         return EstrogenParticles.MOTH_FUZZ.get();
     }
 
@@ -151,7 +151,7 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
         level.addParticle(particleOption, Mth.lerp(level.random.nextDouble(), startX, endX), posY, Mth.lerp(level.random.nextDouble(), startZ, endZ), 0.0, 0.0, 0.0);
     }
 
-    private State getState() {
+    public State getState() {
         return this.entityData.get(ANIMATION_STATES);
     }
 
@@ -319,20 +319,19 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
 
     @Override
     public SoundEvent getAmbientSound() {
-        // TODO: maybe ambient sound?
         return null;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
         // TODO: custom hurt sound?
-        return SoundEvents.BEE_HURT;
+        return EstrogenSounds.MOTH_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
         // TODO: custom death sound?
-        return SoundEvents.BEE_DEATH;
+        return EstrogenSounds.MOTH_DEATH.get();
     }
 
     @Override
