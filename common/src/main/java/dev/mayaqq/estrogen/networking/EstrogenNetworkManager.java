@@ -7,6 +7,7 @@ import dev.mayaqq.estrogen.networking.messages.c2s.FinishLoadingPacket;
 import dev.mayaqq.estrogen.networking.messages.c2s.SetChestConfigPacket;
 import dev.mayaqq.estrogen.networking.messages.c2s.SpawnHeartsPacket;
 import dev.mayaqq.estrogen.networking.messages.s2c.ChestConfigPacket;
+import dev.mayaqq.estrogen.networking.messages.s2c.DreamBlockSeedPacket;
 
 public class EstrogenNetworkManager {
     public static final NetworkChannel CHANNEL = new NetworkChannel(Estrogen.MOD_ID, 0, "main");
@@ -22,5 +23,6 @@ public class EstrogenNetworkManager {
 
         // S2C
         CHANNEL.register(ChestConfigPacket.TYPE);
+        CHANNEL.register(DreamBlockSeedPacket.TYPE);
     }
 }

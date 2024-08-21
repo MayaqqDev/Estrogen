@@ -24,20 +24,26 @@ public class DynamicDreamTexture {
     private final DynamicTexture texture;
     private final ResourceLocation texID;
     private final RenderType renderType;
+    private long seed = 80085L;
     private int animationTick = 0;
 
     public DynamicDreamTexture() {
         texture = new DynamicTexture(128, 128, false);
         texID = Minecraft.getInstance().getTextureManager().register("dreamy", texture);
         renderType = EstrogenRenderType.DREAM_BLOCK.apply(texID);
-        generateGoobers(8008135L); // TODO: world-based seed
+        generateGoobers();
     }
 
     public RenderType getRenderType() {
         return renderType;
     }
 
-    public void generateGoobers(long seed) {
+    public void changeSeed(long seed) {
+        this.seed = seed;
+        this.generateGoobers();
+    }
+
+    public void generateGoobers() {
         RandomSource random = RandomSource.create(seed);
 
         if(!goobers.isEmpty()) goobers.clear();

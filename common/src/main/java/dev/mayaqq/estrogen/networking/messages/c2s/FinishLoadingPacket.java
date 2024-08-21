@@ -20,7 +20,7 @@ import static dev.mayaqq.estrogen.registry.EstrogenEffects.ESTROGEN_EFFECT;
 
 public record FinishLoadingPacket() implements Packet<FinishLoadingPacket> {
 
-    public static ServerboundPacketType<FinishLoadingPacket> TYPE = new Type();
+    public static final ServerboundPacketType<FinishLoadingPacket> TYPE = new Type();
 
     @Override
     public PacketType<FinishLoadingPacket> type() {

@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.client.registry.trinkets;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.simibubi.create.foundation.render.CachedBufferer;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import earth.terrarium.baubly.client.BaubleRenderer;
 import earth.terrarium.baubly.client.BaublyClient;
