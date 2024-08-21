@@ -1,10 +1,8 @@
 package dev.mayaqq.estrogen.client.registry.trinkets;
 
-import com.jozufozu.flywheel.mixin.matrix.PoseStackMixin;
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
@@ -59,8 +57,7 @@ public class ThighHighRenderer implements BaubleRenderer {
         TransformStack.cast(local)
             .rotate(Direction.SOUTH, 180f * Mth.DEG_TO_RAD)
             .translate(-.5f, -.75f, -.5f);
-        model.forEntityRender()
-            .transform(local).color(color).renderInto(ms, consumer);
+        model.forEntityRender().transform(local).color(color).renderInto(ms, consumer);
         local.popPose();
     }
 }
