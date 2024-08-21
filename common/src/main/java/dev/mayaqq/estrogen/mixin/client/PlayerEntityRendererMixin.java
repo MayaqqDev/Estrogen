@@ -1,8 +1,8 @@
 package dev.mayaqq.estrogen.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.mayaqq.estrogen.client.registry.entityRenderers.mothElytra.MothElytraLayer;
 import dev.mayaqq.estrogen.client.entity.player.features.boobs.BoobFeatureRenderer;
+import dev.mayaqq.estrogen.client.registry.entityRenderers.mothElytra.MothElytraLayer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import org.spongepowered.asm.mixin.Mixin;
