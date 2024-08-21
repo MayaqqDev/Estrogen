@@ -45,7 +45,7 @@ public class ThighHighRenderer implements BaubleRenderer {
         int color1 = EstrogenItems.THIGH_HIGHS.get().getColor(stack, 0);
         int color2 = EstrogenItems.THIGH_HIGHS.get().getColor(stack, 1);
 
-        VertexConsumer buffer = renderTypeBuffer.getBuffer(RenderType.entityCutout(InventoryMenu.BLOCK_ATLAS));
+        VertexConsumer buffer = renderTypeBuffer.getBuffer(RenderType.armorCutoutNoCull(InventoryMenu.BLOCK_ATLAS));
 
         renderThighHigh(buffer, matrixStack, thighHigh, human.leftLeg, color1);
         renderThighHigh(buffer, matrixStack, thighHighOverlay, human.leftLeg, color2);

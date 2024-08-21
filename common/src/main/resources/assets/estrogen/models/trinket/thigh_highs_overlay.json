@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
-	"texture_size": [32, 32],
+	"texture_size": [32, 16],
 	"textures": {
 		"1": "estrogen:item/trinkets/thigh_high_stripes",
-		"particle": "estrogen:item/trinkets/thigh_high"
+		"particle": "estrogen:item/trinkets/thigh_high_stripes"
 	},
 	"elements": [
 		{
@@ -12,10 +12,10 @@
 			"to": [10.3, 12.3, 10.3],
 			"rotation": {"angle": 0, "axis": "x", "origin": [6, 0, 8]},
 			"faces": {
-				"north": {"uv": [14, 2, 16, 8], "texture": "#1"},
-				"east": {"uv": [12, 2, 14, 8], "texture": "#1"},
-				"south": {"uv": [10, 2, 12, 8], "texture": "#1"},
-				"west": {"uv": [8, 2, 10, 8], "texture": "#1"},
+				"north": {"uv": [14, 2, 16, 12], "texture": "#1"},
+				"east": {"uv": [12, 2, 14, 12], "texture": "#1"},
+				"south": {"uv": [10, 2, 12, 12], "texture": "#1"},
+				"west": {"uv": [8, 2, 10, 12], "texture": "#1"},
 				"up": {"uv": [1.875, 2, 0, 0], "texture": "#1"},
 				"down": {"uv": [14, 0, 12, 2], "texture": "#1"}
 			}
@@ -26,10 +26,10 @@
 			"to": [10.4, 12.4, 10.4],
 			"rotation": {"angle": 0, "axis": "y", "origin": [6, 0, 8]},
 			"faces": {
-				"north": {"uv": [6, 2, 8, 8], "texture": "#1"},
-				"east": {"uv": [4, 2, 6, 8], "texture": "#1"},
-				"south": {"uv": [2, 2, 4, 8], "texture": "#1"},
-				"west": {"uv": [0, 2, 2, 8], "texture": "#1"},
+				"north": {"uv": [6, 2, 8, 12], "texture": "#1"},
+				"east": {"uv": [4, 2, 6, 12], "texture": "#1"},
+				"south": {"uv": [2, 2, 4, 12], "texture": "#1"},
+				"west": {"uv": [0, 2, 2, 12], "texture": "#1"},
 				"up": {"uv": [1.875, 2, 0, 0], "texture": "#1"},
 				"down": {"uv": [14, 0, 12, 2], "texture": "#1"}
 			}
