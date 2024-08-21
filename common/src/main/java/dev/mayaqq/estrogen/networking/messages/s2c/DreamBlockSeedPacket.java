@@ -15,7 +15,7 @@ public record DreamBlockSeedPacket(long newSeed) implements Packet<DreamBlockSee
 
     @Override
     public PacketType<DreamBlockSeedPacket> type() {
-        return null;
+        return TYPE;
     }
 
     private static class Type extends CodecPacketType.Client<DreamBlockSeedPacket> {
