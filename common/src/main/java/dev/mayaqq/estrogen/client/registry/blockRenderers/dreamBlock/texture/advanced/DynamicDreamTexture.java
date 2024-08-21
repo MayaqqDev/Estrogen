@@ -31,7 +31,7 @@ public class DynamicDreamTexture {
         texture = new DynamicTexture(128, 128, false);
         texID = Minecraft.getInstance().getTextureManager().register("dreamy", texture);
         renderType = EstrogenRenderType.DREAM_BLOCK.apply(texID);
-        generateGoobers(); // TODO: world-based seed
+        generateGoobers();
     }
 
     public RenderType getRenderType() {
