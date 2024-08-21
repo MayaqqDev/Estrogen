@@ -4,7 +4,6 @@ import com.jozufozu.flywheel.fabric.event.FlywheelEvents;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
-import dev.architectury.event.events.client.ClientPlayerEvent;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.command.EstrogenClientCommands;
 import dev.mayaqq.estrogen.client.config.ConfigSync;

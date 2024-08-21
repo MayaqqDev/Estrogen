@@ -141,21 +141,12 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("subtitles.estrogen.music.inferred_dreams", "erora - Inferred Dreams");
         tb.add("subtitles.estrogen.music.sleeping_dreams", "erora - Sleeping Dreams");
         tb.add("subtitles.estrogen.music.inner_selfrealization", "erora - Inner Selfrealization");
-        tb.add("subtitles.estrogen.cookie_jar.full", "Cookie Jar Full");
-        tb.add("subtitles.estrogen.cookie_jar.place", "Cookie Jar Place");
-        tb.add("subtitles.estrogen.cookie_jar.break", "Cookie Jar Break");
-        tb.add("subtitles.estrogen.cookie_jar.insert", "Cookie Jar Insert");
-        tb.add("subtitles.estrogen.cookie_jar.step", "Cookie Jar Step");
-        tb.add("subtitles.estrogen.pill_box.break", "Estrogen Pill Box Break");
-        tb.add("subtitles.estrogen.pill_box.place", "Estrogen Pill Box Place");
-        tb.add("subtitles.estrogen.pill_box.step", "Estrogen Pill Box Step");
-        tb.add("subtitles.estrogen.dream_block.enter", "Dream Block Enter");
-        tb.add("subtitles.estrogen.dream_block.exit", "Dream Block Exit");
-        tb.add("subtitles.estrogen.dream_block.place", "Dream Block Place");
-        tb.add("subtitles.estrogen.dream_block.dormant_break", "Dormant Dream Block Break");
-        tb.add("subtitles.estrogen.dream_block.dormant_fall", "Dormant Dream Block Fall");
-        tb.add("subtitles.estrogen.dream_block.dormant_place", "Dormant Dream Block Place");
-        tb.add("subtitles.estrogen.dream_block.dormant_step", "Dormant Dream Block Step");
+        tb.add("subtitles.estrogen.cookie_jar.full", "Cookie Jar is full");
+        tb.add("subtitles.estrogen.cookie_jar.insert", "Cookie Jar gets inserted into");
+        tb.add("subtitles.estrogen.entity.moth.death", "Rosy Maple Moth dies");
+        tb.add("subtitles.estrogen.entity.moth.hurt", "Rosy Maple Moth hurts");
+        tb.add("subtitles.estrogen.entity.moth.loop", "Rosy Maple Moth buzzes");
+        tb.add("subtitles.estrogen.entity.moth.fuzz_up", "Rosy Maple Moth fuzzes up");
 
         // Death
         tb.add("death.attack.girlpower", "%s Girlbossed too hard");
