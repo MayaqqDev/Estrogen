@@ -21,7 +21,7 @@ public class EstrogenRenderer {
             .put("Normal", ELEMENT_NORMAL).build()
     );
 
-    public static final PartialModel THIGH_HIGH = new PartialModel(id("trinket/thigh_high"));
+    public static final PartialModel THIGH_HIGH = new PartialModel(id("trinket/thigh_high_base"));
     public static final PartialModel THIGH_HIGH_OVERLAY = new PartialModel(id("trinket/thigh_high_overlay"));
 
     public static final PartialModel CENTRIFUGE_COG = block("centrifuge/cog");
