@@ -3,9 +3,10 @@ package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import dev.mayaqq.estrogen.client.EstrogenClient;
+import dev.mayaqq.estrogen.client.ShaderHelper;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.DreamBlockTexture;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced.DynamicDreamTexture;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -19,10 +20,18 @@ public class DreamBlockRenderer extends SafeBlockEntityRenderer<DreamBlockEntity
 
     public DreamBlockRenderer(BlockEntityRendererProvider.Context context) {}
 
+    public static boolean useAdvancedRenderer() {
+        return switch (EstrogenConfig.client().advancedRendering.get()) {
+            case ALWAYS -> true;
+            case NEVER -> false;
+            case DEFAULT -> !ShaderHelper.isShaderPackInUse();
+        };
+    }
+
     public void renderSafe(@NotNull DreamBlockEntity be, float f, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j) {
         Matrix4f matrix4f = poseStack.last().pose();
 
-        if (!EstrogenClient.useAdvancedRenderer()) {
+        if (!useAdvancedRenderer()) {
             if(be.getTexture() == null) be.setTexture(new DreamBlockTexture(be));
             DreamBlockTexture texture = be.getTexture();
             this.renderCube(texture, matrix4f, multiBufferSource.getBuffer(texture.getRenderType()));

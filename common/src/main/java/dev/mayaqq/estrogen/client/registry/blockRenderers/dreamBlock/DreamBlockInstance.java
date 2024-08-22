@@ -9,7 +9,6 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import dev.mayaqq.estrogen.client.EstrogenClient;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel.DreamData;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced.DynamicDreamTexture;
@@ -122,12 +121,12 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
 
         @Override
         public BlockEntityInstance<? super DreamBlockEntity> createInstance(MaterialManager materialManager, DreamBlockEntity blockEntity) {
-            return EstrogenClient.useAdvancedRenderer() ? new DreamBlockInstance(materialManager, blockEntity) : null;
+            return DreamBlockRenderer.useAdvancedRenderer() ? new DreamBlockInstance(materialManager, blockEntity) : null;
         }
 
         @Override
         public boolean shouldSkipRender(DreamBlockEntity blockEntity) {
-            return EstrogenClient.useAdvancedRenderer();
+            return DreamBlockRenderer.useAdvancedRenderer();
         }
     }
 }
