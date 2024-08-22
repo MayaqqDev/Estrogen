@@ -7,6 +7,7 @@ import dev.mayaqq.estrogen.fabric.biome.EstrogenBiomeModifications;
 import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import fuzs.forgeconfigapiport.api.config.v2.ModConfigEvents;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.minecraftforge.fml.config.ModConfig;
 
 import java.util.Map;
@@ -29,5 +30,6 @@ public class EstrogenFabric implements ModInitializer {
 
         ModConfigEvents.loading(Estrogen.MOD_ID).register(EstrogenConfig::onLoad);
         ModConfigEvents.reloading(Estrogen.MOD_ID).register(EstrogenConfig::onReload);
+
     }
 }

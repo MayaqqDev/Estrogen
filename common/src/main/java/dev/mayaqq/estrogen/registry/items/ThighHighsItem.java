@@ -7,6 +7,8 @@ import earth.terrarium.baubly.common.Bauble;
 import earth.terrarium.baubly.common.SlotInfo;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -14,7 +16,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class ThighHighsItem extends Item implements Bauble {
@@ -22,6 +26,7 @@ public class ThighHighsItem extends Item implements Bauble {
     private final int secondaryColorDefault;
     public static final String TAG_PRIMARY = "primaryColor";
     public static final String TAG_SECONDARY = "secondaryColor";
+    public static final String TAG_STYLE = "specialStyle";
     public ThighHighsItem(Properties properties, int primaryColor, int secondaryColor) {
         super(properties);
         this.primaryColorDefault = primaryColor;
@@ -61,6 +66,25 @@ public class ThighHighsItem extends Item implements Bauble {
     public void setColor(ItemStack stack, int primaryColor, int secondaryColor) {
         stack.getOrCreateTag().putInt(TAG_PRIMARY, primaryColor);
         stack.getOrCreateTag().putInt(TAG_SECONDARY, secondaryColor);
+    }
+
+    public void setStyle(ItemStack stack, ResourceLocation style) {
+        stack.getOrCreateTag().putString(TAG_STYLE, style.toString());
+    }
+
+    public @Nullable ResourceLocation getStyle(ItemStack stack) {
+        CompoundTag tag = stack.getTag();
+        if(tag != null && tag.contains(TAG_STYLE)) {
+            return new ResourceLocation(tag.getString(TAG_STYLE));
+        }
+        return null;
+    }
+
+    public void clearStyle(ItemStack stack) {
+        CompoundTag tag = stack.getTag();
+        if(tag != null) {
+            tag.remove(TAG_STYLE);
+        }
     }
 
     @Override

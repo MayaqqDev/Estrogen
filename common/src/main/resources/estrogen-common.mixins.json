@@ -12,6 +12,7 @@
     "client.ClientPlayNetworkHandlerMixin",
     "client.GameOptionsMixin",
     "client.MinecraftClientMixin",
+    "client.ModelManagerMixin",
     "client.PlayerEntityModelMixin",
     "client.PlayerEntityRendererMixin",
     "client.ReceivingLevelScreenMixin",
