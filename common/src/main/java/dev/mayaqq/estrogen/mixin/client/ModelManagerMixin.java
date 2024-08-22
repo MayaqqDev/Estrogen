@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.mixin.client;
 
-import dev.mayaqq.estrogen.client.interfaces.ModelManagerHelper;
+import dev.mayaqq.estrogen.utils.client.ModelManagerHelper;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.resources.ResourceLocation;

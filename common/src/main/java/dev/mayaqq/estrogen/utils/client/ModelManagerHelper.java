@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.client.interfaces;
+package dev.mayaqq.estrogen.utils.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.BakedModel;

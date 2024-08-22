@@ -1,16 +1,16 @@
 package dev.mayaqq.estrogen.client.registry.trinkets;
 
-import com.jozufozu.flywheel.core.PartialModel;
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.simibubi.create.CreateClient;
 import com.simibubi.create.foundation.render.BakedModelRenderHelper;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
-import dev.mayaqq.estrogen.client.interfaces.ModelManagerHelper;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.items.ThighHighsItem;
+import dev.mayaqq.estrogen.utils.client.ModelManagerHelper;
 import earth.terrarium.baubly.client.BaubleRenderer;
 import earth.terrarium.baubly.client.BaublyClient;
 import earth.terrarium.baubly.common.SlotInfo;
@@ -21,20 +21,13 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelManager;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
-
-import java.util.Optional;
-import java.util.function.Consumer;
 
 public class ThighHighRenderer implements BaubleRenderer {
 
@@ -56,11 +49,8 @@ public class ThighHighRenderer implements BaubleRenderer {
         VertexConsumer buffer = renderTypeBuffer.getBuffer(RenderType.armorCutoutNoCull(InventoryMenu.BLOCK_ATLAS));
 
         if(customStyle != null) {
-            ResourceLocation modelLocation = new ResourceLocation(customStyle.getNamespace(), "thigh_high_styles/" + customStyle.getPath());
-            BakedModel model = ModelManagerHelper.getModel(modelLocation);
-            if(model == null) return;
-
-            SuperByteBuffer customThighHigh = BakedModelRenderHelper.standardModelRender(model, Blocks.AIR.defaultBlockState());
+            // TODO: (prob future release) option to have a model per leg
+            SuperByteBuffer customThighHigh = customThighHighModel(customStyle);
 
             renderThighHigh(buffer, matrixStack, customThighHigh, human.leftLeg, -1);
             renderThighHigh(buffer, matrixStack, customThighHigh, human.rightLeg, -1);
@@ -88,4 +78,13 @@ public class ThighHighRenderer implements BaubleRenderer {
         model.forEntityRender().transform(local).color(color).renderInto(ms, consumer);
         local.popPose();
     }
+
+    private SuperByteBuffer customThighHighModel(ResourceLocation style) {
+        return CreateClient.BUFFER_CACHE.get(EstrogenRenderer.GENERIC, style, () -> {
+                ResourceLocation modelLocation = new ResourceLocation(style.getNamespace(), "thigh_high_styles/" + style.getPath());
+                BakedModel model = ModelManagerHelper.getModel(modelLocation);
+                return BakedModelRenderHelper.standardModelRender((model != null) ? model : Minecraft.getInstance().getModelManager().getMissingModel(), Blocks.AIR.defaultBlockState());
+            });
+    }
+
 }
