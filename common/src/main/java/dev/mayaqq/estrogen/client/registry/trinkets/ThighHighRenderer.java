@@ -46,13 +46,6 @@ public class ThighHighRenderer implements BaubleRenderer {
         BaublyClient.registerBaubleRenderer(EstrogenItems.THIGH_HIGHS.get(), new ThighHighRenderer());
     }
 
-    public static void onModelRegistry(ResourceManager manager, Consumer<ResourceLocation> out) {
-
-        manager.listResources("models/thigh_high_styles", id -> id.getPath().endsWith(".json")).forEach((id, $) -> {
-
-        });
-    }
-
     @Override
     public void render(ItemStack stack, SlotInfo slotContext, PoseStack matrixStack, EntityModel<? extends LivingEntity> entityModel, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 
