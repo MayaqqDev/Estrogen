@@ -33,8 +33,8 @@ public class EstrogenClientFabric implements ClientModInitializer {
         // Pretty fabric way using model loading plugin api
         PreparableModelLoadingPlugin.register(
             (resourceManager, executor) -> CompletableFuture.supplyAsync(() ->
-                LocationResolver.load(resourceManager, "models/thigh_high_styles", "models", ".json")
-            ), (data, pluginContext) -> pluginContext.addModels(data.locations())
+                LocationResolver.load(resourceManager, "models/thigh_high_styles", "models", ".json"), executor),
+            (data, pluginContext) -> pluginContext.addModels(data.locations())
         );
     }
 
