@@ -4,13 +4,10 @@ import dev.mayaqq.estrogen.Estrogen;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelManager;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.profiling.ProfilerFiller;
-import org.checkerframework.checker.units.qual.A;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,7 +19,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @Mixin(ModelBakery.class)
-public abstract class ModelManagerMixin {
+public abstract class ModelBakeryMixin {
 
     @Shadow @Final private Map<ResourceLocation, UnbakedModel> topLevelModels;
 
