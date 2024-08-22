@@ -84,7 +84,7 @@ public class EstrogenConfig {
 
         // Dream Block Config Group
         public final ConfigGroup dreamBlock = group(1, "dreamBlock", "Settings for the dream block");
-        public final ConfigEnum<AdvancedRender> advancedRendering = e(AdvancedRender.DEFAULT, "advancedRendering", "Use advanced renderer for dream blocks, possibly incompatible with iris shaders. DEFAULT disables it automatically when shaders are in use");
+        public final ConfigEnum<DreamBlockRenderState> advancedRendering = e(DreamBlockRenderState.DEFAULT, "advancedRendering", "Use advanced renderer for dream blocks, possibly incompatible with iris shaders. DEFAULT disables it automatically when shaders are in use");
         public final ConfigBool animateTexture = b(true, "animateTexture", "Enable dream block texture animation");
 
         // UI Config Group

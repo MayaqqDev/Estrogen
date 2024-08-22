@@ -1,5 +1,7 @@
 package dev.mayaqq.estrogen.client.config;
 
+import com.jozufozu.flywheel.backend.Backend;
+import dev.mayaqq.estrogen.config.DreamBlockRenderState;
 import dev.mayaqq.estrogen.config.ChestConfig;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
@@ -9,9 +11,11 @@ import net.minecraftforge.fml.config.ModConfig;
 
 public class ConfigSync {
     private static ChestConfig cache;
+    private static DreamBlockRenderState lastRenderValue;
 
     public static void cacheConfig() {
         ConfigSync.cache = currentConfig();
+        lastRenderValue = EstrogenConfig.client().advancedRendering.get();
     }
 
     public static void onLoad(ModConfig modConfig) {
@@ -26,6 +30,13 @@ public class ConfigSync {
             if (ConfigSync.cache == null || !ConfigSync.cache.equals(config)) {
                 sendConfig(config);
                 ConfigSync.cache = config;
+            }
+
+            // Actually properly do dream block instancing
+            DreamBlockRenderState useAdvancedRender = EstrogenConfig.client().advancedRendering.get();
+            if(useAdvancedRender != lastRenderValue) {
+                Backend.reloadWorldRenderers();
+                lastRenderValue = useAdvancedRender;
             }
         }
     }

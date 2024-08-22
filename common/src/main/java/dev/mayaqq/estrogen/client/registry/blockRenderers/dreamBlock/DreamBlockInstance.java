@@ -2,13 +2,13 @@ package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock;
 
 import com.jozufozu.flywheel.api.MaterialManager;
 import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstance;
+import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstancingController;
 import com.jozufozu.flywheel.core.model.BlockModel;
 import com.jozufozu.flywheel.core.model.Model;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import dev.mayaqq.estrogen.client.EstrogenClient;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel.DreamData;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced.DynamicDreamTexture;
@@ -19,6 +19,8 @@ import net.minecraft.core.Direction;
 
 public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
 
+    public static final BlockEntityInstancingController<DreamBlockEntity> CONTROLLER = new Controller();
+
     protected DreamData data;
 
     public DreamBlockInstance(MaterialManager materialManager, DreamBlockEntity blockEntity) {
@@ -27,7 +29,6 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
 
     @Override
     public void init() {
-        if(!EstrogenClient.useAdvancedRenderer()) return;
         data = materialManager.cutout(DynamicDreamTexture.INSTANCE.getRenderType())
             .material(EstrogenRenderer.DREAM)
             .model(blockState, this::buildModel)
@@ -112,13 +113,20 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
 
     @Override
     protected void remove() {
-        if(data == null) return;
         DynamicDreamTexture.removeActive();
         data.delete();
     }
 
-    @Override
-    public boolean shouldReset() {
-        return super.shouldReset() || !EstrogenClient.useAdvancedRenderer();
+    private static class Controller implements BlockEntityInstancingController<DreamBlockEntity> {
+
+        @Override
+        public BlockEntityInstance<? super DreamBlockEntity> createInstance(MaterialManager materialManager, DreamBlockEntity blockEntity) {
+            return DreamBlockRenderer.useAdvancedRenderer() ? new DreamBlockInstance(materialManager, blockEntity) : null;
+        }
+
+        @Override
+        public boolean shouldSkipRender(DreamBlockEntity blockEntity) {
+            return DreamBlockRenderer.useAdvancedRenderer();
+        }
     }
 }

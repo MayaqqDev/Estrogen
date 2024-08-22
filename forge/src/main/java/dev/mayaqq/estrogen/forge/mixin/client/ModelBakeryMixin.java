@@ -39,7 +39,6 @@ public abstract class ModelBakeryMixin {
     public void loadAdditionalModels(BlockColors blockColors, ProfilerFiller profilerFiller, Map<ResourceLocation, BlockModel> modelResources, Map blockStateResources, CallbackInfo ci) {
         modelResources.keySet().forEach(id -> {
             if(id.getPath().startsWith("models/thigh_high_styles")) {
-                Estrogen.LOGGER.info(id.toString());
                 ResourceLocation id2 = MODEL_LISTER.fileToId(id);
                 try {
                     UnbakedModel model = loadBlockModel(id2);

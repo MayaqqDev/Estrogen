@@ -2,8 +2,8 @@ package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.ad
 
 import com.jozufozu.flywheel.backend.Backend;
 import com.mojang.blaze3d.platform.NativeImage;
-import dev.mayaqq.estrogen.client.EstrogenClient;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderType;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
@@ -115,7 +115,7 @@ public class DynamicDreamTexture {
     private boolean cancelAnimation() {
         if(!EstrogenConfig.client().animateTexture.get()) return true;
 
-        boolean ar = EstrogenClient.useAdvancedRenderer();
+        boolean ar = DreamBlockRenderer.useAdvancedRenderer();
         if(Backend.isOn() && ar) return instanceCount == 0;
         if(!ar) clearActive();
         return !ar;
