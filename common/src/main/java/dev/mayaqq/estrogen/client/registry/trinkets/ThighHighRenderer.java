@@ -83,7 +83,10 @@ public class ThighHighRenderer implements BaubleRenderer {
         return CreateClient.BUFFER_CACHE.get(EstrogenRenderer.GENERIC, style, () -> {
                 ResourceLocation modelLocation = new ResourceLocation(style.getNamespace(), "thigh_high_styles/" + style.getPath());
                 BakedModel model = ModelManagerHelper.getModel(modelLocation);
-                return BakedModelRenderHelper.standardModelRender((model != null) ? model : Minecraft.getInstance().getModelManager().getMissingModel(), Blocks.AIR.defaultBlockState());
+                return BakedModelRenderHelper.standardModelRender(
+                    (model != null) ? model : Minecraft.getInstance().getModelManager().getMissingModel(),
+                    Blocks.AIR.defaultBlockState()
+                );
             });
     }
 
