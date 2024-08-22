@@ -8,7 +8,6 @@ import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import fuzs.forgeconfigapiport.api.config.v2.ModConfigEvents;
 import net.fabricmc.api.ModInitializer;
 import net.minecraftforge.fml.config.ModConfig;
-
 import java.util.Map;
 
 public class EstrogenFabric implements ModInitializer {
@@ -29,5 +28,6 @@ public class EstrogenFabric implements ModInitializer {
 
         ModConfigEvents.loading(Estrogen.MOD_ID).register(EstrogenConfig::onLoad);
         ModConfigEvents.reloading(Estrogen.MOD_ID).register(EstrogenConfig::onReload);
+
     }
 }

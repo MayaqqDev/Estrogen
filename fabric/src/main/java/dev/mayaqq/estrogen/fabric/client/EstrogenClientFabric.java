@@ -4,7 +4,9 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.EstrogenClient;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockShader;
 import dev.mayaqq.estrogen.resources.BreastArmorDataLoader;
+import dev.mayaqq.estrogen.utils.LocationResolver;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.model.loading.v1.PreparableModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -22,12 +24,18 @@ public class EstrogenClientFabric implements ClientModInitializer {
         // init Estrogen Client on fabric
         EstrogenClient.init();
         EstrogenFabricClientEvents.register();
-        CoreShaderRegistrationCallback.EVENT.register(context -> {
-                DreamBlockShader.register(context::register);
-            }
-        );
+        CoreShaderRegistrationCallback.EVENT.register(context -> DreamBlockShader.register(context::register));
+
 
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new Listener());
+
+        // This is needed to automatically load all models in models/thigh_high_styles
+        // Pretty fabric way using model loading plugin api
+        PreparableModelLoadingPlugin.register(
+            (resourceManager, executor) -> CompletableFuture.supplyAsync(() ->
+                LocationResolver.load(resourceManager, "models/thigh_high_styles", "models", ".json")
+            ), (data, pluginContext) -> pluginContext.addModels(data.locations())
+        );
     }
 
     private static class Listener implements IdentifiableResourceReloadListener {

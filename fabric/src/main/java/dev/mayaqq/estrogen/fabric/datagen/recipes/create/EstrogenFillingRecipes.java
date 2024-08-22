@@ -15,7 +15,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluids;
-
 import static dev.mayaqq.estrogen.Estrogen.id;
 
 public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends EstrogenProcessingRecipeGen {

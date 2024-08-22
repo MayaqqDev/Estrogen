@@ -119,6 +119,7 @@ loom {
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
 
         mixinConfig("estrogen-common.mixins.json")
+        mixinConfig("estrogen.mixins.json")
     }
 }
 

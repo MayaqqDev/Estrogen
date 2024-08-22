@@ -21,6 +21,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Estrogen.MOD_ID, value = Dist.CLIENT)
 public class EstrogenForgeClientEvents {
+
     @SubscribeEvent
     public static void onGuiRenderEvent(RenderGuiEvent event) {
         DashOverlay.drawOverlay(event.getGuiGraphics());

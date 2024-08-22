@@ -60,13 +60,44 @@ public class ThighHighDyeRecipe extends CustomRecipe {
                 DyeItem leftDye = (DyeItem) leftToItem.getItem();
 
                 ItemStack newThighHighsItem = item.copy();
-                float[] rightColor = rightDye.getDyeColor().getTextureDiffuseColors();
-                float[] leftColor = leftDye.getDyeColor().getTextureDiffuseColors();
-                thighHighsItem.setColor(newThighHighsItem, new Color(leftColor[0], leftColor[1], leftColor[2]).getRGB(), new Color(rightColor[0], rightColor[1], rightColor[2]).getRGB());
+
+                float[] rightColors = rightDye.getDyeColor().getTextureDiffuseColors();
+                float[] leftColors = leftDye.getDyeColor().getTextureDiffuseColors();
+
+                Color newPrimary, newSecondary;
+
+                if(thighHighsItem.hasCustomColor(item)) {
+                    Color oldPrimary = new Color(thighHighsItem.getColor(item, 0));
+                    Color oldSecondary = new Color(thighHighsItem.getColor(item, 1));
+                    newPrimary = multiplyColors(oldPrimary, leftColors);
+                    newSecondary = multiplyColors(oldSecondary, rightColors);
+                } else {
+                    newPrimary = new Color(leftColors[0], leftColors[1], leftColors[2]);
+                    newSecondary = new Color(rightColors[0], rightColors[1], rightColors[2]);
+                }
+
+                thighHighsItem.setColor(newThighHighsItem, newPrimary.getRGB(), newSecondary.getRGB());
                 return newThighHighsItem;
             }
         }
         return ItemStack.EMPTY;
+    }
+
+    protected Color multiplyColors(Color oldColor, float[] dyeColor) {
+        // Normalize the colors before multiplying
+        float nR = oldColor.getRed() / 255f;
+        float nG = oldColor.getGreen() / 255f;
+        float nB = oldColor.getBlue() / 255f;
+        float nDyeR = dyeColor[0] / 255f;
+        float nDyeG = dyeColor[1] / 255f;
+        float nDyeB = dyeColor[2] / 255f;
+
+        return new Color(
+            nR * nDyeR * 255,
+            nG * nDyeG * 255,
+            nB * nDyeB * 255
+        );
+
     }
 
     @Override
