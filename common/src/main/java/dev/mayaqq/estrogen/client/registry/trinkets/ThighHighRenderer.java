@@ -10,7 +10,6 @@ import com.simibubi.create.foundation.render.SuperByteBuffer;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.items.ThighHighsItem;
-import dev.mayaqq.estrogen.utils.client.ModelManagerHelper;
 import earth.terrarium.baubly.client.BaubleRenderer;
 import earth.terrarium.baubly.client.BaublyClient;
 import earth.terrarium.baubly.common.SlotInfo;
@@ -82,11 +81,8 @@ public class ThighHighRenderer implements BaubleRenderer {
     private SuperByteBuffer customThighHighModel(ResourceLocation style) {
         return CreateClient.BUFFER_CACHE.get(EstrogenRenderer.GENERIC, style, () -> {
                 ResourceLocation modelLocation = new ResourceLocation(style.getNamespace(), "thigh_high_styles/" + style.getPath());
-                BakedModel model = ModelManagerHelper.getModel(modelLocation);
-                return BakedModelRenderHelper.standardModelRender(
-                    (model != null) ? model : Minecraft.getInstance().getModelManager().getMissingModel(),
-                    Blocks.AIR.defaultBlockState()
-                );
+                BakedModel model = Minecraft.getInstance().getModelManager().getModel(modelLocation);
+                return BakedModelRenderHelper.standardModelRender(model, Blocks.AIR.defaultBlockState());
             });
     }
 
