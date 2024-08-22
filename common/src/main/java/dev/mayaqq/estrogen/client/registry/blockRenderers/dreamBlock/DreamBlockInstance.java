@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock;
 
 import com.jozufozu.flywheel.api.MaterialManager;
 import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstance;
+import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstancingController;
 import com.jozufozu.flywheel.core.model.BlockModel;
 import com.jozufozu.flywheel.core.model.Model;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -27,7 +28,6 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
 
     @Override
     public void init() {
-        if(!EstrogenClient.useAdvancedRenderer()) return;
         data = materialManager.cutout(DynamicDreamTexture.INSTANCE.getRenderType())
             .material(EstrogenRenderer.DREAM)
             .model(blockState, this::buildModel)
@@ -112,13 +112,20 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
 
     @Override
     protected void remove() {
-        if(data == null) return;
         DynamicDreamTexture.removeActive();
         data.delete();
     }
 
-    @Override
-    public boolean shouldReset() {
-        return super.shouldReset() || !EstrogenClient.useAdvancedRenderer();
+    public static class Controller implements BlockEntityInstancingController<DreamBlockEntity> {
+
+        @Override
+        public BlockEntityInstance<? super DreamBlockEntity> createInstance(MaterialManager materialManager, DreamBlockEntity blockEntity) {
+            return EstrogenClient.useAdvancedRenderer() ? new DreamBlockInstance(materialManager, blockEntity) : null;
+        }
+
+        @Override
+        public boolean shouldSkipRender(DreamBlockEntity blockEntity) {
+            return EstrogenClient.useAdvancedRenderer();
+        }
     }
 }

@@ -56,12 +56,7 @@ public class EstrogenClient {
                 .skipRender(be -> false)
                 .apply();
 
-        InstancedRenderRegistry.configure(EstrogenBlockEntities.DREAM_BLOCK.get())
-                .factory(DreamBlockInstance::new)
-                .skipRender(be -> useAdvancedRenderer())
-                .apply();
-
-
+        InstancedRenderRegistry.setController(EstrogenBlockEntities.DREAM_BLOCK.get(), new DreamBlockInstance.Controller());
 
         // mod compat
         if (CommonHooks.isModLoaded("ears")) {

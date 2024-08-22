@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.config;
 
-public enum AdvancedRender {
+public enum DreamBlockRenderState {
     ALWAYS,
     NEVER,
     DEFAULT
