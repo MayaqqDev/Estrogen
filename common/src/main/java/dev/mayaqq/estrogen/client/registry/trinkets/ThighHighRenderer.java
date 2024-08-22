@@ -51,8 +51,8 @@ public class ThighHighRenderer implements BaubleRenderer {
             // TODO: (prob future release) option to have a model per leg
             SuperByteBuffer customThighHigh = customThighHighModel(customStyle);
 
-            renderThighHigh(buffer, matrixStack, customThighHigh, human.leftLeg, -1);
-            renderThighHigh(buffer, matrixStack, customThighHigh, human.rightLeg, -1);
+            renderThighHigh(buffer, matrixStack, customThighHigh, human.leftLeg, -1, light);
+            renderThighHigh(buffer, matrixStack, customThighHigh, human.rightLeg, -1, light);
         } else {
             SuperByteBuffer thighHigh = CachedBufferer.partial(EstrogenRenderer.THIGH_HIGH, Blocks.AIR.defaultBlockState());
             SuperByteBuffer thighHighOverlay = CachedBufferer.partial(EstrogenRenderer.THIGH_HIGH_OVERLAY, Blocks.AIR.defaultBlockState());
@@ -61,20 +61,20 @@ public class ThighHighRenderer implements BaubleRenderer {
             int color2 = thighHighsItem.getColor(stack, 1);
 
 
-            renderThighHigh(buffer, matrixStack, thighHigh, human.leftLeg, color1);
-            renderThighHigh(buffer, matrixStack, thighHighOverlay, human.leftLeg, color2);
-            renderThighHigh(buffer, matrixStack, thighHigh, human.rightLeg, color1);
-            renderThighHigh(buffer, matrixStack, thighHighOverlay, human.rightLeg, color2);
+            renderThighHigh(buffer, matrixStack, thighHigh, human.leftLeg, color1, light);
+            renderThighHigh(buffer, matrixStack, thighHighOverlay, human.leftLeg, color2, light);
+            renderThighHigh(buffer, matrixStack, thighHigh, human.rightLeg, color1, light);
+            renderThighHigh(buffer, matrixStack, thighHighOverlay, human.rightLeg, color2, light);
         }
     }
 
-    private void renderThighHigh(VertexConsumer consumer, PoseStack ms, SuperByteBuffer model, ModelPart part, int color) {
+    private void renderThighHigh(VertexConsumer consumer, PoseStack ms, SuperByteBuffer model, ModelPart part, int color, int light) {
         local.pushPose();
         part.translateAndRotate(local);
         TransformStack.cast(local)
             .rotate(Direction.SOUTH, 180f * Mth.DEG_TO_RAD)
             .translate(-.5f, -.75f, -.5f);
-        model.forEntityRender().transform(local).color(color).renderInto(ms, consumer);
+        model.forEntityRender().transform(local).light(light).color(color).renderInto(ms, consumer);
         local.popPose();
     }
 
