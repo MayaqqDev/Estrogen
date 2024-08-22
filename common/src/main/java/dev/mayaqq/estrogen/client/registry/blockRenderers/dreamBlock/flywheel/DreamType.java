@@ -20,6 +20,7 @@ public class DreamType implements Instanced<DreamData>, Batched<DreamData> {
     @Override
     public void transform(DreamData d, ModelTransformer.Params b) {
         b.translate(d.posX, d.posY, d.posZ);
+        b.color(0,0, 0, 0);
     }
 
     @Override
