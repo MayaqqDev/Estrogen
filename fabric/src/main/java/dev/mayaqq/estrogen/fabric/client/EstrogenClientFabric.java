@@ -30,6 +30,7 @@ public class EstrogenClientFabric implements ClientModInitializer {
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new Listener());
 
         // This is needed to automatically load all models in models/thigh_high_styles
+        // Pretty fabric way using model loading plugin api
         PreparableModelLoadingPlugin.register(
             (resourceManager, executor) -> CompletableFuture.supplyAsync(() ->
                 LocationResolver.load(resourceManager, "models/thigh_high_styles", "models", ".json")

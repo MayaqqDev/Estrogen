@@ -1,11 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "dev.mayaqq.estrogen.mixin",
+  "package": "dev.mayaqq.estrogen.forge.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
   ],
   "client": [
+    "client.ModelManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

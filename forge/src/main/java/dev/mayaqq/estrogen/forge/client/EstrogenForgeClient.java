@@ -5,9 +5,12 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.EstrogenClient;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockShader;
 import dev.mayaqq.estrogen.resources.BreastArmorDataLoader;
+import dev.mayaqq.estrogen.utils.LocationResolver;
 import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,6 +22,7 @@ import static dev.mayaqq.estrogen.Estrogen.MOD_ID;
 
 @Mod.EventBusSubscriber(modid = Estrogen.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class EstrogenForgeClient {
+
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
         // Config Button
@@ -39,5 +43,4 @@ public class EstrogenForgeClient {
             ShaderInstance instance = new ShaderInstance(event.getResourceProvider(), id, format);
             event.registerShader(instance, shaderConsumer);
         });
-    }
-}
+    }}
