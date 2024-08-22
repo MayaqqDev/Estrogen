@@ -20,6 +20,8 @@ import net.minecraft.core.Direction;
 
 public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
 
+    public static final BlockEntityInstancingController<DreamBlockEntity> CONTROLLER = new Controller();
+
     protected DreamData data;
 
     public DreamBlockInstance(MaterialManager materialManager, DreamBlockEntity blockEntity) {
@@ -116,7 +118,7 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
         data.delete();
     }
 
-    public static class Controller implements BlockEntityInstancingController<DreamBlockEntity> {
+    private static class Controller implements BlockEntityInstancingController<DreamBlockEntity> {
 
         @Override
         public BlockEntityInstance<? super DreamBlockEntity> createInstance(MaterialManager materialManager, DreamBlockEntity blockEntity) {
