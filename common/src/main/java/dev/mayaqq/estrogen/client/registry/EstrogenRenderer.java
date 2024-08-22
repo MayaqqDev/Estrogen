@@ -12,14 +12,8 @@ import static com.mojang.blaze3d.vertex.DefaultVertexFormat.*;
 import static dev.mayaqq.estrogen.Estrogen.id;
 
 public class EstrogenRenderer {
-    public static final StructType<DreamData> DREAM = new DreamType();
 
-    public static final VertexFormat POS_TEX_NORMAL_FORMAT = new VertexFormat(
-        ImmutableMap.<String, VertexFormatElement>builder()
-            .put("Position", ELEMENT_POSITION)
-            .put("UV0", ELEMENT_UV0)
-            .put("Normal", ELEMENT_NORMAL).build()
-    );
+    public static final StructType<DreamData> DREAM = new DreamType();
 
     public static final PartialModel THIGH_HIGH = new PartialModel(id("trinket/thigh_high_base"));
     public static final PartialModel THIGH_HIGH_OVERLAY = new PartialModel(id("trinket/thigh_high_overlay"));
