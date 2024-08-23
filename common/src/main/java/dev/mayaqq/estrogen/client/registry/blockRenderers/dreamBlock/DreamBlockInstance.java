@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock;
 
 import com.jozufozu.flywheel.api.MaterialManager;
+import com.jozufozu.flywheel.api.instance.TickableInstance;
 import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstance;
 import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstancingController;
 import com.jozufozu.flywheel.core.model.BlockModel;
@@ -17,7 +18,7 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 
-public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
+public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> implements TickableInstance {
 
     public static final BlockEntityInstancingController<DreamBlockEntity> CONTROLLER = new Controller();
 
@@ -29,6 +30,9 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
 
     @Override
     public void init() {
+        // Release the basic renderer's texture if it exists
+        if(blockEntity.getTexture() != null) blockEntity.setTexture(null);
+
         data = materialManager.cutout(DynamicDreamTexture.INSTANCE.getRenderType())
             .material(EstrogenRenderer.DREAM)
             .model(blockState, this::buildModel)
@@ -37,8 +41,6 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
         data.setPosition(this.getInstancePosition())
             .setBlockLight(255)
             .setSkyLight(255);
-
-        DynamicDreamTexture.addActive();
     }
 
     protected Model buildModel() {
@@ -53,7 +55,9 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
         this.face(builder, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, Direction.UP);
 
         BufferBuilder.RenderedBuffer buffer = builder.end();
-        return new BlockModel(buffer.vertexBuffer(), buffer.indexBuffer(), buffer.drawState(), 0, "dream_block");
+        BlockModel model = new BlockModel(buffer.vertexBuffer(), buffer.indexBuffer(), buffer.drawState(), 0, "dream_block");
+        buffer.release();
+        return model;
     }
 
     private void face(VertexConsumer builder, float x0, float x1, float y0, float y1, float z0, float z1, float z2, float z3, Direction direction) {
@@ -99,11 +103,10 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
         if (isBorder) {
             builder.color(0xffffffff);
         } else {
-            // Using normal to detect border here
+            // Using color to detect border here
             builder.color(0);
         }
 
-        // TODO: Pos-Color vertex format
         builder.uv(0, 0)
             .overlayCoords(OverlayTexture.NO_OVERLAY)
             .uv2(LightTexture.FULL_BRIGHT)
@@ -113,8 +116,17 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> {
 
     @Override
     protected void remove() {
-        DynamicDreamTexture.removeActive();
         data.delete();
+    }
+
+    @Override
+    public void tick() {
+        DynamicDreamTexture.setActive();
+    }
+
+    @Override
+    public boolean decreaseTickRateWithDistance() {
+        return false;
     }
 
     private static class Controller implements BlockEntityInstancingController<DreamBlockEntity> {
