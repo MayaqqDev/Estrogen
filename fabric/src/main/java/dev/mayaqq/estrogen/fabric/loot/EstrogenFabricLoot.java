@@ -49,21 +49,4 @@ public class EstrogenFabricLoot {
             builder.pool(pool);
         }
     }
-
-    private static class SetThighHighStyleFunction extends LootItemConditionalFunction {
-
-        protected SetThighHighStyleFunction(LootItemCondition[] predicates) {
-            super(predicates);
-        }
-
-        @Override
-        protected ItemStack run(ItemStack stack, LootContext context) {
-            return null;
-        }
-
-        @Override
-        public LootItemFunctionType getType() {
-            return null;
-        }
-    }
 }
