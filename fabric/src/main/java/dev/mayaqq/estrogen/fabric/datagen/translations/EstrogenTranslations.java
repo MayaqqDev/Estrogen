@@ -200,5 +200,8 @@ public class EstrogenTranslations extends FabricLanguageProvider {
 
         // Display Sources
         tb.add("estrogen.display_source.entity_name", "Entity Name");
+
+        // Mod Menu
+        tb.add("estrogen.credits", "Credits & Contributors");
     }
 }
