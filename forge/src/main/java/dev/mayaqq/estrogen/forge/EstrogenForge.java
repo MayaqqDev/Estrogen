@@ -31,7 +31,7 @@ import static dev.mayaqq.estrogen.Estrogen.MOD_ID;
 public class EstrogenForge {
 
     private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS =
-        DeferredRegister.create(ForgeRegistries.GLOBAL_LOOT_MODIFIER_SERIALIZERS.get(), MOD_ID);
+        DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MOD_ID);
 
     public EstrogenForge() {
         // Config

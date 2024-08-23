@@ -26,12 +26,13 @@ import java.util.stream.Stream;
 
 public class EstrogenFabricLoot {
 
-    private static final List<ResourceLocation> LOOT_LOCATIONS = Stream.of(
+    public static final List<ResourceLocation> LOOT_LOCATIONS = Stream.of(
         "minecraft:chests/woodland_mansion",
         "minecraft:chests/buried_treasure",
         "minecraft:chests/abandoned_mineshaft",
         "minecraft:chests/shipwreck_supply",
-        "minecraft:chests/end_city"
+        "minecraft:chests/end_city",
+        "minecraft:chests/ancient_city"
         ).map(ResourceLocation::new).toList();
 
     public static void onModifyLootTable(ResourceManager resourceManager, LootDataManager lootManager, ResourceLocation id, LootTable.Builder builder, LootTableSource source) {
