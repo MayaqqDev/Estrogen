@@ -3,12 +3,12 @@
   "id": "estrogen",
   "version": "${version}-fabric",
   "name": "Create: Estrogen",
-  "description": "Create Addon Based around expressing yourself, fluid handling and expanding your factory. This mods add a lot of new Items, Blocks, Mechanics and more!",
+  "description": "Create Addon Based around expressing yourself, fluid handling and expanding your factory. This mod adds a lot of new Items, Blocks, Mechanics and more!",
   "authors": [
-    "Mayaqq"
+    "Author: Mayaqq"
   ],
   "contributors": [
-    "${contributors}"
+    "For more click Credits & Contributors link above"
   ],
   "contact": {
     "repo": "https://github.com/MayaqqDev/Estrogen",
@@ -60,6 +60,7 @@
   "custom": {
     "modmenu": {
       "links": {
+        "estrogen.credits": "https://github.com/MayaqqDev/Estrogen/wiki/Credits",
         "modmenu.discord": "https://discord.gg/hue",
         "modmenu.kofi": "https://ko-fi.com/mayaqq",
         "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/estrogen",

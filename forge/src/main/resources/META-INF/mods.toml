@@ -7,12 +7,12 @@ modId = "estrogen"
 version = "${version}-forge"
 displayName = "Create: Estrogen"
 logoFile = "assets/estrogen/icon.png"
-credits = "${contributors}"
+credits = "https://github.com/MayaqqDev/Estrogen/wiki/Credits"
 authors = "Mayaqq"
 
 # Description
 description = '''
-Create Addon Based around expressing yourself, fluid handling and expanding your factory. This mods add a lot of new Items, Blocks, Mechanics and more!
+Create Addon Based around expressing yourself, fluid handling and expanding your factory. This mod adds a lot of new Items, Blocks, Mechanics and more!
 
 Wiki: https://github.com/MayaqqDev/Estrogen/wiki
 Discord: https://discord.gg/hue

@@ -147,6 +147,8 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("subtitles.estrogen.entity.moth.hurt", "Rosy Maple Moth hurts");
         tb.add("subtitles.estrogen.entity.moth.loop", "Rosy Maple Moth buzzes");
         tb.add("subtitles.estrogen.entity.moth.fuzz_up", "Rosy Maple Moth fuzzes up");
+        tb.add("subtitles.estrogen.dream_block.enter", "Dream Block entered");
+        tb.add("subtitles.estrogen.dream_block.exit", "Dream Block exited");
 
         // Death
         tb.add("death.attack.girlpower", "%s Girlbossed too hard");
@@ -198,5 +200,8 @@ public class EstrogenTranslations extends FabricLanguageProvider {
 
         // Display Sources
         tb.add("estrogen.display_source.entity_name", "Entity Name");
+
+        // Mod Menu
+        tb.add("estrogen.credits", "Credits & Contributors");
     }
 }
