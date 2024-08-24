@@ -3,4 +3,6 @@ Styles can be found in <resources>/data/estrogen/thigh_high_styles.json
 
 The rendered textures go into textures/thigh_highs but can really be anywhere
 
-delete this when we got all the pride textures :3
+delete this txt file when we got all the pride textures :3
+
+-sery (dumb cat)
