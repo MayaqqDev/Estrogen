@@ -2,9 +2,10 @@ package dev.mayaqq.estrogen.forge.mixin.client;
 
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.forge.client.models.ForgeThighHighItemModel;
-import dev.mayaqq.estrogen.utils.client.EstrogenCommonPaths;
+import dev.mayaqq.estrogen.utils.client.EstrogenClientPaths;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.block.model.BlockModel;
+import net.minecraft.client.resources.TextureAtlasHolder;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.FileToIdConverter;
@@ -41,7 +42,7 @@ public abstract class ModelBakeryMixin {
     )
     public void loadAdditionalModels(BlockColors blockColors, ProfilerFiller profilerFiller, Map<ResourceLocation, BlockModel> modelResources, Map blockStateResources, CallbackInfo ci) {
         modelResources.keySet().forEach(id -> {
-            if(id.getPath().startsWith(EstrogenCommonPaths.THIGH_HIGH_MODELS_DIRECTORY)) {
+            if(id.getPath().startsWith(EstrogenClientPaths.THIGH_HIGH_MODELS_DIRECTORY)) {
                 ResourceLocation id2 = MODEL_LISTER.fileToId(id);
                 try {
                     UnbakedModel model = loadBlockModel(id2);
@@ -63,7 +64,7 @@ public abstract class ModelBakeryMixin {
         )
     )
     public UnbakedModel wrapModel(ModelBakery instance, ResourceLocation modelLocation) {
-        if(modelLocation.equals(EstrogenCommonPaths.THIGH_HIGH_ITEM_LOCATION)) {
+        if(modelLocation.equals(EstrogenClientPaths.THIGH_HIGH_ITEM_LOCATION)) {
             return new ForgeThighHighItemModel(getModel(modelLocation));
         }
         return getModel(modelLocation);

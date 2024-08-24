@@ -1,6 +1,6 @@
 {
   "parent": "estrogen:trinket/thigh_high",
   "textures": {
-    "0": "estrogen:item/thigh_highs/pride/polysexual"
+    "0": "estrogen:thigh_highs/pride/genderqueer"
   }
 }

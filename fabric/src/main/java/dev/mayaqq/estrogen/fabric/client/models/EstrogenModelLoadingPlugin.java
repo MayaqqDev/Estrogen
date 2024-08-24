@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.client.model.loading.v1.PreparableModelLoadingPlu
 import net.minecraft.server.packs.resources.ResourceManager;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
-import static dev.mayaqq.estrogen.utils.client.EstrogenCommonPaths.*;
+import static dev.mayaqq.estrogen.utils.client.EstrogenClientPaths.*;
 
 public class EstrogenModelLoadingPlugin implements PreparableModelLoadingPlugin<EstrogenModelLoadingPlugin.Preparations> {
 

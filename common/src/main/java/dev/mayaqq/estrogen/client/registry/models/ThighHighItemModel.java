@@ -74,7 +74,7 @@ public abstract class ThighHighItemModel<T extends BakedModel & UnbakedModel> im
 
     private static ResourceLocation textureToStyleLocation(ResourceLocation original) {
         String path = original.getPath();
-        int length = "item/thigh_highs/styles/".length();
+        int length = "item/thigh_highs/".length();
         return new ResourceLocation(original.getNamespace(), path.substring(length));
     }
 

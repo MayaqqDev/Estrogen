@@ -2,7 +2,7 @@ package dev.mayaqq.estrogen.forge.mixin.client;
 
 import dev.mayaqq.estrogen.forge.client.models.ForgeThighHighItemModel;
 import dev.mayaqq.estrogen.utils.LocationResolver;
-import dev.mayaqq.estrogen.utils.client.EstrogenCommonPaths;
+import dev.mayaqq.estrogen.utils.client.EstrogenClientPaths;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -24,7 +24,7 @@ public class ModelManagerMixin {
     )
     public void loadLocationResolver(PreparableReloadListener.PreparationBarrier preparationBarrier, ResourceManager resourceManager, ProfilerFiller preparationsProfiler, ProfilerFiller reloadProfiler, Executor backgroundExecutor, Executor gameExecutor, CallbackInfoReturnable<CompletableFuture<Void>> cir) {
         ForgeThighHighItemModel.forgeLocationResolver.set(
-            LocationResolver.load(resourceManager, EstrogenCommonPaths.THIGH_HIGH_ITEM_TEXTURES, "textures", ".png")
+            LocationResolver.load(resourceManager, EstrogenClientPaths.THIGH_HIGH_ITEM_TEXTURES, "textures", ".png")
         );
     }
 }
