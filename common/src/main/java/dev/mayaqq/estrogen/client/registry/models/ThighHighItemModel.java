@@ -51,7 +51,6 @@ public abstract class ThighHighItemModel<T extends BakedModel & UnbakedModel> im
         for(ResourceLocation sprite : spriteResolver.locations()) {
             Material material = new Material(InventoryMenu.BLOCK_ATLAS, sprite);
 
-            Estrogen.LOGGER.info(sprite.toString());
             // Nothing but the sprites here actually matters
             BlockModel model = new BlockModel(
                 null,
