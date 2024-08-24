@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.fabric.client.models;
 
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.registry.models.ThighHighItemModel;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.utils.LocationResolver;
@@ -17,7 +16,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
