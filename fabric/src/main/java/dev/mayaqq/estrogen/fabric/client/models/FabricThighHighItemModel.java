@@ -27,7 +27,6 @@ public class FabricThighHighItemModel extends ThighHighItemModel<FabricThighHigh
 
     public FabricThighHighItemModel(UnbakedModel defaultModel, LocationResolver spriteLocations) {
         super(new Default(defaultModel), spriteLocations);
-        Estrogen.LOGGER.info(String.valueOf(spriteLocations.locations().size()));
     }
 
     @Override
