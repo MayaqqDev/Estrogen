@@ -100,11 +100,6 @@ public abstract class ThighHighItemModel<T extends BakedModel & UnbakedModel> im
     }
 
     @Override
-    public boolean isCustomRenderer() {
-        return true;
-    }
-
-    @Override
     public TextureAtlasSprite getParticleIcon() {
         return defaultModel.getParticleIcon();
     }

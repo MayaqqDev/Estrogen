@@ -44,6 +44,12 @@ public class FabricThighHighItemModel extends ThighHighItemModel<FabricThighHigh
         );
     }
 
+    // True on fabric falso on forg
+    @Override
+    public boolean isCustomRenderer() {
+        return true;
+    }
+
     @Override
     public boolean isVanillaAdapter() {
         return false;
