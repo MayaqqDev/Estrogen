@@ -39,18 +39,15 @@ public class ForgeThighHighItemModel extends ThighHighItemModel<ForgeThighHighIt
         super(new Default(defaultModel), forgeLocationResolver.get());
     }
 
-    public BakedModel getModelForStack(ItemStack stack) {
-        return EstrogenItems.THIGH_HIGHS.get()
-            .getStyle(stack)
-            .map(styleModels::get)
-            .orElse(defaultModel);
-    }
-
     @Override
     public List<BakedModel> getRenderPasses(ItemStack itemStack, boolean fabulous) {
-        return List.of(getModelForStack(itemStack));
+        return List.of(EstrogenItems.THIGH_HIGHS.get()
+            .getStyle(itemStack)
+            .map(styleModels::get)
+            .orElse(defaultModel));
     }
 
+    // This needs to return false on forge and true on fabric
     @Override
     public boolean isCustomRenderer() {
         return false;
