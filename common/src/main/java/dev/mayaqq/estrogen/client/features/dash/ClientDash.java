@@ -86,6 +86,7 @@ public class ClientDash {
 
             // End Dash
             if (dashCooldown == 0) {
+                CommonDash.removeDashing(player.getUUID());
                 if (!player.isFallFlying()) {
                     player.setDeltaMovement(dashDirection.scale(DASH_END_SPEED).scale(dashDeltaModifier));
                 }
