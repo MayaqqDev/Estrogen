@@ -1,6 +1,10 @@
 package dev.mayaqq.estrogen.forge.mixin.client;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.mayaqq.estrogen.Estrogen;
+import dev.mayaqq.estrogen.forge.client.models.ForgeThighHighItemModel;
+import dev.mayaqq.estrogen.utils.client.EstrogenClientPaths;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.ModelBakery;
@@ -14,7 +18,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import java.io.IOException;
 import java.util.Map;
 
@@ -38,7 +41,7 @@ public abstract class ModelBakeryMixin {
     )
     public void loadAdditionalModels(BlockColors blockColors, ProfilerFiller profilerFiller, Map<ResourceLocation, BlockModel> modelResources, Map blockStateResources, CallbackInfo ci) {
         modelResources.keySet().forEach(id -> {
-            if(id.getPath().startsWith("models/thigh_high_styles")) {
+            if(id.getPath().startsWith(EstrogenClientPaths.THIGH_HIGH_MODELS_DIRECTORY)) {
                 ResourceLocation id2 = MODEL_LISTER.fileToId(id);
                 try {
                     UnbakedModel model = loadBlockModel(id2);
@@ -51,4 +54,20 @@ public abstract class ModelBakeryMixin {
             }
         });
     }
+
+    @WrapOperation(
+        method = "loadTopLevel",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/client/resources/model/ModelBakery;getModel(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/resources/model/UnbakedModel;"
+        )
+    )
+    public UnbakedModel wrapModel(ModelBakery instance, ResourceLocation modelLocation, Operation<UnbakedModel> original) {
+        if(modelLocation.equals(EstrogenClientPaths.THIGH_HIGH_ITEM_LOCATION)) {
+            return new ForgeThighHighItemModel(original.call(instance, modelLocation));
+        }
+        return original.call(instance, modelLocation);
+    }
+
+
 }

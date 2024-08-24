@@ -3,8 +3,8 @@ package dev.mayaqq.estrogen.fabric.client;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.EstrogenClient;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockShader;
+import dev.mayaqq.estrogen.fabric.client.models.EstrogenModelLoadingPlugin;
 import dev.mayaqq.estrogen.resources.BreastArmorDataLoader;
-import dev.mayaqq.estrogen.utils.LocationResolver;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.model.loading.v1.PreparableModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
@@ -14,7 +14,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
@@ -31,12 +30,9 @@ public class EstrogenClientFabric implements ClientModInitializer {
 
         // This is needed to automatically load all models in models/thigh_high_styles
         // Pretty fabric way using model loading plugin api
-        PreparableModelLoadingPlugin.register(
-            (resourceManager, executor) -> CompletableFuture.supplyAsync(() ->
-                LocationResolver.load(resourceManager, "models/thigh_high_styles", "models", ".json"), executor),
-            (data, pluginContext) -> pluginContext.addModels(data.locations())
-        );
+        PreparableModelLoadingPlugin.register(EstrogenModelLoadingPlugin::prepare, EstrogenModelLoadingPlugin.INSTANCE);
     }
+
 
     private static class Listener implements IdentifiableResourceReloadListener {
 
