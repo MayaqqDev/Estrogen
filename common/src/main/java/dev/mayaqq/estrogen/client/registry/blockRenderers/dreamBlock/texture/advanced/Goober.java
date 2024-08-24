@@ -56,13 +56,13 @@ public class Goober {
         style.draw(pixels, x, y, col, currentFrame);
     }
 
-    public void tickAnimation(int tick, Runnable redraw) {
+    public void tickAnimation(int tick, Runnable drawCallback) {
         if(tick == frameTick) {
             currentFrame++;
             if(currentFrame == style.frameCount()) {
                 currentFrame = 0;
             }
-            RenderSystem.recordRenderCall(redraw::run);
+            RenderSystem.recordRenderCall(drawCallback::run);
         }
     }
 
@@ -86,7 +86,7 @@ public class Goober {
     }
 
     public enum Style implements WeightedEntry {
-        PIXEL(2, List.of(NativeImage::setPixelRGBA)), // Pixel has a lower weight because any node drawn on a border becomes a pixel
+        PIXEL(2, List.of(NativeImage::setPixelRGBA)), // Pixel has a lower weight because it has much more placement possibilities
         STAR(5, List.of((image, x, y, color) -> {
                 image.setPixelRGBA(x + 1, y, color);
                 image.setPixelRGBA(x, y + 1, color);

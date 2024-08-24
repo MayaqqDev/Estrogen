@@ -31,14 +31,15 @@ public class DreamBlockRenderer extends SafeBlockEntityRenderer<DreamBlockEntity
     public void renderSafe(@NotNull DreamBlockEntity be, float f, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j) {
         Matrix4f matrix4f = poseStack.last().pose();
 
-        if (!useAdvancedRenderer()) {
+        if (useAdvancedRenderer()) {
+            if (be.getTexture() != null) be.setTexture(null);
+            DynamicDreamTexture.setActive();
+            this.renderCubeShader(be, matrix4f, multiBufferSource.getBuffer(DynamicDreamTexture.INSTANCE.getRenderType()));
+        } else {
             if(be.getTexture() == null) be.setTexture(new DreamBlockTexture(be));
             DreamBlockTexture texture = be.getTexture();
             this.renderCube(texture, matrix4f, multiBufferSource.getBuffer(texture.getRenderType()));
             texture.animate(); // not good to call this each frame will optimize in the future
-        } else {
-            if(be.getTexture() != null) be.setTexture(null);
-            this.renderCubeShader(be, matrix4f, multiBufferSource.getBuffer(DynamicDreamTexture.INSTANCE.getRenderType()));
         }
     }
 

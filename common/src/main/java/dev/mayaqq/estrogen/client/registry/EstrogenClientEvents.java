@@ -26,7 +26,7 @@ import java.util.function.Supplier;
 public class EstrogenClientEvents {
     public static void onDisconnect() {
         UwUfy.disconnect();
-        DynamicDreamTexture.clearActive();
+        DynamicDreamTexture.resetActive();
     }
 
     public static void onRegisterParticles(BiConsumer<ParticleType<SimpleParticleType>, EstrogenParticleRegistrator<SimpleParticleType>> consumer) {
@@ -43,7 +43,7 @@ public class EstrogenClientEvents {
     }
 
     public static void onReloadRenderer(ClientLevel world) {
-        if(!Backend.canUseInstancing(world)) DynamicDreamTexture.clearActive();
+        if(!Backend.canUseInstancing(world)) DynamicDreamTexture.resetActive();
     }
 
     @FunctionalInterface

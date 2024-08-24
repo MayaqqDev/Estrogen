@@ -7,6 +7,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.TagLoader;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -22,6 +23,7 @@ public class DreamBlockEntity extends BlockEntity {
     @Environment(EnvType.CLIENT)
     public void setTexture(@Nullable DreamBlockTexture tex) {
         if(tex != null) tex.init();
+        if(this.texture != null) this.texture.getTextureMap().release();
         this.texture = tex;
     }
 
@@ -45,7 +47,6 @@ public class DreamBlockEntity extends BlockEntity {
     }
 
     public boolean isTouchingDreamBlock(Direction face) {
-       // return this.level.getBlockEntity(this.getBlockPos().relative(face)) instanceof DreamBlockEntity;
         return getBlockState().getValue(DreamBlock.directionProperty(face));
     }
 }

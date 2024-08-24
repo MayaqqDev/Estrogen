@@ -1,7 +1,7 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced;
 
-import com.jozufozu.flywheel.backend.Backend;
 import com.mojang.blaze3d.platform.NativeImage;
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderType;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
@@ -14,11 +14,14 @@ import net.minecraft.util.random.WeightedEntry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DynamicDreamTexture {
 
     public static final DynamicDreamTexture INSTANCE = new DynamicDreamTexture();
-    private static int instanceCount = 0;
+    public static boolean enableAnimation = true;
+
+    private static final AtomicBoolean shouldAnimate = new AtomicBoolean();
 
     private final List<Goober> goobers = new ArrayList<>(); //:
     private final DynamicTexture texture;
@@ -102,41 +105,28 @@ public class DynamicDreamTexture {
     }
 
     public void tick() {
-        if(cancelAnimation()) return;
         animationTick++;
         if(animationTick == 10) {
             animationTick = 0;
         }
-        for(Goober goober : goobers) {
-            goober.tickAnimation(animationTick, this::draw);
+        if(shouldAnimate()) {
+            for (Goober goober : goobers) {
+                goober.tickAnimation(animationTick, this::draw);
+            }
         }
     }
 
-    private boolean cancelAnimation() {
-        if(!EstrogenConfig.client().animateTexture.get()) return true;
-
-        boolean ar = DreamBlockRenderer.useAdvancedRenderer();
-        if(Backend.isOn() && ar) return instanceCount == 0;
-        if(!ar) clearActive();
-        return !ar;
+    private boolean shouldAnimate() {
+        if(!enableAnimation) return false;
+        return DreamBlockRenderer.useAdvancedRenderer() && shouldAnimate.get();
     }
 
-    public static void tickInstance() {
-        if(INSTANCE != null) INSTANCE.tick();
+    public static void setActive() {
+        shouldAnimate.set(true);
     }
 
-    public static void addActive() {
-        instanceCount++;
-    }
-
-    public static void removeActive() {
-        if(instanceCount > 0) {
-            instanceCount--;
-        }
-    }
-
-    public static void clearActive() {
-        instanceCount = 0;
+    public static void resetActive() {
+        shouldAnimate.set(false);
     }
 
 }

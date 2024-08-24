@@ -28,6 +28,8 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
+import java.util.Optional;
+
 public class ThighHighRenderer implements BaubleRenderer {
 
     PoseStack local = new PoseStack();
@@ -44,12 +46,12 @@ public class ThighHighRenderer implements BaubleRenderer {
         if(!(entityModel instanceof HumanoidModel<? extends LivingEntity> human)) return;
 
         ThighHighsItem thighHighsItem = EstrogenItems.THIGH_HIGHS.get();
-        ResourceLocation customStyle = thighHighsItem.getStyle(stack);
+        Optional<ResourceLocation> customStyle = thighHighsItem.getStyle(stack);
         VertexConsumer buffer = renderTypeBuffer.getBuffer(RenderType.armorCutoutNoCull(InventoryMenu.BLOCK_ATLAS));
 
-        if(customStyle != null) {
+        if(customStyle.isPresent()) {
             // TODO: (prob future release) option to have a model per leg
-            SuperByteBuffer customThighHigh = customThighHighModel(customStyle);
+            SuperByteBuffer customThighHigh = customThighHighModel(customStyle.get());
 
             renderThighHigh(buffer, matrixStack, customThighHigh, human.leftLeg, -1, light);
             renderThighHigh(buffer, matrixStack, customThighHigh, human.rightLeg, -1, light);
@@ -59,7 +61,6 @@ public class ThighHighRenderer implements BaubleRenderer {
 
             int color1 = thighHighsItem.getColor(stack, 0);
             int color2 = thighHighsItem.getColor(stack, 1);
-
 
             renderThighHigh(buffer, matrixStack, thighHigh, human.leftLeg, color1, light);
             renderThighHigh(buffer, matrixStack, thighHighOverlay, human.leftLeg, color2, light);
@@ -73,6 +74,7 @@ public class ThighHighRenderer implements BaubleRenderer {
         part.translateAndRotate(local);
         TransformStack.cast(local)
             .rotate(Direction.SOUTH, 180f * Mth.DEG_TO_RAD)
+            .scale(1.05f)
             .translate(-.5f, -.75f, -.5f);
         model.forEntityRender().transform(local).light(light).color(color).renderInto(ms, consumer);
         local.popPose();
