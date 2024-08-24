@@ -29,9 +29,6 @@ dependencies {
     // JEI
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
 
-    // Cosmetics
-    implementation("com.teamresourceful:resourceful-cosmetics-4j:${rootProject.resourceful_cosmetics_version}")
-
     // Iris Shaders (needed for check)
     modCompileOnly "maven.modrinth:iris:1.7.2+1.20.1"
 }
