@@ -56,14 +56,15 @@ public class Goober {
         style.draw(pixels, x, y, col, currentFrame);
     }
 
-    public void tickAnimation(int tick, Runnable drawCallback) {
+    public boolean tickAnimation(int tick) {
         if(tick == frameTick) {
             currentFrame++;
             if(currentFrame == style.frameCount()) {
                 currentFrame = 0;
             }
-            RenderSystem.recordRenderCall(drawCallback::run);
+            return true;
         }
+        return false;
     }
 
     public enum Color {

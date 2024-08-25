@@ -1,8 +1,10 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced;
 
 import com.mojang.blaze3d.platform.NativeImage;
+import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderType;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -21,7 +23,7 @@ public class DynamicDreamTexture {
 
     private static final AtomicBoolean shouldAnimate = new AtomicBoolean();
 
-    private final List<Goober> goobers = new ArrayList<>(); //:
+    private final List<Goober> goobers = new ObjectArrayList<>(); //:
     private DynamicTexture texture;
     private ResourceLocation texID;
     private RenderType renderType;
@@ -120,16 +122,15 @@ public class DynamicDreamTexture {
         if(animationTick == 10) {
             animationTick = 0;
         }
-        if(shouldAnimate()) {
-            for (Goober goober : goobers) {
-                goober.tickAnimation(animationTick, this::draw);
-            }
+        boolean redraw = false;
+        for (Goober goober : goobers) {
+            if(goober.tickAnimation(animationTick)) redraw = true;
         }
+        if(shouldAnimate() && redraw) RenderSystem.recordRenderCall(this::draw);
     }
 
     private boolean shouldAnimate() {
-        if(!enableAnimation) return false;
-        return DreamBlockRenderer.useAdvancedRenderer() && shouldAnimate.get();
+        return enableAnimation && DreamBlockRenderer.useAdvancedRenderer() && shouldAnimate.get();
     }
 
     public static void setActive() {
