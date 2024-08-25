@@ -74,7 +74,6 @@ public class ThighHighRenderer implements BaubleRenderer {
         part.translateAndRotate(local);
         TransformStack.cast(local)
             .rotate(Direction.SOUTH, 180f * Mth.DEG_TO_RAD)
-            .scale(1.05f)
             .translate(-.5f, -.75f, -.5f);
         model.forEntityRender().transform(local).light(light).color(color).renderInto(ms, consumer);
         local.popPose();
