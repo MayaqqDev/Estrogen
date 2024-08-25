@@ -33,8 +33,6 @@ import java.util.Optional;
 
 public class ThighHighRenderer implements BaubleRenderer {
 
-    PoseStack local = new PoseStack();
-
     public ThighHighRenderer() {}
 
     public static void register() {
@@ -71,12 +69,10 @@ public class ThighHighRenderer implements BaubleRenderer {
     }
 
     private void renderThighHigh(VertexConsumer consumer, PoseStack ms, SuperByteBuffer model, ModelPart part, int color, int light) {
-        local.pushPose();
-        part.translateAndRotate(local);
-        local.mulPose(Axis.ZP.rotationDegrees(180f));
-        local.translate(-.5f, -.75f, -.5f);
-        model.forEntityRender().transform(local).light(light).color(color).renderInto(ms, consumer);
-        local.popPose();
+        part.translateAndRotate(model.getTransforms());
+        model.multiply(Axis.ZP.rotationDegrees(180f));
+        model.translate(-.5f, -.75f, -.5f);
+        model.forEntityRender().light(light).color(color).renderInto(ms, consumer);
     }
 
     private SuperByteBuffer customThighHighModel(ResourceLocation style) {
