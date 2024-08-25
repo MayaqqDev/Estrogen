@@ -37,7 +37,8 @@ public class Goober {
     public boolean tooClose(int x, int y) {
         int difX = Math.abs(this.x - x);
         int difY = Math.abs(this.y - y);
-        return (difX < 8 && difY < 8 || ((difX < 6 || difY < 6) && style != Style.PIXEL));
+        if(style == Style.PIXEL) return (difX < 2 && difY < 2);
+        return (difX < 8 && difY < 8 || difX < 6 || difY < 6);
     }
 
     public void draw(NativeImage pixels) {
@@ -56,14 +57,15 @@ public class Goober {
         style.draw(pixels, x, y, col, currentFrame);
     }
 
-    public void tickAnimation(int tick, Runnable drawCallback) {
+    public boolean tickAnimation(int tick) {
         if(tick == frameTick) {
             currentFrame++;
             if(currentFrame == style.frameCount()) {
                 currentFrame = 0;
             }
-            RenderSystem.recordRenderCall(drawCallback::run);
+            return true;
         }
+        return false;
     }
 
     public enum Color {

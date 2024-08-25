@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.client.registry.trinkets;
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import com.simibubi.create.CreateClient;
 import com.simibubi.create.foundation.render.BakedModelRenderHelper;
 import com.simibubi.create.foundation.render.CachedBufferer;
@@ -31,8 +32,6 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.Optional;
 
 public class ThighHighRenderer implements BaubleRenderer {
-
-    PoseStack local = new PoseStack();
 
     public ThighHighRenderer() {}
 
@@ -70,14 +69,10 @@ public class ThighHighRenderer implements BaubleRenderer {
     }
 
     private void renderThighHigh(VertexConsumer consumer, PoseStack ms, SuperByteBuffer model, ModelPart part, int color, int light) {
-        local.pushPose();
-        part.translateAndRotate(local);
-        TransformStack.cast(local)
-            .rotate(Direction.SOUTH, 180f * Mth.DEG_TO_RAD)
-            .scale(1.05f)
-            .translate(-.5f, -.75f, -.5f);
-        model.forEntityRender().transform(local).light(light).color(color).renderInto(ms, consumer);
-        local.popPose();
+        part.translateAndRotate(model.getTransforms());
+        model.multiply(Axis.ZP.rotationDegrees(180f));
+        model.translate(-.5f, -.75f, -.5f);
+        model.forEntityRender().light(light).color(color).renderInto(ms, consumer);
     }
 
     private SuperByteBuffer customThighHighModel(ResourceLocation style) {

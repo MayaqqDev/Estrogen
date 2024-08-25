@@ -15,7 +15,6 @@ import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel.Dr
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced.DynamicDreamTexture;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 
 public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> implements TickableInstance {
@@ -30,6 +29,7 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> im
 
     @Override
     public void init() {
+        DynamicDreamTexture.INSTANCE.prepare();
         // Release the basic renderer's texture if it exists
         if(blockEntity.getTexture() != null) blockEntity.setTexture(null);
 
@@ -108,7 +108,6 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> im
         }
 
         builder.uv(0, 0)
-            .overlayCoords(OverlayTexture.NO_OVERLAY)
             .uv2(LightTexture.FULL_BRIGHT)
             .normal(0, 0, 0)
             .endVertex();

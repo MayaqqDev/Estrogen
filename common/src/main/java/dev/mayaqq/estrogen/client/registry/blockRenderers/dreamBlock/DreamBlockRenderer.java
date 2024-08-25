@@ -33,6 +33,7 @@ public class DreamBlockRenderer extends SafeBlockEntityRenderer<DreamBlockEntity
 
         if (useAdvancedRenderer()) {
             if (be.getTexture() != null) be.setTexture(null);
+            DynamicDreamTexture.INSTANCE.prepare();
             DynamicDreamTexture.setActive();
             this.renderCubeShader(be, matrix4f, multiBufferSource.getBuffer(DynamicDreamTexture.INSTANCE.getRenderType()));
         } else {
@@ -109,7 +110,6 @@ public class DreamBlockRenderer extends SafeBlockEntityRenderer<DreamBlockEntity
             consumer.color(0, 0, 0, 0);
         }
         consumer.uv(0, 0)
-            .overlayCoords(OverlayTexture.NO_OVERLAY)
             .uv2(LightTexture.FULL_BRIGHT)
             .normal(0, 0, 0)
             .endVertex();

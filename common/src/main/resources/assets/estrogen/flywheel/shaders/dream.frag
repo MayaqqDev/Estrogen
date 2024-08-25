@@ -1,5 +1,3 @@
-#use "estrogen:include/projection.glsl"
-
 const mat4 SCALE_TRANSLATE = mat4(
 0.5, 0.0, 0.0, 0.25,
 0.0, 0.5, 0.0, 0.25,
@@ -32,7 +30,6 @@ mat4 dreamBlockLayer(float layer) {
 
 
 vec4 fragment(Fragment r) {
-    r.light = vec2(1.0, 1.0);
     if(vertColor.w > 0.1) {
         return vertColor;
     } else {

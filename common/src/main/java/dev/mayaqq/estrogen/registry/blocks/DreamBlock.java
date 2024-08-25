@@ -82,7 +82,7 @@ public class DreamBlock extends BaseEntityBlock {
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         BlockEntity be = level.getBlockEntity(pos);
-        if(be instanceof DreamBlockEntity dream) {
+        if(be instanceof DreamBlockEntity dream && level.isClientSide()) {
             dream.updateTexture(direction.getAxis() != Direction.Axis.Y);
         }
 

@@ -7,6 +7,7 @@ import io.github.fabricators_of_create.porting_lib.entity.events.OnDatapackSyncC
 import io.github.fabricators_of_create.porting_lib.entity.events.PlayerTickEvents;
 import net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
@@ -37,7 +38,7 @@ public class EstrogenFabricEvents {
         });
 
         // Thigh high sync
-        OnDatapackSyncCallback.EVENT.register(EstrogenEvents::onDataPackSync);
+        ServerLifecycleEvents.SYNC_DATA_PACK_CONTENTS.register(EstrogenEvents::onDataPackSync);
 
         // Entity Interaction Recipe
         UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {

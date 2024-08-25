@@ -6,6 +6,7 @@ import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEvents;
 import dev.mayaqq.estrogen.resources.thighhighs.ThighHighStyleLoader;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.PathPackResources;
 import net.minecraft.server.packs.repository.Pack;
@@ -107,7 +108,13 @@ public class EstrogenForgeEvents {
 
     @SubscribeEvent
     public static void onDatapackSync(OnDatapackSyncEvent event) {
-        EstrogenEvents.onDataPackSync(event.getPlayerList(), event.getPlayer());
+        if(event.getPlayer() != null) {
+            EstrogenEvents.onDataPackSync(event.getPlayer(), true);
+        } else {
+            for(ServerPlayer player : event.getPlayerList().getPlayers()) {
+                EstrogenEvents.onDataPackSync(player, false);
+            }
+        }
     }
 
     @SubscribeEvent

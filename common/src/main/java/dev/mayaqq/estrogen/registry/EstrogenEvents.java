@@ -142,10 +142,8 @@ public class EstrogenEvents {
     }
 
     // Not using the provided player as it is always null on forge (wtf)
-    public static void onDataPackSync(PlayerList playerList, ServerPlayer $) {
+    public static void onDataPackSync(ServerPlayer player, boolean isJoin) {
         ThighHighsItem item = EstrogenItems.THIGH_HIGHS.get();
-        for(ServerPlayer player : playerList.getPlayers()) {
-            item.syncStyles(player);
-        }
+        item.syncStyles(player);
     }
 }
