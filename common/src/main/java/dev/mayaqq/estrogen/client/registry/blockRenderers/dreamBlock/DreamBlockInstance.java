@@ -108,7 +108,6 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> im
         }
 
         builder.uv(0, 0)
-            .overlayCoords(OverlayTexture.NO_OVERLAY)
             .uv2(LightTexture.FULL_BRIGHT)
             .normal(0, 0, 0)
             .endVertex();

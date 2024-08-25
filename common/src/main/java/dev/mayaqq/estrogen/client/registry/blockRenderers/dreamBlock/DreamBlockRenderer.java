@@ -109,7 +109,6 @@ public class DreamBlockRenderer extends SafeBlockEntityRenderer<DreamBlockEntity
             consumer.color(0, 0, 0, 0);
         }
         consumer.uv(0, 0)
-            .overlayCoords(OverlayTexture.NO_OVERLAY)
             .uv2(LightTexture.FULL_BRIGHT)
             .normal(0, 0, 0)
             .endVertex();
