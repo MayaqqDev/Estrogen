@@ -1,10 +1,8 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced;
 
 import com.mojang.blaze3d.platform.NativeImage;
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderType;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
-import dev.mayaqq.estrogen.config.EstrogenConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -24,17 +22,20 @@ public class DynamicDreamTexture {
     private static final AtomicBoolean shouldAnimate = new AtomicBoolean();
 
     private final List<Goober> goobers = new ArrayList<>(); //:
-    private final DynamicTexture texture;
-    private final ResourceLocation texID;
-    private final RenderType renderType;
+    private DynamicTexture texture;
+    private ResourceLocation texID;
+    private RenderType renderType;
     private long seed = 80085L;
     private int animationTick = 0;
+    private boolean init = false;
 
-    public DynamicDreamTexture() {
+    public void prepare() {
+        if(init) return;
         texture = new DynamicTexture(128, 128, false);
         texID = Minecraft.getInstance().getTextureManager().register("dreamy", texture);
         renderType = EstrogenRenderType.DREAM_BLOCK.apply(texID);
-        generateGoobers();
+        this.draw();
+        init = true;
     }
 
     public RenderType getRenderType() {

@@ -33,6 +33,7 @@ public class DreamBlockRenderer extends SafeBlockEntityRenderer<DreamBlockEntity
 
         if (useAdvancedRenderer()) {
             if (be.getTexture() != null) be.setTexture(null);
+            DynamicDreamTexture.INSTANCE.prepare();
             DynamicDreamTexture.setActive();
             this.renderCubeShader(be, matrix4f, multiBufferSource.getBuffer(DynamicDreamTexture.INSTANCE.getRenderType()));
         } else {
