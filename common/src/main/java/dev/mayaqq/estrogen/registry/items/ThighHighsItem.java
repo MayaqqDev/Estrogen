@@ -91,6 +91,7 @@ public class ThighHighsItem extends Item implements Bauble {
     }
 
     public Optional<ResourceLocation> getStyle(ItemStack stack) {
+        if(styles == null) return Optional.empty();
         CompoundTag tag = stack.getTag();
         if(tag != null && tag.contains(TAG_STYLE)) {
             ResourceLocation style = new ResourceLocation(tag.getString(TAG_STYLE));
