@@ -57,6 +57,7 @@ public class DynamicDreamTexture {
     public void changeSeed(long seed) {
         this.seed = seed;
         this.generateGoobers();
+        this.redraw();
     }
 
     public void generateGoobers() {
@@ -126,7 +127,15 @@ public class DynamicDreamTexture {
         for (Goober goober : goobers) {
             if(goober.tickAnimation(animationTick)) redraw = true;
         }
-        if(shouldAnimate() && redraw) RenderSystem.recordRenderCall(this::draw);
+        if(shouldAnimate() && redraw) redraw();
+    }
+
+    public void redraw() {
+        if(RenderSystem.isOnRenderThread()) {
+            this.draw();
+        } else {
+            RenderSystem.recordRenderCall(this::draw);
+        }
     }
 
     private boolean shouldAnimate() {
