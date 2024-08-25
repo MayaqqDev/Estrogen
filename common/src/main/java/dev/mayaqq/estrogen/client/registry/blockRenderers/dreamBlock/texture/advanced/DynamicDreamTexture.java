@@ -74,18 +74,15 @@ public class DynamicDreamTexture {
             int posX = random.nextInt(4, 124);
             int posY = random.nextInt(4, 124);
 
-            Goober.Style style = Goober.Style.weighted(random);
-
-            if(style != Goober.Style.PIXEL) {
-                for (Goober goob : goobers) {
-                    if (goob.tooClose(posX, posY)) {
-                        canPlace = false;
-                        break;
-                    }
+            for (Goober goob : goobers) {
+                if (goob.tooClose(posX, posY)) {
+                    canPlace = false;
+                    break;
                 }
             }
 
             if(canPlace) {
+                Goober.Style style = Goober.Style.weighted(random);
                 Goober.Color color = Goober.Color.values()[random.nextIntBetweenInclusive(0, 5)];
                 int animTick = style.hasAnimation() ? random.nextIntBetweenInclusive(0, 10) : 0;
                 int beginFrame = random.nextInt(0, style.frameCount());
