@@ -8,12 +8,14 @@ import com.simibubi.create.CreateClient;
 import com.simibubi.create.foundation.render.BakedModelRenderHelper;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.items.ThighHighsItem;
 import earth.terrarium.baubly.client.BaubleRenderer;
 import earth.terrarium.baubly.client.BaublyClient;
 import earth.terrarium.baubly.common.SlotInfo;
+import net.fabricmc.fabric.mixin.client.model.loading.BakedModelManagerMixin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
@@ -21,6 +23,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -77,10 +80,16 @@ public class ThighHighRenderer implements BaubleRenderer {
 
     private SuperByteBuffer customThighHighModel(ResourceLocation style) {
         return CreateClient.BUFFER_CACHE.get(EstrogenRenderer.GENERIC, style, () -> {
-                ResourceLocation modelLocation = new ResourceLocation(style.getNamespace(), "thigh_highs/" + style.getPath());
-                BakedModel model = Minecraft.getInstance().getModelManager().getModel(modelLocation);
-                return BakedModelRenderHelper.standardModelRender(model, Blocks.AIR.defaultBlockState());
-            });
+            ResourceLocation modelLocation = new ResourceLocation(style.getNamespace(), "thigh_highs/" + style.getPath());
+            ModelManager models = Minecraft.getInstance().getModelManager();
+            BakedModel model = models.getModel(modelLocation);
+
+            if(model == null) {
+                Estrogen.LOGGER.warn("Missing thigh high model for style {}", style);
+                return BakedModelRenderHelper.standardModelRender(models.getMissingModel(), Blocks.AIR.defaultBlockState());
+            }
+            return BakedModelRenderHelper.standardModelRender(model, Blocks.AIR.defaultBlockState());
+        });
     }
 
 }
