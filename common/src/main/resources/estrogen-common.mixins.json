@@ -15,7 +15,8 @@
     "client.PlayerEntityModelMixin",
     "client.PlayerEntityRendererMixin",
     "client.ReceivingLevelScreenMixin",
-    "client.TextRendererMixin"
+    "client.TextRendererMixin",
+    "client.DevsWhatWereYouSmoking"
   ],
   "injectors": {
     "defaultRequire": 1
