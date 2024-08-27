@@ -54,7 +54,7 @@ public final class CosmeticModelBakery {
                     float y = shape[vertex.yFace];
                     float z = shape[vertex.zFace];
                     normal.set(direction.getStepX(), direction.getStepY(), direction.getStepZ());
-                    putVertex(transforms.last(), origin, vertexData, index, x, y, z, face.uv, normal);
+                    putVertex(transforms.last(), vertexData, index, x, y, z, face.uv, normal);
                     index++;
                 }
             }
@@ -65,7 +65,7 @@ public final class CosmeticModelBakery {
         return new BakedCosmeticModel(vertexData, vertices);
     }
 
-    private static void putVertex(PoseStack.Pose transform, Vector3f origin, int[] data, int index, float x, float y, float z, BlockFaceUV uv, Vector3f normal) {
+    private static void putVertex(PoseStack.Pose transform, int[] data, int index, float x, float y, float z, BlockFaceUV uv, Vector3f normal) {
         int pos = index * STRIDE;
         int quadIndex = index % 4;
         float u = uv.getU(quadIndex) / 16f;
