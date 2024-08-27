@@ -3,11 +3,14 @@ package dev.mayaqq.estrogen.client.cosmetics;
 import com.jozufozu.flywheel.util.RenderMath;
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import dev.mayaqq.estrogen.Estrogen;
 import net.fabricmc.fabric.impl.client.indigo.renderer.helper.NormalHelper;
 import net.minecraft.client.renderer.FaceInfo;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -35,11 +38,10 @@ public final class CosmeticModelBakery {
             transforms.pushPose();
 
             BlockElementRotation rot = element.rotation;
-
-            TransformStack.cast(transforms)
-                .translate(rot.origin())
-                .rotate(rot.angle(), rot.axis())
-                .translate(rot.origin().negate());
+            Vector3f origin = rot.origin();
+            transforms.translate(origin.x, origin.y, origin.z);
+            transforms.mulPose(fromDirectionAxis(rot.axis()).rotationDegrees(rot.angle()));
+            transforms.translate(0 - origin.x, 0 - origin.y, 0 - origin.z);
 
             for(Map.Entry<Direction, BlockElementFace> entry : element.faces.entrySet()) {
                 Direction direction = entry.getKey();
@@ -52,7 +54,7 @@ public final class CosmeticModelBakery {
                     float y = shape[vertex.yFace];
                     float z = shape[vertex.zFace];
                     normal.set(direction.getStepX(), direction.getStepY(), direction.getStepZ());
-                    putVertex(transforms.last(), vertexData, index, x, y, z, face.uv, normal);
+                    putVertex(transforms.last(), origin, vertexData, index, x, y, z, face.uv, normal);
                     index++;
                 }
             }
@@ -63,7 +65,7 @@ public final class CosmeticModelBakery {
         return new BakedCosmeticModel(vertexData, vertices);
     }
 
-    private static void putVertex(PoseStack.Pose transform, int[] data, int index, float x, float y, float z, BlockFaceUV uv, Vector3f normal) {
+    private static void putVertex(PoseStack.Pose transform, Vector3f origin, int[] data, int index, float x, float y, float z, BlockFaceUV uv, Vector3f normal) {
         int pos = index * STRIDE;
         int quadIndex = index % 4;
         float u = uv.getU(quadIndex) / 16f;
@@ -90,6 +92,14 @@ public final class CosmeticModelBakery {
         fs[FaceInfo.Constants.MAX_Y] = max.y() / 16.0F;
         fs[FaceInfo.Constants.MAX_Z] = max.z() / 16.0F;
         return fs;
+    }
+
+    private static Axis fromDirectionAxis(Direction.Axis input) {
+        return switch (input) {
+            case X -> Axis.XP;
+            case Y -> Axis.YP;
+            case Z -> Axis.ZP;
+        };
     }
 
 
