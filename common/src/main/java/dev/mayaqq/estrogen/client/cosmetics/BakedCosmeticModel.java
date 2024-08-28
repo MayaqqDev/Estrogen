@@ -1,7 +1,7 @@
 package dev.mayaqq.estrogen.client.cosmetics;
 
 import com.jozufozu.flywheel.core.model.*;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.*;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
 import net.minecraft.client.renderer.block.ModelBlockRenderer;
 import net.minecraft.util.RandomSource;
@@ -9,9 +9,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import static dev.mayaqq.estrogen.client.cosmetics.CosmeticModelBakery.*;
 
-public class BakedCosmeticModel implements Bufferable {
+public class BakedCosmeticModel {
 
-    public static final BakedCosmeticModel EMPTY = new BakedCosmeticModel(new int[0], 0);
+    private static final ThreadLocal<BufferBuilder> LOCAL_BUILDER = ThreadLocal.withInitial(() -> new BufferBuilder(512));
 
     private final int[] data;
     private final int vertexCount;
@@ -21,8 +21,7 @@ public class BakedCosmeticModel implements Bufferable {
         this.vertexCount = vertexCount;
     }
 
-    @Override
-    public void bufferInto(@NotNull VertexConsumer consumer, @Nullable ModelBlockRenderer renderer, @Nullable RandomSource random) {
+    public void bufferInto(VertexConsumer consumer) {
         for(int vertex = 0; vertex < vertexCount; vertex++) {
             int pos = STRIDE * vertex;
             float x = Float.intBitsToFloat(data[pos]);
@@ -39,9 +38,12 @@ public class BakedCosmeticModel implements Bufferable {
     }
 
     public SuperByteBuffer makeBuffer() {
-        ShadeSeparatedBufferedData data = ModelUtil.getBufferedData(this);
-        SuperByteBuffer sbb = new SuperByteBuffer(data);
-        data.release();
+        BufferBuilder builder = LOCAL_BUILDER.get();
+        builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK);
+        bufferInto(builder);
+        BufferBuilder.RenderedBuffer buffer = builder.end();
+        SuperByteBuffer sbb = new SuperByteBuffer(buffer.vertexBuffer(), buffer.drawState());
+        buffer.release();
         return sbb;
     }
 
