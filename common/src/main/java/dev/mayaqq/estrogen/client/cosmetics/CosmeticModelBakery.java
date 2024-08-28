@@ -64,7 +64,7 @@ public final class CosmeticModelBakery {
                 }
             }
 
-            if(!transforms.clear()) transforms.popPose();
+            while (!transforms.clear()) transforms.popPose();
         }
 
         return new BakedCosmeticModel(vertexData, vertices);
