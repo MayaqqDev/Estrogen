@@ -25,8 +25,9 @@ public class DownloadedAsset {
             "teamresourceful.com",
             "files.teamresourceful.com",
             "raw.githubusercontent.com",
-            "femboy-hooters.net"
-    );
+            "femboy-hooters.net",
+            "images.teamresourceful.com"
+            );
 
     private static final HttpClient CLIENT = HttpClient
             .newBuilder()
