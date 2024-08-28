@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormatElement;
 import com.simibubi.create.CreateClient;
 import com.simibubi.create.foundation.render.SuperByteBufferCache;
+import dev.mayaqq.estrogen.client.cosmetics.Cosmetic;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel.DreamData;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel.DreamType;
 import net.minecraft.resources.ResourceLocation;
@@ -26,6 +27,7 @@ public class EstrogenRenderer {
 
     // Buffer cache compartments
     public static final SuperByteBufferCache.Compartment<ResourceLocation> GENERIC = new SuperByteBufferCache.Compartment<>();
+    public static final SuperByteBufferCache.Compartment<Cosmetic> COSMETICS = new SuperByteBufferCache.Compartment<>();
 
     private static PartialModel block(String path) {
         return new PartialModel(id("block/" + path));
@@ -33,5 +35,6 @@ public class EstrogenRenderer {
 
     public static void register() {
         CreateClient.BUFFER_CACHE.registerCompartment(GENERIC);
+        CreateClient.BUFFER_CACHE.registerCompartment(COSMETICS);
     }
 }
