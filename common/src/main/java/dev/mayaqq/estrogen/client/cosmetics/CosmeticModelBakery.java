@@ -31,12 +31,12 @@ public final class CosmeticModelBakery {
         int index = 0;
         for(BlockElement element : elements) {
             float[] shape = setupShape(element.from, element.to);
-            transforms.pushPose();
 
             BlockElementRotation rot = element.rotation;
 
             // IGNORE IDEA ADVICE rot can very much be null
             if(rot != null) {
+                transforms.pushPose();
                 Vector3f origin = rot.origin();
                 transforms.translate(origin.x, origin.y, origin.z);
                 transforms.mulPose(fromDirectionAxis(rot.axis()).rotationDegrees(rot.angle()));
@@ -52,25 +52,29 @@ public final class CosmeticModelBakery {
                     FaceInfo.VertexInfo vertex = info.getVertexInfo(i);
                     position.set(shape[vertex.xFace], shape[vertex.yFace], shape[vertex.zFace], 1f);
                     normal.set(direction.getStepX(), direction.getStepY(), direction.getStepZ());
-                    putVertex(transforms.last(), vertexData, index, position, face.uv, normal);
+
+                    if(!transforms.clear()) {
+                        PoseStack.Pose last = transforms.last();
+                        last.pose().transform(position);
+                        last.normal().transform(normal);
+                    }
+
+                    putVertex(vertexData, index, position, face.uv, normal);
                     index++;
                 }
             }
 
-            transforms.popPose();
+            if(!transforms.clear()) transforms.popPose();
         }
 
         return new BakedCosmeticModel(vertexData, vertices);
     }
 
-    private static void putVertex(PoseStack.Pose transform, int[] data, int index, Vector4f position, BlockFaceUV uv, Vector3f normal) {
+    private static void putVertex(int[] data, int index, Vector4f position, BlockFaceUV uv, Vector3f normal) {
         int pos = index * STRIDE;
         int quadIndex = index % 4;
         float u = uv.getU(quadIndex) / 16f;
         float v = uv.getV(quadIndex) / 16f;
-
-        transform.pose().transform(position);
-        transform.normal().transform(normal);
 
         data[pos] = Float.floatToIntBits(position.x);
         data[pos + 1] = Float.floatToIntBits(position.y);
