@@ -25,11 +25,11 @@ public record Cosmetic(String id, String name, CosmeticTexture texture, Cosmetic
         );
     }
 
-    public void render(Function<ResourceLocation, RenderType> renderType, MultiBufferSource source, PoseStack matrices, int color, int light) {
+    public void render(Function<ResourceLocation, RenderType> renderType, MultiBufferSource source, PoseStack matrices, int light) {
         model.get().ifPresent(model -> model.renderInto(
             source.getBuffer(renderType.apply(texture.getResourceLocation())),
             matrices.last(),
-            color,
+            0xFFFFFFFF,
             light,
             OverlayTexture.NO_OVERLAY
         ));
