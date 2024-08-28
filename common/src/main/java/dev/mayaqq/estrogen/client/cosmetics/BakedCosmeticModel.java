@@ -3,8 +3,6 @@ package dev.mayaqq.estrogen.client.cosmetics;
 import com.jozufozu.flywheel.core.model.BlockModel;
 import com.jozufozu.flywheel.core.model.Model;
 import com.mojang.blaze3d.vertex.*;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import org.jetbrains.annotations.Nullable;
 import static dev.mayaqq.estrogen.client.cosmetics.CosmeticModelBakery.*;
