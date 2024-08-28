@@ -27,7 +27,6 @@ public class EstrogenRenderer {
 
     // Buffer cache compartments
     public static final SuperByteBufferCache.Compartment<ResourceLocation> GENERIC = new SuperByteBufferCache.Compartment<>();
-    public static final SuperByteBufferCache.Compartment<Cosmetic> COSMETICS = new SuperByteBufferCache.Compartment<>();
 
     private static PartialModel block(String path) {
         return new PartialModel(id("block/" + path));
@@ -35,6 +34,5 @@ public class EstrogenRenderer {
 
     public static void register() {
         CreateClient.BUFFER_CACHE.registerCompartment(GENERIC);
-        CreateClient.BUFFER_CACHE.registerCompartment(COSMETICS);
     }
 }

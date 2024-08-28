@@ -1,17 +1,15 @@
 package dev.mayaqq.estrogen.client.cosmetics;
 
-import com.jozufozu.flywheel.core.model.*;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.simibubi.create.foundation.render.SuperByteBuffer;
-import net.minecraft.client.renderer.block.ModelBlockRenderer;
-import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.NotNull;
+import com.jozufozu.flywheel.core.model.BlockModel;
+import com.jozufozu.flywheel.core.model.Model;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import org.jetbrains.annotations.Nullable;
 import static dev.mayaqq.estrogen.client.cosmetics.CosmeticModelBakery.*;
 
-public class BakedCosmeticModel implements Bufferable {
+public class BakedCosmeticModel {
 
-    public static final BakedCosmeticModel EMPTY = new BakedCosmeticModel(new int[0], 0);
+    private static final ThreadLocal<BufferBuilder> LOCAL_BUILDER = ThreadLocal.withInitial(() -> new BufferBuilder(512));
 
     private final int[] data;
     private final int vertexCount;
@@ -21,8 +19,7 @@ public class BakedCosmeticModel implements Bufferable {
         this.vertexCount = vertexCount;
     }
 
-    @Override
-    public void bufferInto(@NotNull VertexConsumer consumer, @Nullable ModelBlockRenderer renderer, @Nullable RandomSource random) {
+    public void renderInto(VertexConsumer consumer, @Nullable PoseStack.Pose transform, int color, int light, int overlay) {
         for(int vertex = 0; vertex < vertexCount; vertex++) {
             int pos = STRIDE * vertex;
             float x = Float.intBitsToFloat(data[pos]);
@@ -32,17 +29,35 @@ public class BakedCosmeticModel implements Bufferable {
             float v = Float.intBitsToFloat(data[pos + 4]);
             int normal = data[pos + 5];
 
-            // Need to use block vertex format if using bufferable, we ignore color and light (uv2)
-            consumer.vertex(x, y, z).color(-1).uv(u, v).uv2(0)
-                .normal(unpackNX(normal), unpackNY(normal), unpackNZ(normal)).endVertex();
+            if(transform == null) {
+                consumer.vertex(x, y, z)
+                    .color(color)
+                    .uv(u, v)
+                    .overlayCoords(overlay)
+                    .uv2(light)
+                    .normal(unpackNX(normal), unpackNY(normal), unpackNZ(normal))
+                    .endVertex();
+            } else {
+                consumer.vertex(transform.pose(), x, y, z)
+                    .color(color)
+                    .uv(u, v)
+                    .overlayCoords(overlay)
+                    .uv2(light)
+                    .normal(transform.normal(), unpackNX(normal), unpackNY(normal), unpackNZ(normal))
+                    .endVertex();
+            }
         }
     }
 
-    public SuperByteBuffer makeBuffer() {
-        ShadeSeparatedBufferedData data = ModelUtil.getBufferedData(this);
-        SuperByteBuffer sbb = new SuperByteBuffer(data);
-        data.release();
-        return sbb;
+    // This exists incase you wanna use a cosmetic in an instance (im planning on possibly doing tha)
+    public Model createModel() {
+        BufferBuilder builder = LOCAL_BUILDER.get();
+        builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK);
+        renderInto(builder, null, -1, 0, OverlayTexture.NO_OVERLAY);
+        BufferBuilder.RenderedBuffer buffer = builder.end();
+        BlockModel model = new BlockModel(buffer.vertexBuffer(), buffer.indexBuffer(), buffer.drawState(), "cosmetic");
+        buffer.release();
+        return model;
     }
 
 }
