@@ -27,7 +27,7 @@ public final class CosmeticModelBakery {
     private CosmeticModelBakery() {}
 
     public static BakedCosmeticModel bake(List<BlockElement> elements) {
-        int vertices = elements.size() * 6 * 4;
+        int vertices = elements.stream().mapToInt(e -> e.faces.size()).sum() * 4;
         int[] vertexData = new int[vertices * STRIDE];
         Vector3f normal = new Vector3f();
         PoseStack transforms = new PoseStack();
