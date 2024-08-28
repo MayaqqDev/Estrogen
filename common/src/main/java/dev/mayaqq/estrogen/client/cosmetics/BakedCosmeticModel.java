@@ -21,7 +21,7 @@ public class BakedCosmeticModel {
         this.vertexCount = vertexCount;
     }
 
-    public void bufferInto(VertexConsumer consumer) {
+    public void bufferInto(VertexConsumer consumer, @Nullable PoseStack.Pose transform) {
         for(int vertex = 0; vertex < vertexCount; vertex++) {
             int pos = STRIDE * vertex;
             float x = Float.intBitsToFloat(data[pos]);
@@ -32,15 +32,21 @@ public class BakedCosmeticModel {
             int normal = data[pos + 5];
 
             // Need to use block vertex format if using bufferable, we ignore color and light (uv2)
-            consumer.vertex(x, y, z).color(-1).uv(u, v).uv2(0)
-                .normal(unpackNX(normal), unpackNY(normal), unpackNZ(normal)).endVertex();
+            if(transform == null) {
+                consumer.vertex(x, y, z).color(-1).uv(u, v).uv2(0)
+                    .normal(unpackNX(normal), unpackNY(normal), unpackNZ(normal)).endVertex();
+            } else {
+                consumer.vertex(transform.pose(), x, y, z).color(-1).uv(u, v).uv2(0)
+                    .normal(transform.normal(), unpackNX(normal), unpackNY(normal), unpackNZ(normal))
+                    .endVertex();
+            }
         }
     }
 
     public SuperByteBuffer makeBuffer() {
         BufferBuilder builder = LOCAL_BUILDER.get();
         builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK);
-        bufferInto(builder);
+        bufferInto(builder, null);
         BufferBuilder.RenderedBuffer buffer = builder.end();
         SuperByteBuffer sbb = new SuperByteBuffer(buffer.vertexBuffer(), buffer.drawState());
         buffer.release();
