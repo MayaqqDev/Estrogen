@@ -1,16 +1,11 @@
 package dev.mayaqq.estrogen.client.cosmetics;
 
-import com.jozufozu.flywheel.util.RenderMath;
-import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import dev.mayaqq.estrogen.Estrogen;
-import net.fabricmc.fabric.impl.client.indigo.renderer.helper.NormalHelper;
 import net.minecraft.client.renderer.FaceInfo;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
