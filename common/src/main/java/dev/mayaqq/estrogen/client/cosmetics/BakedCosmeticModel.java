@@ -42,8 +42,8 @@ public class BakedCosmeticModel {
             } else {
                 consumer.vertex(transform.pose(), x, y, z)
                     .color(color)
-                    .overlayCoords(overlay)
                     .uv(u, v)
+                    .overlayCoords(overlay)
                     .uv2(light)
                     .normal(transform.normal(), unpackNX(normal), unpackNY(normal), unpackNZ(normal))
                     .endVertex();
