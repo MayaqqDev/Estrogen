@@ -4,10 +4,11 @@ import com.teamresourceful.resourcefullib.common.utils.files.GlobalStorage;
 import dev.mayaqq.estrogen.Estrogen;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import org.jetbrains.annotations.Nullable;
-import java.io.File;
-import java.io.FileReader;
+
+import java.io.*;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 
 public class CosmeticModel {
@@ -60,7 +61,7 @@ public class CosmeticModel {
 
         public void load() {
             if(this.future == null) {
-                Optional<BlockModel> optional1 = (file != null && file.isFile()) ? load(file) : Optional.empty();
+                Optional<BlockModel> optional1 = (file != null && file.isFile()) ? load(() -> new FileReader(file)) : Optional.empty();
 
                 if(optional1.isPresent()) {
                     loadCallback(optional1.get());
@@ -68,7 +69,7 @@ public class CosmeticModel {
                     future = DownloadedAsset.runDownload(
                         url,
                         file,
-                        stream -> this.load(file).ifPresent(this::loadCallback)
+                        stream -> this.load(() -> new InputStreamReader(stream)).ifPresent(this::loadCallback)
                     );
                 }
             }
@@ -78,16 +79,16 @@ public class CosmeticModel {
             try {
                 this.result = CosmeticModelBakery.bake(base.getElements());
             } catch (Exception e) {
-                Estrogen.LOGGER.error("Failed to bake cosmetic {}", url, e);
+                Estrogen.LOGGER.error("Failed to bake cosmetic model: {}", url, e);
             }
 
         }
 
-        private Optional<BlockModel> load(File file) {
-            try(FileReader reader = new FileReader(file)) {
+        private Optional<BlockModel> load(Callable<Reader> supplier) {
+            try(Reader reader = supplier.call()) {
                 return Optional.of(BlockModel.fromStream(reader));
-            } catch (Exception e) {
-                Estrogen.LOGGER.error("Failed to load cosmetic model: {}", file.getName(), e);
+            } catch (Exception ex) {
+                Estrogen.LOGGER.error("Failed to load cosmetic model: {}", url, ex);
                 return Optional.empty();
             }
         }
