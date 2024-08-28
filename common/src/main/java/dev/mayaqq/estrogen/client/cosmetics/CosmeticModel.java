@@ -64,18 +64,18 @@ public class CosmeticModel {
                 Optional<BlockModel> optional1 = (file != null && file.isFile()) ? load(() -> new FileReader(file)) : Optional.empty();
 
                 if(optional1.isPresent()) {
-                    loadCallback(optional1.get());
+                    bake(optional1.get());
                 } else {
                     future = DownloadedAsset.runDownload(
                         url,
                         file,
-                        stream -> this.load(() -> new InputStreamReader(stream)).ifPresent(this::loadCallback)
+                        stream -> this.load(() -> new InputStreamReader(stream)).ifPresent(this::bake)
                     );
                 }
             }
         }
 
-        private void loadCallback(BlockModel base) {
+        private void bake(BlockModel base) {
             try {
                 this.result = CosmeticModelBakery.bake(base.getElements());
             } catch (Exception e) {
