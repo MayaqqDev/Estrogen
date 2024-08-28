@@ -1,11 +1,11 @@
 package dev.mayaqq.estrogen.client.cosmetics;
 
-import com.jozufozu.flywheel.core.model.*;
+import com.jozufozu.flywheel.core.model.BlockModel;
+import com.jozufozu.flywheel.core.model.Model;
 import com.mojang.blaze3d.vertex.*;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
-import net.minecraft.client.renderer.block.ModelBlockRenderer;
-import net.minecraft.util.RandomSource;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import org.jetbrains.annotations.Nullable;
 import static dev.mayaqq.estrogen.client.cosmetics.CosmeticModelBakery.*;
 
@@ -21,7 +21,7 @@ public class BakedCosmeticModel {
         this.vertexCount = vertexCount;
     }
 
-    public void bufferInto(VertexConsumer consumer, @Nullable PoseStack.Pose transform) {
+    public void renderInto(VertexConsumer consumer, @Nullable PoseStack.Pose transform, int color, int light, int overlay) {
         for(int vertex = 0; vertex < vertexCount; vertex++) {
             int pos = STRIDE * vertex;
             float x = Float.intBitsToFloat(data[pos]);
@@ -31,26 +31,34 @@ public class BakedCosmeticModel {
             float v = Float.intBitsToFloat(data[pos + 4]);
             int normal = data[pos + 5];
 
-            // Need to use block vertex format if using bufferable, we ignore color and light (uv2)
             if(transform == null) {
-                consumer.vertex(x, y, z).color(-1).uv(u, v).uv2(0)
+                consumer.vertex(x, y, z)
+                    .color(color)
+                    .uv(u, v)
+                    .overlayCoords(overlay)
+                    .uv2(light)
                     .normal(unpackNX(normal), unpackNY(normal), unpackNZ(normal)).endVertex();
             } else {
-                consumer.vertex(transform.pose(), x, y, z).color(-1).uv(u, v).uv2(0)
+                consumer.vertex(transform.pose(), x, y, z)
+                    .color(color)
+                    .overlayCoords(overlay)
+                    .uv(u, v)
+                    .uv2(light)
                     .normal(transform.normal(), unpackNX(normal), unpackNY(normal), unpackNZ(normal))
                     .endVertex();
             }
         }
     }
 
-    public SuperByteBuffer makeBuffer() {
+    // This exists incase you wanna use a cosmetic in an instance (im planning on possibly doing tha)
+    public Model createModel() {
         BufferBuilder builder = LOCAL_BUILDER.get();
         builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK);
-        bufferInto(builder, null);
+        renderInto(builder, null, -1, 0, OverlayTexture.NO_OVERLAY);
         BufferBuilder.RenderedBuffer buffer = builder.end();
-        SuperByteBuffer sbb = new SuperByteBuffer(buffer.vertexBuffer(), buffer.drawState());
+        BlockModel model = new BlockModel(buffer.vertexBuffer(), buffer.indexBuffer(), buffer.drawState(), "cosmetic");
         buffer.release();
-        return sbb;
+        return model;
     }
 
 }
