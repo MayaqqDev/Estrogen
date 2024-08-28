@@ -75,7 +75,12 @@ public class CosmeticModel {
         }
 
         private void loadCallback(BlockModel base) {
-            this.result = CosmeticModelBakery.bake(base.getElements());
+            try {
+                this.result = CosmeticModelBakery.bake(base.getElements());
+            } catch (Exception e) {
+                Estrogen.LOGGER.error("Failed to bake cosmetic {}", url, e);
+            }
+
         }
 
         private Optional<BlockModel> load(File file) {

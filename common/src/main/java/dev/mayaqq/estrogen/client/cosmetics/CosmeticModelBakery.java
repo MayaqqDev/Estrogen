@@ -38,10 +38,14 @@ public final class CosmeticModelBakery {
             transforms.pushPose();
 
             BlockElementRotation rot = element.rotation;
-            Vector3f origin = rot.origin();
-            transforms.translate(origin.x, origin.y, origin.z);
-            transforms.mulPose(fromDirectionAxis(rot.axis()).rotationDegrees(rot.angle()));
-            transforms.translate(0 - origin.x, 0 - origin.y, 0 - origin.z);
+
+            // IGNORE IDEA ADVICE rot can very much be null
+            if(rot != null) {
+                Vector3f origin = rot.origin();
+                transforms.translate(origin.x, origin.y, origin.z);
+                transforms.mulPose(fromDirectionAxis(rot.axis()).rotationDegrees(rot.angle()));
+                transforms.translate(0 - origin.x, 0 - origin.y, 0 - origin.z);
+            }
 
             for(Map.Entry<Direction, BlockElementFace> entry : element.faces.entrySet()) {
                 Direction direction = entry.getKey();
