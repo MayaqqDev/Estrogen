@@ -4,7 +4,7 @@ import java.nio.file.StandardOpenOption
 
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.5-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.6-SNAPSHOT" apply false
     id "me.modmuss50.mod-publish-plugin" version "0.4.5"
 }
 
@@ -70,6 +70,7 @@ allprojects {
         maven { name = "Modrinth Maven"; description = "Jukeboxfix, Ad Astra"; url = "https://api.modrinth.com/maven" }
         maven { name = "Resourceful Maven"; description = "Baubly, Botarium & ResourcefulLib"; url = "https://maven.teamresourceful.com/repository/maven-public/" }
         maven { name = "Figura Maven"; description = "Figura"; url = "https://maven.figuramc.org/releases" }
+        maven { name = "DevAuth maven"; description = "DevAuth"; url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" }
         maven { name = "Jitpack maven"; description = "Mixin Extras & Fabric ASM"; url = "https://jitpack.io/" } //NOTE: LEAVE THIS AS LAST
     }
 
