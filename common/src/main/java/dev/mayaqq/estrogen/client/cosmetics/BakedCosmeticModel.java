@@ -29,23 +29,20 @@ public class BakedCosmeticModel {
             float v = Float.intBitsToFloat(data[pos + 4]);
             int normal = data[pos + 5];
 
-            if(transform == null) {
-                consumer.vertex(x, y, z)
-                    .color(color)
-                    .uv(u, v)
-                    .overlayCoords(overlay)
-                    .uv2(light)
-                    .normal(unpackNX(normal), unpackNY(normal), unpackNZ(normal))
-                    .endVertex();
-            } else {
-                consumer.vertex(transform.pose(), x, y, z)
-                    .color(color)
-                    .uv(u, v)
-                    .overlayCoords(overlay)
-                    .uv2(light)
-                    .normal(transform.normal(), unpackNX(normal), unpackNY(normal), unpackNZ(normal))
-                    .endVertex();
-            }
+            if(transform != null) {
+                consumer.vertex(transform.pose(), x, y, z);
+            } else consumer.vertex(x, y, z);
+
+            consumer.color(color);
+            consumer.uv(u, v);
+            consumer.overlayCoords(overlay);
+            consumer.uv2(light);
+
+            if(transform != null) {
+                consumer.normal(transform.normal(), unpackNX(normal), unpackNY(normal), unpackNZ(normal));
+            } else consumer.normal(unpackNX(normal), unpackNY(normal), unpackNZ(normal));
+
+            consumer.endVertex();
         }
     }
 
