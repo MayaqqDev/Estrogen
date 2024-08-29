@@ -2,6 +2,8 @@ package dev.mayaqq.estrogen.client.cosmetics;
 
 import com.teamresourceful.resourcefullib.common.utils.files.GlobalStorage;
 import dev.mayaqq.estrogen.Estrogen;
+import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,7 +25,7 @@ public class CosmeticModel {
         if(!file.isFile()) Estrogen.LOGGER.error("Invalid file");
         CosmeticModel model = new CosmeticModel("");
         model.model = new DownloadableModel(file, "");
-        CompletableFuture.runAsync(model.model::load);
+        Util.backgroundExecutor().execute(model.model::load);
         return model;
     }
 
@@ -40,7 +42,7 @@ public class CosmeticModel {
     private void checkOrDownload() {
         if(this.model != null || this.url == null) return;
         this.model = new DownloadableModel(CACHE.resolve(hash).toFile(), this.url);
-        CompletableFuture.runAsync(model::load);
+        Util.backgroundExecutor().execute(model::load);
     }
 
     private static class DownloadableModel {
@@ -60,6 +62,7 @@ public class CosmeticModel {
         }
 
         public void load() {
+            Estrogen.LOGGER.info("Loading cosmetic");
             if(this.future == null) {
                 Optional<BlockModel> optional1 = (file != null && file.isFile()) ? load(() -> new FileReader(file)) : Optional.empty();
 
@@ -76,6 +79,7 @@ public class CosmeticModel {
         }
 
         private void bake(BlockModel base) {
+            Estrogen.LOGGER.info("Baking cosmetic");
             try {
                 this.result = CosmeticModelBakery.bake(base.getElements());
             } catch (Exception e) {
