@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.client.cosmetics;
 
 import com.google.common.hash.Hashing;
 import com.teamresourceful.resourcefullib.common.lib.Constants;
+import dev.mayaqq.estrogen.Estrogen;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import org.apache.commons.io.FileUtils;
@@ -44,14 +45,18 @@ public class DownloadedAsset {
                                 .build();
 
                         HttpResponse<InputStream> stream = CLIENT.send(request, HttpResponse.BodyHandlers.ofInputStream());
-                        if (stream.statusCode() / 100 != 2) return;
+                        if (stream.statusCode() / 100 != 2) {
+                            Estrogen.LOGGER.error("Failed to load asset: {} Status Code: {}", uri, stream.statusCode());
+                            return;
+                        }
+
                         FileUtils.copyInputStreamToFile(stream.body(), file);
 
                         Minecraft.getInstance().execute(() -> {
-                            try {
-                                callback.accept(FileUtils.openInputStream(file));
-                            } catch (IOException ignored) {
-                                //Do Nothing!
+                            try(InputStream fileStream = FileUtils.openInputStream(file)) {
+                                callback.accept(fileStream);
+                            } catch (IOException ex) {
+                                Estrogen.LOGGER.error("Failed to process asset: {}", uri, ex);
                             }
                         });
                     } catch (IOException | InterruptedException ignored) {

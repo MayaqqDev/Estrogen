@@ -14,8 +14,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 
 public class CosmeticTexture {
@@ -95,7 +97,7 @@ public class CosmeticTexture {
             });
             if (this.future == null) {
                 Optional<NativeImage> nativeimage = this.file != null && this.file.isFile() ?
-                        this.load(this.file) : Optional.empty();
+                        this.load(() -> new FileInputStream(this.file)) : Optional.empty();
 
                 if (nativeimage.isPresent()) {
                     this.loadCallback(nativeimage.get());
@@ -103,16 +105,17 @@ public class CosmeticTexture {
                     this.future = DownloadedAsset.runDownload(
                             this.url,
                             this.file,
-                            stream -> this.load(this.file).ifPresent(this::loadCallback)
+                            stream -> this.load(() -> stream).ifPresent(this::loadCallback)
                     );
                 }
             }
         }
 
-        private Optional<NativeImage> load(File file) {
-            try {
-                return Optional.of(NativeImage.read(new FileInputStream(file)));
-            } catch (Exception ignored) {
+        private Optional<NativeImage> load(Callable<InputStream> streamConstructor) {
+            try(InputStream stream = streamConstructor.call()) {
+                return Optional.of(NativeImage.read(stream));
+            } catch (Exception ex) {
+                Estrogen.LOGGER.error("Failed to load cosmetic texture: {}", url, ex);
                 return Optional.empty();
             }
         }
