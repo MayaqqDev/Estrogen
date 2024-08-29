@@ -76,11 +76,11 @@ public final class CosmeticModelBakery {
         float u = uv.getU(quadIndex) / 16f;
         float v = uv.getV(quadIndex) / 16f;
 
-        data[pos] = Float.floatToIntBits(position.x);
-        data[pos + 1] = Float.floatToIntBits(position.y);
-        data[pos + 2] = Float.floatToIntBits(position.z);
-        data[pos + 3] = Float.floatToIntBits(u);
-        data[pos + 4] = Float.floatToIntBits(v);
+        data[pos] = Float.floatToRawIntBits(position.x);
+        data[pos + 1] = Float.floatToRawIntBits(position.y);
+        data[pos + 2] = Float.floatToRawIntBits(position.z);
+        data[pos + 3] = Float.floatToRawIntBits(u);
+        data[pos + 4] = Float.floatToRawIntBits(v);
         data[pos + 5] = packNormal(normal.x, normal.y, normal.z);
     }
 
