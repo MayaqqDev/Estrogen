@@ -2,34 +2,21 @@ package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.ShaderHelper;
-import dev.mayaqq.estrogen.client.cosmetics.Cosmetic;
-import dev.mayaqq.estrogen.client.cosmetics.CosmeticModel;
-import dev.mayaqq.estrogen.client.cosmetics.CosmeticTexture;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.DreamBlockTexture;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced.DynamicDreamTexture;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
-import net.minecraft.world.inventory.InventoryMenu;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 public class DreamBlockRenderer extends SafeBlockEntityRenderer<DreamBlockEntity> {
-
-    public static CosmeticModel test = null;
 
     public DreamBlockRenderer(BlockEntityRendererProvider.Context context) {}
 
@@ -43,25 +30,16 @@ public class DreamBlockRenderer extends SafeBlockEntityRenderer<DreamBlockEntity
 
     public void renderSafe(@NotNull DreamBlockEntity be, float f, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j) {
         Matrix4f matrix4f = poseStack.last().pose();
-        if(test == null) {
-            test = CosmeticModel.fromFile(FabricLoader.getInstance().getGameDir().resolve("large_cogwheel.json").toFile());
+
+        if (!useAdvancedRenderer()) {
+            if(be.getTexture() == null) be.setTexture(new DreamBlockTexture(be));
+            DreamBlockTexture texture = be.getTexture();
+            this.renderCube(texture, matrix4f, multiBufferSource.getBuffer(texture.getRenderType()));
+            texture.animate(); // not good to call this each frame will optimize in the future
+        } else {
+            if(be.getTexture() != null) be.setTexture(null);
+            this.renderCubeShader(be, matrix4f, multiBufferSource.getBuffer(DynamicDreamTexture.INSTANCE.getRenderType()));
         }
-
-        TextureAtlasSprite cogwheel = new Material(InventoryMenu.BLOCK_ATLAS, Create.asResource("block/large_cogwheel")).sprite();
-
-        VertexConsumer buffer = cogwheel.wrap(multiBufferSource.getBuffer(RenderType.entityCutout(InventoryMenu.BLOCK_ATLAS)));
-        test.get().ifPresent(model -> model.renderInto(buffer, poseStack.last(), 0xFFFFFFFF, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY));
-
-
-//        if (!useAdvancedRenderer()) {
-//            if(be.getTexture() == null) be.setTexture(new DreamBlockTexture(be));
-//            DreamBlockTexture texture = be.getTexture();
-//            this.renderCube(texture, matrix4f, multiBufferSource.getBuffer(texture.getRenderType()));
-//            texture.animate(); // not good to call this each frame will optimize in the future
-//        } else {
-//            if(be.getTexture() != null) be.setTexture(null);
-//            this.renderCubeShader(be, matrix4f, multiBufferSource.getBuffer(DynamicDreamTexture.INSTANCE.getRenderType()));
-//        }
     }
 
 
