@@ -7,6 +7,7 @@ import com.simibubi.create.foundation.block.connected.ConnectedTextureBehaviour;
 import com.simibubi.create.foundation.block.connected.SimpleCTBehaviour;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import dev.mayaqq.estrogen.client.config.ConfigSync;
+import dev.mayaqq.estrogen.client.cosmetics.Cosmetics;
 import dev.mayaqq.estrogen.client.registry.EstrogenKeybinds;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeCogInstance;
@@ -29,6 +30,7 @@ import net.minecraft.client.resources.model.BakedModel;
 
 public class EstrogenClient {
     public static void init() {
+        Cosmetics.init();
         ConfigSync.cacheConfig();
         EstrogenRenderer.register();
         EstrogenPonderScenes.register();
