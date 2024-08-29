@@ -89,8 +89,8 @@ public class CosmeticTexture {
                 if (!this.uploaded) {
                     try {
                         super.load(manager);
-                    } catch (Exception ignored) {
-                        /*Do Nothing*/
+                    } catch (Exception ex) {
+                        Estrogen.LOGGER.error("Failed to load texture", ex);
                     }
                     this.uploaded = true;
                 }
