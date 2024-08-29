@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.SimpleTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
+import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -97,7 +98,7 @@ public class CosmeticTexture {
             });
             if (this.future == null) {
                 Optional<NativeImage> nativeimage = this.file != null && this.file.isFile() ?
-                        this.load(() -> new FileInputStream(this.file)) : Optional.empty();
+                        this.load(() -> FileUtils.openInputStream(file)) : Optional.empty();
 
                 if (nativeimage.isPresent()) {
                     this.loadCallback(nativeimage.get());
@@ -111,9 +112,9 @@ public class CosmeticTexture {
             }
         }
 
-        private Optional<NativeImage> load(Callable<InputStream> streamConstructor) {
-            try(InputStream stream = streamConstructor.call()) {
-                return Optional.of(NativeImage.read(stream));
+        private Optional<NativeImage> load(Callable<InputStream> stream) {
+            try {
+                return Optional.of(NativeImage.read(stream.call()));
             } catch (Exception ex) {
                 Estrogen.LOGGER.error("Failed to load cosmetic texture: {}", url, ex);
                 return Optional.empty();
