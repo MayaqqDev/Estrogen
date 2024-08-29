@@ -9,13 +9,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.SimpleTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
+import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 
 public class CosmeticTexture {
@@ -87,15 +90,15 @@ public class CosmeticTexture {
                 if (!this.uploaded) {
                     try {
                         super.load(manager);
-                    } catch (Exception ignored) {
-                        /*Do Nothing*/
+                    } catch (Exception ex) {
+                        Estrogen.LOGGER.error("Failed to load texture", ex);
                     }
                     this.uploaded = true;
                 }
             });
             if (this.future == null) {
                 Optional<NativeImage> nativeimage = this.file != null && this.file.isFile() ?
-                        this.load(this.file) : Optional.empty();
+                        this.load(() -> FileUtils.openInputStream(file)) : Optional.empty();
 
                 if (nativeimage.isPresent()) {
                     this.loadCallback(nativeimage.get());
@@ -103,16 +106,17 @@ public class CosmeticTexture {
                     this.future = DownloadedAsset.runDownload(
                             this.url,
                             this.file,
-                            stream -> this.load(this.file).ifPresent(this::loadCallback)
+                            stream -> this.load(() -> stream).ifPresent(this::loadCallback)
                     );
                 }
             }
         }
 
-        private Optional<NativeImage> load(File file) {
+        private Optional<NativeImage> load(Callable<InputStream> stream) {
             try {
-                return Optional.of(NativeImage.read(new FileInputStream(file)));
-            } catch (Exception ignored) {
+                return Optional.of(NativeImage.read(stream.call()));
+            } catch (Exception ex) {
+                Estrogen.LOGGER.error("Failed to load cosmetic texture: {}", url, ex);
                 return Optional.empty();
             }
         }

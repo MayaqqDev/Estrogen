@@ -24,18 +24,19 @@ public final class CosmeticModelBakery {
     public static BakedCosmeticModel bake(List<BlockElement> elements) {
         int vertices = elements.stream().mapToInt(e -> e.faces.size()).sum() * 4;
         int[] vertexData = new int[vertices * STRIDE];
+        Vector4f position = new Vector4f();
         Vector3f normal = new Vector3f();
         PoseStack transforms = new PoseStack();
 
         int index = 0;
         for(BlockElement element : elements) {
             float[] shape = setupShape(element.from, element.to);
-            transforms.pushPose();
 
             BlockElementRotation rot = element.rotation;
 
             // IGNORE IDEA ADVICE rot can very much be null
             if(rot != null) {
+                transforms.pushPose();
                 Vector3f origin = rot.origin();
                 transforms.translate(origin.x, origin.y, origin.z);
                 transforms.mulPose(fromDirectionAxis(rot.axis()).rotationDegrees(rot.angle()));
@@ -49,36 +50,37 @@ public final class CosmeticModelBakery {
 
                 for(int i = 0; i < 4; i++) {
                     FaceInfo.VertexInfo vertex = info.getVertexInfo(i);
-                    float x = shape[vertex.xFace];
-                    float y = shape[vertex.yFace];
-                    float z = shape[vertex.zFace];
+                    position.set(shape[vertex.xFace], shape[vertex.yFace], shape[vertex.zFace], 1f);
                     normal.set(direction.getStepX(), direction.getStepY(), direction.getStepZ());
-                    putVertex(transforms.last(), vertexData, index, x, y, z, face.uv, normal);
+
+                    if(!transforms.clear()) {
+                        PoseStack.Pose last = transforms.last();
+                        last.pose().transform(position);
+                        last.normal().transform(normal);
+                    }
+
+                    putVertex(vertexData, index, position, face.uv, normal);
                     index++;
                 }
             }
 
-            transforms.popPose();
+            while (!transforms.clear()) transforms.popPose();
         }
 
         return new BakedCosmeticModel(vertexData, vertices);
     }
 
-    private static void putVertex(PoseStack.Pose transform, int[] data, int index, float x, float y, float z, BlockFaceUV uv, Vector3f normal) {
+    private static void putVertex(int[] data, int index, Vector4f position, BlockFaceUV uv, Vector3f normal) {
         int pos = index * STRIDE;
         int quadIndex = index % 4;
         float u = uv.getU(quadIndex) / 16f;
         float v = uv.getV(quadIndex) / 16f;
 
-        Vector4f position = new Vector4f(x, y, z, 1f);
-        transform.pose().transform(position);
-        transform.normal().transform(normal);
-
-        data[pos] = Float.floatToIntBits(position.x);
-        data[pos + 1] = Float.floatToIntBits(position.y);
-        data[pos + 2] = Float.floatToIntBits(position.z);
-        data[pos + 3] = Float.floatToIntBits(u);
-        data[pos + 4] = Float.floatToIntBits(v);
+        data[pos] = Float.floatToRawIntBits(position.x);
+        data[pos + 1] = Float.floatToRawIntBits(position.y);
+        data[pos + 2] = Float.floatToRawIntBits(position.z);
+        data[pos + 3] = Float.floatToRawIntBits(u);
+        data[pos + 4] = Float.floatToRawIntBits(v);
         data[pos + 5] = packNormal(normal.x, normal.y, normal.z);
     }
 
