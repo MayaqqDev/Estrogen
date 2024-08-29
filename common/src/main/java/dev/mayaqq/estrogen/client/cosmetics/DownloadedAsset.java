@@ -46,19 +46,17 @@ public class DownloadedAsset {
 
                         HttpResponse<InputStream> stream = CLIENT.send(request, HttpResponse.BodyHandlers.ofInputStream());
                         if (stream.statusCode() / 100 != 2) {
-                            Estrogen.LOGGER.error("Failed to load asset: {} Status Code: {}", uri, stream.statusCode());
+                            Estrogen.LOGGER.error("Failed to download asset: {} Status Code: {}", uri, stream.statusCode());
                             return;
                         }
 
                         FileUtils.copyInputStreamToFile(stream.body(), file);
+                        try(InputStream fileStream = FileUtils.openInputStream(file)) {
+                            callback.accept(fileStream);
+                        } catch (IOException ex) {
+                            Estrogen.LOGGER.error("Failed to process asset: {}", uri, ex);
+                        }
 
-                        Minecraft.getInstance().execute(() -> {
-                            try(InputStream fileStream = FileUtils.openInputStream(file)) {
-                                callback.accept(fileStream);
-                            } catch (IOException ex) {
-                                Estrogen.LOGGER.error("Failed to process asset: {}", uri, ex);
-                            }
-                        });
                     } catch (IOException | InterruptedException ignored) {
                     }
                 }), Util.backgroundExecutor());
