@@ -57,7 +57,8 @@ public class DownloadedAsset {
                             Estrogen.LOGGER.error("Failed to process asset: {}", uri, ex);
                         }
 
-                    } catch (IOException | InterruptedException ignored) {
+                    } catch (IOException | InterruptedException ex) {
+                        Estrogen.LOGGER.error("Failed to download asset: {}", uri, ex);
                     }
                 }), Util.backgroundExecutor());
     }
