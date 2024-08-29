@@ -62,7 +62,6 @@ public class CosmeticModel {
         }
 
         public void load() {
-            Estrogen.LOGGER.info("Loading cosmetic");
             if(this.future == null) {
                 Optional<BlockModel> optional1 = (file != null && file.isFile()) ? load(() -> new FileReader(file)) : Optional.empty();
 
@@ -79,7 +78,6 @@ public class CosmeticModel {
         }
 
         private void bake(BlockModel base) {
-            Estrogen.LOGGER.info("Baking cosmetic");
             try {
                 this.result = CosmeticModelBakery.bake(base.getElements());
             } catch (Exception e) {
