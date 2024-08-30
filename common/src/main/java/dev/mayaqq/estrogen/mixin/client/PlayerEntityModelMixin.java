@@ -49,6 +49,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Map;
 import java.util.Optional;
 
+import static dev.mayaqq.estrogen.utils.EstrogenMath.boobFunc;
+
 @Mixin(PlayerModel.class)
 public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidModel<T> implements PlayerEntityModelExtension {
 
@@ -96,17 +98,17 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
 
         this.estrogen$boobs.copyFrom(this.body);
         this.estrogen$boobs.xRot = this.body.xRot + 1.0F;
-        float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT.get()).getAmplifier() / 10.0F;
+        float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT.get()).getAmplifier();
         Quaternionf bodyRotation = (new Quaternionf()).rotationZYX(this.body.zRot, this.body.yRot, this.body.xRot);
-        this.estrogen$boobs.offsetPos(new Vector3f(0.0F, 4.0F + size * 0.864F * (1 + amplifier) + yOffset, -1.9F + size * -1.944F * (1 + amplifier)).rotate(bodyRotation));
-        this.estrogen$boobs.yScale = (1 + size * 2.0F * (1 + amplifier)) / 2.0F;
-        this.estrogen$boobs.zScale = (1 + size * 2.5F * (1 + amplifier)) / 2.0F;
+        this.estrogen$boobs.offsetPos(new Vector3f(0.0F, 4.0F + size * 0.864F * boobFunc(1 + amplifier) + yOffset, -1.9F + size * -1.944F * boobFunc(1 + amplifier)).rotate(bodyRotation));
+        this.estrogen$boobs.yScale = (1 + size * 2.0F * boobFunc(1 + amplifier)) / 2.0F;
+        this.estrogen$boobs.zScale = (1 + size * 2.5F * boobFunc(1 + amplifier)) / 2.0F;
         this.estrogen$boobs.render(matrices, vertices, light, overlay);
 
         this.estrogen$boobJacket.visible = player.isModelPartShown(PlayerModelPart.JACKET);
         this.estrogen$boobJacket.copyFrom(this.body);
         this.estrogen$boobJacket.xRot = this.estrogen$boobs.xRot;
-        this.estrogen$boobJacket.offsetPos(new Vector3f(0.0F, 4.0F + size * 0.864F * (1 + amplifier) + yOffset, -1.9F + size * -1.944F * (1 + amplifier)).rotate(bodyRotation));
+        this.estrogen$boobJacket.offsetPos(new Vector3f(0.0F, 4.0F + size * 0.864F * boobFunc(1 + amplifier) + yOffset, -1.9F + size * -1.944F * boobFunc(1 + amplifier)).rotate(bodyRotation));
         this.estrogen$boobJacket.yScale = this.estrogen$boobs.yScale;
         this.estrogen$boobJacket.zScale = this.estrogen$boobs.zScale;
         this.estrogen$boobJacket.render(matrices, vertices, light, overlay);
@@ -125,11 +127,11 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends HumanoidMode
         VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(textureData.location()), false, glint);
         this.estrogen$boobArmor.copyTransform(this.body);
         this.estrogen$boobArmor.pitch = this.body.xRot;
-        float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT.get()).getAmplifier() / 10.0F;
+        float amplifier = player.getEffect(EstrogenEffects.ESTROGEN_EFFECT.get()).getAmplifier();
         Quaternionf bodyRotation = (new Quaternionf()).rotationZYX(this.body.zRot, this.body.yRot, this.body.xRot);
-        this.estrogen$boobArmor.translate((new Vector3f(0.0F, 4.0F + size * 0.864F * (1 + amplifier) + yOffset, -4.0F + size * (-1.944F - 0.24F*3.0F) * (1 + amplifier))).rotate(bodyRotation));
-        this.estrogen$boobArmor.scaleY = (1 + size * 2.0F * (1 + amplifier)) / 2.0F;
-        this.estrogen$boobArmor.scaleZ = (1 + size * 2.5F * (1 + amplifier)) / 2.0F;
+        this.estrogen$boobArmor.translate((new Vector3f(0.0F, 4.0F + size * 0.864F * boobFunc(1 + amplifier) + yOffset, -4.0F + size * (-1.944F - 0.24F*3.0F) * boobFunc(1 + amplifier))).rotate(bodyRotation));
+        this.estrogen$boobArmor.scaleY = (1 + size * 2.0F * boobFunc(1 + amplifier)) / 2.0F;
+        this.estrogen$boobArmor.scaleZ = (1 + size * 2.5F * boobFunc(1 + amplifier)) / 2.0F;
         this.estrogen$boobArmor.render(matrices, vertexConsumer, light, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F, textureData.u(), textureData.v(), textureData.leftU(), textureData.leftV(), textureData.rightU(), textureData.rightV(), textureData.textureWidth(), textureData.textureHeight());
     }
 
