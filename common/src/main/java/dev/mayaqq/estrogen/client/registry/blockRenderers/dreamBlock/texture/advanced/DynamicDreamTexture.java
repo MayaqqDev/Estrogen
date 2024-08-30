@@ -128,6 +128,7 @@ public class DynamicDreamTexture {
     }
 
     public void redraw() {
+        if(!init) return;
         if(RenderSystem.isOnRenderThread()) {
             this.draw();
         } else {
