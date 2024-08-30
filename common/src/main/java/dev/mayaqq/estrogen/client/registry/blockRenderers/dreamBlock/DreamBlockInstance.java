@@ -20,6 +20,7 @@ import net.minecraft.core.Direction;
 public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> implements TickableInstance {
 
     public static final BlockEntityInstancingController<DreamBlockEntity> CONTROLLER = new Controller();
+    private static final ThreadLocal<BufferBuilder> LOCAL_BUILDER = ThreadLocal.withInitial(() -> new BufferBuilder(768));
 
     protected DreamData data;
 
@@ -44,7 +45,7 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> im
     }
 
     protected Model buildModel() {
-        BufferBuilder builder = new BufferBuilder(6 * 4 * DefaultVertexFormat.BLOCK.getVertexSize());
+        BufferBuilder builder = LOCAL_BUILDER.get();
 
         builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK);
         this.face(builder, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, Direction.SOUTH);
