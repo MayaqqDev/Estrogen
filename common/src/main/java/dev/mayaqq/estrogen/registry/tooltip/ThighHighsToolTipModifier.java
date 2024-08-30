@@ -28,7 +28,7 @@ public class ThighHighsToolTipModifier implements TooltipModifier {
         }, () -> {
             if(item.hasCustomColor(stack)) {
                 tooltip.add(1, Component.translatable("item.dyed")
-                    .withStyle(ChatFormatting.DARK_GRAY)
+                    .withStyle(ChatFormatting.GRAY)
                     .withStyle(ChatFormatting.ITALIC)
                 );
             }
