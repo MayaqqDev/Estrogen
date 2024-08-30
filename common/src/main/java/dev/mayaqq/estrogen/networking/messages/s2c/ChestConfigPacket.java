@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public record ChestConfigPacket(UUID uuid, ChestConfig config) implements Packet<ChestConfigPacket> {
 
-    public static ClientboundPacketType<ChestConfigPacket> TYPE = new Type();
+    public static final ClientboundPacketType<ChestConfigPacket> TYPE = new Type();
 
     @Override
     public PacketType<ChestConfigPacket> type() {

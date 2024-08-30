@@ -1,10 +1,10 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced;
 
-import com.jozufozu.flywheel.backend.Backend;
 import com.mojang.blaze3d.platform.NativeImage;
+import com.mojang.blaze3d.systems.RenderSystem;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderType;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
-import dev.mayaqq.estrogen.config.EstrogenConfig;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -14,24 +14,48 @@ import net.minecraft.util.random.WeightedEntry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DynamicDreamTexture {
 
     public static final DynamicDreamTexture INSTANCE = new DynamicDreamTexture();
-    private static int instanceCount = 0;
+    public static boolean enableAnimation = true;
 
-    private final List<Goober> goobers = new ArrayList<>(); //:
-    private final DynamicTexture texture;
-    private final ResourceLocation texID;
-    private final RenderType renderType;
+    private static final AtomicBoolean shouldAnimate = new AtomicBoolean();
+
+    private final List<Goober> goobers = new ObjectArrayList<>(); //:
+    private DynamicTexture texture;
+    private ResourceLocation texID;
+    private RenderType renderType;
     private long seed = 80085L;
     private int animationTick = 0;
+    private boolean init = false;
 
-    public DynamicDreamTexture() {
+    public void prepare() {
+        if(init) return;
         texture = new DynamicTexture(128, 128, false);
         texID = Minecraft.getInstance().getTextureManager().register("dreamy", texture);
         renderType = EstrogenRenderType.DREAM_BLOCK.apply(texID);
-        generateGoobers();
+        this.draw();
+        init = true;
+    }
+
+    // I'll leave this here unused cs it might be useful in the future
+    private void _release() {
+        if(!init) return;
+        Minecraft.getInstance().getTextureManager().release(texID);
+        texture = null;
+        texID = null;
+        renderType = null;
+        init = false;
+    }
+
+    public void release() {
+        if(RenderSystem.isOnRenderThread()) {
+            this._release();
+        } else {
+            RenderSystem.recordRenderCall(this::_release);
+        }
     }
 
     public RenderType getRenderType() {
@@ -41,6 +65,7 @@ public class DynamicDreamTexture {
     public void changeSeed(long seed) {
         this.seed = seed;
         this.generateGoobers();
+        this.redraw();
     }
 
     public void generateGoobers() {
@@ -57,18 +82,15 @@ public class DynamicDreamTexture {
             int posX = random.nextInt(4, 124);
             int posY = random.nextInt(4, 124);
 
-            Goober.Style style = Goober.Style.weighted(random);
-
-            if(style != Goober.Style.PIXEL) {
-                for (Goober goob : goobers) {
-                    if (goob.tooClose(posX, posY)) {
-                        canPlace = false;
-                        break;
-                    }
+            for (Goober goob : goobers) {
+                if (goob.tooClose(posX, posY)) {
+                    canPlace = false;
+                    break;
                 }
             }
 
             if(canPlace) {
+                Goober.Style style = Goober.Style.weighted(random);
                 Goober.Color color = Goober.Color.values()[random.nextIntBetweenInclusive(0, 5)];
                 int animTick = style.hasAnimation() ? random.nextIntBetweenInclusive(0, 10) : 0;
                 int beginFrame = random.nextInt(0, style.frameCount());
@@ -102,41 +124,36 @@ public class DynamicDreamTexture {
     }
 
     public void tick() {
-        if(cancelAnimation()) return;
         animationTick++;
         if(animationTick == 10) {
             animationTick = 0;
         }
-        for(Goober goober : goobers) {
-            goober.tickAnimation(animationTick, this::draw);
+        boolean redraw = false;
+        for (Goober goober : goobers) {
+            if(goober.tickAnimation(animationTick)) redraw = true;
+        }
+        if(shouldAnimate() && redraw) redraw();
+    }
+
+    public void redraw() {
+        if(!init) return;
+        if(RenderSystem.isOnRenderThread()) {
+            this.draw();
+        } else {
+            RenderSystem.recordRenderCall(this::draw);
         }
     }
 
-    private boolean cancelAnimation() {
-        if(!EstrogenConfig.client().animateTexture.get()) return true;
-
-        boolean ar = DreamBlockRenderer.useAdvancedRenderer();
-        if(Backend.isOn() && ar) return instanceCount == 0;
-        if(!ar) clearActive();
-        return !ar;
+    private boolean shouldAnimate() {
+        return enableAnimation && DreamBlockRenderer.useAdvancedRenderer() && shouldAnimate.get();
     }
 
-    public static void tickInstance() {
-        if(INSTANCE != null) INSTANCE.tick();
+    public static void setActive() {
+        shouldAnimate.set(true);
     }
 
-    public static void addActive() {
-        instanceCount++;
-    }
-
-    public static void removeActive() {
-        if(instanceCount > 0) {
-            instanceCount--;
-        }
-    }
-
-    public static void clearActive() {
-        instanceCount = 0;
+    public static void resetActive() {
+        shouldAnimate.set(false);
     }
 
 }

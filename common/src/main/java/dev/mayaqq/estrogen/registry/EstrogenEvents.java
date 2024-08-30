@@ -7,14 +7,15 @@ import dev.mayaqq.estrogen.networking.messages.c2s.SpawnHeartsPacket;
 import dev.mayaqq.estrogen.networking.messages.s2c.DreamBlockSeedPacket;
 import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
 import dev.mayaqq.estrogen.registry.entities.MothEntity;
+import dev.mayaqq.estrogen.registry.items.ThighHighsItem;
 import dev.mayaqq.estrogen.registry.recipes.inventory.EntityInteractionInventory;
 import dev.mayaqq.estrogen.utils.Time;
-import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.PlayerList;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -32,10 +33,8 @@ import org.apache.commons.codec.digest.MessageDigestAlgorithms;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Stream;
 
 import static dev.mayaqq.estrogen.registry.EstrogenAttributes.BOOB_GROWING_START_TIME;
 import static dev.mayaqq.estrogen.registry.EstrogenAttributes.BOOB_INITIAL_SIZE;
@@ -140,5 +139,11 @@ public class EstrogenEvents {
         map.put(EstrogenEntities.MOTH.get(), MothEntity.createAttributes().build());
 
         return map;
+    }
+
+    // Not using the provided player as it is always null on forge (wtf)
+    public static void onDataPackSync(ServerPlayer player, boolean isJoin) {
+        ThighHighsItem item = EstrogenItems.THIGH_HIGHS.get();
+        item.syncStyles(player);
     }
 }

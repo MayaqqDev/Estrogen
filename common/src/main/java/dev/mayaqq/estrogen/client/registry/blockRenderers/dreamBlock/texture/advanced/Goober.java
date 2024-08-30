@@ -37,7 +37,8 @@ public class Goober {
     public boolean tooClose(int x, int y) {
         int difX = Math.abs(this.x - x);
         int difY = Math.abs(this.y - y);
-        return (difX < 8 && difY < 8 || ((difX < 6 || difY < 6) && style != Style.PIXEL));
+        if(style == Style.PIXEL) return (difX < 2 && difY < 2);
+        return (difX < 8 && difY < 8 || difX < 6 || difY < 6);
     }
 
     public void draw(NativeImage pixels) {
@@ -56,14 +57,15 @@ public class Goober {
         style.draw(pixels, x, y, col, currentFrame);
     }
 
-    public void tickAnimation(int tick, Runnable redraw) {
+    public boolean tickAnimation(int tick) {
         if(tick == frameTick) {
             currentFrame++;
             if(currentFrame == style.frameCount()) {
                 currentFrame = 0;
             }
-            RenderSystem.recordRenderCall(redraw::run);
+            return true;
         }
+        return false;
     }
 
     public enum Color {
@@ -86,7 +88,7 @@ public class Goober {
     }
 
     public enum Style implements WeightedEntry {
-        PIXEL(2, List.of(NativeImage::setPixelRGBA)), // Pixel has a lower weight because any node drawn on a border becomes a pixel
+        PIXEL(2, List.of(NativeImage::setPixelRGBA)), // Pixel has a lower weight because it has much more placement possibilities
         STAR(5, List.of((image, x, y, color) -> {
                 image.setPixelRGBA(x + 1, y, color);
                 image.setPixelRGBA(x, y + 1, color);

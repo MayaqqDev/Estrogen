@@ -1,7 +1,7 @@
 {
 	"parent": "estrogen:trinket/thigh_high",
 	"textures": {
-		"0": "estrogen:item/thigh_highs/stripes",
-		"particle": "estrogen:item/thigh_highs/stripes"
+		"0": "estrogen:thigh_highs/default/stripes",
+		"particle": "estrogen:thigh_highs/default/stripes"
 	}
 }

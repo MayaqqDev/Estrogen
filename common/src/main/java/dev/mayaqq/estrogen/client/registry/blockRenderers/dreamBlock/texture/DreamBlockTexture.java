@@ -198,18 +198,18 @@ public class DreamBlockTexture {
 
         if(level == null) return output;
 
-        BlockState stateR = level.getBlockState(pos.relative(right));
-        BlockState stateL = level.getBlockState(pos.relative(right.getOpposite()));
-        BlockState stateUp = level.getBlockState(pos.relative(up));
-        BlockState stateDown = level.getBlockState(pos.relative(up.getOpposite()));
+        boolean stateR = be.isTouchingDreamBlock(right);
+        boolean stateL = be.isTouchingDreamBlock(right.getOpposite());
+        boolean stateUp = be.isTouchingDreamBlock(up);
+        boolean stateDown = be.isTouchingDreamBlock(up.getOpposite());
 
-        if(!stateL.is(dreamBlock)) output = output.or((x, y) -> x == 15);
+        if(!stateL) output = output.or((x, y) -> x == 15);
 
-        if(!stateR.is(dreamBlock)) output = output.or((x, y) -> x == 0);
+        if(!stateR) output = output.or((x, y) -> x == 0);
 
-        if(!stateDown.is(dreamBlock)) output = output.or((x, y) -> y == 15);
+        if(!stateDown) output = output.or((x, y) -> y == 15);
 
-        if(!stateUp.is(dreamBlock)) output = output.or((x, y) -> y == 0);
+        if(!stateUp) output = output.or((x, y) -> y == 0);
 
         BlockState cornerUpRight = level.getBlockState(pos.relative(up).relative(right));
         BlockState cornerUpLeft = level.getBlockState(pos.relative(up).relative(right.getOpposite()));

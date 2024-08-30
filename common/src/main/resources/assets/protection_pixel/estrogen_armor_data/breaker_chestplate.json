@@ -1,0 +1,7 @@
+{
+    "texture": "protection_pixel:textures/entities/prism.png",
+    "uv": [45, 2],
+    "left_uv": [51, 2],
+    "right_uv": [45, 2],
+    "size": [64.0, 64.0]
+}

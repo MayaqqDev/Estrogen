@@ -19,12 +19,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Minecraft.class)
 public class MinecraftClientMixin {
+
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo info) {
         BoobPhysicsManager.tick();
         DreamBlockEffect.tick();
         DreamBlockTexture.animationTick();
-        DynamicDreamTexture.tickInstance();
+        DynamicDreamTexture.INSTANCE.tick();
+        DynamicDreamTexture.resetActive();
         UwUfy.tick();
     }
 

@@ -5,7 +5,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CommonDash {
 
-    private static final long DASH_DURATION = 1000;
+    // dash is 5 game ticks = 250 ms; adding 50 ms for some leeway
+    private static final long DASH_DURATION = 300;
 
     private static final ConcurrentHashMap<UUID, Long> players = new ConcurrentHashMap<>();
 

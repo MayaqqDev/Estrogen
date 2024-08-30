@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.client.config;
 
 import com.jozufozu.flywheel.backend.Backend;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced.DynamicDreamTexture;
 import dev.mayaqq.estrogen.config.DreamBlockRenderState;
 import dev.mayaqq.estrogen.config.ChestConfig;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
@@ -38,6 +39,7 @@ public class ConfigSync {
                 Backend.reloadWorldRenderers();
                 lastRenderValue = useAdvancedRender;
             }
+            DynamicDreamTexture.enableAnimation = EstrogenConfig.client().animateTexture.get();
         }
     }
 

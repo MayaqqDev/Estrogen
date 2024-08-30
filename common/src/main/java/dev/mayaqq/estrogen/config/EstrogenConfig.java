@@ -8,6 +8,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 public class EstrogenConfig {
@@ -46,10 +47,13 @@ public class EstrogenConfig {
         return config;
     }
 
-    public static void register() {
+    public static void register(BiConsumer<ModConfig.Type, ForgeConfigSpec> registerCallback) {
         client = register(Client::new, ModConfig.Type.CLIENT);
         common = register(Common::new, ModConfig.Type.COMMON);
         server = register(Server::new, ModConfig.Type.SERVER);
+
+        for (Map.Entry<ModConfig.Type, ConfigBase> pair : CONFIGS.entrySet())
+            registerCallback.accept(pair.getKey(), pair.getValue().specification);
     }
 
     public static void onLoad(ModConfig modConfig) {

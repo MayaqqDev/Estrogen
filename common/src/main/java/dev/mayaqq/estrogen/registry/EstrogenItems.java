@@ -11,6 +11,7 @@ import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.platform.CommonPlatform;
 import dev.mayaqq.estrogen.registry.items.*;
+import dev.mayaqq.estrogen.registry.tooltip.ThighHighsToolTipModifier;
 import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
@@ -45,7 +46,7 @@ public class EstrogenItems {
     public static final RegistryEntry<Item> INCOMPLETE_ESTROGEN_PATCH = BASIC_ITEMS.register("incomplete_estrogen_patches", () -> new SequencedAssemblyItem(new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<Item> UWU = BASIC_ITEMS.register("uwu", () -> new UwUItem(new Item.Properties().stacksTo(1)));
     public static final RegistryEntry<Item> INCOMPLETE_UWU = BASIC_ITEMS.register("incomplete_uwu", () -> new SequencedAssemblyItem(new Item.Properties().stacksTo(1)));
-    public static final RegistryEntry<ThighHighsItem> THIGH_HIGHS = BASIC_ITEMS.register("thigh_highs", () -> new ThighHighsItem(new Item.Properties().stacksTo(1), Color.parseColor("#ffa600"), Color.parseColor("#ff4ea5")));
+    public static final RegistryEntry<ThighHighsItem> THIGH_HIGHS = BASIC_ITEMS.register("thigh_highs", () -> new ThighHighsItem(new Item.Properties().stacksTo(1), Color.parseColor("#f1d85a"), Color.parseColor("#ff4ea5")));
     public static final RegistryEntry<MothElytraItem> MOTH_ELYTRA = BASIC_ITEMS.register("moth_elytra", () -> new MothElytraItem(new Item.Properties().stacksTo(1).durability(626).rarity(Rarity.UNCOMMON)));
 
     // Eggs
@@ -76,5 +77,6 @@ public class EstrogenItems {
 
     public static void registerTooltips() {
         EstrogenItems.ITEMS.stream().forEach(itemEntry -> TooltipModifier.REGISTRY.registerDeferred(itemEntry.getId(), item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)));
+        TooltipModifier.REGISTRY.registerDeferred(THIGH_HIGHS.getId(), ThighHighsToolTipModifier::new);
     }
 }

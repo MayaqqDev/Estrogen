@@ -4,15 +4,16 @@ import com.simibubi.create.foundation.config.ConfigBase;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.registry.EstrogenEvents;
+import dev.mayaqq.estrogen.resources.thighhighs.ThighHighStyleLoader;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.PathPackResources;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.event.AddPackFindersEvent;
-import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
 import net.minecraftforge.event.entity.EntityMountEvent;
@@ -103,5 +104,21 @@ public class EstrogenForgeEvents {
         if (event.getEntity() instanceof FakePlayer) {
             event.setCanceled(true);
         }
+    }
+
+    @SubscribeEvent
+    public static void onDatapackSync(OnDatapackSyncEvent event) {
+        if(event.getPlayer() != null) {
+            EstrogenEvents.onDataPackSync(event.getPlayer(), true);
+        } else {
+            for(ServerPlayer player : event.getPlayerList().getPlayers()) {
+                EstrogenEvents.onDataPackSync(player, false);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void addReloadListeners(AddReloadListenerEvent event) {
+        event.addListener(ThighHighStyleLoader.INSTANCE);
     }
 }

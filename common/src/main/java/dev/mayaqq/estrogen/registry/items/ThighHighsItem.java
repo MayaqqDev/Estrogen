@@ -1,6 +1,8 @@
 package dev.mayaqq.estrogen.registry.items;
 
 import com.google.common.collect.Multimap;
+import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
+import dev.mayaqq.estrogen.networking.messages.s2c.ThighHighStylesPacket;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
 import earth.terrarium.baubly.Baubly;
 import earth.terrarium.baubly.common.Bauble;
@@ -8,28 +10,42 @@ import earth.terrarium.baubly.common.SlotInfo;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
-import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 public class ThighHighsItem extends Item implements Bauble {
     private final int primaryColorDefault;
     private final int secondaryColorDefault;
+    private List<ResourceLocation> styles;
     public static final String TAG_PRIMARY = "primaryColor";
     public static final String TAG_SECONDARY = "secondaryColor";
     public static final String TAG_STYLE = "specialStyle";
+
     public ThighHighsItem(Properties properties, int primaryColor, int secondaryColor) {
         super(properties);
         this.primaryColorDefault = primaryColor;
         this.secondaryColorDefault = secondaryColor;
         Baubly.registerBauble(this);
+    }
+
+    public void loadStyles(List<ResourceLocation> newStyles) {
+        styles = newStyles;
+    }
+
+    public void syncStyles(ServerPlayer player) {
+        EstrogenNetworkManager.CHANNEL.sendToPlayer(new ThighHighStylesPacket(styles), player);
     }
 
     public int getDefaultColor(int tintIndex) {
@@ -70,12 +86,26 @@ public class ThighHighsItem extends Item implements Bauble {
         stack.getOrCreateTag().putString(TAG_STYLE, style.toString());
     }
 
-    public @Nullable ResourceLocation getStyle(ItemStack stack) {
+    public void setRandomStyle(ItemStack stack, RandomSource randomSource) {
+        setStyle(stack, styles.get(randomSource.nextInt(styles.size())));
+    }
+
+    public Stream<ItemStack> streamStyleItems() {
+        return styles.stream().map(s -> {
+            ItemStack stack = getDefaultInstance();
+            setStyle(stack, s);
+            return stack;
+        });
+    }
+
+    public Optional<ResourceLocation> getStyle(ItemStack stack) {
+        if(styles == null) return Optional.empty();
         CompoundTag tag = stack.getTag();
         if(tag != null && tag.contains(TAG_STYLE)) {
-            return new ResourceLocation(tag.getString(TAG_STYLE));
+            ResourceLocation style = new ResourceLocation(tag.getString(TAG_STYLE));
+            if(styles.contains(style)) return Optional.of(style);
         }
-        return null;
+        return Optional.empty();
     }
 
     public void clearStyle(ItemStack stack) {
