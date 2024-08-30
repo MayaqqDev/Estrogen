@@ -41,13 +41,21 @@ public class DynamicDreamTexture {
     }
 
     // I'll leave this here unused cs it might be useful in the future
-    public void release() {
+    private void _release() {
         if(!init) return;
         Minecraft.getInstance().getTextureManager().release(texID);
         texture = null;
         texID = null;
         renderType = null;
         init = false;
+    }
+
+    public void release() {
+        if(RenderSystem.isOnRenderThread()) {
+            this._release();
+        } else {
+            RenderSystem.recordRenderCall(this::_release);
+        }
     }
 
     public RenderType getRenderType() {
