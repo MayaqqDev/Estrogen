@@ -20,7 +20,7 @@ import net.minecraft.core.Direction;
 public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> implements TickableInstance {
 
     public static final BlockEntityInstancingController<DreamBlockEntity> CONTROLLER = new Controller();
-    private static final ThreadLocal<BufferBuilder> LOCAL_BUILDER = ThreadLocal.withInitial(() -> new BufferBuilder(768));
+    private static final ThreadLocal<BufferBuilder> LOCAL_BUILDER = ThreadLocal.withInitial(() -> new BufferBuilder(1536));
 
     protected DreamData data;
 
