@@ -77,6 +77,6 @@ public class EstrogenItems {
 
     public static void registerTooltips() {
         EstrogenItems.ITEMS.stream().forEach(itemEntry -> TooltipModifier.REGISTRY.registerDeferred(itemEntry.getId(), item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)));
-        TooltipModifier.REGISTRY.registerDeferred(THIGH_HIGHS.getId(), ThighHighsToolTipModifier::new);
+        TooltipModifier.REGISTRY.registerDeferred(THIGH_HIGHS.getId(), ThighHighsToolTipModifier::create);
     }
 }
