@@ -29,6 +29,19 @@ public class CosmeticTexture {
     private final ResourceLocation location;
     private SimpleTexture img;
 
+    public static CosmeticTexture fromLocalFile(String id, File file) {
+        CosmeticTexture tex = new CosmeticTexture(id, file);
+        tex.img = new DownloadableTexture(file, id, tex.location);
+        Minecraft.getInstance().getTextureManager().register(tex.location, tex.img);
+        return tex;
+    }
+
+    private CosmeticTexture(String id, File file) {
+        this.id = id;
+        this.texture = id;
+        this.location = new ResourceLocation(NAMESPACE, "textures/cosmetics" + this.id);
+    }
+
     public CosmeticTexture(String texture) {
         this.id = DownloadedAsset.getUrlHash(texture);
         this.texture = texture;

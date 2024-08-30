@@ -2,11 +2,15 @@ package dev.mayaqq.estrogen.client.cosmetics;
 
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+
+import java.io.File;
 import java.util.function.Function;
 
 public record Cosmetic(String id, String name, CosmeticTexture texture, CosmeticModel model) {
@@ -24,6 +28,13 @@ public record Cosmetic(String id, String name, CosmeticTexture texture, Cosmetic
         );
     }
 
+    /**
+     * Use this for rendering cosmetics
+     * @param renderType Render type function, provides a RenderType for the texture, e.g. RenderType::entityCutout
+     * @param source MultiBufferSource to render this cosmetic into
+     * @param matrices PoseStack with transformations
+     * @param light lighting
+     */
     public void render(Function<ResourceLocation, RenderType> renderType, MultiBufferSource source, PoseStack matrices, int light) {
         model.get().ifPresent(model -> model.renderInto(
             source.getBuffer(renderType.apply(texture.getResourceLocation())),
@@ -33,4 +44,5 @@ public record Cosmetic(String id, String name, CosmeticTexture texture, Cosmetic
             OverlayTexture.NO_OVERLAY
         ));
     }
+
 }

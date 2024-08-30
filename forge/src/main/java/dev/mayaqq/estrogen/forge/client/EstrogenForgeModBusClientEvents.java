@@ -3,6 +3,8 @@ package dev.mayaqq.estrogen.forge.client;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.config.ConfigSync;
 import dev.mayaqq.estrogen.client.registry.EstrogenClientEvents;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
