@@ -11,6 +11,7 @@ import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.platform.CommonPlatform;
 import dev.mayaqq.estrogen.registry.items.*;
+import dev.mayaqq.estrogen.registry.tooltip.ThighHighsToolTipModifier;
 import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
@@ -76,5 +77,6 @@ public class EstrogenItems {
 
     public static void registerTooltips() {
         EstrogenItems.ITEMS.stream().forEach(itemEntry -> TooltipModifier.REGISTRY.registerDeferred(itemEntry.getId(), item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)));
+        TooltipModifier.REGISTRY.registerDeferred(THIGH_HIGHS.getId(), ThighHighsToolTipModifier::new);
     }
 }

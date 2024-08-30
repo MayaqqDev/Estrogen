@@ -203,5 +203,28 @@ public class EstrogenTranslations extends FabricLanguageProvider {
 
         // Mod Menu
         tb.add("estrogen.credits", "Credits & Contributors");
+
+        // Thigh high tooltips - Cryptic asf because * colors * :)
+        thighHigh(tb, "trans", "§bTr§dan§fsge§dnd§ber");
+        thighHigh(tb, "pansexual", "§dPan§esex§bual");
+        thighHigh(tb, "polysexual", "§dPoly§asex§bual");
+        thighHigh(tb, "lesbian", "§cL§6es§fb§dia§5n");
+        thighHigh(tb, "pride", "§cP§6r§ei§ad§5e");
+        thighHigh(tb, "bisexual", "§dBis§5ex§1ual");
+        thighHigh(tb, "asexual", "§5As§fex§8ual");
+        thighHigh(tb, "aromantic", "§aAro§fman§8tic");
+        thighHigh(tb, "genderqueer", "§aGen§fder§5queer");
+        thighHigh(tb, "non_binary", "§eNon§f-Bi§5na§8ry");
+        thighHigh(tb, "intersex", "§eInt§5er§esex");
+        thighHigh(tb, "polyamorous", "§bPoly§fam§coro§8us");
+        thighHigh(tb, "agender", "§8A§7g§fe§an§fd§7e§8r");
+        thighHigh(tb, "vincian", "§3Vi§an§fc§bia§9n");
+        thighHigh(tb, "genderfluid", "§dGe§fnd§5er§8fl§9uid");
+        thighHigh(tb, "demisexual", "De§8mi§fse§5xu§fal");
+
+    }
+
+    private void thighHigh(TranslationBuilder builder, String styleName, String value) {
+        builder.add("tooltip.thigh_highs.estrogen." + styleName, value);
     }
 }

@@ -57,6 +57,7 @@ public class EstrogenCreativeTab {
         items.add(HORSE_URINE_BUCKET.get().getDefaultInstance());
         items.add(MOLTEN_AMETHYST_BUCKET.get().getDefaultInstance());
         items.add(MOTH_EGG.get().getDefaultInstance());
+        THIGH_HIGHS.get().streamStyleItems().forEach(items::add);
         return items.stream();
     }
 
