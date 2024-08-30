@@ -1,9 +1,11 @@
 package dev.mayaqq.estrogen.registry.items;
 
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Streams;
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.networking.messages.s2c.ThighHighStylesPacket;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
 import earth.terrarium.baubly.Baubly;
 import earth.terrarium.baubly.common.Bauble;
 import earth.terrarium.baubly.common.SlotInfo;
@@ -23,6 +25,7 @@ import net.minecraft.world.level.block.LayeredCauldronBlock;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 public class ThighHighsItem extends Item implements Bauble {
     private final int primaryColorDefault;
@@ -87,6 +90,14 @@ public class ThighHighsItem extends Item implements Bauble {
 
     public void setRandomStyle(ItemStack stack, RandomSource randomSource) {
         setStyle(stack, styles.get(randomSource.nextInt(styles.size())));
+    }
+
+    public Stream<ItemStack> allStyleThighHighs() {
+        return styles.stream().map(s -> {
+            ItemStack stack = getDefaultInstance();
+            setStyle(stack, s);
+            return stack;
+        });
     }
 
     public Optional<ResourceLocation> getStyle(ItemStack stack) {
