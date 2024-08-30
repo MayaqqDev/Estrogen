@@ -1,11 +1,9 @@
 package dev.mayaqq.estrogen.registry.items;
 
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Streams;
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.networking.messages.s2c.ThighHighStylesPacket;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
-import dev.mayaqq.estrogen.registry.EstrogenItems;
 import earth.terrarium.baubly.Baubly;
 import earth.terrarium.baubly.common.Bauble;
 import earth.terrarium.baubly.common.SlotInfo;
@@ -92,7 +90,7 @@ public class ThighHighsItem extends Item implements Bauble {
         setStyle(stack, styles.get(randomSource.nextInt(styles.size())));
     }
 
-    public Stream<ItemStack> allStyleThighHighs() {
+    public Stream<ItemStack> streamStyleItems() {
         return styles.stream().map(s -> {
             ItemStack stack = getDefaultInstance();
             setStyle(stack, s);
