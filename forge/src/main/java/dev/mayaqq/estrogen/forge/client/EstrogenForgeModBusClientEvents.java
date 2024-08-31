@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.forge.client;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.config.ConfigSync;
 import dev.mayaqq.estrogen.client.registry.EstrogenClientEvents;
+import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -33,5 +34,10 @@ public class EstrogenForgeModBusClientEvents {
     @SubscribeEvent
     public static void registerColorHandlersItem(RegisterColorHandlersEvent.Item event) {
         EstrogenClientEvents.registerItemColorProviders(event::register);
+    }
+
+    @SubscribeEvent
+    public static void registerEntityRenderLayers(EntityRenderersEvent.AddLayers event) {
+        EstrogenRenderer.registerEntityLayers(event::getSkin);
     }
 }
