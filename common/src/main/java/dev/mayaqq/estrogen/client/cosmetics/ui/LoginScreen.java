@@ -17,6 +17,7 @@ import org.lwjgl.glfw.GLFW;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+// TODO replace with CosmeticsModal that shows up after CosmeticsScreen is opened
 public class LoginScreen extends ConfigScreen {
     BoxWidget clientConfigWidget;
     BoxWidget goBack;
@@ -53,6 +54,7 @@ public class LoginScreen extends ConfigScreen {
                                         Screen screen = Minecraft.getInstance().screen;
                                         if (screen != null) {
                                             screen.onClose();
+                                            System.out.println(CosmeticsApi.getAvailableCosmetics());
                                             //TODO: open CosmeticsModal
                                         }
                                     });

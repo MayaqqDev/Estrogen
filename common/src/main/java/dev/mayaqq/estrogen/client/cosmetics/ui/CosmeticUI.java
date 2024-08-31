@@ -12,7 +12,7 @@ public class CosmeticUI {
 
     public static void open(Screen parent) {
         if (CosmeticsApi.hasSessionToken()) {
-            //ResourcefulConfigScreen.openModal(CosmeticUI.COSMETICS, CosmeticModal::new);
+            ScreenOpener.open(new CosmeticsScreen(parent));
         } else {
             ScreenOpener.open(new LoginScreen(parent));
         }

@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class CosmeticsApi {
     private static final ResourcefulCosmetics<Cosmetic> API = ResourcefulCosmetics.create(
-            "https://estrogen-cosmetics.teamresourceful.com",
+            "https://estrogen-cosmetics.teamresourceful.com/",
             Cosmetic::fromJson,
             error -> Estrogen.LOGGER.error("Failed to load cosmetics", error)
     );
