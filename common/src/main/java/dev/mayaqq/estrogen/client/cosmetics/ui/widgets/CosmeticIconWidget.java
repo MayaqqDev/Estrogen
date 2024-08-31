@@ -18,9 +18,9 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
 
     public static final PartPose DEFAULT_POSE = PartPose.rotation(30.0f, 225.0f, 0);
 
-    private final Cosmetic cosmetic;
     private final PartPose pose;
 
+    private Cosmetic cosmetic;
     private float scale = 1.0f;
     private float rotationSpeed;
     private float animRot;
@@ -83,5 +83,9 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
 
     public boolean hasTransforms() {
         return pose.xRot != 0 || pose.yRot != 0 || pose.zRot != 0 || scale != 1.0f || rotationSpeed != 0 || animRot != 0;
+    }
+
+    public void setCosmetic(Cosmetic cosmetic) {
+        this.cosmetic = cosmetic;
     }
 }
