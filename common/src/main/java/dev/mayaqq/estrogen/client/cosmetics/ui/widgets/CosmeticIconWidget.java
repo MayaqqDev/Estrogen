@@ -1,11 +1,9 @@
 package dev.mayaqq.estrogen.client.cosmetics.ui.widgets;
 
-import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.simibubi.create.foundation.gui.widget.AbstractSimiWidget;
-import com.simibubi.create.foundation.utility.AngleHelper;
 import dev.mayaqq.estrogen.client.cosmetics.Cosmetic;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.model.geom.PartPose;
