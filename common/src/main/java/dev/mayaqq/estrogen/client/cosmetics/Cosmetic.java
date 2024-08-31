@@ -2,15 +2,11 @@ package dev.mayaqq.estrogen.client.cosmetics;
 
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-
-import java.io.File;
 import java.util.function.Function;
 
 public record Cosmetic(String id, String name, CosmeticTexture texture, CosmeticModel model) {
