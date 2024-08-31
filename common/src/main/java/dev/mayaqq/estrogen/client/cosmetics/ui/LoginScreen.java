@@ -9,8 +9,6 @@ import com.simibubi.create.foundation.gui.element.TextStencilElement;
 import com.simibubi.create.foundation.gui.widget.BoxWidget;
 import com.simibubi.create.foundation.utility.Components;
 import dev.mayaqq.estrogen.client.cosmetics.service.CosmeticsApi;
-import dev.mayaqq.estrogen.client.cosmetics.testing.TestCosmetics;
-import dev.mayaqq.estrogen.client.cosmetics.ui.widgets.CosmeticPreviewWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -20,7 +18,6 @@ import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LoginScreen extends ConfigScreen {
-    CosmeticPreviewWidget preview;
     BoxWidget clientConfigWidget;
     BoxWidget goBack;
     BoxWidget title;
@@ -111,9 +108,6 @@ public class LoginScreen extends ConfigScreen {
         goBack.getToolTip()
                 .add(Components.literal("Go Back"));
         addRenderableWidget(goBack);
-
-        preview = new CosmeticPreviewWidget(TestCosmetics.TEST_COSMETIC, width / 2, height / 2, false, null);
-        addRenderableWidget(preview);
 
     }
 
