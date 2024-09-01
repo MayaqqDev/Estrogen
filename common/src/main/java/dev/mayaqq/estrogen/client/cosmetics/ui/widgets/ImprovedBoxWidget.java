@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.client.ui.components;
+package dev.mayaqq.estrogen.client.cosmetics.ui.widgets;
 
 import com.simibubi.create.foundation.gui.element.RenderElement;
 import com.simibubi.create.foundation.gui.widget.BoxWidget;

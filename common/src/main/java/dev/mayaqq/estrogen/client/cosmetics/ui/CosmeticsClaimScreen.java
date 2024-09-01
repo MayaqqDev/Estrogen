@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.client.cosmetics.ui;
 
 import com.simibubi.create.foundation.gui.Theme;
 import dev.mayaqq.estrogen.client.cosmetics.service.CosmeticsApi;
+import dev.mayaqq.estrogen.client.cosmetics.ui.widgets.UIComponents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;

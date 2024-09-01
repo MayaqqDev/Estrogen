@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.client.cosmetics.ui;
+package dev.mayaqq.estrogen.client.cosmetics.ui.widgets;
 
 import com.teamresourceful.resourcefullib.client.components.CursorWidget;
 import com.teamresourceful.resourcefullib.client.screens.CursorScreen;

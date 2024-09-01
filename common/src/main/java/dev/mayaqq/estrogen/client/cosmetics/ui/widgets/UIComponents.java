@@ -1,10 +1,9 @@
-package dev.mayaqq.estrogen.client.cosmetics.ui;
+package dev.mayaqq.estrogen.client.cosmetics.ui.widgets;
 
 import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.Theme;
 import com.simibubi.create.foundation.gui.element.TextStencilElement;
 import com.simibubi.create.foundation.gui.widget.BoxWidget;
-import dev.mayaqq.estrogen.client.ui.components.ImprovedBoxWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.MutableComponent;
