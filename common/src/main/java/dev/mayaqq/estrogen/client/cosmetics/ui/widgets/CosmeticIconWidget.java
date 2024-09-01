@@ -58,7 +58,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         }
 
         matrices.translate(0f, height - modelSize.y, 0f);
-        matrices.scale(16.0F * scaleX, -16.0F * scaleY, 16.0F);
+        matrices.scale(16.0F * scaleX, -16.0F * scaleY, 16.0F * scaleX);
 
         if(pose.x != 0 || pose.y != 0 || pose.z != 0) {
             matrices.translate(pose.x / 16f, pose.y / 16f, pose.z / 16f);
