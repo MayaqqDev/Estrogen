@@ -1,18 +1,21 @@
 package dev.mayaqq.estrogen.client.cosmetics.ui.widgets;
 
 import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import com.simibubi.create.foundation.gui.widget.AbstractSimiWidget;
 import dev.mayaqq.estrogen.client.cosmetics.Cosmetic;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 public class CosmeticIconWidget extends AbstractSimiWidget {
 
@@ -21,12 +24,15 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
     private final PartPose pose;
 
     private Cosmetic cosmetic;
-    private float scale = 1.0f;
+    private float scale = 0.5f;
     private float rotationSpeed;
     private float animRot;
+    private ContentScaling contentScalingMode = ContentScaling.SCALE_Y;
 
-    public CosmeticIconWidget(Cosmetic cosmetic, int x, int y, @Nullable PartPose referencePose) {
-        super(x, y);
+    public boolean debug = true;
+
+    public CosmeticIconWidget(Cosmetic cosmetic, int x, int y, int width, int height, @Nullable PartPose referencePose) {
+        super(x, y, width, height);
         this.cosmetic = cosmetic;
         this.pose = (referencePose != null) ? referencePose : DEFAULT_POSE;
         this.z = 150;
@@ -35,14 +41,30 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
     @Override
     protected void doRender(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
         PoseStack matrices = graphics.pose();
-        matrices.translate(this.getX() - 8f, this.getY() - 8f, z);
+        matrices.translate(this.getX(), this.getY() + 16, z);
+
+        Vector3f modelSize = cosmetic.model().maxBound().sub(cosmetic.model().minBound());
+        float scaleX, scaleY;
+
+        // Ignore IDEA advice it's dumb
+        switch (contentScalingMode) {
+            case SCALE_X -> scaleY = scaleX = width / modelSize.x;
+            case SCALE_Y -> scaleX = scaleY = height / modelSize.y;
+            case SQUISH -> {
+                scaleX = width / modelSize.x;
+                scaleY = height / modelSize.y;
+            }
+            default -> scaleX = scaleY = 1f;
+        }
+
+        matrices.scale(16.0F * scaleX, -16.0F * scaleY, 16.0F);
+        matrices.translate(0f, -0.875f, 0f);
 
         if(pose.x != 0 || pose.y != 0 || pose.z != 0) {
-            matrices.translate(pose.x, pose.y, pose.z);
+            matrices.translate(pose.x / 16f, pose.y / 16f, pose.z / 16f);
         }
-        matrices.scale(16.0F, -16.0F, 16.0F);
 
-        if(this.hasTransforms()) {
+        if(this.rotateOrScale()) {
             matrices.translate(0.5f, 0.5f, 0.5f);
             matrices.scale(scale, scale, scale);
             matrices.mulPose(rotateXYZ(pose.xRot, pose.yRot, pose.zRot));
@@ -52,10 +74,32 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
             matrices.translate(-0.5f, -0.5f, -0.5f);
         }
 
+        if(debug) {
+            drawDebugBounds(getX(), getY(), getX() + width, getY() + height, 0xFFFFFFFF);
+            drawDebugBounds(getX(), getY(), getX() + modelSize.x, getY() + modelSize.y, 0xFFFF0000);
+        }
+
         Lighting.setupForEntityInInventory();
         cosmetic.render(RenderType::entityTranslucent, graphics.bufferSource(), matrices, LightTexture.FULL_BRIGHT);
         graphics.flush();
 
+    }
+
+    private void drawDebugBounds(float minX, float minY, float maxX, float maxY, int color) {
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+
+        BufferBuilder builder = Tesselator.getInstance().getBuilder();
+        builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+
+        builder.vertex(minX, minY, 0).color(color).endVertex();
+        builder.vertex(minX, maxY, 0).color(color).endVertex();
+        builder.vertex(maxX, maxY, 0).color(color).endVertex();
+        builder.vertex(maxX, minY, 0).color(color).endVertex();
+
+        Tesselator.getInstance().end();
+        RenderSystem.disableBlend();
     }
 
     // TODO: Actually properly animate this
@@ -81,11 +125,22 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         return this;
     }
 
-    public boolean hasTransforms() {
+    public boolean rotateOrScale() {
         return pose.xRot != 0 || pose.yRot != 0 || pose.zRot != 0 || scale != 1.0f || rotationSpeed != 0 || animRot != 0;
     }
 
     public void setCosmetic(Cosmetic cosmetic) {
         this.cosmetic = cosmetic;
+    }
+
+    public void setContentScalingMode(ContentScaling mode) {
+        this.contentScalingMode = mode;
+    }
+
+    public enum ContentScaling {
+        SCALE_X,
+        SCALE_Y,
+        SQUISH,
+        NONE;
     }
 }
