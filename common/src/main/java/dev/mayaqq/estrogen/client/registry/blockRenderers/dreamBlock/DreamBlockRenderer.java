@@ -11,7 +11,6 @@ import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;

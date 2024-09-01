@@ -108,6 +108,7 @@ public class LoginScreen extends ConfigScreen {
         goBack.getToolTip()
                 .add(Components.literal("Go Back"));
         addRenderableWidget(goBack);
+
     }
 
     @Override
