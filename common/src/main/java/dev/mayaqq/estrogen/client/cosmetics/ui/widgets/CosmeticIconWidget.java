@@ -23,7 +23,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
     private static final Vector3f LIGHT_0 = new Vector3f(0.2F, -1.0f, -0.5F).normalize();
     private static final Vector3f LIGHT_1 = new Vector3f(-0.8f, -1.0f, 1.0F).normalize();
 
-    private final PartPose pose;
+    private PartPose pose;
 
     private Cosmetic cosmetic;
     private float scale = 0.5f;
@@ -139,6 +139,10 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
 
     public void setContentScalingMode(ContentScaling mode) {
         this.contentScalingMode = mode;
+    }
+
+    public void setPose(PartPose pose) {
+        this.pose = pose;
     }
 
     public enum ContentScaling {
