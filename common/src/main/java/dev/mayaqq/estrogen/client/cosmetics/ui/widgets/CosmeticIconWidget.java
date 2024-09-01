@@ -29,7 +29,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
     private float animRot;
     private ContentScaling contentScalingMode = ContentScaling.SCALE_Y;
 
-    public boolean debug = true;
+    public boolean debug;
 
     public CosmeticIconWidget(Cosmetic cosmetic, int x, int y, int width, int height, @Nullable PartPose referencePose) {
         super(x, y, width, height);
@@ -57,8 +57,8 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
             default -> scaleX = scaleY = 1f;
         }
 
+        matrices.translate(0f, height - modelSize.y, 0f);
         matrices.scale(16.0F * scaleX, -16.0F * scaleY, 16.0F);
-        matrices.translate(0f, -0.875f, 0f);
 
         if(pose.x != 0 || pose.y != 0 || pose.z != 0) {
             matrices.translate(pose.x / 16f, pose.y / 16f, pose.z / 16f);
@@ -75,7 +75,9 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         }
 
         if(debug) {
+            // White box is the widgets size
             drawDebugBounds(getX(), getY(), getX() + width, getY() + height, 0xFFFFFFFF);
+            // Red box is the model's size
             drawDebugBounds(getX(), getY(), getX() + modelSize.x, getY() + modelSize.y, 0xFFFF0000);
         }
 
