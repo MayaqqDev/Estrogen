@@ -2,9 +2,14 @@ package dev.mayaqq.estrogen.client.cosmetics;
 
 import com.teamresourceful.resourcefullib.common.utils.files.GlobalStorage;
 import dev.mayaqq.estrogen.Estrogen;
+import it.unimi.dsi.fastutil.Pair;
+import it.unimi.dsi.fastutil.objects.ObjectObjectImmutablePair;
+import net.minecraft.Optionull;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.block.model.BlockModel;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -15,6 +20,7 @@ import java.util.concurrent.CompletableFuture;
 public class CosmeticModel {
     public static final String NAMESPACE = "estrogen_cosmetic";
     public static final Path CACHE = GlobalStorage.getCacheDirectory(Estrogen.MOD_ID).resolve("cosmetics").resolve("models");
+    public static final Pair<Vector3f, Vector3f> ZERO_BOUNDS = Pair.of(new Vector3f(), new Vector3f());
 
     private final String url;
     private final String hash;
@@ -37,6 +43,15 @@ public class CosmeticModel {
         checkOrDownload();
         return Optional.ofNullable(model.result);
     }
+
+    public Vector3f minBound() {
+        return Optionull.mapOrElse(model.result, m -> new Vector3f(m.minBound), Vector3f::new);
+    }
+
+    public Vector3f maxBound() {
+        return Optionull.mapOrElse(model.result, m -> new Vector3f(m.maxBound), Vector3f::new);
+    }
+
 
     private void checkOrDownload() {
         if(this.model != null || this.url == null) return;

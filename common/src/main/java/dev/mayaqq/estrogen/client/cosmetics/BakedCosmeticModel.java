@@ -3,8 +3,12 @@ package dev.mayaqq.estrogen.client.cosmetics;
 import com.jozufozu.flywheel.core.model.BlockModel;
 import com.jozufozu.flywheel.core.model.Model;
 import com.mojang.blaze3d.vertex.*;
+import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
+
 import static dev.mayaqq.estrogen.client.cosmetics.CosmeticModelBakery.*;
 
 public class BakedCosmeticModel {
@@ -13,10 +17,14 @@ public class BakedCosmeticModel {
 
     private final int[] data;
     private final int vertexCount;
+    public final Vector3f minBound;
+    public final Vector3f maxBound;
 
-    public BakedCosmeticModel(int[] data, int vertexCount) {
+    public BakedCosmeticModel(int[] data, int vertexCount, Vector3f minBound, Vector3f maxBound) {
         this.data = data;
         this.vertexCount = vertexCount;
+        this.minBound = minBound;
+        this.maxBound = maxBound;
     }
 
     public void renderInto(VertexConsumer consumer, @Nullable PoseStack.Pose transform, int color, int light, int overlay) {
