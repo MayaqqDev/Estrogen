@@ -27,7 +27,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
     private float scale = 0.5f;
     private float rotationSpeed;
     private float animRot;
-    private ContentScaling contentScalingMode = ContentScaling.FIT;
+    private ContentScaling contentScalingMode = ContentScaling.SCALE_Y;
 
     public boolean debug = true;
 
@@ -44,21 +44,17 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         matrices.translate(this.getX(), this.getY() + 16, z);
 
         Vector3f modelSize = cosmetic.model().maxBound().sub(cosmetic.model().minBound());
-        float scaleX = width / modelSize.x;
-        float scaleY = height / modelSize.y;
+        float scaleX, scaleY;
 
         // Ignore IDEA advice it's dumb
         switch (contentScalingMode) {
-            case SCALE_X -> scaleY = scaleX;
-            case SCALE_Y -> scaleX = scaleY;
-            case FIT -> {
-                if(modelSize.y > modelSize.x) {
-                    scaleY = scaleX;
-                } else {
-                    scaleX = scaleY;
-                }
+            case SCALE_X -> scaleY = scaleX = width / modelSize.x;
+            case SCALE_Y -> scaleX = scaleY = height / modelSize.y;
+            case SQUISH -> {
+                scaleX = width / modelSize.x;
+                scaleY = height / modelSize.y;
             }
-            case NONE -> scaleX = scaleY = 0;
+            default -> scaleX = scaleY = 1f;
         }
 
         matrices.scale(16.0F * scaleX, -16.0F * scaleY, 16.0F);
@@ -145,7 +141,6 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         SCALE_X,
         SCALE_Y,
         SQUISH,
-        FIT,
         NONE;
     }
 }
