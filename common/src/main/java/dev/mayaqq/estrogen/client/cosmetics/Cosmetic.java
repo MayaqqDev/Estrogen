@@ -24,6 +24,13 @@ public record Cosmetic(String id, String name, CosmeticTexture texture, Cosmetic
         );
     }
 
+    /**
+     * Use this for rendering cosmetics
+     * @param renderType Render type function, provides a RenderType for the texture, e.g. RenderType::entityCutout
+     * @param source MultiBufferSource to render this cosmetic into
+     * @param matrices PoseStack with transformations
+     * @param light lighting
+     */
     public void render(Function<ResourceLocation, RenderType> renderType, MultiBufferSource source, PoseStack matrices, int light) {
         model.get().ifPresent(model -> model.renderInto(
             source.getBuffer(renderType.apply(texture.getResourceLocation())),
@@ -33,4 +40,5 @@ public record Cosmetic(String id, String name, CosmeticTexture texture, Cosmetic
             OverlayTexture.NO_OVERLAY
         ));
     }
+
 }

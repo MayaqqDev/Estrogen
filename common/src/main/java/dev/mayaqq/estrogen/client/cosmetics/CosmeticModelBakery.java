@@ -16,6 +16,8 @@ public final class CosmeticModelBakery {
 
     public static final int STRIDE = 6;
 
+    private static final float RESCALE_22_5 = 1.0F / (float)Math.cos(0.39269909262657166) - 1.0F;
+    private static final float RESCALE_45 = 1.0F / (float)Math.cos(0.7853981852531433) - 1.0F;
     private static final float PACK = 127.0f;
     private static final float UNPACK = 1.0f / PACK;
 
@@ -40,6 +42,11 @@ public final class CosmeticModelBakery {
                 Vector3f origin = rot.origin();
                 transforms.translate(origin.x, origin.y, origin.z);
                 transforms.mulPose(fromDirectionAxis(rot.axis()).rotationDegrees(rot.angle()));
+                if(rot.rescale()) {
+                    Vector3f scale = getRescaleVector(rot.axis());
+                    scale.mul((Math.abs(rot.angle()) == 22.5f) ? RESCALE_22_5 : RESCALE_45);
+                    transforms.scale(scale.x, scale.y, scale.z);
+                }
                 transforms.translate(0 - origin.x, 0 - origin.y, 0 - origin.z);
             }
 
@@ -93,6 +100,14 @@ public final class CosmeticModelBakery {
         fs[FaceInfo.Constants.MAX_Y] = max.y() / 16.0F;
         fs[FaceInfo.Constants.MAX_Z] = max.z() / 16.0F;
         return fs;
+    }
+
+    private static Vector3f getRescaleVector(Direction.Axis axis) {
+        return switch (axis) {
+            case X -> new Vector3f(0, 1f, 1f);
+            case Y -> new Vector3f(1f, 0, 1f);
+            case Z -> new Vector3f(1f, 1f, 0);
+        };
     }
 
     private static Axis fromDirectionAxis(Direction.Axis input) {

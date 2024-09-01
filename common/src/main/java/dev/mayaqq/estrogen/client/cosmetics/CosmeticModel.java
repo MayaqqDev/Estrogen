@@ -3,7 +3,6 @@ package dev.mayaqq.estrogen.client.cosmetics;
 import com.teamresourceful.resourcefullib.common.utils.files.GlobalStorage;
 import dev.mayaqq.estrogen.Estrogen;
 import net.minecraft.Util;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,7 +20,7 @@ public class CosmeticModel {
     private final String hash;
     private DownloadableModel model;
 
-    public static CosmeticModel fromFile(File file) {
+    public static CosmeticModel fromLocalFile(File file) {
         if(!file.isFile()) Estrogen.LOGGER.error("Invalid file");
         CosmeticModel model = new CosmeticModel("");
         model.model = new DownloadableModel(file, "");
