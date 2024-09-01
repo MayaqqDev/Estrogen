@@ -20,8 +20,10 @@ import org.joml.Vector3f;
 public class CosmeticIconWidget extends AbstractSimiWidget {
 
     public static final PartPose DEFAULT_POSE = PartPose.rotation(30.0f, 225.0f, 0);
+    private static final Vector3f LIGHT_0 = new Vector3f(0.2F, -1.0f, -0.5F).normalize();
+    private static final Vector3f LIGHT_1 = new Vector3f(-0.8f, -1.0f, 1.0F).normalize();
 
-    private final PartPose pose;
+    private PartPose pose;
 
     private Cosmetic cosmetic;
     private float scale = 0.5f;
@@ -58,7 +60,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         }
 
         matrices.translate(0f, height - modelSize.y, 0f);
-        matrices.scale(16.0F * scaleX, -16.0F * scaleY, 16.0F);
+        matrices.scale(16.0F * scaleX, -16.0F * scaleY, 16.0F * scaleX);
 
         if(pose.x != 0 || pose.y != 0 || pose.z != 0) {
             matrices.translate(pose.x / 16f, pose.y / 16f, pose.z / 16f);
@@ -81,7 +83,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
             drawDebugBounds(getX(), getY(), getX() + modelSize.x, getY() + modelSize.y, 0xFFFF0000);
         }
 
-        Lighting.setupForEntityInInventory();
+        RenderSystem.setShaderLights(LIGHT_0, LIGHT_1);
         cosmetic.render(RenderType::entityTranslucent, graphics.bufferSource(), matrices, LightTexture.FULL_BRIGHT);
         graphics.flush();
 
@@ -137,6 +139,10 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
 
     public void setContentScalingMode(ContentScaling mode) {
         this.contentScalingMode = mode;
+    }
+
+    public void setPose(PartPose pose) {
+        this.pose = pose;
     }
 
     public enum ContentScaling {
