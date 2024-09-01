@@ -1,5 +1,7 @@
 package dev.mayaqq.estrogen.client.cosmetics.ui;
 
+import com.teamresourceful.resourcefullib.client.components.CursorWidget;
+import com.teamresourceful.resourcefullib.client.screens.CursorScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -11,9 +13,10 @@ import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
-public class CosmeticPreview extends AbstractWidget {
+public class CosmeticPreview extends AbstractWidget implements CursorWidget {
 
     private final Player player;
+    private boolean dragging = false;
     private float rotation = Mth.PI / 4;
 
     public CosmeticPreview(int x, int y, int width, int height) {
@@ -50,6 +53,21 @@ public class CosmeticPreview extends AbstractWidget {
     }
 
     @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (isMouseOver(mouseX, mouseY) && isValidClickButton(button)) {
+            this.dragging = true;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        this.dragging = false;
+        return super.mouseReleased(mouseX, mouseY, button);
+    }
+
+    @Override
     public boolean mouseDragged(double d, double e, int i, double f, double g) {
         this.rotation += (float) f * 0.15F;
         return true;
@@ -58,5 +76,10 @@ public class CosmeticPreview extends AbstractWidget {
     @Override
     protected void updateWidgetNarration(@NotNull NarrationElementOutput narrationElementOutput) {
 
+    }
+
+    @Override
+    public CursorScreen.Cursor getCursor() {
+        return this.dragging ? CursorScreen.Cursor.RESIZE_EW : CursorScreen.Cursor.DEFAULT;
     }
 }
