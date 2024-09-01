@@ -20,6 +20,8 @@ import org.joml.Vector3f;
 public class CosmeticIconWidget extends AbstractSimiWidget {
 
     public static final PartPose DEFAULT_POSE = PartPose.rotation(30.0f, 225.0f, 0);
+    private static final Vector3f LIGHT_0 = new Vector3f(0.2F, -1.0f, -0.5F).normalize();
+    private static final Vector3f LIGHT_1 = new Vector3f(-0.8f, -1.0f, 1.0F).normalize();
 
     private final PartPose pose;
 
@@ -81,7 +83,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
             drawDebugBounds(getX(), getY(), getX() + modelSize.x, getY() + modelSize.y, 0xFFFF0000);
         }
 
-        Lighting.setupForEntityInInventory();
+        RenderSystem.setShaderLights(LIGHT_0, LIGHT_1);
         cosmetic.render(RenderType::entityTranslucent, graphics.bufferSource(), matrices, LightTexture.FULL_BRIGHT);
         graphics.flush();
 
