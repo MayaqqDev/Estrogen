@@ -204,6 +204,9 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         // Mod Menu
         tb.add("estrogen.credits", "Credits & Contributors");
 
+        // Curios :eyeroll:
+        tb.add("curios.modifiers.thighs", "Thigh High Modifiers");
+
         // Thigh high tooltips - Cryptic asf because * colors * :)
         thighHigh(tb, "trans", "§bTr§dan§fsge§dnd§ber");
         thighHigh(tb, "pansexual", "§dPan§esex§bual");
