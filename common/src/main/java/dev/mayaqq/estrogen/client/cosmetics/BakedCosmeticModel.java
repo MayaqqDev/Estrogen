@@ -3,12 +3,9 @@ package dev.mayaqq.estrogen.client.cosmetics;
 import com.jozufozu.flywheel.core.model.BlockModel;
 import com.jozufozu.flywheel.core.model.Model;
 import com.mojang.blaze3d.vertex.*;
-import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
-
 import static dev.mayaqq.estrogen.client.cosmetics.CosmeticModelBakery.*;
 
 public class BakedCosmeticModel {

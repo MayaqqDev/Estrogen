@@ -3,11 +3,9 @@ package dev.mayaqq.estrogen.client.cosmetics;
 import com.teamresourceful.resourcefullib.common.utils.files.GlobalStorage;
 import dev.mayaqq.estrogen.Estrogen;
 import it.unimi.dsi.fastutil.Pair;
-import it.unimi.dsi.fastutil.objects.ObjectObjectImmutablePair;
 import net.minecraft.Optionull;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.block.model.BlockModel;
-import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 

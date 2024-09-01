@@ -6,8 +6,6 @@ import net.minecraft.client.renderer.FaceInfo;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import org.joml.Math;
 import org.joml.Vector3f;
 import org.joml.Vector4f;

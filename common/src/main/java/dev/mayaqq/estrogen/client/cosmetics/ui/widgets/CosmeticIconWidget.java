@@ -23,7 +23,6 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
     public static final PartPose DEFAULT_POSE = PartPose.rotation(30.0f, 225.0f, 0);
 
     private final PartPose pose;
-    private final BoxElement box;
 
     private Cosmetic cosmetic;
     private float scale = 0.5f;
@@ -38,7 +37,6 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         this.cosmetic = cosmetic;
         this.pose = (referencePose != null) ? referencePose : DEFAULT_POSE;
         this.z = 150;
-        this.box = new BoxElement();
     }
 
     @Override
