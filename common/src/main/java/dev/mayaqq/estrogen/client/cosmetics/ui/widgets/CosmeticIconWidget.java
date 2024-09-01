@@ -27,7 +27,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
     private float scale = 0.5f;
     private float rotationSpeed;
     private float animRot;
-    private AspectRatioLock aspectRatioLock = AspectRatioLock.Y;
+    private ContentScaling contentScalingMode = ContentScaling.FIT;
 
     public boolean debug = true;
 
@@ -48,9 +48,17 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         float scaleY = height / modelSize.y;
 
         // Ignore IDEA advice it's dumb
-        switch (aspectRatioLock) {
-            case X -> scaleY = scaleX;
-            case Y -> scaleX = scaleY;
+        switch (contentScalingMode) {
+            case SCALE_X -> scaleY = scaleX;
+            case SCALE_Y -> scaleX = scaleY;
+            case FIT -> {
+                if(modelSize.y > modelSize.x) {
+                    scaleY = scaleX;
+                } else {
+                    scaleX = scaleY;
+                }
+            }
+            case NONE -> scaleX = scaleY = 0;
         }
 
         matrices.scale(16.0F * scaleX, -16.0F * scaleY, 16.0F);
@@ -129,13 +137,15 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         this.cosmetic = cosmetic;
     }
 
-    public void setAspectRatioLock(AspectRatioLock mode) {
-        this.aspectRatioLock = mode;
+    public void setContentScalingMode(ContentScaling mode) {
+        this.contentScalingMode = mode;
     }
 
-    public enum AspectRatioLock {
-        X,
-        Y,
+    public enum ContentScaling {
+        SCALE_X,
+        SCALE_Y,
+        SQUISH,
+        FIT,
         NONE;
     }
 }
