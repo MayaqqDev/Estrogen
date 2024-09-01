@@ -4,7 +4,6 @@ import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
-import com.simibubi.create.foundation.gui.element.BoxElement;
 import com.simibubi.create.foundation.gui.widget.AbstractSimiWidget;
 import dev.mayaqq.estrogen.client.cosmetics.Cosmetic;
 import net.minecraft.client.gui.GuiGraphics;
@@ -28,9 +27,9 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
     private float scale = 0.5f;
     private float rotationSpeed;
     private float animRot;
+    private AspectRatioLock aspectRatioLock = AspectRatioLock.Y;
 
-    public boolean drawBox;
-    public boolean debug;
+    public boolean debug = true;
 
     public CosmeticIconWidget(Cosmetic cosmetic, int x, int y, int width, int height, @Nullable PartPose referencePose) {
         super(x, y, width, height);
@@ -46,7 +45,13 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
 
         Vector3f modelSize = cosmetic.model().maxBound().sub(cosmetic.model().minBound());
         float scaleX = width / modelSize.x;
-        float scaleY = width / modelSize.y;
+        float scaleY = height / modelSize.y;
+
+        // Ignore IDEA advice it's dumb
+        switch (aspectRatioLock) {
+            case X -> scaleY = scaleX;
+            case Y -> scaleX = scaleY;
+        }
 
         matrices.scale(16.0F * scaleX, -16.0F * scaleY, 16.0F);
         matrices.translate(0f, -0.875f, 0f);
@@ -122,5 +127,15 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
 
     public void setCosmetic(Cosmetic cosmetic) {
         this.cosmetic = cosmetic;
+    }
+
+    public void setAspectRatioLock(AspectRatioLock mode) {
+        this.aspectRatioLock = mode;
+    }
+
+    public enum AspectRatioLock {
+        X,
+        Y,
+        NONE;
     }
 }
