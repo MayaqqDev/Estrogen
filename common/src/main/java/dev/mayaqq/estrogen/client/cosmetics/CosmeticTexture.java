@@ -103,7 +103,7 @@ public class CosmeticTexture {
                     try {
                         super.load(manager);
                     } catch (Exception ex) {
-                        Estrogen.LOGGER.error("Failed to load texture", ex);
+                        // Do nothing as an error will almost always be thrown while loading.
                     }
                     this.uploaded = true;
                 }

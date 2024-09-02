@@ -43,9 +43,8 @@ public class CosmeticsScreen extends BaseCosmeticsScreen {
                     .withCallback(() -> CosmeticsApi.setCosmetic(cosmetic))
             );
             if (cosmetic != null) {
-                group.addChild(new CosmeticIconWidget(cosmetic, 0, 0, null)
+                group.addChild(new CosmeticIconWidget(cosmetic, 0, 0, 32, 32, null)
                                 .setRotationSpeed(0.5f)
-                        .setScale(1.5f)
                 );
             }
 
