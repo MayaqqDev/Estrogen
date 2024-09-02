@@ -93,7 +93,7 @@ public class BaseCosmeticsScreen extends AbstractSimiScreen implements CursorScr
             stack.scale(1.5f, 1.5f, 1.5f);
             graphics.drawCenteredString(
                     font,
-                    "Estrogen Cosmetics",
+                    CosmeticUI.TITLE,
                     0, 0,
                     Theme.i(Theme.Key.TEXT_ACCENT_STRONG)
             );

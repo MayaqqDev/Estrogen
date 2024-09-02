@@ -43,10 +43,12 @@ public class CosmeticModel {
     }
 
     public Vector3f minBound() {
+        checkOrDownload();
         return Optionull.mapOrElse(model.result, m -> new Vector3f(m.minBound), Vector3f::new);
     }
 
     public Vector3f maxBound() {
+        checkOrDownload();
         return Optionull.mapOrElse(model.result, m -> new Vector3f(m.maxBound), Vector3f::new);
     }
 

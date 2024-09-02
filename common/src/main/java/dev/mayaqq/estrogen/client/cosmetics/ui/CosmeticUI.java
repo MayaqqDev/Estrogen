@@ -8,39 +8,30 @@ import net.minecraft.network.chat.MutableComponent;
 
 public class CosmeticUI {
 
-    public static final MutableComponent GO_BACK = Component.literal("Go Back");
-    public static final MutableComponent CLOSE = Component.literal("Close");
-    public static final MutableComponent CLAIM_REWARD = Component.literal("Claim Reward");
+    public static final MutableComponent TITLE = Component.translatable("gui.estrogen.cosmetics.title");
+    public static final MutableComponent GO_BACK = Component.translatable("gui.estrogen.cosmetics.back");
+    public static final MutableComponent CLOSE = Component.translatable("gui.estrogen.cosmetics.close");
+    public static final MutableComponent CLAIM_REWARD = Component.translatable("gui.estrogen.cosmetics.claim");
+    public static final MutableComponent NONE = Component.translatable("gui.estrogen.cosmetics.none");
 
-    public static final MutableComponent LOGIN_DESCRIPTION = Component.literal("""
-            Welcome to Estrogen Cosmetics!
-            
-            To get started, please log in to your account.
-            """);
-    public static final MutableComponent LOGIN_BUTTON = Component.literal("Login");
+    public static final MutableComponent LOGIN_DESCRIPTION = Component.translatable("gui.estrogen.cosmetics.login.description");
+    public static final MutableComponent LOGIN_BUTTON = Component.translatable("gui.estrogen.cosmetics.login.button");
+    public static final MutableComponent LOGIN_INIT = Component.translatable("gui.estrogen.cosmetics.login.init");
+    public static final MutableComponent LOGIN_UNAUTHORIZED = Component.translatable("gui.estrogen.cosmetics.login.unauthorized");
+    public static final MutableComponent LOGIN_SERVER_ERROR = Component.translatable("gui.estrogen.cosmetics.login.server_error");
+    public static final MutableComponent LOGIN_FAILED = Component.translatable("gui.estrogen.cosmetics.login.failed");
 
-    public static final MutableComponent LOGIN_INIT = Component.literal("Logging in...");
-    public static final MutableComponent LOGIN_UNAUTHORIZED = Component.literal("Failed to login, check if you are logged in to Minecraft.");
-    public static final MutableComponent LOGIN_SERVER_ERROR = Component.literal("Error occurred on server side while logging in.");
-    public static final MutableComponent LOGIN_FAILED = Component.literal("Unknown error occurred while logging in.");
+    public static final MutableComponent COSMETICS_INIT = Component.translatable("gui.estrogen.cosmetics.init");
+    public static final MutableComponent COSMETICS_UNAUTHORIZED = Component.translatable("gui.estrogen.cosmetics.unauthorized");
+    public static final MutableComponent COSMETICS_SERVER_ERROR = Component.translatable("gui.estrogen.cosmetics.server_error");
+    public static final MutableComponent COSMETICS_FAILED = Component.translatable("gui.estrogen.cosmetics.failed");
 
-    public static final MutableComponent COSMETICS_INIT = Component.literal("Getting Cosmetics...");
-    public static final MutableComponent COSMETICS_UNAUTHORIZED = Component.literal("Failed to get cosmetics, try again later.");
-    public static final MutableComponent COSMETICS_SERVER_ERROR = Component.literal("Error occurred on server side while getting cosmetics.");
-    public static final MutableComponent COSMETICS_FAILED = Component.literal("Unknown error occurred while getting cosmetics.");
-
-    public static final MutableComponent CLAIM_DESCRIPTION = Component.literal("""
-            Welcome to Estrogen Cosmetics Reward Claim!
-            
-            Enter the code you received,
-            into the text box below, to claim your cosmetic.
-            """);
-    public static final MutableComponent CLAIM_BUTTON = Component.literal("Claim");
-
-    public static final MutableComponent CLAIM_INIT = Component.literal("Claiming...");
-    public static final MutableComponent CLAIM_FORBIDDEN = Component.literal("Failed, code was already claimed.");
-    public static final MutableComponent CLAIM_NOT_FOUND = Component.literal("Failed, code is invalid.");
-    public static final MutableComponent CLAIM_FAILED = Component.literal("Unknown error occurred while claiming.");
+    public static final MutableComponent CLAIM_DESCRIPTION = Component.translatable("gui.estrogen.cosmetics.claim.description");
+    public static final MutableComponent CLAIM_BUTTON = Component.translatable("gui.estrogen.cosmetics.claim.button");
+    public static final MutableComponent CLAIM_INIT = Component.translatable("gui.estrogen.cosmetics.claim.init");
+    public static final MutableComponent CLAIM_FORBIDDEN = Component.translatable("gui.estrogen.cosmetics.claim.forbidden");
+    public static final MutableComponent CLAIM_NOT_FOUND = Component.translatable("gui.estrogen.cosmetics.claim.not_found");
+    public static final MutableComponent CLAIM_FAILED = Component.translatable("gui.estrogen.cosmetics.claim.failed");
 
     public static MutableComponent getLoginMessage(CosmeticsApi.StatusCode code) {
         if (code == null) return LOGIN_INIT;

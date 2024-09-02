@@ -1,7 +1,8 @@
 package dev.mayaqq.estrogen.client.cosmetics.ui.widgets;
 
-import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.Theme;
+import com.simibubi.create.foundation.gui.element.DelegatedStencilElement;
+import com.simibubi.create.foundation.gui.element.ScreenElement;
 import com.simibubi.create.foundation.gui.element.TextStencilElement;
 import com.simibubi.create.foundation.gui.widget.BoxWidget;
 import net.minecraft.client.Minecraft;
@@ -29,10 +30,14 @@ public class UIComponents {
         );
     }
 
-    public static ImprovedBoxWidget iconButton(AllIcons icon) {
-        return button().withShowingElement(widget ->
-                icon.asStencil().withElementRenderer(BoxWidget.gradientFactory.apply(widget))
-        );
+    public static ImprovedBoxWidget iconButton(ScreenElement icon) {
+        return button().withShowingElement(widget -> {
+            DelegatedStencilElement element = new DelegatedStencilElement();
+            element.withStencilRenderer((ms, w, h, alpha) -> icon.render(ms, (w - 16) / 2, (h - 16) / 2));
+            element.withBounds(16, 16);
+            element.withElementRenderer(BoxWidget.gradientFactory.apply(widget));
+            return element;
+        });
     }
 
     public static ImprovedBoxWidget box(int x, int y, int width, int height) {

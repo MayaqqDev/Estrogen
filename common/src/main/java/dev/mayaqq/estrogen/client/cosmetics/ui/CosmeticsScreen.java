@@ -1,13 +1,12 @@
 package dev.mayaqq.estrogen.client.cosmetics.ui;
 
+import com.simibubi.create.foundation.gui.AllIcons;
 import dev.mayaqq.estrogen.client.cosmetics.Cosmetic;
 import dev.mayaqq.estrogen.client.cosmetics.service.CosmeticsApi;
 import dev.mayaqq.estrogen.client.cosmetics.ui.widgets.CosmeticIconWidget;
 import dev.mayaqq.estrogen.client.cosmetics.ui.widgets.LayoutGroup;
 import dev.mayaqq.estrogen.client.cosmetics.ui.widgets.UIComponents;
-import net.minecraft.Optionull;
 import net.minecraft.client.gui.layouts.GridLayout;
-import net.minecraft.client.gui.layouts.Layout;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -37,14 +36,21 @@ public class CosmeticsScreen extends BaseCosmeticsScreen {
         for (Cosmetic cosmetic : cosmetics) {
             var group = new LayoutGroup(32, 32);
 
-            group.addChild(UIComponents.button()
-                    .withSize(32, 32)
-                    .withTooltip(Component.literal(Optionull.mapOrDefault(cosmetic, Cosmetic::name, "None")))
-                    .withCallback(() -> CosmeticsApi.setCosmetic(cosmetic))
-            );
             if (cosmetic != null) {
-                group.addChild(new CosmeticIconWidget(cosmetic, 0, 0, 32, 32, null)
-                                .setRotationSpeed(0.5f)
+                group.addChild(UIComponents.button()
+                        .withSize(32, 32)
+                        .withTooltip(Component.literal(cosmetic.name()))
+                        .withCallback(() -> CosmeticsApi.setCosmetic(cosmetic))
+                );
+                group.addChild(CosmeticIconWidget.of(cosmetic)
+                        .withSize(32, 32)
+                        .withRotationSpeed(0.5f)
+                );
+            } else {
+                group.addChild(UIComponents.iconButton(AllIcons.I_CONFIG_RESET)
+                        .withSize(32, 32)
+                        .withTooltip(CosmeticUI.NONE)
+                        .withCallback(() -> CosmeticsApi.setCosmetic(null))
                 );
             }
 
