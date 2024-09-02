@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
 
 public class CosmeticRenderLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
@@ -32,7 +33,7 @@ public class CosmeticRenderLayer extends RenderLayer<AbstractClientPlayer, Playe
         stack.translate(0f, (1.5 * Mth.sin(ageInTicks / 10 - 30f)), 3f);
         stack.mulPose(Axis.YP.rotationDegrees(-90));
 
-        cosmetic.render(RenderType::entityTranslucentCull, buffer, stack, packedLight);
+        cosmetic.render(RenderType::entityTranslucentCull, buffer, stack, packedLight, OverlayTexture.NO_OVERLAY);
 
         stack.popPose();
     }
