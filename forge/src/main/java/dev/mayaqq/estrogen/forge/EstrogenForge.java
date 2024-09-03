@@ -39,7 +39,7 @@ public class EstrogenForge {
 
         // Init Estrogen main class
         Estrogen.init();
-        AddSpecialThighHigh.register(modEventBus);
+        AddSpecialThighHigh.REGISTER.register(modEventBus);
 
         if(FMLEnvironment.dist == Dist.CLIENT) {
             EstrogenRenderer.register();

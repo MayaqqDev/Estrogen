@@ -21,20 +21,16 @@ import static dev.mayaqq.estrogen.Estrogen.MOD_ID;
 
 public class AddSpecialThighHigh extends LootModifier {
 
-    private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS =
+    public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> REGISTER =
         DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MOD_ID);
 
 
-    public static final RegistryObject<Codec<AddSpecialThighHigh>> CODEC = LOOT_MODIFIERS.register("special_thigh_highs", () ->
+    public static final RegistryObject<Codec<AddSpecialThighHigh>> CODEC = REGISTER.register("special_thigh_highs", () ->
         RecordCodecBuilder.create(instance -> codecStart(instance).apply(instance, AddSpecialThighHigh::new))
     );
 
     protected AddSpecialThighHigh(LootItemCondition[] conditionsIn) {
         super(conditionsIn);
-    }
-
-    public static void register(IEventBus bus) {
-        LOOT_MODIFIERS.register(bus);
     }
 
     @Override
