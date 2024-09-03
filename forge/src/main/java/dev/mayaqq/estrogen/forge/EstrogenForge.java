@@ -30,8 +30,6 @@ import static dev.mayaqq.estrogen.Estrogen.MOD_ID;
 @Mod(MOD_ID)
 public class EstrogenForge {
 
-    private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS =
-        DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MOD_ID);
 
     public EstrogenForge() {
         // Config
@@ -41,9 +39,7 @@ public class EstrogenForge {
 
         // Init Estrogen main class
         Estrogen.init();
-
-        LOOT_MODIFIERS.register("special_thigh_highs", () -> AddSpecialThighHigh.CODEC);
-        LOOT_MODIFIERS.register(modEventBus);
+        AddSpecialThighHigh.register(modEventBus);
 
         if(FMLEnvironment.dist == Dist.CLIENT) {
             EstrogenRenderer.register();
