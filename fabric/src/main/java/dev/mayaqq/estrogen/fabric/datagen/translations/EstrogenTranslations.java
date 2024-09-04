@@ -228,6 +228,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("gui.estrogen.cosmetics.close", "Close");
         tb.add("gui.estrogen.cosmetics.claim", "Claim Reward");
         tb.add("gui.estrogen.cosmetics.none", "None");
+        tb.add("gui.estrogen.cosmetics.no_preview", "Cosmetics Preview only in-game");
 
         tb.add("gui.estrogen.cosmetics.login.description", """
             Welcome to Estrogen Cosmetics!

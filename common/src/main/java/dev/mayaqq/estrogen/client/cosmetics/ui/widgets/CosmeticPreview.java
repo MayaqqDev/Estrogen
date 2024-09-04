@@ -1,7 +1,9 @@
 package dev.mayaqq.estrogen.client.cosmetics.ui.widgets;
 
+import com.simibubi.create.foundation.gui.Theme;
 import com.teamresourceful.resourcefullib.client.components.CursorWidget;
 import com.teamresourceful.resourcefullib.client.screens.CursorScreen;
+import dev.mayaqq.estrogen.client.cosmetics.ui.CosmeticUI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -49,6 +51,8 @@ public class CosmeticPreview extends AbstractWidget implements CursorWidget {
             this.player.setXRot(xRot);
             this.player.yHeadRot = yHeadRotO;
             this.player.yHeadRotO = yBodyRot;
+        } else {
+            graphics.drawCenteredString(Minecraft.getInstance().font, CosmeticUI.NO_PREVIEW, getX() + getWidth() / 2, getY() + getHeight() / 2, Theme.i(Theme.Key.TEXT_ACCENT_STRONG));
         }
     }
 

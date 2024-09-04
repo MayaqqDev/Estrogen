@@ -13,6 +13,7 @@ public class CosmeticUI {
     public static final MutableComponent CLOSE = Component.translatable("gui.estrogen.cosmetics.close");
     public static final MutableComponent CLAIM_REWARD = Component.translatable("gui.estrogen.cosmetics.claim");
     public static final MutableComponent NONE = Component.translatable("gui.estrogen.cosmetics.none");
+    public static final MutableComponent NO_PREVIEW = Component.translatable("gui.estrogen.cosmetics.no_preview");
 
     public static final MutableComponent LOGIN_DESCRIPTION = Component.translatable("gui.estrogen.cosmetics.login.description");
     public static final MutableComponent LOGIN_BUTTON = Component.translatable("gui.estrogen.cosmetics.login.button");
