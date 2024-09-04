@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class CosmeticsApi {
     private static final ResourcefulCosmetics<Cosmetic> API = ResourcefulCosmetics.create(
-            "https://estrogen-cosmetics.teamresourceful.com",
+            "https://estrogen-cosmetics.teamresourceful.com/",
             Cosmetic::fromJson,
             error -> Estrogen.LOGGER.error("Failed to load cosmetics", error)
     );
@@ -42,7 +42,7 @@ public class CosmeticsApi {
                 return StatusCode.UNAUTHORIZED;
             } catch (Exception e) {
                 Estrogen.LOGGER.error("Failed to call API", e);
-                return StatusCode.UNKOWN_ERROR;
+                return StatusCode.UNKNOWN_ERROR;
             }
         });
     }
@@ -108,6 +108,6 @@ public class CosmeticsApi {
         NOT_FOUND,
         INTERNAL_SERVER_ERROR,
 
-        UNKOWN_ERROR,
+        UNKNOWN_ERROR,
     }
 }
