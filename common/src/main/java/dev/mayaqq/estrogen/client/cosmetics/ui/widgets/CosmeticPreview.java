@@ -42,7 +42,7 @@ public class CosmeticPreview extends AbstractWidget implements CursorWidget {
             InventoryScreen.renderEntityInInventory(
                     graphics,
                     (int) (getX() + getWidth() / 2f), getY() + getHeight() - 20,
-                    50, quaternion, null, this.player
+                    (int) (getHeight() / 2.5F), quaternion, null, this.player
             );
             this.player.yBodyRot = yHeadRot;
             this.player.setYRot(yRot);
