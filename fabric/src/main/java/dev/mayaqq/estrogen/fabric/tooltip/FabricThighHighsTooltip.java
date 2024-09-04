@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.fabric;
+package dev.mayaqq.estrogen.fabric.tooltip;
 
 import dev.mayaqq.estrogen.registry.items.ThighHighsItem;
 import dev.mayaqq.estrogen.registry.tooltip.ThighHighsToolTipModifier;
