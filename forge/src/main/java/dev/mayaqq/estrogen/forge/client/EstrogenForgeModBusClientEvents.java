@@ -27,9 +27,4 @@ public class EstrogenForgeModBusClientEvents {
     public static void registerModelLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         EstrogenClientEvents.registerModelLayer(event::registerLayerDefinition);
     }
-
-    @SubscribeEvent
-    public static void registerColorHandlersItem(RegisterColorHandlersEvent.Item event) {
-        EstrogenClientEvents.registerItemColorProviders(event::register);
-    }
 }

@@ -52,13 +52,13 @@ public class EstrogenTagsGen {
                     .add(Items.SOUL_LANTERN)
                     .add(Items.CANDLE);
             getOrCreateTagBuilder(AllTags.AllItemTags.SEATS.tag)
-                    .add(EstrogenItems.MOTH_SEAT.get());
+                    .add(EstrogenBlocks.MOTH_SEAT.asItem());
             getOrCreateTagBuilder(net.minecraft.tags.ItemTags.WOOL)
-                    .add(EstrogenItems.MOTH_WOOL.get())
-                    .add(EstrogenItems.QUILTED_MOTH_WOOL.get());
+                    .add(EstrogenBlocks.MOTH_WOOL.asItem())
+                    .add(EstrogenBlocks.QUILTED_MOTH_WOOL.asItem());
             getOrCreateTagBuilder(net.minecraft.tags.ItemTags.WOOL_CARPETS)
-                    .add(EstrogenItems.MOTH_WOOL_CARPET.get())
-                    .add(EstrogenItems.QUILTED_MOTH_WOOL_CARPET.get());
+                    .add(EstrogenBlocks.MOTH_WOOL_CARPET.asItem())
+                    .add(EstrogenBlocks.QUILTED_MOTH_WOOL_CARPET.asItem());
         }
     }
 

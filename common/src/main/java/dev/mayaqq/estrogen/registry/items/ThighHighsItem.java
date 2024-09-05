@@ -40,6 +40,12 @@ public class ThighHighsItem extends Item implements Bauble {
         Baubly.registerBauble(this);
     }
 
+    public static int getItemColor(ItemStack stack, int tintIndex) {
+        ThighHighsItem thighHighsItem = (ThighHighsItem) stack.getItem();
+        if(thighHighsItem.getStyle(stack).isPresent()) return -1;
+        return thighHighsItem.getColor(stack, tintIndex);
+    }
+
     public void loadStyles(List<ResourceLocation> newStyles) {
         styles = newStyles;
     }

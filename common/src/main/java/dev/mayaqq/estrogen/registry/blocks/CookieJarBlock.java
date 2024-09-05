@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.registry.blocks;
 
 import dev.mayaqq.estrogen.registry.EstrogenAdvancementCriteria;
+import dev.mayaqq.estrogen.registry.EstrogenBlockEntities;
 import dev.mayaqq.estrogen.registry.EstrogenSoundTypes;
 import dev.mayaqq.estrogen.registry.EstrogenSounds;
 import dev.mayaqq.estrogen.registry.blockEntities.CookieJarBlockEntity;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -36,9 +38,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import uwu.serenity.critter.utils.BEBlock;
 
 @SuppressWarnings({"deprecation", "NullableProblems"})
-public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public class CookieJarBlock extends BaseEntityBlock implements BEBlock<CookieJarBlockEntity>, SimpleWaterloggedBlock {
 
     private static final BooleanProperty WATERLOGGED;
     private static final VoxelShape BOUNDING_BOX = makeShape();
@@ -119,12 +122,6 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
         builder.add(WATERLOGGED);
     }
 
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new CookieJarBlockEntity(blockPos, blockState);
-    }
-
     @Override
     public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean bl) {
         if (!state.is(newState.getBlock())) {
@@ -197,5 +194,15 @@ public class CookieJarBlock extends BaseEntityBlock implements SimpleWaterlogged
         shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.625, 0.8125), BooleanOp.OR);
 
         return shape;
+    }
+
+    @Override
+    public BlockEntityType<? extends CookieJarBlockEntity> getBlockEntityType() {
+        return EstrogenBlockEntities.COOKIE_JAR.get();
+    }
+
+    @Override
+    public Class<? extends CookieJarBlockEntity> getBlockEntityClass() {
+        return CookieJarBlockEntity.class;
     }
 }

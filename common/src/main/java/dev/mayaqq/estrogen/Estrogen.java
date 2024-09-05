@@ -19,24 +19,25 @@ public class Estrogen {
 
     public static void init() {
         // Init all the different classes
-        EstrogenAttributes.ATTRIBUTES.init();
+        EstrogenAttributes.ATTRIBUTES.register();
         EstrogenDataSerializers.DATA_SERIALIZERS.init();
-        EstrogenEntities.ENTITIES.init();
+        EstrogenEntities.ENTITIES.register();
         EstrogenFluids.FLUIDS.init();
-        EstrogenBlocks.BLOCKS.init();
-        EstrogenBlockEntities.BLOCK_ENTITIES.init();
+        EstrogenSounds.SOUNDS.register();
+        EstrogenBlocks.BLOCKS.register();
+        EstrogenBlockEntities.BLOCK_ENTITIES.register();
         EstrogenFluidProperties.FLUID_PROPERTIES.initialize();
-        EstrogenEffects.MOB_EFFECTS.init();
-        EstrogenPotions.POTIONS.init();
-        EstrogenEnchantments.ENCHANTMENTS.init();
-        EstrogenItems.ITEMS.init();
-        EstrogenRecipeRegistries.RECIPE_SERIALIZERS.init();
-        EstrogenRecipeRegistries.RECIPE_TYPES.init();
-        EstrogenSounds.SOUNDS.init();
+        EstrogenEffects.MOB_EFFECTS.register();
+        EstrogenPotions.POTIONS.register();
+        EstrogenEnchantments.ENCHANTMENTS.register();
+        EstrogenItems.ITEMS.register();
+        EstrogenItems.BUCKETS.init();
         EstrogenRecipes.RECIPES.init();
+        EstrogenRecipeRegistries.RECIPE_TYPES.register();
+        EstrogenRecipeRegistries.RECIPE_SERIALIZERS.register();
         EstrogenAdvancementCriteria.CRITERIAS.init();
-        EstrogenParticles.PARTICLES.init();
-        EstrogenCreativeTab.TABS.init();
+        EstrogenParticles.PARTICLES.register();
+        EstrogenCreativeTab.TAB.register();
         EstrogenNetworkManager.NETWORK_MANAGER.init();
         EstrogenProcessingRecipes.register();
 
@@ -45,8 +46,6 @@ public class Estrogen {
 
     public static void postInit() {
         EstrogenPotatoProjectiles.register();
-        EstrogenEntities.registerSpawnPlacements();
-        EstrogenBlocks.registerExtraProperties();
         EstrogenItems.registerTooltips();
         CauldronInteraction.WATER.put(EstrogenItems.THIGH_HIGHS.get(), ThighHighsItem.CAULDRON_INTERACTION);
     }

@@ -22,6 +22,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import uwu.serenity.critter.RegistryManager;
 
 import java.util.Map;
 
@@ -30,12 +31,12 @@ import static dev.mayaqq.estrogen.Estrogen.MOD_ID;
 @Mod(MOD_ID)
 public class EstrogenForge {
 
-
     public EstrogenForge() {
         // Config
         EstrogenConfig.register(ModLoadingContext.get()::registerConfig);
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modEventBus.register(RegistryManager.getInstance(MOD_ID));
 
         // Init Estrogen main class
         Estrogen.init();
@@ -45,14 +46,9 @@ public class EstrogenForge {
             EstrogenRenderer.register();
         }
         modEventBus.addListener(EstrogenForge::init);
-        modEventBus.addListener(EstrogenForge::onEntityAttributeCreation);
     }
 
     public static void init(final FMLCommonSetupEvent event) {
         event.enqueueWork(Estrogen::postInit);
-    }
-
-    public static void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
-        EstrogenEvents.onEntityAttributeCreation().forEach(event::put);
     }
 }

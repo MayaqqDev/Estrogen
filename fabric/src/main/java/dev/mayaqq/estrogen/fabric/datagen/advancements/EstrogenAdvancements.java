@@ -1,8 +1,8 @@
 package dev.mayaqq.estrogen.fabric.datagen.advancements;
 
 import com.google.common.collect.ImmutableSet;
-import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import dev.mayaqq.estrogen.Estrogen;
+import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.advancements.triggers.InsertJarTrigger;
@@ -17,6 +17,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
+import uwu.serenity.critter.api.entry.RegistryEntry;
 
 import java.util.Collection;
 import java.util.function.Consumer;
@@ -116,7 +117,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         ).addCriterion("balls", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.BALLS.get()))
                 .build(Estrogen.id("balls"));
 
-        Advancement cookie_jar = Advancement.Builder.advancement().parent(estrogenPill).display(EstrogenItems.COOKIE_JAR.get(),
+        Advancement cookie_jar = Advancement.Builder.advancement().parent(estrogenPill).display(EstrogenBlocks.COOKIE_JAR.asItem(),
                 Component.translatable("advancement.estrogen.cookie_jar.title"),
                 Component.translatable("advancement.estrogen.cookie_jar.description"),
                 null,
@@ -173,9 +174,9 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
     }
 
     public static ItemPredicate getItems() {
-        Collection<RegistryEntry<Item>> itemEntries = EstrogenItems.ITEMS.getEntries();
+        Collection<RegistryEntry<? extends Item>> itemEntries = EstrogenItems.ITEMS.getAll();
         ImmutableSet.Builder<Item> items = new ImmutableSet.Builder<>();
-        for (RegistryEntry<Item> item : itemEntries) {
+        for (RegistryEntry<? extends Item> item : itemEntries) {
             items.add(item.get());
         }
         return  new ItemPredicate(null, items.build(),

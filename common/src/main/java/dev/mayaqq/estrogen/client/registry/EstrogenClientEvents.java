@@ -38,13 +38,6 @@ public class EstrogenClientEvents {
         consumer.register(MothModel.LAYER_LOCATION, MothModel::createBodyLayer);
         consumer.register(MothElytraModel.LAYER_LOCATION, MothElytraModel::createBodyLayer);
     }
-    public static void registerItemColorProviders(BiConsumer<ItemColor, Item[]> consumer) {
-        consumer.accept((stack, tintIndex) -> {
-            ThighHighsItem thighHighsItem = (ThighHighsItem) stack.getItem();
-            if(thighHighsItem.getStyle(stack).isPresent()) return -1;
-            return thighHighsItem.getColor(stack, tintIndex);
-        }, new Item[]{EstrogenItems.THIGH_HIGHS.get()});
-    }
 
     public static void onReloadRenderer(ClientLevel world) {
         if(!Backend.canUseInstancing(world)) DynamicDreamTexture.resetActive();
