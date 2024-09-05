@@ -26,18 +26,6 @@ public class EstrogenItems {
     public static final ItemRegistrar ITEMS = ItemRegistrar.create(Estrogen.MOD_ID);
 
     public static final ResourcefulRegistry<Item> BUCKETS = ResourcefulRegistries.create(BuiltInRegistries.ITEM, Estrogen.MOD_ID);
-    //public static final ResourcefulRegistry<Item> BLOCK_ITEMS = ResourcefulRegistries.create(ITEMS);
-    //public static final ResourcefulRegistry<Item> SPAWN_EGGS = ResourcefulRegistries.create(ITEMS);
-
-    // Basic items
-//    public static final RegistryEntry<Item>
-//        ESTROGEN_PILL = ITEMS.entry("estrogen_pill", () -> new Item(new Item.Properties().food(EstrogenFoodComponents.ESTROGEN_PILL).stacksTo(16).rarity(Rarity.RARE))),
-//        CRYSTAL_ESTROGEN_PILL = ITEMS.entry("crystal_estrogen_pill", () -> new Item(new Item.Properties().food(EstrogenFoodComponents.CRYTAL_ESTROGEN_PILL).stacksTo(16).rarity(Rarity.EPIC))),
-//        BALLS = ITEMS.entry("balls", () -> new Item(new Item.Properties())),
-//        TESTOSTERONE_CHUNK = ITEMS.entry("testosterone_chunk", () -> new Item(new Item.Properties())),
-//        TESTOSTERONE_POWDER = ITEMS.entry("testosterone_powder", () -> new Item(new Item.Properties())),
-//        USED_FILTER = ITEMS.entry("used_filter", () -> new Item(new Item.Properties())),
-//        MOTH_FUZZ = ITEMS.entry("moth_fuzz", () -> new Item(new Item.Properties()));
 
     public static final ItemEntry<Item>
         ESTROGEN_PILL = ITEMS.entry("estrogen_pill", Item::new).properties(p -> p.stacksTo(16).food(EstrogenFoodComponents.ESTROGEN_PILL).rarity(Rarity.RARE)).register(),
@@ -47,18 +35,6 @@ public class EstrogenItems {
         TESTOSTERONE_POWDER = ITEMS.entry("testosterone_powder", Item::new).register(),
         USED_FILTER = ITEMS.entry("used_filter", Item::new).register(),
         MOTH_FUZZ = ITEMS.entry("moth_fuzz", Item::new).register();
-
-    // Special items
-//    public static final RegistryEntry<Item> ESTROGEN_CHIP_COOKIE = ITEMS.register("estrogen_chip_cookie", () ->
-//            new EstrogenCookieItem(new Item.Properties().food(EstrogenFoodComponents.ESTROGEN_CHIP_COOKIE).stacksTo(64).rarity(Rarity.RARE)));
-//    public static final RegistryEntry<Item> HORSE_URINE_BOTTLE = ITEMS.register("horse_urine_bottle", () ->
-//            new HorseUrineBottleItem(new Item.Properties().food(EstrogenFoodComponents.HORSE_URINE_BOTTLE).craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)));
-//    public static final RegistryEntry<EstrogenPatchesItem> ESTROGEN_PATCHES = ITEMS.register("estrogen_patches", () -> new EstrogenPatchesItem(new Item.Properties().stacksTo(1)));
-//    public static final RegistryEntry<Item> INCOMPLETE_ESTROGEN_PATCH = ITEMS.register("incomplete_estrogen_patches", () -> new SequencedAssemblyItem(new Item.Properties().stacksTo(1)));
-//    public static final RegistryEntry<Item> UWU = ITEMS.register("uwu", () -> new UwUItem(new Item.Properties().stacksTo(1)));
-//    public static final RegistryEntry<Item> INCOMPLETE_UWU = ITEMS.register("incomplete_uwu", () -> new SequencedAssemblyItem(new Item.Properties().stacksTo(1)));
-//    public static final RegistryEntry<ThighHighsItem> THIGH_HIGHS = ITEMS.register("thigh_highs", () -> new ThighHighsItem(new Item.Properties().stacksTo(1), Color.parseColor("#f1d85a"), Color.parseColor("#ff4ea5")));
-//    public static final RegistryEntry<MothElytraItem> MOTH_ELYTRA = ITEMS.register("moth_elytra", () -> new MothElytraItem(new Item.Properties().stacksTo(1).durability(626).rarity(Rarity.UNCOMMON)));
 
     public static final ItemEntry<EstrogenCookieItem> ESTROGEN_CHIP_COOKIE = ITEMS.entry("estrogen_chip_cookie", EstrogenCookieItem::new)
         .properties(p -> p.food(EstrogenFoodComponents.ESTROGEN_CHIP_COOKIE)
