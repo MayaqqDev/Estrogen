@@ -46,7 +46,6 @@ public class Estrogen {
 
     public static void postInit() {
         EstrogenPotatoProjectiles.register();
-        EstrogenItems.registerTooltips();
         CauldronInteraction.WATER.put(EstrogenItems.THIGH_HIGHS.get(), ThighHighsItem.CAULDRON_INTERACTION);
     }
 }

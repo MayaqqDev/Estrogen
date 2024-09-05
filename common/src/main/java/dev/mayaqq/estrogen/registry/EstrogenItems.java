@@ -28,8 +28,8 @@ public class EstrogenItems {
     public static final ResourcefulRegistry<Item> BUCKETS = ResourcefulRegistries.create(BuiltInRegistries.ITEM, Estrogen.MOD_ID);
 
     public static final ItemEntry<Item>
-        ESTROGEN_PILL = ITEMS.entry("estrogen_pill", Item::new).properties(p -> p.stacksTo(16).food(EstrogenFoodComponents.ESTROGEN_PILL).rarity(Rarity.RARE)).register(),
-        CRYSTAL_ESTROGEN_PILL = ITEMS.entry("crystal_estrogen_pill", Item::new).properties(p -> p.stacksTo(16).food(EstrogenFoodComponents.CRYTAL_ESTROGEN_PILL).rarity(Rarity.EPIC)).register(),
+        ESTROGEN_PILL = ITEMS.entry("estrogen_pill", Item::new).properties(p -> p.stacksTo(16).food(EstrogenFoodComponents.ESTROGEN_PILL).rarity(Rarity.RARE)).transform(BuilderTransgenders.standardTooltip()).register(),
+        CRYSTAL_ESTROGEN_PILL = ITEMS.entry("crystal_estrogen_pill", Item::new).properties(p -> p.stacksTo(16).food(EstrogenFoodComponents.CRYTAL_ESTROGEN_PILL).rarity(Rarity.EPIC)).transform(BuilderTransgenders.standardTooltip()).register(),
         BALLS = ITEMS.entry("balls", Item::new).register(),
         TESTOSTERONE_CHUNK = ITEMS.entry("testosterone_chunk", Item::new).register(),
         TESTOSTERONE_POWDER = ITEMS.entry("testosterone_powder", Item::new).register(),
@@ -48,6 +48,7 @@ public class EstrogenItems {
         .register();
     public static final ItemEntry<EstrogenPatchesItem> ESTROGEN_PATCHES = ITEMS.entry("estrogen_patches", EstrogenPatchesItem::new)
         .properties(p -> p.stacksTo(1))
+        .transform(BuilderTransgenders.standardTooltip())
         .register();
     public static final ItemEntry<SequencedAssemblyItem> INCOMPLETE_ESTROGEN_PATCH = ITEMS.entry("incomplete_estrogen_patches", SequencedAssemblyItem::new)
         .properties(p -> p.stacksTo(1))
@@ -60,7 +61,7 @@ public class EstrogenItems {
         .register();
     public static final ItemEntry<ThighHighsItem> THIGH_HIGHS = ITEMS.entry("thigh_highs", p -> new ThighHighsItem(p, Color.parseColor("#f1d85a"),  Color.parseColor("0xff4ea5")))
         .properties(p -> p.stacksTo(1))
-        .onRegister(item -> TooltipModifier.REGISTRY.registerDeferred(item, ThighHighsToolTipModifier::create))
+        .transform(BuilderTransgenders.tooltip(ThighHighsToolTipModifier::create))
         .colors(() -> ThighHighsItem::getItemColor)
         .register();
     public static final ItemEntry<MothElytraItem> MOTH_ELYTRA = ITEMS.entry("moth_elytra", MothElytraItem::new)
@@ -86,20 +87,4 @@ public class EstrogenItems {
         return new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1);
     }
 
-    // Block Items
-//    public static final RegistryEntry<Item> CENTRIFUGE = BLOCK_ITEMS.register("centrifuge", () -> new BlockItem(EstrogenBlocks.CENTRIFUGE.get(), new Item.Properties()));
-//    public static final RegistryEntry<Item> COOKIE_JAR = BLOCK_ITEMS.register("cookie_jar", () -> new BlockItem(EstrogenBlocks.COOKIE_JAR.get(), new Item.Properties()));
-//    public static final RegistryEntry<Item> DREAM_BOTTLE = BLOCK_ITEMS.register("dream_bottle", () -> new DreamBottleItem(new Item.Properties().rarity(Rarity.EPIC)));
-//    public static final RegistryEntry<Item> DORMANT_DREAM_BLOCK = BLOCK_ITEMS.register("dormant_dream_block", () -> new BlockItem(EstrogenBlocks.DORMANT_DREAM_BLOCK.get(), new Item.Properties()));
-//    public static final RegistryEntry<Item> ESTROGEN_PILL_BLOCK = BLOCK_ITEMS.register("estrogen_pill_block", () -> new BlockItem(EstrogenBlocks.ESTROGEN_PILL_BLOCK.get(), new Item.Properties()));
-//    public static final RegistryEntry<Item> MOTH_WOOL = BLOCK_ITEMS.register("moth_wool", () -> new BlockItem(EstrogenBlocks.MOTH_WOOL.get(), new Item.Properties()));
-//    public static final RegistryEntry<Item> QUILTED_MOTH_WOOL = BLOCK_ITEMS.register("quilted_moth_wool", () -> new BlockItem(EstrogenBlocks.QUILTED_MOTH_WOOL.get(), new Item.Properties()));
-//    public static final RegistryEntry<Item> MOTH_SEAT = BLOCK_ITEMS.register("moth_seat", () -> new BlockItem(EstrogenBlocks.MOTH_SEAT.get(), new Item.Properties()));
-//    public static final RegistryEntry<Item> MOTH_WOOL_CARPET = BLOCK_ITEMS.register("moth_wool_carpet", () -> new BlockItem(EstrogenBlocks.MOTH_WOOL_CARPET.get(), new Item.Properties()));
-//    public static final RegistryEntry<Item> QUILTED_MOTH_WOOL_CARPET = BLOCK_ITEMS.register("quilted_moth_wool_carpet", () -> new BlockItem(EstrogenBlocks.QUILTED_MOTH_WOOL_CARPET.get(), new Item.Properties()));
-
-
-    public static void registerTooltips() {
-        EstrogenItems.ITEMS.stream().forEach(itemEntry -> TooltipModifier.REGISTRY.registerDeferred(itemEntry.getId(), item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)));
-    }
 }
