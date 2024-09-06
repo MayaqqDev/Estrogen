@@ -80,10 +80,10 @@ public class Transgenders {
         };
     }
 
-    static <BE extends BlockEntity, P> UnaryOperator<BlockEntityBuilder<BE, P>> instanceController(Supplier<Supplier<BlockEntityInstancingController<? super BE>>> instanceController) {
+    static <BE extends BlockEntity, P> UnaryOperator<BlockEntityBuilder<BE, P>> instanceController(Supplier<BlockEntityInstancingController<? super BE>> instanceController) {
         return b -> {
             EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> {
-                b.onRegister(beType -> InstancedRenderRegistry.setController(beType, instanceController.get().get()));
+                b.onRegister(beType -> InstancedRenderRegistry.setController(beType, instanceController.get()));
             });
             return b;
         };

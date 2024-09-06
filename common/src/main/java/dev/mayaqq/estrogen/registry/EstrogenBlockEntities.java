@@ -25,7 +25,7 @@ public class EstrogenBlockEntities {
     public static final BlockEntityEntry<DreamBlockEntity> DREAM_BLOCK = BLOCK_ENTITIES.entry("dream_block", DreamBlockEntity::new)
         .validBlock(EstrogenBlocks.DREAM_BLOCK)
         .renderer(() -> DreamBlockRenderer::new)
-        .transform(Transgenders.instanceController(() -> () -> DreamBlockInstance.CONTROLLER))
+        .transform(Transgenders.instanceController(() -> DreamBlockInstance.CONTROLLER))
         .register();
 
     public static final BlockEntityEntry<CookieJarBlockEntity> COOKIE_JAR = BLOCK_ENTITIES.entry("cookie_jar", CookieJarBlockEntity::new)
