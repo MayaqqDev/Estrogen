@@ -33,7 +33,7 @@ public class EstrogenTagsGen {
             getOrCreateTagBuilder(EstrogenTags.Items.MUSIC_DISCS)
                     .add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get());
             getOrCreateTagBuilder(EstrogenTags.Items.LAVA_BUCKETS)
-                    .add(EstrogenFluids.LIQUID_ESTROGEN.getBucket())
+                    .add(EstrogenFluids.MOLTEN_SLIME.getBucket())
                     .add(EstrogenFluids.MOLTEN_AMETHYST.getBucket());
             getOrCreateTagBuilder(EstrogenTags.Items.COOKIES)
                     .add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get())

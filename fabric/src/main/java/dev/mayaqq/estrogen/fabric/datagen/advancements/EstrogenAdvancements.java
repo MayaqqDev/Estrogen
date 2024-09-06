@@ -13,11 +13,13 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
+import uwu.serenity.critter.RegistryManager;
 import uwu.serenity.critter.api.entry.RegistryEntry;
 
 import java.util.Collection;
@@ -175,7 +177,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
     }
 
     public static ItemPredicate getItems() {
-        Collection<RegistryEntry<? extends Item>> itemEntries = EstrogenItems.ITEMS.getAll();
+        Collection<RegistryEntry<? extends Item>> itemEntries = RegistryManager.getInstance(Estrogen.MOD_ID).getAllEntries(Registries.ITEM);
         ImmutableSet.Builder<Item> items = new ImmutableSet.Builder<>();
         for (RegistryEntry<? extends Item> item : itemEntries) {
             items.add(item.get());
