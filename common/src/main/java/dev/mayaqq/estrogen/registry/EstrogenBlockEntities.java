@@ -19,13 +19,13 @@ public class EstrogenBlockEntities {
     public static final BlockEntityEntry<CentrifugeBlockEntity> CENTRIFUGE = BLOCK_ENTITIES.entry("centrifuge", CentrifugeBlockEntity::new)
         .validBlock(EstrogenBlocks.CENTRIFUGE)
         .renderer(() -> CentrifugeRenderer::new)
-        .transform(Transgenders.instance(() -> CentrifugeCogInstance::new, be -> false))
+        .transform(Transgenders.instance(() -> CentrifugeCogInstance::new, $ -> true))
         .register();
 
     public static final BlockEntityEntry<DreamBlockEntity> DREAM_BLOCK = BLOCK_ENTITIES.entry("dream_block", DreamBlockEntity::new)
         .validBlock(EstrogenBlocks.DREAM_BLOCK)
         .renderer(() -> DreamBlockRenderer::new)
-        .transform(Transgenders.customInstance(() -> () -> DreamBlockInstance.CONTROLLER))
+        .transform(Transgenders.instanceController(() -> () -> DreamBlockInstance.CONTROLLER))
         .register();
 
     public static final BlockEntityEntry<CookieJarBlockEntity> COOKIE_JAR = BLOCK_ENTITIES.entry("cookie_jar", CookieJarBlockEntity::new)
