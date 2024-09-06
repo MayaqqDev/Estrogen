@@ -25,6 +25,7 @@ public class Estrogen {
         EstrogenFluids.FLUIDS.init();
         EstrogenSounds.SOUNDS.register();
         EstrogenBlocks.BLOCKS.register();
+        EstrogenBlocks.TRANSPARENT_BLOCKS.init();
         EstrogenBlockEntities.BLOCK_ENTITIES.register();
         EstrogenFluidProperties.FLUID_PROPERTIES.initialize();
         EstrogenEffects.MOB_EFFECTS.register();
@@ -32,14 +33,16 @@ public class Estrogen {
         EstrogenEnchantments.ENCHANTMENTS.register();
         EstrogenItems.ITEMS.register();
         EstrogenItems.BUCKETS.init();
+
+        // Recipes need to be registered before completing the recipe registers
         EstrogenRecipes.RECIPES.init();
+        EstrogenProcessingRecipes.register();
         EstrogenRecipeRegistries.RECIPE_TYPES.register();
         EstrogenRecipeRegistries.RECIPE_SERIALIZERS.register();
         EstrogenAdvancementCriteria.CRITERIAS.init();
         EstrogenParticles.PARTICLES.register();
         EstrogenCreativeTab.TAB.register();
         EstrogenNetworkManager.NETWORK_MANAGER.init();
-        EstrogenProcessingRecipes.register();
 
         LOGGER.info("Injecting Estrogen into your veins!");
     }

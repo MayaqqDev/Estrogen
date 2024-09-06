@@ -22,6 +22,7 @@ import dev.mayaqq.estrogen.utils.StatePredicates;
 import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
@@ -45,7 +46,7 @@ public class EstrogenBlocks {
             .mapColor(MapColor.COLOR_ORANGE)
             .noOcclusion())
         .renderType(() -> RenderType::cutout)
-        .transform(BuilderTransgenders.stressImpact(8.0))
+        .transform(Transgenders.stressImpact(8.0))
         .simpleItem()
         .register();
 
@@ -53,7 +54,9 @@ public class EstrogenBlocks {
         .copyProperties(() -> Blocks.GLASS)
         .properties(p -> p.sound(EstrogenSoundTypes.COOKIE_JAR))
         .renderType(() -> RenderType::cutout)
-        .simpleItem()
+        .item(BlockItem::new)
+        .transform(Transgenders.standardTooltip())
+        .build()
         .register();
 
     public static final BlockEntry<DreamBlock> DREAM_BLOCK = BLOCKS.entry("dream_block", DreamBlock::new)
@@ -81,7 +84,9 @@ public class EstrogenBlocks {
             .isViewBlocking(StatePredicates::never))
         .renderType(() -> RenderType::translucent)
         .onRegister(CreateRegistrate.blockModel(() -> EstrogenSpriteShifts.DORMANT_DREAM_BLOCK_PROVIDER)::accept)
-        .simpleItem()
+        .item(BlockItem::new)
+        .transform(Transgenders.standardTooltip())
+        .build()
         .register();
 
 

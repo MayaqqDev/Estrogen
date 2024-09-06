@@ -13,7 +13,7 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 // :333333
-public class BuilderTransgenders {
+public class Transgenders {
     static <B extends Block, P> UnaryOperator<BlockBuilder<B, P>> stressImpact(double impact) {
         return b -> {
             BlockStressDefaults.setDefaultImpact(b.getId(), impact);

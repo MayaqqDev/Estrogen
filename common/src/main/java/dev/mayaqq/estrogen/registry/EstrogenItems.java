@@ -1,22 +1,16 @@
 package dev.mayaqq.estrogen.registry;
 
-import com.simibubi.create.AllItems;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
-import com.simibubi.create.foundation.item.ItemDescription;
-import com.simibubi.create.foundation.item.TooltipHelper;
-import com.simibubi.create.foundation.item.TooltipModifier;
 import com.teamresourceful.resourcefullib.common.color.Color;
 import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries;
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
 import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.client.registry.EstrogenClientEvents;
 import dev.mayaqq.estrogen.registry.items.*;
 import dev.mayaqq.estrogen.registry.tooltip.ThighHighsToolTipModifier;
 import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import uwu.serenity.critter.stdlib.items.ItemEntry;
@@ -28,8 +22,8 @@ public class EstrogenItems {
     public static final ResourcefulRegistry<Item> BUCKETS = ResourcefulRegistries.create(BuiltInRegistries.ITEM, Estrogen.MOD_ID);
 
     public static final ItemEntry<Item>
-        ESTROGEN_PILL = ITEMS.entry("estrogen_pill", Item::new).properties(p -> p.stacksTo(16).food(EstrogenFoodComponents.ESTROGEN_PILL).rarity(Rarity.RARE)).transform(BuilderTransgenders.standardTooltip()).register(),
-        CRYSTAL_ESTROGEN_PILL = ITEMS.entry("crystal_estrogen_pill", Item::new).properties(p -> p.stacksTo(16).food(EstrogenFoodComponents.CRYTAL_ESTROGEN_PILL).rarity(Rarity.EPIC)).transform(BuilderTransgenders.standardTooltip()).register(),
+        ESTROGEN_PILL = ITEMS.entry("estrogen_pill", Item::new).properties(p -> p.stacksTo(16).food(EstrogenFoodComponents.ESTROGEN_PILL).rarity(Rarity.RARE)).transform(Transgenders.standardTooltip()).register(),
+        CRYSTAL_ESTROGEN_PILL = ITEMS.entry("crystal_estrogen_pill", Item::new).properties(p -> p.stacksTo(16).food(EstrogenFoodComponents.CRYTAL_ESTROGEN_PILL).rarity(Rarity.EPIC)).transform(Transgenders.standardTooltip()).register(),
         BALLS = ITEMS.entry("balls", Item::new).register(),
         TESTOSTERONE_CHUNK = ITEMS.entry("testosterone_chunk", Item::new).register(),
         TESTOSTERONE_POWDER = ITEMS.entry("testosterone_powder", Item::new).register(),
@@ -48,7 +42,7 @@ public class EstrogenItems {
         .register();
     public static final ItemEntry<EstrogenPatchesItem> ESTROGEN_PATCHES = ITEMS.entry("estrogen_patches", EstrogenPatchesItem::new)
         .properties(p -> p.stacksTo(1))
-        .transform(BuilderTransgenders.standardTooltip())
+        .transform(Transgenders.standardTooltip())
         .register();
     public static final ItemEntry<SequencedAssemblyItem> INCOMPLETE_ESTROGEN_PATCH = ITEMS.entry("incomplete_estrogen_patches", SequencedAssemblyItem::new)
         .properties(p -> p.stacksTo(1))
@@ -61,7 +55,7 @@ public class EstrogenItems {
         .register();
     public static final ItemEntry<ThighHighsItem> THIGH_HIGHS = ITEMS.entry("thigh_highs", p -> new ThighHighsItem(p, Color.parseColor("#f1d85a"),  Color.parseColor("0xff4ea5")))
         .properties(p -> p.stacksTo(1))
-        .transform(BuilderTransgenders.tooltip(ThighHighsToolTipModifier::create))
+        .transform(Transgenders.tooltip(ThighHighsToolTipModifier::create))
         .colors(() -> ThighHighsItem::getItemColor)
         .register();
     public static final ItemEntry<MothElytraItem> MOTH_ELYTRA = ITEMS.entry("moth_elytra", MothElytraItem::new)
