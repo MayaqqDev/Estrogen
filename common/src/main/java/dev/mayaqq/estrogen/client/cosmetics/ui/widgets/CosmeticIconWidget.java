@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import com.simibubi.create.foundation.gui.widget.AbstractSimiWidget;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.cosmetics.Cosmetic;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.model.geom.PartPose;
@@ -26,14 +25,16 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
     private static final Vector3f LIGHT_1 = new Vector3f(-0.8f, -1.0f, 1.0F).normalize();
 
     private PartPose pose;
-
     private Cosmetic cosmetic;
+
+    private ContentScaling contentScalingMode = ContentScaling.SCALE_Y;
+    private HighlightPredicate hoverPredicate;
     private float scale = 0.5f;
     private float rotationSpeed;
-    private float animRot;
-    private ContentScaling contentScalingMode = ContentScaling.SCALE_Y;
-    private LerpedFloat overlayAnimation = LerpedFloat.linear();
+
+    private final LerpedFloat overlayAnimation = LerpedFloat.linear();
     private boolean isHovered;
+    private float animRot;
 
     public boolean debug;
 
@@ -42,6 +43,11 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         this.cosmetic = cosmetic;
         this.pose = (referencePose != null) ? referencePose : DEFAULT_POSE;
         this.z = 150;
+        defaultHighlightPredicate();
+    }
+
+    public static CosmeticIconWidget of(Cosmetic cosmetic) {
+        return new CosmeticIconWidget(cosmetic, 0, 0, 0, 0, null);
     }
 
     @Override
@@ -49,7 +55,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         super.beforeRender(graphics, mouseX, mouseY, partialTicks);
 
         if(!visible) return;
-        boolean hover = mouseX > this.getX() && mouseX < this.getX() + width && mouseY > this.getY() && mouseY < this.getY() + height;
+        boolean hover = hoverPredicate.test(this, mouseX, mouseY);
 
         if(hover != isHovered) {
             isHovered = hover;
@@ -143,13 +149,47 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         return new Quaternionf().rotateXYZ(x * Mth.DEG_TO_RAD, y * Mth.DEG_TO_RAD, z * Mth.DEG_TO_RAD);
     }
 
-    public CosmeticIconWidget setRotationSpeed(float speed) {
+    public CosmeticIconWidget withRotationSpeed(float speed) {
         this.rotationSpeed = speed;
         return this;
     }
 
-    public CosmeticIconWidget setScale(float scale) {
+    public CosmeticIconWidget withScale(float scale) {
         this.scale = scale;
+        return this;
+    }
+
+    public CosmeticIconWidget withSize(int width, int height) {
+        this.width = width;
+        this.height = height;
+        return this;
+    }
+    public CosmeticIconWidget withContentScaling(ContentScaling mode) {
+        this.contentScalingMode = mode;
+        return this;
+    }
+
+    public CosmeticIconWidget withPose(PartPose pose) {
+        this.pose = pose;
+        return this;
+    }
+
+    public CosmeticIconWidget withHighlightPredicate(HighlightPredicate predicate) {
+        this.hoverPredicate = predicate;
+        return this;
+    }
+
+    public CosmeticIconWidget defaultHighlightPredicate() {
+        this.hoverPredicate = HighlightPredicate.DEFAULT;
+        return this;
+    }
+
+    public CosmeticIconWidget neverHighlight() {
+        return this.withHighlightPredicate(($0, $1, $2) -> false);
+    }
+
+    public CosmeticIconWidget withDefaultPose() {
+        this.pose = DEFAULT_POSE;
         return this;
     }
 
@@ -161,18 +201,16 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         this.cosmetic = cosmetic;
     }
 
-    public void setContentScalingMode(ContentScaling mode) {
-        this.contentScalingMode = mode;
-    }
-
-    public void setPose(PartPose pose) {
-        this.pose = pose;
-    }
-
     public enum ContentScaling {
         SCALE_X,
         SCALE_Y,
         SQUISH,
         NONE;
+    }
+
+    public interface HighlightPredicate {
+        HighlightPredicate DEFAULT = (self, mouseX, mouseY) -> mouseX >= self.getX() && mouseX <= self.getX() + self.width && mouseY >= self.getY() && mouseY <= self.getY() + self.height;
+
+        boolean test(CosmeticIconWidget widget, int mouseX, int mouseY);
     }
 }

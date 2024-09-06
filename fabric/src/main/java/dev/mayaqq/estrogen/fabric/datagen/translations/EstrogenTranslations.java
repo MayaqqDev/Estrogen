@@ -222,6 +222,41 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         thighHigh(tb, "genderfluid", "§dGe§fnd§5er§8fl§9uid");
         thighHigh(tb, "demisexual", "De§8mi§fse§5xu§fal");
 
+        // Cosmetics
+        tb.add("gui.estrogen.cosmetics.title", "Estrogen Cosmetics");
+        tb.add("gui.estrogen.cosmetics.back", "Go Back");
+        tb.add("gui.estrogen.cosmetics.close", "Close");
+        tb.add("gui.estrogen.cosmetics.claim", "Claim Reward");
+        tb.add("gui.estrogen.cosmetics.none", "None");
+        tb.add("gui.estrogen.cosmetics.no_preview", "Cosmetics Preview only in-game");
+
+        tb.add("gui.estrogen.cosmetics.login.description", """
+            Welcome to Estrogen Cosmetics!
+            
+            To get started, please log in to your account.
+            """);
+        tb.add("gui.estrogen.cosmetics.login.button", "Login");
+        tb.add("gui.estrogen.cosmetics.login.init", "Logging in...");
+        tb.add("gui.estrogen.cosmetics.login.unauthorized", "Failed to login, check if you are logged in to Minecraft.");
+        tb.add("gui.estrogen.cosmetics.login.server_error", "Error occurred on server side while logging in.");
+        tb.add("gui.estrogen.cosmetics.login.failed", "Unknown error occurred while logging in.");
+
+        tb.add("gui.estrogen.cosmetics.init", "Getting Cosmetics...");
+        tb.add("gui.estrogen.cosmetics.unauthorized", "Failed to get cosmetics, try again later.");
+        tb.add("gui.estrogen.cosmetics.server_error", "Error occurred on server side while getting cosmetics.");
+        tb.add("gui.estrogen.cosmetics.failed", "Unknown error occurred while getting cosmetics.");
+
+        tb.add("gui.estrogen.cosmetics.claim.description", """
+            Welcome to Estrogen Cosmetics Reward Claim!
+            
+            Enter the code you received,
+            into the text box below, to claim your cosmetic.
+            """);
+        tb.add("gui.estrogen.cosmetics.claim.button", "Claim");
+        tb.add("gui.estrogen.cosmetics.claim.init", "Claiming...");
+        tb.add("gui.estrogen.cosmetics.claim.forbidden", "Failed, code was already claimed.");
+        tb.add("gui.estrogen.cosmetics.claim.not_found", "Failed, code is invalid.");
+        tb.add("gui.estrogen.cosmetics.claim.failed", "Unknown error occurred while claiming.");
     }
 
     private void thighHigh(TranslationBuilder builder, String styleName, String value) {
