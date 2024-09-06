@@ -38,7 +38,6 @@ public class EstrogenPatchesItem extends Item implements Bauble, BotariumFluidIt
 
     public EstrogenPatchesItem(Properties properties) {
         super(properties);
-        Baubly.registerBauble(this);
     }
 
     @Override

@@ -5,12 +5,13 @@ import dev.mayaqq.estrogen.registry.EstrogenBlockEntities;
 import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
 import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class CentrifugeBlockEntity extends KineticBlockEntity {
 
-    public CentrifugeBlockEntity(BlockPos pos, BlockState state) {
-        super(EstrogenBlockEntities.CENTRIFUGE.get(), pos, state);
+    public CentrifugeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
 
     @SuppressWarnings("DataFlowIssue")

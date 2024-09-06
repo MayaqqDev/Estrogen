@@ -49,8 +49,6 @@ public class EstrogenFabricEvents {
         // Entity Death
         ServerLivingEntityEvents.AFTER_DEATH.register(EstrogenEvents::onEntityDeath);
 
-        EstrogenEvents.onEntityAttributeCreation().forEach(FabricDefaultAttributeRegistry::register);
-
         EntityElytraEvents.CUSTOM.register((entity, tickElytra) -> {
             ItemStack chestStack = entity.getItemBySlot(EquipmentSlot.CHEST);
             if (chestStack.getItem() instanceof MothElytraItem) {

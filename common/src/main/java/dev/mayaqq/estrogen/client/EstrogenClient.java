@@ -9,6 +9,7 @@ import com.tterrag.registrate.util.nullness.NonNullFunction;
 import dev.mayaqq.estrogen.client.config.ConfigSync;
 import dev.mayaqq.estrogen.client.registry.EstrogenKeybinds;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
+import dev.mayaqq.estrogen.client.registry.EstrogenSpriteShifts;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeCogInstance;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.cookieJar.CookieJarRenderer;
@@ -33,29 +34,6 @@ public class EstrogenClient {
         EstrogenRenderer.register();
         EstrogenPonderScenes.register();
         EstrogenKeybinds.register();
-        // Trinket renderers
-        EstrogenPatchesRenderer.register();
-        ThighHighRenderer.register();
-        // Block renderers
-        ClientHooks.setRenderLayer(EstrogenBlocks.CENTRIFUGE.get(), RenderType.cutout());
-        ClientHooks.setRenderLayer(EstrogenBlocks.COOKIE_JAR.get(), RenderType.cutout());
-        ClientHooks.setRenderLayer(EstrogenBlocks.DORMANT_DREAM_BLOCK.get(), RenderType.translucent());
-        ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.CENTRIFUGE.get(), CentrifugeRenderer::new);
-        ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.COOKIE_JAR.get(), CookieJarRenderer::new);
-        ClientHooks.registerBlockEntityRenderers(EstrogenBlockEntities.DREAM_BLOCK.get(), DreamBlockRenderer::new);
-
-        ClientHooks.registerEntityRenderer(EstrogenEntities.MOTH, MothRenderer::new);
-
-        CreateClient.MODEL_SWAPPER.getCustomBlockModels().register(EstrogenBlocks.DORMANT_DREAM_BLOCK.getId(), new CTModelProvider(new SimpleCTBehaviour(EstrogenSpriteShifts.DORMANT_DREAM_BLOCK)));
-
-        EstrogenFluids.FLUIDS.stream().forEach(fluid -> ClientPlatform.fluidRenderLayerMap(fluid.get(), RenderType.translucent()));
-
-        InstancedRenderRegistry.configure(EstrogenBlockEntities.CENTRIFUGE.get())
-                .factory(CentrifugeCogInstance::new)
-                .skipRender(be -> false)
-                .apply();
-
-        InstancedRenderRegistry.setController(EstrogenBlockEntities.DREAM_BLOCK.get(), DreamBlockInstance.CONTROLLER);
 
         // mod compat
         if (CommonHooks.isModLoaded("ears")) {
@@ -64,7 +42,7 @@ public class EstrogenClient {
     }
 
     @Environment(EnvType.CLIENT)
-    private record CTModelProvider(ConnectedTextureBehaviour behavior) implements NonNullFunction<BakedModel, BakedModel> {
+    public record CTModelProvider(ConnectedTextureBehaviour behavior) implements NonNullFunction<BakedModel, BakedModel> {
         @Override
         public BakedModel apply(BakedModel bakedModel) {
             return new CTModel(bakedModel, behavior);

@@ -12,8 +12,8 @@ public class EstrogenPonderScenes {
     static final PonderRegistrationHelper HELPER = new PonderRegistrationHelper(Estrogen.MOD_ID);
 
     public static void register() {
-        HELPER.addStoryBoard(EstrogenItems.CENTRIFUGE.getId(), Estrogen.id("centrifuge/intro"), new CentrifugeStoryboard.Intro(), AllPonderTags.KINETIC_APPLIANCES);
-        HELPER.addStoryBoard(EstrogenItems.CENTRIFUGE.getId(), Estrogen.id("centrifuge/basic"), new CentrifugeStoryboard.Basic(), AllPonderTags.KINETIC_APPLIANCES);
+        HELPER.addStoryBoard(EstrogenBlocks.CENTRIFUGE.getId(), Estrogen.id("centrifuge/intro"), new CentrifugeStoryboard.Intro(), AllPonderTags.KINETIC_APPLIANCES);
+        HELPER.addStoryBoard(EstrogenBlocks.CENTRIFUGE.getId(), Estrogen.id("centrifuge/basic"), new CentrifugeStoryboard.Basic(), AllPonderTags.KINETIC_APPLIANCES);
         if (CommonHooks.isModLoaded("create_new_age")) CreateNewAgeCompat.registerPonderScenes(HELPER);
     }
 }

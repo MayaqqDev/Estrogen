@@ -21,10 +21,6 @@ public class EstrogenPatchesRenderer implements BaubleRenderer {
 
     public EstrogenPatchesRenderer() {}
 
-    public static void register() {
-        BaublyClient.registerBaubleRenderer(EstrogenItems.ESTROGEN_PATCHES.get(), new EstrogenPatchesRenderer());
-    }
-
     @Override
     public void render(
             ItemStack stack,

@@ -27,14 +27,14 @@ public class EstrogenCraftingRecipes<T extends EstrogenRecipeInterface> extends 
                 .requires(AllItems.BAR_OF_CHOCOLATE.get())
                 .save(exporter);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, EstrogenItems.ESTROGEN_PILL_BLOCK.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, EstrogenBlocks.ESTROGEN_PILL_BLOCK.asItem())
                         .requires(EstrogenItems.ESTROGEN_PILL.get(), 9)
                         .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.ESTROGEN_PILL.get()), FabricRecipeProvider.has(EstrogenItems.ESTROGEN_PILL.get()))
                         .save(exporter);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, EstrogenItems.ESTROGEN_PILL.get(), 9)
-                        .requires(EstrogenItems.ESTROGEN_PILL_BLOCK.get())
-                        .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.ESTROGEN_PILL_BLOCK.get()), FabricRecipeProvider.has(EstrogenItems.ESTROGEN_PILL_BLOCK.get()))
+                        .requires(EstrogenBlocks.ESTROGEN_PILL_BLOCK.asItem())
+                        .unlockedBy(FabricRecipeProvider.getHasName(EstrogenBlocks.ESTROGEN_PILL_BLOCK.get()), FabricRecipeProvider.has(EstrogenBlocks.ESTROGEN_PILL_BLOCK.asItem()))
                         .save(exporter);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, EstrogenBlocks.CENTRIFUGE.get(), 1)
@@ -65,36 +65,36 @@ public class EstrogenCraftingRecipes<T extends EstrogenRecipeInterface> extends 
                 .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.MOTH_FUZZ.get()), FabricRecipeProvider.has(EstrogenItems.MOTH_FUZZ.get()))
                 .save(exporter);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, EstrogenItems.MOTH_WOOL.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, EstrogenBlocks .MOTH_WOOL.asItem(), 1)
                 .define('F', EstrogenItems.MOTH_FUZZ.get())
                 .pattern("FF")
                 .pattern("FF")
                 .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.MOTH_FUZZ.get()), FabricRecipeProvider.has(EstrogenItems.MOTH_FUZZ.get()))
                 .save(exporter);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, EstrogenItems.QUILTED_MOTH_WOOL.get(), 4)
-                .define('F', EstrogenItems.MOTH_WOOL.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, EstrogenBlocks.QUILTED_MOTH_WOOL.asItem(), 4)
+                .define('F', EstrogenBlocks.MOTH_WOOL.asItem())
                 .pattern("FF")
                 .pattern("FF")
-                .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.MOTH_WOOL.get()), FabricRecipeProvider.has(EstrogenItems.MOTH_WOOL.get()))
+                .unlockedBy(FabricRecipeProvider.getHasName(EstrogenBlocks.MOTH_WOOL.asItem()), FabricRecipeProvider.has(EstrogenBlocks.MOTH_WOOL.asItem()))
                 .save(exporter);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, EstrogenItems.MOTH_WOOL_CARPET.get(), 3)
-                .define('F', EstrogenItems.MOTH_WOOL.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, EstrogenBlocks.MOTH_WOOL_CARPET.asItem(), 3)
+                .define('F', EstrogenBlocks.MOTH_WOOL.asItem())
                 .pattern("FF")
-                .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.MOTH_WOOL.get()), FabricRecipeProvider.has(EstrogenItems.MOTH_WOOL.get()))
+                .unlockedBy(FabricRecipeProvider.getHasName(EstrogenBlocks.MOTH_WOOL.asItem()), FabricRecipeProvider.has(EstrogenBlocks.MOTH_WOOL.asItem()))
                 .save(exporter);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, EstrogenItems.QUILTED_MOTH_WOOL_CARPET.get(), 3)
-                .define('F', EstrogenItems.QUILTED_MOTH_WOOL.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, EstrogenBlocks.QUILTED_MOTH_WOOL_CARPET.asItem(), 3)
+                .define('F', EstrogenBlocks.QUILTED_MOTH_WOOL.asItem())
                 .pattern("FF")
-                .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.QUILTED_MOTH_WOOL.get()), FabricRecipeProvider.has(EstrogenItems.QUILTED_MOTH_WOOL.get()))
+                .unlockedBy(FabricRecipeProvider.getHasName(EstrogenBlocks.QUILTED_MOTH_WOOL.asItem()), FabricRecipeProvider.has(EstrogenBlocks.QUILTED_MOTH_WOOL.asItem()))
                 .save(exporter);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, EstrogenItems.MOTH_SEAT.get())
-                .requires(EstrogenItems.QUILTED_MOTH_WOOL.get(), 1)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, EstrogenBlocks.MOTH_SEAT.asItem())
+                .requires(EstrogenBlocks.QUILTED_MOTH_WOOL.asItem(), 1)
                 .requires(ItemTags.WOODEN_SLABS)
-                .unlockedBy(FabricRecipeProvider.getHasName(EstrogenItems.MOTH_WOOL.get()), FabricRecipeProvider.has(EstrogenItems.MOTH_WOOL.get()))
+                .unlockedBy(FabricRecipeProvider.getHasName(EstrogenBlocks.MOTH_WOOL.asItem()), FabricRecipeProvider.has(EstrogenBlocks.MOTH_WOOL.asItem()))
                 .save(exporter);
 
         SpecialRecipeBuilder.special(EstrogenRecipes.THIGH_HIGH_DYE_SERIALIZER.get()).save(exporter, "estrogen:thigh_high_dye");

@@ -33,8 +33,8 @@ public class EstrogenTagsGen {
             getOrCreateTagBuilder(EstrogenTags.Items.MUSIC_DISCS)
                     .add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get());
             getOrCreateTagBuilder(EstrogenTags.Items.LAVA_BUCKETS)
-                    .add(EstrogenItems.MOLTEN_SLIME_BUCKET.get())
-                    .add(EstrogenItems.MOLTEN_AMETHYST_BUCKET.get());
+                    .add(EstrogenFluids.MOLTEN_SLIME.getBucket())
+                    .add(EstrogenFluids.MOLTEN_AMETHYST.getBucket());
             getOrCreateTagBuilder(EstrogenTags.Items.COOKIES)
                     .add(EstrogenItems.ESTROGEN_CHIP_COOKIE.get())
                     .add(Items.COOKIE);
@@ -52,13 +52,13 @@ public class EstrogenTagsGen {
                     .add(Items.SOUL_LANTERN)
                     .add(Items.CANDLE);
             getOrCreateTagBuilder(AllTags.AllItemTags.SEATS.tag)
-                    .add(EstrogenItems.MOTH_SEAT.get());
+                    .add(EstrogenBlocks.MOTH_SEAT.asItem());
             getOrCreateTagBuilder(net.minecraft.tags.ItemTags.WOOL)
-                    .add(EstrogenItems.MOTH_WOOL.get())
-                    .add(EstrogenItems.QUILTED_MOTH_WOOL.get());
+                    .add(EstrogenBlocks.MOTH_WOOL.asItem())
+                    .add(EstrogenBlocks.QUILTED_MOTH_WOOL.asItem());
             getOrCreateTagBuilder(net.minecraft.tags.ItemTags.WOOL_CARPETS)
-                    .add(EstrogenItems.MOTH_WOOL_CARPET.get())
-                    .add(EstrogenItems.QUILTED_MOTH_WOOL_CARPET.get());
+                    .add(EstrogenBlocks.MOTH_WOOL_CARPET.asItem())
+                    .add(EstrogenBlocks.QUILTED_MOTH_WOOL_CARPET.asItem());
         }
     }
 
@@ -119,16 +119,16 @@ public class EstrogenTagsGen {
             if (t instanceof EstrogenTagsFabricImpl) {
                 getOrCreateTagBuilder(EstrogenTags.Fluids.WATER)
                         .add(EstrogenFluids.LIQUID_ESTROGEN.get())
-                        .add(EstrogenFluids.LIQUID_ESTROGEN_FLOWING.get())
-                        .add(EstrogenFluids.HORSE_URINE_FLOWING.get())
-                        .add(EstrogenFluids.FILTRATED_HORSE_URINE_FLOWING.get())
+                        .add(EstrogenFluids.LIQUID_ESTROGEN.getFlowing())
+                        .add(EstrogenFluids.HORSE_URINE.getFlowing())
+                        .add(EstrogenFluids.FILTRATED_HORSE_URINE.getFlowing())
                         .add(EstrogenFluids.TESTOSTERONE_MIXTURE.get())
-                        .add(EstrogenFluids.TESTOSTERONE_MIXTURE_FLOWING.get());
+                        .add(EstrogenFluids.TESTOSTERONE_MIXTURE.getFlowing());
                 getOrCreateTagBuilder(EstrogenTags.Fluids.LAVA)
                         .add(EstrogenFluids.MOLTEN_SLIME.get())
-                        .add(EstrogenFluids.MOLTEN_SLIME_FLOWING.get())
+                        .add(EstrogenFluids.MOLTEN_SLIME.getFlowing())
                         .add(EstrogenFluids.MOLTEN_AMETHYST.get())
-                        .add(EstrogenFluids.MOLTEN_AMETHYST_FLOWING.get());
+                        .add(EstrogenFluids.MOLTEN_AMETHYST.getFlowing());
             }
         }
 
