@@ -38,15 +38,6 @@ public class EstrogenClient {
         EstrogenPatchesRenderer.register();
         ThighHighRenderer.register();
 
-        EstrogenFluids.FLUIDS.stream().forEach(fluid -> ClientPlatform.fluidRenderLayerMap(fluid.get(), RenderType.translucent()));
-
-        InstancedRenderRegistry.configure(EstrogenBlockEntities.CENTRIFUGE.get())
-                .factory(CentrifugeCogInstance::new)
-                .skipRender(be -> false)
-                .apply();
-
-        InstancedRenderRegistry.setController(EstrogenBlockEntities.DREAM_BLOCK.get(), DreamBlockInstance.CONTROLLER);
-
         // mod compat
         if (CommonHooks.isModLoaded("ears")) {
             EarsCompat.boob();

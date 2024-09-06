@@ -35,4 +35,10 @@ public class EstrogenFluidRegistrar extends AbstractRegistrar<Fluid, EstrogenFlu
     public <V extends Fluid> EstrogenFluidBuilder<?, ?, EstrogenFluidRegistrar> entry(String name, Supplier<V> factory) {
         throw new UnsupportedOperationException("This registrar doesn't support default entries");
     }
+
+    @Override
+    public void register() {
+        dataRegistry.initialize();
+        super.register();
+    }
 }

@@ -26,7 +26,6 @@ public class Estrogen {
         EstrogenSounds.SOUNDS.register();
         EstrogenBlocks.BLOCKS.register();
         EstrogenBlockEntities.BLOCK_ENTITIES.register();
-        EstrogenFluidProperties.FLUID_PROPERTIES.initialize();
         EstrogenEffects.MOB_EFFECTS.register();
         EstrogenPotions.POTIONS.register();
         EstrogenEnchantments.ENCHANTMENTS.register();
