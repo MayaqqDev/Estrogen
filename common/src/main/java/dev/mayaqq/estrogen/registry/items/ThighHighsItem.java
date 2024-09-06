@@ -44,7 +44,6 @@ public class ThighHighsItem extends Item implements Bauble {
         super(properties);
         this.primaryColorDefault = primaryColor;
         this.secondaryColorDefault = secondaryColor;
-        Baubly.registerBauble(this);
     }
 
     public static int getItemColor(ItemStack stack, int tintIndex) {

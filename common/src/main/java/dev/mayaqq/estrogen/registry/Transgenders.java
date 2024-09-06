@@ -10,11 +10,11 @@ import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.blocks.fluids.LavaLikeLiquidBlock;
-import dev.mayaqq.estrogen.utils.EstrogenColors;
 import dev.mayaqq.estrogen.utils.registry.EstrogenFluidBuilder;
 import earth.terrarium.baubly.Baubly;
 import earth.terrarium.baubly.client.BaubleRenderer;
 import earth.terrarium.baubly.client.BaublyClient;
+import earth.terrarium.baubly.common.Bauble;
 import earth.terrarium.botarium.common.registry.fluid.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import org.jetbrains.annotations.Nullable;
 import uwu.serenity.critter.stdlib.blockEntities.BlockEntityBuilder;
 import uwu.serenity.critter.stdlib.blocks.BlockBuilder;
 import uwu.serenity.critter.stdlib.items.ItemBuilder;
@@ -55,13 +56,16 @@ public class Transgenders {
         return tooltip(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE));
     }
 
-    static <I extends Item, P> UnaryOperator<ItemBuilder<I, P>> baubleRenderer(Supplier<Supplier<BaubleRenderer>> rendererFactory) {
+    static <I extends Item & Bauble, P> UnaryOperator<ItemBuilder<I, P>> bauble(@Nullable Supplier<Supplier<BaubleRenderer>> rendererFactory) {
         return b -> {
-            EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> {
-                b.onRegister(item -> {
-                    BaublyClient.registerBaubleRenderer(item, rendererFactory.get().get());
+            if(rendererFactory != null) {
+                EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> {
+                    b.onRegister(item -> {
+                        BaublyClient.registerBaubleRenderer(item, rendererFactory.get().get());
+                    });
                 });
-            });
+            }
+            b.onRegister(Baubly::registerBauble);
             return b;
         };
     }
