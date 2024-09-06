@@ -47,7 +47,7 @@ public class EstrogenFluidBuilder<F extends BotariumSourceFluid, F2 extends Bota
         super(name, owner, parent, callback);
         this.sourceFactory = sourceFactory;
         this.flowingFactory = flowingFactory;
-        this.flowingKey = owner.createResourceKey(name + "_flowing");
+        this.flowingKey = owner.createResourceKey("flowing_" + name);
         if(!(owner instanceof EstrogenFluidRegistrar))
             throw new IllegalStateException("Cannot create a fluid builder on a non-fluid registrar");
     }
