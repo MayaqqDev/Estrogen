@@ -1,8 +1,10 @@
 package dev.mayaqq.estrogen.registry;
 
 import dev.mayaqq.estrogen.Estrogen;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeCogInstance;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.centrifuge.CentrifugeRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.cookieJar.CookieJarRenderer;
+import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockInstance;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockRenderer;
 import dev.mayaqq.estrogen.registry.blockEntities.CentrifugeBlockEntity;
 import dev.mayaqq.estrogen.registry.blockEntities.CookieJarBlockEntity;
@@ -17,11 +19,13 @@ public class EstrogenBlockEntities {
     public static final BlockEntityEntry<CentrifugeBlockEntity> CENTRIFUGE = BLOCK_ENTITIES.entry("centrifuge", CentrifugeBlockEntity::new)
         .validBlock(EstrogenBlocks.CENTRIFUGE)
         .renderer(() -> CentrifugeRenderer::new)
+        .transform(Transgenders.instance(() -> CentrifugeCogInstance::new, be -> false))
         .register();
 
     public static final BlockEntityEntry<DreamBlockEntity> DREAM_BLOCK = BLOCK_ENTITIES.entry("dream_block", DreamBlockEntity::new)
         .validBlock(EstrogenBlocks.DREAM_BLOCK)
         .renderer(() -> DreamBlockRenderer::new)
+        .transform(Transgenders.customInstance(() -> () -> DreamBlockInstance.CONTROLLER))
         .register();
 
     public static final BlockEntityEntry<CookieJarBlockEntity> COOKIE_JAR = BLOCK_ENTITIES.entry("cookie_jar", CookieJarBlockEntity::new)
