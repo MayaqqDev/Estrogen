@@ -12,6 +12,9 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.blocks.fluids.LavaLikeLiquidBlock;
 import dev.mayaqq.estrogen.utils.EstrogenColors;
 import dev.mayaqq.estrogen.utils.registry.EstrogenFluidBuilder;
+import earth.terrarium.baubly.Baubly;
+import earth.terrarium.baubly.client.BaubleRenderer;
+import earth.terrarium.baubly.client.BaublyClient;
 import earth.terrarium.botarium.common.registry.fluid.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
@@ -31,6 +34,8 @@ import java.util.function.*;
 
 // :333333
 public class Transgenders {
+
+    // Blocks
     static <B extends Block, P> UnaryOperator<BlockBuilder<B, P>> stressImpact(double impact) {
         return b -> {
             BlockStressDefaults.setDefaultImpact(b.getId(), impact);
@@ -38,6 +43,7 @@ public class Transgenders {
         };
     }
 
+    // Items
     static <I extends Item, P> UnaryOperator<ItemBuilder<I, P>> tooltip(Function<Item, TooltipModifier> tooltipFactory) {
         return b -> {
             TooltipModifier.REGISTRY.registerDeferred(b.getId(), tooltipFactory);
@@ -49,6 +55,18 @@ public class Transgenders {
         return tooltip(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE));
     }
 
+    static <I extends Item, P> UnaryOperator<ItemBuilder<I, P>> baubleRenderer(Supplier<Supplier<BaubleRenderer>> rendererFactory) {
+        return b -> {
+            EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> {
+                b.onRegister(item -> {
+                    BaublyClient.registerBaubleRenderer(item, rendererFactory.get().get());
+                });
+            });
+            return b;
+        };
+    }
+
+    // Block Entities
     // Supplier wrapping is necessary to avoid loading client-only classes on the server
     static <BE extends BlockEntity, P> UnaryOperator<BlockEntityBuilder<BE, P>> instance(Supplier<BiFunction<MaterialManager, BE, BlockEntityInstance<? super BE>>> instanceFactory, Predicate<BE> shouldRender) {
         return b -> {
@@ -71,6 +89,7 @@ public class Transgenders {
         };
     }
 
+    // Fluids
     static <F extends BotariumSourceFluid, F2 extends BotariumFlowingFluid, P> UnaryOperator<EstrogenFluidBuilder<F, F2, P>> lavaLikeFluid(MapColor mapColor, int tint) {
         return b -> b.properties(p -> p.still(Estrogen.id("block/blank_lava/blank_lava_still"))
                 .flowing(Estrogen.id("block/blank_lava/blank_lava_flow"))

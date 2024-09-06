@@ -14,6 +14,7 @@ import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -42,9 +43,7 @@ public class EstrogenForge {
         Estrogen.init();
         AddSpecialThighHigh.REGISTER.register(modEventBus);
 
-        if(FMLEnvironment.dist == Dist.CLIENT) {
-            EstrogenRenderer.register();
-        }
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> EstrogenRenderer::register);
         modEventBus.addListener(EstrogenForge::init);
     }
 

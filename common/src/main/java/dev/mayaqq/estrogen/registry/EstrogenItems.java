@@ -6,9 +6,12 @@ import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries;
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
 import dev.mayaqq.estrogen.Estrogen;
+import dev.mayaqq.estrogen.client.registry.trinkets.EstrogenPatchesRenderer;
+import dev.mayaqq.estrogen.client.registry.trinkets.ThighHighRenderer;
 import dev.mayaqq.estrogen.registry.items.*;
 import dev.mayaqq.estrogen.registry.tooltip.ThighHighsToolTipModifier;
 import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem;
+import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -41,6 +44,7 @@ public class EstrogenItems {
     public static final ItemEntry<EstrogenPatchesItem> ESTROGEN_PATCHES = ITEMS.entry("estrogen_patches", EstrogenPatchesItem::new)
         .properties(p -> p.stacksTo(1))
         .transform(Transgenders.standardTooltip())
+        .transform(Transgenders.baubleRenderer(() -> EstrogenPatchesRenderer::new))
         .register();
     public static final ItemEntry<SequencedAssemblyItem> INCOMPLETE_ESTROGEN_PATCH = ITEMS.entry("incomplete_estrogen_patches", SequencedAssemblyItem::new)
         .properties(p -> p.stacksTo(1))
@@ -54,6 +58,8 @@ public class EstrogenItems {
     public static final ItemEntry<ThighHighsItem> THIGH_HIGHS = ITEMS.entry("thigh_highs", p -> new ThighHighsItem(p, Color.parseColor("#f1d85a"),  Color.parseColor("0xff4ea5")))
         .properties(p -> p.stacksTo(1))
         .transform(Transgenders.tooltip(ThighHighsToolTipModifier::create))
+        .transform(Transgenders.baubleRenderer(() -> ThighHighRenderer::new))
+        .onSetup(item -> CauldronInteraction.WATER.put(item, ThighHighsItem.CAULDRON_INTERACTION))
         .colors(() -> ThighHighsItem::getItemColor)
         .register();
     public static final ItemEntry<MothElytraItem> MOTH_ELYTRA = ITEMS.entry("moth_elytra", MothElytraItem::new)

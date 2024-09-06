@@ -34,9 +34,6 @@ public class EstrogenClient {
         EstrogenRenderer.register();
         EstrogenPonderScenes.register();
         EstrogenKeybinds.register();
-        // Trinket renderers
-        EstrogenPatchesRenderer.register();
-        ThighHighRenderer.register();
 
         // mod compat
         if (CommonHooks.isModLoaded("ears")) {
