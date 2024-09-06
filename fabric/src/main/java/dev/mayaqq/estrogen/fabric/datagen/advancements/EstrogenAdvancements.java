@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.advancements.triggers.InsertJarTrigger;
 import dev.mayaqq.estrogen.registry.advancements.triggers.KilledWithEffectTrigger;
@@ -62,7 +63,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         ).addCriterion("used_filter", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.USED_FILTER.get()))
                 .build(Estrogen.id("used_filter"));
 
-        Advancement liquidEstrogen = Advancement.Builder.advancement().parent(usedFilter).display(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(),
+        Advancement liquidEstrogen = Advancement.Builder.advancement().parent(usedFilter).display(EstrogenFluids.LIQUID_ESTROGEN.getBucket(),
                 Component.translatable("advancement.estrogen.liquid_estrogen.title"),
                 Component.translatable("advancement.estrogen.liquid_estrogen.description"),
                 null,
@@ -70,7 +71,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                 true,
                 true,
                 false
-        ).addCriterion("liquid_estrogen", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get()))
+        ).addCriterion("liquid_estrogen", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenFluids.LIQUID_ESTROGEN.getBucket()))
                 .build(Estrogen.id("liquid_estrogen"));
 
         Advancement estrogenPill = Advancement.Builder.advancement().parent(liquidEstrogen).display(EstrogenItems.ESTROGEN_PILL.get(),

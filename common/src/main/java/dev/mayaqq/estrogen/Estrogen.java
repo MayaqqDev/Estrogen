@@ -22,18 +22,15 @@ public class Estrogen {
         EstrogenAttributes.ATTRIBUTES.register();
         EstrogenDataSerializers.DATA_SERIALIZERS.init();
         EstrogenEntities.ENTITIES.register();
-        EstrogenFluids.FLUIDS.init();
+        EstrogenFluids.FLUIDS.register();
         EstrogenSounds.SOUNDS.register();
         EstrogenBlocks.BLOCKS.register();
-        EstrogenBlocks.TRANSPARENT_BLOCKS.init();
         EstrogenBlockEntities.BLOCK_ENTITIES.register();
         EstrogenFluidProperties.FLUID_PROPERTIES.initialize();
         EstrogenEffects.MOB_EFFECTS.register();
         EstrogenPotions.POTIONS.register();
         EstrogenEnchantments.ENCHANTMENTS.register();
         EstrogenItems.ITEMS.register();
-        EstrogenItems.BUCKETS.init();
-
         // Recipes need to be registered before completing the recipe registers
         EstrogenRecipes.RECIPES.init();
         EstrogenProcessingRecipes.register();

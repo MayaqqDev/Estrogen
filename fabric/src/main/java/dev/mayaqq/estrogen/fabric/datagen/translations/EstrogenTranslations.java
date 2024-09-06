@@ -47,12 +47,12 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add("item.minecraft.splash_potion.effect.estrogen", "Splash Potion of Girl Power");
         tb.add("item.minecraft.lingering_potion.effect.estrogen", "Lingering Potion of Girl Power");
         // Buckets
-        tb.add(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(), "Bucket of Liquid Estrogen");
-        tb.add(EstrogenItems.HORSE_URINE_BUCKET.get(), "Bucket of Horse Urine");
-        tb.add(EstrogenItems.FILTRATED_HORSE_URINE_BUCKET.get(), "Bucket of Filtrated Horse Urine");
-        tb.add(EstrogenItems.MOLTEN_SLIME_BUCKET.get(), "Bucket of Molten Slime");
-        tb.add(EstrogenItems.MOLTEN_AMETHYST_BUCKET.get(), "Bucket of Molten Amethyst");
-        tb.add(EstrogenItems.TESTOSTERONE_MIXTURE_BUCKET.get(), "Bucket of Testosterone Mixture");
+        tb.add(EstrogenFluids.LIQUID_ESTROGEN.getBucket(), "Bucket of Liquid Estrogen");
+        tb.add(EstrogenFluids.HORSE_URINE.getBucket(), "Bucket of Horse Urine");
+        tb.add(EstrogenFluids.FILTRATED_HORSE_URINE.getBucket(), "Bucket of Filtrated Horse Urine");
+        tb.add(EstrogenFluids.MOLTEN_SLIME.getBucket(), "Bucket of Molten Slime");
+        tb.add(EstrogenFluids.MOLTEN_AMETHYST.getBucket(), "Bucket of Molten Amethyst");
+        tb.add(EstrogenFluids.TESTOSTERONE_MIXTURE.getBucket(), "Bucket of Testosterone Mixture");
 
         // Entities
         tb.add(EstrogenEntities.MOTH.get(), "Rosy Maple Moth");
@@ -111,12 +111,12 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add(EstrogenBlocks.MOTH_WOOL_CARPET.get(), "Rosy Maple Wool Carpet");
         tb.add(EstrogenBlocks.QUILTED_MOTH_WOOL_CARPET.get(), "Quilted Rosy Maple Wool Carpet");
         tb.add(EstrogenBlocks.MOTH_SEAT.get(), "Rosy Maple Seat");
-        tb.add(EstrogenBlocks.LIQUID_ESTROGEN_BLOCK.get(), "Liquid Estrogen");
-        tb.add(EstrogenBlocks.HORSE_URINE_BLOCK.get(), "Horse Urine");
-        tb.add(EstrogenBlocks.FILTRATED_HORSE_URINE_BLOCK.get(), "Filtrated Horse Urine");
-        tb.add(EstrogenBlocks.MOLTEN_SLIME_BLOCK.get(), "Molten Slime");
-        tb.add(EstrogenBlocks.MOLTEN_AMETHYST_BLOCK.get(), "Molten Amethyst");
-        tb.add(EstrogenBlocks.TESTOSTERONE_MIXTURE_BLOCK.get(), "Testosterone Mixture");
+        tb.add(EstrogenFluids.LIQUID_ESTROGEN.getBlock(), "Liquid Estrogen");
+        tb.add(EstrogenFluids.HORSE_URINE.getBlock(), "Horse Urine");
+        tb.add(EstrogenFluids.FILTRATED_HORSE_URINE.getBlock(), "Filtrated Horse Urine");
+        tb.add(EstrogenFluids.MOLTEN_SLIME.getBlock(), "Molten Slime");
+        tb.add(EstrogenFluids.MOLTEN_AMETHYST.getBlock(), "Molten Amethyst");
+        tb.add(EstrogenFluids.TESTOSTERONE_MIXTURE.getBlock(), "Testosterone Mixture");
 
         // Fluids
         tb.add("fluid_type.estrogen.liquid_estrogen", "Liquid Estrogen");

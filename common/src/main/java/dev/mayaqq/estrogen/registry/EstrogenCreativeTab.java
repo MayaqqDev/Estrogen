@@ -11,6 +11,8 @@ import uwu.serenity.critter.stdlib.creativeTabs.CreativeTabRegistrar;
 
 import static dev.mayaqq.estrogen.registry.EstrogenBlocks.*;
 import static dev.mayaqq.estrogen.registry.EstrogenItems.*;
+import static dev.mayaqq.estrogen.registry.EstrogenFluids.*;
+import static dev.mayaqq.estrogen.registry.EstrogenEntities.MOTH;
 
 public class EstrogenCreativeTab {
 
@@ -47,13 +49,13 @@ public class EstrogenCreativeTab {
         output.accept(QUILTED_MOTH_WOOL_CARPET.asStack());
         output.accept(MOTH_SEAT.asStack());
         output.accept(tippedArrow(EstrogenPotions.ESTROGEN_POTION.get()));
-        output.accept(MOLTEN_SLIME_BUCKET.get().getDefaultInstance());
-        output.accept(TESTOSTERONE_MIXTURE_BUCKET.get().getDefaultInstance());
-        output.accept(LIQUID_ESTROGEN_BUCKET.get().getDefaultInstance());
-        output.accept(FILTRATED_HORSE_URINE_BUCKET.get().getDefaultInstance());
-        output.accept(HORSE_URINE_BUCKET.get().getDefaultInstance());
-        output.accept(MOLTEN_AMETHYST_BUCKET.get().getDefaultInstance());
-        output.accept(EstrogenEntities.MOTH.getSpawnEgg().asStack());
+        output.accept(MOLTEN_SLIME.getBucket());
+        output.accept(TESTOSTERONE_MIXTURE.getBucket());
+        output.accept(LIQUID_ESTROGEN.getBucket());
+        output.accept(FILTRATED_HORSE_URINE.getBucket());
+        output.accept(HORSE_URINE.getBucket());
+        output.accept(MOLTEN_AMETHYST.getBucket());
+        output.accept(MOTH.getSpawnEgg().asStack());
         THIGH_HIGHS.get().streamStyleItems().forEach(output::accept);
     }
 

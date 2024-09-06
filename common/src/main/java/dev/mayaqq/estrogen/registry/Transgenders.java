@@ -8,9 +8,19 @@ import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
+import dev.mayaqq.estrogen.Estrogen;
+import dev.mayaqq.estrogen.registry.blocks.fluids.LavaLikeLiquidBlock;
+import dev.mayaqq.estrogen.utils.EstrogenColors;
+import dev.mayaqq.estrogen.utils.registry.EstrogenFluidBuilder;
+import earth.terrarium.botarium.common.registry.fluid.*;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import uwu.serenity.critter.stdlib.blockEntities.BlockEntityBuilder;
 import uwu.serenity.critter.stdlib.blocks.BlockBuilder;
 import uwu.serenity.critter.stdlib.items.ItemBuilder;
@@ -60,4 +70,60 @@ public class Transgenders {
             return b;
         };
     }
+
+    static <F extends BotariumSourceFluid, F2 extends BotariumFlowingFluid, P> UnaryOperator<EstrogenFluidBuilder<F, F2, P>> lavaLikeFluid(MapColor mapColor, int tint) {
+        return b -> b.properties(p -> p.still(Estrogen.id("block/blank_lava/blank_lava_still"))
+                .flowing(Estrogen.id("block/blank_lava/blank_lava_flow"))
+                .overlay(Estrogen.id("block/blank_lava/blank_lava_flow"))
+                .screenOverlay(new ResourceLocation("textures/misc/underwater.png"))
+                .tintColor(tint)
+                .temperature(10000)
+                .canConvertToSource(false)
+                .canDrown(false)
+                .canExtinguish(false)
+                .canHydrate(false)
+                .canPushEntity(true)
+                .canSwim(false)
+                .lightLevel(15)
+                .motionScale(0.004)
+                .pathType(BlockPathTypes.LAVA)
+                .tickRate(10)
+                .viscosity(1500)
+                .density(1500))
+            .block(LavaLikeLiquidBlock::new)
+            .copyProperties(() -> Blocks.LAVA)
+            .properties(p -> p.mapColor(mapColor))
+            .build();
+    }
+
+    static <F extends BotariumSourceFluid, F2 extends BotariumFlowingFluid, P> UnaryOperator<EstrogenFluidBuilder<F, F2, P>> waterLikeFluid(MapColor mapColor, int tintColor) {
+        return b -> b.properties(p -> p.still(new ResourceLocation("minecraft", "block/water_still"))
+                .flowing(new ResourceLocation("minecraft", "block/water_flow"))
+                .overlay(new ResourceLocation("minecraft", "block/water_flow"))
+                .screenOverlay(new ResourceLocation("textures/misc/underwater.png"))
+                .tintColor(tintColor)
+                .canConvertToSource(false)
+                .canDrown(true)
+                .canExtinguish(true)
+                .canHydrate(true)
+                .canPushEntity(true)
+                .canSwim(true)
+                .viscosity(1500)
+                .density(1500))
+            .renderType(() -> RenderType::translucent)
+            .block(BotariumLiquidBlock::new)
+            .copyProperties(() -> Blocks.WATER)
+            .properties(p -> p.mapColor(mapColor))
+            .build();
+    }
+
+    static <F extends BotariumSourceFluid, F2 extends BotariumFlowingFluid, P> UnaryOperator<EstrogenFluidBuilder<F, F2, P>> simpleBucket() {
+        return b -> b.bucket(FluidBucketItem::new)
+            .properties(EstrogenItems::bucketProperties)
+            .build();
+    }
+
+
+
+
 }

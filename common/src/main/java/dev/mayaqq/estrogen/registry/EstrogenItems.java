@@ -19,8 +19,6 @@ import uwu.serenity.critter.stdlib.items.ItemRegistrar;
 public class EstrogenItems {
     public static final ItemRegistrar ITEMS = ItemRegistrar.create(Estrogen.MOD_ID);
 
-    public static final ResourcefulRegistry<Item> BUCKETS = ResourcefulRegistries.create(BuiltInRegistries.ITEM, Estrogen.MOD_ID);
-
     public static final ItemEntry<Item>
         ESTROGEN_PILL = ITEMS.entry("estrogen_pill", Item::new).properties(p -> p.stacksTo(16).food(EstrogenFoodComponents.ESTROGEN_PILL).rarity(Rarity.RARE)).transform(Transgenders.standardTooltip()).register(),
         CRYSTAL_ESTROGEN_PILL = ITEMS.entry("crystal_estrogen_pill", Item::new).properties(p -> p.stacksTo(16).food(EstrogenFoodComponents.CRYTAL_ESTROGEN_PILL).rarity(Rarity.EPIC)).transform(Transgenders.standardTooltip()).register(),
@@ -65,20 +63,11 @@ public class EstrogenItems {
         .register();
 
 
+    @SuppressWarnings("unchecked")
     public static final ItemEntry<DreamBottleItem> DREAM_BOTTLE = (ItemEntry<DreamBottleItem>) EstrogenBlocks.DREAM_BLOCK.getItemEntry();
 
-    // Eggs
-    //public static final RegistryEntry<Item> MOTH_EGG = SPAWN_EGGS.register("moth_spawn_egg", CommonPlatform.createSpawnEggItem(EstrogenEntities.MOTH, Color.parseColor("#ffc514"), Color.parseColor("#ff83c0"), new Item.Properties()));
-
-    // Buckets
-    public static final RegistryEntry<Item> MOLTEN_SLIME_BUCKET = BUCKETS.register("molten_slime_bucket", () -> new FluidBucketItem(EstrogenFluidProperties.MOLTEN_SLIME, bucketProperties()));
-    public static final RegistryEntry<Item> TESTOSTERONE_MIXTURE_BUCKET = BUCKETS.register("testosterone_mixture_bucket", () -> new FluidBucketItem(EstrogenFluidProperties.TESTOSTERONE_MIXTURE, bucketProperties()));
-    public static final RegistryEntry<Item> LIQUID_ESTROGEN_BUCKET = BUCKETS.register("liquid_estrogen_bucket", () -> new FluidBucketItem(EstrogenFluidProperties.LIQUID_ESTROGEN, bucketProperties()));
-    public static final RegistryEntry<Item> FILTRATED_HORSE_URINE_BUCKET = BUCKETS.register("filtrated_horse_urine_bucket", () -> new FluidBucketItem(EstrogenFluidProperties.FILTRATED_HORSE_URINE, bucketProperties()));
-    public static final RegistryEntry<Item> HORSE_URINE_BUCKET = BUCKETS.register("horse_urine_bucket", () -> new FluidBucketItem(EstrogenFluidProperties.HORSE_URINE, bucketProperties()));
-    public static final RegistryEntry<Item> MOLTEN_AMETHYST_BUCKET = BUCKETS.register("molten_amethyst_bucket", () -> new FluidBucketItem(EstrogenFluidProperties.MOLTEN_AMETHYST, bucketProperties()));
-    public static Item.Properties bucketProperties() {
-        return new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1);
+    public static void bucketProperties(Item.Properties props) {
+        props.craftRemainder(Items.BUCKET).stacksTo(1);
     }
 
 }

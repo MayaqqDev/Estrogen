@@ -37,8 +37,6 @@ import uwu.serenity.critter.stdlib.blocks.BlockRegistrar;
 
 public class EstrogenBlocks {
     public static final BlockRegistrar BLOCKS = BlockRegistrar.create(Estrogen.MOD_ID);
-    public static final ResourcefulRegistry<Block> TRANSPARENT_BLOCKS = ResourcefulRegistries.create(BuiltInRegistries.BLOCK, Estrogen.MOD_ID);
-    //public static final BlockRegistrar CREATE_LIKE_BLOCKS = BLOCKS.child("create_like_blocks", BlockRegistrar::new);
 
     public static final BlockEntry<CentrifugeBlock> CENTRIFUGE = BLOCKS.entry("centrifuge", CentrifugeBlock::new)
         .copyProperties(SharedProperties::copperMetal)
@@ -123,12 +121,4 @@ public class EstrogenBlocks {
             .sound(EstrogenSoundTypes.PILL_BOX))
         .simpleItem()
         .register();
-
-    public static final RegistryEntry<Block> MOLTEN_SLIME_BLOCK = TRANSPARENT_BLOCKS.register("molten_slime", () -> new LavaLikeLiquidBlock(EstrogenFluidProperties.MOLTEN_SLIME, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_GREEN)));
-    public static final RegistryEntry<Block> TESTOSTERONE_MIXTURE_BLOCK = TRANSPARENT_BLOCKS.register("testosterone_mixture", () -> new BotariumLiquidBlock(EstrogenFluidProperties.TESTOSTERONE_MIXTURE, BlockBehaviour.Properties.copy(Blocks.WATER).mapColor(MapColor.TERRACOTTA_YELLOW)));
-    public static final RegistryEntry<Block> LIQUID_ESTROGEN_BLOCK = TRANSPARENT_BLOCKS.register("liquid_estrogen", () -> new EstrogenLiquidBlock(EstrogenFluidProperties.LIQUID_ESTROGEN, BlockBehaviour.Properties.copy(Blocks.WATER).mapColor(MapColor.COLOR_CYAN)));
-    public static final RegistryEntry<Block> FILTRATED_HORSE_URINE_BLOCK = TRANSPARENT_BLOCKS.register("filtrated_horse_urine", () -> new BotariumLiquidBlock(EstrogenFluidProperties.FILTRATED_HORSE_URINE, BlockBehaviour.Properties.copy(Blocks.WATER).mapColor(MapColor.TERRACOTTA_YELLOW)));
-    public static final RegistryEntry<Block> HORSE_URINE_BLOCK = TRANSPARENT_BLOCKS.register("horse_urine", () -> new BotariumLiquidBlock(EstrogenFluidProperties.HORSE_URINE, BlockBehaviour.Properties.copy(Blocks.WATER).mapColor(MapColor.COLOR_YELLOW)));
-    public static final RegistryEntry<Block> MOLTEN_AMETHYST_BLOCK = TRANSPARENT_BLOCKS.register("molten_amethyst", () -> new LavaLikeLiquidBlock(EstrogenFluidProperties.MOLTEN_AMETHYST, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_PURPLE)));
-
 }
