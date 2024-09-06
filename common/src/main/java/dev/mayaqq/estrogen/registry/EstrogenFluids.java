@@ -8,13 +8,11 @@ import dev.mayaqq.estrogen.utils.registry.EstrogenFluidRegistrar;
 import earth.terrarium.botarium.common.registry.fluid.BotariumFlowingFluid;
 import earth.terrarium.botarium.common.registry.fluid.BotariumSourceFluid;
 import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem;
-import earth.terrarium.botarium.common.registry.fluid.FluidProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 
 public class EstrogenFluids {
 
