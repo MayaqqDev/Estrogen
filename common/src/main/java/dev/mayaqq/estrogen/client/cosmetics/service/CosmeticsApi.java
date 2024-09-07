@@ -81,7 +81,7 @@ public class CosmeticsApi {
     public static List<String> getAvailableCosmetics() {
         try {
             return API.getCosmetics(getProfileId(), true).available();
-        }catch (Exception e) {
+        } catch (Exception e) {
             return List.of();
         }
     }

@@ -102,7 +102,7 @@ public class CosmeticTexture {
                 if (!this.uploaded) {
                     try {
                         super.load(manager);
-                    } catch (Exception ex) {
+                    } catch (Exception ignored) {
                         // Do nothing as an error will almost always be thrown while loading.
                     }
                     this.uploaded = true;
