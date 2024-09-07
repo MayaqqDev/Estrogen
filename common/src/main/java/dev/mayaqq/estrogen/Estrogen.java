@@ -19,35 +19,31 @@ public class Estrogen {
 
     public static void init() {
         // Init all the different classes
-        EstrogenAttributes.ATTRIBUTES.init();
+        EstrogenAttributes.ATTRIBUTES.register();
         EstrogenDataSerializers.DATA_SERIALIZERS.init();
-        EstrogenEntities.ENTITIES.init();
-        EstrogenFluids.FLUIDS.init();
-        EstrogenBlocks.BLOCKS.init();
-        EstrogenBlockEntities.BLOCK_ENTITIES.init();
-        EstrogenFluidProperties.FLUID_PROPERTIES.initialize();
-        EstrogenEffects.MOB_EFFECTS.init();
-        EstrogenPotions.POTIONS.init();
-        EstrogenEnchantments.ENCHANTMENTS.init();
-        EstrogenItems.ITEMS.init();
-        EstrogenRecipeRegistries.RECIPE_SERIALIZERS.init();
-        EstrogenRecipeRegistries.RECIPE_TYPES.init();
-        EstrogenSounds.SOUNDS.init();
+        EstrogenEntities.ENTITIES.register();
+        EstrogenFluids.FLUIDS.register();
+        EstrogenSounds.SOUNDS.register();
+        EstrogenBlocks.BLOCKS.register();
+        EstrogenBlockEntities.BLOCK_ENTITIES.register();
+        EstrogenEffects.MOB_EFFECTS.register();
+        EstrogenPotions.POTIONS.register();
+        EstrogenEnchantments.ENCHANTMENTS.register();
+        EstrogenItems.ITEMS.register();
+        // Recipes need to be registered before completing the recipe registers
         EstrogenRecipes.RECIPES.init();
-        EstrogenAdvancementCriteria.CRITERIAS.init();
-        EstrogenParticles.PARTICLES.init();
-        EstrogenCreativeTab.TABS.init();
-        EstrogenNetworkManager.NETWORK_MANAGER.init();
         EstrogenProcessingRecipes.register();
+        EstrogenRecipeRegistries.RECIPE_TYPES.register();
+        EstrogenRecipeRegistries.RECIPE_SERIALIZERS.register();
+        EstrogenAdvancementCriteria.CRITERIAS.init();
+        EstrogenParticles.PARTICLES.register();
+        EstrogenCreativeTab.TAB.register();
+        EstrogenNetworkManager.NETWORK_MANAGER.init();
 
         LOGGER.info("Injecting Estrogen into your veins!");
     }
 
     public static void postInit() {
         EstrogenPotatoProjectiles.register();
-        EstrogenEntities.registerSpawnPlacements();
-        EstrogenBlocks.registerExtraProperties();
-        EstrogenItems.registerTooltips();
-        CauldronInteraction.WATER.put(EstrogenItems.THIGH_HIGHS.get(), ThighHighsItem.CAULDRON_INTERACTION);
     }
 }

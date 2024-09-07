@@ -36,6 +36,7 @@ subprojects {
         modApi("earth.terrarium.botarium:botarium-${project.name}-${rootProject.minecraft_version}:${rootProject.botarium_version}")
 
         modImplementation include("maven.modrinth:jukeboxfix:${rootProject.jukeboxfix_version}-${rootProject.minecraft_version}")
+        modImplementation include("uwu.serenity.critter:critter-${project.name}:${rootProject.critter_version}")
 
         // JEI
         modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
@@ -70,6 +71,7 @@ allprojects {
         maven { name = "Modrinth Maven"; description = "Jukeboxfix, Ad Astra"; url = "https://api.modrinth.com/maven" }
         maven { name = "Resourceful Maven"; description = "Baubly, Botarium & ResourcefulLib"; url = "https://maven.teamresourceful.com/repository/maven-public/" }
         maven { name = "Figura Maven"; description = "Figura"; url = "https://maven.figuramc.org/releases" }
+        maven { name = "Sappho Company"; description = "Critter"; url = "https://maven.is-immensely.gay/nightly"}
         maven { name = "DevAuth maven"; description = "DevAuth"; url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" }
         maven { name = "Jitpack maven"; description = "Mixin Extras & Fabric ASM"; url = "https://jitpack.io/" } //NOTE: LEAVE THIS AS LAST
     }
@@ -80,6 +82,8 @@ allprojects {
     }
 
     java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
         withSourcesJar()
     }
 }

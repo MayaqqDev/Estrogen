@@ -1,9 +1,10 @@
 package dev.mayaqq.estrogen.fabric.datagen.advancements;
 
 import com.google.common.collect.ImmutableSet;
-import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import dev.mayaqq.estrogen.Estrogen;
+import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenEffects;
+import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.advancements.triggers.InsertJarTrigger;
 import dev.mayaqq.estrogen.registry.advancements.triggers.KilledWithEffectTrigger;
@@ -12,11 +13,14 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
+import uwu.serenity.critter.RegistryManager;
+import uwu.serenity.critter.api.entry.RegistryEntry;
 
 import java.util.Collection;
 import java.util.function.Consumer;
@@ -61,7 +65,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         ).addCriterion("used_filter", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.USED_FILTER.get()))
                 .build(Estrogen.id("used_filter"));
 
-        Advancement liquidEstrogen = Advancement.Builder.advancement().parent(usedFilter).display(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get(),
+        Advancement liquidEstrogen = Advancement.Builder.advancement().parent(usedFilter).display(EstrogenFluids.LIQUID_ESTROGEN.getBucket(),
                 Component.translatable("advancement.estrogen.liquid_estrogen.title"),
                 Component.translatable("advancement.estrogen.liquid_estrogen.description"),
                 null,
@@ -69,7 +73,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
                 true,
                 true,
                 false
-        ).addCriterion("liquid_estrogen", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.LIQUID_ESTROGEN_BUCKET.get()))
+        ).addCriterion("liquid_estrogen", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenFluids.LIQUID_ESTROGEN.getBucket()))
                 .build(Estrogen.id("liquid_estrogen"));
 
         Advancement estrogenPill = Advancement.Builder.advancement().parent(liquidEstrogen).display(EstrogenItems.ESTROGEN_PILL.get(),
@@ -116,7 +120,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         ).addCriterion("balls", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.BALLS.get()))
                 .build(Estrogen.id("balls"));
 
-        Advancement cookie_jar = Advancement.Builder.advancement().parent(estrogenPill).display(EstrogenItems.COOKIE_JAR.get(),
+        Advancement cookie_jar = Advancement.Builder.advancement().parent(estrogenPill).display(EstrogenBlocks.COOKIE_JAR.asItem(),
                 Component.translatable("advancement.estrogen.cookie_jar.title"),
                 Component.translatable("advancement.estrogen.cookie_jar.description"),
                 null,
@@ -173,9 +177,9 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
     }
 
     public static ItemPredicate getItems() {
-        Collection<RegistryEntry<Item>> itemEntries = EstrogenItems.ITEMS.getEntries();
+        Collection<RegistryEntry<? extends Item>> itemEntries = RegistryManager.getInstance(Estrogen.MOD_ID).getAllEntries(Registries.ITEM);
         ImmutableSet.Builder<Item> items = new ImmutableSet.Builder<>();
-        for (RegistryEntry<Item> item : itemEntries) {
+        for (RegistryEntry<? extends Item> item : itemEntries) {
             items.add(item.get());
         }
         return  new ItemPredicate(null, items.build(),

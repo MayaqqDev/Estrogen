@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.platform.fabric;
 
-import dev.mayaqq.estrogen.fabric.FabricThighHighsTooltip;
+import dev.mayaqq.estrogen.fabric.tooltip.FabricThighHighsTooltip;
 import dev.mayaqq.estrogen.registry.items.ThighHighsItem;
 import dev.mayaqq.estrogen.registry.tooltip.ThighHighsToolTipModifier;
 import net.minecraft.core.registries.BuiltInRegistries;

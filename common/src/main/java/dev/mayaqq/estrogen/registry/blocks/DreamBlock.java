@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.registry.blocks;
 
 import dev.mayaqq.estrogen.client.features.dash.ClientDash;
 import dev.mayaqq.estrogen.features.dash.CommonDash;
+import dev.mayaqq.estrogen.registry.EstrogenBlockEntities;
 import dev.mayaqq.estrogen.registry.blockEntities.DreamBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -26,9 +28,10 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import uwu.serenity.critter.utils.BEBlock;
 
 @SuppressWarnings("deprecation")
-public class DreamBlock extends BaseEntityBlock {
+public class DreamBlock extends BaseEntityBlock implements BEBlock<DreamBlockEntity> {
 
     public static final BooleanProperty UP = BooleanProperty.create("up");
     public static final BooleanProperty DOWN = BooleanProperty.create("down");
@@ -54,11 +57,6 @@ public class DreamBlock extends BaseEntityBlock {
         builder.add(UP, DOWN, NORTH, SOUTH, EAST, WEST);
     }
 
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new DreamBlockEntity(pos, state);
-    }
 
     @Override
     public boolean canBeReplaced(BlockState state, Fluid fluid) {
@@ -144,5 +142,15 @@ public class DreamBlock extends BaseEntityBlock {
 
             player.setDeltaMovement(lookAngle.scale(2));
         }
+    }
+
+    @Override
+    public BlockEntityType<? extends DreamBlockEntity> getBlockEntityType() {
+        return EstrogenBlockEntities.DREAM_BLOCK.get();
+    }
+
+    @Override
+    public Class<? extends DreamBlockEntity> getBlockEntityClass() {
+        return DreamBlockEntity.class;
     }
 }

@@ -41,7 +41,6 @@ public class EstrogenFabricClientEvents {
 
         EstrogenClientEvents.registerModelLayer((location, definition) -> EntityModelLayerRegistry.registerModelLayer(location, definition::get));
 
-        EstrogenClientEvents.registerItemColorProviders(ColorProviderRegistry.ITEM::register);
     }
 
     public static class FabricClientCommandManager implements EstrogenClientCommands.ClientCommandManager<FabricClientCommandSource> {

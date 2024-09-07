@@ -4,7 +4,6 @@ import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.utility.Lang;
-import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -14,6 +13,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+import uwu.serenity.critter.api.entry.RegistryEntry;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -56,11 +56,11 @@ public enum EstrogenProcessingRecipes implements IRecipeTypeInfo {
     public static void register() {}
 
     public RegistryEntry<? extends RecipeSerializer<?>> registerSerializer(String name, Supplier<RecipeSerializer<?>> serializerSupplier) {
-        return RECIPE_SERIALIZERS.register(name, serializerSupplier);
+        return RECIPE_SERIALIZERS.entry(name, serializerSupplier).register();
     }
 
     public void registryEntry() {
-        RECIPE_TYPES.register(id.getPath(), () -> typeObject);
+        RECIPE_TYPES.entry(id.getPath(), () -> typeObject).register();
     }
 
     EstrogenProcessingRecipes(ProcessingRecipeBuilder.ProcessingRecipeFactory<?> processingFactory) {

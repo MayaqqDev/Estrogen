@@ -10,13 +10,14 @@ import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class CookieJarBlockEntity extends SyncedBlockEntity implements Container {
     private NonNullList<ItemStack> items = NonNullList.withSize(8, ItemStack.EMPTY);
 
-    public CookieJarBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(EstrogenBlockEntities.COOKIE_JAR.get(), blockPos, blockState);
+    public CookieJarBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState) {
+        super(type, blockPos, blockState);
     }
 
     /**

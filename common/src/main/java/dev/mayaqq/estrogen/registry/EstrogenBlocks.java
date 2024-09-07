@@ -5,21 +5,26 @@ import com.simibubi.create.AllMovementBehaviours;
 import com.simibubi.create.content.contraptions.actors.seat.SeatBlock;
 import com.simibubi.create.content.contraptions.actors.seat.SeatInteractionBehaviour;
 import com.simibubi.create.content.contraptions.actors.seat.SeatMovementBehaviour;
-import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.content.redstone.displayLink.AllDisplayBehaviours;
 import com.simibubi.create.content.redstone.displayLink.source.EntityNameDisplaySource;
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries;
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
+import dev.mayaqq.estrogen.Estrogen;
+import dev.mayaqq.estrogen.client.registry.EstrogenSpriteShifts;
 import dev.mayaqq.estrogen.registry.blocks.*;
 import dev.mayaqq.estrogen.registry.blocks.fluids.EstrogenLiquidBlock;
 import dev.mayaqq.estrogen.registry.blocks.fluids.LavaLikeLiquidBlock;
+import dev.mayaqq.estrogen.registry.items.DreamBottleItem;
 import dev.mayaqq.estrogen.utils.StatePredicates;
 import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CarpetBlock;
@@ -27,59 +32,93 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import uwu.serenity.critter.stdlib.blocks.BlockEntry;
+import uwu.serenity.critter.stdlib.blocks.BlockRegistrar;
 
 public class EstrogenBlocks {
-    public static final ResourcefulRegistry<Block> BLOCKS = ResourcefulRegistries.create(BuiltInRegistries.BLOCK, "estrogen");
-    public static final ResourcefulRegistry<Block> TRANSPARENT_BLOCKS = ResourcefulRegistries.create(BLOCKS);
-    public static final ResourcefulRegistry<Block> CREATE_LIKE_BLOCKS = ResourcefulRegistries.create(BLOCKS);
+    public static final BlockRegistrar BLOCKS = BlockRegistrar.create(Estrogen.MOD_ID);
 
-    public static final RegistryEntry<CentrifugeBlock> CENTRIFUGE = CREATE_LIKE_BLOCKS.register("centrifuge", () -> new CentrifugeBlock(BlockBehaviour.Properties.copy(SharedProperties.copperMetal()).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_ORANGE).noOcclusion()));
+    public static final BlockEntry<CentrifugeBlock> CENTRIFUGE = BLOCKS.entry("centrifuge", CentrifugeBlock::new)
+        .copyProperties(SharedProperties::copperMetal)
+        .properties(p -> p.requiresCorrectToolForDrops()
+            .mapColor(MapColor.COLOR_ORANGE)
+            .noOcclusion())
+        .renderType(() -> RenderType::cutout)
+        .transform(Transgenders.stressImpact(8.0))
+        .simpleItem()
+        .register();
 
-    public static final RegistryEntry<CookieJarBlock> COOKIE_JAR = CREATE_LIKE_BLOCKS.register("cookie_jar", () -> new CookieJarBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).sound(EstrogenSoundTypes.COOKIE_JAR)));
+    public static final BlockEntry<CookieJarBlock> COOKIE_JAR = BLOCKS.entry("cookie_jar", CookieJarBlock::new)
+        .copyProperties(() -> Blocks.GLASS)
+        .properties(p -> p.sound(EstrogenSoundTypes.COOKIE_JAR))
+        .renderType(() -> RenderType::cutout)
+        .item(BlockItem::new)
+        .transform(Transgenders.standardTooltip())
+        .build()
+        .register();
 
-    public static final RegistryEntry<Block> DREAM_BLOCK = BLOCKS.register("dream_block", () -> new DreamBlock(BlockBehaviour.Properties.copy(Blocks.END_GATEWAY).pushReaction(PushReaction.NORMAL).isSuffocating(StatePredicates::never).sound(EstrogenSoundTypes.DREAM_BLOCK).dynamicShape()));
-    public static final RegistryEntry<Block> DORMANT_DREAM_BLOCK = BLOCKS.register("dormant_dream_block", () -> new DormantDreamBlock(
-            BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.DIAMOND)
-                    .instrument(NoteBlockInstrument.HAT)
-                    .strength(3.0F)
-                    .noOcclusion()
-                    .requiresCorrectToolForDrops()
-                    .isRedstoneConductor(StatePredicates::always)
-                    .sound(EstrogenSoundTypes.DORMANT_DREAM_BLOCK)
-                    .isValidSpawn(StatePredicates::never)
-                    .isSuffocating(StatePredicates::never)
-                    .isViewBlocking(StatePredicates::never)
-    ));
+    public static final BlockEntry<DreamBlock> DREAM_BLOCK = BLOCKS.entry("dream_block", DreamBlock::new)
+        .copyProperties(() -> Blocks.END_GATEWAY)
+        .properties(p -> p.pushReaction(PushReaction.NORMAL)
+            .isSuffocating(StatePredicates::never)
+            .sound(EstrogenSoundTypes.DREAM_BLOCK)
+            .dynamicShape())
+        .item("dream_bottle", DreamBottleItem::new)
+        .properties(p -> p.rarity(Rarity.EPIC))
+        .build()
+        .register();
 
-    public static final RegistryEntry<Block> MOTH_WOOL = BLOCKS.register("moth_wool", () -> new Block(BlockBehaviour.Properties.copy(Blocks.ORANGE_WOOL)));
-    public static final RegistryEntry<Block> QUILTED_MOTH_WOOL = BLOCKS.register("quilted_moth_wool", () -> new Block(BlockBehaviour.Properties.copy(Blocks.ORANGE_WOOL)));
-    public static final RegistryEntry<Block> MOTH_WOOL_CARPET = BLOCKS.register("moth_wool_carpet", () -> new CarpetBlock(BlockBehaviour.Properties.copy(Blocks.ORANGE_CARPET)));
-    public static final RegistryEntry<Block> QUILTED_MOTH_WOOL_CARPET = BLOCKS.register("quilted_moth_wool_carpet", () -> new CarpetBlock(BlockBehaviour.Properties.copy(Blocks.ORANGE_CARPET)));
-    public static final RegistryEntry<Block> MOTH_SEAT = BLOCKS.register("moth_seat", () -> new SeatBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_SPRUCE_WOOD).mapColor(DyeColor.ORANGE), null));
 
-    public static final RegistryEntry<Block> ESTROGEN_PILL_BLOCK = BLOCKS.register("estrogen_pill_block", () -> new EstrogenPillBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(1.0F, 1.0F).sound(EstrogenSoundTypes.PILL_BOX)));
+    public static final BlockEntry<DormantDreamBlock> DORMANT_DREAM_BLOCK = BLOCKS.entry("dormant_dream_block", DormantDreamBlock::new)
+        .properties(p -> p.mapColor(MapColor.DIAMOND)
+            .instrument(NoteBlockInstrument.HAT)
+            .strength(3.0F)
+            .noOcclusion()
+            .requiresCorrectToolForDrops()
+            .isRedstoneConductor(StatePredicates::always)
+            .sound(EstrogenSoundTypes.DORMANT_DREAM_BLOCK)
+            .isValidSpawn(StatePredicates::never)
+            .isSuffocating(StatePredicates::never)
+            .isViewBlocking(StatePredicates::never))
+        .renderType(() -> RenderType::translucent)
+        .onRegister(CreateRegistrate.blockModel(() -> EstrogenSpriteShifts.DORMANT_DREAM_BLOCK_PROVIDER)::accept)
+        .item(BlockItem::new)
+        .transform(Transgenders.standardTooltip())
+        .build()
+        .register();
 
-    public static final RegistryEntry<Block> MOLTEN_SLIME_BLOCK = BLOCKS.register("molten_slime", () -> new LavaLikeLiquidBlock(EstrogenFluidProperties.MOLTEN_SLIME, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_GREEN)));
-    public static final RegistryEntry<Block> TESTOSTERONE_MIXTURE_BLOCK = TRANSPARENT_BLOCKS.register("testosterone_mixture", () -> new BotariumLiquidBlock(EstrogenFluidProperties.TESTOSTERONE_MIXTURE, BlockBehaviour.Properties.copy(Blocks.WATER).mapColor(MapColor.TERRACOTTA_YELLOW)));
-    public static final RegistryEntry<Block> LIQUID_ESTROGEN_BLOCK = TRANSPARENT_BLOCKS.register("liquid_estrogen", () -> new EstrogenLiquidBlock(EstrogenFluidProperties.LIQUID_ESTROGEN, BlockBehaviour.Properties.copy(Blocks.WATER).mapColor(MapColor.COLOR_CYAN)));
-    public static final RegistryEntry<Block> FILTRATED_HORSE_URINE_BLOCK = TRANSPARENT_BLOCKS.register("filtrated_horse_urine", () -> new BotariumLiquidBlock(EstrogenFluidProperties.FILTRATED_HORSE_URINE, BlockBehaviour.Properties.copy(Blocks.WATER).mapColor(MapColor.TERRACOTTA_YELLOW)));
-    public static final RegistryEntry<Block> HORSE_URINE_BLOCK = TRANSPARENT_BLOCKS.register("horse_urine", () -> new BotariumLiquidBlock(EstrogenFluidProperties.HORSE_URINE, BlockBehaviour.Properties.copy(Blocks.WATER).mapColor(MapColor.COLOR_YELLOW)));
-    public static final RegistryEntry<Block> MOLTEN_AMETHYST_BLOCK = BLOCKS.register("molten_amethyst", () -> new LavaLikeLiquidBlock(EstrogenFluidProperties.MOLTEN_AMETHYST, BlockBehaviour.Properties.copy(Blocks.LAVA).mapColor(MapColor.COLOR_PURPLE)));
 
-    public static void registerExtraProperties() {
-        BlockStressDefaults.setDefaultImpact(CENTRIFUGE.getId(), 8.0);
-        SeatMovementBehaviour movementBehaviour = new SeatMovementBehaviour();
-        SeatInteractionBehaviour interactionBehaviour = new SeatInteractionBehaviour();
-        AllMovementBehaviours.registerBehaviour(EstrogenBlocks.MOTH_SEAT.getId(), movementBehaviour);
-        AllInteractionBehaviours.registerBehaviour(EstrogenBlocks.MOTH_SEAT.getId(), interactionBehaviour);
-        ResourceLocation mothSeatRL = EstrogenBlocks.MOTH_SEAT.getId();
-        AllDisplayBehaviours.assignBlock(
-                AllDisplayBehaviours.register(
-                        new ResourceLocation(mothSeatRL.getNamespace(), mothSeatRL.getPath() + "_source_entity_name"),
-                        new EntityNameDisplaySource()
-                ),
-                mothSeatRL
-        );
-    }
+    public static final BlockEntry<Block> MOTH_WOOL = BLOCKS.entry("moth_wool", Block::new)
+        .copyProperties(() -> Blocks.ORANGE_WOOL)
+        .simpleItem()
+        .register();
+    public static final BlockEntry<Block> QUILTED_MOTH_WOOL = BLOCKS.entry("quilted_moth_wool", Block::new)
+        .copyProperties(() -> Blocks.ORANGE_WOOL)
+        .simpleItem()
+        .register();
+
+    public static final BlockEntry<CarpetBlock> MOTH_WOOL_CARPET = BLOCKS.entry("moth_wool_carpet", CarpetBlock::new)
+        .copyProperties(() -> Blocks.ORANGE_CARPET)
+        .simpleItem()
+        .register();
+    public static final BlockEntry<CarpetBlock> QUILTED_MOTH_WOOL_CARPET = BLOCKS.entry("quilted_moth_wool_carpet", CarpetBlock::new)
+        .copyProperties(() -> Blocks.ORANGE_CARPET)
+        .simpleItem()
+        .register();
+
+    public static final BlockEntry<SeatBlock> MOTH_SEAT = BLOCKS.entry("moth_seat", p -> new SeatBlock(p, null))
+        .copyProperties(() -> Blocks.STRIPPED_SPRUCE_WOOD)
+        .properties(p -> p.mapColor(DyeColor.ORANGE))
+        .onRegister(AllMovementBehaviours.movementBehaviour(new SeatMovementBehaviour())::accept)
+        .onRegister(AllInteractionBehaviours.interactionBehaviour(new SeatInteractionBehaviour())::accept)
+        .onRegister(AllDisplayBehaviours.assignDataBehaviour(new EntityNameDisplaySource(), "entity_name")::accept)
+        .simpleItem()
+        .register();
+
+    public static final BlockEntry<EstrogenPillBlock> ESTROGEN_PILL_BLOCK = BLOCKS.entry("estrogen_pill_block", EstrogenPillBlock::new)
+        .copyProperties(() -> Blocks.OAK_PLANKS)
+        .properties(p -> p.strength(1.0f, 1.0f)
+            .sound(EstrogenSoundTypes.PILL_BOX))
+        .simpleItem()
+        .register();
 }
