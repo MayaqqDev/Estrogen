@@ -1,6 +1,8 @@
 # Estrogen `@VERSION@` `1.20.1` `Fabric & Forge`
 ### Changelog:
 - rosy maple MOTH! Cute little fuzzy fella that spawns in Dark Oak forests at night and when fuzzy and sheared drops Moth fuzz to craft Thigh Highs and other things! (rosymaplemoss & Mayaqq & m0ft)
+- Thigh Highs, craftable, but you can find exclusive PRIDE variants in the world! (Sery, contributors from discord)
+- New amazing dream block renderer! (Sery)
 - Custom resource data format for mod creators to add compatibility with Estrogen's breasts! (This will be able to fix the issue with armors such as the ones from Ad Astra)
 - Spectrum potion workshop compatibility (Thanks 800020h)
 - Updated Lava Texture (Both Molten Amethyst & Molten Slime affected)
