@@ -5,8 +5,8 @@ import com.jozufozu.flywheel.core.model.ModelUtil;
 import com.jozufozu.flywheel.core.model.ShadeSeparatedBufferedData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.mayaqq.estrogen.platform.ClientPlatform;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -27,7 +27,7 @@ public class ItemModelBufferer {
             BakedModel model = itemRenderer.getModel(stack, level, null, random.nextInt());
 
             poseStack.pushPose();
-            model.getTransforms().getTransform(context).apply(false, poseStack);
+            ClientPlatform.applyItemTransforms(model, context, poseStack);
             poseStack.translate(0.5f, 0.5f, 0.5f);
             itemRenderer.renderModelLists(model, stack, 0, OverlayTexture.NO_OVERLAY, poseStack, consumer);
             poseStack.popPose();

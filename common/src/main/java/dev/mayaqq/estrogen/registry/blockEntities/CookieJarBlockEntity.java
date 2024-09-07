@@ -1,11 +1,15 @@
 package dev.mayaqq.estrogen.registry.blockEntities;
 
+import com.jozufozu.flywheel.backend.instancing.InstancedRenderDispatcher;
 import com.simibubi.create.foundation.blockEntity.SyncedBlockEntity;
-import dev.mayaqq.estrogen.registry.EstrogenBlockEntities;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class CookieJarBlockEntity extends SyncedBlockEntity implements Container {
-    private NonNullList<ItemStack> items = NonNullList.withSize(8, ItemStack.EMPTY);
+    private final NonNullList<ItemStack> items = NonNullList.withSize(8, ItemStack.EMPTY);
 
     public CookieJarBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState) {
         super(type, blockPos, blockState);
@@ -139,6 +143,12 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements Container
         ContainerHelper.loadAllItems(compoundTag, items);
     }
 
+    @Override
+    @Environment(EnvType.CLIENT)
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+        super.onDataPacket(connection, packet);
+        if(level != null) InstancedRenderDispatcher.getBlockEntities(level).queueUpdate(this);
+    }
 
     @Override
     public int getContainerSize() {
