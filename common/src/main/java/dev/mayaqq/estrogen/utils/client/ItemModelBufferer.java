@@ -4,11 +4,8 @@ import com.jozufozu.flywheel.core.model.BlockModel;
 import com.jozufozu.flywheel.core.model.ModelUtil;
 import com.jozufozu.flywheel.core.model.ShadeSeparatedBufferedData;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.mayaqq.estrogen.platform.ClientPlatform;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
@@ -35,21 +32,5 @@ public class ItemModelBufferer {
         BlockModel model = new BlockModel(data, stack.getItem().toString());
         data.release();
         return model;
-    }
-
-
-    static class SingletBufferSource implements MultiBufferSource {
-
-        private final VertexConsumer consumer;
-
-        public SingletBufferSource(VertexConsumer consumer) {
-            this.consumer = consumer;
-
-        }
-
-        @Override
-        public VertexConsumer getBuffer(RenderType renderType) {
-            return consumer;
-        }
     }
 }
