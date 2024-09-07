@@ -8,6 +8,7 @@ import dev.mayaqq.estrogen.utils.registry.EstrogenFluidRegistrar;
 import earth.terrarium.botarium.common.registry.fluid.BotariumFlowingFluid;
 import earth.terrarium.botarium.common.registry.fluid.BotariumSourceFluid;
 import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
@@ -34,6 +35,7 @@ public class EstrogenFluids {
                 .canSwim(true)
                 .viscosity(1500)
                 .density(1500))
+            .renderType(() -> RenderType::translucent)
             .block(EstrogenLiquidBlock::new)
             .copyProperties(() -> Blocks.WATER)
             .properties(p -> p.mapColor(MapColor.COLOR_CYAN))
