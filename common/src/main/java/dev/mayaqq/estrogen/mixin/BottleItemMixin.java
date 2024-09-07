@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenSounds;
@@ -31,16 +32,16 @@ public class BottleItemMixin {
     }
 
     @Inject(method = "use",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/material/FluidState;is(Lnet/minecraft/tags/TagKey;)Z"),
-            cancellable = true,
-            locals = LocalCapture.CAPTURE_FAILHARD)
-    public void onUse(Level level, Player player, InteractionHand usedHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir, List list, ItemStack itemStack, BlockHitResult blockHitResult, BlockPos blockPos) {
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/material/FluidState;is(Lnet/minecraft/tags/TagKey;)Z"),
+        cancellable = true
+    )
+    public void onUse(Level level, Player player, InteractionHand usedHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir, @Local ItemStack itemStack, @Local BlockPos blockPos) {
         BlockState blockState = level.getBlockState(blockPos);
 
         if (blockState.is(EstrogenBlocks.DREAM_BLOCK.get())) {
             level.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
             level.playSound(null, blockPos, EstrogenSounds.DREAM_BLOCK_PLACE.get(), SoundSource.BLOCKS, 1.0F, 0.5F);
-            cir.setReturnValue(InteractionResultHolder.sidedSuccess(this.turnBottleIntoItem(itemStack, player, EstrogenItems.DREAM_BOTTLE.get().getDefaultInstance()), level.isClientSide()));
+            cir.setReturnValue(InteractionResultHolder.sidedSuccess(this.turnBottleIntoItem(itemStack, player, EstrogenItems.DREAM_BOTTLE.asStack()), level.isClientSide()));
         }
     }
 }
