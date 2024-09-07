@@ -40,6 +40,8 @@ subprojects {
 
         // JEI
         modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
+
+        include implementation("com.teamresourceful:resourceful-cosmetics-4j:${rootProject.resourceful_cosmetics_version}")
     }
 }
 
@@ -70,6 +72,7 @@ allprojects {
         maven { name = "Resourceful Maven"; description = "Baubly, Botarium & ResourcefulLib"; url = "https://maven.teamresourceful.com/repository/maven-public/" }
         maven { name = "Figura Maven"; description = "Figura"; url = "https://maven.figuramc.org/releases" }
         maven { name = "Sappho Company"; description = "Critter"; url = "https://maven.is-immensely.gay/nightly"}
+        maven { name = "DevAuth maven"; description = "DevAuth"; url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" }
         maven { name = "Jitpack maven"; description = "Mixin Extras & Fabric ASM"; url = "https://jitpack.io/" } //NOTE: LEAVE THIS AS LAST
     }
 
