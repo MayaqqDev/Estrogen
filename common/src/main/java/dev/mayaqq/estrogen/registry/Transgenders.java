@@ -77,7 +77,7 @@ public class Transgenders {
             EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> {
                 b.onRegister(betype -> InstancedRenderRegistry.configure(betype)
                         .factory(instanceFactory.get())
-                        .skipRender(be -> renderNormally)
+                        .skipRender(be -> !renderNormally)
                         .apply());
             });
             return b;
