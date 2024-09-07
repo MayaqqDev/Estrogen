@@ -24,7 +24,6 @@ public class CookieJarInstance extends BlockEntityInstance<CookieJarBlockEntity>
     @Override
     public void init() {
         poseStack.pushPose();
-        poseStack.translate(-0.5, 0.5, -0.5);
         poseStack.mulPose(Axis.XP.rotationDegrees(90));
         poseStack.translate(0.5, 0.35, -0.032F);
 

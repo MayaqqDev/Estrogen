@@ -18,17 +18,15 @@ import net.minecraft.world.level.Level;
 
 public class ItemModelBufferer {
 
-    private static final ThreadLocal<PoseStack> LOCAL_POSE = ThreadLocal.withInitial(PoseStack::new);
-
     public static BlockModel getModel(Level level, ItemStack stack, ItemDisplayContext context) {
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         ShadeSeparatedBufferedData data = ModelUtil.getBufferedData((consumer, renderer, random) -> {
-            PoseStack poseStack = LOCAL_POSE.get();
+            PoseStack poseStack = new PoseStack();
             BakedModel model = itemRenderer.getModel(stack, level, null, random.nextInt());
 
             poseStack.pushPose();
             ClientPlatform.applyItemTransforms(model, context, poseStack);
-            poseStack.translate(0.5f, 0.5f, 0.5f);
+            poseStack.translate(-0.5f, -0.5f, -0.5f);
             itemRenderer.renderModelLists(model, stack, 0, OverlayTexture.NO_OVERLAY, poseStack, consumer);
             poseStack.popPose();
 
