@@ -8,9 +8,14 @@ import earth.terrarium.baubly.Baubly;
 import earth.terrarium.baubly.common.Bauble;
 import earth.terrarium.baubly.common.SlotInfo;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
@@ -18,6 +23,8 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CauldronBlock;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
 
 import java.util.List;
@@ -37,7 +44,12 @@ public class ThighHighsItem extends Item implements Bauble {
         super(properties);
         this.primaryColorDefault = primaryColor;
         this.secondaryColorDefault = secondaryColor;
-        Baubly.registerBauble(this);
+    }
+
+    public static int getItemColor(ItemStack stack, int tintIndex) {
+        ThighHighsItem thighHighsItem = (ThighHighsItem) stack.getItem();
+        if(thighHighsItem.getStyle(stack).isPresent()) return -1;
+        return thighHighsItem.getColor(stack, tintIndex);
     }
 
     public void loadStyles(List<ResourceLocation> newStyles) {
@@ -134,6 +146,19 @@ public class ThighHighsItem extends Item implements Bauble {
             player.awardStat(Stats.CLEAN_ARMOR);
             LayeredCauldronBlock.lowerFillLevel(blockState, level, blockPos);
         }
+
+        level.playLocalSound(blockPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.3f, 1.8f, true);
+
+        if(level.isClientSide) {
+            float fillHeight = blockState.getValue(LayeredCauldronBlock.LEVEL) / 3f;
+            for (int i = 0; i < 8; i++) {
+                double xOff = level.random.nextGaussian() / 5 + 0.5;
+                double zOff = level.random.nextGaussian() / 5 + 0.5;
+
+                level.addParticle(ParticleTypes.BUBBLE_POP, blockPos.getX() + xOff, blockPos.getY() + fillHeight * 0.8, blockPos.getZ() + zOff, 0, 0.05, 0);
+            }
+        }
+
         return InteractionResult.sidedSuccess(level.isClientSide);
     };
 }

@@ -12,5 +12,6 @@ public class ForgeThighHighsTooltip extends ThighHighsToolTipModifier {
     @Override
     public void modify(ItemTooltipEvent context) {
         super.modify(context.getItemStack(), context.getEntity(), context.getFlags(), context.getToolTip());
+        wrappedDescription.modify(context);
     }
 }

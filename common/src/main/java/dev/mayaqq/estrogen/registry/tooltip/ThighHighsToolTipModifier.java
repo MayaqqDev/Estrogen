@@ -1,5 +1,7 @@
 package dev.mayaqq.estrogen.registry.tooltip;
 
+import com.simibubi.create.foundation.item.ItemDescription;
+import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import com.simibubi.create.foundation.utility.Components;
 import dev.mayaqq.estrogen.platform.CommonPlatform;
@@ -22,6 +24,7 @@ public abstract class ThighHighsToolTipModifier implements TooltipModifier {
         .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
 
     private final ThighHighsItem item;
+    protected final ItemDescription.Modifier wrappedDescription;
 
     public static ThighHighsToolTipModifier create(Item item) {
         return CommonPlatform.createThighHighTooltip(item);
@@ -29,6 +32,7 @@ public abstract class ThighHighsToolTipModifier implements TooltipModifier {
 
     public ThighHighsToolTipModifier(ThighHighsItem item) {
         this.item = item;
+        this.wrappedDescription = new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE);
     }
 
 

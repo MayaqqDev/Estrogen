@@ -7,7 +7,7 @@ import dev.mayaqq.estrogen.fabric.datagen.custom.EstrogenProcessingRecipeGen;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeInterface;
-import dev.mayaqq.estrogen.registry.EstrogenCreativeTab;
+import dev.mayaqq.estrogen.registry.*;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenPotions;
