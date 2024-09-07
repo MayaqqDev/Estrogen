@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.registry.blockEntities;
 
-import com.jozufozu.flywheel.backend.Backend;
 import com.jozufozu.flywheel.backend.instancing.InstancedRenderDispatcher;
 import com.simibubi.create.foundation.blockEntity.SyncedBlockEntity;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
@@ -148,7 +147,7 @@ public class CookieJarBlockEntity extends SyncedBlockEntity implements Container
     @Environment(EnvType.CLIENT)
     public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
         super.onDataPacket(connection, packet);
-        if(Backend.canUseInstancing(level)) InstancedRenderDispatcher.getBlockEntities(level).queueUpdate(this);
+        InstancedRenderDispatcher.enqueueUpdate(this);
     }
 
     @Override

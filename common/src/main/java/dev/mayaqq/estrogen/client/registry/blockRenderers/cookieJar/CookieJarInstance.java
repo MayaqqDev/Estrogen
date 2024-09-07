@@ -5,13 +5,11 @@ import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstance;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.blockEntities.CookieJarBlockEntity;
 import dev.mayaqq.estrogen.utils.client.ItemModelBufferer;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-
 import java.util.List;
 
 public class CookieJarInstance extends BlockEntityInstance<CookieJarBlockEntity> {
