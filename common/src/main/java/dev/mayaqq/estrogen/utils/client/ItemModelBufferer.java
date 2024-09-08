@@ -36,6 +36,7 @@ public class ItemModelBufferer {
         return model;
     }
 
+    // This fixes visual bugs as enchantment glint isn't currently supported by flywheel
     private record GlintFilteringBufferSource(VertexConsumer wrapped) implements MultiBufferSource {
 
             private static final VertexConsumer EMPTY = new VertexConsumer() {
