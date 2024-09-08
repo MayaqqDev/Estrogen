@@ -124,8 +124,9 @@ public class CookieJarBlock extends BaseEntityBlock implements BEBlock<CookieJar
 
     @Override
     public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean bl) {
-        if (!state.is(newState.getBlock())) {
-            Containers.dropContents(level, blockPos, (CookieJarBlockEntity)level.getBlockEntity(blockPos));
+        CookieJarBlockEntity be = this.getBlockEntity(level, blockPos);
+        if (!state.is(newState.getBlock()) && be != null) {
+            Containers.dropContents(level, blockPos, be);
         }
         super.onRemove(state, level, blockPos, newState, bl);
     }
