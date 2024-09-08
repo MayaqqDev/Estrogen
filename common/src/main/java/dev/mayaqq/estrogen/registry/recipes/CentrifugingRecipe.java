@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.registry.recipes;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
+import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.platform.IngredientUtils;
 import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
 import dev.mayaqq.estrogen.registry.blockEntities.CentrifugeBlockEntity;
@@ -47,8 +48,9 @@ public class CentrifugingRecipe extends ProcessingRecipe<Inventory> {
         if (fluidUp == null || fluidDown == null) return false;
 
         float speed = blockEntity.getSpeed();
+        double speedRequired = EstrogenConfig.server().centrifugeSpeedRequired.get();
 
-        if (speed != 256 && speed != -256) return false;
+        if (!(speed >= speedRequired || speed <= -speedRequired)) return false;
 
 
         FluidHolder input = IngredientUtils.getFluidIngredients(this).get(0);
