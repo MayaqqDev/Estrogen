@@ -6,7 +6,9 @@
   "mixins": [
     "PackInvoker"
   ],
-  "client": [],
+  "client": [
+    "client.DevsWhatWereYouSmoking"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
