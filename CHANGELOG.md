@@ -13,5 +13,6 @@
 - Bunch of fixes and reworks to make things more consistent (ThatGravyBoat)
 - Cookie jar basically fixed! (TheRobbie72)
 - New Cookie jar and Estrogen Pill Box (erora)
-- New wiki! Not in the mod itself but on github [here](https://github.com/MayaqqDev/Estrogen/wiki) (Mayaqq & Erora)
+- New wiki! Not in the mod itself but on github [here](https://github.com/MayaqqDev/Estrogen/wiki) (Mayaqq & **Erora**)
 - Entity Patting now plays patting Animation
+- Estrogen will now be uploaded to the sappho maven (https://maven.is-immensely.gay) for easier way to access it in dev env
