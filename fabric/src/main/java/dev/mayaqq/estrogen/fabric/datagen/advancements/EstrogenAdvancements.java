@@ -177,7 +177,7 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
     }
 
     public static ItemPredicate getItems() {
-        Collection<RegistryEntry<? extends Item>> itemEntries = RegistryManager.getInstance(Estrogen.MOD_ID).getAllEntries(Registries.ITEM);
+        Collection<RegistryEntry<? extends Item>> itemEntries = Estrogen.REGISTRIES.getAllEntries(Registries.ITEM);
         ImmutableSet.Builder<Item> items = new ImmutableSet.Builder<>();
         for (RegistryEntry<? extends Item> item : itemEntries) {
             items.add(item.get());

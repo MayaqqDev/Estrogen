@@ -7,11 +7,14 @@ import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uwu.serenity.critter.RegistryManager;
 
 public class Estrogen {
     public static final String MOD_ID = "estrogen";
 
     public static final Logger LOGGER = LoggerFactory.getLogger("Estrogen");
+
+    public static final RegistryManager REGISTRIES = RegistryManager.create(MOD_ID);
 
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID, path);

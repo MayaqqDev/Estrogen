@@ -18,7 +18,7 @@ import uwu.serenity.critter.stdlib.entities.EntityRegistrar;
 
 public class EstrogenEntities {
 
-    public static final EntityRegistrar ENTITIES = EntityRegistrar.create(Estrogen.MOD_ID);
+    public static final EntityRegistrar ENTITIES = EntityRegistrar.create(Estrogen.REGISTRIES);
 
     public static final EntityEntry<MothEntity> MOTH = ENTITIES.entry("moth", MobCategory.CREATURE, MothEntity::new)
         .settings(s -> s.sized(0.6f, 0.6f)

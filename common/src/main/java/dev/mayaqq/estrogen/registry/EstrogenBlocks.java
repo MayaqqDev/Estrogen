@@ -36,7 +36,7 @@ import uwu.serenity.critter.stdlib.blocks.BlockEntry;
 import uwu.serenity.critter.stdlib.blocks.BlockRegistrar;
 
 public class EstrogenBlocks {
-    public static final BlockRegistrar BLOCKS = BlockRegistrar.create(Estrogen.MOD_ID);
+    public static final BlockRegistrar BLOCKS = BlockRegistrar.create(Estrogen.REGISTRIES);
 
     public static final BlockEntry<CentrifugeBlock> CENTRIFUGE = BLOCKS.entry("centrifuge", CentrifugeBlock::new)
         .copyProperties(SharedProperties::copperMetal)
