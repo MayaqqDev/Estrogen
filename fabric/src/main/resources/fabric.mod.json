@@ -25,9 +25,6 @@
     "client": [
       "dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric"
     ],
-    "fabric-datagen": [
-      "dev.mayaqq.estrogen.fabric.datagen.EstrogenDatagen"
-    ],
     "emi": [
       "dev.mayaqq.estrogen.fabric.integrations.emi.EmiCompat"
     ],

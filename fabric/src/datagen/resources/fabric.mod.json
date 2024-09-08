@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "estrogen-datagen",
+  "version": "1.0.0",
+  "name": "Create: Estrogen Datagen",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "dev.mayaqq.estrogen.datagen.EstrogenDatagen"
+    ]
+  },
+  "mixins": [
+    "estrogen-datagen.mixins.json"
+  ]
+}
