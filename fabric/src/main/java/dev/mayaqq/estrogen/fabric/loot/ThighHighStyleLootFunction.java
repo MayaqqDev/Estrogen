@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.fabric.loot;
 
-import com.google.gson.*;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.items.ThighHighsItem;

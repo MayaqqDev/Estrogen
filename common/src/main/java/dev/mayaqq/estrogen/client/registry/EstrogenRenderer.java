@@ -1,17 +1,13 @@
 package dev.mayaqq.estrogen.client.registry;
 
-import com.google.common.collect.ImmutableMap;
 import com.jozufozu.flywheel.api.struct.StructType;
 import com.jozufozu.flywheel.core.PartialModel;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.blaze3d.vertex.VertexFormatElement;
 import com.simibubi.create.CreateClient;
 import com.simibubi.create.foundation.render.SuperByteBufferCache;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel.DreamData;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel.DreamType;
 import net.minecraft.resources.ResourceLocation;
 
-import static com.mojang.blaze3d.vertex.DefaultVertexFormat.*;
 import static dev.mayaqq.estrogen.Estrogen.id;
 
 public class EstrogenRenderer {

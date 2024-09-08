@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "estrogen:moth_seat"
+    "estrogen:moth_seat",
+    "estrogen:moth_bed",
+    "estrogen:quilted_moth_bed"
   ]
 }

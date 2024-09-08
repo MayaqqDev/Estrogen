@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": {
+      "item": "estrogen:quilted_moth_wool"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "MMM",
+    "WWW"
+  ],
+  "result": {
+    "item": "estrogen:quilted_moth_bed"
+  },
+  "show_notification": true
+}

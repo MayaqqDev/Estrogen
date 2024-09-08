@@ -1,11 +1,8 @@
 package dev.mayaqq.estrogen.registry;
 
-import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries;
-import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
 import dev.mayaqq.estrogen.Estrogen;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import uwu.serenity.critter.api.entry.RegistryEntry;
 import uwu.serenity.critter.stdlib.Registrar;

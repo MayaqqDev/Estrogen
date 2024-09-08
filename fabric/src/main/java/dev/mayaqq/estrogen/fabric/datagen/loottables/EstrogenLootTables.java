@@ -21,5 +21,7 @@ public class EstrogenLootTables extends FabricBlockLootTableProvider {
         add(EstrogenBlocks.QUILTED_MOTH_WOOL.get(), createSingleItemTable(EstrogenBlocks.QUILTED_MOTH_WOOL.get()));
         add(EstrogenBlocks.QUILTED_MOTH_WOOL_CARPET.get(), createSingleItemTable(EstrogenBlocks.QUILTED_MOTH_WOOL_CARPET.get()));
         add(EstrogenBlocks.MOTH_WOOL_CARPET.get(), createSingleItemTable(EstrogenBlocks.MOTH_WOOL_CARPET.get()));
+        add(EstrogenBlocks.MOTH_BED.get(), createSingleItemTable(EstrogenBlocks.MOTH_BED.get()));
+        add(EstrogenBlocks.QUILTED_MOTH_BED.get(), createSingleItemTable(EstrogenBlocks.QUILTED_MOTH_BED.get()));
     }
 }

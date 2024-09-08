@@ -1,0 +1,6 @@
+{
+  "parent": "estrogen:block/bed/template_bed_head",
+  "textures": {
+    "bed": "estrogen:block/bed/quilted_moth"
+  }
+}

@@ -7,7 +7,7 @@ import dev.mayaqq.estrogen.fabric.datagen.custom.EstrogenProcessingRecipeGen;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeFabricImpl;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeForgeImpl;
 import dev.mayaqq.estrogen.fabric.datagen.recipes.EstrogenRecipeInterface;
-import dev.mayaqq.estrogen.registry.*;
+import dev.mayaqq.estrogen.registry.EstrogenCreativeTab;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenPotions;
@@ -15,6 +15,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluids;
+
 import static dev.mayaqq.estrogen.Estrogen.id;
 
 public class EstrogenFillingRecipes<T extends EstrogenRecipeInterface> extends EstrogenProcessingRecipeGen {

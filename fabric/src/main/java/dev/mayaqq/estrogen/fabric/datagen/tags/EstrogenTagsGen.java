@@ -8,6 +8,8 @@ import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 
@@ -59,6 +61,9 @@ public class EstrogenTagsGen {
             getOrCreateTagBuilder(net.minecraft.tags.ItemTags.WOOL_CARPETS)
                     .add(EstrogenBlocks.MOTH_WOOL_CARPET.asItem())
                     .add(EstrogenBlocks.QUILTED_MOTH_WOOL_CARPET.asItem());
+            getOrCreateTagBuilder(net.minecraft.tags.ItemTags.BEDS)
+                    .add(EstrogenBlocks.MOTH_BED.asItem())
+                    .add(EstrogenBlocks.QUILTED_MOTH_BED.asItem());
         }
     }
 
@@ -75,7 +80,9 @@ public class EstrogenTagsGen {
                     .add(EstrogenBlocks.DORMANT_DREAM_BLOCK.get())
                     .add(EstrogenBlocks.ESTROGEN_PILL_BLOCK.get());
             getOrCreateTagBuilder(net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE)
-                    .add(EstrogenBlocks.MOTH_SEAT.get());
+                    .add(EstrogenBlocks.MOTH_SEAT.get())
+                    .add(EstrogenBlocks.MOTH_BED.get())
+                    .add(EstrogenBlocks.QUILTED_MOTH_BED.get());
 
             getOrCreateTagBuilder(AllTags.AllBlockTags.SEATS.tag)
                     .add(EstrogenBlocks.MOTH_SEAT.get());
@@ -94,6 +101,9 @@ public class EstrogenTagsGen {
             getOrCreateTagBuilder(net.minecraft.tags.BlockTags.WOOL_CARPETS)
                     .add(EstrogenBlocks.MOTH_WOOL_CARPET.get())
                     .add(EstrogenBlocks.QUILTED_MOTH_WOOL_CARPET.get());
+            getOrCreateTagBuilder(net.minecraft.tags.BlockTags.BEDS)
+                    .add(EstrogenBlocks.MOTH_BED.get())
+                    .add(EstrogenBlocks.QUILTED_MOTH_BED.get());
         }
     }
 

@@ -97,6 +97,27 @@ public class EstrogenCraftingRecipes<T extends EstrogenRecipeInterface> extends 
                 .unlockedBy(FabricRecipeProvider.getHasName(EstrogenBlocks.MOTH_WOOL.asItem()), FabricRecipeProvider.has(EstrogenBlocks.MOTH_WOOL.asItem()))
                 .save(exporter);
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, EstrogenItems.MOTH_FUZZ.get(), 4)
+                .requires(EstrogenBlocks.MOTH_WOOL.asItem())
+                .unlockedBy(FabricRecipeProvider.getHasName(EstrogenBlocks.MOTH_WOOL.asItem()), FabricRecipeProvider.has(EstrogenBlocks.MOTH_WOOL.asItem()))
+                .save(exporter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, EstrogenBlocks.MOTH_BED.get(), 1)
+                        .define('M', EstrogenBlocks.MOTH_WOOL.asItem())
+                        .define('W', ItemTags.PLANKS)
+                        .pattern("MMM")
+                        .pattern("WWW")
+                        .unlockedBy(FabricRecipeProvider.getHasName(EstrogenBlocks.MOTH_WOOL.asItem()), FabricRecipeProvider.has(EstrogenBlocks.MOTH_WOOL.asItem()))
+                        .save(exporter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, EstrogenBlocks.QUILTED_MOTH_BED.get(), 1)
+                        .define('M', EstrogenBlocks.QUILTED_MOTH_WOOL.asItem())
+                        .define('W', ItemTags.PLANKS)
+                        .pattern("MMM")
+                        .pattern("WWW")
+                        .unlockedBy(FabricRecipeProvider.getHasName(EstrogenBlocks.QUILTED_MOTH_WOOL.asItem()), FabricRecipeProvider.has(EstrogenBlocks.QUILTED_MOTH_WOOL.asItem()))
+                        .save(exporter);
+
         SpecialRecipeBuilder.special(EstrogenRecipes.THIGH_HIGH_DYE_SERIALIZER.get()).save(exporter, "estrogen:thigh_high_dye");
     }
 

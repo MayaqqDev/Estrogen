@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "estrogen:moth_wool"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "estrogen:moth_fuzz"
+  }
+}

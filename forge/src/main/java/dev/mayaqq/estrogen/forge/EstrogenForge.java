@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import uwu.serenity.critter.RegistryManager;
+
 import static dev.mayaqq.estrogen.Estrogen.MOD_ID;
 
 @Mod(MOD_ID)

@@ -2,8 +2,6 @@ package dev.mayaqq.estrogen;
 
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.registry.*;
-import dev.mayaqq.estrogen.registry.items.ThighHighsItem;
-import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

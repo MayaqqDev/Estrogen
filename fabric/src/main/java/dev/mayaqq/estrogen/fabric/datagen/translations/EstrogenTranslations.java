@@ -111,6 +111,8 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add(EstrogenBlocks.MOTH_WOOL_CARPET.get(), "Rosy Maple Wool Carpet");
         tb.add(EstrogenBlocks.QUILTED_MOTH_WOOL_CARPET.get(), "Quilted Rosy Maple Wool Carpet");
         tb.add(EstrogenBlocks.MOTH_SEAT.get(), "Rosy Maple Seat");
+        tb.add(EstrogenBlocks.MOTH_BED.get(), "Rosy Maple Bed");
+        tb.add(EstrogenBlocks.QUILTED_MOTH_BED.get(), "Quilted Rosy Maple Bed");
         tb.add(EstrogenFluids.LIQUID_ESTROGEN.getBlock(), "Liquid Estrogen");
         tb.add(EstrogenFluids.HORSE_URINE.getBlock(), "Horse Urine");
         tb.add(EstrogenFluids.FILTRATED_HORSE_URINE.getBlock(), "Filtrated Horse Urine");

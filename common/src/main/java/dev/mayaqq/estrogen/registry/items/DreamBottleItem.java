@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.registry.items;
 
-import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.EstrogenSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionResult;
