@@ -14,8 +14,12 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator.Pack.Factory;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.Objects;
 
 
@@ -29,6 +33,8 @@ public class EstrogenDatagen implements DataGeneratorEntrypoint {
         FabricDataGenerator.Pack common = fdg.createPack();
         Path fabricOutputPath = Paths.get(FABRIC_OUTPUT_DIR);
         Path forgeOutputPath = Paths.get(FORGE_OUTPUT_DIR);
+        if (Files.exists(fabricOutputPath)) deleteDirectory(fabricOutputPath);
+        if (Files.exists(forgeOutputPath)) deleteDirectory(forgeOutputPath);
         FabricDataGenerator.Pack fabric = PackInvoker.create(fdg, true, "Estrogen (Fabric)", new FabricDataOutput(fdg.getModContainer(), fabricOutputPath, STRICT_VALIDATION));
         FabricDataGenerator.Pack forge = PackInvoker.create(fdg, true, "Estrogen (Forge)", new FabricDataOutput(fdg.getModContainer(), forgeOutputPath, STRICT_VALIDATION));
 
@@ -69,5 +75,22 @@ public class EstrogenDatagen implements DataGeneratorEntrypoint {
 
         // Loot Tables
         common.addProvider(EstrogenLootTables::new);
+    }
+
+    public static void deleteDirectory(Path dir) {
+        try {
+            Files.walk(dir)
+                    .sorted(Comparator.reverseOrder())
+                    .forEach(path -> {
+                        System.out.println("Deleting: " + path);
+                        try {
+                            Files.delete(path);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
