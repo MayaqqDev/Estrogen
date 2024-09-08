@@ -1,17 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "key": {
-    "F": {
-      "item": "estrogen:moth_fuzz"
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "estrogen:moth_wool"
     }
-  },
-  "pattern": [
-    "FF",
-    "FF"
   ],
   "result": {
+    "count": 4,
     "item": "estrogen:moth_fuzz"
-  },
-  "show_notification": true
+  }
 }

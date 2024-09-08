@@ -5,7 +5,6 @@ import dev.mayaqq.estrogen.registry.EstrogenTags;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.world.entity.MobCategory;
-import uwu.serenity.critter.stdlib.entities.EntityBuilder;
 
 public class EstrogenBiomeModifications {
     public static void addBiomeModifications() {

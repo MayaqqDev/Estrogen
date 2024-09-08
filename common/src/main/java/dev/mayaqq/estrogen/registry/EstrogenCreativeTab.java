@@ -10,9 +10,9 @@ import uwu.serenity.critter.api.entry.RegistryEntry;
 import uwu.serenity.critter.stdlib.creativeTabs.CreativeTabRegistrar;
 
 import static dev.mayaqq.estrogen.registry.EstrogenBlocks.*;
-import static dev.mayaqq.estrogen.registry.EstrogenItems.*;
-import static dev.mayaqq.estrogen.registry.EstrogenFluids.*;
 import static dev.mayaqq.estrogen.registry.EstrogenEntities.MOTH;
+import static dev.mayaqq.estrogen.registry.EstrogenFluids.*;
+import static dev.mayaqq.estrogen.registry.EstrogenItems.*;
 
 public class EstrogenCreativeTab {
 
@@ -48,6 +48,8 @@ public class EstrogenCreativeTab {
         output.accept(MOTH_WOOL_CARPET.asStack());
         output.accept(QUILTED_MOTH_WOOL_CARPET.asStack());
         output.accept(MOTH_SEAT.asStack());
+        output.accept(MOTH_BED.asStack());
+        output.accept(QUILTED_MOTH_BED.asStack());
         output.accept(tippedArrow(EstrogenPotions.ESTROGEN_POTION.get()));
         output.accept(MOLTEN_SLIME.getBucket());
         output.accept(TESTOSTERONE_MIXTURE.getBucket());

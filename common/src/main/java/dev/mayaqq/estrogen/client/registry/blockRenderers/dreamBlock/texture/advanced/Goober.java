@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced;
 
 import com.mojang.blaze3d.platform.NativeImage;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.SimpleWeightedRandomList;

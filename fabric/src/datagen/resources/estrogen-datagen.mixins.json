@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.mayaqq.estrogen.datagen.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "PackInvoker"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

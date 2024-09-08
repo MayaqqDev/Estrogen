@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.registry.blockEntities;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
-import dev.mayaqq.estrogen.registry.EstrogenBlockEntities;
 import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
 import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import net.minecraft.core.BlockPos;

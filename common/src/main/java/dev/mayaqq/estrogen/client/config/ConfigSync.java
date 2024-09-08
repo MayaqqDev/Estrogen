@@ -2,8 +2,8 @@ package dev.mayaqq.estrogen.client.config;
 
 import com.jozufozu.flywheel.backend.Backend;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.texture.advanced.DynamicDreamTexture;
-import dev.mayaqq.estrogen.config.DreamBlockRenderState;
 import dev.mayaqq.estrogen.config.ChestConfig;
+import dev.mayaqq.estrogen.config.DreamBlockRenderState;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.networking.messages.c2s.SetChestConfigPacket;

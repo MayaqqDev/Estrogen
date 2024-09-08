@@ -9,26 +9,18 @@ import com.simibubi.create.content.redstone.displayLink.AllDisplayBehaviours;
 import com.simibubi.create.content.redstone.displayLink.source.EntityNameDisplaySource;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
-import com.teamresourceful.resourcefullib.common.registry.RegistryEntry;
-import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries;
-import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.registry.EstrogenSpriteShifts;
 import dev.mayaqq.estrogen.registry.blocks.*;
-import dev.mayaqq.estrogen.registry.blocks.fluids.EstrogenLiquidBlock;
-import dev.mayaqq.estrogen.registry.blocks.fluids.LavaLikeLiquidBlock;
 import dev.mayaqq.estrogen.registry.items.DreamBottleItem;
 import dev.mayaqq.estrogen.utils.StatePredicates;
-import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CarpetBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -119,6 +111,16 @@ public class EstrogenBlocks {
         .copyProperties(() -> Blocks.OAK_PLANKS)
         .properties(p -> p.strength(1.0f, 1.0f)
             .sound(EstrogenSoundTypes.PILL_BOX))
+        .simpleItem()
+        .register();
+
+    public static final BlockEntry<ModelBedBlock> MOTH_BED = BLOCKS.entry("moth_bed", ModelBedBlock::new)
+        .copyProperties(() -> Blocks.ORANGE_BED)
+        .simpleItem()
+        .register();
+
+    public static final BlockEntry<ModelBedBlock> QUILTED_MOTH_BED = BLOCKS.entry("quilted_moth_bed", ModelBedBlock::new)
+        .copyProperties(() -> Blocks.ORANGE_BED)
         .simpleItem()
         .register();
 }
