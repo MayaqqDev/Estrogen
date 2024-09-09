@@ -39,8 +39,11 @@ public class ThighHighDyeRecipe extends CustomRecipe {
                         }
                     }
 
-                    return EstrogenItems.THIGH_HIGHS.get().hasCustomColor(inv.getItem(middleSlot)) ||
-                        (rightToItem.getItem() instanceof DyeItem && leftToItem.getItem() instanceof DyeItem);
+                    ItemStack middle = inv.getItem(middleSlot);
+                    ThighHighsItem thighHighsItem = (ThighHighsItem) middle.getItem();
+
+                    // silly expression brackets important dont remove
+                    return thighHighsItem.getStyle(middle).isEmpty() && (thighHighsItem.hasCustomColor(middle) || rightToItem.getItem() instanceof DyeItem && leftToItem.getItem() instanceof DyeItem);
 
                 }
             }
