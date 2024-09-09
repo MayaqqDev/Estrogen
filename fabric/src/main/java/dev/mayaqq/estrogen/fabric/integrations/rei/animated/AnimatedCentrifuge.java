@@ -6,6 +6,9 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+
+import java.util.List;
 
 public class AnimatedCentrifuge extends AnimatedKinetics {
 
@@ -23,11 +26,21 @@ public class AnimatedCentrifuge extends AnimatedKinetics {
                 .scale(scale)
                 .render(graphics);
 
-        blockElement(EstrogenBlocks.CENTRIFUGE.get().defaultBlockState())
+        blockElement(EstrogenBlocks.CENTRIFUGE.getDefaultState())
                 .rotateBlock(22.5, 22.5, 0)
                 .scale(scale)
                 .render(graphics);
 
         matrixStack.popPose();
+    }
+
+    @Override
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+
+    }
+
+    @Override
+    public List<? extends GuiEventListener> children() {
+        return List.of();
     }
 }

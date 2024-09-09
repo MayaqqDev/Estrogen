@@ -22,7 +22,7 @@ public class AnimatedCentrifuge extends AnimatedKinetics {
                 .scale(scale)
                 .render(graphics);
 
-        blockElement(EstrogenBlocks.CENTRIFUGE.get().defaultBlockState())
+        blockElement(EstrogenBlocks.CENTRIFUGE.getDefaultState())
                 .rotateBlock(22.5, 22.5, 0)
                 .scale(scale)
                 .render(graphics);
