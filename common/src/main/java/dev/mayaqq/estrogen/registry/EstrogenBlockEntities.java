@@ -15,7 +15,7 @@ import uwu.serenity.critter.stdlib.blockEntities.BlockEntityRegistrar;
 
 public class EstrogenBlockEntities {
 
-    public static final BlockEntityRegistrar BLOCK_ENTITIES = BlockEntityRegistrar.create(Estrogen.MOD_ID);
+    public static final BlockEntityRegistrar BLOCK_ENTITIES = BlockEntityRegistrar.create(Estrogen.REGISTRIES);
 
     public static final BlockEntityEntry<CentrifugeBlockEntity> CENTRIFUGE = BLOCK_ENTITIES.entry("centrifuge", CentrifugeBlockEntity::new)
         .validBlock(EstrogenBlocks.CENTRIFUGE)

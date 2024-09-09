@@ -23,8 +23,8 @@ public class EstrogenFluidRegistrar extends AbstractRegistrar<Fluid, EstrogenFlu
         this.dataRegistry = new FluidRegistry(manager.getNamespace());
     }
 
-    public static EstrogenFluidRegistrar create(String modid) {
-        return new EstrogenFluidRegistrar(RegistryManager.getInstance(modid), Registries.FLUID);
+    public static EstrogenFluidRegistrar create(RegistryManager manager) {
+        return new EstrogenFluidRegistrar(manager, Registries.FLUID);
     }
 
     public <F extends BotariumSourceFluid, F2 extends BotariumFlowingFluid> EstrogenFluidBuilder<F, F2, EstrogenFluidRegistrar> entry(String name, Function<FluidData, F> sourceFactory, Function<FluidData, F2> flowingFactory) {

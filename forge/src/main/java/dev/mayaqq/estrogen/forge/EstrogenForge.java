@@ -11,8 +11,6 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import uwu.serenity.critter.RegistryManager;
-
 import static dev.mayaqq.estrogen.Estrogen.MOD_ID;
 
 @Mod(MOD_ID)
@@ -23,7 +21,7 @@ public class EstrogenForge {
         EstrogenConfig.register(ModLoadingContext.get()::registerConfig);
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modEventBus.register(RegistryManager.getInstance(MOD_ID));
+        modEventBus.register(Estrogen.REGISTRIES);
 
         // Init Estrogen main class
         Estrogen.init();

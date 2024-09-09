@@ -16,7 +16,7 @@ import static dev.mayaqq.estrogen.registry.EstrogenItems.*;
 
 public class EstrogenCreativeTab {
 
-    public static final CreativeTabRegistrar TAB = CreativeTabRegistrar.create(Estrogen.MOD_ID);
+    public static final CreativeTabRegistrar TAB = CreativeTabRegistrar.create(Estrogen.REGISTRIES);
 
     public static final RegistryEntry<CreativeModeTab> MAIN = TAB.entry("estrogen")
         .icon(ESTROGEN_PILL::asStack)

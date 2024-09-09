@@ -31,6 +31,7 @@ import org.jetbrains.annotations.Nullable;
 import uwu.serenity.critter.stdlib.blockEntities.BlockEntityBuilder;
 import uwu.serenity.critter.stdlib.blocks.BlockBuilder;
 import uwu.serenity.critter.stdlib.items.ItemBuilder;
+import uwu.serenity.critter.utils.SafeSupplier;
 import uwu.serenity.critter.utils.environment.EnvExecutor;
 import uwu.serenity.critter.utils.environment.Environment;
 
@@ -87,10 +88,10 @@ public class Transgenders {
         };
     }
 
-    static <BE extends BlockEntity, P> UnaryOperator<BlockEntityBuilder<BE, P>> instanceController(Supplier<Supplier<BlockEntityInstancingController<? super BE>>> instanceController) {
+    static <BE extends BlockEntity, P> UnaryOperator<BlockEntityBuilder<BE, P>> instanceController(SafeSupplier<BlockEntityInstancingController<? super BE>> instanceController) {
         return b -> {
             EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> {
-                b.onRegister(beType -> InstancedRenderRegistry.setController(beType, instanceController.get().get()));
+                b.onRegister(beType -> InstancedRenderRegistry.setController(beType, instanceController.getSafe()));
             });
             return b;
         };

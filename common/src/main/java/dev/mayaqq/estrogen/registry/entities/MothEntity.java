@@ -214,7 +214,7 @@ public class MothEntity extends Animal implements FlyingAnimal, Shearable {
         this.setSheared();
         int i = 1 + this.random.nextInt(3);
         for (int j = 0; j < i; ++j) {
-            ItemEntity itemEntity = this.spawnAtLocation(EstrogenItems.MOTH_FUZZ.get().getDefaultInstance(), 0.5f);
+            ItemEntity itemEntity = this.spawnAtLocation(EstrogenItems.MOTH_FUZZ.asStack(), 0.5f);
             if (itemEntity == null) continue;
             itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().add((this.random.nextFloat() - this.random.nextFloat()) * 0.1f, this.random.nextFloat() * 0.05f, (this.random.nextFloat() - this.random.nextFloat()) * 0.1f));
         }
