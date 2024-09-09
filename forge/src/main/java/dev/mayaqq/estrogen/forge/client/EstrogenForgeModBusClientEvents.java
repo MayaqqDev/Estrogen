@@ -3,8 +3,12 @@ package dev.mayaqq.estrogen.forge.client;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.config.ConfigSync;
 import dev.mayaqq.estrogen.client.registry.EstrogenClientEvents;
+import dev.mayaqq.estrogen.utils.LocationResolver;
+import dev.mayaqq.estrogen.utils.client.EstrogenClientPaths;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -25,5 +29,16 @@ public class EstrogenForgeModBusClientEvents {
     @SubscribeEvent
     public static void registerModelLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         EstrogenClientEvents.registerModelLayer(event::registerLayerDefinition);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterAdditional(ModelEvent.RegisterAdditional event) {
+        LocationResolver resolver = LocationResolver.load(
+            Minecraft.getInstance().getResourceManager(),
+            EstrogenClientPaths.THIGH_HIGH_MODELS_DIRECTORY,
+            "models", ".json");
+
+        resolver.locations().forEach(event::register);
+
     }
 }
