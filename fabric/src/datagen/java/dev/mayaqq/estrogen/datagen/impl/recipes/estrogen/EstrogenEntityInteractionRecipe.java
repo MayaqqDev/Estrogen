@@ -22,7 +22,7 @@ public class EstrogenEntityInteractionRecipe extends BaseRecipeProvider {
     protected void init() {
         add(EstrogenEntityInteractionRecipeBuilder.create(
                 Items.GLASS_BOTTLE,
-                EstrogenItems.HORSE_URINE_BOTTLE.get(),
+                EstrogenItems.HORSE_URINE_BOTTLE,
                 1,
                 EntityObject.of(EstrogenTags.Entities.URINE_GIVING),
                 new ResourceLocation("minecraft:item.bottle.fill"),
