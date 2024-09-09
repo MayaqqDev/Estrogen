@@ -36,9 +36,8 @@ public class EstrogenForgeModBusClientEvents {
         LocationResolver resolver = LocationResolver.load(
             Minecraft.getInstance().getResourceManager(),
             EstrogenClientPaths.THIGH_HIGH_MODELS_DIRECTORY,
-            "models", ".json");
-
+            "models", ".json"
+        );
         resolver.locations().forEach(event::register);
-
     }
 }
