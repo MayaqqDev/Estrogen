@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.jetbrains.annotations.Nullable;
+import uwu.serenity.critter.platform.PlatformUtils;
 import uwu.serenity.critter.stdlib.blockEntities.BlockEntityBuilder;
 import uwu.serenity.critter.stdlib.blocks.BlockBuilder;
 import uwu.serenity.critter.stdlib.items.ItemBuilder;
@@ -60,14 +61,10 @@ public class Transgenders {
         return tooltip(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE));
     }
 
-    static <I extends Item & Bauble, P> UnaryOperator<ItemBuilder<I, P>> bauble(@Nullable Supplier<Supplier<BaubleRenderer>> rendererFactory) {
+    static <I extends Item & Bauble, P> UnaryOperator<ItemBuilder<I, P>> bauble(@Nullable SafeSupplier<BaubleRenderer> rendererFactory) {
         return b -> {
-            if(rendererFactory != null) {
-                EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> {
-                    b.onRegister(item -> {
-                        BaublyClient.registerBaubleRenderer(item, rendererFactory.get().get());
-                    });
-                });
+            if(rendererFactory != null && PlatformUtils.getEnvironment() == Environment.CLIENT) {
+                b.onRegister(item -> BaublyClient.registerBaubleRenderer(item, rendererFactory.getSafe()));
             }
             b.onRegister(Baubly::registerBauble);
             return b;
@@ -78,21 +75,21 @@ public class Transgenders {
     // Supplier wrapping is necessary to avoid loading client-only classes on the server
     static <BE extends BlockEntity, P> UnaryOperator<BlockEntityBuilder<BE, P>> instance(Supplier<BiFunction<MaterialManager, BE, BlockEntityInstance<? super BE>>> instanceFactory, boolean alwaysRender) {
         return b -> {
-            EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> {
+            if(PlatformUtils.getEnvironment() == Environment.CLIENT) {
                 b.onRegister(betype -> InstancedRenderRegistry.configure(betype)
                         .factory(instanceFactory.get())
                         .skipRender(be -> !alwaysRender)
                         .apply());
-            });
+            }
             return b;
         };
     }
 
     static <BE extends BlockEntity, P> UnaryOperator<BlockEntityBuilder<BE, P>> instanceController(SafeSupplier<BlockEntityInstancingController<? super BE>> instanceController) {
         return b -> {
-            EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> {
+            if(PlatformUtils.getEnvironment() == Environment.CLIENT) {
                 b.onRegister(beType -> InstancedRenderRegistry.setController(beType, instanceController.getSafe()));
-            });
+            }
             return b;
         };
     }

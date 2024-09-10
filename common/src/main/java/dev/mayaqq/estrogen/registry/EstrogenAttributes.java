@@ -15,7 +15,10 @@ public class EstrogenAttributes {
     public static final RegistryEntry<Attribute> BOOB_INITIAL_SIZE = ATTRIBUTES.entry("boob_initial_size", () -> (new RangedAttribute("attribute.name.estrogen.boob_initial_size", 0.0, 0.0, 1.0)).setSyncable(true)).register();
     public static final RegistryEntry<Attribute> FALL_DAMAGE_RESISTANCE = ATTRIBUTES.entry("fall_damage_resistance", () -> (new RangedAttribute("attribute.name.estrogen.fall_damage_resistance", 1.0, 1.0, 100.0)).setSyncable(true)).register();
 
+    // This is needed for the mixin to work, as it runs before mod init
     static {
         ATTRIBUTES.register();
     }
+
+    public static void init() {}
 }

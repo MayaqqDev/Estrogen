@@ -33,14 +33,4 @@ public class AnimatedCentrifuge extends AnimatedKinetics {
 
         matrixStack.popPose();
     }
-
-    @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-
-    }
-
-    @Override
-    public List<? extends GuiEventListener> children() {
-        return List.of();
-    }
 }

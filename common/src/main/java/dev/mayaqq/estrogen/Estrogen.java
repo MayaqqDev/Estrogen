@@ -20,7 +20,7 @@ public class Estrogen {
 
     public static void init() {
         // Init all the different classes
-        EstrogenAttributes.ATTRIBUTES.register();
+        EstrogenAttributes.init();
         EstrogenDataSerializers.DATA_SERIALIZERS.init();
         EstrogenEntities.ENTITIES.register();
         EstrogenFluids.FLUIDS.register();
