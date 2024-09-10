@@ -15,6 +15,7 @@ import uwu.serenity.critter.api.AbstractRegistrar;
 import uwu.serenity.critter.api.BuilderCallback;
 import uwu.serenity.critter.api.entry.Delegate;
 import uwu.serenity.critter.api.entry.RegistryEntry;
+import uwu.serenity.critter.platform.PlatformUtils;
 import uwu.serenity.critter.stdlib.blocks.BlockBuilder;
 import uwu.serenity.critter.stdlib.blocks.BlockEntry;
 import uwu.serenity.critter.stdlib.blocks.BlockRegistrar;
@@ -59,11 +60,13 @@ public class EstrogenFluidBuilder<F extends BotariumSourceFluid, F2 extends Bota
     }
 
     public EstrogenFluidBuilder<F, F2, P> renderType(Supplier<Supplier<RenderType>> renderType) {
-        EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> this.onRegister(f -> {
-            RenderType rt = renderType.get().get();
-            ClientPlatform.fluidRenderLayerMap(f, rt);
-            ClientPlatform.fluidRenderLayerMap(flowingWrapper.get(), rt);
-        }));
+        if(PlatformUtils.getEnvironment() == Environment.CLIENT) {
+            this.onRegister(f -> {
+                RenderType rt = renderType.get().get();
+                ClientPlatform.fluidRenderLayerMap(f, rt);
+                ClientPlatform.fluidRenderLayerMap(flowingWrapper.get(), rt);
+            });
+        }
         return this;
     }
 
