@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.utils;
 
 import com.mojang.blaze3d.platform.NativeImage;
-import com.simibubi.create.foundation.blockEntity.behaviour.inventory.CapManipulationBehaviourBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
