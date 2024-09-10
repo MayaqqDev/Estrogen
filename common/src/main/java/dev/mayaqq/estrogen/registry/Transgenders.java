@@ -75,21 +75,21 @@ public class Transgenders {
     // Supplier wrapping is necessary to avoid loading client-only classes on the server
     static <BE extends BlockEntity, P> UnaryOperator<BlockEntityBuilder<BE, P>> instance(Supplier<BiFunction<MaterialManager, BE, BlockEntityInstance<? super BE>>> instanceFactory, boolean alwaysRender) {
         return b -> {
-            EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> {
+            if(PlatformUtils.getEnvironment() == Environment.CLIENT) {
                 b.onRegister(betype -> InstancedRenderRegistry.configure(betype)
                         .factory(instanceFactory.get())
                         .skipRender(be -> !alwaysRender)
                         .apply());
-            });
+            }
             return b;
         };
     }
 
     static <BE extends BlockEntity, P> UnaryOperator<BlockEntityBuilder<BE, P>> instanceController(SafeSupplier<BlockEntityInstancingController<? super BE>> instanceController) {
         return b -> {
-            EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> {
+            if(PlatformUtils.getEnvironment() == Environment.CLIENT) {
                 b.onRegister(beType -> InstancedRenderRegistry.setController(beType, instanceController.getSafe()));
-            });
+            }
             return b;
         };
     }
