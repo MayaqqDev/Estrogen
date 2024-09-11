@@ -6,14 +6,12 @@ import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.simibubi.create.foundation.utility.Pair;
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.blockEntities.CookieJarBlockEntity;
 import dev.mayaqq.estrogen.utils.client.ItemModelBufferer;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class CookieJarInstance extends BlockEntityInstance<CookieJarBlockEntity>
     public void init() {
         BlockPos pos = this.getInstancePosition();
         poseStack.translate(pos.getX(), pos.getY(), pos.getZ());
-        loadInstances(false);
+        this.reloadInstances();
     }
 
     @Override
@@ -41,11 +39,12 @@ public class CookieJarInstance extends BlockEntityInstance<CookieJarBlockEntity>
         }
 
         if(expectedInstances != instances.size()) {
-           loadInstances(true);
+           this.reloadInstances();
+           this.relight(pos, instances.stream());
         }
     }
 
-    protected void loadInstances(boolean relight) {
+    protected void reloadInstances() {
         poseStack.pushPose();
         poseStack.mulPose(Axis.XP.rotationDegrees(90));
         poseStack.translate(0.5, 0.35, -0.032F);
@@ -73,7 +72,6 @@ public class CookieJarInstance extends BlockEntityInstance<CookieJarBlockEntity>
         }
 
         poseStack.popPose();
-        if(relight) relight(pos, instances.stream());
     }
 
     protected void createItemInstance(ItemStack stack) {
