@@ -5,17 +5,22 @@ import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstance;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.simibubi.create.foundation.utility.Pair;
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.blockEntities.CookieJarBlockEntity;
 import dev.mayaqq.estrogen.utils.client.ItemModelBufferer;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
+
 import java.util.List;
 
 public class CookieJarInstance extends BlockEntityInstance<CookieJarBlockEntity> {
 
     protected final PoseStack poseStack = new PoseStack();
-    protected final List<ModelData> instances = new ObjectArrayList<>(8);
+    protected final List<ModelData> instances = new ObjectArrayList<>();
 
     public CookieJarInstance(MaterialManager materialManager, CookieJarBlockEntity blockEntity) {
         super(materialManager, blockEntity);
@@ -23,32 +28,9 @@ public class CookieJarInstance extends BlockEntityInstance<CookieJarBlockEntity>
 
     @Override
     public void init() {
-        poseStack.pushPose();
-        poseStack.mulPose(Axis.XP.rotationDegrees(90));
-        poseStack.translate(0.5, 0.35, -0.032F);
-
-        for (ItemStack jarItem : blockEntity.getItems()) {
-            if (jarItem.isEmpty()) {
-                continue;
-            }
-            poseStack.translate(0.025, 0.025, -0.032F);
-            createItemInstance(jarItem);
-            poseStack.translate(-0.05, -0.05, -0.032F);
-            createItemInstance(jarItem);
-            poseStack.translate(0.025, 0.025, 0);
-        }
-        poseStack.popPose();
-    }
-
-    protected void createItemInstance(ItemStack stack) {
-        ModelData instance = getTransformMaterial()
-            .model(stack.getItem(), () -> ItemModelBufferer.getModel(world, stack, ItemDisplayContext.GROUND))
-            .createInstance();
-
-        instance.translate(this.getInstancePosition()).transform(poseStack);
-        this.relight(pos, instance);
-
-        instances.add(instance);
+        BlockPos pos = this.getInstancePosition();
+        poseStack.translate(pos.getX(), pos.getY(), pos.getZ());
+        loadInstances(false);
     }
 
     @Override
@@ -59,15 +41,54 @@ public class CookieJarInstance extends BlockEntityInstance<CookieJarBlockEntity>
         }
 
         if(expectedInstances != instances.size()) {
-            // Reset the instances if the count changed
-            this.remove();
-            this.init();
+           loadInstances(true);
         }
+    }
+
+    protected void loadInstances(boolean relight) {
+        poseStack.pushPose();
+        poseStack.mulPose(Axis.XP.rotationDegrees(90));
+        poseStack.translate(0.5, 0.35, -0.032F);
+
+        int index = -2;
+        for(ItemStack jarItem : blockEntity.getItems()) {
+            index += 2;
+            boolean hasInstances = index < instances.size() - 1;
+
+            if (jarItem.isEmpty()) {
+                if(hasInstances) {
+                    instances.remove(index + 1).delete();
+                    instances.remove(index).delete();
+                }
+                continue;
+            }
+
+            poseStack.translate(0.025, 0.025, -0.032F);
+            if(!hasInstances) createItemInstance(jarItem);
+            else instances.get(index).loadIdentity().transform(poseStack);
+            poseStack.translate(-0.05, -0.05, -0.032F);
+            if(!hasInstances) createItemInstance(jarItem);
+            else instances.get(index + 1).loadIdentity().transform(poseStack);
+            poseStack.translate(0.025, 0.025, 0);
+        }
+
+        poseStack.popPose();
+        if(relight) relight(pos, instances.stream());
+    }
+
+    protected void createItemInstance(ItemStack stack) {
+        ModelData instance = getTransformMaterial()
+            .model(Pair.of(stack.getItem(), ItemDisplayContext.GROUND),
+                () -> ItemModelBufferer.getModel(world, stack, ItemDisplayContext.GROUND))
+            .createInstance();
+
+        instance.transform(poseStack);
+        instances.add(instance);
     }
 
     @Override
     public void updateLight() {
-        instances.forEach(instance -> relight(pos, instance));
+        relight(pos, instances.stream());
     }
 
     @Override
