@@ -25,9 +25,6 @@
     "client": [
       "dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric"
     ],
-    "fabric-datagen": [
-      "dev.mayaqq.estrogen.fabric.datagen.EstrogenDatagen"
-    ],
     "emi": [
       "dev.mayaqq.estrogen.fabric.integrations.emi.EmiCompat"
     ],
@@ -47,6 +44,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.15.3",
+    "fabric-api": ">=0.92.2",
     "minecraft": "${minecraft_version}",
     "create": ">=0.5.1-f-build.1224",
     "trinkets": "*",

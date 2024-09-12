@@ -1,5 +1,7 @@
 package dev.mayaqq.estrogen.registry.recipes;
 
+import com.simibubi.create.foundation.utility.Color;
+import dev.mayaqq.estrogen.registry.EstrogenItems;
 import dev.mayaqq.estrogen.registry.EstrogenRecipes;
 import dev.mayaqq.estrogen.registry.items.ThighHighsItem;
 import net.minecraft.core.RegistryAccess;
@@ -11,8 +13,6 @@ import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-
-import java.awt.*;
 
 public class ThighHighDyeRecipe extends CustomRecipe {
     public ThighHighDyeRecipe(ResourceLocation id, CraftingBookCategory category) {
@@ -29,7 +29,7 @@ public class ThighHighDyeRecipe extends CustomRecipe {
                 ItemStack rightToItem = inv.getItem(rightSlot);
                 ItemStack leftToItem = inv.getItem(leftSlot);
 
-                if (rightToItem.getItem() instanceof DyeItem && leftToItem.getItem() instanceof DyeItem) {
+                if (rightToItem.getItem() instanceof DyeItem || leftToItem.getItem() instanceof DyeItem) {
                     for (int j = 0; j < 9; j++) {
                         if (j == leftSlot || j == middleSlot || j == rightSlot) {
                             continue;
@@ -38,7 +38,13 @@ public class ThighHighDyeRecipe extends CustomRecipe {
                             return false;
                         }
                     }
-                    return true;
+
+                    ItemStack middle = inv.getItem(middleSlot);
+                    ThighHighsItem thighHighsItem = (ThighHighsItem) middle.getItem();
+
+                    // silly expression brackets important dont remove
+                    return thighHighsItem.getStyle(middle).isEmpty() && (thighHighsItem.hasCustomColor(middle) || rightToItem.getItem() instanceof DyeItem && leftToItem.getItem() instanceof DyeItem);
+
                 }
             }
         }
@@ -56,26 +62,19 @@ public class ThighHighDyeRecipe extends CustomRecipe {
                 ItemStack leftToItem = inv.getItem(leftSlot);
                 ItemStack rightToItem = inv.getItem(rightSlot);
 
-                DyeItem rightDye = (DyeItem) rightToItem.getItem();
-                DyeItem leftDye = (DyeItem) leftToItem.getItem();
-
-                ItemStack newThighHighsItem = item.copy();
-
-                float[] rightColors = rightDye.getDyeColor().getTextureDiffuseColors();
-                float[] leftColors = leftDye.getDyeColor().getTextureDiffuseColors();
-
                 Color newPrimary, newSecondary;
 
                 if(thighHighsItem.hasCustomColor(item)) {
                     Color oldPrimary = new Color(thighHighsItem.getColor(item, 0));
                     Color oldSecondary = new Color(thighHighsItem.getColor(item, 1));
-                    newPrimary = multiplyColors(oldPrimary, leftColors);
-                    newSecondary = multiplyColors(oldSecondary, rightColors);
+                    newPrimary = mixColorWithDye(oldPrimary, leftToItem);
+                    newSecondary = mixColorWithDye(oldSecondary, rightToItem);
                 } else {
-                    newPrimary = new Color(leftColors[0], leftColors[1], leftColors[2]);
-                    newSecondary = new Color(rightColors[0], rightColors[1], rightColors[2]);
+                    newPrimary = colorFromDye(leftToItem);
+                    newSecondary = colorFromDye(rightToItem);
                 }
 
+                ItemStack newThighHighsItem = item.copy();
                 thighHighsItem.setColor(newThighHighsItem, newPrimary.getRGB(), newSecondary.getRGB());
                 return newThighHighsItem;
             }
@@ -83,21 +82,15 @@ public class ThighHighDyeRecipe extends CustomRecipe {
         return ItemStack.EMPTY;
     }
 
-    protected Color multiplyColors(Color oldColor, float[] dyeColor) {
-        // Normalize the colors before multiplying
-        float nR = oldColor.getRed() / 255f;
-        float nG = oldColor.getGreen() / 255f;
-        float nB = oldColor.getBlue() / 255f;
-        float nDyeR = dyeColor[0] / 255f;
-        float nDyeG = dyeColor[1] / 255f;
-        float nDyeB = dyeColor[2] / 255f;
+    private Color mixColorWithDye(Color original, ItemStack dyeStack) {
+        if(dyeStack.isEmpty() || !(dyeStack.getItem() instanceof DyeItem)) return original;
+        Color dyeColor = colorFromDye(dyeStack);
+        return original.mixWith(dyeColor, .5f);
+    }
 
-        return new Color(
-            nR * nDyeR * 255,
-            nG * nDyeG * 255,
-            nB * nDyeB * 255
-        );
-
+    private Color colorFromDye(ItemStack dyeStack) {
+        float[] dyeColors = ((DyeItem) dyeStack.getItem()).getDyeColor().getTextureDiffuseColors();
+        return new Color(dyeColors[0], dyeColors[1], dyeColors[2], 1f);
     }
 
     @Override

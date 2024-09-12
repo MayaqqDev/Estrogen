@@ -14,10 +14,6 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import java.util.function.Supplier;
 
 public class CommonPlatformImpl {
-    public static Supplier<Item> createSpawnEggItem(Supplier<? extends EntityType<? extends Mob>> type, int primaryColor, int secondaryColor, Item.Properties properties) {
-        return () -> new ForgeSpawnEggItem(type, primaryColor, secondaryColor, properties);
-    }
-
     public static TagKey<Item> getShearsTag() {
         return TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("forge", "shears"));
     }

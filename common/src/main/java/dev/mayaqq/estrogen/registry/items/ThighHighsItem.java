@@ -142,7 +142,7 @@ public class ThighHighsItem extends Item implements Bauble {
             LayeredCauldronBlock.lowerFillLevel(blockState, level, blockPos);
         }
 
-        level.playLocalSound(blockPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.3f, 1.8f, true);
+        level.playLocalSound(blockPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.5f, 1.8f, true);
 
         if(level.isClientSide) {
             float fillHeight = blockState.getValue(LayeredCauldronBlock.LEVEL) / 3f;

@@ -15,12 +15,14 @@ import uwu.serenity.critter.api.AbstractRegistrar;
 import uwu.serenity.critter.api.BuilderCallback;
 import uwu.serenity.critter.api.entry.Delegate;
 import uwu.serenity.critter.api.entry.RegistryEntry;
+import uwu.serenity.critter.platform.PlatformUtils;
 import uwu.serenity.critter.stdlib.blocks.BlockBuilder;
 import uwu.serenity.critter.stdlib.blocks.BlockEntry;
 import uwu.serenity.critter.stdlib.blocks.BlockRegistrar;
 import uwu.serenity.critter.stdlib.items.ItemBuilder;
 import uwu.serenity.critter.stdlib.items.ItemEntry;
 import uwu.serenity.critter.stdlib.items.ItemRegistrar;
+import uwu.serenity.critter.utils.SafeSupplier;
 import uwu.serenity.critter.utils.environment.EnvExecutor;
 import uwu.serenity.critter.utils.environment.Environment;
 
@@ -58,12 +60,14 @@ public class EstrogenFluidBuilder<F extends BotariumSourceFluid, F2 extends Bota
         return this;
     }
 
-    public EstrogenFluidBuilder<F, F2, P> renderType(Supplier<Supplier<RenderType>> renderType) {
-        EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> this.onRegister(f -> {
-            RenderType rt = renderType.get().get();
-            ClientPlatform.fluidRenderLayerMap(f, rt);
-            ClientPlatform.fluidRenderLayerMap(flowingWrapper.get(), rt);
-        }));
+    public EstrogenFluidBuilder<F, F2, P> renderType(SafeSupplier<RenderType> renderType) {
+        if(PlatformUtils.getEnvironment() == Environment.CLIENT) {
+            this.onRegister(f -> {
+                RenderType rt = renderType.getSafe();
+                ClientPlatform.fluidRenderLayerMap(f, rt);
+                ClientPlatform.fluidRenderLayerMap(flowingWrapper.get(), rt);
+            });
+        }
         return this;
     }
 

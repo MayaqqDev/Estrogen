@@ -35,10 +35,6 @@ public class EstrogenClientEvents {
         consumer.register(MothElytraModel.LAYER_LOCATION, MothElytraModel::createBodyLayer);
     }
 
-    public static void onReloadRenderer(ClientLevel world) {
-        if(!Backend.canUseInstancing(world)) DynamicDreamTexture.resetActive();
-    }
-
     @FunctionalInterface
     public interface LayerDefinitionRegistry {
 

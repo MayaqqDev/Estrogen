@@ -15,7 +15,7 @@ import uwu.serenity.critter.stdlib.items.ItemEntry;
 import uwu.serenity.critter.stdlib.items.ItemRegistrar;
 
 public class EstrogenItems {
-    public static final ItemRegistrar ITEMS = ItemRegistrar.create(Estrogen.MOD_ID);
+    public static final ItemRegistrar ITEMS = ItemRegistrar.create(Estrogen.REGISTRIES);
 
     public static final ItemEntry<Item>
         ESTROGEN_PILL = ITEMS.entry("estrogen_pill", Item::new).properties(p -> p.stacksTo(16).food(EstrogenFoodComponents.ESTROGEN_PILL).rarity(Rarity.RARE)).transform(Transgenders.standardTooltip()).register(),

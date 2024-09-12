@@ -132,14 +132,6 @@ public class EstrogenEvents {
         }
     }
 
-    public static HashMap<EntityType<? extends LivingEntity>, AttributeSupplier> onEntityAttributeCreation() {
-        HashMap<EntityType<? extends LivingEntity>, AttributeSupplier> map = new HashMap<>();
-
-        map.put(EstrogenEntities.MOTH.get(), MothEntity.createAttributes().build());
-
-        return map;
-    }
-
     // Not using the provided player as it is always null on forge (wtf)
     public static void onDataPackSync(ServerPlayer player, boolean isJoin) {
         ThighHighsItem item = EstrogenItems.THIGH_HIGHS.get();
