@@ -17,10 +17,10 @@ public class EstrogenDeployingRecipes extends BaseRecipeProvider {
 
     @Override
     protected void init() {
-        create(Estrogen.id("moth_elytra"), b -> b
+        create(Estrogen.id("moth_elytra"), builder -> builder
                 .require(Items.ELYTRA)
-                .require(EstrogenItems.MOTH_FUZZ.get())
-                .output(EstrogenItems.MOTH_ELYTRA.get())
+                .require(EstrogenItems.MOTH_FUZZ)
+                .output(EstrogenItems.MOTH_ELYTRA)
         );
     }
 

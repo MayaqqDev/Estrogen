@@ -18,12 +18,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
-import uwu.serenity.critter.RegistryManager;
 import uwu.serenity.critter.api.entry.RegistryEntry;
 
 import java.util.Collection;
 import java.util.function.Consumer;
+
+import static net.minecraft.advancements.critereon.InventoryChangeTrigger.TriggerInstance.hasItems;
 
 public class EstrogenAdvancements extends FabricAdvancementProvider {
     public EstrogenAdvancements(FabricDataOutput output) {
@@ -32,134 +32,162 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
 
     @Override
     public void generateAdvancement(Consumer<Advancement> consumer) {
-        Advancement root = Advancement.Builder.advancement().display(EstrogenItems.ESTROGEN_PILL.get(),
-                Component.translatable("advancement.estrogen.root.title"),
-                Component.translatable("advancement.estrogen.root.description"),
-                Estrogen.id("textures/block/dream_block/particle.png"),
-                FrameType.TASK,
-                true,
-                true,
-                false
-        ).addCriterion("root", InventoryChangeTrigger.TriggerInstance.hasItems(getItems()))
+        Advancement root = Advancement.Builder.advancement()
+                .display(EstrogenItems.ESTROGEN_PILL,
+                        Component.translatable("advancement.estrogen.root.title"),
+                        Component.translatable("advancement.estrogen.root.description"),
+                        Estrogen.id("textures/block/dream_block/particle.png"),
+                        FrameType.TASK,
+                        true,
+                        true,
+                        false
+                ).addCriterion("root", hasItems(getItems()))
                 .build(Estrogen.id("root"));
 
-        Advancement horseUrine = Advancement.Builder.advancement().parent(root).display(EstrogenItems.HORSE_URINE_BOTTLE.get(),
-                Component.translatable("advancement.estrogen.horse_urine.title"),
-                Component.translatable("advancement.estrogen.horse_urine.description"),
-                null,
-                FrameType.TASK,
-                true,
-                true,
-                false
-        ).addCriterion("horse_urine", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.HORSE_URINE_BOTTLE.get()))
+        Advancement horseUrine = Advancement.Builder.advancement()
+                .parent(root)
+                .display(EstrogenItems.HORSE_URINE_BOTTLE,
+                        Component.translatable("advancement.estrogen.horse_urine.title"),
+                        Component.translatable("advancement.estrogen.horse_urine.description"),
+                        null,
+                        FrameType.TASK,
+                        true,
+                        true,
+                        false
+                ).addCriterion("horse_urine", hasItems(EstrogenItems.HORSE_URINE_BOTTLE))
                 .build(Estrogen.id("horse_urine"));
 
-        Advancement usedFilter = Advancement.Builder.advancement().parent(horseUrine).display(EstrogenItems.USED_FILTER.get(),
-                Component.translatable("advancement.estrogen.used_filter.title"),
-                Component.translatable("advancement.estrogen.used_filter.description"),
-                null,
-                FrameType.TASK,
-                true,
-                true,
-                false
-        ).addCriterion("used_filter", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.USED_FILTER.get()))
+        Advancement usedFilter = Advancement.Builder.advancement()
+                .parent(horseUrine)
+                .display(EstrogenItems.USED_FILTER,
+                        Component.translatable("advancement.estrogen.used_filter.title"),
+                        Component.translatable("advancement.estrogen.used_filter.description"),
+                        null,
+                        FrameType.TASK,
+                        true,
+                        true,
+                        false
+                ).addCriterion("used_filter", hasItems(EstrogenItems.USED_FILTER))
                 .build(Estrogen.id("used_filter"));
 
-        Advancement liquidEstrogen = Advancement.Builder.advancement().parent(usedFilter).display(EstrogenFluids.LIQUID_ESTROGEN.getBucket(),
-                Component.translatable("advancement.estrogen.liquid_estrogen.title"),
-                Component.translatable("advancement.estrogen.liquid_estrogen.description"),
-                null,
-                FrameType.GOAL,
-                true,
-                true,
-                false
-        ).addCriterion("liquid_estrogen", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenFluids.LIQUID_ESTROGEN.getBucket()))
+        Advancement liquidEstrogen = Advancement.Builder.advancement()
+                .parent(usedFilter)
+                .display(EstrogenFluids.LIQUID_ESTROGEN.getBucket(),
+                        Component.translatable("advancement.estrogen.liquid_estrogen.title"),
+                        Component.translatable("advancement.estrogen.liquid_estrogen.description"),
+                        null,
+                        FrameType.GOAL,
+                        true,
+                        true,
+                        false
+                ).addCriterion("liquid_estrogen", hasItems(EstrogenFluids.LIQUID_ESTROGEN.getBucket()))
                 .build(Estrogen.id("liquid_estrogen"));
 
-        Advancement estrogenPill = Advancement.Builder.advancement().parent(liquidEstrogen).display(EstrogenItems.ESTROGEN_PILL.get(),
-                Component.translatable("advancement.estrogen.estrogen_pill.title"),
-                Component.translatable("advancement.estrogen.estrogen_pill.description"),
-                null,
-                FrameType.GOAL,
-                true,
-                true,
-                false
-        ).addCriterion("estrogen_pill", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.ESTROGEN_PILL.get()))
+        Advancement estrogenPill = Advancement.Builder.advancement()
+                .parent(liquidEstrogen)
+                .display(EstrogenItems.ESTROGEN_PILL.get(),
+                        Component.translatable("advancement.estrogen.estrogen_pill.title"),
+                        Component.translatable("advancement.estrogen.estrogen_pill.description"),
+                        null,
+                        FrameType.GOAL,
+                        true,
+                        true,
+                        false
+                ).addCriterion("estrogen_pill", hasItems(EstrogenItems.ESTROGEN_PILL))
                 .build(Estrogen.id("estrogen_pill"));
 
-        Advancement estrogenPatches = Advancement.Builder.advancement().parent(liquidEstrogen).display(EstrogenItems.ESTROGEN_PATCHES.get().getFullStack(),
-                Component.translatable("advancement.estrogen.estrogen_patches.title"),
-                Component.translatable("advancement.estrogen.estrogen_patches.description"),
-                null,
-                FrameType.GOAL,
-                true,
-                true,
-                false
-        ).addCriterion("estrogen_patches", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.ESTROGEN_PATCHES.get()))
+        Advancement estrogenPatches = Advancement.Builder.advancement()
+                .parent(liquidEstrogen)
+                .display(EstrogenItems.ESTROGEN_PATCHES.get().getFullStack(),
+                        Component.translatable("advancement.estrogen.estrogen_patches.title"),
+                        Component.translatable("advancement.estrogen.estrogen_patches.description"),
+                        null,
+                        FrameType.GOAL,
+                        true,
+                        true,
+                        false
+                ).addCriterion("estrogen_patches", hasItems(EstrogenItems.ESTROGEN_PATCHES))
                 .build(Estrogen.id("estrogen_patches"));
 
-        Advancement uwu = Advancement.Builder.advancement().parent(root).display(EstrogenItems.UWU.get(),
-                Component.translatable("advancement.estrogen.uwu.title"),
-                Component.translatable("advancement.estrogen.uwu.description"),
-                null,
-                FrameType.CHALLENGE,
-                true,
-                true,
-                true
-        ).addCriterion("uwu", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.UWU.get()))
+        Advancement uwu = Advancement.Builder.advancement()
+                .parent(root)
+                .display(EstrogenItems.UWU,
+                        Component.translatable("advancement.estrogen.uwu.title"),
+                        Component.translatable("advancement.estrogen.uwu.description"),
+                        null,
+                        FrameType.CHALLENGE,
+                        true,
+                        true,
+                        true
+                ).addCriterion("uwu", hasItems(EstrogenItems.UWU))
                 .build(Estrogen.id("uwu"));
 
-        Advancement balls = Advancement.Builder.advancement().parent(root).display(EstrogenItems.BALLS.get(),
-                Component.translatable("advancement.estrogen.balls.title"),
-                Component.translatable("advancement.estrogen.balls.description"),
-                null,
-                FrameType.GOAL,
-                true,
-                true,
-                true
-        ).addCriterion("balls", InventoryChangeTrigger.TriggerInstance.hasItems(EstrogenItems.BALLS.get()))
+        Advancement balls = Advancement.Builder.advancement()
+                .parent(root)
+                .display(EstrogenItems.BALLS,
+                        Component.translatable("advancement.estrogen.balls.title"),
+                        Component.translatable("advancement.estrogen.balls.description"),
+                        null,
+                        FrameType.GOAL,
+                        true,
+                        true,
+                        true
+                ).addCriterion("balls", hasItems(EstrogenItems.BALLS))
                 .build(Estrogen.id("balls"));
 
-        Advancement cookie_jar = Advancement.Builder.advancement().parent(estrogenPill).display(EstrogenBlocks.COOKIE_JAR.asItem(),
-                Component.translatable("advancement.estrogen.cookie_jar.title"),
-                Component.translatable("advancement.estrogen.cookie_jar.description"),
-                null,
-                FrameType.GOAL,
-                true,
-                true,
-                false
-        ).addCriterion("cookie_jar_place", InsertJarTrigger.TriggerInstance.insertJar())
+        Advancement cookie_jar = Advancement.Builder.advancement()
+                .parent(estrogenPill)
+                .display(EstrogenBlocks.COOKIE_JAR,
+                        Component.translatable("advancement.estrogen.cookie_jar.title"),
+                        Component.translatable("advancement.estrogen.cookie_jar.description"),
+                        null,
+                        FrameType.GOAL,
+                        true,
+                        true,
+                        false
+                ).addCriterion("cookie_jar_place", InsertJarTrigger.TriggerInstance.insertJar())
                 .build(Estrogen.id("cookie_jar"));
 
-        Advancement hard_to_catch = Advancement.Builder.advancement().parent(estrogenPill).display(Items.PHANTOM_MEMBRANE,
-                Component.translatable("advancement.estrogen.hard_to_catch.title"),
-                Component.translatable("advancement.estrogen.hard_to_catch.description"),
-                null,
-                FrameType.CHALLENGE,
-                true,
-                true,
-                true
-        ).addCriterion("hard_to_catch", KilledWithEffectTrigger.TriggerInstance.killedWithEffect(
-                                EntityPredicate.wrap(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityType.PHANTOM)).build()),
+        Advancement hard_to_catch = Advancement.Builder.advancement()
+                .parent(estrogenPill)
+                .display(Items.PHANTOM_MEMBRANE,
+                        Component.translatable("advancement.estrogen.hard_to_catch.title"),
+                        Component.translatable("advancement.estrogen.hard_to_catch.description"),
+                        null,
+                        FrameType.CHALLENGE,
+                        true,
+                        true,
+                        true
+                ).addCriterion(
+                        "hard_to_catch",
+                        KilledWithEffectTrigger.TriggerInstance.killedWithEffect(
+                                EntityPredicate.wrap(
+                                        EntityPredicate.Builder.entity()
+                                                .entityType(EntityTypePredicate.of(EntityType.PHANTOM))
+                                                .build()
+                                ),
                                 EstrogenEffects.ESTROGEN_EFFECT.get(), ContextAwarePredicate.ANY
                         )
                 )
                 .build(Estrogen.id("hard_to_catch"));
 
-        Advancement estrogen_dealer = Advancement.Builder.advancement().parent(estrogenPill).display(Items.SUGAR,
-                Component.translatable("advancement.estrogen.estrogen_dealer.title"),
-                Component.translatable("advancement.estrogen.estrogen_dealer.description"),
-                null,
-                FrameType.GOAL,
-                true,
-                true,
-                false
-        ).addCriterion(
-                "estrogen_dealer",
+        Advancement estrogen_dealer = Advancement.Builder.advancement()
+                .parent(estrogenPill)
+                .display(Items.SUGAR,
+                        Component.translatable("advancement.estrogen.estrogen_dealer.title"),
+                        Component.translatable("advancement.estrogen.estrogen_dealer.description"),
+                        null,
+                        FrameType.GOAL,
+                        true,
+                        true,
+                        false
+                ).addCriterion(
+                        "estrogen_dealer",
                         PickedUpItemTrigger.TriggerInstance.thrownItemPickedUpByPlayer(
                                 ContextAwarePredicate.ANY,
-                                ItemPredicate.Builder.item().of(EstrogenItems.ESTROGEN_PILL.get(), EstrogenItems.CRYSTAL_ESTROGEN_PILL.get()).build(),
-                                ContextAwarePredicate.ANY)
+                                ItemPredicate.Builder.item().of(EstrogenItems.ESTROGEN_PILL, EstrogenItems.CRYSTAL_ESTROGEN_PILL).build(),
+                                ContextAwarePredicate.ANY
+                        )
                 )
                 .build(Estrogen.id("estrogen_dealer"));
 
@@ -182,7 +210,10 @@ public class EstrogenAdvancements extends FabricAdvancementProvider {
         for (RegistryEntry<? extends Item> item : itemEntries) {
             items.add(item.get());
         }
-        return  new ItemPredicate(null, items.build(),
-                MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, (Potion)null, NbtPredicate.ANY);
+        return new ItemPredicate(
+                null, items.build(),
+                MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, EnchantmentPredicate.NONE, EnchantmentPredicate.NONE,
+                null, NbtPredicate.ANY
+        );
     }
 }
