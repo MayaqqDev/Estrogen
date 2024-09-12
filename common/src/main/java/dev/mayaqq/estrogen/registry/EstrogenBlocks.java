@@ -116,11 +116,15 @@ public class EstrogenBlocks {
 
     public static final BlockEntry<ModelBedBlock> MOTH_BED = BLOCKS.entry("moth_bed", ModelBedBlock::new)
         .copyProperties(() -> Blocks.ORANGE_BED)
-        .simpleItem()
+        .item(BlockItem::new)
+            .properties(p -> p.stacksTo(1))
+        .build()
         .register();
 
     public static final BlockEntry<ModelBedBlock> QUILTED_MOTH_BED = BLOCKS.entry("quilted_moth_bed", ModelBedBlock::new)
         .copyProperties(() -> Blocks.ORANGE_BED)
-        .simpleItem()
+            .item(BlockItem::new)
+            .properties(p -> p.stacksTo(1))
+            .build()
         .register();
 }

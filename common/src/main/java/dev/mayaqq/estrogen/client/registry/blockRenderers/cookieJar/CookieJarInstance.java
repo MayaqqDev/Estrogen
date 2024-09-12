@@ -10,6 +10,7 @@ import dev.mayaqq.estrogen.utils.client.ItemModelBufferer;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+
 import java.util.List;
 
 public class CookieJarInstance extends BlockEntityInstance<CookieJarBlockEntity> {
