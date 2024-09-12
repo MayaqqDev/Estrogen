@@ -4,10 +4,8 @@ import com.simibubi.create.AllItems;
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
-import dev.mayaqq.estrogen.datagen.base.recipes.BaseRecipeProvider;
-import dev.mayaqq.estrogen.datagen.base.platform.recipes.FabricRecipeHelper;
-import dev.mayaqq.estrogen.datagen.base.platform.recipes.ForgeRecipeHelper;
 import dev.mayaqq.estrogen.datagen.base.platform.recipes.PlatformRecipeHelper;
+import dev.mayaqq.estrogen.datagen.base.recipes.BaseRecipeProvider;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
 import dev.mayaqq.estrogen.registry.EstrogenItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -23,46 +21,38 @@ public class EstrogenMixingRecipes extends BaseRecipeProvider {
 
     @Override
     protected void init() {
-        create(id("filtrated_horse_urine"), recipeBuilder -> recipeBuilder
+        create(id("filtrated_horse_urine"), builder -> builder
                 .require(EstrogenFluids.HORSE_URINE.get(), getAmount(27000))
-                .require(AllItems.FILTER.get())
+                .require(AllItems.FILTER)
                 .output(EstrogenFluids.FILTRATED_HORSE_URINE.get(), getAmount(27000))
-                .output(EstrogenItems.USED_FILTER.get())
+                .output(EstrogenItems.USED_FILTER)
         );
 
-        create(id("molten_amethyst"), recipeBuilder -> recipeBuilder
+        create(id("molten_amethyst"), builder -> builder
                 .require(Items.AMETHYST_SHARD)
                 .output(EstrogenFluids.MOLTEN_AMETHYST.get(), getAmount(27000))
                 .requiresHeat(HeatCondition.HEATED)
         );
 
-        create(id("balls"), recipeBuilder -> recipeBuilder
+        create(id("balls"), builder -> builder
                 .require(Items.SLIME_BALL)
-                .output(EstrogenItems.BALLS.get())
+                .output(EstrogenItems.BALLS)
                 .output(EstrogenFluids.MOLTEN_SLIME.get(), getAmount(27000))
                 .requiresHeat(HeatCondition.HEATED)
         );
 
-        create(id("testosterone_mixture"), recipeBuilder -> recipeBuilder
-                .require(EstrogenItems.TESTOSTERONE_POWDER.get())
+        create(id("testosterone_mixture"), builder -> builder
+                .require(EstrogenItems.TESTOSTERONE_POWDER)
                 .require(Items.COAL)
                 .output(EstrogenFluids.TESTOSTERONE_MIXTURE.get(), getAmount(54000))
                 .requiresHeat(HeatCondition.HEATED)
         );
 
-        create(id("tinted_glass"), recipeBuilder -> recipeBuilder
+        create(id("tinted_glass"), builder -> builder
                 .require(Items.GLASS)
                 .require(EstrogenFluids.MOLTEN_AMETHYST.get(), getAmount(27000))
                 .output(Items.TINTED_GLASS)
         );
-    }
-
-    public static EstrogenMixingRecipes buildFabric(FabricDataOutput output) {
-        return new EstrogenMixingRecipes(output, new FabricRecipeHelper());
-    }
-
-    public static EstrogenMixingRecipes buildForge(FabricDataOutput output) {
-        return new EstrogenMixingRecipes(output, new ForgeRecipeHelper());
     }
 
     @Override

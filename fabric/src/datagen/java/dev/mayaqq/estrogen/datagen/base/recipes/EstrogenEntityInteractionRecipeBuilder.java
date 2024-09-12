@@ -15,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
@@ -56,23 +57,23 @@ public class EstrogenEntityInteractionRecipeBuilder implements RecipeBuilder {
             return this;
         }
 
-        public RecipeBuilder unlockedBy(String criterionName, CriterionTriggerInstance criterionTrigger) {
+        public @NotNull RecipeBuilder unlockedBy(@NotNull String criterionName, @NotNull CriterionTriggerInstance criterionTrigger) {
             this.advancement.addCriterion(criterionName, criterionTrigger);
             return this;
         }
 
         @Override
-        public RecipeBuilder group(@Nullable String groupName) {
-            return null;
+        public @NotNull RecipeBuilder group(@Nullable String groupName) {
+            return this;
         }
 
         @Override
-        public Item getResult() {
+        public @NotNull Item getResult() {
             return this.result;
         }
 
         @Override
-        public void save(Consumer<FinishedRecipe> finishedRecipeConsumer, ResourceLocation recipeId) {
+        public void save(Consumer<FinishedRecipe> finishedRecipeConsumer, @NotNull ResourceLocation recipeId) {
             this.advancement.parent(ROOT_RECIPE_ADVANCEMENT).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId)).rewards(AdvancementRewards.Builder.recipe(recipeId)).requirements(RequirementsStrategy.OR);
             finishedRecipeConsumer.accept(new Result(recipeId, result, count, ingredient, entity, sound, cantBeBaby, advancement, recipeId.withPrefix("recipes/"), showNotification));
         }
@@ -98,12 +99,12 @@ public class EstrogenEntityInteractionRecipeBuilder implements RecipeBuilder {
             }
 
             @Override
-            public ResourceLocation getId() {
+            public @NotNull ResourceLocation getId() {
                 return id;
             }
 
             @Override
-            public RecipeSerializer<?> getType() {
+            public @NotNull RecipeSerializer<?> getType() {
                 return EstrogenRecipes.ENTITY_INTERACTION_SERIALIZER.get();
             }
 

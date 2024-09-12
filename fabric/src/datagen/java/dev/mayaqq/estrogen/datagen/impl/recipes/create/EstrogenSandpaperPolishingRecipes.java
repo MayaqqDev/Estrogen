@@ -17,9 +17,9 @@ public class EstrogenSandpaperPolishingRecipes extends BaseRecipeProvider {
 
     @Override
     protected void init() {
-        create(id("testosterone_chunk"), recipeBuilder -> recipeBuilder
-                .require(EstrogenItems.BALLS.get())
-                .output(EstrogenItems.TESTOSTERONE_CHUNK.get(), 1)
+        create(id("testosterone_chunk"), builder -> builder
+                .require(EstrogenItems.BALLS)
+                .output(EstrogenItems.TESTOSTERONE_CHUNK, 1)
         );
     }
 
