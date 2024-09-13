@@ -29,6 +29,7 @@ public class EstrogenItems {
         .properties(p -> p.food(EstrogenFoodComponents.ESTROGEN_CHIP_COOKIE)
             .stacksTo(64)
             .rarity(Rarity.RARE))
+        .creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.after(Items.COOKIE))
         .register();
     public static final ItemEntry<HorseUrineBottleItem> HORSE_URINE_BOTTLE = ITEMS.entry("horse_urine_bottle", HorseUrineBottleItem::new)
         .properties(p -> p.food(EstrogenFoodComponents.HORSE_URINE_BOTTLE)
