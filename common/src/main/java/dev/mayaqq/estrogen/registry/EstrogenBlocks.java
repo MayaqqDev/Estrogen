@@ -15,15 +15,14 @@ import dev.mayaqq.estrogen.registry.blocks.*;
 import dev.mayaqq.estrogen.registry.items.DreamBottleItem;
 import dev.mayaqq.estrogen.utils.StatePredicates;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CarpetBlock;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import uwu.serenity.critter.creative.TabPlacement;
 import uwu.serenity.critter.stdlib.blocks.BlockEntry;
 import uwu.serenity.critter.stdlib.blocks.BlockRegistrar;
 
@@ -46,6 +45,7 @@ public class EstrogenBlocks {
         .renderType(() -> RenderType::cutout)
         .item(BlockItem::new)
         .transform(Transgenders.standardTooltip())
+        .creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.after(Items.BARREL))
         .build()
         .register();
 
@@ -82,20 +82,28 @@ public class EstrogenBlocks {
 
     public static final BlockEntry<Block> MOTH_WOOL = BLOCKS.entry("moth_wool", Block::new)
         .copyProperties(() -> Blocks.ORANGE_WOOL)
-        .simpleItem()
+        .item(BlockItem::new)
+        .creativeTab(CreativeModeTabs.BUILDING_BLOCKS)
+        .build()
         .register();
     public static final BlockEntry<Block> QUILTED_MOTH_WOOL = BLOCKS.entry("quilted_moth_wool", Block::new)
         .copyProperties(() -> Blocks.ORANGE_WOOL)
-        .simpleItem()
+        .item(BlockItem::new)
+        .creativeTab(CreativeModeTabs.BUILDING_BLOCKS)
+        .build()
         .register();
 
     public static final BlockEntry<CarpetBlock> MOTH_WOOL_CARPET = BLOCKS.entry("moth_wool_carpet", CarpetBlock::new)
         .copyProperties(() -> Blocks.ORANGE_CARPET)
-        .simpleItem()
+        .item(BlockItem::new)
+        .creativeTab(CreativeModeTabs.BUILDING_BLOCKS)
+        .build()
         .register();
     public static final BlockEntry<CarpetBlock> QUILTED_MOTH_WOOL_CARPET = BLOCKS.entry("quilted_moth_wool_carpet", CarpetBlock::new)
         .copyProperties(() -> Blocks.ORANGE_CARPET)
-        .simpleItem()
+        .item(BlockItem::new)
+        .creativeTab(CreativeModeTabs.BUILDING_BLOCKS)
+        .build()
         .register();
 
     public static final BlockEntry<SeatBlock> MOTH_SEAT = BLOCKS.entry("moth_seat", p -> new SeatBlock(p, null))
@@ -118,6 +126,7 @@ public class EstrogenBlocks {
         .copyProperties(() -> Blocks.ORANGE_BED)
         .item(BlockItem::new)
             .properties(p -> p.stacksTo(1))
+            .creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, new TabPlacement(stack -> stack.is(ItemTags.BEDS), TabPlacement.Type.AFTER))
         .build()
         .register();
 
@@ -125,6 +134,7 @@ public class EstrogenBlocks {
         .copyProperties(() -> Blocks.ORANGE_BED)
             .item(BlockItem::new)
             .properties(p -> p.stacksTo(1))
+            .creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.after(MOTH_BED))
             .build()
         .register();
 }
