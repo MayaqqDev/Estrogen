@@ -4,8 +4,10 @@ import dev.mayaqq.estrogen.registry.EstrogenBlocks;
 import dev.mayaqq.estrogen.registry.blocks.ModelBedBlock;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.util.function.Supplier;
@@ -27,11 +29,15 @@ public class EstrogenLootTables extends FabricBlockLootTableProvider {
         add(EstrogenBlocks.QUILTED_MOTH_WOOL, createSingleItemTable(EstrogenBlocks.QUILTED_MOTH_WOOL));
         add(EstrogenBlocks.QUILTED_MOTH_WOOL_CARPET, createSingleItemTable(EstrogenBlocks.QUILTED_MOTH_WOOL_CARPET));
         add(EstrogenBlocks.MOTH_WOOL_CARPET, createSingleItemTable(EstrogenBlocks.MOTH_WOOL_CARPET));
-        add(EstrogenBlocks.MOTH_BED, createSinglePropConditionTable(EstrogenBlocks.MOTH_BED.get(), ModelBedBlock.PART, BedPart.HEAD));
-        add(EstrogenBlocks.QUILTED_MOTH_BED, createSinglePropConditionTable(EstrogenBlocks.QUILTED_MOTH_BED.get(), ModelBedBlock.PART, BedPart.HEAD));
+        add(EstrogenBlocks.MOTH_BED, createSinglePropConditionTable(EstrogenBlocks.MOTH_BED, ModelBedBlock.PART, BedPart.HEAD));
+        add(EstrogenBlocks.QUILTED_MOTH_BED, createSinglePropConditionTable(EstrogenBlocks.QUILTED_MOTH_BED, ModelBedBlock.PART, BedPart.HEAD));
     }
 
     private void add(Supplier<? extends Block> block, LootTable.Builder factory) {
         this.add(block.get(), factory);
+    }
+
+    public <T extends Comparable<T> & StringRepresentable> LootTable.Builder createSinglePropConditionTable(Supplier<? extends Block> block, Property<T> property, T value) {
+        return super.createSinglePropConditionTable(block.get(), property, value);
     }
 }
