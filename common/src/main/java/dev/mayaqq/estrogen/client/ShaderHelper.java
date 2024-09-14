@@ -30,7 +30,8 @@ public class ShaderHelper {
     }
 
     /**
-     * Code taken from Flywheel by Jozefozu, licensed under MIT
+     * Code taken from Flywheel by Jozufozu, licensed under MIT.
+     * Thank you for your scary reflection magic.
      */
     private static BooleanSupplier optifineShadersInUse() {
         try {
