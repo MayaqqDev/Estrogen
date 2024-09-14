@@ -18,6 +18,7 @@ public class ShaderHelper {
         return shaderPackInUse.getAsBoolean();
     }
 
+    @SuppressWarnings("deprecation")
     public static void init() {
         if (CommonHooks.isModLoaded("iris") || CommonHooks.isModLoaded("oculus")) {
             shaderPackInUse = () -> IrisApi.getInstance().isShaderPackInUse();
@@ -28,6 +29,9 @@ public class ShaderHelper {
         }
     }
 
+    /**
+     * Code taken from Flywheel by Jozefozu, licensed under MIT
+     */
     private static BooleanSupplier optifineShadersInUse() {
         try {
             Class<?> ofShaders = Class.forName("net.optifine.shaders.Shaders");
