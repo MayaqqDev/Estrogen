@@ -1,8 +1,12 @@
 package dev.mayaqq.estrogen.datagen.impl.loottables;
 
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
+import dev.mayaqq.estrogen.registry.blocks.ModelBedBlock;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 public class EstrogenLootTables extends FabricBlockLootTableProvider {
 
@@ -21,7 +25,7 @@ public class EstrogenLootTables extends FabricBlockLootTableProvider {
         add(EstrogenBlocks.QUILTED_MOTH_WOOL.get(), createSingleItemTable(EstrogenBlocks.QUILTED_MOTH_WOOL.get()));
         add(EstrogenBlocks.QUILTED_MOTH_WOOL_CARPET.get(), createSingleItemTable(EstrogenBlocks.QUILTED_MOTH_WOOL_CARPET.get()));
         add(EstrogenBlocks.MOTH_WOOL_CARPET.get(), createSingleItemTable(EstrogenBlocks.MOTH_WOOL_CARPET.get()));
-        add(EstrogenBlocks.MOTH_BED.get(), createSingleItemTable(EstrogenBlocks.MOTH_BED.get()));
-        add(EstrogenBlocks.QUILTED_MOTH_BED.get(), createSingleItemTable(EstrogenBlocks.QUILTED_MOTH_BED.get()));
+        add(EstrogenBlocks.MOTH_BED.get(), createSinglePropConditionTable(EstrogenBlocks.MOTH_BED.get(), ModelBedBlock.PART, BedPart.HEAD));
+        add(EstrogenBlocks.QUILTED_MOTH_BED.get(), createSinglePropConditionTable(EstrogenBlocks.QUILTED_MOTH_BED.get(), ModelBedBlock.PART, BedPart.HEAD));
     }
 }
