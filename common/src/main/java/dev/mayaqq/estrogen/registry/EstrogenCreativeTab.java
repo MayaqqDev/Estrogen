@@ -61,8 +61,6 @@ public class EstrogenCreativeTab {
         THIGH_HIGHS.get().streamStyleItems().forEach(output::accept);
     }
 
-    public void init() {}
-
     public static ItemStack tippedArrow(Potion potion) {
         ItemStack stack = new ItemStack(Items.TIPPED_ARROW);
         PotionUtils.setPotion(stack, potion);

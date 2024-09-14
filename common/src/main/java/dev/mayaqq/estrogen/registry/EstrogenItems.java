@@ -8,9 +8,8 @@ import dev.mayaqq.estrogen.client.registry.trinkets.ThighHighRenderer;
 import dev.mayaqq.estrogen.registry.items.*;
 import dev.mayaqq.estrogen.registry.tooltip.ThighHighsToolTipModifier;
 import net.minecraft.core.cauldron.CauldronInteraction;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
+import uwu.serenity.critter.creative.TabPlacement;
 import uwu.serenity.critter.stdlib.items.ItemEntry;
 import uwu.serenity.critter.stdlib.items.ItemRegistrar;
 
@@ -24,12 +23,13 @@ public class EstrogenItems {
         TESTOSTERONE_CHUNK = ITEMS.entry("testosterone_chunk", Item::new).register(),
         TESTOSTERONE_POWDER = ITEMS.entry("testosterone_powder", Item::new).register(),
         USED_FILTER = ITEMS.entry("used_filter", Item::new).register(),
-        MOTH_FUZZ = ITEMS.entry("moth_fuzz", Item::new).register();
+        MOTH_FUZZ = ITEMS.entry("moth_fuzz", Item::new).creativeTab(CreativeModeTabs.INGREDIENTS, TabPlacement.before(Items.INK_SAC)).register();
 
     public static final ItemEntry<EstrogenCookieItem> ESTROGEN_CHIP_COOKIE = ITEMS.entry("estrogen_chip_cookie", EstrogenCookieItem::new)
         .properties(p -> p.food(EstrogenFoodComponents.ESTROGEN_CHIP_COOKIE)
             .stacksTo(64)
             .rarity(Rarity.RARE))
+        .creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.after(Items.COOKIE))
         .register();
     public static final ItemEntry<HorseUrineBottleItem> HORSE_URINE_BOTTLE = ITEMS.entry("horse_urine_bottle", HorseUrineBottleItem::new)
         .properties(p -> p.food(EstrogenFoodComponents.HORSE_URINE_BOTTLE)
@@ -61,6 +61,7 @@ public class EstrogenItems {
         .properties(p -> p.stacksTo(1)
             .durability(626)
             .rarity(Rarity.UNCOMMON))
+        .creativeTab(CreativeModeTabs.TOOLS_AND_UTILITIES, TabPlacement.after(Items.ELYTRA))
         .register();
 
 

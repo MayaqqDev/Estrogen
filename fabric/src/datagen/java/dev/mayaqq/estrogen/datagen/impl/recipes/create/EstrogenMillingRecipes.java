@@ -17,9 +17,9 @@ public class EstrogenMillingRecipes extends BaseRecipeProvider {
 
     @Override
     protected void init() {
-        create(id("testosterone_powder"), recipeBuilder -> recipeBuilder
-                .require(EstrogenItems.TESTOSTERONE_CHUNK.get())
-                .output(EstrogenItems.TESTOSTERONE_POWDER.get(), 3)
+        create(id("testosterone_powder"), builder -> builder
+                .require(EstrogenItems.TESTOSTERONE_CHUNK)
+                .output(EstrogenItems.TESTOSTERONE_POWDER, 3)
         );
     }
 
