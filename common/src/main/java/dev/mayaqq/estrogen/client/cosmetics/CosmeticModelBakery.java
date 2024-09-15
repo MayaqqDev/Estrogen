@@ -93,6 +93,7 @@ public final class CosmeticModelBakery {
             }
 
             poseMat.identity();
+            normalMat.identity();
         }
         return new BakedCosmeticModel(vertexData, vertices, min, max);
     }
