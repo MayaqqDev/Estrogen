@@ -47,13 +47,13 @@ public final class CosmeticModelBakery {
             maxPos.set(element.to, 1.0f);
 
             // IGNORE IDEA ADVICE rot can very much be null
-            if(rot != null) {
+            if (rot != null) {
                 Vector3f origin = rot.origin();
                 poseMat.translate(origin.x, origin.y, origin.z);
                 Quaternionf quat = fromDirectionAxis(rot.axis()).rotationDegrees(rot.angle());
                 poseMat.rotate(quat);
                 normalMat.rotate(quat);
-                if(rot.rescale()) {
+                if (rot.rescale()) {
                     Vector3f scale = getRescaleVector(rot.axis());
                     scale.mul((Math.abs(rot.angle()) == 22.5f) ? RESCALE_22_5 : RESCALE_45);
                     poseMat.scale(scale.x, scale.y, scale.z);
@@ -72,17 +72,17 @@ public final class CosmeticModelBakery {
             min.set(Math.min(min.x, minPos.x), Math.min(min.y, minPos.y), Math.min(min.z, minPos.z));
             max.set(Math.max(max.x, maxPos.x), Math.max(max.y, maxPos.y), Math.max(max.z, maxPos.z));
 
-            for(Map.Entry<Direction, BlockElementFace> entry : element.faces.entrySet()) {
+            for (Map.Entry<Direction, BlockElementFace> entry : element.faces.entrySet()) {
                 Direction direction = entry.getKey();
                 BlockElementFace face = entry.getValue();
                 FaceInfo info = FaceInfo.fromFacing(direction);
 
-                for(int i = 0; i < 4; i++) {
+                for (int i = 0; i < 4; i++) {
                     FaceInfo.VertexInfo vertex = info.getVertexInfo(i);
                     position.set(shape[vertex.xFace], shape[vertex.yFace], shape[vertex.zFace], 1f);
                     normal.set(direction.getStepX(), direction.getStepY(), direction.getStepZ());
 
-                    if(rot != null) {
+                    if (rot != null) {
                         poseMat.transform(position);
                         normalMat.transform(normal);
                     }
@@ -95,6 +95,7 @@ public final class CosmeticModelBakery {
             poseMat.identity();
             normalMat.identity();
         }
+
         return new BakedCosmeticModel(vertexData, vertices, min, max);
     }
 
