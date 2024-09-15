@@ -70,13 +70,13 @@ final class Transgenders {
         return b -> b.onSetup(item -> {
             PotatoCannonProjectileType.Builder builder = new PotatoCannonProjectileType.Builder(b.getId());
             consumer.accept(builder);
-            EstrogenPotatoProjectiles.PROJECTILES.put(b.getId(), builder.registerAndAssign(item));
+            builder.registerAndAssign(item);
         });
     }
 
-    static <I extends Item & Bauble, P> UnaryOperator<ItemBuilder<I, P>> baubleWithRenderer(@Nullable SafeSupplier<BaubleRenderer> rendererFactory) {
+    static <I extends Item & Bauble, P> UnaryOperator<ItemBuilder<I, P>> baubleWithRenderer(SafeSupplier<BaubleRenderer> rendererFactory) {
         return b -> {
-            if(rendererFactory != null && PlatformUtils.getEnvironment() == Environment.CLIENT) {
+            if(PlatformUtils.getEnvironment() == Environment.CLIENT) {
                 b.onRegister(item -> BaublyClient.registerBaubleRenderer(item, rendererFactory.getSafe()));
             }
             b.onRegister(Baubly::registerBauble);
