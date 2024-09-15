@@ -21,7 +21,6 @@ import earth.terrarium.botarium.common.registry.fluid.BotariumFlowingFluid;
 import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock;
 import earth.terrarium.botarium.common.registry.fluid.BotariumSourceFluid;
 import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem;
-import earth.terrarium.botarium.util.CommonHooks;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
