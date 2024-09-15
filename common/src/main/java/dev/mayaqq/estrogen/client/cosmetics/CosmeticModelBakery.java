@@ -88,6 +88,17 @@ public final class CosmeticModelBakery {
         return new BakedCosmeticModel(vertexData, vertices, min, max);
     }
 
+    private static float[] setupShape(Vector3f min, Vector3f max) {
+        float[] fs = new float[Direction.values().length];
+        fs[FaceInfo.Constants.MIN_X] = min.x() / 16.0F;
+        fs[FaceInfo.Constants.MIN_Y] = min.y() / 16.0F;
+        fs[FaceInfo.Constants.MIN_Z] = min.z() / 16.0F;
+        fs[FaceInfo.Constants.MAX_X] = max.x() / 16.0F;
+        fs[FaceInfo.Constants.MAX_Y] = max.y() / 16.0F;
+        fs[FaceInfo.Constants.MAX_Z] = max.z() / 16.0F;
+        return fs;
+    }
+
     private static void applyElementRotation(BlockElementRotation rotation, Matrix4f modelMat, Matrix3f normalMat) {
         Vector3f origin = rotation.origin();
         modelMat.translate(origin.x, origin.y, origin.z);
@@ -110,39 +121,6 @@ public final class CosmeticModelBakery {
         modelMat.translate(-origin.x, -origin.y, -origin.z);
     }
 
-    private static void putVertex(int[] data, int index, int indexInFace, Vector4f position, BlockFaceUV uv, Vector3f normal) {
-        int pos = index * STRIDE;
-        float u = uv.getU(indexInFace) / 16f;
-        float v = uv.getV(indexInFace) / 16f;
-
-        data[pos] = Float.floatToRawIntBits(position.x);
-        data[pos + 1] = Float.floatToRawIntBits(position.y);
-        data[pos + 2] = Float.floatToRawIntBits(position.z);
-        data[pos + 3] = Float.floatToRawIntBits(u);
-        data[pos + 4] = Float.floatToRawIntBits(v);
-        data[pos + 5] = packNormal(normal.x, normal.y, normal.z);
-    }
-
-    private static float[] setupShape(Vector3f min, Vector3f max) {
-        float[] fs = new float[Direction.values().length];
-        fs[FaceInfo.Constants.MIN_X] = min.x() / 16.0F;
-        fs[FaceInfo.Constants.MIN_Y] = min.y() / 16.0F;
-        fs[FaceInfo.Constants.MIN_Z] = min.z() / 16.0F;
-        fs[FaceInfo.Constants.MAX_X] = max.x() / 16.0F;
-        fs[FaceInfo.Constants.MAX_Y] = max.y() / 16.0F;
-        fs[FaceInfo.Constants.MAX_Z] = max.z() / 16.0F;
-        return fs;
-    }
-
-    private static void updateBounds(Vector3f vec, Vector3f target) {
-        if(vec.x < target.x && vec.y < target.y && vec.z < target.z) return;
-        target.set(
-            Math.max(vec.x, target.x),
-            Math.max(vec.y, target.y),
-            Math.max(vec.z, target.z)
-        );
-    }
-
     private static Vector3f getRescaleVector(Direction.Axis axis) {
         return switch (axis) {
             case X -> new Vector3f(0, 1f, 1f);
@@ -157,6 +135,19 @@ public final class CosmeticModelBakery {
             case Y -> Axis.YP;
             case Z -> Axis.ZP;
         };
+    }
+
+    private static void putVertex(int[] data, int index, int indexInFace, Vector4f position, BlockFaceUV uv, Vector3f normal) {
+        int pos = index * STRIDE;
+        float u = uv.getU(indexInFace) / 16f;
+        float v = uv.getV(indexInFace) / 16f;
+
+        data[pos] = Float.floatToRawIntBits(position.x);
+        data[pos + 1] = Float.floatToRawIntBits(position.y);
+        data[pos + 2] = Float.floatToRawIntBits(position.z);
+        data[pos + 3] = Float.floatToRawIntBits(u);
+        data[pos + 4] = Float.floatToRawIntBits(v);
+        data[pos + 5] = packNormal(normal.x, normal.y, normal.z);
     }
 
 
