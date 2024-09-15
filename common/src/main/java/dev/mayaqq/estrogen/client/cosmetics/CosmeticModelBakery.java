@@ -92,7 +92,7 @@ public final class CosmeticModelBakery {
                 }
             }
 
-            poseMat.set(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            poseMat.identity();
         }
         return new BakedCosmeticModel(vertexData, vertices, min, max);
     }
