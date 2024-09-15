@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.client.cosmetics;
 
 import com.mojang.math.Axis;
+import com.teamresourceful.resourcefullib.common.exceptions.UtilityClassException;
 import net.minecraft.client.renderer.FaceInfo;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.core.Direction;
@@ -20,7 +21,9 @@ public final class CosmeticModelBakery {
     private static final float PACK = 127.0f;
     private static final float UNPACK = 1.0f / PACK;
 
-    private CosmeticModelBakery() {}
+    private CosmeticModelBakery() throws UtilityClassException {
+        throw new UtilityClassException();
+    }
 
     public static BakedCosmeticModel bake(List<BlockElement> elements) {
         int vertices = elements.stream().mapToInt(e -> e.faces.size()).sum() * 4;
@@ -168,5 +171,10 @@ public final class CosmeticModelBakery {
 
     public static float unpackNZ(int packedNormal) {
         return ((byte) ((packedNormal >>> 16) & 0xFF)) * UNPACK;
+    }
+
+    public static Vector3f unpackNormal(int packedNormal, Vector3f dest) {
+        dest.set(unpackNX(packedNormal), unpackNY(packedNormal), unpackNZ(packedNormal));
+        return dest;
     }
 }
