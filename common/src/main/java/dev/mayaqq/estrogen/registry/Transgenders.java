@@ -4,6 +4,7 @@ import com.jozufozu.flywheel.api.MaterialManager;
 import com.jozufozu.flywheel.backend.instancing.InstancedRenderRegistry;
 import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstance;
 import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstancingController;
+import com.simibubi.create.content.equipment.potatoCannon.PotatoCannonProjectileType;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.TooltipHelper;
@@ -33,7 +34,6 @@ import uwu.serenity.critter.stdlib.blockEntities.BlockEntityBuilder;
 import uwu.serenity.critter.stdlib.blocks.BlockBuilder;
 import uwu.serenity.critter.stdlib.items.ItemBuilder;
 import uwu.serenity.critter.utils.SafeSupplier;
-import uwu.serenity.critter.utils.environment.EnvExecutor;
 import uwu.serenity.critter.utils.environment.Environment;
 
 import java.util.function.*;
@@ -61,7 +61,15 @@ public class Transgenders {
         return tooltip(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE));
     }
 
-    static <I extends Item & Bauble, P> UnaryOperator<ItemBuilder<I, P>> bauble(@Nullable SafeSupplier<BaubleRenderer> rendererFactory) {
+    static <I extends Item, P> UnaryOperator<ItemBuilder<I, P>> potatoProjectile(Consumer<PotatoCannonProjectileType.Builder> consumer) {
+        return b -> b.onSetup(item -> {
+            PotatoCannonProjectileType.Builder builder = new PotatoCannonProjectileType.Builder(b.getId());
+            consumer.accept(builder);
+            EstrogenPotatoProjectiles.PROJECTILES.put(b.getId(), builder.registerAndAssign(item));
+        });
+    }
+
+    static <I extends Item & Bauble, P> UnaryOperator<ItemBuilder<I, P>> baubleWithRenderer(@Nullable SafeSupplier<BaubleRenderer> rendererFactory) {
         return b -> {
             if(rendererFactory != null && PlatformUtils.getEnvironment() == Environment.CLIENT) {
                 b.onRegister(item -> BaublyClient.registerBaubleRenderer(item, rendererFactory.getSafe()));
