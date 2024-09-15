@@ -107,7 +107,7 @@ public final class CosmeticModelBakery {
             float i = Mth.fastInvCubeRoot(nx * ny * nz);
             normalMat.scale(nx * i, ny * i, nz * i);
         }
-        modelMat.translate(0 - origin.x, 0 - origin.y, 0 - origin.z);
+        modelMat.translate(-origin.x, -origin.y, -origin.z);
     }
 
     private static void putVertex(int[] data, int index, int indexInFace, Vector4f position, BlockFaceUV uv, Vector3f normal) {
