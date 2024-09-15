@@ -43,8 +43,4 @@ public class Estrogen {
 
         LOGGER.info("Injecting Estrogen into your veins!");
     }
-
-    public static void postInit() {
-        EstrogenPotatoProjectiles.register();
-    }
 }

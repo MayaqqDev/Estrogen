@@ -31,10 +31,5 @@ public class EstrogenForge {
         if(FMLEnvironment.dist == Dist.CLIENT) {
             EstrogenRenderer.register();
         }
-        modEventBus.addListener(EstrogenForge::init);
-    }
-
-    public static void init(final FMLCommonSetupEvent event) {
-        event.enqueueWork(Estrogen::postInit);
     }
 }
