@@ -34,7 +34,7 @@ public final class CosmeticModelBakery {
         // Reusing ALL the instances
         Vector4f position = new Vector4f();
         Vector3f normal = new Vector3f();
-        Matrix4f poseMat = new Matrix4f();
+        Matrix4f modelMat = new Matrix4f();
         Matrix3f normalMat = new Matrix3f();
 
         Vector4f minPos = new Vector4f();
@@ -53,9 +53,9 @@ public final class CosmeticModelBakery {
 
             // IGNORE IDEA ADVICE rot can very much be null
             if (rot != null) {
-                applyElementRotation(rot, poseMat, normalMat);
-                minPos.mul(poseMat);
-                maxPos.mul(poseMat);
+                applyElementRotation(rot, modelMat, normalMat);
+                minPos.mul(modelMat);
+                maxPos.mul(modelMat);
             }
 
             min.set(Math.min(min.x, minPos.x), Math.min(min.y, minPos.y), Math.min(min.z, minPos.z));
@@ -72,7 +72,7 @@ public final class CosmeticModelBakery {
                     normal.set(direction.getStepX(), direction.getStepY(), direction.getStepZ());
 
                     if (rot != null) {
-                        poseMat.transform(position);
+                        modelMat.transform(position);
                         normalMat.transform(normal);
                     }
 
@@ -81,7 +81,7 @@ public final class CosmeticModelBakery {
                 }
             }
 
-            poseMat.identity();
+            modelMat.identity();
             normalMat.identity();
         }
 
