@@ -50,7 +50,14 @@ dependencies {
     // Resourceful Lib (This is needed because it does not unpackage correctly on forge)
     forgeRuntimeLibrary("com.teamresourceful:yabn:1.0.3")
     forgeRuntimeLibrary("com.teamresourceful:bytecodecs:1.0.2")
-    
+
+    // forge sucks so much
+    forgeRuntimeLibrary("com.teamresourceful:resourceful-cosmetics-4j:${rootProject.resourceful_cosmetics_version}")
+
+    //DevAuth
+    if (rootProject.devauth_enabled == "true") {
+        modRuntimeOnly("me.djtheredstoner:DevAuth-forge-latest:${rootProject.devauth_version}")
+    }
     // Ad Astra Testing
     if (rootProject.ad_astra_testing == "true") {
         modRuntimeOnly("maven.modrinth:ad-astra:${rootProject.ad_astra_version_forge}")

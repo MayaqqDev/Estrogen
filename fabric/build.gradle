@@ -66,6 +66,11 @@ dependencies {
         default: println("Invalid item viewer: ${item_viewer} must be REI, EMI or disabled"); break
     }
 
+    //DevAuth
+    if (rootProject.devauth_enabled == "true") {
+        modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${rootProject.devauth_version}")
+    }
+
     // Ad Astra Testing
     if (rootProject.ad_astra_testing == "true") {
         modRuntimeOnly("maven.modrinth:ad-astra:${rootProject.ad_astra_version_fabric}")

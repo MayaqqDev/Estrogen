@@ -2,9 +2,11 @@ package dev.mayaqq.estrogen.fabric.client;
 
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.EstrogenClient;
+import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockShader;
 import dev.mayaqq.estrogen.fabric.client.models.EstrogenModelLoadingPlugin;
 import dev.mayaqq.estrogen.resources.BreastArmorDataLoader;
+import io.github.fabricators_of_create.porting_lib.event.client.EntityAddedLayerCallback;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.model.loading.v1.PreparableModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
@@ -25,7 +27,7 @@ public class EstrogenClientFabric implements ClientModInitializer {
         EstrogenClient.init();
         EstrogenFabricClientEvents.register();
         CoreShaderRegistrationCallback.EVENT.register(context -> DreamBlockShader.register(context::register));
-
+        EntityAddedLayerCallback.EVENT.register((renderers, skinMap) -> EstrogenRenderer.registerEntityLayers(skinMap::get));
 
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new Listener());
 
