@@ -9,6 +9,7 @@ import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
+import com.teamresourceful.resourcefullib.common.exceptions.UtilityClassException;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.blocks.fluids.LavaLikeLiquidBlock;
 import dev.mayaqq.estrogen.utils.registry.EstrogenFluidBuilder;
@@ -20,6 +21,7 @@ import earth.terrarium.botarium.common.registry.fluid.BotariumFlowingFluid;
 import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock;
 import earth.terrarium.botarium.common.registry.fluid.BotariumSourceFluid;
 import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem;
+import earth.terrarium.botarium.util.CommonHooks;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -39,7 +41,11 @@ import uwu.serenity.critter.utils.environment.Environment;
 import java.util.function.*;
 
 // :333333
-public class Transgenders {
+final class Transgenders {
+
+    private Transgenders() throws UtilityClassException {
+        throw new UtilityClassException();
+    }
 
     // Blocks
     static <B extends Block, P> UnaryOperator<BlockBuilder<B, P>> stressImpact(double impact) {
