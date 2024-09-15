@@ -1,14 +1,12 @@
 package dev.mayaqq.estrogen.client.cosmetics;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.FaceInfo;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import org.joml.*;
 import org.joml.Math;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
 
 import java.util.List;
 import java.util.Map;
@@ -31,7 +29,8 @@ public final class CosmeticModelBakery {
         // Reusing ALL the instances
         Vector4f position = new Vector4f();
         Vector3f normal = new Vector3f();
-        PoseStack transforms = new PoseStack();
+        Matrix4f poseMat = new Matrix4f();
+        Matrix3f normalMat = new Matrix3f();
 
         Vector4f minPos = new Vector4f();
         Vector4f maxPos = new Vector4f();
@@ -49,18 +48,25 @@ public final class CosmeticModelBakery {
 
             // IGNORE IDEA ADVICE rot can very much be null
             if(rot != null) {
-                transforms.pushPose();
                 Vector3f origin = rot.origin();
-                transforms.translate(origin.x, origin.y, origin.z);
-                transforms.mulPose(fromDirectionAxis(rot.axis()).rotationDegrees(rot.angle()));
+                poseMat.translate(origin.x, origin.y, origin.z);
+                Quaternionf quat = fromDirectionAxis(rot.axis()).rotationDegrees(rot.angle());
+                poseMat.rotate(quat);
+                normalMat.rotate(quat);
                 if(rot.rescale()) {
                     Vector3f scale = getRescaleVector(rot.axis());
                     scale.mul((Math.abs(rot.angle()) == 22.5f) ? RESCALE_22_5 : RESCALE_45);
-                    transforms.scale(scale.x, scale.y, scale.z);
+                    poseMat.scale(scale.x, scale.y, scale.z);
+
+                    float nx = 1.0f / scale.x;
+                    float ny = 1.0f / scale.y;
+                    float nz = 1.0f / scale.z;
+                    float i = Mth.fastInvCubeRoot(nx * ny * nz);
+                    normalMat.scale(nx * i, ny * i, nz * i);
                 }
-                transforms.translate(0 - origin.x, 0 - origin.y, 0 - origin.z);
-                minPos.mul(transforms.last().pose());
-                maxPos.mul(transforms.last().pose());
+                poseMat.translate(0 - origin.x, 0 - origin.y, 0 - origin.z);
+                minPos.mul(poseMat);
+                maxPos.mul(poseMat);
             }
 
             min.set(Math.min(min.x, minPos.x), Math.min(min.y, minPos.y), Math.min(min.z, minPos.z));
@@ -76,10 +82,9 @@ public final class CosmeticModelBakery {
                     position.set(shape[vertex.xFace], shape[vertex.yFace], shape[vertex.zFace], 1f);
                     normal.set(direction.getStepX(), direction.getStepY(), direction.getStepZ());
 
-                    if(!transforms.clear()) {
-                        PoseStack.Pose last = transforms.last();
-                        last.pose().transform(position);
-                        last.normal().transform(normal);
+                    if(rot != null) {
+                        poseMat.transform(position);
+                        normalMat.transform(normal);
                     }
 
                     putVertex(vertexData, index, position, face.uv, normal);
@@ -87,9 +92,8 @@ public final class CosmeticModelBakery {
                 }
             }
 
-            while (!transforms.clear()) transforms.popPose();
+            poseMat.set(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         }
-
         return new BakedCosmeticModel(vertexData, vertices, min, max);
     }
 
@@ -109,12 +113,12 @@ public final class CosmeticModelBakery {
 
     private static float[] setupShape(Vector3f min, Vector3f max) {
         float[] fs = new float[Direction.values().length];
-        fs[FaceInfo.Constants.MIN_X] = min.x() / 16.0F;
-        fs[FaceInfo.Constants.MIN_Y] = min.y() / 16.0F;
-        fs[FaceInfo.Constants.MIN_Z] = min.z() / 16.0F;
-        fs[FaceInfo.Constants.MAX_X] = max.x() / 16.0F;
-        fs[FaceInfo.Constants.MAX_Y] = max.y() / 16.0F;
-        fs[FaceInfo.Constants.MAX_Z] = max.z() / 16.0F;
+        fs[FaceInfo.Constants.MIN_X] = Math.min(min.x() / 16.0F, 999.0f);
+        fs[FaceInfo.Constants.MIN_Y] = Math.min(min.y() / 16.0F, 999.0f);
+        fs[FaceInfo.Constants.MIN_Z] = Math.min(min.z() / 16.0F, 999.0f);
+        fs[FaceInfo.Constants.MAX_X] = Math.max(max.x() / 16.0F, -999.0f);
+        fs[FaceInfo.Constants.MAX_Y] = Math.max(max.y() / 16.0F, -999.0f);
+        fs[FaceInfo.Constants.MAX_Z] = Math.max(max.z() / 16.0F, -999.0F);
         return fs;
     }
 
