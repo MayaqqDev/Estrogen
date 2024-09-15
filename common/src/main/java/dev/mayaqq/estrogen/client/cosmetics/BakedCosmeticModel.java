@@ -62,6 +62,7 @@ public class BakedCosmeticModel {
             consumer.overlayCoords(overlay);
             consumer.uv2(light);
             consumer.normal(nx, ny, nz);
+            consumer.endVertex();
         }
     }
 
