@@ -45,7 +45,7 @@ public class CosmeticModel {
 
     public Vector3fc minBound() {
         checkOrDownload();
-        return Optionull.mapOrElse(model.result, BakedCosmeticModel::getMaxBound, Vector3f::new);
+        return Optionull.mapOrElse(model.result, BakedCosmeticModel::getMinBound, Vector3f::new);
     }
 
     public Vector3fc maxBound() {
