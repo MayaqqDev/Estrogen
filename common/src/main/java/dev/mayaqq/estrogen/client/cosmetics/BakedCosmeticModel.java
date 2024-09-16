@@ -60,8 +60,8 @@ public class BakedCosmeticModel {
                 nz = unpackNZ(normal);
             }
 
-            consumer.vertex(x, y, z, color >> 16 & 0xFF, color >> 8 & 0xFF,
-                color & 0xFF, color >>> 24, u, v, overlay, light, nx, ny, nz);
+            consumer.vertex(x, y, z, (color >> 16 & 0xFF) / 255f, (color >> 8 & 0xFF) / 255f,
+                (color & 0xFF) / 255f, (color >>> 24) / 255f, u, v, overlay, light, nx, ny, nz);
         }
     }
 
