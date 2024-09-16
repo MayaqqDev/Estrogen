@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 import org.joml.Vector4f;
 
 import static dev.mayaqq.estrogen.client.cosmetics.CosmeticModelBakery.*;
@@ -17,9 +18,10 @@ public class BakedCosmeticModel {
     private static final ThreadLocal<BufferBuilder> LOCAL_BUILDER = ThreadLocal.withInitial(() -> new BufferBuilder(512));
 
     private final int[] data;
-    private final int vertexCount;
-    public final Vector3f minBound;
-    public final Vector3f maxBound;
+    public final int vertexCount;
+
+    private final Vector3f minBound;
+    private final Vector3f maxBound;
 
     public BakedCosmeticModel(int[] data, int vertexCount, Vector3f minBound, Vector3f maxBound) {
         this.data = data;
@@ -61,6 +63,14 @@ public class BakedCosmeticModel {
             consumer.vertex(x, y, z, color >> 16 & 0xFF, color >> 8 & 0xFF,
                 color & 0xFF, color >>> 24, u, v, overlay, light, nx, ny, nz);
         }
+    }
+
+    public Vector3fc getMinBound() {
+        return minBound;
+    }
+
+    public Vector3fc getMaxBound() {
+        return maxBound;
     }
 
     // This exists incase you wanna use a cosmetic in an instance (im planning on possibly doing tha)
