@@ -103,7 +103,7 @@ public final class CosmeticModelBakery {
         Vector3f origin = rotation.origin();
         modelMat.translate(origin.x, origin.y, origin.z);
 
-        Quaternionf quat = fromDirectionAxis(rotation.axis()).rotationDegrees(rotation.angle());
+        Quaternionf quat = axisRotation(rotation.axis(), rotation.angle());
         modelMat.rotate(quat);
         normalMat.rotate(quat);
 
@@ -129,11 +129,11 @@ public final class CosmeticModelBakery {
         };
     }
 
-    private static Axis fromDirectionAxis(Direction.Axis input) {
-        return switch (input) {
-            case X -> Axis.XP;
-            case Y -> Axis.YP;
-            case Z -> Axis.ZP;
+    private static Quaternionf axisRotation(Direction.Axis axis, float degrees) {
+        return switch (axis) {
+            case X -> new Quaternionf().rotationX(degrees * Mth.DEG_TO_RAD);
+            case Y -> new Quaternionf().rotationY(degrees * Mth.DEG_TO_RAD);
+            case Z -> new Quaternionf().rotationZ(degrees * Mth.DEG_TO_RAD);
         };
     }
 

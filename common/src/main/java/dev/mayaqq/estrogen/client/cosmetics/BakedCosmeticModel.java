@@ -4,6 +4,7 @@ import com.jozufozu.flywheel.core.model.BlockModel;
 import com.jozufozu.flywheel.core.model.Model;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.util.FastColor;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -56,13 +57,8 @@ public class BakedCosmeticModel {
                 nz = unpackNZ(normal);
             }
 
-            consumer.vertex(x, y, z);
-            consumer.color(color);
-            consumer.uv(u, v);
-            consumer.overlayCoords(overlay);
-            consumer.uv2(light);
-            consumer.normal(nx, ny, nz);
-            consumer.endVertex();
+            consumer.vertex(x, y, z, color >> 16 & 0xFF, color >> 8 & 0xFF,
+                color & 0xFF, color >>> 24, u, v, overlay, light, nx, ny, nz);
         }
     }
 
