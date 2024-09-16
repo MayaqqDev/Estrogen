@@ -67,7 +67,7 @@ public class BakedCosmeticModel {
         builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK);
         renderInto(builder, null, -1, 0, OverlayTexture.NO_OVERLAY);
         BufferBuilder.RenderedBuffer buffer = builder.end();
-        BlockModel model = new BlockModel(buffer.vertexBuffer(), buffer.indexBuffer(), buffer.drawState(), "cosmetic");
+        BlockModel model = new BlockModel(buffer.vertexBuffer(), buffer.indexBuffer(), buffer.drawState(), 0, "cosmetic");
         buffer.release();
         return model;
     }
