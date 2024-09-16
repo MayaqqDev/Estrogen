@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.client.cosmetics;
 
-import com.mojang.math.Axis;
 import com.teamresourceful.resourcefullib.common.exceptions.UtilityClassException;
 import net.minecraft.client.renderer.FaceInfo;
 import net.minecraft.client.renderer.block.model.*;
@@ -16,8 +15,6 @@ import java.util.Map;
 @ParametersAreNonnullByDefault
 public final class CosmeticModelBakery {
 
-    public static final int STRIDE = 6;
-
     private static final float RESCALE_22_5 = 1.0F / (float)Math.cos(0.39269909262657166) - 1.0F;
     private static final float RESCALE_45 = 1.0F / (float)Math.cos(0.7853981852531433) - 1.0F;
     private static final float PACK = 127.0f;
@@ -29,7 +26,7 @@ public final class CosmeticModelBakery {
 
     public static BakedCosmeticModel bake(List<BlockElement> elements) {
         int vertices = elements.stream().mapToInt(e -> e.faces.size()).sum() * 4;
-        int[] vertexData = new int[vertices * STRIDE];
+        int[] vertexData = new int[vertices * BakedCosmeticModel.STRIDE];
 
         // Reusing ALL the instances
         Vector4f position = new Vector4f();
@@ -138,7 +135,7 @@ public final class CosmeticModelBakery {
     }
 
     private static void putVertex(int[] data, int index, int indexInFace, Vector4f position, BlockFaceUV uv, Vector3f normal) {
-        int pos = index * STRIDE;
+        int pos = index * BakedCosmeticModel.STRIDE;
         float u = uv.getU(indexInFace) / 16f;
         float v = uv.getV(indexInFace) / 16f;
 

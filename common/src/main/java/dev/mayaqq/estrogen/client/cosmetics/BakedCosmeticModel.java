@@ -12,6 +12,8 @@ import static dev.mayaqq.estrogen.client.cosmetics.CosmeticModelBakery.*;
 
 public class BakedCosmeticModel {
 
+    public static final int STRIDE = 6;
+
     private static final ThreadLocal<BufferBuilder> LOCAL_BUILDER = ThreadLocal.withInitial(() -> new BufferBuilder(512));
 
     private final int[] data;
