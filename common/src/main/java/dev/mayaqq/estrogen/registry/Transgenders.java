@@ -4,10 +4,12 @@ import com.jozufozu.flywheel.api.MaterialManager;
 import com.jozufozu.flywheel.backend.instancing.InstancedRenderRegistry;
 import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstance;
 import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstancingController;
+import com.simibubi.create.content.equipment.potatoCannon.PotatoCannonProjectileType;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
+import com.teamresourceful.resourcefullib.common.exceptions.UtilityClassException;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.blocks.fluids.LavaLikeLiquidBlock;
 import dev.mayaqq.estrogen.utils.registry.EstrogenFluidBuilder;
@@ -33,13 +35,16 @@ import uwu.serenity.critter.stdlib.blockEntities.BlockEntityBuilder;
 import uwu.serenity.critter.stdlib.blocks.BlockBuilder;
 import uwu.serenity.critter.stdlib.items.ItemBuilder;
 import uwu.serenity.critter.utils.SafeSupplier;
-import uwu.serenity.critter.utils.environment.EnvExecutor;
 import uwu.serenity.critter.utils.environment.Environment;
 
 import java.util.function.*;
 
 // :333333
-public class Transgenders {
+final class Transgenders {
+
+    private Transgenders() throws UtilityClassException {
+        throw new UtilityClassException();
+    }
 
     // Blocks
     static <B extends Block, P> UnaryOperator<BlockBuilder<B, P>> stressImpact(double impact) {
@@ -61,9 +66,17 @@ public class Transgenders {
         return tooltip(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE));
     }
 
-    static <I extends Item & Bauble, P> UnaryOperator<ItemBuilder<I, P>> bauble(@Nullable SafeSupplier<BaubleRenderer> rendererFactory) {
+    static <I extends Item, P> UnaryOperator<ItemBuilder<I, P>> potatoProjectile(Consumer<PotatoCannonProjectileType.Builder> consumer) {
+        return b -> b.onSetup(item -> {
+            PotatoCannonProjectileType.Builder builder = new PotatoCannonProjectileType.Builder(b.getId());
+            consumer.accept(builder);
+            builder.registerAndAssign(item);
+        });
+    }
+
+    static <I extends Item & Bauble, P> UnaryOperator<ItemBuilder<I, P>> baubleWithRenderer(SafeSupplier<BaubleRenderer> rendererFactory) {
         return b -> {
-            if(rendererFactory != null && PlatformUtils.getEnvironment() == Environment.CLIENT) {
+            if(PlatformUtils.getEnvironment() == Environment.CLIENT) {
                 b.onRegister(item -> BaublyClient.registerBaubleRenderer(item, rendererFactory.getSafe()));
             }
             b.onRegister(Baubly::registerBauble);

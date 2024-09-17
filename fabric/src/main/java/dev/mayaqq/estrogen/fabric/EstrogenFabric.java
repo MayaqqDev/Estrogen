@@ -28,7 +28,6 @@ public class EstrogenFabric implements ModInitializer {
 
         // init Estrogen main class
         Estrogen.init();
-        Estrogen.postInit();
 
         // Register custom loot function
         ThighHighStyleLootFunction.register();
