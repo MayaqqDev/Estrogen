@@ -3,7 +3,6 @@ package dev.mayaqq.estrogen.utils.client;
 import dev.mayaqq.estrogen.Estrogen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 

@@ -75,7 +75,7 @@ public class DormantDreamBlock extends AbstractGlassBlock {
 
     public void convert(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         level.playSound(null, pos, EstrogenSounds.DREAM_BLOCK_DORMANT_BREAK.get(), SoundSource.BLOCKS, random.nextFloat() * 0.1F + 0.9F, random.nextFloat() * 0.4F + 0.8F);
-        level.setBlockAndUpdate(pos, EstrogenBlocks.DREAM_BLOCK.get().defaultBlockState());
+        level.setBlockAndUpdate(pos, EstrogenBlocks.DREAM_BLOCK.getDefaultState());
     }
 
     @Override

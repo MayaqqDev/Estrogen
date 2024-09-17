@@ -1,18 +1,15 @@
 package dev.mayaqq.estrogen.registry;
 
 
-import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries;
-import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry;
 import dev.mayaqq.estrogen.Estrogen;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import uwu.serenity.critter.api.entry.RegistryEntry;
-import uwu.serenity.critter.stdlib.Registrar;
+import uwu.serenity.critter.api.generic.Registrar;
 
 @SuppressWarnings("unused")
 public class EstrogenSounds {
-    public static final Registrar<SoundEvent> SOUNDS = Registrar.create(Estrogen.MOD_ID, Registries.SOUND_EVENT);
+    public static final Registrar<SoundEvent> SOUNDS = Estrogen.REGISTRIES.getRegistrar(Registries.SOUND_EVENT);
 
     // Dash
     public static final RegistryEntry<SoundEvent> DASH =  SOUNDS.entry("dash", () -> SoundEvent.createVariableRangeEvent(Estrogen.id("dash"))).register();

@@ -17,7 +17,7 @@ import net.minecraft.world.level.material.MapColor;
 
 public class EstrogenFluids {
 
-    public static final EstrogenFluidRegistrar FLUIDS = EstrogenFluidRegistrar.create(Estrogen.MOD_ID);
+    public static final EstrogenFluidRegistrar FLUIDS = EstrogenFluidRegistrar.create(Estrogen.REGISTRIES);
 
 
     // Setting all properties manually here

@@ -70,7 +70,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         PoseStack matrices = graphics.pose();
         matrices.translate(this.getX(), this.getY() + 16, z);
 
-        Vector3f modelSize = cosmetic.model().maxBound().sub(cosmetic.model().minBound());
+        Vector3f modelSize = cosmetic.model().maxBound().sub(cosmetic.model().minBound(), new Vector3f());
         float scaleX, scaleY;
 
         // Ignore IDEA advice it's dumb

@@ -40,8 +40,8 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> im
             .createInstance();
 
         data.setPosition(this.getInstancePosition())
-            .setBlockLight(255)
-            .setSkyLight(255);
+            .setBlockLight(15)
+            .setSkyLight(15);
     }
 
     protected Model buildModel() {

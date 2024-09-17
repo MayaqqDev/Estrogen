@@ -8,6 +8,7 @@ import net.minecraft.Util;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -42,14 +43,14 @@ public class CosmeticModel {
         return Optional.ofNullable(model.result);
     }
 
-    public Vector3f minBound() {
+    public Vector3fc minBound() {
         checkOrDownload();
-        return Optionull.mapOrElse(model.result, m -> new Vector3f(m.minBound), Vector3f::new);
+        return Optionull.mapOrElse(model.result, BakedCosmeticModel::getMinBound, Vector3f::new);
     }
 
-    public Vector3f maxBound() {
+    public Vector3fc maxBound() {
         checkOrDownload();
-        return Optionull.mapOrElse(model.result, m -> new Vector3f(m.maxBound), Vector3f::new);
+        return Optionull.mapOrElse(model.result, BakedCosmeticModel::getMaxBound, Vector3f::new);
     }
 
 

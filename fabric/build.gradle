@@ -17,6 +17,13 @@ configurations {
 
 repositories {}
 
+sourceSets {
+    create("datagen") {
+        runtimeClasspath += sourceSets["main"].runtimeClasspath
+        compileClasspath += sourceSets["main"].compileClasspath
+    }
+}
+
 dependencies {
     // Fabric
     modImplementation("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
@@ -146,10 +153,12 @@ loom {
             vmArg "-Dfabric-api.datagen.output-dir=${common.file("src/main/generated")}"
             vmArg "-Destrogen.datagen.fabric-output-dir=${file("src/main/generated")}"
             vmArg "-Destrogen.datagen.forge-output-dir=${forge.file("src/main/generated")}"
-            vmArg "-Dfabric-api.datagen.modid=estrogen"
+            vmArg "-Dfabric-api.datagen.modid=estrogen-datagen"
             vmArg "-Dporting_lib.datagen.existing_resources=${common.file("src/main/resources")}"
 
             runDir "build/datagen"
+
+            source(sourceSets.getByName("datagen"))
         }
     }
     runs {

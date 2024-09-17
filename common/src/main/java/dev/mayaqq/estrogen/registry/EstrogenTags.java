@@ -16,16 +16,16 @@ public class EstrogenTags {
         public static final TagKey<Item> THIGHS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("trinkets", "legs/thighs"));
         public static final TagKey<Item> CURIOS_THIGHS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("curios", "thighs"));
         public static final TagKey<Item> MUSIC_DISCS = TagKey.create(BuiltInRegistries.ITEM.key(), mcId("music_discs"));
-        public static final TagKey<Item> UWUFYING = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("estrogen", "uwufying"));
+        public static final TagKey<Item> UWUFYING = TagKey.create(BuiltInRegistries.ITEM.key(), Estrogen.id("uwufying"));
         public static final TagKey<Item> LAVA_BUCKETS = TagKey.create(BuiltInRegistries.ITEM.key(), commonId("lava_buckets"));
         public static final TagKey<Item> COOKIES = TagKey.create(BuiltInRegistries.ITEM.key(), commonId("cookies"));
-        public static final TagKey<Item> CHEST_FEATURE_DISABLED = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("estrogen", "chest_feature_disabled"));
-        public static final TagKey<Item> LEATHER_ITEMS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("c", "leather_items"));
-        public static final TagKey<Item> LIGHT_EMITTERS = TagKey.create(BuiltInRegistries.ITEM.key(), new ResourceLocation("c", "light_emitters"));
+        public static final TagKey<Item> CHEST_FEATURE_DISABLED = TagKey.create(BuiltInRegistries.ITEM.key(), Estrogen.id("chest_feature_disabled"));
+        public static final TagKey<Item> LEATHER_ITEMS = TagKey.create(BuiltInRegistries.ITEM.key(), commonId("leather_items"));
+        public static final TagKey<Item> LIGHT_EMITTERS = TagKey.create(BuiltInRegistries.ITEM.key(),  commonId("light_emitters"));
     }
 
     public static class Blocks {
-        public static final TagKey<Block> PICKAXE_MINABLE = TagKey.create(BuiltInRegistries.BLOCK.key(), new ResourceLocation("minecraft", "mineable/pickaxe"));
+        public static final TagKey<Block> PICKAXE_MINABLE = TagKey.create(BuiltInRegistries.BLOCK.key(), mcId("mineable/pickaxe"));
         public static final TagKey<Block> MAGNET_OLD = TagKey.create(BuiltInRegistries.BLOCK.key(), new ResourceLocation("create_new_age", "custom_magnet"));
         public static final TagKey<Block> MAGNET = TagKey.create(BuiltInRegistries.BLOCK.key(), new ResourceLocation("create_new_age", "magnet"));
         public static final TagKey<Block> MAGNET_12_OLD = TagKey.create(BuiltInRegistries.BLOCK.key(), new ResourceLocation("create_new_age", "magnets/strength_12"));

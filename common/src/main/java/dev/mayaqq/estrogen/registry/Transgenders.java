@@ -4,10 +4,12 @@ import com.jozufozu.flywheel.api.MaterialManager;
 import com.jozufozu.flywheel.backend.instancing.InstancedRenderRegistry;
 import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstance;
 import com.jozufozu.flywheel.backend.instancing.blockentity.BlockEntityInstancingController;
+import com.simibubi.create.content.equipment.potatoCannon.PotatoCannonProjectileType;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
+import com.teamresourceful.resourcefullib.common.exceptions.UtilityClassException;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.registry.blocks.fluids.LavaLikeLiquidBlock;
 import dev.mayaqq.estrogen.utils.registry.EstrogenFluidBuilder;
@@ -15,7 +17,10 @@ import earth.terrarium.baubly.Baubly;
 import earth.terrarium.baubly.client.BaubleRenderer;
 import earth.terrarium.baubly.client.BaublyClient;
 import earth.terrarium.baubly.common.Bauble;
-import earth.terrarium.botarium.common.registry.fluid.*;
+import earth.terrarium.botarium.common.registry.fluid.BotariumFlowingFluid;
+import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock;
+import earth.terrarium.botarium.common.registry.fluid.BotariumSourceFluid;
+import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -25,16 +30,21 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import org.jetbrains.annotations.Nullable;
+import uwu.serenity.critter.platform.PlatformUtils;
 import uwu.serenity.critter.stdlib.blockEntities.BlockEntityBuilder;
 import uwu.serenity.critter.stdlib.blocks.BlockBuilder;
 import uwu.serenity.critter.stdlib.items.ItemBuilder;
-import uwu.serenity.critter.utils.environment.EnvExecutor;
+import uwu.serenity.critter.utils.SafeSupplier;
 import uwu.serenity.critter.utils.environment.Environment;
 
 import java.util.function.*;
 
 // :333333
-public class Transgenders {
+final class Transgenders {
+
+    private Transgenders() throws UtilityClassException {
+        throw new UtilityClassException();
+    }
 
     // Blocks
     static <B extends Block, P> UnaryOperator<BlockBuilder<B, P>> stressImpact(double impact) {
@@ -56,14 +66,18 @@ public class Transgenders {
         return tooltip(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE));
     }
 
-    static <I extends Item & Bauble, P> UnaryOperator<ItemBuilder<I, P>> bauble(@Nullable Supplier<Supplier<BaubleRenderer>> rendererFactory) {
+    static <I extends Item, P> UnaryOperator<ItemBuilder<I, P>> potatoProjectile(Consumer<PotatoCannonProjectileType.Builder> consumer) {
+        return b -> b.onSetup(item -> {
+            PotatoCannonProjectileType.Builder builder = new PotatoCannonProjectileType.Builder(b.getId());
+            consumer.accept(builder);
+            builder.registerAndAssign(item);
+        });
+    }
+
+    static <I extends Item & Bauble, P> UnaryOperator<ItemBuilder<I, P>> baubleWithRenderer(SafeSupplier<BaubleRenderer> rendererFactory) {
         return b -> {
-            if(rendererFactory != null) {
-                EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> {
-                    b.onRegister(item -> {
-                        BaublyClient.registerBaubleRenderer(item, rendererFactory.get().get());
-                    });
-                });
+            if(PlatformUtils.getEnvironment() == Environment.CLIENT) {
+                b.onRegister(item -> BaublyClient.registerBaubleRenderer(item, rendererFactory.getSafe()));
             }
             b.onRegister(Baubly::registerBauble);
             return b;
@@ -72,23 +86,23 @@ public class Transgenders {
 
     // Block Entities
     // Supplier wrapping is necessary to avoid loading client-only classes on the server
-    static <BE extends BlockEntity, P> UnaryOperator<BlockEntityBuilder<BE, P>> instance(Supplier<BiFunction<MaterialManager, BE, BlockEntityInstance<? super BE>>> instanceFactory, Predicate<BE> shouldRender) {
+    static <BE extends BlockEntity, P> UnaryOperator<BlockEntityBuilder<BE, P>> instance(Supplier<BiFunction<MaterialManager, BE, BlockEntityInstance<? super BE>>> instanceFactory, boolean alwaysRender) {
         return b -> {
-            EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> {
+            if(PlatformUtils.getEnvironment() == Environment.CLIENT) {
                 b.onRegister(betype -> InstancedRenderRegistry.configure(betype)
                         .factory(instanceFactory.get())
-                        .skipRender(be -> !shouldRender.test(be))
+                        .skipRender(be -> !alwaysRender)
                         .apply());
-            });
+            }
             return b;
         };
     }
 
-    static <BE extends BlockEntity, P> UnaryOperator<BlockEntityBuilder<BE, P>> instanceController(Supplier<Supplier<BlockEntityInstancingController<? super BE>>> instanceController) {
+    static <BE extends BlockEntity, P> UnaryOperator<BlockEntityBuilder<BE, P>> instanceController(SafeSupplier<BlockEntityInstancingController<? super BE>> instanceController) {
         return b -> {
-            EnvExecutor.runWhenOn(Environment.CLIENT, () -> () -> {
-                b.onRegister(beType -> InstancedRenderRegistry.setController(beType, instanceController.get().get()));
-            });
+            if(PlatformUtils.getEnvironment() == Environment.CLIENT) {
+                b.onRegister(beType -> InstancedRenderRegistry.setController(beType, instanceController.getSafe()));
+            }
             return b;
         };
     }

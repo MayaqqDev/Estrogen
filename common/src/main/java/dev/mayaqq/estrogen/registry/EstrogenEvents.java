@@ -15,7 +15,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.players.PlayerList;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -131,14 +130,6 @@ public class EstrogenEvents {
             EstrogenAdvancementCriteria.KILLED_WITH_EFFECT.trigger(player, entity);
 
         }
-    }
-
-    public static HashMap<EntityType<? extends LivingEntity>, AttributeSupplier> onEntityAttributeCreation() {
-        HashMap<EntityType<? extends LivingEntity>, AttributeSupplier> map = new HashMap<>();
-
-        map.put(EstrogenEntities.MOTH.get(), MothEntity.createAttributes().build());
-
-        return map;
     }
 
     // Not using the provided player as it is always null on forge (wtf)

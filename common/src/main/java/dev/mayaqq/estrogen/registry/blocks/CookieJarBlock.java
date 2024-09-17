@@ -22,7 +22,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -37,7 +36,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 import uwu.serenity.critter.utils.BEBlock;
 
 @SuppressWarnings({"deprecation", "NullableProblems"})
@@ -124,8 +122,9 @@ public class CookieJarBlock extends BaseEntityBlock implements BEBlock<CookieJar
 
     @Override
     public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean bl) {
-        if (!state.is(newState.getBlock())) {
-            Containers.dropContents(level, blockPos, (CookieJarBlockEntity)level.getBlockEntity(blockPos));
+        CookieJarBlockEntity be = this.getBlockEntity(level, blockPos);
+        if (!state.is(newState.getBlock()) && be != null) {
+            Containers.dropContents(level, blockPos, be);
         }
         super.onRemove(state, level, blockPos, newState, bl);
     }

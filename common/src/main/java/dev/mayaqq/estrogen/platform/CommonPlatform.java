@@ -11,10 +11,6 @@ import net.minecraft.world.item.Item;
 import java.util.function.Supplier;
 
 public class CommonPlatform {
-    @ExpectPlatform
-    public static Supplier<Item> createSpawnEggItem(Supplier<? extends EntityType<? extends Mob>> type, int primaryColor, int secondaryColor, Item.Properties properties) {
-        throw new NotImplementedException();
-    }
 
     @ExpectPlatform
     public static TagKey<Item> getShearsTag() {

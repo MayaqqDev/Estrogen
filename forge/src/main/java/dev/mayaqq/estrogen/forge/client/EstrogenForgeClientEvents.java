@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.forge.client;
 
-import com.jozufozu.flywheel.event.ReloadRenderersEvent;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
@@ -8,12 +7,10 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.command.EstrogenClientCommands;
 import dev.mayaqq.estrogen.client.features.dash.DashOverlay;
 import dev.mayaqq.estrogen.client.registry.EstrogenClientEvents;
-import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.event.RenderGuiEvent;
@@ -42,11 +39,6 @@ public class EstrogenForgeClientEvents {
     @SubscribeEvent
     public static void registerClientCommands(RegisterClientCommandsEvent event) {
         EstrogenClientCommands.register(event.getDispatcher(), new ForgeClientCommandManager());
-    }
-
-    @SubscribeEvent
-    public static void reloadRenderer(ReloadRenderersEvent event) {
-        EstrogenClientEvents.onReloadRenderer(event.getWorld());
     }
 
     private static class ForgeClientCommandManager implements EstrogenClientCommands.ClientCommandManager<CommandSourceStack> {
