@@ -25,13 +25,7 @@ public class EstrogenConfigScreen extends BaseConfigScreen {
         TextStencilElement cosmeticText = new TextStencilElement(font, Components.literal(cosmeticTitle)).centered(true, true);
         addRenderableWidget(clientCosmeticWidget = new BoxWidget(width / 2 - 100, height / 2 - 15 + 120, 200, 16).showingElement(cosmeticText));
 
-        if (clientSpec != null) {
-            clientCosmeticWidget.withCallback(() -> CosmeticUI.open(this));
-            cosmeticText.withElementRenderer(BoxWidget.gradientFactory.apply(clientCosmeticWidget));
-        } else {
-            clientCosmeticWidget.active = false;
-            clientCosmeticWidget.updateColorsFromState();
-            cosmeticText.withElementRenderer(DISABLED_RENDERER);
-        }
+        clientCosmeticWidget.withCallback(() -> CosmeticUI.open(this));
+        cosmeticText.withElementRenderer(BoxWidget.gradientFactory.apply(clientCosmeticWidget));
     }
 }

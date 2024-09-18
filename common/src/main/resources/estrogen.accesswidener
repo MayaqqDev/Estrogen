@@ -9,3 +9,4 @@ accessible field net/minecraft/server/level/ChunkMap$TrackedEntity seenBy Ljava/
 accessible method net/minecraft/world/entity/Mob getAmbientSound ()Lnet/minecraft/sounds/SoundEvent;
 accessible field net/minecraft/client/KeyMapping CATEGORY_SORT_ORDER Ljava/util/Map;
 accessible method net/minecraft/client/Minecraft createTitle ()Ljava/lang/String;
+accessible method net/minecraft/client/gui/screens/Screen addRenderableWidget (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
