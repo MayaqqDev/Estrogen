@@ -4,21 +4,14 @@ import com.jozufozu.flywheel.api.struct.StructType;
 import com.jozufozu.flywheel.core.PartialModel;
 import com.simibubi.create.CreateClient;
 import com.simibubi.create.foundation.render.SuperByteBufferCache;
-import dev.mayaqq.estrogen.client.cosmetics.Cosmetic;
 import dev.mayaqq.estrogen.client.cosmetics.render.CosmeticRenderLayer;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel.DreamData;
 import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.flywheel.DreamType;
-import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.client.resources.DefaultPlayerSkin;
-import net.minecraft.client.resources.SkinManager;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.PlayerRideable;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.Map;
 import java.util.function.Function;
 
 import static dev.mayaqq.estrogen.Estrogen.id;

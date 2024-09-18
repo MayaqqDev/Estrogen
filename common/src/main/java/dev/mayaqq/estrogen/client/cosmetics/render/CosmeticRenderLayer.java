@@ -19,19 +19,23 @@ public class CosmeticRenderLayer extends RenderLayer<AbstractClientPlayer, Playe
     }
 
     @Override
-    public void render(PoseStack stack, MultiBufferSource buffer, int packedLight, AbstractClientPlayer livingEntity, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
-        // TODO: Maya you wanted to do this right? the actual rendering
-        // I copied and adapted how resourceful bees does it for testing, but u should probs redo this to how u like
-
-        Cosmetic cosmetic = Cosmetics.getCosmetic(livingEntity.getUUID());
+    public void render(PoseStack stack, MultiBufferSource buffer, int packedLight, AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
+        Cosmetic cosmetic = Cosmetics.getCosmetic(player.getUUID());
         if(cosmetic == null) return;
 
         stack.pushPose();
         stack.mulPose(Axis.XP.rotationDegrees(180));
-        stack.scale(0.25f, 0.25f, 0.25f);
-        stack.mulPose(Axis.YP.rotationDegrees((ageInTicks * 0.01F / 2f) * 360f));
-        stack.translate(0f, (1.5 * Mth.sin(ageInTicks / 10 - 30f)), 3f);
-        stack.mulPose(Axis.YP.rotationDegrees(-90));
+        //stack.mulPose(Axis.YP.rotationDegrees((ageInTicks * 0.01F / 2f) * 360f));
+        //TODO fix it and make it spin slowly :(
+
+        stack.translate(0f, (Mth.sin(ageInTicks / 10) / 4), 0f);
+        stack.mulPose(Axis.YP.rotationDegrees(90));
+
+        var x = Mth.lerp(0.3, player.xo - player.position().x, 0);
+        var y = Mth.lerp(0.3, player.yo - player.position().y, 0);
+        var z = Mth.lerp(0.3, player.zo - player.position().z, 0);
+
+        stack.translate(x, y, z);
 
         cosmetic.render(RenderType::entityTranslucentCull, buffer, stack, packedLight, OverlayTexture.NO_OVERLAY);
 
