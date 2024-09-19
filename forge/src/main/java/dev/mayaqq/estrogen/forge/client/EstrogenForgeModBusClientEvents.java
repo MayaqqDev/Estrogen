@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.forge.client;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.config.ConfigSync;
 import dev.mayaqq.estrogen.client.registry.EstrogenClientEvents;
+import dev.mayaqq.estrogen.client.registry.EstrogenRenderer;
 import dev.mayaqq.estrogen.utils.LocationResolver;
 import dev.mayaqq.estrogen.utils.client.EstrogenClientPaths;
 import net.minecraft.client.Minecraft;
@@ -29,6 +30,11 @@ public class EstrogenForgeModBusClientEvents {
     @SubscribeEvent
     public static void registerModelLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         EstrogenClientEvents.registerModelLayer(event::registerLayerDefinition);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterEntityLayers(EntityRenderersEvent.AddLayers event) {
+        EstrogenRenderer.registerEntityLayers(event::getSkin);
     }
 
     @SubscribeEvent

@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
+import org.joml.Vector2d;
 
 public class CosmeticRenderLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
     public CosmeticRenderLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> renderer) {
@@ -25,17 +26,19 @@ public class CosmeticRenderLayer extends RenderLayer<AbstractClientPlayer, Playe
 
         stack.pushPose();
         stack.mulPose(Axis.XP.rotationDegrees(180));
+        stack.scale(0.75f, 0.75f, 0.75f);
         //stack.mulPose(Axis.YP.rotationDegrees((ageInTicks * 0.01F / 2f) * 360f));
         //TODO fix it and make it spin slowly :(
 
-        stack.translate(0f, (Mth.sin(ageInTicks / 10) / 4), 0f);
-        stack.mulPose(Axis.YP.rotationDegrees(90));
+        var hDiff = Vector2d.distance(player.xOld, player.zOld, player.getX(), player.getZ());
+        var yDiff = player.yOld - player.position().y;
 
-        var x = Mth.lerp(0.3, player.xo - player.position().x, 0);
-        var y = Mth.lerp(0.3, player.yo - player.position().y, 0);
-        var z = Mth.lerp(0.3, player.zo - player.position().z, 0);
+        var y = Math.max(Mth.lerp(0.3, yDiff, 0), 0) * 1.5f;
+        var z = -Mth.lerp(0.3, hDiff, 0) * 1.25f;
 
-        stack.translate(x, y, z);
+        stack.translate(0, 0, z - 1);
+
+        stack.translate(0f, (Mth.sin(ageInTicks / 10) / 4) - yDiff + y, 0f);
 
         cosmetic.render(RenderType::entityTranslucentCull, buffer, stack, packedLight, OverlayTexture.NO_OVERLAY);
 
