@@ -46,6 +46,7 @@ public class CosmeticsScreen extends BaseCosmeticsScreen {
                 group.addChild(button);
                 group.addChild(CosmeticIconWidget.of(cosmetic)
                         .withSize(32, 32)
+                        .withContentScaling(CosmeticIconWidget.ContentScaling.SCALE_SMALLER)
                         .withHighlightPredicate((widget, mouseX, mouseY) -> button.isHovered())
                         .withRotationSpeed(0.5f)
                 );

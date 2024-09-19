@@ -27,7 +27,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
     private PartPose pose;
     private Cosmetic cosmetic;
 
-    private ContentScaling contentScalingMode = ContentScaling.SCALE_Y;
+    private ContentScaling contentScalingMode = ContentScaling.NONE;
     private HighlightPredicate hoverPredicate;
     private float scale = 0.5f;
     private float rotationSpeed;
@@ -73,8 +73,8 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         Vector3f modelSize = cosmetic.model().maxBound().sub(cosmetic.model().minBound(), new Vector3f());
         float scaleX, scaleY;
 
-        // Ignore IDEA advice it's dumb
         switch (contentScalingMode) {
+            case SCALE_SMALLER -> scaleX = scaleY = (modelSize.x > modelSize.y) ? height / modelSize.y : width / modelSize.x;
             case SCALE_X -> scaleY = scaleX = width / modelSize.x;
             case SCALE_Y -> scaleX = scaleY = height / modelSize.y;
             case SQUISH -> {
@@ -202,6 +202,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
     }
 
     public enum ContentScaling {
+        SCALE_SMALLER,
         SCALE_X,
         SCALE_Y,
         SQUISH,
