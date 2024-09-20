@@ -6,6 +6,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.mojang.brigadier.tree.RootCommandNode;
+import dev.mayaqq.estrogen.client.cosmetics.ui.CosmeticUI;
 import net.minecraft.network.chat.Component;
 
 public class EstrogenClientCommands {
@@ -15,11 +16,17 @@ public class EstrogenClientCommands {
         LiteralCommandNode<T> dataFormat = dispatcher.register(manager.literal("dataFormat").executes(context -> {return 1;}));
         LiteralCommandNode<T> dump = dispatcher.register(manager.literal("dump").executes(EstrogenCommand::dataFormatDump));
 
+        LiteralCommandNode<T> openCosmetics = dispatcher.register(manager.literal("openCosmetics").executes(context -> {
+            CosmeticUI.open(null);
+            return 1;
+        }));
+
         RootCommandNode<T> root = dispatcher.getRoot();
 
         dataFormat.addChild(dump);
         debug.addChild(dataFormat);
         estrogen.addChild(debug);
+        estrogen.addChild(openCosmetics);
         root.addChild(estrogen);
     }
 

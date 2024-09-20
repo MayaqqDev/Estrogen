@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ShadeSeparatingVertexConsumer.class)
 public abstract class DevsWhatWereYouSmoking {
 
-    @Shadow protected abstract void setActiveConsumer(boolean shaded);
+    @Shadow(remap = false) protected abstract void setActiveConsumer(boolean shaded);
 
     @Inject(
         method = "prepare",

@@ -103,5 +103,4 @@ public class EstrogenItems {
     public static void bucketProperties(Item.Properties props) {
         props.craftRemainder(Items.BUCKET).stacksTo(1);
     }
-
 }

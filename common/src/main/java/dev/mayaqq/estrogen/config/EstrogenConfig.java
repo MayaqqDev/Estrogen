@@ -92,8 +92,12 @@ public class EstrogenConfig {
         public final ConfigBool animateTexture = b(true, "animateTexture", "Enable dream block texture animation");
 
         // UI Config Group
-        public final ConfigGroup ui = group(1, "ui", "UI element Configuration");
+        public final ConfigGroup ui = group(2, "ui", "UI element Configuration");
         public final ConfigBool dashOverlay = b(true, "dashOverlay", "Enable dash overlay");
+        public final ConfigGroup estrogenButton = group(1, "estrogenButton", "Settings for the estrogen button in the create screen");
+        public final ConfigBool estrogenButtonEnabled = b(true, "enabled", "Enable the estrogen button in the create screen");
+        public final ConfigInt estrogenButtonXOffset = i(-23, "xOffset", "x offset the estrogen button in the create screen", "Offset is calculated off of the center of the Configure Button");
+        public final ConfigInt estrogenButtonYOffset = i(0, "yOffset", "y offset the estrogen button in the create screen", "Offset is calculated off of the center of the Configure Button");
 
         // Misc Config Group
         public final ConfigGroup misc = group(1, "misc", "Miscellaneous settings");
