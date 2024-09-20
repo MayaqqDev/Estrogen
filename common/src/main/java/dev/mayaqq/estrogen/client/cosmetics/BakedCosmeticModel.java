@@ -5,6 +5,7 @@ import com.jozufozu.flywheel.core.model.Model;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Math;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.joml.Vector4f;
@@ -46,8 +47,10 @@ public class BakedCosmeticModel {
             float nx, ny, nz;
 
             if(transform != null) {
-                posVec.set(x, y, z, 1.0f).mul(transform.pose());
-                unpackNormal(normal, normalVec).mul(transform.normal());
+                posVec.set(x, y, z, 1.0f);
+                unpackNormal(normal, normalVec);
+                transform.pose().transform(posVec);
+                transform.normal().transform(normalVec);
                 x = posVec.x;
                 y = posVec.y;
                 z = posVec.z;
@@ -71,6 +74,17 @@ public class BakedCosmeticModel {
 
     public Vector3fc getMaxBound() {
         return maxBound;
+    }
+
+    /**
+     * Get the model size in a 0-16 scale, the model size will never be smaller than 16x16x16
+     * @return computed model size
+     */
+    public Vector3f computeModelSize() {
+        Vector3f vec = new Vector3f(maxBound).sub(minBound);
+        vec.set(Math.max(vec.x, 1f), Math.max(vec.y, 1f), Math.max(vec.z, 1f));
+        vec.mul(16f);
+        return vec;
     }
 
     // This exists incase you wanna use a cosmetic in an instance (im planning on possibly doing tha)

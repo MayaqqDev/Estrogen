@@ -34,10 +34,9 @@ public final class CosmeticModelBakery {
         Matrix4f modelMat = new Matrix4f();
         Matrix3f normalMat = new Matrix3f();
 
-        Vector4f minPos = new Vector4f();
-        Vector4f maxPos = new Vector4f();
-        Vector3f min = new Vector3f();
-        Vector3f max = new Vector3f();
+        // Bounds
+        Vector3f minBound = new Vector3f(1f, 1f, 1f);
+        Vector3f maxBound = new Vector3f();
 
         int index = 0;
         for(BlockElement element : elements) {
@@ -45,18 +44,8 @@ public final class CosmeticModelBakery {
             float[] shape = setupShape(element.from, element.to);
             BlockElementRotation rot = element.rotation;
 
-            minPos.set(element.from, 1.0f);
-            maxPos.set(element.to, 1.0f);
-
             // IGNORE IDEA ADVICE rot can very much be null
-            if (rot != null) {
-                applyElementRotation(rot, modelMat, normalMat);
-                minPos.mul(modelMat);
-                maxPos.mul(modelMat);
-            }
-
-            min.set(Math.min(min.x, minPos.x), Math.min(min.y, minPos.y), Math.min(min.z, minPos.z));
-            max.set(Math.max(max.x, maxPos.x), Math.max(max.y, maxPos.y), Math.max(max.z, maxPos.z));
+            if (rot != null) applyElementRotation(rot, modelMat, normalMat);
 
             for (Map.Entry<Direction, BlockElementFace> entry : element.faces.entrySet()) {
                 Direction direction = entry.getKey();
@@ -73,6 +62,10 @@ public final class CosmeticModelBakery {
                         normalMat.transform(normal);
                     }
 
+                    // Update the model bounds
+                    minBound.set(Math.min(minBound.x, position.x), Math.min(minBound.y, position.y), Math.min(minBound.z, position.z));
+                    maxBound.set(Math.max(maxBound.x, position.x), Math.max(maxBound.y, position.y), Math.max(maxBound.z, position.z));
+
                     putVertex(vertexData, index, i, position, face.uv, normal);
                     index++;
                 }
@@ -82,7 +75,7 @@ public final class CosmeticModelBakery {
             normalMat.identity();
         }
 
-        return new BakedCosmeticModel(vertexData, vertices, min, max);
+        return new BakedCosmeticModel(vertexData, vertices, minBound, maxBound);
     }
 
     private static float[] setupShape(Vector3f min, Vector3f max) {

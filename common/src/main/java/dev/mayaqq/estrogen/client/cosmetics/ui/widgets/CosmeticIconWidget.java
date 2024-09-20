@@ -16,7 +16,9 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 public class CosmeticIconWidget extends AbstractSimiWidget {
 
@@ -70,22 +72,13 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         PoseStack matrices = graphics.pose();
         matrices.translate(this.getX(), this.getY() + 16, z);
 
-        Vector3f modelSize = cosmetic.model().maxBound().sub(cosmetic.model().minBound(), new Vector3f());
-        float scaleX, scaleY;
+        // TODO: Someone please look at the scaling im gonna cry this completely breaks on smaller models :(
+        // Currently im just setting the model size to 16x16x16 if its smaller
+        Vector3fc modelSize = cosmetic.model().getModelSize();
+        Vector2f modelScale = contentScalingMode.calculate(width, height, modelSize);
 
-        switch (contentScalingMode) {
-            case SCALE_SMALLER -> scaleX = scaleY = (modelSize.x > modelSize.y) ? height / modelSize.y : width / modelSize.x;
-            case SCALE_X -> scaleY = scaleX = width / modelSize.x;
-            case SCALE_Y -> scaleX = scaleY = height / modelSize.y;
-            case SQUISH -> {
-                scaleX = width / modelSize.x;
-                scaleY = height / modelSize.y;
-            }
-            default -> scaleX = scaleY = 1f;
-        }
-
-        matrices.translate(0f, height - modelSize.y, 0f);
-        matrices.scale(16.0F * scaleX, -16.0F * scaleY, 16.0F * scaleX);
+        matrices.translate(0f, height - modelSize.y(), 0f);
+        matrices.scale(16.0F * modelScale.x, -16.0F * modelScale.y, 16.0F * modelScale.x);
 
         if(pose.x != 0 || pose.y != 0 || pose.z != 0) {
             matrices.translate(pose.x / 16f, pose.y / 16f, pose.z / 16f);
@@ -105,7 +98,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
             // White box is the widgets size
             drawDebugBounds(getX(), getY(), getX() + width, getY() + height, 0xFFFFFFFF);
             // Red box is the model's size
-            drawDebugBounds(getX(), getY(), getX() + modelSize.x, getY() + modelSize.y, 0xFFFF0000);
+            drawDebugBounds(getX(), getY(), getX() + modelSize.x(), getY() + modelSize.y(), 0xFFFF0000);
         }
 
         float animation = overlayAnimation.getValue(partialTicks);
@@ -114,7 +107,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
             : OverlayTexture.NO_OVERLAY;
 
         RenderSystem.setShaderLights(LIGHT_0, LIGHT_1);
-        cosmetic.render(RenderType::entityTranslucent, graphics.bufferSource(), matrices, LightTexture.FULL_BRIGHT, overlay);
+        cosmetic.render(RenderType::entityCutout, graphics.bufferSource(), matrices, LightTexture.FULL_BRIGHT, overlay);
         graphics.flush();
     }
 
@@ -145,9 +138,6 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
 
     }
 
-    private Quaternionf rotateXYZ(float x, float y, float z) {
-        return new Quaternionf().rotateXYZ(x * Mth.DEG_TO_RAD, y * Mth.DEG_TO_RAD, z * Mth.DEG_TO_RAD);
-    }
 
     public CosmeticIconWidget withRotationSpeed(float speed) {
         this.rotationSpeed = speed;
@@ -193,6 +183,11 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         return this;
     }
 
+    public CosmeticIconWidget debug() {
+        this.debug = true;
+        return this;
+    }
+
     public boolean rotateOrScale() {
         return pose.xRot != 0 || pose.yRot != 0 || pose.zRot != 0 || scale != 1.0f || rotationSpeed != 0 || animRot != 0;
     }
@@ -201,14 +196,26 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
         this.cosmetic = cosmetic;
     }
 
-    public enum ContentScaling {
-        SCALE_SMALLER,
-        SCALE_X,
-        SCALE_Y,
-        SQUISH,
-        NONE;
+    private Quaternionf rotateXYZ(float x, float y, float z) {
+        return new Quaternionf().rotateXYZ(x * Mth.DEG_TO_RAD, y * Mth.DEG_TO_RAD, z * Mth.DEG_TO_RAD);
     }
 
+    private void applyContentScaling() {
+
+    }
+
+    @FunctionalInterface
+    public interface ContentScaling {
+        ContentScaling NONE = (width, height, modelSize) -> new Vector2f(1, 1);
+        ContentScaling SCALE_X = (width, height, modelSize) -> new Vector2f(width / modelSize.x(), width / modelSize.x());
+        ContentScaling SCALE_Y = (width, height, modelSize) -> new Vector2f(height / modelSize.y(), height / modelSize.y());
+        ContentScaling AUTO = (width, height, modelSize) -> (modelSize.x() > modelSize.y()) ? SCALE_Y.calculate(width, height, modelSize) : SCALE_X.calculate(width, height, modelSize);
+        ContentScaling SQUISH = (width, height, modelSize) -> new Vector2f(width / modelSize.x(), height / modelSize.y());
+
+        Vector2f calculate(float width, float height, Vector3fc modelSize);
+    }
+
+    @FunctionalInterface
     public interface HighlightPredicate {
         HighlightPredicate DEFAULT = (self, mouseX, mouseY) -> mouseX >= self.getX() && mouseX <= self.getX() + self.width && mouseY >= self.getY() && mouseY <= self.getY() + self.height;
 

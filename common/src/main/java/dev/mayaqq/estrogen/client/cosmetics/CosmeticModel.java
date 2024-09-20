@@ -19,11 +19,13 @@ import java.util.concurrent.CompletableFuture;
 public class CosmeticModel {
     public static final String NAMESPACE = "estrogen_cosmetic";
     public static final Path CACHE = GlobalStorage.getCacheDirectory(Estrogen.MOD_ID).resolve("cosmetics").resolve("models");
-    public static final Pair<Vector3f, Vector3f> ZERO_BOUNDS = Pair.of(new Vector3f(), new Vector3f());
+    private static final Vector3f DEFAULT_SIZE = new Vector3f(16f, 16f, 16f);
+
 
     private final String url;
     private final String hash;
     private DownloadableModel model;
+    private Vector3f modelSize = DEFAULT_SIZE;
 
     public static CosmeticModel fromLocalFile(File file) {
         if(!file.isFile()) Estrogen.LOGGER.error("Invalid file");
@@ -43,14 +45,11 @@ public class CosmeticModel {
         return Optional.ofNullable(model.result);
     }
 
-    public Vector3fc minBound() {
-        checkOrDownload();
-        return Optionull.mapOrElse(model.result, BakedCosmeticModel::getMinBound, Vector3f::new);
-    }
-
-    public Vector3fc maxBound() {
-        checkOrDownload();
-        return Optionull.mapOrElse(model.result, BakedCosmeticModel::getMaxBound, Vector3f::new);
+    public Vector3fc getModelSize() {
+        if(modelSize == DEFAULT_SIZE) {
+            modelSize = Optionull.mapOrDefault(model.result, BakedCosmeticModel::computeModelSize, DEFAULT_SIZE);
+        }
+        return modelSize;
     }
 
 

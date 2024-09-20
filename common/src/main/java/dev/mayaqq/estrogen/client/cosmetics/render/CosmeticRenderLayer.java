@@ -40,7 +40,7 @@ public class CosmeticRenderLayer extends RenderLayer<AbstractClientPlayer, Playe
 
         stack.translate(0f, (Mth.sin(ageInTicks / 10) / 4) - yDiff + y, 0f);
 
-        cosmetic.render(RenderType::entityTranslucentCull, buffer, stack, packedLight, OverlayTexture.NO_OVERLAY);
+        cosmetic.render(RenderType::entityCutout, buffer, stack, packedLight, OverlayTexture.NO_OVERLAY);
 
         stack.popPose();
     }
