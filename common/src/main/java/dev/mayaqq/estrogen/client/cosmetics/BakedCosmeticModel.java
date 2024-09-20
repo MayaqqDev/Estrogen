@@ -47,10 +47,8 @@ public class BakedCosmeticModel {
             float nx, ny, nz;
 
             if(transform != null) {
-                posVec.set(x, y, z, 1.0f);
-                unpackNormal(normal, normalVec);
-                transform.pose().transform(posVec);
-                transform.normal().transform(normalVec);
+                posVec.set(x, y, z, 1.0f).mul(transform.pose());
+                unpackNormal(normal, normalVec).mul(transform.normal());
                 x = posVec.x;
                 y = posVec.y;
                 z = posVec.z;
