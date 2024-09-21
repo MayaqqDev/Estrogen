@@ -46,8 +46,8 @@ public class CookieJarInstance extends BlockEntityInstance<CookieJarBlockEntity>
 
     protected void reloadInstances() {
         poseStack.pushPose();
-        poseStack.mulPose(Axis.XP.rotationDegrees(90));
-        poseStack.translate(0.5, 0.35, -0.032F);
+        poseStack.mulPose(Axis.XN.rotationDegrees(90));
+        poseStack.translate(0.5, -0.625, 0.032F);
 
         int index = -2;
         for(ItemStack jarItem : blockEntity.getItems()) {
@@ -62,13 +62,13 @@ public class CookieJarInstance extends BlockEntityInstance<CookieJarBlockEntity>
                 continue;
             }
 
-            poseStack.translate(0.025, 0.025, -0.032F);
+            poseStack.translate(-0.025, -0.025, 0.032F);
             if(!hasInstances) createItemInstance(jarItem);
             else instances.get(index).loadIdentity().transform(poseStack);
-            poseStack.translate(-0.05, -0.05, -0.032F);
+            poseStack.translate(0.05, 0.05, 0.032F);
             if(!hasInstances) createItemInstance(jarItem);
             else instances.get(index + 1).loadIdentity().transform(poseStack);
-            poseStack.translate(0.025, 0.025, 0);
+            poseStack.translate(-0.025, -0.025, 0);
         }
 
         poseStack.popPose();
