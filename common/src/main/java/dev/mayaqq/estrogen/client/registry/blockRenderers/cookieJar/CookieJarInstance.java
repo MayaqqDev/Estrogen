@@ -77,7 +77,7 @@ public class CookieJarInstance extends BlockEntityInstance<CookieJarBlockEntity>
     protected void createItemInstance(ItemStack stack) {
         ModelData instance = getTransformMaterial()
             .model(Pair.of(stack.getItem(), ItemDisplayContext.GROUND),
-                () -> ItemModelBufferer.getModel(world, stack, ItemDisplayContext.GROUND))
+                () -> ItemModelBufferer.bufferModel(world, stack, ItemDisplayContext.GROUND))
             .createInstance();
 
         instance.transform(poseStack);
