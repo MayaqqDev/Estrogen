@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ItemModelBufferer {
 
-    public static BlockModel getModel(Level level, ItemStack stack, ItemDisplayContext context) {
+    public static BlockModel bufferModel(Level level, ItemStack stack, ItemDisplayContext context) {
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         ShadeSeparatedBufferedData data = ModelUtil.getBufferedData((consumer, renderer, random) -> {
             PoseStack poseStack = new PoseStack();

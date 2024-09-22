@@ -24,26 +24,26 @@ public class CookieJarRenderer implements BlockEntityRenderer<CookieJarBlockEnti
         }
 
         poseStack.pushPose();
-        poseStack.mulPose(Axis.XP.rotationDegrees(90));
-        poseStack.translate(0.5, 0.35, -0.032F);
+        poseStack.mulPose(Axis.XN.rotationDegrees(90));
+        poseStack.translate(0.5, -0.625, 0.032F);
 
         for (ItemStack jarItem : be.getItems()) {
             if (jarItem.isEmpty()) {
                 continue;
             }
-            poseStack.translate(0.025, 0.025, -0.032F);
+            poseStack.translate(-0.025, -0.025, 0.032F);
             itemRenderer.renderStatic(
                     jarItem, ItemDisplayContext.GROUND,
                     light, overlay, poseStack, bufferSource,
                     be.getLevel(), 0
             );
-            poseStack.translate(-0.05, -0.05, -0.032F);
+            poseStack.translate(0.05, 0.05, 0.032F);
             itemRenderer.renderStatic(
                     jarItem, ItemDisplayContext.GROUND,
                     light, overlay, poseStack, bufferSource,
                     be.getLevel(), 0
             );
-            poseStack.translate(0.025, 0.025, 0);
+            poseStack.translate(-0.025, -0.025, 0);
         }
 
         poseStack.popPose();
