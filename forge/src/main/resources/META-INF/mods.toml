@@ -19,6 +19,11 @@ Discord: https://discord.gg/hue
 Ko-fi: https://ko-fi.com/mayaqq
 '''
 
+[modproperties.estrogen]
+'resourcefullib:resourcepack' = [
+    { name="estrogenprogrammerart", description="Estrogen Programmer Art" }
+]
+
 # forge
 [[dependencies.estrogen]]
 modId = "forge"
