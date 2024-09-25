@@ -87,16 +87,6 @@ public class EstrogenForgeEvents {
     }
 
     @SubscribeEvent
-    public static void addResourcePack(AddPackFindersEvent event) {
-        if (event.getPackType() == PackType.CLIENT_RESOURCES) {
-            var resourcePath = ModList.get().getModFileById(Estrogen.MOD_ID).getFile().findResource("resourcepacks/estrogenprogrammerart");
-            var pack = Pack.readMetaAndCreate("builtin/estrogenprogrammerart", Component.literal("Estrogen Programmer Art"), false,
-                    (path) -> new PathPackResources(path, resourcePath, false), PackType.CLIENT_RESOURCES, Pack.Position.BOTTOM, PackSource.BUILT_IN);
-            event.addRepositorySource((packConsumer) -> packConsumer.accept(pack));
-        }
-    }
-
-    @SubscribeEvent
     public static void onEntityDeath(LivingDeathEvent event) {
         EstrogenEvents.onEntityDeath(event.getEntity(), event.getSource());
     }
