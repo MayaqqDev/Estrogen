@@ -111,7 +111,7 @@ public class ItemModelBufferer {
                 public void putBulkData(PoseStack.Pose poseEntry, BakedQuad quad, float[] colorMuls, float red, float green, float blue, int[] combinedLights, int combinedOverlay, boolean mulColor) {}
             };
 
-        private static final Set<RenderType> GLINT_TYPES = ObjectSet.of(
+        private static final Set<RenderType> GLINT_TYPES = Set.of(
                 RenderType.glint(),
                 RenderType.glintDirect(),
                 RenderType.glintTranslucent(),
