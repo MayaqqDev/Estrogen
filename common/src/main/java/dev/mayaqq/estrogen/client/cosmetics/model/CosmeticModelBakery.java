@@ -1,6 +1,13 @@
-package dev.mayaqq.estrogen.client.cosmetics;
+package dev.mayaqq.estrogen.client.cosmetics.model;
 
 import com.teamresourceful.resourcefullib.common.exceptions.UtilityClassException;
+import dev.mayaqq.estrogen.client.cosmetics.model.mesh.HierarchicalMesh;
+import dev.mayaqq.estrogen.client.cosmetics.model.mesh.Mesh;
+import dev.mayaqq.estrogen.client.cosmetics.model.mesh.SimpleMesh;
+import dev.mayaqq.estrogen.client.cosmetics.model.mesh.TransformableMesh;
+import it.unimi.dsi.fastutil.ints.IntArraySet;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntSet;
 import net.minecraft.client.renderer.FaceInfo;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.core.Direction;
@@ -8,9 +15,13 @@ import net.minecraft.util.Mth;
 import org.joml.*;
 import org.joml.Math;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Map;
+import java.util.function.IntConsumer;
+import java.util.function.IntFunction;
+import java.util.stream.IntStream;
 
 @ParametersAreNonnullByDefault
 public final class CosmeticModelBakery {
@@ -24,7 +35,57 @@ public final class CosmeticModelBakery {
         throw new UtilityClassException();
     }
 
-    public static BakedCosmeticModel bake(List<BlockElement> elements) {
+    public static BakedCosmeticModel bake(PreparedModel model) {
+        return model.hasGroups() ? bakeGrouped(model) : bakeSimple(model);
+    }
+
+    private static BakedCosmeticModel bakeSimple(PreparedModel model) {
+        Vector3f minBound = new Vector3f(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
+        Vector3f maxBound = new Vector3f();
+
+        return new BakedCosmeticModel(bakeMesh(SimpleMesh::new, model.elements(), minBound, maxBound), minBound, maxBound);
+    }
+
+    private static BakedCosmeticModel bakeGrouped(PreparedModel model) {
+        Vector3f minBound = new Vector3f(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
+        Vector3f maxBound = new Vector3f();
+
+        List<BlockElement> elements = model.elements();
+        HierarchicalMesh.Builder builder = HierarchicalMesh.builder();
+        IntSet ungrouped = IntStream.range(0, elements.size())
+            .collect(() -> createIntSet(elements.size()), IntSet::add, IntSet::addAll);
+
+        // Groups are stored hierarchically while elements aren't
+        for(BlockElementGroup rootGroup : model.groups()) {
+            builder.addChild(rootGroup.name(), compileGroup(rootGroup, elements::get, ungrouped::remove, minBound, maxBound));
+        }
+
+        builder.copy(bakeMesh(MeshFactory.SIMPLE, ungrouped.intStream().mapToObj(elements::get).toList(), minBound, maxBound));
+
+        return new BakedCosmeticModel(builder.build(), minBound, maxBound);
+    }
+
+    private static HierarchicalMesh compileGroup(BlockElementGroup group, IntFunction<BlockElement> elementGetter, IntConsumer indexConsumer, Vector3f minBoundMut,Vector3f maxBoundMut) {
+
+        List<BlockElement> list = group.elementIndices()
+            .intStream()
+            .peek(indexConsumer)
+            .mapToObj(elementGetter)
+            .toList();
+
+        HierarchicalMesh.Builder builder = HierarchicalMesh.builder()
+            .copy(bakeMesh(MeshFactory.SIMPLE, list, minBoundMut, maxBoundMut))
+            .origin(group.origin());
+
+        for(BlockElementGroup subGroup : group.subGroups()) {
+            builder.addChild(subGroup.name(), compileGroup(subGroup, elementGetter, indexConsumer, minBoundMut, maxBoundMut));
+        }
+
+        return builder.build();
+
+    }
+
+    private static <M extends Mesh> M bakeMesh(MeshFactory<M> factory, List<BlockElement> elements, @Nullable Vector3f minBoundMut, @Nullable Vector3f maxBoundMut) {
         int vertices = elements.stream().mapToInt(e -> e.faces.size()).sum() * 4;
         int[] vertexData = new int[vertices * BakedCosmeticModel.STRIDE];
 
@@ -33,10 +94,6 @@ public final class CosmeticModelBakery {
         Vector3f normal = new Vector3f();
         Matrix4f modelMat = new Matrix4f();
         Matrix3f normalMat = new Matrix3f();
-
-        // Bounds
-        Vector3f minBound = new Vector3f(1f, 1f, 1f);
-        Vector3f maxBound = new Vector3f();
 
         int index = 0;
         for(BlockElement element : elements) {
@@ -63,8 +120,8 @@ public final class CosmeticModelBakery {
                     }
 
                     // Update the model bounds
-                    minBound.set(Math.min(minBound.x, position.x), Math.min(minBound.y, position.y), Math.min(minBound.z, position.z));
-                    maxBound.set(Math.max(maxBound.x, position.x), Math.max(maxBound.y, position.y), Math.max(maxBound.z, position.z));
+                    if(minBoundMut != null) minBoundMut.set(Math.min(minBoundMut.x, position.x), Math.min(minBoundMut.y, position.y), Math.min(minBoundMut.z, position.z));
+                    if(maxBoundMut != null) maxBoundMut.set(Math.max(maxBoundMut.x, position.x), Math.max(maxBoundMut.y, position.y), Math.max(maxBoundMut.z, position.z));
 
                     putVertex(vertexData, index, i, position, face.uv, normal);
                     index++;
@@ -75,7 +132,8 @@ public final class CosmeticModelBakery {
             normalMat.identity();
         }
 
-        return new BakedCosmeticModel(vertexData, vertices, minBound, maxBound);
+        return factory.create(vertexData, vertices);
+
     }
 
     private static float[] setupShape(Vector3f min, Vector3f max) {
@@ -165,4 +223,21 @@ public final class CosmeticModelBakery {
         dest.set(unpackNX(packedNormal), unpackNY(packedNormal), unpackNZ(packedNormal));
         return dest;
     }
+
+    public static IntSet createIntSet(int size) {
+        return size > 4 ? new IntOpenHashSet() : new IntArraySet();
+    }
+
+    @FunctionalInterface
+    interface MeshFactory<M extends  Mesh> {
+        MeshFactory<TransformableMesh> TRANSFORMABLE = TransformableMesh::new;
+        MeshFactory<SimpleMesh> SIMPLE = SimpleMesh::new;
+
+        static MeshFactory<HierarchicalMesh> emptyHierarchical(Vector3f origin) {
+            return (data, vertexCount) -> new HierarchicalMesh(data, vertexCount, origin, Map.of());
+        }
+
+        M create(int[] data, int vertexCount);
+    }
+
 }

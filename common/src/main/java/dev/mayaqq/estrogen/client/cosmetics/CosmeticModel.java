@@ -1,8 +1,15 @@
 package dev.mayaqq.estrogen.client.cosmetics;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.JsonOps;
 import com.teamresourceful.resourcefullib.common.utils.files.GlobalStorage;
 import dev.mayaqq.estrogen.Estrogen;
-import it.unimi.dsi.fastutil.Pair;
+import dev.mayaqq.estrogen.client.cosmetics.model.BakedCosmeticModel;
+import dev.mayaqq.estrogen.client.cosmetics.model.CosmeticModelBakery;
+import dev.mayaqq.estrogen.client.cosmetics.model.PreparedModel;
 import net.minecraft.Optionull;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.block.model.BlockModel;
@@ -77,7 +84,7 @@ public class CosmeticModel {
 
         public void load() {
             if(this.future == null) {
-                Optional<BlockModel> optional1 = (file != null && file.isFile()) ? load(() -> new FileReader(file)) : Optional.empty();
+                Optional<PreparedModel> optional1 = (file != null && file.isFile()) ? load(() -> new FileReader(file)) : Optional.empty();
 
                 if(optional1.isPresent()) {
                     bake(optional1.get());
@@ -91,18 +98,20 @@ public class CosmeticModel {
             }
         }
 
-        private void bake(BlockModel base) {
+        private void bake(PreparedModel base) {
             try {
-                this.result = CosmeticModelBakery.bake(base.getElements());
+                this.result = CosmeticModelBakery.bake(base);
             } catch (Exception e) {
                 Estrogen.LOGGER.error("Failed to bake cosmetic model: {}", url, e);
             }
 
         }
 
-        private Optional<BlockModel> load(Callable<Reader> supplier) {
+        private Optional<PreparedModel> load(Callable<Reader> supplier) {
             try(Reader reader = supplier.call()) {
-                return Optional.of(BlockModel.fromStream(reader));
+                return PreparedModel.CODEC.decode(JsonOps.INSTANCE, JsonParser.parseReader(reader))
+                    .resultOrPartial(Estrogen.LOGGER::error)
+                    .map(Pair::getFirst);
             } catch (Exception ex) {
                 Estrogen.LOGGER.error("Failed to load cosmetic model: {}", url, ex);
                 return Optional.empty();
