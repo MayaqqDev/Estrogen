@@ -2,6 +2,8 @@ package dev.mayaqq.estrogen.utils.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -9,6 +11,7 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import java.util.Set;
 
 // This fixes visual bugs as enchantment glint isn't currently supported by flywheel
+@Environment(EnvType.CLIENT)
 record GlintFilteringBufferSource(VertexConsumer wrapped) implements MultiBufferSource {
 
     private static final VertexConsumer EMPTY_CONSUMER = new VertexConsumer() {

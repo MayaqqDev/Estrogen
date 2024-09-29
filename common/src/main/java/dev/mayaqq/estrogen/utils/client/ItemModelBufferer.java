@@ -2,6 +2,8 @@ package dev.mayaqq.estrogen.utils.client;
 
 import com.jozufozu.flywheel.core.model.BlockModel;
 import com.mojang.blaze3d.vertex.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -10,6 +12,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+@Environment(EnvType.CLIENT)
 public class ItemModelBufferer {
 
     private static final ThreadLocal<ThreadLocalObjects> LOCAL_OBJECTS = ThreadLocal.withInitial(ThreadLocalObjects::new);
