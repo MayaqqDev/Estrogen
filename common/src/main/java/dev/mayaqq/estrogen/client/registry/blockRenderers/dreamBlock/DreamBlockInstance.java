@@ -56,7 +56,7 @@ public class DreamBlockInstance extends BlockEntityInstance<DreamBlockEntity> im
         this.face(builder, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, Direction.UP);
 
         BufferBuilder.RenderedBuffer buffer = builder.end();
-        BlockModel model = new BlockModel(buffer.vertexBuffer(), buffer.indexBuffer(), buffer.drawState(), 0, "dream_block");
+        BlockModel model = new BlockModel(buffer.vertexBuffer(), buffer.indexBuffer(), buffer.drawState(), -1, "dream_block");
         buffer.release();
         return model;
     }
