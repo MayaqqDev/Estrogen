@@ -39,7 +39,6 @@
     ]
   },
   "mixins": [
-    "estrogen.mixins.json",
     "estrogen-common.mixins.json"
   ],
   "depends": {
