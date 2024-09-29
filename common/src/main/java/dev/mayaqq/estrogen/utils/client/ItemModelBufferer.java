@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.utils.client;
 import com.jozufozu.flywheel.core.model.BlockModel;
 import com.jozufozu.flywheel.core.model.ModelUtil;
 import com.mojang.blaze3d.vertex.*;
+import it.unimi.dsi.fastutil.objects.ObjectSet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -110,7 +111,7 @@ public class ItemModelBufferer {
                 public void putBulkData(PoseStack.Pose poseEntry, BakedQuad quad, float[] colorMuls, float red, float green, float blue, int[] combinedLights, int combinedOverlay, boolean mulColor) {}
             };
 
-        private static final Set<RenderType> GLINT_TYPES = Set.of(
+        private static final Set<RenderType> GLINT_TYPES = ObjectSet.of(
                 RenderType.glint(),
                 RenderType.glintDirect(),
                 RenderType.glintTranslucent(),
