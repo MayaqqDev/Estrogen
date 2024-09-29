@@ -63,16 +63,6 @@ public class ItemModelBufferer {
         public void putBulkData(PoseStack.Pose poseEntry, BakedQuad quad, float[] colorMuls, float red, float green, float blue, int[] combinedLights, int combinedOverlay, boolean mulColor) {}
     };
 
-    private static final Set<RenderType> GLINT_TYPES = Set.of(
-        RenderType.glint(),
-        RenderType.glintDirect(),
-        RenderType.glintTranslucent(),
-        RenderType.entityGlint(),
-        RenderType.entityGlintDirect(),
-        RenderType.armorGlint(),
-        RenderType.armorEntityGlint()
-    );
-
     private static final ThreadLocal<ThreadLocalObjects> LOCAL_OBJECTS = ThreadLocal.withInitial(ThreadLocalObjects::new);
 
     public static BlockModel bufferModel(Level level, ItemStack stack, ItemDisplayContext context) {
@@ -118,6 +108,16 @@ public class ItemModelBufferer {
 
     // This fixes visual bugs as enchantment glint isn't currently supported by flywheel
     private record GlintFilteringBufferSource(VertexConsumer wrapped) implements MultiBufferSource {
+
+        private static final Set<RenderType> GLINT_TYPES = Set.of(
+            RenderType.glint(),
+            RenderType.glintDirect(),
+            RenderType.glintTranslucent(),
+            RenderType.entityGlint(),
+            RenderType.entityGlintDirect(),
+            RenderType.armorGlint(),
+            RenderType.armorEntityGlint()
+        );
 
         @Override
         public VertexConsumer getBuffer(RenderType renderType) {
