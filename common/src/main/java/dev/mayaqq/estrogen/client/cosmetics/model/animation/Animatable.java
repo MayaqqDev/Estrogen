@@ -12,6 +12,8 @@ public interface Animatable {
 
     void offsetScale(Vector3fc offset);
 
+    void reset();
+
     interface Provider {
         Optional<Animatable> getAny(String key);
     }

@@ -17,5 +17,4 @@ public record PreparedModel(List<BlockElement> elements, List<BlockElementGroup>
     public boolean hasGroups() {
         return !groups.isEmpty();
     }
-
 }

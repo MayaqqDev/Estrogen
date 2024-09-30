@@ -5,11 +5,17 @@ import com.mojang.serialization.DataResult;
 import net.minecraft.resources.ResourceLocation;
 import javax.annotation.Nullable;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.Supplier;
 
+/**
+ * Simple registry class for serialization purposes
+ * @param <T>
+ */
 public final class Registry<T> {
 
     private final ConcurrentMap<ResourceLocation, T> backingMap = new ConcurrentHashMap<>();

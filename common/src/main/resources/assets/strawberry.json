@@ -24,7 +24,7 @@
         "target": "rotation",
         "keyframes": [
           {
-            "timestam"
+            "timestamp": 0.0
           }
         ]
       }

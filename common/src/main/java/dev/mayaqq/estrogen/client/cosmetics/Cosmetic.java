@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.mayaqq.estrogen.client.cosmetics.model.AnimatedModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
@@ -40,6 +41,12 @@ public record Cosmetic(String id, String name, CosmeticTexture texture, Cosmetic
             light,
             overlay
         ));
+    }
+
+    public void tick() {
+        model.get().filter(baked -> baked instanceof AnimatedModel)
+            .map(baked -> (AnimatedModel) baked)
+            .ifPresent(AnimatedModel::tick);
     }
 
 }

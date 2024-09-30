@@ -52,6 +52,13 @@ public class TransformableMesh implements Mesh, Animatable {
         zScale += offset.z();
     }
 
+    @Override
+    public void reset() {
+        x = y = z = 0;
+        xRot = yRot = zRot = 0;
+        xScale = yScale = zScale = 1f;
+    }
+
     public void applyTransform(PoseStack poseStack) {
         poseStack.translate(x / 16f, y / 16f, z / 16f);
 

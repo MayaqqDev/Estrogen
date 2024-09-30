@@ -20,7 +20,7 @@ public class BakedCosmeticModel {
 
     private static final ThreadLocal<BufferBuilder> LOCAL_BUILDER = ThreadLocal.withInitial(() -> new BufferBuilder(512));
 
-    private final Mesh mesh;
+    protected final Mesh mesh;
 
     private final Vector3f minBound;
     private final Vector3f maxBound;
