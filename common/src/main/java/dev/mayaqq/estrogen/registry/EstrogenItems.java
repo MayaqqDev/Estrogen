@@ -95,6 +95,10 @@ public class EstrogenItems {
             .rarity(Rarity.UNCOMMON))
         .creativeTab(CreativeModeTabs.TOOLS_AND_UTILITIES, TabPlacement.after(Items.ELYTRA))
         .register();
+    public static final ItemEntry<GenderChangePotionItem> GENDER_CHANGE_POTION = ITEMS.entry("gender_change_potion", GenderChangePotionItem::new)
+        .properties(p -> p.stacksTo(1).rarity(Rarity.RARE))
+        .creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.after(Items.HONEY_BOTTLE))
+        .register();
 
 
     @SuppressWarnings("unchecked")
