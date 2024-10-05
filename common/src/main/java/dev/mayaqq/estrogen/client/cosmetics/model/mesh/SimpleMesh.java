@@ -13,8 +13,8 @@ public record SimpleMesh(int[] data, int vertexCount) implements Mesh {
 
     @Override
     public void renderInto(VertexConsumer consumer, @NotNull PoseStack transform, int color, int light, int overlay) {
-        Vector4f posVec = (transform != null) ? new Vector4f() : null;
-        Vector3f normalVec = (transform != null) ? new Vector3f() : null;
+        Vector4f posVec = new Vector4f();
+        Vector3f normalVec = new Vector3f();
 
         PoseStack.Pose pose = transform.last();
 
@@ -29,20 +29,14 @@ public record SimpleMesh(int[] data, int vertexCount) implements Mesh {
 
             float nx, ny, nz;
 
-            if(transform != null) {
-                posVec.set(x, y, z, 1.0f).mul(pose.pose());
-                unpackNormal(normal, normalVec).mul(pose.normal());
-                x = posVec.x;
-                y = posVec.y;
-                z = posVec.z;
-                nx = normalVec.x;
-                ny = normalVec.y;
-                nz = normalVec.z;
-            } else {
-                nx = unpackNX(normal);
-                ny = unpackNY(normal);
-                nz = unpackNZ(normal);
-            }
+            posVec.set(x, y, z, 1.0f).mul(pose.pose());
+            unpackNormal(normal, normalVec).mul(pose.normal());
+            x = posVec.x;
+            y = posVec.y;
+            z = posVec.z;
+            nx = normalVec.x;
+            ny = normalVec.y;
+            nz = normalVec.z;
 
             consumer.vertex(x, y, z, (color >> 16 & 0xFF) / 255f, (color >> 8 & 0xFF) / 255f,
                 (color & 0xFF) / 255f, (color >>> 24) / 255f, u, v, overlay, light, nx, ny, nz);

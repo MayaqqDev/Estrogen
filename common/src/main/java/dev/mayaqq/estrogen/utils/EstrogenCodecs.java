@@ -20,7 +20,7 @@ public final class EstrogenCodecs {
         throw new UtilityClassException();
     }
 
-    public static <E extends Enum<E> & StringRepresentable> Keyable enumKeyable(Supplier<E[]> supplier) {
+    public static <S extends StringRepresentable> Keyable arrayKeyable(Supplier<S[]> supplier) {
         return Keyable.forStrings(() -> Arrays.stream(supplier.get()).map(StringRepresentable::getSerializedName));
     }
 

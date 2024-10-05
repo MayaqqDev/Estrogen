@@ -15,10 +15,7 @@ public record BlockElementGroup(String name, Vector3f origin, IntList elementInd
         IntList indices = new IntArrayList();
         List<BlockElementGroup> groups = new ArrayList<>();
 
-        data.forEach(either -> {
-            either.ifLeft(indices::add);
-            either.ifRight(groups::add);
-        });
+        data.forEach(either -> either.ifLeft(indices::add).ifRight(groups::add));
         return new BlockElementGroup(name, origin, indices, groups);
     }
 

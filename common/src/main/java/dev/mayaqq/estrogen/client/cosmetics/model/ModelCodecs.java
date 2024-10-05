@@ -41,15 +41,17 @@ public class ModelCodecs {
     public static final Codec<BlockElement> ELEMENT = RecordCodecBuilder.create(instance -> instance.group(
         VECTOR3F.fieldOf("from").forGetter(elem -> elem.from),
         VECTOR3F.fieldOf("to").forGetter(elem -> elem.to),
-        simpleMap(Direction.CODEC, FACE, EstrogenCodecs.enumKeyable(Direction::values)).fieldOf("faces").forGetter(elem -> elem.faces),
+        simpleMap(Direction.CODEC, FACE, EstrogenCodecs.arrayKeyable(Direction::values)).fieldOf("faces").forGetter(elem -> elem.faces),
         ROTATION.optionalFieldOf("rotation", null).forGetter(elem -> elem.rotation),
         BOOL.optionalFieldOf("shade", true).forGetter(elem -> elem.shade)
     ).apply(instance, BlockElement::new));
 
-    public static final Codec<BlockElementGroup> GROUP = EstrogenCodecs.recursive("element_group", codec -> RecordCodecBuilder.create(instance -> instance.group(
-        STRING.fieldOf("name").forGetter(BlockElementGroup::name),
-        VECTOR3F.fieldOf("origin").forGetter(BlockElementGroup::origin),
-        either(INT, codec).listOf().fieldOf("children").forGetter(BlockElementGroup::encodeChildren)
-    ).apply(instance, BlockElementGroup::of)));
+    public static final Codec<BlockElementGroup> GROUP = EstrogenCodecs.recursive("element_group", codec ->
+        RecordCodecBuilder.create(instance -> instance.group(
+            STRING.fieldOf("name").forGetter(BlockElementGroup::name),
+            VECTOR3F.fieldOf("origin").forGetter(BlockElementGroup::origin),
+            either(INT, codec).listOf().fieldOf("children").forGetter(BlockElementGroup::encodeChildren)
+        ).apply(instance, BlockElementGroup::of))
+    );
 
 }
