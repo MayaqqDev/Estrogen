@@ -16,11 +16,12 @@
 - New wiki! Not in the mod itself but on github [here](https://github.com/MayaqqDev/Estrogen/wiki) (Mayaqq & **Erora**)
 - Entity Patting now plays patting Animation
 - Estrogen will now be uploaded to the sappho maven (https://maven.is-immensely.gay) for easier way to access it in dev env
+- Gender change potion for permanent character changes (Mayaqq)
 
 ### Submitted texture credits from my discord:
 - lopyluna: thigh high textures for the model
 - Retro_Biz: Moth wool, bed, fuzz & things
 - Firebert Thigh High Item textures
 - Rennen_Rig.gsh: Unused thigh high item textures
-- Peglin: Moth Elytra item + model, unused moth fuzz textures
+- Peglin: Moth Elytra item + model, gender change potion, unused moth fuzz textures
 - Me :333333333
