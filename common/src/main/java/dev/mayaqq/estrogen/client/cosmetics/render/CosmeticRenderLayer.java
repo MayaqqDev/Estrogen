@@ -27,8 +27,6 @@ public class CosmeticRenderLayer extends RenderLayer<AbstractClientPlayer, Playe
         stack.pushPose();
         stack.mulPose(Axis.XP.rotationDegrees(180));
         stack.scale(0.75f, 0.75f, 0.75f);
-        //stack.mulPose(Axis.YP.rotationDegrees((ageInTicks * 0.01F / 2f) * 360f));
-        //TODO fix it and make it spin slowly :(
 
         var hDiff = Vector2d.distance(player.xOld, player.zOld, player.getX(), player.getZ());
         var yDiff = player.yOld - player.position().y;
@@ -39,6 +37,10 @@ public class CosmeticRenderLayer extends RenderLayer<AbstractClientPlayer, Playe
         stack.translate(0, 0, z - 1);
 
         stack.translate(0f, (Mth.sin(ageInTicks / 10) / 4) - yDiff + y, 0f);
+
+        stack.translate(0.5f, 0.5f, 0.5f);
+        stack.mulPose(Axis.YP.rotationDegrees((ageInTicks * 1) % 360f));
+        stack.translate(-0.5f, -0.5f, -0.5f);
 
         cosmetic.render(RenderType::entityCutout, buffer, stack, packedLight, OverlayTexture.NO_OVERLAY);
 
