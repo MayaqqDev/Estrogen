@@ -12,7 +12,6 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.integrations.jei.categories.CentrifugingCategory;
 import dev.mayaqq.estrogen.integrations.jei.categories.EntityInteractionCategory;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
-import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
 import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import dev.mayaqq.estrogen.registry.recipes.EntityInteractionRecipe;
 import mezz.jei.api.JeiPlugin;
@@ -58,7 +57,7 @@ public class JeiCompat extends CreateJEI {
         CreateRecipeCategory<?>
 
                 centrifuging = builder(CentrifugingRecipe.class)
-                    .addTypedRecipes(EstrogenProcessingRecipes.CENTRIFUGING)
+                    .addTypedRecipes(CentrifugingRecipe.getRecipeTypeInfo())
                     .catalyst(EstrogenBlocks.CENTRIFUGE::get)
                     .itemIcon(EstrogenBlocks.CENTRIFUGE.get())
                     .emptyBackground(177, 70)

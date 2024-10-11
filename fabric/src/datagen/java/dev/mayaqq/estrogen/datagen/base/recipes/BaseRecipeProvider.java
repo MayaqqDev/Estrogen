@@ -54,7 +54,7 @@ public abstract class BaseRecipeProvider extends ProcessingRecipeGen {
     }
 
     public String getRecipeName() {
-        return getRecipeType().getId().getPath();
+        return getRecipeType().id().getPath();
     }
 
     @Override

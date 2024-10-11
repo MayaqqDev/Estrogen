@@ -4,7 +4,8 @@ import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.mayaqq.estrogen.datagen.base.platform.recipes.PlatformRecipeHelper;
 import dev.mayaqq.estrogen.datagen.base.recipes.BaseRecipeProvider;
 import dev.mayaqq.estrogen.registry.EstrogenFluids;
-import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
+import dev.mayaqq.estrogen.registry.EstrogenRecipes;
+import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 
 import static dev.mayaqq.estrogen.Estrogen.id;
@@ -26,6 +27,6 @@ public class EstrogenCentrifugingRecipes extends BaseRecipeProvider {
 
     @Override
     protected IRecipeTypeInfo getRecipeType() {
-        return EstrogenProcessingRecipes.CENTRIFUGING;
+        return CentrifugingRecipe.getRecipeTypeInfo();
     }
 }

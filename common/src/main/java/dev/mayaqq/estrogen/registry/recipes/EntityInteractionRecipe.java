@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.registry.recipes;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.teamresourceful.resourcefullib.common.codecs.recipes.IngredientCodec;
 import com.teamresourceful.resourcefullib.common.codecs.recipes.ItemStackCodec;
 import com.teamresourceful.resourcefullib.common.recipe.CodecRecipe;
@@ -10,6 +9,7 @@ import dev.mayaqq.estrogen.registry.EstrogenRecipes;
 import dev.mayaqq.estrogen.registry.recipes.codecs.EntityObjectCodec;
 import dev.mayaqq.estrogen.registry.recipes.inventory.EntityInteractionInventory;
 import dev.mayaqq.estrogen.registry.recipes.objects.EntityObject;
+import dev.mayaqq.estrogen.utils.recipe.RecipeTypeInfo;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Animal;
@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 public record EntityInteractionRecipe(ResourceLocation id, Ingredient ingredient, ItemStack result, EntityObject entity, ResourceLocation sound, Boolean cantBeBaby) implements CodecRecipe<EntityInteractionInventory> {
 
     public static RecipeTypeInfo getRecipeTypeInfo() {
-        return new RecipeTypeInfo(new ResourceLocation("estrogen", "entity_interaction"), EstrogenRecipes.ENTITY_INTERACTION_SERIALIZER.get(), EstrogenRecipes.ENTITY_INTERACTION.get());
+        return new RecipeTypeInfo(new ResourceLocation("estrogen", "entity_interaction"), EstrogenRecipes.ENTITY_INTERACTION.get(), EstrogenRecipes.ENTITY_INTERACTION_SERIALIZER.get());
     }
 
     public static Codec<EntityInteractionRecipe> codec(ResourceLocation id) {
@@ -83,33 +83,5 @@ public record EntityInteractionRecipe(ResourceLocation id, Ingredient ingredient
     @Override
     public ItemStack getResultItem(RegistryAccess registryAccess) {
         return result.copy();
-    }
-
-    public static class RecipeTypeInfo implements IRecipeTypeInfo {
-
-        final ResourceLocation id;
-        final RecipeSerializer<?> serializer;
-        final RecipeType<?> type;
-
-        public RecipeTypeInfo(ResourceLocation id, RecipeSerializer<?> serializer, RecipeType<?> type) {
-            this.id = id;
-            this.serializer = serializer;
-            this.type = type;
-        }
-
-        @Override
-        public ResourceLocation getId() {
-            return id;
-        }
-
-        @Override
-        public RecipeSerializer<?> getSerializer() {
-            return serializer;
-        }
-
-        @Override
-        public RecipeType<?> getType() {
-            return type;
-        }
     }
 }
