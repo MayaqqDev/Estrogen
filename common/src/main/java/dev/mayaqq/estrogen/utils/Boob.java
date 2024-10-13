@@ -1,6 +1,8 @@
 package dev.mayaqq.estrogen.utils;
 
+import dev.mayaqq.estrogen.registry.EstrogenAttributes;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 
 public class Boob {
     /**
@@ -14,5 +16,9 @@ public class Boob {
      */
     public static float boobSize(double startTime, double currentTime, float initialSize, float tickDelta) {
         return Mth.clamp(((float) (currentTime - startTime + tickDelta) * 50 / 20000) + initialSize, 0.0F, 1.0F);
+    }
+
+    public static boolean shouldShow(Player player) {
+        return player.getAttributeValue(EstrogenAttributes.SHOW_BOOBS.get()) > 0.0;
     }
 }

@@ -1,7 +1,7 @@
 package dev.mayaqq.estrogen.client.features.boobs;
 
 import dev.mayaqq.estrogen.config.EstrogenConfig;
-import dev.mayaqq.estrogen.registry.EstrogenEffects;
+import dev.mayaqq.estrogen.utils.Boob;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +23,7 @@ public class BoobPhysicsManager {
         if (!isEnabled()) return;
         for (ConcurrentHashMap.Entry<UUID, Physics> physics : players.entrySet()) {
             Player player = level.getPlayerByUUID(physics.getKey());
-            if (player != null && player.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get())) {
+            if (player != null && Boob.shouldShow(player)) {
                 physics.getValue().update(player);
                 if (physics.getValue().expired) {
                     players.remove(physics.getKey());

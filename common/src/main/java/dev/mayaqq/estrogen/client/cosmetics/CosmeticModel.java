@@ -54,6 +54,7 @@ public class CosmeticModel {
     }
 
     public Vector3fc getModelSize() {
+        checkOrDownload();
         if(modelSize == DEFAULT_SIZE) {
             modelSize = Optionull.mapOrDefault(result, BakedCosmeticModel::computeModelSize, DEFAULT_SIZE);
         }

@@ -19,7 +19,7 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.fabric.integrations.emi.recipes.CentrifugingEmiRecipe;
 import dev.mayaqq.estrogen.fabric.integrations.emi.recipes.EntityInteractionEmiRecipe;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
-import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
+import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import dev.mayaqq.estrogen.registry.recipes.EntityInteractionRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -80,7 +80,7 @@ public class EmiCompat implements EmiPlugin {
         registry.addWorkstation(CENTRIFUGING, EmiStack.of(EstrogenBlocks.CENTRIFUGE.get()));
 
         addAll(registry, EntityInteractionRecipe.getRecipeTypeInfo(), EntityInteractionEmiRecipe::new);
-        addAll(registry, EstrogenProcessingRecipes.CENTRIFUGING, CentrifugingEmiRecipe::new);
+        addAll(registry, CentrifugingRecipe.getRecipeTypeInfo(), CentrifugingEmiRecipe::new);
     }
 
     @SuppressWarnings("unchecked")

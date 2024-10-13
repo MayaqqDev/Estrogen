@@ -41,6 +41,7 @@ public class EstrogenTranslations extends FabricLanguageProvider {
         tb.add(EstrogenEntities.MOTH.getSpawnEgg().get(), "Rosy Maple Moth Spawn Egg");
         tb.add(EstrogenItems.THIGH_HIGHS.get(), "Thigh Highs");
         tb.add(EstrogenItems.MOTH_ELYTRA.get(), "Rosy Maple Elytra");
+        tb.add(EstrogenItems.GENDER_CHANGE_POTION.get(), "Gender Change Potion");
         // Potion
         tb.add("item.minecraft.tipped_arrow.effect.estrogen", "Arrow of Girl Power");
         tb.add("item.minecraft.potion.effect.estrogen", "Potion of Girl Power");

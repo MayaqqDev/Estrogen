@@ -4,6 +4,7 @@ import dev.mayaqq.estrogen.client.features.dash.ClientDash;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.features.dash.CommonDash;
 import dev.mayaqq.estrogen.registry.EstrogenAttributes;
+import dev.mayaqq.estrogen.utils.Boob;
 import dev.mayaqq.estrogen.utils.PlayerLookup;
 import dev.mayaqq.estrogen.utils.Time;
 import net.fabricmc.api.EnvType;
@@ -32,6 +33,7 @@ public class EstrogenEffect extends MobEffect {
 
     private static final UUID DASH_MODIFIER_UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4c");
     private static final UUID FALL_DAMAGE_RESISTANCE_UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4d");
+    private static final UUID BOOBS_MODIFIER_UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4e");
 
     public EstrogenEffect(MobEffectCategory statusEffectType, int color) {
         super(statusEffectType, color);
@@ -60,9 +62,10 @@ public class EstrogenEffect extends MobEffect {
 
         if (entity instanceof Player) {
             entity.getAttribute(EstrogenAttributes.DASH_LEVEL.get()).removeModifier(DASH_MODIFIER_UUID);
+            entity.getAttribute(EstrogenAttributes.SHOW_BOOBS.get()).removeModifier(BOOBS_MODIFIER_UUID);
         }
 
-        if (!entity.hasEffect(ESTROGEN_EFFECT.get()) && entity instanceof Player) {
+        if (entity instanceof Player player && !Boob.shouldShow(player)) {
             entity.getAttribute(BOOB_INITIAL_SIZE.get()).setBaseValue(0.0);
             entity.getAttribute(BOOB_GROWING_START_TIME.get()).setBaseValue(-1.0);
         }
@@ -82,6 +85,9 @@ public class EstrogenEffect extends MobEffect {
         AttributeModifier dashModifier = new AttributeModifier(DASH_MODIFIER_UUID, "Dash Level", amplifier + 1, AttributeModifier.Operation.ADDITION);
         entity.getAttribute(DASH_LEVEL.get()).removeModifier(DASH_MODIFIER_UUID);
         entity.getAttribute(DASH_LEVEL.get()).addPermanentModifier(dashModifier);
+
+        entity.getAttribute(SHOW_BOOBS.get()).removeModifier(BOOBS_MODIFIER_UUID);
+        entity.getAttribute(SHOW_BOOBS.get()).addPermanentModifier(new AttributeModifier(BOOBS_MODIFIER_UUID, "Show Boobs", 1, AttributeModifier.Operation.ADDITION));
 
         AttributeInstance startTime = entity.getAttribute(BOOB_GROWING_START_TIME.get());
         // should fix crash related to applying effect to entity without given attribute
