@@ -2,9 +2,7 @@ package dev.mayaqq.estrogen.client.cosmetics.model;
 
 import com.teamresourceful.resourcefullib.common.exceptions.UtilityClassException;
 import dev.mayaqq.estrogen.client.cosmetics.model.mesh.HierarchicalMesh;
-import dev.mayaqq.estrogen.client.cosmetics.model.mesh.Mesh;
 import dev.mayaqq.estrogen.client.cosmetics.model.mesh.SimpleMesh;
-import dev.mayaqq.estrogen.client.cosmetics.model.mesh.TransformableMesh;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
@@ -43,7 +41,7 @@ public final class CosmeticModelBakery {
         Vector3f minBound = new Vector3f(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
         Vector3f maxBound = new Vector3f();
 
-        return new BakedCosmeticModel(bakeMesh(SimpleMesh::new, model.elements(), minBound, maxBound), minBound, maxBound);
+        return new BakedCosmeticModel(bakeMesh(model.elements(), minBound, maxBound), minBound, maxBound);
     }
 
     private static BakedCosmeticModel bakeGrouped(PreparedModel model) {
@@ -60,7 +58,7 @@ public final class CosmeticModelBakery {
             builder.addChild(rootGroup.name(), compileGroup(rootGroup, elements::get, ungrouped::remove, minBound, maxBound));
         }
 
-        builder.copy(bakeMesh(MeshFactory.SIMPLE, ungrouped.intStream().mapToObj(elements::get).toList(), minBound, maxBound));
+        builder.copy(bakeMesh(ungrouped.intStream().mapToObj(elements::get).toList(), minBound, maxBound));
 
         return new BakedCosmeticModel(builder.build(), minBound, maxBound);
     }
@@ -74,7 +72,7 @@ public final class CosmeticModelBakery {
             .toList();
 
         HierarchicalMesh.Builder builder = HierarchicalMesh.builder()
-            .copy(bakeMesh(MeshFactory.SIMPLE, list, minBoundMut, maxBoundMut))
+            .copy(bakeMesh(list, minBoundMut, maxBoundMut))
             .origin(group.origin());
 
         for(BlockElementGroup subGroup : group.subGroups()) {
@@ -85,7 +83,7 @@ public final class CosmeticModelBakery {
 
     }
 
-    private static <M extends Mesh> M bakeMesh(MeshFactory<M> factory, List<BlockElement> elements, @Nullable Vector3f minBoundMut, @Nullable Vector3f maxBoundMut) {
+    private static SimpleMesh bakeMesh(List<BlockElement> elements, @Nullable Vector3f minBoundMut, @Nullable Vector3f maxBoundMut) {
         int vertices = elements.stream().mapToInt(e -> e.faces.size()).sum() * 4;
         int[] vertexData = new int[vertices * BakedCosmeticModel.STRIDE];
 
@@ -132,7 +130,7 @@ public final class CosmeticModelBakery {
             normalMat.identity();
         }
 
-        return factory.create(vertexData, vertices);
+        return new SimpleMesh(vertexData, vertices);
 
     }
 
@@ -226,18 +224,6 @@ public final class CosmeticModelBakery {
 
     public static IntSet createIntSet(int size) {
         return size > 4 ? new IntOpenHashSet() : new IntArraySet();
-    }
-
-    @FunctionalInterface
-    interface MeshFactory<M extends  Mesh> {
-        MeshFactory<TransformableMesh> TRANSFORMABLE = TransformableMesh::new;
-        MeshFactory<SimpleMesh> SIMPLE = SimpleMesh::new;
-
-        static MeshFactory<HierarchicalMesh> emptyHierarchical(Vector3f origin) {
-            return (data, vertexCount) -> new HierarchicalMesh(data, vertexCount, origin, Map.of());
-        }
-
-        M create(int[] data, int vertexCount);
     }
 
 }
