@@ -7,8 +7,8 @@ import dev.mayaqq.estrogen.client.features.boobs.Physics;
 import dev.mayaqq.estrogen.config.ChestConfig;
 import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.config.PlayerEntityExtension;
-import dev.mayaqq.estrogen.registry.EstrogenEffects;
 import dev.mayaqq.estrogen.registry.EstrogenTags;
+import dev.mayaqq.estrogen.utils.Boob;
 import dev.mayaqq.estrogen.utils.Time;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -27,6 +27,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.DyeableArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
+import org.jetbrains.annotations.NotNull;
 
 import static dev.mayaqq.estrogen.registry.EstrogenAttributes.BOOB_GROWING_START_TIME;
 import static dev.mayaqq.estrogen.registry.EstrogenAttributes.BOOB_INITIAL_SIZE;
@@ -41,9 +42,9 @@ public class BoobFeatureRenderer extends RenderLayer<AbstractClientPlayer, Playe
         this.armorTrimAtlas = modelManager.getAtlas(Sheets.ARMOR_TRIMS_SHEET);
     }
 
-    public void render(PoseStack stack, MultiBufferSource bufferSource, int i, AbstractClientPlayer entity, float f, float g, float h, float j, float k, float l) {
+    public void render(@NotNull PoseStack stack, @NotNull MultiBufferSource bufferSource, int i, @NotNull AbstractClientPlayer entity, float f, float g, float h, float j, float k, float l) {
         ChestConfig chestConfig = ((PlayerEntityExtension) entity).estrogen$getChestConfig();
-        if (entity.hasEffect(EstrogenEffects.ESTROGEN_EFFECT.get()) && EstrogenConfig.client().chestFeatureRendering.get() && chestConfig != null && chestConfig.enabled() && entity.isSkinLoaded() && !entity.isInvisible()) {
+        if (Boob.shouldShow(entity) && EstrogenConfig.client().chestFeatureRendering.get() && chestConfig != null && chestConfig.enabled() && entity.isSkinLoaded() && !entity.isInvisible()) {
             if (entity.getItemBySlot(EquipmentSlot.CHEST).is(EstrogenTags.Items.CHEST_FEATURE_DISABLED)) return;
             VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityCutout(entity.getSkinTextureLocation()));
             int m = LivingEntityRenderer.getOverlayCoords(entity, 0.0F);

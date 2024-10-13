@@ -24,7 +24,7 @@ public class CustomFinishedRecipe<S extends ProcessingRecipe<?>> implements Fini
         this.recipe = recipe;
         this.condition = conditions;
         IRecipeTypeInfo recipeType = this.recipe.getTypeInfo();
-        ResourceLocation typeId = recipeType.getId();
+        ResourceLocation typeId = recipeType.id();
 
         if (!(recipeType.getSerializer() instanceof ProcessingRecipeSerializer))
             throw new IllegalStateException("Cannot datagen ProcessingRecipe of type: " + typeId);

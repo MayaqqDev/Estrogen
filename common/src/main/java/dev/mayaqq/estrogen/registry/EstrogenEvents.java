@@ -6,9 +6,9 @@ import dev.mayaqq.estrogen.networking.EstrogenNetworkManager;
 import dev.mayaqq.estrogen.networking.messages.c2s.SpawnHeartsPacket;
 import dev.mayaqq.estrogen.networking.messages.s2c.DreamBlockSeedPacket;
 import dev.mayaqq.estrogen.registry.effects.EstrogenEffect;
-import dev.mayaqq.estrogen.registry.entities.MothEntity;
 import dev.mayaqq.estrogen.registry.items.ThighHighsItem;
 import dev.mayaqq.estrogen.registry.recipes.inventory.EntityInteractionInventory;
+import dev.mayaqq.estrogen.utils.Boob;
 import dev.mayaqq.estrogen.utils.Time;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -20,10 +20,8 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -32,7 +30,6 @@ import org.apache.commons.codec.digest.MessageDigestAlgorithms;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static dev.mayaqq.estrogen.registry.EstrogenAttributes.BOOB_GROWING_START_TIME;
@@ -73,7 +70,7 @@ public class EstrogenEvents {
 
     public static void onPlayerJoin(Entity entity) {
         if (entity instanceof Player player) {
-            if (player.hasEffect(ESTROGEN_EFFECT.get())) {
+            if (Boob.shouldShow(player)) {
                 double currentTime = Time.currentTime(player.level());
                 player.getAttribute(BOOB_GROWING_START_TIME.get()).setBaseValue(currentTime);
             }
@@ -100,13 +97,12 @@ public class EstrogenEvents {
 
     public static void onPlayerQuit(Entity entity) {
         if (entity instanceof Player player) {
-            if (player.hasEffect(ESTROGEN_EFFECT.get())) {
+            if (Boob.shouldShow(player)) {
                 double startTime = player.getAttributeValue(BOOB_GROWING_START_TIME.get());
                 double currentTime = Time.currentTime(player.level());
                 float initialSize = (float) player.getAttributeValue(BOOB_INITIAL_SIZE.get());
                 float size = boobSize(startTime, currentTime, initialSize, 0.0F);
                 player.getAttribute(BOOB_INITIAL_SIZE.get()).setBaseValue(size);
-
             }
         }
     }
@@ -128,7 +124,6 @@ public class EstrogenEvents {
     public static void onEntityDeath(LivingEntity entity, DamageSource source) {
         if (source.getEntity() instanceof ServerPlayer player) {
             EstrogenAdvancementCriteria.KILLED_WITH_EFFECT.trigger(player, entity);
-
         }
     }
 

@@ -11,9 +11,6 @@
   },
   "result": [
     {
-      "item": "minecraft:bucket"
-    },
-    {
       "fluid": "estrogen:liquid_estrogen",
       "amount": 1000
     }

@@ -32,10 +32,8 @@ public class Estrogen {
         EstrogenEnchantments.ENCHANTMENTS.register();
         EstrogenItems.ITEMS.register();
         // Recipes need to be registered before completing the recipe registers
-        EstrogenRecipes.RECIPES.init();
-        EstrogenProcessingRecipes.register();
-        EstrogenRecipeRegistries.RECIPE_TYPES.register();
-        EstrogenRecipeRegistries.RECIPE_SERIALIZERS.register();
+        EstrogenRecipes.RECIPE_TYPES.register();
+        EstrogenRecipes.RECIPE_SERIALIZERS.register();
         EstrogenAdvancementCriteria.CRITERIAS.init();
         EstrogenParticles.PARTICLES.register();
         EstrogenCreativeTab.TAB.register();

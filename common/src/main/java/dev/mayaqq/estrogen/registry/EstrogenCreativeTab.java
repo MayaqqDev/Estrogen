@@ -26,6 +26,7 @@ public class EstrogenCreativeTab {
     public static void creativeTabItems(CreativeModeTab.ItemDisplayParameters params, CreativeModeTab.Output output) {
         output.accept(ESTROGEN_PILL);
         output.accept(CRYSTAL_ESTROGEN_PILL);
+        output.accept(GENDER_CHANGE_POTION);
         output.accept(BALLS);
         output.accept(MOTH_FUZZ);
         output.accept(TESTOSTERONE_CHUNK);

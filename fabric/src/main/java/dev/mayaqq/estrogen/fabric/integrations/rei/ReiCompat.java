@@ -18,7 +18,7 @@ import dev.mayaqq.estrogen.fabric.integrations.rei.categories.CentrifugingCatego
 import dev.mayaqq.estrogen.fabric.integrations.rei.categories.EntityInteractionCategory;
 import dev.mayaqq.estrogen.fabric.integrations.rei.displays.EstrogenDisplays;
 import dev.mayaqq.estrogen.registry.EstrogenBlocks;
-import dev.mayaqq.estrogen.registry.EstrogenProcessingRecipes;
+import dev.mayaqq.estrogen.registry.EstrogenRecipes;
 import dev.mayaqq.estrogen.registry.recipes.CentrifugingRecipe;
 import dev.mayaqq.estrogen.registry.recipes.EntityInteractionRecipe;
 import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.RecipeManagerAccessor;
@@ -105,7 +105,7 @@ public class ReiCompat extends CreateREI {
         ALL.clear();
 
         CreateRecipeCategory<CentrifugingRecipe> centrifuging = builder(CentrifugingRecipe.class)
-                .addTypedRecipes(EstrogenProcessingRecipes.CENTRIFUGING)
+                .addTypedRecipes(CentrifugingRecipe.getRecipeTypeInfo())
                 .catalyst(EstrogenBlocks.CENTRIFUGE::get)
                 .itemIcon(EstrogenBlocks.CENTRIFUGE.get())
                 .emptyBackground(177, 80)
