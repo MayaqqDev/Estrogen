@@ -11,7 +11,8 @@ import java.util.List;
 
 public record BlockElementGroup(String name, Vector3f origin, IntList elementIndices, List<BlockElementGroup> subGroups) {
 
-    public static BlockElementGroup of(String name, Vector3f origin, List<Either<Integer, BlockElementGroup>> data) {
+    @SuppressWarnings("deprecation")
+    public static BlockElementGroup fromCombinedList(String name, Vector3f origin, List<Either<Integer, BlockElementGroup>> data) {
         IntList indices = new IntArrayList();
         List<BlockElementGroup> groups = new ArrayList<>();
 
@@ -19,7 +20,7 @@ public record BlockElementGroup(String name, Vector3f origin, IntList elementInd
         return new BlockElementGroup(name, origin, indices, groups);
     }
 
-    public List<Either<Integer, BlockElementGroup>> encodeChildren() {
+    public List<Either<Integer, BlockElementGroup>> toCombinedList() {
         ImmutableList.Builder<Either<Integer, BlockElementGroup>> builder = ImmutableList.builder();
         subGroups.forEach(group -> builder.add(Either.right(group)));
         elementIndices.forEach(index -> builder.add(Either.left(index)));

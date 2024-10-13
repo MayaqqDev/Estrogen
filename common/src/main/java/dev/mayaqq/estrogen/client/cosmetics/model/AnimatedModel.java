@@ -25,12 +25,11 @@ public class AnimatedModel extends BakedCosmeticModel implements Animatable.Prov
 
     private long accumulatedTime;
     private float scale = 1f;
-    private Vector3f vecCache;
+    private Vector3f vecCache = new Vector3f();
 
     public AnimatedModel(HierarchicalMesh mesh, Vector3f minBound, Vector3f maxBound) {
         super(mesh, minBound, maxBound);
     }
-
 
 
     @Override

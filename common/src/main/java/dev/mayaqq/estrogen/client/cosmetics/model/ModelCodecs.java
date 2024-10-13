@@ -50,8 +50,8 @@ public class ModelCodecs {
         RecordCodecBuilder.create(instance -> instance.group(
             STRING.fieldOf("name").forGetter(BlockElementGroup::name),
             VECTOR3F.fieldOf("origin").forGetter(BlockElementGroup::origin),
-            either(INT, codec).listOf().fieldOf("children").forGetter(BlockElementGroup::encodeChildren)
-        ).apply(instance, BlockElementGroup::of))
+            either(INT, codec).listOf().fieldOf("children").forGetter(BlockElementGroup::toCombinedList)
+        ).apply(instance, BlockElementGroup::fromCombinedList))
     );
 
 }

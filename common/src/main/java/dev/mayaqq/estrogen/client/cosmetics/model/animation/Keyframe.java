@@ -9,6 +9,8 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.Mth;
 import org.joml.Vector3f;
 
+import static dev.mayaqq.estrogen.client.cosmetics.model.animation.Animations.INTERPOLATIONS;
+
 public record Keyframe(float timestamp, Vector3f target, Interpolation interpolation) {
 
     public static final Codec<Keyframe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -19,15 +21,15 @@ public record Keyframe(float timestamp, Vector3f target, Interpolation interpola
 
     public interface Interpolation {
 
-        Codec<Interpolation> CODEC = Animations.INTERPOLATIONS.createCodec();
+        Codec<Interpolation> CODEC = INTERPOLATIONS.createCodec();
 
-        Interpolation LINEAR = Animations.INTERPOLATIONS.register(Estrogen.id("linear"), (vector, delta, keyframes, currentFrame, targetFrame, strength) -> {
+        Interpolation LINEAR = INTERPOLATIONS.register(Estrogen.id("linear"), (vector, delta, keyframes, currentFrame, targetFrame, strength) -> {
             Vector3f vector3f = keyframes[currentFrame].target();
             Vector3f vector3f2 = keyframes[targetFrame].target();
             return vector3f.lerp(vector3f2, delta, vector).mul(strength);
         });
 
-        Interpolation CATMULLROM = Animations.INTERPOLATIONS.register(Estrogen.id("catmullrom"), (vector, delta, keyframes, currentFrame, targetFrame, strength) -> {
+        Interpolation CATMULLROM = INTERPOLATIONS.register(Estrogen.id("catmullrom"), (vector, delta, keyframes, currentFrame, targetFrame, strength) -> {
             Vector3f vector3f = keyframes[Math.max(0, currentFrame - 1)].target();
             Vector3f vector3f2 = keyframes[currentFrame].target();
             Vector3f vector3f3 = keyframes[targetFrame].target();
@@ -39,6 +41,9 @@ public record Keyframe(float timestamp, Vector3f target, Interpolation interpola
             );
             return vector;
         });
+
+        Interpolation SKIP = INTERPOLATIONS.register(Estrogen.id("skip"),
+            (vector, delta, keyframes, currentFrame, targetFrame, strength) -> keyframes[currentFrame].target());
 
         Vector3f apply(Vector3f vector, float delta, Keyframe[] keyframes, int currentFrame, int targetFrame, float strength);
     }

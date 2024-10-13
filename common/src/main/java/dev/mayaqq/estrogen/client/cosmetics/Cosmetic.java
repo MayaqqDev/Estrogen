@@ -9,21 +9,22 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+
+import java.util.Optional;
 import java.util.function.Function;
 
-public record Cosmetic(String id, String name, CosmeticTexture texture, CosmeticModel model) {
+public record Cosmetic(String id, String name, CosmeticTexture texture, CosmeticModel model, Optional<CosmeticAnimation> animation) {
 
     public static Cosmetic fromJson(String id, JsonObject json) {
         String name = GsonHelper.getAsString(json, "name", id);
         CosmeticTexture texture = new CosmeticTexture(json.get("texture").getAsString());
         CosmeticModel model = new CosmeticModel(json.get("model").getAsString());
 
-        return new Cosmetic(
-                id,
-                name,
-                texture,
-                model
-        );
+        Optional<CosmeticAnimation> animation = json.has("animation")
+            ? Optional.of(new CosmeticAnimation(json.get("animation").getAsString()))
+            : Optional.empty();
+
+        return new Cosmetic(id, name, texture, model, animation);
     }
 
     /**
