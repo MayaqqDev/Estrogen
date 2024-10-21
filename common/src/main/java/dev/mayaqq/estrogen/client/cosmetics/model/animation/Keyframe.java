@@ -14,8 +14,8 @@ public record Keyframe(float timestamp, Vector3f target, Interpolation interpola
         INTERPOLATIONS.codec().fieldOf("interpolation").forGetter(Keyframe::interpolation)
     ).apply(instance, Keyframe::new));
 
+    @FunctionalInterface
     public interface Interpolation {
-
         Vector3f apply(Vector3f vector, float delta, Keyframe[] keyframes, int currentFrame, int targetFrame, float strength);
     }
 }

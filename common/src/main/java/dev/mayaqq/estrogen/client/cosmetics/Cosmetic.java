@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.mayaqq.estrogen.client.cosmetics.model.animation.AnimationDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
@@ -38,7 +39,7 @@ public record Cosmetic(String id, String name, CosmeticTexture texture, Cosmetic
             animation.flatMap(CosmeticAnimation::getResult)
                 .ifPresent(model::runAnimation);
 
-            model.renderInto(
+            model.getMesh().renderInto(
                 source.getBuffer(renderType.apply(texture.getResourceLocation())),
                 matrices,
                 0xFFFFFFFF,
@@ -46,6 +47,12 @@ public record Cosmetic(String id, String name, CosmeticTexture texture, Cosmetic
                 overlay
             );
         });
+    }
+
+    public boolean useDefaultAnimation() {
+        return animation.flatMap(CosmeticAnimation::getResult)
+            .map(AnimationDefinition::defaultAnimation)
+            .orElse(true);
     }
 
 }

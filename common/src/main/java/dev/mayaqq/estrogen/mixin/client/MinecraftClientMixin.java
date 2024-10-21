@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.mixin.client;
 
-import dev.mayaqq.estrogen.client.cosmetics.EstrogenCosmetics;
+import dev.mayaqq.estrogen.client.cosmetics.model.animation.Animations;
 import dev.mayaqq.estrogen.client.features.UwUfy;
 import dev.mayaqq.estrogen.client.features.boobs.BoobPhysicsManager;
 import dev.mayaqq.estrogen.client.features.dash.DreamBlockEffect;
@@ -29,7 +29,7 @@ public class MinecraftClientMixin {
         DynamicDreamTexture.INSTANCE.tick();
         DynamicDreamTexture.resetActive();
         UwUfy.tick();
-        EstrogenCosmetics.tick();
+        Animations.tick();
     }
 
     @Inject(method = "updateTitle()V", at = @At("HEAD"), cancellable = true)

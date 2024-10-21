@@ -10,12 +10,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.BiConsumer;
 
-public record Animation(Target target, Keyframe... keyframes) {
+public record Animation(float seconds, Target target, Keyframe... keyframes) {
 
     public static final Codec<Animation> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        Codec.FLOAT.fieldOf("duration").forGetter(Animation::seconds),
         Target.CODEC.fieldOf("target").forGetter(Animation::target),
         Keyframe.CODEC.listOf().fieldOf("keyframes").forGetter(anim -> List.of(anim.keyframes()))
-    ).apply(instance, (target, keyframes) -> new Animation(target, keyframes.toArray(Keyframe[]::new))));
+    ).apply(instance, (secs, target, keyframes) ->
+        new Animation(secs, target, keyframes.toArray(Keyframe[]::new))));
 
 
     public enum Target implements StringRepresentable {

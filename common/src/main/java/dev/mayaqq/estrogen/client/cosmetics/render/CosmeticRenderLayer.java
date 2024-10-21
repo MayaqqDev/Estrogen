@@ -37,7 +37,7 @@ public class CosmeticRenderLayer extends RenderLayer<AbstractClientPlayer, Playe
 
     @Override
     public void render(PoseStack stack, MultiBufferSource buffer, int packedLight, AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
-        Cosmetic cosmetic = EstrogenCosmetics.getCosmetic(player.getUUID());
+        Cosmetic cosmetic = TEST.get(); // EstrogenCosmetics.getCosmetic(player.getUUID());
         if(cosmetic == null) return;
 
         stack.pushPose();
@@ -52,13 +52,17 @@ public class CosmeticRenderLayer extends RenderLayer<AbstractClientPlayer, Playe
 
         stack.translate(0, 0, z - 1);
 
-       // stack.translate(0f, (Mth.sin(ageInTicks / 10) / 4) - yDiff + y, 0f);
+        boolean bl = cosmetic.useDefaultAnimation();
 
-//        stack.translate(0.5f, 0.5f, 0.5f);
-//        stack.mulPose(Axis.YP.rotationDegrees((ageInTicks * 1) % 360f));
-//        stack.translate(-0.5f, -0.5f, -0.5f);
+        stack.translate(0f, bl ? (Mth.sin(ageInTicks / 10) / 4) - yDiff + y : .125 - yDiff + y, 0f);
 
-        TEST.get().render(RenderType::entityCutout, buffer, stack, packedLight, OverlayTexture.NO_OVERLAY);
+        if(bl) {
+            stack.translate(0.5f, 0.5f, 0.5f);
+            stack.mulPose(Axis.YP.rotationDegrees((ageInTicks * 1) % 360f));
+            stack.translate(-0.5f, -0.5f, -0.5f);
+        }
+
+        cosmetic.render(RenderType::entityCutout, buffer, stack, packedLight, OverlayTexture.NO_OVERLAY);
 
         stack.popPose();
     }

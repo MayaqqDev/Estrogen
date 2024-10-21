@@ -15,6 +15,11 @@ public interface Mesh {
         public int vertexCount() {
             return 0;
         }
+
+        @Override
+        public String toString() {
+            return "Empty Mesh";
+        }
     };
 
     int STRIDE = 6;

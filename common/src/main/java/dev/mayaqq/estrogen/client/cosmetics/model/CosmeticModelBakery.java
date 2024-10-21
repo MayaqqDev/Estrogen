@@ -2,7 +2,7 @@ package dev.mayaqq.estrogen.client.cosmetics.model;
 
 import com.mojang.math.Axis;
 import com.teamresourceful.resourcefullib.common.exceptions.UtilityClassException;
-import dev.mayaqq.estrogen.client.cosmetics.model.mesh.HierarchicalMesh;
+import dev.mayaqq.estrogen.client.cosmetics.model.mesh.MeshTree;
 import dev.mayaqq.estrogen.client.cosmetics.model.mesh.SimpleMesh;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
@@ -29,63 +29,67 @@ public final class CosmeticModelBakery {
     private static final float PACK = 127.0f;
     private static final float UNPACK = 1.0f / PACK;
 
-    private CosmeticModelBakery() throws UtilityClassException {
-        throw new UtilityClassException();
+    private final PreparedModel model;
+    private final Vector3f minBound = new Vector3f(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
+    private final Vector3f maxBound = new Vector3f();
+
+    public CosmeticModelBakery(PreparedModel model) {
+        this.model = model;
     }
 
     public static BakedCosmeticModel bake(PreparedModel model) {
-        return model.hasGroups() ? bakeGrouped(model) : bakeSimple(model);
+        CosmeticModelBakery bakery = new CosmeticModelBakery(model);
+        return model.hasGroups() ? bakery.bakeGrouped() : bakery.bakeSimple();
     }
 
-    private static BakedCosmeticModel bakeSimple(PreparedModel model) {
-        Vector3f minBound = new Vector3f(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
-        Vector3f maxBound = new Vector3f();
-
-        return new BakedCosmeticModel(bakeMesh(model.elements(), minBound, maxBound), minBound, maxBound);
+    public BakedCosmeticModel bakeSimple() {
+        return new BakedCosmeticModel(this.bakeMesh(model.elements()), minBound, maxBound);
     }
 
-    private static BakedCosmeticModel bakeGrouped(PreparedModel model) {
-        Vector3f minBound = new Vector3f(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
-        Vector3f maxBound = new Vector3f();
-
+    public BakedCosmeticModel bakeGrouped() {
         List<BlockElement> elements = model.elements();
-        HierarchicalMesh.Builder builder = HierarchicalMesh.builder();
+        MeshTree.Builder builder = MeshTree.builder();
         IntSet ungrouped = IntStream.range(0, elements.size())
             .collect(() -> createIntSet(elements.size()), IntSet::add, IntSet::addAll);
 
         // Groups are stored hierarchically while elements aren't
         for(BlockElementGroup rootGroup : model.groups()) {
-            builder.addChild(rootGroup.name(), compileGroup(rootGroup, index -> {
-                ungrouped.remove(index);
-                return elements.get(index);
-            }, minBound, maxBound));
+            builder.addChild(
+                rootGroup.name(),
+                this.compileGroup(rootGroup, index -> {
+                    ungrouped.remove(index);
+                    return elements.get(index);
+                })
+            );
         }
 
-        builder.data(bakeMesh(ungrouped.intStream().mapToObj(elements::get).toList(), minBound, maxBound));
+        if(!ungrouped.isEmpty()) {
+            builder.mesh(bakeMesh(ungrouped.intStream().mapToObj(elements::get).toList()));
+        }
 
         return new BakedCosmeticModel(builder.build(), minBound, maxBound);
     }
 
-    private static HierarchicalMesh compileGroup(BlockElementGroup group, IntFunction<BlockElement> elementGetter, Vector3f minBoundMut,Vector3f maxBoundMut) {
+    public MeshTree compileGroup(BlockElementGroup group, IntFunction<BlockElement> elementGetter) {
 
         List<BlockElement> elements = group.elementIndices()
             .intStream()
             .mapToObj(elementGetter)
             .toList();
 
-        HierarchicalMesh.Builder builder = HierarchicalMesh.builder()
-            .data(bakeMesh(elements, minBoundMut, maxBoundMut))
+        MeshTree.Builder builder = MeshTree.builder()
+            .mesh(bakeMesh(elements))
             .origin(new Vector3f(group.origin()).div(16));
 
         for(BlockElementGroup subGroup : group.subGroups()) {
-            builder.addChild(subGroup.name(), compileGroup(subGroup, elementGetter, minBoundMut, maxBoundMut));
+            builder.addChild(subGroup.name(), compileGroup(subGroup, elementGetter));
         }
 
         return builder.build();
 
     }
 
-    private static SimpleMesh bakeMesh(List<BlockElement> elements, @Nullable Vector3f minBoundMut, @Nullable Vector3f maxBoundMut) {
+    public SimpleMesh bakeMesh(List<BlockElement> elements) {
         int vertices = elements.stream().mapToInt(e -> e.faces.size()).sum() * 4;
         int[] vertexData = new int[vertices * BakedCosmeticModel.STRIDE];
 
@@ -118,8 +122,8 @@ public final class CosmeticModelBakery {
                     normalMat.transform(normal);
 
                     // Update the model bounds
-                    if(minBoundMut != null) minBoundMut.set(Math.min(minBoundMut.x, position.x), Math.min(minBoundMut.y, position.y), Math.min(minBoundMut.z, position.z));
-                    if(maxBoundMut != null) maxBoundMut.set(Math.max(maxBoundMut.x, position.x), Math.max(maxBoundMut.y, position.y), Math.max(maxBoundMut.z, position.z));
+                    minBound.set(Math.min(minBound.x, position.x), Math.min(minBound.y, position.y), Math.min(minBound.z, position.z));
+                    maxBound.set(Math.max(maxBound.x, position.x), Math.max(maxBound.y, position.y), Math.max(maxBound.z, position.z));
 
                     putVertex(vertexData, index, i, position, uv, normal);
                     index++;
@@ -145,7 +149,7 @@ public final class CosmeticModelBakery {
         return fs;
     }
 
-    private static void applyElementRotation(BlockElementRotation rotation, Matrix4f modelMat, Matrix3f normalMat) {
+    private void applyElementRotation(BlockElementRotation rotation, Matrix4f modelMat, Matrix3f normalMat) {
         Vector3f origin = rotation.origin();
         modelMat.translate(origin.x / 16f, origin.y / 16f, origin.z / 16f);
 
@@ -167,7 +171,7 @@ public final class CosmeticModelBakery {
         modelMat.translate(-(origin.x / 16f), -(origin.y / 16f), -(origin.z / 16f));
     }
 
-    private static Vector3f getRescaleVector(Direction.Axis axis) {
+    private Vector3f getRescaleVector(Direction.Axis axis) {
         return switch (axis) {
             case X -> new Vector3f(0, 1f, 1f);
             case Y -> new Vector3f(1f, 0, 1f);
@@ -175,7 +179,7 @@ public final class CosmeticModelBakery {
         };
     }
 
-    private static Quaternionf axisRotation(Direction.Axis axis, float degrees) {
+    private Quaternionf axisRotation(Direction.Axis axis, float degrees) {
         return switch (axis) {
             case X -> Axis.XP.rotationDegrees(degrees);
             case Y -> Axis.YP.rotationDegrees(degrees);
@@ -183,7 +187,7 @@ public final class CosmeticModelBakery {
         };
     }
 
-    private static void putVertex(int[] data, int index, int indexInFace, Vector4f position, BlockFaceUV uv, Vector3f normal) {
+    private void putVertex(int[] data, int index, int indexInFace, Vector4f position, BlockFaceUV uv, Vector3f normal) {
         int pos = index * BakedCosmeticModel.STRIDE;
 
         float u = uv.getU(indexInFace) / 16f;
@@ -223,7 +227,7 @@ public final class CosmeticModelBakery {
         return dest;
     }
 
-    public static IntSet createIntSet(int size) {
+    private static IntSet createIntSet(int size) {
         return size > 4 ? new IntOpenHashSet() : new IntArraySet();
     }
 

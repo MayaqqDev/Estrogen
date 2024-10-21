@@ -3,10 +3,9 @@ package dev.mayaqq.estrogen.client.cosmetics.model;
 import com.jozufozu.flywheel.core.model.BlockModel;
 import com.jozufozu.flywheel.core.model.Model;
 import com.mojang.blaze3d.vertex.*;
-import dev.mayaqq.estrogen.client.cosmetics.EstrogenCosmetics;
 import dev.mayaqq.estrogen.client.cosmetics.model.animation.AnimationDefinition;
 import dev.mayaqq.estrogen.client.cosmetics.model.animation.Animations;
-import dev.mayaqq.estrogen.client.cosmetics.model.mesh.HierarchicalMesh;
+import dev.mayaqq.estrogen.client.cosmetics.model.mesh.MeshTree;
 import dev.mayaqq.estrogen.client.cosmetics.model.mesh.Mesh;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import org.jetbrains.annotations.NotNull;
@@ -34,13 +33,9 @@ public class BakedCosmeticModel {
     }
 
     public void runAnimation(AnimationDefinition definition) {
-        if(!(mesh instanceof HierarchicalMesh hierarchicalMesh)) throw new IllegalStateException("Can't setup animation without a grouped mesh");
-        hierarchicalMesh.reset();
-        Animations.animate(hierarchicalMesh, definition, EstrogenCosmetics.getAnimationTicks(), 1f, animCache);
-    }
-
-    public void renderInto(VertexConsumer consumer, @NotNull PoseStack transform, int color, int light, int overlay) {
-        mesh.renderInto(consumer, transform, color, light, overlay);
+        if(!(mesh instanceof MeshTree tree)) throw new IllegalStateException("Can't do animation without a mesh tree");
+        tree.reset();
+        Animations.animate(tree, definition, animCache);
     }
 
     public Mesh getMesh() {
@@ -70,7 +65,7 @@ public class BakedCosmeticModel {
     public Model createModel() {
         BufferBuilder builder = LOCAL_BUILDER.get();
         builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK);
-        renderInto(builder, new PoseStack(), -1, 0, OverlayTexture.NO_OVERLAY);
+        mesh.renderInto(builder, new PoseStack(), -1, 0, OverlayTexture.NO_OVERLAY);
         BufferBuilder.RenderedBuffer buffer = builder.end();
         BlockModel model = new BlockModel(buffer.vertexBuffer(), buffer.indexBuffer(), buffer.drawState(), 0, "cosmetic");
         buffer.release();
