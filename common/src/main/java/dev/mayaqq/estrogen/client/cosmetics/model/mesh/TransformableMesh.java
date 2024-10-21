@@ -33,23 +33,23 @@ public class TransformableMesh implements Mesh, Animatable {
 
     @Override
     public void offsetPosition(Vector3fc offset) {
-        x += offset.x();
-        y += offset.y();
-        z += offset.z();
+        x = offset.x();
+        y = offset.y();
+        z = offset.z();
     }
 
     @Override
     public void offsetRotation(Vector3fc offset) {
-        xRot += offset.x();
-        yRot += offset.y();
-        zRot += offset.z();
+        xRot = offset.x();
+        yRot = offset.y();
+        zRot = offset.z();
     }
 
     @Override
     public void offsetScale(Vector3fc offset) {
-        xScale += offset.x();
-        yScale += offset.y();
-        zScale += offset.z();
+        xScale = offset.x();
+        yScale = offset.y();
+        zScale = offset.z();
     }
 
     @Override
@@ -63,7 +63,7 @@ public class TransformableMesh implements Mesh, Animatable {
         poseStack.translate(x / 16f, y / 16f, z / 16f);
 
         if(xRot != 0 || yRot != 0 || zRot != 0) {
-            poseStack.mulPose(new Quaternionf().rotationXYZ(xRot * Mth.DEG_TO_RAD, yRot * Mth.DEG_TO_RAD, zRot * Mth.DEG_TO_RAD));
+            poseStack.mulPose(new Quaternionf().rotationXYZ(xRot, yRot, zRot));
         }
         if(xScale != 1 || yScale != 1 || zScale != 1) {
             poseStack.scale(xScale, yScale, zScale);
@@ -72,8 +72,8 @@ public class TransformableMesh implements Mesh, Animatable {
 
     @Override
     public void renderInto(VertexConsumer consumer, PoseStack transform, int color, int light, int overlay) {
-        Vector4f posVec = new Vector4f();
-        Vector3f normalVec = new Vector3f();
+        Vector4f position = new Vector4f();
+        Vector3f normal = new Vector3f();
         applyTransform(transform);
 
         PoseStack.Pose pose = transform.last();
@@ -85,25 +85,16 @@ public class TransformableMesh implements Mesh, Animatable {
             float z = Float.intBitsToFloat(data[pos + 2]);
             float u = Float.intBitsToFloat(data[pos + 3]);
             float v = Float.intBitsToFloat(data[pos + 4]);
-            int normal = data[pos + 5];
+            int packedNormal = data[pos + 5];
 
-            float nx, ny, nz;
+            position.set(x, y, z, 1f);
+            unpackNormal(packedNormal, normal);
 
-            posVec.set(x, y, z, 1f);
-            unpackNormal(normal, normalVec);
+            position.mul(pose.pose());
+            normal.mul(pose.normal());
 
-            posVec.mul(pose.pose());
-            normalVec.mul(pose.normal());
-
-            x = posVec.x;
-            y = posVec.y;
-            z = posVec.z;
-            nx = normalVec.x;
-            ny = normalVec.y;
-            nz = normalVec.z;
-
-            consumer.vertex(x, y, z, (color >> 16 & 0xFF) / 255f, (color >> 8 & 0xFF) / 255f,
-                (color & 0xFF) / 255f, (color >>> 24) / 255f, u, v, overlay, light, nx, ny, nz);
+            consumer.vertex(position.x, position.y, position.z, (color >> 16 & 0xFF) / 255f, (color >> 8 & 0xFF) / 255f,
+                (color & 0xFF) / 255f, (color >>> 24) / 255f, u, v, overlay, light, normal.x, normal.y, normal.z);
         }
     }
 

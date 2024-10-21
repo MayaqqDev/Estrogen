@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.client.registry;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockShader;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
@@ -19,11 +18,11 @@ public class EstrogenRenderType extends RenderType {
             VertexFormat.Mode.QUADS,
             256,
             false,
-           false,
+            false,
             CompositeState.builder()
-               .setShaderState(new ShaderStateShard(DreamBlockShader::getDreamShader))
-              .setTextureState(new RenderStateShard.TextureStateShard(tex, false, false))
-              .createCompositeState(false)
+                .setShaderState(new ShaderStateShard(EstrogenShaders::getDreamShader))
+                .setTextureState(new RenderStateShard.TextureStateShard(tex, false, false))
+                .createCompositeState(false)
         )
     );
 

@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.mayaqq.estrogen.client.cosmetics.model.AnimatedModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
@@ -35,19 +34,18 @@ public record Cosmetic(String id, String name, CosmeticTexture texture, Cosmetic
      * @param light lighting
      */
     public void render(Function<ResourceLocation, RenderType> renderType, MultiBufferSource source, PoseStack matrices, int light, int overlay) {
-        model.get().ifPresent(model -> model.renderInto(
-            source.getBuffer(renderType.apply(texture.getResourceLocation())),
-            matrices,
-            0xFFFFFFFF,
-            light,
-            overlay
-        ));
-    }
+        model.get().ifPresent(model -> {
+            animation.flatMap(CosmeticAnimation::getResult)
+                .ifPresent(model::runAnimation);
 
-    public void tick() {
-        model.get().filter(baked -> baked instanceof AnimatedModel)
-            .map(baked -> (AnimatedModel) baked)
-            .ifPresent(AnimatedModel::tick);
+            model.renderInto(
+                source.getBuffer(renderType.apply(texture.getResourceLocation())),
+                matrices,
+                0xFFFFFFFF,
+                light,
+                overlay
+            );
+        });
     }
 
 }

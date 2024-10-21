@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock;
+package dev.mayaqq.estrogen.client.registry;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
@@ -10,16 +10,24 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.function.Consumer;
 
-public final class DreamBlockShader {
+public final class EstrogenShaders {
     @Nullable
-    private static ShaderInstance shaderInstance;
+    private static ShaderInstance dreamShader;
+    @Nullable
+    private static ShaderInstance depthAwareBlitShader;
+
     public static final ResourceLocation DREAM_TEXTURE_LOCATION = Estrogen.id("textures/entity/dream.png");
 
-    private DreamBlockShader() {}
+    private EstrogenShaders() {}
 
     @Nullable
     public static ShaderInstance getDreamShader() {
-        return shaderInstance;
+        return dreamShader;
+    }
+
+    @Nullable
+    public static ShaderInstance getDepthAwareBlitShader() {
+        return depthAwareBlitShader;
     }
 
     public static void register(CoreShaderCallback callback) {
@@ -27,9 +35,13 @@ public final class DreamBlockShader {
             callback.accept(
                 Estrogen.id("rendertype_estrogen_dream"),
                 DefaultVertexFormat.BLOCK,
-                program -> {
-                    shaderInstance = program;
-                });
+                program -> dreamShader = program
+            );
+//            callback.accept(
+//                Estrogen.id("depth_aware_blit"),
+//                DefaultVertexFormat.BLIT_SCREEN,
+//                program -> depthAwareBlitShader = program
+//            );
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

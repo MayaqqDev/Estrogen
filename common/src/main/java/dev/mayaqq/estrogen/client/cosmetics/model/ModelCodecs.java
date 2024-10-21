@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.client.cosmetics.model;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.mayaqq.estrogen.utils.EstrogenCodecs;
 import it.unimi.dsi.fastutil.floats.FloatList;
@@ -10,21 +11,17 @@ import net.minecraft.client.renderer.block.model.BlockElementRotation;
 import net.minecraft.client.renderer.block.model.BlockFaceUV;
 import net.minecraft.core.Direction;
 
+import java.util.function.Function;
+
 import static com.mojang.serialization.Codec.*;
 import static net.minecraft.util.ExtraCodecs.*;
 
 public class ModelCodecs {
 
-    private static final Codec<float[]> BASIC_UVS = Codec.FLOAT.listOf()
+    public static final Codec<float[]> BASIC_UVS = Codec.FLOAT.listOf()
         .xmap(list -> new float[] {list.get(0), list.get(1), list.get(2), list.get(3)}, FloatList::of);
 
-    public static final Codec<BlockFaceUV> UV = orCompressed(
-        BASIC_UVS.xmap(uvs -> new BlockFaceUV(uvs, 0), uv -> uv.uvs),
-        RecordCodecBuilder.create(instance -> instance.group(
-            BASIC_UVS.fieldOf("uvs").forGetter(uv -> uv.uvs),
-            INT.fieldOf("rotation").forGetter(uv -> uv.rotation)
-        ).apply(instance, BlockFaceUV::new))
-    );
+    public static final Codec<Integer> UV_ROTATION = INT.comapFlatMap(ModelCodecs::validateUVRot, Function.identity());
 
     public static final Codec<BlockElementRotation> ROTATION = RecordCodecBuilder.create(instance -> instance.group(
         FLOAT.fieldOf("angle").forGetter(BlockElementRotation::angle),
@@ -34,9 +31,12 @@ public class ModelCodecs {
     ).apply(instance, (angle, axis, origin, rescale) -> new BlockElementRotation(origin, axis, angle, rescale)));
 
     public static final Codec<BlockElementFace> FACE = RecordCodecBuilder.create(instance -> instance.group(
-        UV.fieldOf("uv").forGetter(elem -> elem.uv),
-        STRING.fieldOf("texture").forGetter(elem -> elem.texture)
-    ).apply(instance, (uv, texture) -> new BlockElementFace(null, -1, texture, uv)));
+        BASIC_UVS.fieldOf("uv").forGetter(elem -> elem.uv.uvs),
+        UV_ROTATION.optionalFieldOf("rotation", 0).forGetter(elem -> elem.uv.rotation),
+        STRING.optionalFieldOf("texture", "").forGetter(elem -> elem.texture)
+    ).apply(instance, (uv, rotation, texture) ->
+        new BlockElementFace(null, -1, texture, new BlockFaceUV(uv, rotation))
+    ));
 
     public static final Codec<BlockElement> ELEMENT = RecordCodecBuilder.create(instance -> instance.group(
         VECTOR3F.fieldOf("from").forGetter(elem -> elem.from),
@@ -53,5 +53,12 @@ public class ModelCodecs {
             either(INT, codec).listOf().fieldOf("children").forGetter(BlockElementGroup::toCombinedList)
         ).apply(instance, BlockElementGroup::fromCombinedList))
     );
+
+    private static DataResult<Integer> validateUVRot(Integer uvRot) {
+        return switch (uvRot) {
+            case 0, 90, 180, 270 -> DataResult.success(uvRot);
+            default -> DataResult.error(() -> "Invalid uv rotation");
+        };
+    }
 
 }

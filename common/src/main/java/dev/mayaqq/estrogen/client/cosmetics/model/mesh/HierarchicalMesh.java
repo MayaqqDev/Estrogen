@@ -5,14 +5,11 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.mayaqq.estrogen.client.cosmetics.model.animation.Animatable;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import org.joml.Vector3f;
-import org.joml.Vector3fc;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiConsumer;
-import java.util.stream.Stream;
 
 public class HierarchicalMesh extends TransformableMesh implements Animatable.Provider {
 
@@ -66,8 +63,7 @@ public class HierarchicalMesh extends TransformableMesh implements Animatable.Pr
     public Optional<Animatable> getAny(String name) {
         if(children.containsKey(name)) return Optional.of(children.get(name));
         return children.entrySet().stream()
-            .filter(entry -> entry.getKey().equals(name))
-            .<Animatable>map(Map.Entry::getValue)
+            .flatMap(entry -> entry.getValue().getAny(name).stream())
             .findAny();
     }
 
@@ -81,11 +77,17 @@ public class HierarchicalMesh extends TransformableMesh implements Animatable.Pr
 
         private Builder() {}
 
-        public Builder copy(SimpleMesh mesh) {
-            this.vertexCount = mesh.vertexCount();
-            int length = mesh.data().length;
+        public Builder data(SimpleMesh source) {
+            this.vertexCount = source.vertexCount();
+            int length = source.data().length;
             this.data = new int[length];
-            System.arraycopy(mesh.data(), 0, data, 0, length);
+            System.arraycopy(source.data(), 0, data, 0, length);
+            return this;
+        }
+
+        public Builder data(int[] data, int vertexCount) {
+            this.data = data;
+            this.vertexCount = vertexCount;
             return this;
         }
 
@@ -101,6 +103,7 @@ public class HierarchicalMesh extends TransformableMesh implements Animatable.Pr
 
         public HierarchicalMesh build() {
             if(origin == null) origin = new Vector3f();
+            Objects.requireNonNull(data, "No data set for this mesh");
             return new HierarchicalMesh(data, vertexCount, origin, children);
         }
 

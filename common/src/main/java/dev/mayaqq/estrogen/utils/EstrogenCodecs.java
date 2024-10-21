@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.utils;
 
 import com.google.common.base.Suppliers;
+import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
@@ -26,6 +27,13 @@ public final class EstrogenCodecs {
 
     public static <T> Codec<T> recursive(String name, UnaryOperator<Codec<T>> codec) {
         return new RecursiveCodec<>(name, codec);
+    }
+
+    public static <T> Codec<T> alternatives(Codec<T> codec1, Codec<T> codec2) {
+        return Codec.either(codec1, codec2).xmap(
+            either -> either.map(Function.identity(), Function.identity()),
+            Either::left
+        );
     }
 
     public static class RecursiveCodec<T> implements Codec<T> {

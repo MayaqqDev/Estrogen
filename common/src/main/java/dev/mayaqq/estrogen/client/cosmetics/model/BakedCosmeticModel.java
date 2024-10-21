@@ -3,16 +3,16 @@ package dev.mayaqq.estrogen.client.cosmetics.model;
 import com.jozufozu.flywheel.core.model.BlockModel;
 import com.jozufozu.flywheel.core.model.Model;
 import com.mojang.blaze3d.vertex.*;
+import dev.mayaqq.estrogen.client.cosmetics.EstrogenCosmetics;
+import dev.mayaqq.estrogen.client.cosmetics.model.animation.AnimationDefinition;
+import dev.mayaqq.estrogen.client.cosmetics.model.animation.Animations;
+import dev.mayaqq.estrogen.client.cosmetics.model.mesh.HierarchicalMesh;
 import dev.mayaqq.estrogen.client.cosmetics.model.mesh.Mesh;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Math;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
-import org.joml.Vector4f;
-
-import static dev.mayaqq.estrogen.client.cosmetics.model.CosmeticModelBakery.*;
 
 public class BakedCosmeticModel {
 
@@ -25,14 +25,26 @@ public class BakedCosmeticModel {
     private final Vector3f minBound;
     private final Vector3f maxBound;
 
+    private final Vector3f animCache = new Vector3f();
+
     public BakedCosmeticModel(Mesh mesh, Vector3f minBound, Vector3f maxBound) {
         this.mesh = mesh;
         this.minBound = minBound;
         this.maxBound = maxBound;
     }
 
+    public void runAnimation(AnimationDefinition definition) {
+        if(!(mesh instanceof HierarchicalMesh hierarchicalMesh)) throw new IllegalStateException("Can't setup animation without a grouped mesh");
+        hierarchicalMesh.reset();
+        Animations.animate(hierarchicalMesh, definition, EstrogenCosmetics.getAnimationTicks(), 1f, animCache);
+    }
+
     public void renderInto(VertexConsumer consumer, @NotNull PoseStack transform, int color, int light, int overlay) {
         mesh.renderInto(consumer, transform, color, light, overlay);
+    }
+
+    public Mesh getMesh() {
+        return mesh;
     }
 
     public Vector3fc getMinBound() {
