@@ -3,13 +3,12 @@ package dev.mayaqq.estrogen.client.cosmetics.model.mesh;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 import static dev.mayaqq.estrogen.client.cosmetics.model.CosmeticModelBakery.*;
 
-public record SimpleMesh(int[] data, int vertexCount) implements Mesh {
+public record SimpleMesh(int[] data, int vertexCount) implements RenderableMesh {
 
     @Override
     public void renderInto(VertexConsumer consumer, @NotNull PoseStack transform, int color, int light, int overlay) {

@@ -6,9 +6,8 @@ import com.mojang.blaze3d.vertex.*;
 import dev.mayaqq.estrogen.client.cosmetics.model.animation.AnimationDefinition;
 import dev.mayaqq.estrogen.client.cosmetics.model.animation.Animations;
 import dev.mayaqq.estrogen.client.cosmetics.model.mesh.MeshTree;
-import dev.mayaqq.estrogen.client.cosmetics.model.mesh.Mesh;
+import dev.mayaqq.estrogen.client.cosmetics.model.mesh.RenderableMesh;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Math;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
@@ -19,14 +18,14 @@ public class BakedCosmeticModel {
 
     private static final ThreadLocal<BufferBuilder> LOCAL_BUILDER = ThreadLocal.withInitial(() -> new BufferBuilder(512));
 
-    protected final Mesh mesh;
+    protected final RenderableMesh mesh;
 
     private final Vector3f minBound;
     private final Vector3f maxBound;
 
     private final Vector3f animCache = new Vector3f();
 
-    public BakedCosmeticModel(Mesh mesh, Vector3f minBound, Vector3f maxBound) {
+    public BakedCosmeticModel(RenderableMesh mesh, Vector3f minBound, Vector3f maxBound) {
         this.mesh = mesh;
         this.minBound = minBound;
         this.maxBound = maxBound;
@@ -38,7 +37,7 @@ public class BakedCosmeticModel {
         Animations.animate(tree, definition, animCache);
     }
 
-    public Mesh getMesh() {
+    public RenderableMesh getMesh() {
         return mesh;
     }
 
