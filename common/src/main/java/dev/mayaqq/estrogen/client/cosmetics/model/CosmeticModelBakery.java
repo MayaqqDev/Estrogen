@@ -1,8 +1,8 @@
 package dev.mayaqq.estrogen.client.cosmetics.model;
 
 import com.mojang.math.Axis;
-import com.teamresourceful.resourcefullib.common.exceptions.UtilityClassException;
 import dev.mayaqq.estrogen.client.cosmetics.model.mesh.MeshTree;
+import dev.mayaqq.estrogen.client.cosmetics.model.mesh.RenderableMesh;
 import dev.mayaqq.estrogen.client.cosmetics.model.mesh.SimpleMesh;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
@@ -14,7 +14,6 @@ import net.minecraft.util.Mth;
 import org.joml.*;
 import org.joml.Math;
 
-import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +31,12 @@ public final class CosmeticModelBakery {
     private final PreparedModel model;
     private final Vector3f minBound = new Vector3f(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
     private final Vector3f maxBound = new Vector3f();
+
+    // reusing the instances
+    private final Vector4f position = new Vector4f();
+    private final Vector3f normal = new Vector3f();
+    private final Matrix4f modelMat = new Matrix4f();
+    private final Matrix3f normalMat = new Matrix3f();
 
     public CosmeticModelBakery(PreparedModel model) {
         this.model = model;
@@ -56,7 +61,7 @@ public final class CosmeticModelBakery {
         for(BlockElementGroup rootGroup : model.groups()) {
             builder.addChild(
                 rootGroup.name(),
-                this.compileGroup(rootGroup, index -> {
+                compileGroup(rootGroup, index -> {
                     ungrouped.remove(index);
                     return elements.get(index);
                 })
@@ -91,16 +96,14 @@ public final class CosmeticModelBakery {
 
     public SimpleMesh bakeMesh(List<BlockElement> elements) {
         int vertices = elements.stream().mapToInt(e -> e.faces.size()).sum() * 4;
-        int[] vertexData = new int[vertices * BakedCosmeticModel.STRIDE];
-
-        // Reusing ALL the instances
-        Vector4f position = new Vector4f();
-        Vector3f normal = new Vector3f();
-        Matrix4f modelMat = new Matrix4f();
-        Matrix3f normalMat = new Matrix3f();
+        int[] vertexData = new int[vertices * RenderableMesh.STRIDE];
 
         int index = 0;
         for(BlockElement element : elements) {
+
+            // Reset the transform matrices
+            modelMat.identity();
+            normalMat.identity();
 
             float[] shape = setupShape(element.from, element.to);
             BlockElementRotation rot = element.rotation;
@@ -125,13 +128,21 @@ public final class CosmeticModelBakery {
                     minBound.set(Math.min(minBound.x, position.x), Math.min(minBound.y, position.y), Math.min(minBound.z, position.z));
                     maxBound.set(Math.max(maxBound.x, position.x), Math.max(maxBound.y, position.y), Math.max(maxBound.z, position.z));
 
-                    putVertex(vertexData, index, i, position, uv, normal);
+                    int pos = index * RenderableMesh.STRIDE;
+
+                    float u = uv.getU(i) / 16f;
+                    float v = uv.getV(i) / 16f;
+
+                    vertexData[pos] = Float.floatToRawIntBits(position.x);
+                    vertexData[pos + 1] = Float.floatToRawIntBits(position.y);
+                    vertexData[pos + 2] = Float.floatToRawIntBits(position.z);
+                    vertexData[pos + 3] = Float.floatToRawIntBits(u);
+                    vertexData[pos + 4] = Float.floatToRawIntBits(v);
+                    vertexData[pos + 5] = packNormal(normal.x, normal.y, normal.z);
+
                     index++;
                 }
             }
-
-            modelMat.identity();
-            normalMat.identity();
         }
 
         return new SimpleMesh(vertexData, vertices);
@@ -185,20 +196,6 @@ public final class CosmeticModelBakery {
             case Y -> Axis.YP.rotationDegrees(degrees);
             case Z -> Axis.ZP.rotationDegrees(degrees);
         };
-    }
-
-    private void putVertex(int[] data, int index, int indexInFace, Vector4f position, BlockFaceUV uv, Vector3f normal) {
-        int pos = index * BakedCosmeticModel.STRIDE;
-
-        float u = uv.getU(indexInFace) / 16f;
-        float v = uv.getV(indexInFace) / 16f;
-
-        data[pos] = Float.floatToRawIntBits(position.x);
-        data[pos + 1] = Float.floatToRawIntBits(position.y);
-        data[pos + 2] = Float.floatToRawIntBits(position.z);
-        data[pos + 3] = Float.floatToRawIntBits(u);
-        data[pos + 4] = Float.floatToRawIntBits(v);
-        data[pos + 5] = packNormal(normal.x, normal.y, normal.z);
     }
 
 

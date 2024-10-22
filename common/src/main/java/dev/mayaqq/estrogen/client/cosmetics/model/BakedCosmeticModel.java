@@ -14,8 +14,6 @@ import org.joml.Vector3fc;
 
 public class BakedCosmeticModel {
 
-    public static final int STRIDE = 6;
-
     private static final ThreadLocal<BufferBuilder> LOCAL_BUILDER = ThreadLocal.withInitial(() -> new BufferBuilder(512));
 
     protected final RenderableMesh mesh;
