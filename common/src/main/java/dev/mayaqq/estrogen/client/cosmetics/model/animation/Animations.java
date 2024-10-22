@@ -46,6 +46,6 @@ public final class Animations {
     }
 
     public static long getAnimationTime() {
-        return (long) ((double) (Mth.lerp(Minecraft.getInstance().getFrameTime(), animationTicks, animationTicks + 1)) * 50L);
+        return ((long) Mth.lerp(Minecraft.getInstance().getFrameTime(), animationTicks, animationTicks + 1)) * 50L;
     }
 }
