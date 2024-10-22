@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
-public class MeshTree implements RenderableMesh, Animatable, Animatable.Provider {
+public class MeshTree implements Mesh, Animatable, Animatable.Provider {
 
     private float x;
     private float y;
@@ -25,10 +25,10 @@ public class MeshTree implements RenderableMesh, Animatable, Animatable.Provider
     private float zScale = 1f;
 
     private final Vector3f origin;
-    private final RenderableMesh mesh;
+    private final Mesh mesh;
     private final Map<String, MeshTree> children;
 
-    public MeshTree(RenderableMesh mesh, Vector3f origin, Map<String, MeshTree> children) {
+    public MeshTree(Mesh mesh, Vector3f origin, Map<String, MeshTree> children) {
         this.mesh = mesh;
         this.origin = origin;
         this.children = children;
@@ -123,14 +123,14 @@ public class MeshTree implements RenderableMesh, Animatable, Animatable.Provider
 
     public static class Builder {
 
-        private RenderableMesh mesh = RenderableMesh.EMPTY;
+        private Mesh mesh = Mesh.EMPTY;
         private Vector3f origin;
 
         private final Map<String, MeshTree> children = new Object2ObjectArrayMap<>();
 
         private Builder() {}
 
-        public Builder mesh(RenderableMesh mesh) {
+        public Builder mesh(Mesh mesh) {
             this.mesh = mesh;
             return this;
         }

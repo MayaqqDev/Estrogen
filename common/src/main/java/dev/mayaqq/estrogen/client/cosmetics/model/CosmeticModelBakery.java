@@ -2,7 +2,7 @@ package dev.mayaqq.estrogen.client.cosmetics.model;
 
 import com.mojang.math.Axis;
 import dev.mayaqq.estrogen.client.cosmetics.model.mesh.MeshTree;
-import dev.mayaqq.estrogen.client.cosmetics.model.mesh.RenderableMesh;
+import dev.mayaqq.estrogen.client.cosmetics.model.mesh.Mesh;
 import dev.mayaqq.estrogen.client.cosmetics.model.mesh.SimpleMesh;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
@@ -96,7 +96,7 @@ public final class CosmeticModelBakery {
 
     public SimpleMesh bakeMesh(List<BlockElement> elements) {
         int vertices = elements.stream().mapToInt(e -> e.faces.size()).sum() * 4;
-        int[] vertexData = new int[vertices * RenderableMesh.STRIDE];
+        int[] vertexData = new int[vertices * Mesh.STRIDE];
 
         int index = 0;
         for(BlockElement element : elements) {
@@ -132,7 +132,7 @@ public final class CosmeticModelBakery {
                     normal.set(direction.getStepX(), direction.getStepY(), direction.getStepZ());
                     normalMat.transform(normal);
 
-                    int pos = index * RenderableMesh.STRIDE;
+                    int pos = index * Mesh.STRIDE;
                     vertexData[pos] = Float.floatToRawIntBits(position.x);
                     vertexData[pos + 1] = Float.floatToRawIntBits(position.y);
                     vertexData[pos + 2] = Float.floatToRawIntBits(position.z);

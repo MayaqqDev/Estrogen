@@ -4,9 +4,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import org.jetbrains.annotations.NotNull;
 
-public interface RenderableMesh {
+public interface Mesh {
 
-    RenderableMesh EMPTY = new RenderableMesh() {
+    Mesh EMPTY = new Mesh() {
         @Override
         public void renderInto(VertexConsumer consumer, @NotNull PoseStack transform, int color, int light, int overlay) {}
 

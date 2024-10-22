@@ -8,7 +8,7 @@ import org.joml.Vector4f;
 
 import static dev.mayaqq.estrogen.client.cosmetics.model.CosmeticModelBakery.*;
 
-public record SimpleMesh(int[] data, int vertexCount) implements RenderableMesh {
+public record SimpleMesh(int[] data, int vertexCount) implements Mesh {
 
     @Override
     public void renderInto(VertexConsumer consumer, @NotNull PoseStack transform, int color, int light, int overlay) {
