@@ -119,26 +119,30 @@ public final class CosmeticModelBakery {
 
                 for (int i = 0; i < 4; i++) {
                     FaceInfo.VertexInfo vertex = face.getVertexInfo(i);
+
+                    // Position
                     position.set(shape[vertex.xFace], shape[vertex.yFace], shape[vertex.zFace], 1f);
-                    normal.set(direction.getStepX(), direction.getStepY(), direction.getStepZ());
                     modelMat.transform(position);
-                    normalMat.transform(normal);
 
-                    // Update the model bounds
-                    minBound.set(Math.min(minBound.x, position.x), Math.min(minBound.y, position.y), Math.min(minBound.z, position.z));
-                    maxBound.set(Math.max(maxBound.x, position.x), Math.max(maxBound.y, position.y), Math.max(maxBound.z, position.z));
-
-                    int pos = index * RenderableMesh.STRIDE;
-
+                    // UV
                     float u = uv.getU(i) / 16f;
                     float v = uv.getV(i) / 16f;
 
+                    // Normal
+                    normal.set(direction.getStepX(), direction.getStepY(), direction.getStepZ());
+                    normalMat.transform(normal);
+
+                    int pos = index * RenderableMesh.STRIDE;
                     vertexData[pos] = Float.floatToRawIntBits(position.x);
                     vertexData[pos + 1] = Float.floatToRawIntBits(position.y);
                     vertexData[pos + 2] = Float.floatToRawIntBits(position.z);
                     vertexData[pos + 3] = Float.floatToRawIntBits(u);
                     vertexData[pos + 4] = Float.floatToRawIntBits(v);
                     vertexData[pos + 5] = packNormal(normal.x, normal.y, normal.z);
+
+                    // Update model bounds
+                    minBound.set(Math.min(minBound.x, position.x), Math.min(minBound.y, position.y), Math.min(minBound.z, position.z));
+                    maxBound.set(Math.max(maxBound.x, position.x), Math.max(maxBound.y, position.y), Math.max(maxBound.z, position.z));
 
                     index++;
                 }
