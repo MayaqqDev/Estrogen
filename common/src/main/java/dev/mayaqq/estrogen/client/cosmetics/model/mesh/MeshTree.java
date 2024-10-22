@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.mayaqq.estrogen.client.cosmetics.model.animation.Animatable;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import net.minecraft.Optionull;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
@@ -110,10 +111,10 @@ public class MeshTree implements Mesh, Animatable, Animatable.Provider {
     }
 
     public Optional<Animatable> getAny(String name) {
-        if(children.containsKey(name)) return Optional.of(children.get(name));
-        return children.entrySet().stream()
+        return Optionull.mapOrElse(children.get(name), Optional::of, () ->
+            children.entrySet().stream()
             .flatMap(entry -> entry.getValue().getAny(name).stream())
-            .findAny();
+            .findAny());
     }
 
     @Override
