@@ -30,9 +30,10 @@ public class BakedCosmeticModel {
     }
 
     public void runAnimation(AnimationDefinition definition) {
-        if(!(mesh instanceof MeshTree tree)) throw new IllegalStateException("Can't do animation without a mesh tree");
-        tree.reset();
-        Animations.animate(tree, definition, animCache);
+        if(mesh instanceof MeshTree tree) {
+            tree.reset();
+            Animations.animate(tree, definition, animCache);
+        }
     }
 
     public RenderableMesh getMesh() {
