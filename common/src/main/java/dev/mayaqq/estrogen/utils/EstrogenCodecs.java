@@ -40,7 +40,7 @@ public final class EstrogenCodecs {
         private final String name;
         private final Supplier<Codec<T>> wrapped;
 
-        private RecursiveCodec(final String name, final Function<Codec<T>, Codec<T>> wrapped) {
+        private RecursiveCodec(final String name, final UnaryOperator<Codec<T>> wrapped) {
             this.name = name;
             this.wrapped = Suppliers.memoize(() -> wrapped.apply(this));
         }

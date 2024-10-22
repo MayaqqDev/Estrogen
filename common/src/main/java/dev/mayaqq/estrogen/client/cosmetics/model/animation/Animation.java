@@ -15,7 +15,7 @@ public record Animation(float seconds, Target target, Keyframe... keyframes) {
     public static final Codec<Animation> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         Codec.FLOAT.fieldOf("duration").forGetter(Animation::seconds),
         Target.CODEC.fieldOf("target").forGetter(Animation::target),
-        Keyframe.CODEC.listOf().fieldOf("keyframes").forGetter(anim -> List.of(anim.keyframes()))
+        Keyframe.CODEC.listOf().fieldOf("keyframes").forGetter(anim -> List.of(anim.keyframes))
     ).apply(instance, (secs, target, keyframes) ->
         new Animation(secs, target, keyframes.toArray(Keyframe[]::new))));
 
