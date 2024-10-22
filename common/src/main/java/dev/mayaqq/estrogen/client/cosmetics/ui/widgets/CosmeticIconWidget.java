@@ -33,6 +33,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
     private HighlightPredicate hoverPredicate;
     private float scale = 0.5f;
     private float rotationSpeed;
+    private boolean overrideAnimationSetting = false;
 
     private final LerpedFloat overlayAnimation = LerpedFloat.linear();
     private boolean isHovered;
@@ -88,7 +89,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
             matrices.translate(0.5f, 0.5f, 0.5f);
             matrices.scale(scale, scale, scale);
             matrices.mulPose(rotateXYZ(pose.xRot, pose.yRot, pose.zRot));
-            if(rotationSpeed != 0) {
+            if(rotationSpeed != 0 && (overrideAnimationSetting || cosmetic.useDefaultAnimation())) {
                 matrices.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, animRot, animRot + rotationSpeed)));
             }
             matrices.translate(-0.5f, -0.5f, -0.5f);
@@ -130,7 +131,7 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
 
     @Override
     public void tick() {
-        if(rotationSpeed > 0) {
+        if(rotationSpeed > 0 && (overrideAnimationSetting || cosmetic.useDefaultAnimation())) {
             this.animRot += rotationSpeed;
             if(animRot >= 360f) animRot = 0;
         }
@@ -138,6 +139,10 @@ public class CosmeticIconWidget extends AbstractSimiWidget {
 
     }
 
+    public CosmeticIconWidget overrideAnimationSetting() {
+        this.overrideAnimationSetting = true;
+        return this;
+    }
 
     public CosmeticIconWidget withRotationSpeed(float speed) {
         this.rotationSpeed = speed;

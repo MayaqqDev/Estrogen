@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.utils.client;
+package dev.mayaqq.estrogen.utils.client.render;
 
 import com.jozufozu.flywheel.core.model.BlockModel;
 import com.mojang.blaze3d.vertex.*;

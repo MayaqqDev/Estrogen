@@ -1,10 +1,9 @@
 package dev.mayaqq.estrogen.forge.client;
 
-import com.simibubi.create.foundation.config.ui.BaseConfigScreen;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.EstrogenClient;
 import dev.mayaqq.estrogen.client.config.EstrogenConfigScreen;
-import dev.mayaqq.estrogen.client.registry.blockRenderers.dreamBlock.DreamBlockShader;
+import dev.mayaqq.estrogen.client.registry.EstrogenShaders;
 import dev.mayaqq.estrogen.resources.BreastArmorDataLoader;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraftforge.api.distmarker.Dist;
@@ -36,7 +35,7 @@ public class EstrogenForgeClient {
 
     @SubscribeEvent
     public static void registerShaders(RegisterShadersEvent event) {
-        DreamBlockShader.register((id, format, shaderConsumer) -> {
+        EstrogenShaders.register((id, format, shaderConsumer) -> {
             ShaderInstance instance = new ShaderInstance(event.getResourceProvider(), id, format);
             event.registerShader(instance, shaderConsumer);
         });

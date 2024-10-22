@@ -7,7 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.simibubi.create.foundation.utility.Pair;
 import dev.mayaqq.estrogen.registry.blockEntities.CookieJarBlockEntity;
-import dev.mayaqq.estrogen.utils.client.ItemModelBufferer;
+import dev.mayaqq.estrogen.utils.client.render.ItemModelBufferer;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemDisplayContext;

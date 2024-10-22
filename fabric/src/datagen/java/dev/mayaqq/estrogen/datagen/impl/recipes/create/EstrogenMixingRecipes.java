@@ -53,6 +53,14 @@ public class EstrogenMixingRecipes extends BaseRecipeProvider {
                 .require(EstrogenFluids.MOLTEN_AMETHYST.get(), getAmount(27000))
                 .output(Items.TINTED_GLASS)
         );
+
+        create(id("gender_change_potion"), builder -> builder
+            .require(EstrogenFluids.LIQUID_ESTROGEN.get(), 810)
+            .require(EstrogenFluids.TESTOSTERONE_MIXTURE.get(), 810)
+            .require(Items.POPPY)
+            .require(Items.DANDELION)
+            .output(EstrogenFluids.GENDER_FLUID.get(), 1620)
+        );
     }
 
     @Override

@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.utils.client;
+package dev.mayaqq.estrogen.utils.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

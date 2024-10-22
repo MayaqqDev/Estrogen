@@ -80,5 +80,11 @@ public class EstrogenFluids {
             .transform(Transgenders.simpleBucket())
             .register();
 
+    public static final EstrogenFluidEntry<BotariumSourceFluid, BotariumFlowingFluid> GENDER_FLUID =
+        FLUIDS.entry("gender_fluid", BotariumSourceFluid::new, BotariumFlowingFluid::new)
+            .transform(Transgenders.waterLikeFluid(MapColor.COLOR_CYAN, EstrogenColors.FILTRATED_HORSE_URINE.value))
+            .transform(Transgenders.simpleBucket())
+            .register();
+
 
 }
