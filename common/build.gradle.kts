@@ -24,7 +24,7 @@ dependencies {
     modCompileOnly("maven.modrinth:create-new-age:${rootProject.new_age_version}")
 
     // Mixin Extras
-    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}"))
+    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras_version}")!!)
 
     // JEI
     modCompileOnly("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
