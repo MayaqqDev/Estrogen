@@ -2,9 +2,10 @@ import net.fabricmc.loom.api.LoomGradleExtensionAPI
 
 plugins {
     id("architectury-plugin") version "3.4-SNAPSHOT"
-    id("dev.architectury.loom") version "1.7-SNAPSHOT" apply true
+    id("dev.architectury.loom") version "1.7-SNAPSHOT" apply false
     id("me.modmuss50.mod-publish-plugin") version "0.4.5"
     id("maven-publish")
+    id("java")
 }
 
 // A task to build both, Forge and Fabric
@@ -31,22 +32,22 @@ subprojects {
     }
 
     dependencies {
-        minecraft("com.mojang:minecraft:${minecraft_version}")
-        mappings(loom.layered() {
+        "minecraft"("com.mojang:minecraft:${minecraft_version}")
+        "mappings"(project.the<LoomGradleExtensionAPI>().layered() {
             officialMojangMappings()
             parchment("org.parchmentmc.data:parchment-${minecraft_version}:${project.property("parchmentmc_version")}@zip")
         })
 
-        modApi("com.teamresourceful.resourcefullib:resourcefullib-${name}-${minecraft_version}:${project.property("resourcefullib_version")}")
-        modApi("earth.terrarium.botarium:botarium-${name}-${minecraft_version}:${project.property("botarium_version")}")
-        include(modApi("uwu.serenity.critter:critter-${name}:${project.property("critter_version")}")!!)
+        "modApi"("com.teamresourceful.resourcefullib:resourcefullib-${name}-${minecraft_version}:${project.property("resourcefullib_version")}")
+        "modApi"("earth.terrarium.botarium:botarium-${name}-${minecraft_version}:${project.property("botarium_version")}")
+        "include"("modApi"("uwu.serenity.critter:critter-${name}:${project.property("critter_version")}")!!)
 
-        include(modImplementation("maven.modrinth:jukeboxfix:${project.property("jukeboxfix_version")}-${minecraft_version}")!!)
+        "include"("modImplementation"("maven.modrinth:jukeboxfix:${project.property("jukeboxfix_version")}-${minecraft_version}")!!)
 
         // JEI
-        modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${project.property("jei_version")}")
+        "modCompileOnly"("mezz.jei:jei-${minecraft_version}-common-api:${project.property("jei_version")}")
 
-        include(implementation("com.teamresourceful:resourceful-cosmetics-4j:${project.property("resourceful_cosmetics_version")}")!!)
+        "include"("implementation"("com.teamresourceful:resourceful-cosmetics-4j:${project.property("resourceful_cosmetics_version")}")!!)
     }
 
     if (!isCommon) {
