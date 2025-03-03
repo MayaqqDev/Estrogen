@@ -95,7 +95,7 @@ cloche {
             modApi(libs.fabric.api)
             modApi(libs.fabric.kotlin)
             modApi.bundle(libs.bundles.fabric.cardinalComponents)
-            modImplementation(libs.fabric.create)
+            //modImplementation(libs.fabric.create)
             modImplementation(libs.fabric.baubly)
             modImplementation(libs.fabric.trinkets)
             modImplementation(files(project.relativePath("libs/Kritter-0.0.1-fabric.jar")))
@@ -108,7 +108,8 @@ cloche {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
                 "EMI" -> modRuntimeOnly(libs.fabric.emi)
                 "JEI" -> modRuntimeOnly(libs.fabric.jei)
-                else -> error("Invalid item viewer for Forge: $item_viewer_forge")
+                "disabled" -> {}
+                else -> error("Invalid item viewer for Fabric: $item_viewer_forge")
             }
 
             // modRuntimeOnly(libs.fabric.devauth)
@@ -121,7 +122,7 @@ cloche {
             }
             entrypoint("client") {
                 adapter.set("kotlin")
-                value.set("dev.mayaqq.estrogen.client.EstrogenClientFabric::init")
+                value.set("dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric::init")
             }
         }
     }
@@ -141,7 +142,7 @@ cloche {
 
         dependencies {
             api(libs.forge.kotlin)
-            modImplementation(libs.forge.create)
+            //modImplementation(libs.forge.create)
             modImplementation(libs.forge.flywheel)
             modImplementation(libs.forge.baubly)
             modImplementation(files(project.relativePath("libs/Kritter-0.0.1-forge.jar")))
