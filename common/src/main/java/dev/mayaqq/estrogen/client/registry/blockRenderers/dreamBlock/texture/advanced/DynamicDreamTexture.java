@@ -26,7 +26,7 @@ public class DynamicDreamTexture {
     private DynamicTexture texture;
     private ResourceLocation texID;
     private RenderType renderType;
-    private long seed = 80085L;
+    private long seed = 0xB00B5;
     private int animationTick = 0;
     private boolean init = false;
 

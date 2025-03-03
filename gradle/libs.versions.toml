@@ -1,42 +1,105 @@
 [versions]
 
+# Stuff
+kotlin = "2.0.0"
+cloche = "0.8.6"
+
 # Minecraft
 minecraft = "1.20.1"
-loom = "1.9-SNAPSHOT"
-loader = "0.16.9"
+fabric = "0.16.9"
 
-# Dependencies
-fabric = "0.114.0+1.21.4"
-fabrickotlin = "1.13.0+kotlin.2.1.0"
-skyblockapi = "1.0.0-beta.77"
-hypixelapi = "1.0.1+build.1+mc1.21"
-rconfig = "3.4.1"
-rconfigkt = "3.3.2"
-olympus = "1.2.1"
-rlib = "3.4.0"
-legacydfu = "1.0.2+1.21.3"
 
-# Dev Dependencies
+# Common Dependencies
+kotlinx-serialization="1.8.0"
+kotlinx-coroutines="1.10.1"
+parchment = "2023.09.03"
+architectury = "9.1.12"
 devauth = "1.2.1"
-modmenu = "12.0.0-beta.1"
+create_fabric = "0.5.1-f-build.1224+mc1.20.1"
+trinkets = "3.7.1"
+rei = "12.0.626"
+emi = "1.0.29+1.20.1"
+jei = "15.2.0.27"
+mixin_extras = "0.3.5"
+jukeboxfix = "1.0.1"
+ears = "1.4.5"
+figura = "0.1.4+1.20.1"
+baubly = "1.0.1"
+resourcefullib = "2.1.29"
+botarium = "2.3.3"
+new_age = "1.1.2"
+resourceful_cosmetics = "1.0.4"
+critter = "0.1-beta.14"
+skinlayers = "5edNc5ga"
+cobblemon = "1.5.2+1.20.1"
+mixin = "0.8.3"
+iris = "1.7.5+1.20.1"
+
+# Fabric Only Dependencies
+fapi = "0.92.2+1.20.1"
+modmenu = "7.2.2"
+cardinal = "5.2.2"
+jei_file_id_fabric = "5101365"
+flk = "1.11.0+kotlin.2.0.0"
+
+# Forge Only Dependencies
+forge = "47.2.19"
+curios = "5.4.7+1.20.1"
+create_forge = "0.5.1.f-27"
+flywheel = "0.6.10-7"
+jei_file_id_forge = "4712868"
+kff = "4.11.0"
+
+# Enables
+
+
 
 [libraries]
 
-minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
-loader = { module = "net.fabricmc:fabric-loader", version.ref = "loader" }
-fabric = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric" }
-fabrickotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "fabrickotlin" }
-skyblockapi = { module = "tech.thatgravyboat:skyblock-api-1.21.4", version.ref = "skyblockapi" }
-hypixelapi = { module = "maven.modrinth:hypixel-mod-api", version.ref = "hypixelapi" }
-rconfig = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.21.4", version.ref = "rconfig" }
-rconfigkt = { module = "com.teamresourceful.resourcefulconfigkt:resourcefulconfigkt-fabric-1.21.3", version.ref = "rconfigkt" }
-olympus = { module = "earth.terrarium.olympus:olympus-fabric-1.21.4", version.ref = "olympus" }
-rlib = { module = "com.teamresourceful.resourcefullib:resourcefullib-fabric-1.21.4", version.ref = "rlib" }
-legacydfu = { module = "net.azureaaron:legacy-item-dfu", version.ref = "legacydfu" }
+# Common Dependencies
+mixin = { module = "org.spongepowered:mixin", version.ref = "mixin" }
+baubly = { module = "earth.terrarium.baubly:baubly-common-1.20.1", version.ref = "baubly" }
+ears = { module = "com.unascribed:ears-api", version.ref="ears" }
+figura = { module = "org.figuramc:figura-common-mojmap", version.ref="figura"}
+createNewAge = { module = "maven.modrinth:create-new-age", version.ref = "new_age" }
+mixinExtras = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixin_extras" }
+cobblemon = { module = "com.cobblemon:mod", version.ref = "cobblemon" }
+rei-api = { module = "me.shedaniel:RoughlyEnoughItems-api", version.ref = "rei" }
+rei-plugin = { module = "me.shedaniel:RoughlyEnoughItems-default-plugin", version.ref = "rei" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 
-devauth = { module = "me.djtheredstoner:DevAuth-fabric", version.ref = "devauth" }
-modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
+
+# Fabric dependencies
+fabric-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "flk" }
+fabric-api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fapi" }
+fabric-create = { module = "com.simibubi.create:create-fabric-1.20.1", version.ref = "create_fabric"}
+fabric-baubly = { module = "earth.terrarium.baubly:baubly-fabric-1.20.1", version.ref = "baubly" }
+fabric-trinkets = { module = "dev.emi:trinkets", version.ref = "trinkets" }
+fabric-emi = { module = "dev.emi:emi-fabric", version.ref = "emi" }
+fabric-rei = { module = "me.shedaniel:RoughltEnoughItems-fabric", version.ref = "rei" }
+fabric-jei-api = { module = "mezz.jei:jei-1.20.1-fabric-api", version.ref = "jei" }
+fabric-jei = { module = "curse.maven:jei-238222", version.ref = "jei_file_id_fabric" }
+fabric-modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
+fabric-cardinalComponents-base = { group = "dev.onyxstudios.cardinal-components-api", name = "cardinal-components-base", version.ref = "cardinal" }
+fabric-cardinalComponents-entity = { group = "dev.onyxstudios.cardinal-components-api", name = "cardinal-components-entity", version.ref = "cardinal" }
+fabric-iris = { module = "maven.modrinth:iris", version.ref="iris" }
+fabric-devauth = { module = "me.djtheredstoner:DevAuth-fabric-latest", version.ref = "devauth" }
+
+# Forge depencencies
+forge-kotlin = { module = "thedarkcolour:kotlinforforge", version.ref = "kff" }
+forge-create = { module = "com.simibubi.create:create-1.20.1", version.ref = "create_forge" }
+forge-flywheel = { module = "com.jozufozu.flywheel:flywheel-forge-1.20.1", version.ref = "flywheel" }
+forge-baubly = { module = "earth.terrarium.baubly:baubly-forge-1.20.1", version.ref = "baubly" }
+forge-emi = { module = "dev.emi:emi-forge", version.ref = "emi" }
+forge-jei-api = { module = "mezz.jei:jei-1.20.1-forge-api", version.ref = "jei" }
+forge-jei = { module = "curse.maven:jei-238222", version.ref = "jei_file_id_forge" }
+forge-curios = { module = "top.theillusivec4.curios:curios-forge", version.ref = "curios" }
+forge-mixinExtras = { module = "io.github.llamalad7:mixinextras-forge", version.ref = "mixin_extras" }
+forge-devauth = { module = "me.djtheredstoner:DevAuth-forge-latest", version.ref = "devauth" }
+
+[bundles]
+fabric-cardinalComponents = [ "fabric-cardinalComponents-base", "fabric-cardinalComponents-entity" ]
 
 [plugins]
-
-loom = { id = "fabric-loom", version.ref = "loom" }
+cloche = { id = "earth.terrarium.cloche", version.ref = "cloche" }
