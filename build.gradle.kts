@@ -60,7 +60,7 @@ cloche {
     }
 
     common {
-        mixins.from(file("src/common/main/estrogen.mixins.json"))
+        mixins.from(file("src/main/estrogen.mixins.json"))
 
         dependencies {
             compileOnly(libs.mixin)
