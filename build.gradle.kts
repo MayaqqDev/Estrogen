@@ -42,7 +42,6 @@ repositories {
 
 val item_viewer_forge: String by project
 val item_viewer_fabric: String by project
-val cardinal_modules: String by project
 
 cloche {
     metadata {
@@ -72,8 +71,6 @@ cloche {
             modCompileOnly(libs.figura)
             modCompileOnly(libs.cobblemon)
             modCompileOnly(libs.createNewAge)
-            // Kritter includes are temporary until ashley fixes maven stuff
-            modCompileOnly(files(project.relativePath("libs/Kritter-0.0.1-forge")))
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
             modCompileOnly(libs.rei.api)
@@ -86,7 +83,7 @@ cloche {
         minecraftVersion = libs.versions.minecraft.get()
 
         include(libs.fabric.baubly)
-        include(files(project.relativePath("libs/Kritter-0.0.1-fabric")))
+        include(files(project.relativePath("libs/Kritter-0.0.1-fabric.jar")))
 
         includedClient() // includedClient() is not a run
         runs {
@@ -101,7 +98,7 @@ cloche {
             modImplementation(libs.fabric.create)
             modImplementation(libs.fabric.baubly)
             modImplementation(libs.fabric.trinkets)
-            modImplementation(files(project.relativePath("libs/Kritter-0.0.1-fabric")))
+            modImplementation(files(project.relativePath("libs/Kritter-0.0.1-fabric.jar")))
             modCompileOnly("${libs.fabric.emi.get()}:api") // No clue how to do the :api thing in the version catalog directly
             modCompileOnly(libs.fabric.jei.api)
             modImplementation(libs.fabric.modmenu)
@@ -135,7 +132,7 @@ cloche {
 
         include(libs.forge.baubly)
         include(libs.forge.mixinExtras)
-        include(files(project.relativePath("libs/Kritter-0.0.1-forge")))
+        include(files(project.relativePath("libs/Kritter-0.0.1-forge.jar")))
 
         runs {
             client()
@@ -147,7 +144,7 @@ cloche {
             modImplementation(libs.forge.create)
             modImplementation(libs.forge.flywheel)
             modImplementation(libs.forge.baubly)
-            modImplementation(files(project.relativePath("libs/Kritter-0.0.1-forge")))
+            modImplementation(files(project.relativePath("libs/Kritter-0.0.1-forge.jar")))
             implementation(libs.forge.mixinExtras)
             compileOnlyApi(libs.forge.jei.api)
 
@@ -159,10 +156,6 @@ cloche {
             }
 
             // modRuntimeOnly(libs.forge.devauth)
-        }
-
-        metadata {
-            modLoader = "kotlinforforge"
         }
     }
 }

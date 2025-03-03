@@ -5,7 +5,7 @@ import dev.mayaqq.estrogen.MOD_ID
 import net.minecraftforge.fml.common.Mod
 
 @Mod(MOD_ID)
-object EstrogenForge {
+class EstrogenForge {
     init {
         Estrogen.init()
     }
