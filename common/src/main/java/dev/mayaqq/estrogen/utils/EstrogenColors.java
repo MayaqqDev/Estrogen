@@ -42,22 +42,4 @@ public enum EstrogenColors {
     public int getValue() {
         return value;
     }
-
-
-    public static record Meow(String name, int arf, int cat) {}
-
-    public static Map<String, Integer> imperative(List<Meow> in) {
-        Map<String, Integer> map = new HashMap<>();
-
-        for(Meow meow : in) {
-            map.put(meow.name, meow.arf);
-        }
-
-        return map;
-    }
-
-    public static Map<String, Integer> declarative(List<Meow> in) {
-        return in.stream().collect(Collectors.toMap(meow -> meow.name, meow -> meow.arf));
-    }
-
 }
