@@ -1,0 +1,42 @@
+[versions]
+
+# Minecraft
+minecraft = "1.20.1"
+loom = "1.9-SNAPSHOT"
+loader = "0.16.9"
+
+# Dependencies
+fabric = "0.114.0+1.21.4"
+fabrickotlin = "1.13.0+kotlin.2.1.0"
+skyblockapi = "1.0.0-beta.77"
+hypixelapi = "1.0.1+build.1+mc1.21"
+rconfig = "3.4.1"
+rconfigkt = "3.3.2"
+olympus = "1.2.1"
+rlib = "3.4.0"
+legacydfu = "1.0.2+1.21.3"
+
+# Dev Dependencies
+devauth = "1.2.1"
+modmenu = "12.0.0-beta.1"
+
+[libraries]
+
+minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+loader = { module = "net.fabricmc:fabric-loader", version.ref = "loader" }
+fabric = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric" }
+fabrickotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "fabrickotlin" }
+skyblockapi = { module = "tech.thatgravyboat:skyblock-api-1.21.4", version.ref = "skyblockapi" }
+hypixelapi = { module = "maven.modrinth:hypixel-mod-api", version.ref = "hypixelapi" }
+rconfig = { module = "com.teamresourceful.resourcefulconfig:resourcefulconfig-fabric-1.21.4", version.ref = "rconfig" }
+rconfigkt = { module = "com.teamresourceful.resourcefulconfigkt:resourcefulconfigkt-fabric-1.21.3", version.ref = "rconfigkt" }
+olympus = { module = "earth.terrarium.olympus:olympus-fabric-1.21.4", version.ref = "olympus" }
+rlib = { module = "com.teamresourceful.resourcefullib:resourcefullib-fabric-1.21.4", version.ref = "rlib" }
+legacydfu = { module = "net.azureaaron:legacy-item-dfu", version.ref = "legacydfu" }
+
+devauth = { module = "me.djtheredstoner:DevAuth-fabric", version.ref = "devauth" }
+modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
+
+[plugins]
+
+loom = { id = "fabric-loom", version.ref = "loom" }
