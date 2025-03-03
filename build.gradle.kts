@@ -86,6 +86,7 @@ cloche {
         minecraftVersion = libs.versions.minecraft.get()
 
         include(libs.fabric.baubly)
+        include(files(project.relativePath("libs/Kritter-0.0.1-fabric")))
 
         includedClient() // includedClient() is not a run
         runs {
@@ -100,7 +101,7 @@ cloche {
             modImplementation(libs.fabric.create)
             modImplementation(libs.fabric.baubly)
             modImplementation(libs.fabric.trinkets)
-            files(project.relativePath("libs/Kritter-0.0.1-fabric"))
+            modImplementation(files(project.relativePath("libs/Kritter-0.0.1-fabric")))
             modCompileOnly("${libs.fabric.emi.get()}:api") // No clue how to do the :api thing in the version catalog directly
             modCompileOnly(libs.fabric.jei.api)
             modImplementation(libs.fabric.modmenu)
