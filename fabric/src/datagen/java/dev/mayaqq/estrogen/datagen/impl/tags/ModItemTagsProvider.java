@@ -62,7 +62,8 @@ public class ModItemTagsProvider extends BaseTagProvider.ItemProvider {
                 .add(EstrogenBlocks.MOTH_BED.asItem())
                 .add(EstrogenBlocks.QUILTED_MOTH_BED.asItem());
         getOrCreateTagBuilder(AllTags.AllItemTags.UPRIGHT_ON_BELT.tag)
-                .add(EstrogenItems.GENDER_CHANGE_POTION.get());
+                .add(EstrogenItems.GENDER_CHANGE_POTION.get())
+                .add(EstrogenItems.HORSE_URINE_BOTTLE.get());
         getOrCreateTagBuilder(EstrogenTags.Items.MALUM_GROSS_FOODS)
                 .add(EstrogenItems.HORSE_URINE_BOTTLE.get());
         getOrCreateTagBuilder(EstrogenTags.Items.CHEST_ARMOR_IGNORE)

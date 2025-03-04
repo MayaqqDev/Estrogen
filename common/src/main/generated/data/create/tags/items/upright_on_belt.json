@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "estrogen:gender_change_potion"
+    "estrogen:gender_change_potion",
+    "estrogen:horse_urine_bottle"
   ]
 }
