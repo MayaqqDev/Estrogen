@@ -1,12 +1,12 @@
-@file:Suppress("PropertyName")
+@file:Suppress("PropertyName", "UnstableApiUsage")
 
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("earth.terrarium.cloche") version "0.8.1"
-    kotlin("jvm") version "2.1.0"
-    kotlin("plugin.serialization") version "2.1.0"
+    alias(libs.plugins.cloche)
+    kotlin("jvm") version libs.versions.kotlin
+    kotlin("plugin.serialization") version libs.versions.kotlin
     `maven-publish`
 }
 
@@ -17,7 +17,7 @@ repositories {
     maven(url = "https://thedarkcolour.github.io/KotlinForForge/") { name = "KotlinForForge" }
     maven(url = "https://maven.minecraftforge.net/") { name = "Forge" }
     maven(url = "https://maven.teamresourceful.com/repository/maven-public/") { name = "Team Resourceful" }
-    maven(url = "https://maven.shedanielme") { name = "Shedaniel" }
+    maven(url = "https://maven.shedaniel.me") { name = "Shedaniel" }
     maven(url = "https://maven.blamejared.com/") { name = "Blamejared" }
     maven(url = "https://maven.tterrag.com") { name = "Tterrag" }
     maven(url = "https://maven.theillusivec4.top/") { name = "TheIllusivec4" }
@@ -33,39 +33,15 @@ repositories {
     maven(url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1") { name = "DevAuth maven"; description = "DevAuth" }
     maven(url = "https://maven.isxander.dev/releases") { name = "Xander maven"; description = "YACL" }
     maven(url = "https://maven.impactdev.net/repository/development/") { name = "ImpactDev Maven"; description = "Cobblemon" }
+    maven(url = "https://maven.squiddev.cc") { name = "Squid Maven"; description = "Create needs CC: Tweaked for some reason" }
     maven(url = "https://maven.msrandom.net/repository/root") { name = "Ashley"}
     maven(url = "https://jitpack.io/") { name = "Jitpack maven"; description = "Mixin Extras & Fabric ASM" } //NOTE: LEAVE THIS AS LAST
     mavenLocal()
     mavenCentral()
 }
 
-val mc_version: String by project
-val fabric_version: String by project
-val forge_version: String by project
-val mixin_version: String by project
-val fapi_version: String by project
-val flk_version: String by project
-val kff_version: String by project
-val parchment_version: String by project
-val create_forge_version: String by project
-val create_fabric_version: String by project
-val flywheel_version: String by project
-val baubly_version: String by project
-val mixin_extras_version: String by project
-val jei_version: String by project
-val jei_file_id_forge: String by project
-val devauth_version: String by project
-val trinkets_version: String by project
-val cardinal_version: String by project
-val rei_version: String by project
-val emi_version: String by project
-val modmenu_version: String by project
-val jei_file_id_fabric: String by project
-
 val item_viewer_forge: String by project
 val item_viewer_fabric: String by project
-
-val cardinal_modules: String by project
 
 cloche {
     metadata {
@@ -80,80 +56,84 @@ cloche {
 
     mappings {
         official()
-        parchment(parchment_version)
+        parchment(libs.versions.parchment.get())
     }
 
     common {
-        mixins.from(file("src/common/main/estrogen.mixins.json"))
+        mixins.from(file("src/main/estrogen.mixins.json"))
 
         dependencies {
-            compileOnly("org.spongepowered:mixin:$mixin_version")
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
-
+            compileOnly(libs.mixin)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.coroutines.core)
+            modImplementation(libs.baubly)
+            modCompileOnly(libs.ears)
+            modCompileOnly(libs.figura)
+            modCompileOnly(libs.cobblemon)
+            modCompileOnly(libs.createNewAge)
+            implementation(libs.mixinExtras)
+            annotationProcessor(libs.mixinExtras)
+            modCompileOnly(libs.rei.api)
+            modCompileOnly(libs.rei.plugin)
         }
     }
 
-    fabric("fabric:$mc_version") {
-        loaderVersion = fabric_version
-        minecraftVersion = mc_version
+    fabric {
+        loaderVersion = libs.versions.fabric.get()
+        minecraftVersion = libs.versions.minecraft.get()
 
-        include("earth.terrarium.baubly:baubly-fabric-$mc_version:$baubly_version")
+        include(libs.fabric.baubly)
+        include(files(project.relativePath("libs/Kritter-0.0.1-fabric.jar")))
 
+        includedClient() // includedClient() is not a run
         runs {
-            includedClient()
+            client() // this is just the client run not client sourceset
             server()
         }
 
         dependencies {
+            modApi(libs.fabric.api)
+            modApi(libs.fabric.kotlin)
+            modApi.bundle(libs.bundles.fabric.cardinalComponents)
+            //modImplementation(libs.fabric.create)
+            modImplementation(libs.fabric.baubly)
+            modImplementation(libs.fabric.trinkets)
+            modImplementation(files(project.relativePath("libs/Kritter-0.0.1-fabric.jar")))
+            modCompileOnly("${libs.fabric.emi.get()}:api") // No clue how to do the :api thing in the version catalog directly
+            modCompileOnly(libs.fabric.jei.api)
+            modImplementation(libs.fabric.modmenu)
+            modCompileOnly(libs.fabric.iris)
 
-            fabricApi("$fapi_version+$mc_version")
-            modApi("net.fabricmc:fabric-language-kotlin:$flk_version")
-
-            modImplementation("com.simibubi.create:create-fabric-$mc_version:$create_fabric_version+mc$mc_version")
-
-            modImplementation("earth.terrarium.baubly:baubly-fabric-$mc_version:$baubly_version") { isTransitive = false }
-            modImplementation("dev.emi:trinkets:$trinkets_version")
-            cardinal_modules.replace(" ", "").split(",").forEach { module ->
-                modApi("dev.onyxstudios.cardinal-components-api:cardinal-components-$module:$cardinal_version")
-            }
-
-            modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:$rei_version")
-            modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:$rei_version")
-
-            modCompileOnly("dev.emi:emi-fabric:$emi_version+$mc_version}:api")
-
-            modCompileOnly("mezz.jei:jei-$mc_version-fabric-api:$jei_version")
-
-            modImplementation("com.terraformersmc:modmenu:$modmenu_version")
-
-            when(item_viewer_forge) {
-                "REI" -> modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:$rei_version") { exclude(group = "net.fabricmc") }
-                "EMI" -> modRuntimeOnly("dev.emi:emi-fabric:$emi_version+$mc_version")
-                "JEI" -> modRuntimeOnly("curse.maven:jei-238222:$jei_file_id_fabric")
+            when(item_viewer_fabric) {
+                "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
+                "EMI" -> modRuntimeOnly(libs.fabric.emi)
+                "JEI" -> modRuntimeOnly(libs.fabric.jei)
                 "disabled" -> {}
-                else -> error("Invalid item viewer for Forge: $item_viewer_forge")
+                else -> error("Invalid item viewer for Fabric: $item_viewer_forge")
             }
+
+            // modRuntimeOnly(libs.fabric.devauth)
         }
 
         metadata {
             entrypoint("main") {
                 adapter.set("kotlin")
-                value.set("dev.mayaqq.estrogen.EstrogenFabric::init")
+                value.set("dev.mayaqq.estrogen.fabric.EstrogenFabric::init")
             }
             entrypoint("client") {
                 adapter.set("kotlin")
-                value.set("dev.mayaqq.estrogen.client.EstrogenClientFabric::init")
+                value.set("dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric::init")
             }
         }
     }
 
-    forge("forge:$mc_version") {
-        loaderVersion = forge_version
-        minecraftVersion = mc_version
+    forge {
+        loaderVersion = libs.versions.forge.get()
+        minecraftVersion = libs.versions.minecraft.get()
 
-        include("earth.terrarium.baubly:baubly-forge-$mc_version:$baubly_version")
-        include("io.github.llamalad7:mixinextras-forge:$mixin_extras_version")
+        include(libs.forge.baubly)
+        include(libs.forge.mixinExtras)
+        include(files(project.relativePath("libs/Kritter-0.0.1-forge.jar")))
 
         runs {
             client()
@@ -161,25 +141,22 @@ cloche {
         }
 
         dependencies {
-            api("thedarkcolour:kotlinforforge:$kff_version")
-            modImplementation("com.simibubi.create:create-$mc_version:$create_forge_version:slim") { isTransitive = false }
-            //Maybe registrate if it for some reason needs it?
-            modImplementation("com.jozufozu.flywheel:flywheel-forge-$mc_version:$flywheel_version")
-            modImplementation("earth.terrarium.baubly:baubly-forge-$mc_version:$baubly_version")
-            annotationProcessor("io.github.llamalad7:mixinextras-common:$mixin_extras_version")
-            compileOnly("io.github.llamalad7:mixinextras-common:$mixin_extras_version")
-
-            implementation("io.github.llamalad7:mixinextras-forge:$mixin_extras_version")
-
-            compileOnlyApi("mezz.jei:jei-$mc_version-forge-api:$jei_version")
+            api(libs.forge.kotlin)
+            //modImplementation(libs.forge.create)
+            modImplementation(libs.forge.flywheel)
+            modImplementation(libs.forge.baubly)
+            modImplementation(files(project.relativePath("libs/Kritter-0.0.1-forge.jar")))
+            implementation(libs.forge.mixinExtras)
+            compileOnlyApi(libs.forge.jei.api)
 
             when(item_viewer_forge) {
-                "JEI" -> modRuntimeOnly("curse.maven:jei-238222:$jei_file_id_forge")
+                "EMI" -> modRuntimeOnly(libs.forge.emi)
+                "JEI" -> modRuntimeOnly(libs.forge.jei)
                 "disabled" -> {}
                 else -> error("Invalid item viewer for Forge: $item_viewer_forge")
             }
 
-            modRuntimeOnly("me.djtheredstoner:DevAuth-forge-latest:$devauth_version")
+            // modRuntimeOnly(libs.forge.devauth)
         }
     }
 }
@@ -190,7 +167,7 @@ java {
 }
 
 tasks.withType<KotlinCompile> {
-    explicitApiMode = org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode.Warning
+//    explicitApiMode = org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode.Warning
     compilerOptions {
         languageVersion = KotlinVersion.KOTLIN_2_0
         freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")

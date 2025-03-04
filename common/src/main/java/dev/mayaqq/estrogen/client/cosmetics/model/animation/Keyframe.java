@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.client.cosmetics.model.animation;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import org.joml.Vector3f;
 
 import static dev.mayaqq.estrogen.client.cosmetics.model.animation.Animations.INTERPOLATIONS;

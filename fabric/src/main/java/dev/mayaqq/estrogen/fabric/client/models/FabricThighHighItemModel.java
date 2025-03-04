@@ -35,11 +35,11 @@ public class FabricThighHighItemModel extends ThighHighItemModel<FabricThighHigh
 
     @Override
     public void emitItemQuads(ItemStack stack, Supplier<RandomSource> randomSupplier, RenderContext context) {
-        Optional<ResourceLocation> style = EstrogenItems.THIGH_HIGHS.get().getStyle(stack);
-        style.map(styleModels::get).ifPresentOrElse(
-            model -> model.emitItemQuads(stack, randomSupplier, context),
-            () -> defaultModel.emitItemQuads(stack, randomSupplier, context)
-        );
+        EstrogenItems.THIGH_HIGHS.get()
+            .getStyle(stack)
+            .map(styleModels::get)
+            .orElse(defaultModel)
+            .emitItemQuads(stack, randomSupplier, context);
     }
 
     // True on fabric falso on forg

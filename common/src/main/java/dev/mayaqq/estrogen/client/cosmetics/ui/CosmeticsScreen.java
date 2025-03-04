@@ -12,6 +12,7 @@ import dev.mayaqq.estrogen.client.cosmetics.ui.widgets.LayoutGroup;
 import dev.mayaqq.estrogen.client.cosmetics.ui.widgets.UIComponents;
 import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 
 import java.awt.*;

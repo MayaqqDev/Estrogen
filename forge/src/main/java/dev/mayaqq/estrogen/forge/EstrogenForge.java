@@ -8,6 +8,7 @@ import dev.mayaqq.estrogen.config.EstrogenConfig;
 import dev.mayaqq.estrogen.forge.loot.AddSpecialThighHigh;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -30,6 +31,7 @@ public class EstrogenForge {
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.register(Estrogen.REGISTRIES);
+        EntityAttributeCreationEvent
 
         // Init Estrogen main class
         Estrogen.init();

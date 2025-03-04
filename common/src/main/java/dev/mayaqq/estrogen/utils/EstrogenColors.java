@@ -2,8 +2,10 @@ package dev.mayaqq.estrogen.utils;
 
 import com.simibubi.create.foundation.utility.Color;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public enum EstrogenColors {
     MOLTEN_SLIME(144, 238, 144),
