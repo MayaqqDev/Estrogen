@@ -84,7 +84,7 @@ fabric-modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu
 fabric-cardinalComponents-base = { group = "dev.onyxstudios.cardinal-components-api", name = "cardinal-components-base", version.ref = "cardinal" }
 fabric-cardinalComponents-entity = { group = "dev.onyxstudios.cardinal-components-api", name = "cardinal-components-entity", version.ref = "cardinal" }
 fabric-iris = { module = "maven.modrinth:iris", version.ref="iris" }
-fabric-devauth = { module = "me.djtheredstoner:DevAuth-fabric-latest", version.ref = "devauth" }
+fabric-devauth = { module = "me.djtheredstoner:DevAuth-fabric", version.ref = "devauth" }
 
 # Forge depencencies
 forge-kotlin = { module = "thedarkcolour:kotlinforforge", version.ref = "kff" }

@@ -112,7 +112,7 @@ cloche {
                 else -> error("Invalid item viewer for Fabric: $item_viewer_forge")
             }
 
-            // modRuntimeOnly(libs.fabric.devauth)
+            modRuntimeOnly(libs.fabric.devauth)
         }
 
         metadata {
@@ -156,7 +156,7 @@ cloche {
                 else -> error("Invalid item viewer for Forge: $item_viewer_forge")
             }
 
-            // modRuntimeOnly(libs.forge.devauth)
+            modRuntimeOnly(libs.forge.devauth)
         }
     }
 }
