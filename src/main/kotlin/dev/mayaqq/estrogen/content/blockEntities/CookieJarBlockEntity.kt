@@ -188,11 +188,10 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
     private fun sync() {
         if(this.level?.isClientSide == true) return
         val level = this.level as ServerLevel
-        val nbt = this.saveWithFullMetadata()
         for (player in level.server.playerList.players) {
-            val buf = FriendlyByteBuf(Unpooled.buffer())
-            buf.writeNbt(nbt)
-            player.connection.send(ClientboundBlockEntityDataPacket(buf))
+            player.connection.send(ClientboundBlockEntityDataPacket.create(this) {
+                this.saveWithoutMetadata()
+            } )
         }
     }
 }

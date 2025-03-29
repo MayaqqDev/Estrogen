@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.client.content.blockRenderers.cookieJar
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.blockEntities.CookieJarBlockEntity
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.MultiBufferSource
@@ -28,6 +29,7 @@ class CookieJarRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEnt
         poseStack.mulPose(Axis.XN.rotationDegrees(90f))
         poseStack.translate(0.5, -0.625, 0.032)
 
+        Estrogen.info(be.count.toString())
         for (jarItem in be.items) {
             if (jarItem.isEmpty) {
                 continue
