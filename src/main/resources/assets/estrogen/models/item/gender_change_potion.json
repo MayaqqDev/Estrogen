@@ -1,0 +1,12 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "estrogen:item/gender_change_potion_fem"
+  },
+  "overrides": [{
+    "predicate": {
+      "estrogen:gender": 1.0
+    },
+    "model": "estrogen:item/gender_change_potion_masc"
+  }]
+}

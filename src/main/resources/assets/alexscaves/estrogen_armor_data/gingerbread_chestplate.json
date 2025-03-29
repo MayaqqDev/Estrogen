@@ -1,0 +1,7 @@
+{
+  "texture": "alexscaves:textures/armor/gingerbread_armor_0.png",
+  "uv": [44, 76],
+  "left_uv": [44, 76],
+  "right_uv": [52, 76],
+  "size": [128.0, 128.0]
+}

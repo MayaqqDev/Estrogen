@@ -1,0 +1,17 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "liquid_estrogen_still"
+    },
+    {
+      "type": "single",
+      "resource": "liquid_estrogen_flow"
+    },
+    {
+      "type": "directory",
+      "source": "estrogen",
+      "prefix": "estrogen/block/liquid_estrogen"
+    }
+  ]
+}

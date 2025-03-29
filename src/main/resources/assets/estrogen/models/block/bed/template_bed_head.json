@@ -1,0 +1,45 @@
+{
+  "credit": "Made with Blockbench, taken from BetterBeds under the MIT license",
+  "texture_size": [64, 64],
+  "textures": {
+    "particle": "block/oak_planks"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 13],
+      "to": [3, 3, 16],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 21]},
+      "faces": {
+        "north": {"uv": [14.75, 0.75, 15.5, 1.5], "texture": "#bed"},
+        "east": {"uv": [14, 0.75, 14.75, 1.5], "texture": "#bed"},
+        "south": {"uv": [13.25, 0.75, 14, 1.5], "texture": "#bed", "cullface": "south"},
+        "west": {"uv": [12.5, 0.75, 13.25, 1.5], "texture": "#bed", "cullface": "west"},
+        "down": {"uv": [14, 0, 14.75, 0.75], "texture": "#bed", "cullface": "down"}
+      }
+    },
+    {
+      "from": [13, 0, 13],
+      "to": [16, 3, 16],
+      "rotation": {"angle": 0, "axis": "y", "origin": [21, 8, 21]},
+      "faces": {
+        "north": {"uv": [14, 2.25, 14.75, 3], "texture": "#bed"},
+        "east": {"uv": [13.25, 2.25, 14, 3], "texture": "#bed", "cullface": "east"},
+        "south": {"uv": [12.5, 2.25, 13.25, 3], "texture": "#bed", "cullface": "south"},
+        "west": {"uv": [14.75, 2.25, 15.5, 3], "texture": "#bed"},
+        "down": {"uv": [14, 1.5, 14.75, 2.25], "texture": "#bed", "cullface": "down"}
+      }
+    },
+    {
+      "from": [0, 3, 0],
+      "to": [16, 9, 16],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 11, 8]},
+      "faces": {
+        "east": {"uv": [0, 1.5, 1.5, 5.5], "rotation": 270, "texture": "#bed", "cullface": "east"},
+        "south": {"uv": [1.5, 0, 5.5, 1.5], "rotation": 180, "texture": "#bed", "cullface": "south"},
+        "west": {"uv": [5.5, 1.5, 7, 5.5], "rotation": 90, "texture": "#bed", "cullface": "west"},
+        "up": {"uv": [1.5, 1.5, 5.5, 5.5], "rotation": 180, "texture": "#bed"},
+        "down": {"uv": [7, 1.5, 11, 5.5], "texture": "#bed"}
+      }
+    }
+  ]
+}

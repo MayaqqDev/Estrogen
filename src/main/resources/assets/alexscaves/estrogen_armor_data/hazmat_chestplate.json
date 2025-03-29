@@ -1,0 +1,7 @@
+{
+  "texture": "alexscaves:textures/armor/hazmat_suit_0.png",
+  "uv": [20, 38],
+  "left_uv": [18, 38],
+  "right_uv": [28, 38],
+  "size": [128.0, 128.0]
+}

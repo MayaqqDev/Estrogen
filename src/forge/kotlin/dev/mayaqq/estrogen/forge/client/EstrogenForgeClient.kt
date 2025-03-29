@@ -10,4 +10,5 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 @SubscribeEvent
 fun onClientInit(event: FMLClientSetupEvent) {
     event.enqueueWork(::estrogenClient)
+
 }

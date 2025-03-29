@@ -1,0 +1,7 @@
+{
+  "texture": "aether:textures/models/armor/obsidian_layer_1.png",
+  "uv": [20, 23],
+  "left_uv": [18, 23],
+  "right_uv": [28, 23],
+  "size": [64.0, 32.0]
+}

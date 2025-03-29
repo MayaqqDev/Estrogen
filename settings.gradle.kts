@@ -6,12 +6,13 @@ pluginManagement {
 
         gradlePluginPortal()
 
-        maven(url = "https://maven.msrandom.net/repository/root")
+        maven(url = "https://maven.msrandom.net/repository/cloche")
     }
 }
 
 dependencyResolutionManagement {
-    versionCatalogs {
-        create("libs")
+    versionCatalogs.create("libs") {
+        from(files("libs.versions.toml"))
     }
+
 }

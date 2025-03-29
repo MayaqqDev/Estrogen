@@ -1,0 +1,7 @@
+{
+  "texture": "iceandfire:textures/models/armor/armor_dragonsteel_fire.png",
+  "uv": [20, 23],
+  "left_uv": [18, 23],
+  "right_uv": [28, 23],
+  "size": [64.0, 64.0]
+}

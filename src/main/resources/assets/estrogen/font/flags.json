@@ -1,0 +1,13 @@
+{
+    "providers": [
+        {
+            "type": "bitmap",
+            "license": "Twemoji images are CC-BY 4.0 licensed",
+            "file": "estrogen:font/flags.png",
+            "ascent": 8,
+            "chars": [
+                "\uE000\uE001"
+            ]
+        }
+    ]
+}

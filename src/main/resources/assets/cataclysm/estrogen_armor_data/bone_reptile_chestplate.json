@@ -1,0 +1,7 @@
+{
+    "texture": "cataclysm:textures/armor/bone_reptile_armor.png",
+    "uv": [7, 118],
+    "left_uv": [6, 116],
+    "right_uv": [14, 116],
+    "size": [128.0, 128.0]
+  }

@@ -1,0 +1,7 @@
+{
+  "texture": "alexscaves:textures/armor/darkness_armor.png",
+  "uv": [20, 22],
+  "left_uv": [18, 22],
+  "right_uv": [28, 22],
+  "size": [128.0, 128.0]
+}

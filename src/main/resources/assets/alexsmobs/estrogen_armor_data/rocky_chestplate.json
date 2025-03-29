@@ -1,0 +1,7 @@
+{
+  "texture": "alexsmobs:textures/armor/rocky_chestplate.png",
+  "uv": [10, 12],
+  "left_uv": [11, 12],
+  "right_uv": [11, 12],
+  "size": [64.0, 64.0]
+}

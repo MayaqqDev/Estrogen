@@ -1,0 +1,7 @@
+{
+  "texture": "ad_astra:textures/entity/armor/jet_suit.png",
+  "uv": [36, 38],
+  "left_uv": [26, 22],
+  "right_uv": [36, 22],
+  "size": [64.0, 64.0]
+}
