@@ -29,7 +29,6 @@ class CookieJarRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEnt
         poseStack.mulPose(Axis.XN.rotationDegrees(90f))
         poseStack.translate(0.5, -0.625, 0.032)
 
-        Estrogen.info(be.count.toString())
         for (jarItem in be.items) {
             if (jarItem.isEmpty) {
                 continue

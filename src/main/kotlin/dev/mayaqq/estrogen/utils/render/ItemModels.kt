@@ -16,10 +16,17 @@ import net.minecraft.client.renderer.LightTexture
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.texture.OverlayTexture
+import net.minecraft.client.resources.model.BakedModel
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemDisplayContext
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 
+
+
+private val FLYWHEEL_ABUSE: RendererReloadCache<Unit, MutableMap<ItemCacheKey, Model>> = RendererReloadCache { mutableMapOf() }
+private val THREAD_LOCAL: ThreadLocal<ThreadLocalObjects> = ThreadLocal.withInitial(::ThreadLocalObjects)
 private val GLINT_TYPES: Set<RenderType> = setOf(
     RenderType.glint(),
     RenderType.armorGlint(),
@@ -29,21 +36,25 @@ private val GLINT_TYPES: Set<RenderType> = setOf(
     RenderType.armorEntityGlint()
 )
 
-private val ITEMS: RendererReloadCache<Pair<ItemStack, ItemDisplayContext>, Model> = RendererReloadCache(::bufferItemModel)
+private data class ItemCacheKey(
+    val model: BakedModel,
+    val itemDisplayContext: ItemDisplayContext
+)
 
-private val THREAD_LOCAL: ThreadLocal<ThreadLocalObjects> = ThreadLocal.withInitial(::ThreadLocalObjects)
+fun ItemModel(stack: ItemStack, context: ItemDisplayContext): Model {
+    val model = Minecraft.getInstance().itemRenderer.getModel(stack, Minecraft.getInstance().level, null, 42)
+    val key = ItemCacheKey(model, context)
+    return FLYWHEEL_ABUSE.get(Unit).getOrPut(key) { bufferItemModel(stack, context) }
+}
 
-fun ItemModel(stack: ItemStack, context: ItemDisplayContext): Model = ITEMS.get(stack to context)
-
-private fun bufferItemModel(data: Pair<ItemStack, ItemDisplayContext>): Model {
+private fun bufferItemModel(stack: ItemStack, context: ItemDisplayContext): Model {
     val itemRenderer = Minecraft.getInstance().itemRenderer
     val objects = THREAD_LOCAL.get()
+    objects.stack = stack
     objects.begin()
 
-    Estrogen.info("item")
     itemRenderer.renderStatic(
-        data.first, data.second,
-        LightTexture.FULL_BRIGHT,
+        stack, context, 0,
         OverlayTexture.NO_OVERLAY,
         objects.poseStack, objects.builderSource,
         Minecraft.getInstance().level,
@@ -62,8 +73,8 @@ private class ThreadLocalObjects {
 
     fun begin() {
         poseStack.pushPose()
-        modelBuilder.begin(32)
-        glintBuilder.begin(if (stack.hasFoil()) 32 else 1)
+        modelBuilder.begin(64)
+        glintBuilder.begin(if (stack.hasFoil()) 64 else 1)
     }
 
     fun end(): Model {

@@ -22,13 +22,13 @@ class MeshVertexConsumer(
         if (active) error("vertex consumer already building")
         active = true
         view.vertexCount(initialCapacity)
-        if(data.isFreed || data.size() < initialCapacity * view.stride())
-            data = MemoryBlock.malloc(initialCapacity * view.stride())
+        data = MemoryBlock.malloc(initialCapacity * view.stride())
         view.ptr(data.ptr())
         pos = 0
     }
 
     override fun vertex(p0: Double, p1: Double, p2: Double): VertexConsumer {
+        require(active)
         view.x(pos, p0.toFloat())
         view.y(pos, p1.toFloat())
         view.z(pos, p2.toFloat())
@@ -75,7 +75,7 @@ class MeshVertexConsumer(
 
     override fun endVertex() {
         pos++
-        if(pos > view.vertexCount()) {
+        if(pos >= view.vertexCount()) {
             val newCapacity = view.vertexCount() + 4
             val newData = MemoryBlock.malloc(view.stride() * newCapacity)
             data.copyTo(newData)
@@ -90,14 +90,15 @@ class MeshVertexConsumer(
         pos = 0
         view.vertexCount(0)
         view.ptr(0L)
-        if(freeData) data.free()
+        data.free()
         active = false
     }
 
     fun build(): Mesh {
-        val buildData = MemoryBlock.mallocTracked(view.stride() * (pos + 1))
+        val buildData = MemoryBlock.mallocTracked(view.stride() * pos)
         data.copyTo(buildData)
         val outputView = viewFactory()
+        outputView.vertexCount(pos)
         outputView.load(buildData)
         return SimpleQuadMesh(outputView).also { reset(false) }
     }

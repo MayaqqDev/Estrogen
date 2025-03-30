@@ -6,6 +6,8 @@ import dev.engine_room.flywheel.api.instance.Instance
 import dev.engine_room.flywheel.api.visualization.VisualizationContext
 import dev.engine_room.flywheel.lib.instance.InstanceTypes
 import dev.engine_room.flywheel.lib.instance.TransformedInstance
+import dev.engine_room.flywheel.lib.transform.TransformStack
+import dev.engine_room.flywheel.lib.util.RecyclingPoseStack
 import dev.engine_room.flywheel.lib.visual.AbstractBlockEntityVisual
 import dev.mayaqq.estrogen.content.blockEntities.CookieJarBlockEntity
 import dev.mayaqq.estrogen.utils.render.ItemModel
@@ -20,9 +22,11 @@ class CookieJarVisual(
 ) : AbstractBlockEntityVisual<CookieJarBlockEntity>(ctx, blockEntity, partialTick) {
 
     private val instances: MutableList<TransformedInstance> = mutableListOf()
-    private val poseStack: PoseStack = PoseStack()
+    private val poseStack: PoseStack = RecyclingPoseStack()
 
     init {
+        val pos = blockEntity.blockPos.subtract(visualizationContext.renderOrigin())
+        poseStack.translate(pos.x.toFloat(), pos.y.toFloat(), pos.z.toFloat())
         reloadInstances()
     }
 
@@ -61,10 +65,12 @@ class CookieJarVisual(
     }
 
     private fun createItemInstance(jarItem: ItemStack) {
-        visualizationContext.instancerProvider()
+        val instance = visualizationContext.instancerProvider()
             .instancer(InstanceTypes.TRANSFORMED, ItemModel(jarItem, ItemDisplayContext.GROUND))
             .createInstance()
-            .let(instances::add)
+            .also(instances::add)
+
+        relight(instance)
     }
 
     override fun _delete() {
@@ -78,4 +84,6 @@ class CookieJarVisual(
     override fun updateLight(p0: Float) {
         relight(instances)
     }
+
+
 }

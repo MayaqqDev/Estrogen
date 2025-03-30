@@ -175,9 +175,9 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
     }
 
     override fun canPlaceItem(slot: Int, itemStack: ItemStack): Boolean {
-        if (!itemStack.`is`(Items.COOKIE)) {
-            return false
-        }
+//        if (!itemStack.`is`(Items.COOKIE)) {
+//            return false
+//        }
         return matchesFirstItem(itemStack)
     }
 

@@ -86,7 +86,8 @@ cloche {
         minecraftVersion = libs.versions.minecraft.get()
 
         include(libs.fabric.baubly)
-        include(files(project.relativePath("libs/Kritter-0.0.1-fabric.jar")))
+        include(libs.fabric.kritter)
+        include(libs.fabric.flywheel)
 
         includedClient() // includedClient() is not a run
         runs {
@@ -107,7 +108,7 @@ cloche {
             modImplementation(libs.fabric.modmenu)
             modCompileOnly(libs.fabric.iris)
             //modApi(libs.fabric.flywheel.api)
-            modRuntimeOnly(libs.fabric.flywheel)
+            modApi(libs.fabric.flywheel)
 
             when(item_viewer_fabric) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -149,7 +150,7 @@ cloche {
             api(libs.forge.kotlin)
             //modImplementation(libs.forge.create)
             //modApi(libs.forge.flywheel.api)
-            modRuntimeOnly(libs.forge.flywheel)
+            modApi(libs.forge.flywheel)
             modImplementation(libs.forge.baubly)
             modRuntimeOnly(libs.forge.kritter)
             implementation(libs.forge.mixinExtras)
