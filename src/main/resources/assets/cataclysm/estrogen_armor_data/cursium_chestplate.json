@@ -1,0 +1,7 @@
+{
+    "texture": "cataclysm:textures/armor/cursium_armor.png",
+    "uv": [6, 64],
+    "left_uv": [6, 64],
+    "right_uv": [14, 64],
+    "size": [128.0, 128.0]
+  }

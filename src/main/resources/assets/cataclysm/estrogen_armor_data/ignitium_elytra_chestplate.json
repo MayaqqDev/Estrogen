@@ -1,0 +1,7 @@
+{
+  "texture": "cataclysm:textures/armor/ignitium_armor.png",
+  "uv": [24, 10],
+  "left_uv": [24, 10],
+  "right_uv": [30, 10],
+  "size": [64.0, 64.0]
+}

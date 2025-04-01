@@ -1,0 +1,7 @@
+{
+  "texture": "alexscaves:textures/armor/diving_suit_0.png",
+  "uv": [20, 26],
+  "left_uv": [18, 20],
+  "right_uv": [28, 20],
+  "size": [64.0, 64.0]
+}

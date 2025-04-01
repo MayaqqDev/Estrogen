@@ -19,6 +19,7 @@ repositories {
     maven(url = "https://maven.teamresourceful.com/repository/maven-public/") { name = "Team Resourceful" }
     maven(url = "https://maven.shedaniel.me") { name = "Shedaniel" }
     maven(url = "https://maven.blamejared.com/") { name = "Blamejared" }
+    maven(url = "https://maven.createmod.net/") { name = "Create" }
     maven(url = "https://maven.tterrag.com") { name = "Tterrag" }
     maven(url = "https://maven.theillusivec4.top/") { name = "TheIllusivec4" }
     maven(url = "https://mvn.devos.one/snapshots/") { name = "Devos Maven"; description = "Create Fabric, Porting Lib, Forge Tags, Milk Lib & Fabric Registrate" }
@@ -66,7 +67,9 @@ cloche {
             compileOnly(libs.mixin)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.coroutines.core)
-            modImplementation(libs.baubly)
+            api(libs.flywheel.api)
+            compileOnly(libs.kritter)
+//            modImplementation(libs.baubly)
             modCompileOnly(libs.ears)
             modCompileOnly(libs.figura)
             modCompileOnly(libs.cobblemon)
@@ -83,7 +86,8 @@ cloche {
         minecraftVersion = libs.versions.minecraft.get()
 
         include(libs.fabric.baubly)
-        include(files(project.relativePath("libs/Kritter-0.0.1-fabric.jar")))
+        include(libs.fabric.kritter)
+        include(libs.fabric.flywheel)
 
         includedClient() // includedClient() is not a run
         runs {
@@ -98,11 +102,13 @@ cloche {
             //modImplementation(libs.fabric.create)
             modImplementation(libs.fabric.baubly)
             modImplementation(libs.fabric.trinkets)
-            modImplementation(files(project.relativePath("libs/Kritter-0.0.1-fabric.jar")))
+            modRuntimeOnly(libs.fabric.kritter)
             modCompileOnly("${libs.fabric.emi.get()}:api") // No clue how to do the :api thing in the version catalog directly
             modCompileOnly(libs.fabric.jei.api)
             modImplementation(libs.fabric.modmenu)
             modCompileOnly(libs.fabric.iris)
+            //modApi(libs.fabric.flywheel.api)
+            modApi(libs.fabric.flywheel)
 
             when(item_viewer_fabric) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -143,9 +149,10 @@ cloche {
         dependencies {
             api(libs.forge.kotlin)
             //modImplementation(libs.forge.create)
-            modImplementation(libs.forge.flywheel)
+            //modApi(libs.forge.flywheel.api)
+            modApi(libs.forge.flywheel)
             modImplementation(libs.forge.baubly)
-            modImplementation(files(project.relativePath("libs/Kritter-0.0.1-forge.jar")))
+            modRuntimeOnly(libs.forge.kritter)
             implementation(libs.forge.mixinExtras)
             compileOnlyApi(libs.forge.jei.api)
 

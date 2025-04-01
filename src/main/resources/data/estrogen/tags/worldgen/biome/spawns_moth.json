@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:dark_forest",
+    {
+      "id": "autumnity:maple_forest",
+      "required": false
+    }
+  ]
+}

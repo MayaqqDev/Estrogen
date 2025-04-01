@@ -2,7 +2,7 @@
 
 # Stuff
 kotlin = "2.0.0"
-cloche = "0.8.6"
+cloche = "0.8.26"
 
 # Minecraft
 minecraft = "1.20.1"
@@ -10,6 +10,7 @@ fabric = "0.16.9"
 
 
 # Common Dependencies
+kritter = "0.0.7+1.20.1"
 kotlinx-serialization="1.8.0"
 kotlinx-coroutines="1.10.1"
 parchment = "2023.09.03"
@@ -34,6 +35,7 @@ skinlayers = "5edNc5ga"
 cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.5+1.20.1"
+flywheel = "1.0.2"
 
 # Fabric Only Dependencies
 fapi = "0.92.2+1.20.1"
@@ -46,7 +48,6 @@ flk = "1.11.0+kotlin.2.0.0"
 forge = "47.2.19"
 curios = "5.4.7+1.20.1"
 create_forge = "0.5.1.f-27"
-flywheel = "0.6.10-7"
 jei_file_id_forge = "4712868"
 kff = "4.11.0"
 
@@ -68,7 +69,8 @@ rei-api = { module = "me.shedaniel:RoughlyEnoughItems-api", version.ref = "rei" 
 rei-plugin = { module = "me.shedaniel:RoughlyEnoughItems-default-plugin", version.ref = "rei" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
-
+kritter = { module = "uwu.serenity.kritter:kritter-common", version.ref = "kritter" }
+flywheel-api = { module = "dev.engine-room.flywheel:flywheel-common-mojmap-api-1.20.1", version.ref = "flywheel" }
 
 # Fabric dependencies
 fabric-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "flk" }
@@ -85,11 +87,13 @@ fabric-cardinalComponents-base = { group = "dev.onyxstudios.cardinal-components-
 fabric-cardinalComponents-entity = { group = "dev.onyxstudios.cardinal-components-api", name = "cardinal-components-entity", version.ref = "cardinal" }
 fabric-iris = { module = "maven.modrinth:iris", version.ref="iris" }
 fabric-devauth = { module = "me.djtheredstoner:DevAuth-fabric", version.ref = "devauth" }
+fabric-kritter = { module = "uwu.serenity.kritter:kritter-fabric", version.ref = "kritter" }
+fabric-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-fabric-api-1.20.1", version.ref = "flywheel" }
+fabric-flywheel = { module = "dev.engine-room.flywheel:flywheel-fabric-1.20.1", version.ref = "flywheel" }
 
 # Forge depencencies
 forge-kotlin = { module = "thedarkcolour:kotlinforforge", version.ref = "kff" }
 forge-create = { module = "com.simibubi.create:create-1.20.1", version.ref = "create_forge" }
-forge-flywheel = { module = "com.jozufozu.flywheel:flywheel-forge-1.20.1", version.ref = "flywheel" }
 forge-baubly = { module = "earth.terrarium.baubly:baubly-forge-1.20.1", version.ref = "baubly" }
 forge-emi = { module = "dev.emi:emi-forge", version.ref = "emi" }
 forge-jei-api = { module = "mezz.jei:jei-1.20.1-forge-api", version.ref = "jei" }
@@ -97,6 +101,9 @@ forge-jei = { module = "curse.maven:jei-238222", version.ref = "jei_file_id_forg
 forge-curios = { module = "top.theillusivec4.curios:curios-forge", version.ref = "curios" }
 forge-mixinExtras = { module = "io.github.llamalad7:mixinextras-forge", version.ref = "mixin_extras" }
 forge-devauth = { module = "me.djtheredstoner:DevAuth-forge-latest", version.ref = "devauth" }
+forge-kritter = { module = "uwu.serenity.kritter:kritter-forge", version.ref = "kritter" }
+forge-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-forge-api-1.20.1", version.ref = "flywheel" }
+forge-flywheel = { module = "dev.engine-room.flywheel:flywheel-forge-1.20.1", version.ref = "flywheel" }
 
 [bundles]
 fabric-cardinalComponents = [ "fabric-cardinalComponents-base", "fabric-cardinalComponents-entity" ]

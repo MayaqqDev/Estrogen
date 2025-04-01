@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "estrogen:item/thigh_highs",
+    "layer1": "estrogen:item/thigh_highs_overlay"
+  }
+}

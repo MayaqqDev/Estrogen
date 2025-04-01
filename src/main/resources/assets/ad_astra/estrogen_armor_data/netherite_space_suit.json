@@ -1,0 +1,7 @@
+{
+  "texture": "ad_astra:textures/entity/armor/netherite_space_suit.png",
+  "uv": [28, 23],
+  "left_uv": [28, 24],
+  "right_uv": [34, 24],
+  "size": [64.0, 64.0]
+}

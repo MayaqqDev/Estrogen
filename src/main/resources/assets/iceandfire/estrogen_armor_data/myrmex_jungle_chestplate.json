@@ -1,0 +1,7 @@
+{
+  "texture": "iceandfire:textures/models/armor/myrmex_jungle_layer_1.png",
+  "uv": [20, 23],
+  "left_uv": [18, 23],
+  "right_uv": [28, 23],
+  "size": [64.0, 32.0]
+}

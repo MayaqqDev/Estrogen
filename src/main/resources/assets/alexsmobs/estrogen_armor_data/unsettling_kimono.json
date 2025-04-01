@@ -1,0 +1,7 @@
+{
+  "texture": "alexsmobs:textures/armor/unsettling_kimono.png",
+  "uv": [4, 7],
+  "left_uv": [2, 7],
+  "right_uv": [12, 7],
+  "size": [64.0, 64.0]
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "estrogen:item/filtrated_horse_urine_bucket"
+  }
+}

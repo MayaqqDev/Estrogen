@@ -1,0 +1,7 @@
+{
+  "texture": "alexscaves:textures/armor/primordial_armor_0.png",
+  "uv": [17, 40],
+  "left_uv": [16, 40],
+  "right_uv": [26, 40],
+  "size": [128.0, 128.0]
+}
