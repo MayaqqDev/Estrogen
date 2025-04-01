@@ -8,6 +8,8 @@ import net.minecraft.core.NonNullList
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.Connection
 import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.network.protocol.Packet
+import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.Container
@@ -127,7 +129,7 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
         super.load(compoundTag)
         items.clear()
         ContainerHelper.loadAllItems(compoundTag, items)
-        if(level?.isClientSide == true) updateOnClient()
+        if(level?.isClientSide == true) updateOnClient() else sync(false)
     }
 
     fun updateOnClient() {
@@ -185,13 +187,18 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
         items.clear()
     }
 
-    private fun sync() {
+    override fun getUpdatePacket(): Packet<ClientGamePacketListener> {
+        return ClientboundBlockEntityDataPacket.create(this)
+    }
+
+    override fun getUpdateTag(): CompoundTag? = saveWithFullMetadata()
+
+    private fun sync(saveAswell: Boolean = true) {
+        if(saveAswell) setChanged()
         if(this.level?.isClientSide == true) return
-        val level = this.level as ServerLevel
+        val level = this.level as? ServerLevel ?: return
         for (player in level.server.playerList.players) {
-            player.connection.send(ClientboundBlockEntityDataPacket.create(this) {
-                this.saveWithoutMetadata()
-            } )
+            player.connection.send(updatePacket)
         }
     }
 }

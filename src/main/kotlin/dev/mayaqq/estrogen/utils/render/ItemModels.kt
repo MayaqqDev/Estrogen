@@ -3,9 +3,12 @@ package dev.mayaqq.estrogen.utils.render
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import dev.architectury.platform.Mod
+import dev.engine_room.flywheel.api.material.Material
 import dev.engine_room.flywheel.api.model.Mesh
 import dev.engine_room.flywheel.api.model.Model
+import dev.engine_room.flywheel.lib.material.LightShaders
 import dev.engine_room.flywheel.lib.material.Materials
+import dev.engine_room.flywheel.lib.material.SimpleMaterial
 import dev.engine_room.flywheel.lib.model.SimpleModel
 import dev.engine_room.flywheel.lib.util.RendererReloadCache
 import dev.engine_room.flywheel.lib.vertex.FullVertexView
@@ -23,7 +26,13 @@ import net.minecraft.world.item.ItemDisplayContext
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 
+/**
+ * This will probably be moved to cynosure
+ */
 
+private val ITEM_GLINT: Material = SimpleMaterial.builderOf(Materials.GLINT)
+    .light(EstrogenFlywheelShaders.FULL_BRIGHT)
+    .build()
 
 private val FLYWHEEL_ABUSE: RendererReloadCache<Unit, MutableMap<ItemCacheKey, Model>> = RendererReloadCache { mutableMapOf() }
 private val THREAD_LOCAL: ThreadLocal<ThreadLocalObjects> = ThreadLocal.withInitial(::ThreadLocalObjects)
@@ -84,7 +93,7 @@ private class ThreadLocalObjects {
         val itemRenderType = ItemBlockRenderTypes.getRenderType(stack, false)
         val itemMaterial = if (itemRenderType == RenderType.translucent()) Materials.TRANSLUCENT_BLOCK else Materials.CUTOUT_BLOCK
 
-        return SimpleModel(listOf(Model.ConfiguredMesh(itemMaterial, modelMesh), Model.ConfiguredMesh(Materials.GLINT, glintMesh)))
+        return SimpleModel(listOf(Model.ConfiguredMesh(itemMaterial, modelMesh), Model.ConfiguredMesh(ITEM_GLINT, glintMesh)))
     }
 
 }
