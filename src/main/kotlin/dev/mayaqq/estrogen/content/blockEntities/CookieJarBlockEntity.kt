@@ -176,12 +176,8 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
         return Container.stillValidBlockEntity(this, player)
     }
 
-    override fun canPlaceItem(slot: Int, itemStack: ItemStack): Boolean {
-//        if (!itemStack.`is`(Items.COOKIE)) {
-//            return false
-//        }
-        return matchesFirstItem(itemStack)
-    }
+    override fun canPlaceItem(slot: Int, itemStack: ItemStack): Boolean =
+        itemStack.`is`(EstrogenTags.Items.COOKIES) && matchesFirstItem(itemStack)
 
     override fun clearContent() {
         items.clear()
