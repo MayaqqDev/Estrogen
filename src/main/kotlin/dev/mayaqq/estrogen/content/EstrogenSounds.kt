@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.estrogen.Estrogen
@@ -8,7 +10,6 @@ import net.minecraft.world.level.block.SoundType
 import uwu.serenity.kritter.stdlib.sound
 import uwu.serenity.kritter.utils.LazySoundType
 
-@Suppress("UNUSED")
 object EstrogenSounds : Registrar<SoundEvent> by Estrogen..Registries.SOUND_EVENT {
 
     // Dash
