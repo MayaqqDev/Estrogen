@@ -30,7 +30,7 @@ repositories {
     maven(url = "https://repo.unascribed.com") { name = "Unascribed Maven"; description = "Ears" }
     maven(url = "https://api.modrinth.com/maven") { name = "Modrinth Maven"; description = "Jukeboxfix, Ad Astra" }
     maven(url = "https://maven.figuramc.org/releases") { name = "Figura Maven"; description = "Figura" }
-    maven(url = "https://maven.is-immensely.gay/nightly") { name = "Sappho Company"; description = "Critter" }
+    maven(url = "https://maven.is-immensely.gay/nightly") { name = "Sappho Company"; description = "Critter, Cynosure" }
     maven(url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1") { name = "DevAuth maven"; description = "DevAuth" }
     maven(url = "https://maven.isxander.dev/releases") { name = "Xander maven"; description = "YACL" }
     maven(url = "https://maven.impactdev.net/repository/development/") { name = "ImpactDev Maven"; description = "Cobblemon" }
@@ -76,6 +76,7 @@ cloche {
             modCompileOnly(libs.createNewAge)
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
+            modApi(libs.cynosure)
             modCompileOnly(libs.rei.api)
             modCompileOnly(libs.rei.plugin)
         }
@@ -99,7 +100,6 @@ cloche {
             modApi(libs.fabric.api)
             modApi(libs.fabric.kotlin)
             modApi.bundle(libs.bundles.fabric.cardinalComponents)
-            //modImplementation(libs.fabric.create)
             modImplementation(libs.fabric.baubly)
             modImplementation(libs.fabric.trinkets)
             modRuntimeOnly(libs.fabric.kritter)
@@ -107,8 +107,9 @@ cloche {
             modCompileOnly(libs.fabric.jei.api)
             modImplementation(libs.fabric.modmenu)
             modCompileOnly(libs.fabric.iris)
-            //modApi(libs.fabric.flywheel.api)
+            modApi(libs.fabric.flywheel.api)
             modApi(libs.fabric.flywheel)
+            modApi(libs.fabric.cynosure)
 
             when(item_viewer_fabric) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -148,13 +149,13 @@ cloche {
 
         dependencies {
             api(libs.forge.kotlin)
-            //modImplementation(libs.forge.create)
-            //modApi(libs.forge.flywheel.api)
+            modApi(libs.forge.flywheel.api)
             modApi(libs.forge.flywheel)
             modImplementation(libs.forge.baubly)
             modRuntimeOnly(libs.forge.kritter)
             implementation(libs.forge.mixinExtras)
             compileOnlyApi(libs.forge.jei.api)
+            modApi(libs.forge.cynosure)
 
             when(item_viewer_forge) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)
