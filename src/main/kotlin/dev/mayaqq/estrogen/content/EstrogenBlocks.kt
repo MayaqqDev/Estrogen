@@ -4,6 +4,8 @@ import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.blocks.CookieJarBlock
 import dev.mayaqq.estrogen.content.blocks.DormantDreamBlock
 import dev.mayaqq.estrogen.content.blocks.DreamBlock
+import dev.mayaqq.estrogen.content.blocks.EstrogenPillBlock
+import dev.mayaqq.estrogen.content.blocks.ModelBedBlock
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.registries.Registries
@@ -99,4 +101,34 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
         }
     }
 
+    val ESTROGEN_PILL_BLOCK: EstrogenPillBlock by block("estrogen_pill_block", ::EstrogenPillBlock) {
+        copyProperties(Blocks::OAK_PLANKS)
+        properties {
+            it.strength(1.0f, 1.0f)
+            it.sound(EstrogenSoundTypes.PILL_BOX)
+        }
+        item(::BlockItem) {
+            //creativeTab(CreativeModeTabs.BUILDING_BLOCKS)
+        }
+    }
+
+    val MOTH_BED: ModelBedBlock by block("moth_bed", ::ModelBedBlock) {
+        copyProperties(Blocks::ORANGE_BED)
+        item(::BlockItem, "moth_bed") {
+            properties {
+                stacksTo(1)
+                //creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, new TabPlacement(stack -> stack.is(ItemTags.BEDS), TabPlacement.Type.AFTER))
+            }
+        }
+    }
+
+    val QUILTED_MOTH_BED: ModelBedBlock by block("quilted_moth_bed", ::ModelBedBlock) {
+        copyProperties(Blocks::ORANGE_BED)
+        item(::BlockItem, "quilted_moth_bed") {
+            properties {
+                stacksTo(1)
+                //creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.after(MOTH_BED))
+            }
+        }
+    }
 }

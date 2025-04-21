@@ -1,0 +1,7 @@
+package dev.mayaqq.estrogen.client.content.sounds
+
+import dev.mayaqq.estrogen.content.EstrogenSounds
+import net.minecraft.sounds.SoundSource
+
+class MothFlyingSoundInstance(moth: MothEntity) : MothSoundInstance(moth, EstrogenSounds.MOTH_LOOP, SoundSource.NEUTRAL) {
+}

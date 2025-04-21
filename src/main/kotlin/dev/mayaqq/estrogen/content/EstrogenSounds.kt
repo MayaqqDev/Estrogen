@@ -59,6 +59,11 @@ object EstrogenSounds : Registrar<SoundEvent> by Estrogen..Registries.SOUND_EVEN
     val PILL_BOX_BREAK: SoundEvent by sound
     val PILL_BOX_HIT: SoundEvent by sound
     val PILL_BOX_FALL: SoundEvent by sound
+
+    val MOTH_DEATH: SoundEvent by sound
+    val MOTH_HURT: SoundEvent by sound
+    val MOTH_LOOP: SoundEvent by sound
+    val MOTH_FUZZ_UP: SoundEvent by sound
 }
 
 object EstrogenSoundTypes {

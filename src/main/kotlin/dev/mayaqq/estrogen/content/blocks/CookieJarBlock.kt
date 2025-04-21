@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.content.blocks
 
+import dev.mayaqq.estrogen.content.AdvancementTriggers
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.EstrogenSoundTypes
 import dev.mayaqq.estrogen.content.EstrogenSounds
@@ -102,7 +103,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
                     0.7f + 0.5f * (cookieJarBlockEntity.count.toFloat() / 512)
                 )
                 if (level is ServerLevel) {
-                    // TODO EstrogenAdvancementCriteria.INSERT_JAR.trigger(player as ServerPlayer)
+                    AdvancementTriggers.INSERT_JAR.trigger(player as ServerPlayer)
                     level.sendParticles(
                         ParticleTypes.CRIT,
                         pos.x.toDouble() + 0.5,
