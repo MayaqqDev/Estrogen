@@ -1,5 +1,7 @@
 package dev.mayaqq.estrogen.client
 
-fun estrogenClient() {
+import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
 
+fun estrogenClient() {
+    EstrogenKeybinds
 }
