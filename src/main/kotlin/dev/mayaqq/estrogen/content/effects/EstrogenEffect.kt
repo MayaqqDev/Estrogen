@@ -8,8 +8,6 @@ import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.content.EstrogenAttributes.FALL_DAMAGE_RESISTANCE
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.features.dash.CommonDash.removeDashing
-import dev.mayaqq.estrogen.utils.PlayerLookup
-import dev.mayaqq.estrogen.utils.Time.currentTime
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket
@@ -62,7 +60,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
             sendRemovePlayerStatusEffect(
                 entity,
                 EstrogenEffects.ESTROGEN,
-                *PlayerLookup.tracking(entity).filterIsInstance<ServerPlayer>().toTypedArray()
+                *tracking(entity).filterIsInstance<ServerPlayer>().toTypedArray()
             )
         }
 
@@ -85,7 +83,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
             sendPlayerStatusEffect(
                 entity,
                 EstrogenEffects.ESTROGEN,
-                *PlayerLookup.tracking(entity).filterIsInstance<ServerPlayer>().toTypedArray()
+                *tracking(entity).filterIsInstance<ServerPlayer>().toTypedArray()
             )
         }
 

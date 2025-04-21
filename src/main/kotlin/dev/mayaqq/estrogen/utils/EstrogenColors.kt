@@ -5,7 +5,6 @@ import dev.mayaqq.cynosure.utils.colors.darker
 import dev.mayaqq.cynosure.utils.colors.lighter
 
 object EstrogenColors {
-    //TODO: Make cynosure color support int
     val MOLTEN_SLIME = Color(144, 238, 144)
     val TESTOSTERONE_MIXTURE = Color(232, 212, 170)
     val FILTRATED_HORSE_URINE = Color(225, 225, 20)

@@ -14,7 +14,6 @@ import dev.mayaqq.estrogen.client.features.dash.ClientDash.getDashLevel
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.isOnCooldown
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.utils.EstrogenColors
-import dev.mayaqq.estrogen.utils.render.pushPop
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.resources.ResourceLocation

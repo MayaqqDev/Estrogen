@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.client.features.boobs
 
-import dev.mayaqq.estrogen.utils.Time
+import dev.mayaqq.cynosure.utils.currentTime
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec2
@@ -22,7 +22,7 @@ class Physics {
     var expired: Boolean = false
 
     fun update(player: Player) {
-        if (this.lastRenderTime != null && Time.currentTime(player.level()) - this.lastRenderTime!! > 200) {
+        if (this.lastRenderTime != null && currentTime(player.level()) - this.lastRenderTime!! > 200) {
             this.expired = true
             return
         }
