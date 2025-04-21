@@ -7,9 +7,11 @@ import net.minecraft.sounds.SoundEvent
 import uwu.serenity.kritter.api.Registrar
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.level.block.SoundType
+import uwu.serenity.kritter.internal.ExperimentalKritterAPI
 import uwu.serenity.kritter.stdlib.sound
 import uwu.serenity.kritter.utils.LazySoundType
 
+@OptIn(ExperimentalKritterAPI::class)
 object EstrogenSounds : Registrar<SoundEvent> by Estrogen..Registries.SOUND_EVENT {
 
     // Dash

@@ -9,6 +9,7 @@ import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenEnchantments
 import dev.mayaqq.estrogen.content.EstrogenPotions
 import dev.mayaqq.estrogen.content.EstrogenSounds
+import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.content.advancements.triggers.KilledWithEffectTrigger
 import net.minecraft.resources.ResourceLocation
 import org.slf4j.Logger
@@ -47,5 +48,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         EstrogenPotions.register()
 
         info("Injecting Estrogen into your veins!")
+
+        EstrogenNetwork
     }
 }

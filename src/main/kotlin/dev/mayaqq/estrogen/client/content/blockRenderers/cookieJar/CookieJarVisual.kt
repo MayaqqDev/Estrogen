@@ -74,11 +74,11 @@ class CookieJarVisual(
     }
 
     override fun _delete() {
-        instances.forEach { it.delete() }
+        instances.forEach(Instance::delete)
     }
 
     override fun collectCrumblingInstances(p0: Consumer<Instance?>) {
-        instances.forEach { p0.accept(it) }
+        instances.forEach(p0::accept)
     }
 
     override fun updateLight(p0: Float) {
