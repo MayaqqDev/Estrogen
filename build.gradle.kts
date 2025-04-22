@@ -57,7 +57,7 @@ cloche {
 
     mappings {
         official()
-        parchment(libs.versions.parchment.get())
+        parchment(libs.versions.parchment)
     }
 
     common {
@@ -83,8 +83,8 @@ cloche {
     }
 
     fabric {
-        loaderVersion = libs.versions.fabric.get()
-        minecraftVersion = libs.versions.minecraft.get()
+        loaderVersion = libs.versions.fabric
+        minecraftVersion = libs.versions.minecraft
 
         include(libs.fabric.baubly)
         include(libs.fabric.kritter)
@@ -97,7 +97,7 @@ cloche {
         }
 
         dependencies {
-            modApi(libs.fabric.api)
+            fabricApi(libs.versions.fapi)
             modApi(libs.fabric.kotlin)
             modApi.bundle(libs.bundles.fabric.cardinalComponents)
             modImplementation(libs.fabric.baubly)

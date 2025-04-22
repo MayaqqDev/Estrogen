@@ -19,9 +19,11 @@ object EstrogenColors {
     )
 
     fun getDashColor(level: Int, particle: Boolean): Color {
-        var level = level
-        if (level < 1) level = 1
-        if (level > DASH_OVERLAY.size) level = DASH_OVERLAY.size
+        val level = when {
+            level < 1 -> 1
+            level > DASH_OVERLAY.size -> DASH_OVERLAY.size
+            else -> level
+        }
         return if (particle) DASH_OVERLAY[level - 1].lighter() else DASH_OVERLAY[level - 1]
     }
 }

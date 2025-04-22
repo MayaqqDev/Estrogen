@@ -2,7 +2,7 @@
 
 # Stuff
 kotlin = "2.0.0"
-cloche = "0.8.6"
+cloche = "0.9.4"
 
 # Minecraft
 minecraft = "1.20.1"
@@ -36,10 +36,10 @@ cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.5+1.20.1"
 flywheel = "1.0.2"
-cynosure = "0.1.0.78"
+cynosure = "0.1.0.80"
 
 # Fabric Only Dependencies
-fapi = "0.92.2+1.20.1"
+fapi = "0.92.2"
 modmenu = "7.2.2"
 cardinal = "5.2.2"
 jei_file_id_fabric = "5101365"
