@@ -19,6 +19,6 @@ object Boob {
     }
 
     fun shouldShow(player: Player): Boolean {
-        return player.getAttributeValue(EstrogenAttributes.SHOW_BOOBS.value) > 0.0
+        return player.getAttributeValue(EstrogenAttributes.SHOW_BOOBS) > 0.0
     }
 }

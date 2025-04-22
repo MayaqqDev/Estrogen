@@ -5,8 +5,10 @@ import dev.mayaqq.estrogen.content.AdvancementTriggers
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.EstrogenBlocks
+import dev.mayaqq.estrogen.content.EstrogenCreativeTab
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenEnchantments
+import dev.mayaqq.estrogen.content.EstrogenItems
 import dev.mayaqq.estrogen.content.EstrogenPotions
 import dev.mayaqq.estrogen.content.EstrogenSounds
 import dev.mayaqq.estrogen.network.EstrogenNetwork
@@ -46,6 +48,8 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         EstrogenEnchantments.register()
         AdvancementTriggers.register()
         EstrogenPotions.register()
+        EstrogenItems.register()
+        EstrogenCreativeTab.register()
 
         info("Injecting Estrogen into your veins!")
 

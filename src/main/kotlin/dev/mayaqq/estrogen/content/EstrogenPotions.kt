@@ -8,5 +8,5 @@ import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.entry
 
 object EstrogenPotions : Registrar<Potion> by Estrogen..Registries.POTION {
-    val ESTROGEN_POTION = entry("estrogen_potion", {Potion("estrogen", MobEffectInstance(EstrogenEffects.ESTROGEN, 12000))}).register()
+    val ESTROGEN_POTION by entry("estrogen_potion", {Potion("estrogen", MobEffectInstance(EstrogenEffects.ESTROGEN, 12000))})
 }

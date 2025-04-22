@@ -180,7 +180,7 @@ object ClientDash {
     }
 
     fun refresh(player: Player) {
-        dashes = player.getAttributeValue(EstrogenAttributes.DASH_LEVEL.value).toInt().toShort().toInt()
+        dashes = player.getAttributeValue(EstrogenAttributes.DASH_LEVEL).toInt().toShort().toInt()
     }
 
     private fun canRefresh(player: Player): Boolean {

@@ -5,6 +5,8 @@
 - [ ] Config
 - [ ] Everything in the IntelliJ Todo list
 - [ ] Boob model rendering and all the stuff around it, depends lot on config so...
-- [ ] Items
+- [X] Items
 - [ ] Cosmetics + Cosmetics UI
+- [ ] Tooltips
+- [ ] Thigh Highs Styles  
 - [ ] All the other stuff because I don't have rest of the things, just add on

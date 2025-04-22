@@ -1,0 +1,151 @@
+package dev.mayaqq.estrogen.content
+
+import dev.mayaqq.cynosure.utils.colors.Color
+import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.estrogen.content.items.EstrogenCookieItem
+import dev.mayaqq.estrogen.content.items.GenderChangePotionItem
+import dev.mayaqq.estrogen.content.items.HorseUrineBottleItem
+import dev.mayaqq.estrogen.content.items.MothElytraItem
+import dev.mayaqq.estrogen.content.items.ThighHighsItem
+import net.minecraft.core.cauldron.CauldronInteraction
+import net.minecraft.core.registries.Registries
+import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.effect.MobEffects
+import net.minecraft.world.food.FoodProperties
+import net.minecraft.world.item.CreativeModeTabs
+import net.minecraft.world.item.Item
+import net.minecraft.world.item.Items
+import net.minecraft.world.item.Rarity
+import uwu.serenity.kritter.api.Registrar
+import uwu.serenity.kritter.api.creative.TabPlacement
+import uwu.serenity.kritter.stdlib.item
+
+object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
+    val ESTROGEN_PILL by item("estrogen_pill", ::Item) {
+        properties {
+            stacksTo(16)
+            food(FoodProperties.Builder().effect(
+                MobEffectInstance(
+                    EstrogenEffects.ESTROGEN,
+                    TODO("EstrogenConfig.common().estrogenPillDuration.get()"),
+                    0,
+                    false,
+                    false,
+                    true
+                ), 1F)
+                .fast().alwaysEat().build()
+            )
+            rarity(Rarity.RARE)
+            standardTooltip()
+        }
+    }
+
+    val CRYSTAL_ESTROGEN_PILL by item("crystal_estrogen_pill", ::Item) {
+        properties {
+            stacksTo(16)
+            food(FoodProperties.Builder().effect(
+                MobEffectInstance(
+                    EstrogenEffects.ESTROGEN,
+                    TODO("EstrogenConfig.common().crystalEstrogenPillDuration.get()"),
+                    1,
+                    false,
+                    false,
+                    true
+                ), 1F)
+                .fast().alwaysEat().build()
+            )
+            rarity(Rarity.EPIC)
+            standardTooltip()
+        }
+    }
+
+    val BALLS by item("balls", ::Item)
+
+    val TESTOSTERONE_CHUNK by item("testosterone_chunk", ::Item)
+    val TESTOSTERONE_POWDER by item("testosterone_powder", ::Item)
+    //TODO: Create version only val USED_FILTER
+    val MOTH_FUZZ by item("moth_fuzz", ::Item) {
+        properties {
+            creativeTab(CreativeModeTabs.INGREDIENTS, TabPlacement.AFTER(Items.INK_SAC))
+        }
+    }
+
+    val ESTROGEN_CHIP_COOKIE by item("estrogen_chip_cookie", ::EstrogenCookieItem) {
+        properties {
+            rarity(Rarity.RARE)
+            food(
+                FoodProperties.Builder().effect(MobEffectInstance(
+                    EstrogenEffects.ESTROGEN,
+                    TODO("EstrogenConfig.common().estrogenChipCookieDuration.get()"),
+                    0,
+                    false,
+                    false,
+                    true
+                ), 1F).nutrition(8).saturationMod(1.5F).fast().alwaysEat().build()
+            )
+            stacksTo(64)
+            creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.AFTER(Items.COOKIE))
+        }
+    }
+
+    val HORSE_URINE_BOTTLE by item("horse_urine_bottle", ::HorseUrineBottleItem) {
+        properties {
+            stacksTo(16)
+            food(
+                FoodProperties.Builder().effect(
+                    MobEffectInstance(
+                        MobEffects.POISON,
+                        100,
+                        0
+                    ), 1f
+                ).nutrition(1).saturationMod(0.1f).build()
+            )
+            craftRemainder(Items.GLASS_BOTTLE)
+        }
+    }
+
+    //TODO: val ESTROGEN_PATCHES by item("estrogen_patches", ::EstrogenPatchesItem)
+
+    //TODO: Incomplete Estrogen Patch FOR CREATE ESTROGEN
+
+    val COLONTHREE by item("uwu", ::Item) {
+        properties {
+            stacksTo(1)
+            tooltip {
+                TODO("TOOLTIP hehe")
+            }
+        }
+    }
+
+    //TODO: Incomplete Colonthree FOR CREATE ESTROGEN
+
+    val THIGH_HIGHS by item("thigh_highs", {p -> ThighHighsItem(p, 0xf1d85a, 0xff4ea5)}) {
+        properties {
+            stacksTo(1)
+            tooltip {
+                TODO("THIGHHIGHSTOOLTIPMODIFIER")
+            }
+            bauble()
+            //TODO: baubleWithRenderer {  }
+            onSetup { CauldronInteraction.WATER.put(it, ThighHighsItem.CAULDRON_INTERACTION) }
+            //TODO: colors ThighHighsItem::getItemColor
+        }
+    }
+
+    val MOTH_ELYTRA by item("moth_elytra", ::MothElytraItem) {
+        properties {
+            stacksTo(1)
+            durability(626)
+            rarity(Rarity.UNCOMMON)
+            creativeTab(CreativeModeTabs.TOOLS_AND_UTILITIES, TabPlacement.AFTER(Items.ELYTRA))
+        }
+    }
+
+    val GENDER_CHANGE_POTION by item("gender_change_potion", ::GenderChangePotionItem) {
+        properties {
+            stacksTo(1)
+            rarity(Rarity.RARE)
+            creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.AFTER(Items.HONEY_BOTTLE))
+        }
+    }
+}

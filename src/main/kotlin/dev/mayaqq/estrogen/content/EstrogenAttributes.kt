@@ -11,13 +11,13 @@ import kotlin.math.pow
 
 object EstrogenAttributes : Registrar<Attribute> by Estrogen..Registries.ATTRIBUTE {
     // Dash Level
-    val DASH_LEVEL = entry("dash_level", {RangedAttribute("attribute.name.estrogen.dash_level", 0.0, 0.0, 10.0).setSyncable(true)}).register()
+    val DASH_LEVEL by entry("dash_level", {RangedAttribute("attribute.name.estrogen.dash_level", 0.0, 0.0, 10.0).setSyncable(true)})
     // Boob growing Sync
-    val SHOW_BOOBS = entry("show_boobs", {RangedAttribute("attribute.name.estrogen.show_boobs", 0.0, 0.0, 1.0).setSyncable(true)}).register()
-    val BOOB_GROWING_START_TIME = entry("boob_growing_start_time", {RangedAttribute("attribute.name.estrogen.boob_growing_start_time", -1.0, -1.0, 2.0.pow(53)).setSyncable(true)}).register()
-    val BOOB_INITIAL_SIZE = entry("boob_initial_size", {RangedAttribute("attribute.name.estrogen.boob_initial_size", 0.0, 0.0, 1.0).setSyncable(true)}).register()
+    val SHOW_BOOBS by entry("show_boobs", {RangedAttribute("attribute.name.estrogen.show_boobs", 0.0, 0.0, 1.0).setSyncable(true)})
+    val BOOB_GROWING_START_TIME by entry("boob_growing_start_time", {RangedAttribute("attribute.name.estrogen.boob_growing_start_time", -1.0, -1.0, 2.0.pow(53)).setSyncable(true)})
+    val BOOB_INITIAL_SIZE by entry("boob_initial_size", {RangedAttribute("attribute.name.estrogen.boob_initial_size", 0.0, 0.0, 1.0).setSyncable(true)})
     // Fall Damage Resistance
-    val FALL_DAMAGE_RESISTANCE = entry("fall_damage_resistance", {RangedAttribute("attribute.name.estrogen.fall_damage_resistance", 1.0, 1.0, 100.0).setSyncable(true)}).register()
+    val FALL_DAMAGE_RESISTANCE by entry("fall_damage_resistance", {RangedAttribute("attribute.name.estrogen.fall_damage_resistance", 1.0, 1.0, 100.0).setSyncable(true)})
 
     //TODO: In old estrogen, we register attributes sooner so we can use them in the mixin, not sure if that will break for us.
 }
