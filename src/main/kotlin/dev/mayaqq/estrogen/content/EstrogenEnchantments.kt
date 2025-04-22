@@ -10,5 +10,6 @@ import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.entry
 
 object EstrogenEnchantments : Registrar<Enchantment> by Estrogen..Registries.ENCHANTMENT {
+    @JvmField
     val UWUFYING_CURSE = entry("uwufy_curse", { UwuCurseEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD)}).register()
 }

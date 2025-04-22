@@ -1,0 +1,39 @@
+package dev.mayaqq.estrogen.mixin.client;
+
+import com.mojang.blaze3d.platform.Window;
+import dev.mayaqq.cynosure.utils.fun.UwUfyKt;
+import dev.mayaqq.estrogen.content.EstrogenEffects;
+import dev.mayaqq.estrogen.content.EstrogenMusic;
+import dev.mayaqq.estrogen.features.TextRenderUwufy;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.sounds.Music;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+@Mixin(Minecraft.class)
+public abstract class MinecraftMixin {
+    @Shadow protected abstract String createTitle();
+
+    @Shadow public abstract Window getWindow();
+
+    @Inject(method = "updateTitle()V", at = @At("HEAD"), cancellable = true)
+    private void updateTitle(final CallbackInfo info) {
+        if(TextRenderUwufy.isEnabled()) {
+            info.cancel();
+            this.getWindow().setTitle(UwUfyKt.uwufy(this.createTitle()));
+        }
+    }
+
+    @Inject(method = "getSituationalMusic", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;blockPosition()Lnet/minecraft/core/BlockPos;", shift = At.Shift.AFTER), cancellable = true)
+    private void getSituationalMusic(CallbackInfoReturnable<Music> cir) {
+        LocalPlayer player = Minecraft.getInstance().player;
+        if (/* TODO: EstrogenConfig.client().ambientMusic.get() && */ player.hasEffect(EstrogenEffects.getESTROGEN())) {
+            cir.setReturnValue(EstrogenMusic.ESTROGEN_AMBIENT);
+        }
+    }
+}

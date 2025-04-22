@@ -10,5 +10,6 @@ import uwu.serenity.kritter.api.entry
 
 @Suppress("unused")
 object EstrogenEffects : Registrar<MobEffect> by Estrogen..Registries.MOB_EFFECT {
+    @JvmStatic
     val ESTROGEN: EstrogenEffect by entry("estrogen", {EstrogenEffect(MobEffectCategory.BENEFICIAL, 104164161)})
 }
