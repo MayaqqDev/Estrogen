@@ -1,24 +1,29 @@
 package dev.mayaqq.estrogen.client.features.boobs
 
+import dev.mayaqq.cynosure.events.api.EventSubscriber
+import dev.mayaqq.cynosure.events.api.Subscription
+import dev.mayaqq.cynosure.events.world.LevelEvent
+import dev.mayaqq.cynosure.utils.Environment
+import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import net.minecraft.client.Minecraft
+import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.world.entity.player.Player
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
+@EventSubscriber(env = [Environment.CLIENT])
 object BoobPhysicsManager {
     private val players = ConcurrentHashMap<UUID, Physics>()
 
-    fun isEnabled(): Boolean {
-        return TODO("EstrogenConfig.client().chestPhysicsRendering.get()")
-    }
+    fun isEnabled(): Boolean = EstrogenClientConfig.ChestFeature.enabled
 
-    fun tick() {
-        val level = Minecraft.getInstance().level
-        if (level == null) return
+    @Subscription
+    fun tick(event: LevelEvent.BeginTick) {
+        if (event.level !is ClientLevel) return
         if (!isEnabled()) return
 
         for (physics in players.entries) {
-            val player = level.getPlayerByUUID(physics.key)
+            val player = event.level.getPlayerByUUID(physics.key)
             if (player != null && Boob.shouldShow(player)) {
                 physics.value.update(player)
                 if (physics.value.expired) {
@@ -31,6 +36,6 @@ object BoobPhysicsManager {
     }
 
     fun getPhysicsForPlayer(player: Player): Physics {
-        return players.computeIfAbsent(player.getUUID()) { uuid: UUID -> Physics() }
+        return players.computeIfAbsent(player.uuid) { _ -> Physics() }
     }
 }

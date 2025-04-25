@@ -6,8 +6,9 @@ import dev.mayaqq.cynosure.network.ClientNetworkContext
 import dev.mayaqq.cynosure.network.Packet
 import dev.mayaqq.cynosure.network.serialization.KByteCodec
 import dev.mayaqq.cynosure.utils.codecs.fieldOf
-import dev.mayaqq.estrogen.config.ChestConfig
-import kotlinx.serialization.Serializable
+import dev.mayaqq.estrogen.config.types.ChestConfig
+import dev.mayaqq.estrogen.injection.chestConfig
+import net.minecraft.client.Minecraft
 import java.util.*
 
 @Packet("player_chest_config")
@@ -22,6 +23,7 @@ data class ChestConfigPacket(val uuid: UUID, val config: ChestConfig) : Packet.C
     }
 
     override fun ClientNetworkContext.handle() {
-        TODO("Not yet implemented")
+        // Probably smart to move to client code idk
+        Minecraft.getInstance().level?.getPlayerByUUID(uuid)?.chestConfig = config
     }
 }

@@ -31,6 +31,7 @@ repositories {
     maven(url = "https://api.modrinth.com/maven") { name = "Modrinth Maven"; description = "Jukeboxfix, Ad Astra" }
     maven(url = "https://maven.figuramc.org/releases") { name = "Figura Maven"; description = "Figura" }
     maven(url = "https://maven.is-immensely.gay/nightly") { name = "Sappho Company"; description = "Critter, Cynosure" }
+    maven(url = "https://maven.is-immensely.gay/releases") { name = "Sappho Company"; description = "Kittyconfig" }
     maven(url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1") { name = "DevAuth maven"; description = "DevAuth" }
     maven(url = "https://maven.isxander.dev/releases") { name = "Xander maven"; description = "YACL" }
     maven(url = "https://maven.impactdev.net/repository/development/") { name = "ImpactDev Maven"; description = "Cobblemon" }
@@ -43,6 +44,10 @@ repositories {
 
 val item_viewer_forge: String by project
 val item_viewer_fabric: String by project
+
+dependencies {
+    ksp(libs.kittyconfig.ksp)
+}
 
 cloche {
     metadata {
@@ -74,6 +79,7 @@ cloche {
             modCompileOnly(libs.figura)
             modCompileOnly(libs.cobblemon)
             modCompileOnly(libs.createNewAge)
+            modImplementation(libs.kittyconfig)
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
             modApi(libs.cynosure)
@@ -110,6 +116,7 @@ cloche {
             modApi(libs.fabric.flywheel.api)
             modApi(libs.fabric.flywheel)
             modApi(libs.fabric.cynosure)
+            modApi(libs.fabric.kittyconfig)
 
             when(item_viewer_fabric) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -156,6 +163,7 @@ cloche {
             implementation(libs.forge.mixinExtras)
             compileOnlyApi(libs.forge.jei.api)
             modApi(libs.forge.cynosure)
+            modApi(libs.forge.kittyconfig)
 
             when(item_viewer_forge) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)

@@ -17,7 +17,7 @@ object DreamBlockEffect {
     private var dreamBlockTick = 0
 
     @Subscription
-    fun tick(event: ClientTickEvent) {
+    fun tick(event: ClientTickEvent.End) {
         val player = Minecraft.getInstance().player
         if (player == null) return
 

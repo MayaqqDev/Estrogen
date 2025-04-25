@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.config
+package dev.mayaqq.estrogen.config.types
 
 import kotlinx.serialization.Serializable
 
@@ -10,3 +10,4 @@ data class ChestConfig(
     val bounciness: Float,
     val damping: Float
 )
+
