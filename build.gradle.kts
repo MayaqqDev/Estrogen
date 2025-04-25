@@ -45,6 +45,8 @@ repositories {
 val item_viewer_forge: String by project
 val item_viewer_fabric: String by project
 
+val devauth_enabled: String by project
+
 dependencies {
     ksp(libs.kittyconfig.ksp)
 }
@@ -58,6 +60,8 @@ cloche {
         icon = "assets/estrogen/icon.png"
         url = "https://github.com/MayaqqDev/Estrogen"
         sources = "https://github.com/MayaqqDev/Estrogen"
+        author { "Mayaqq" }
+        contributor("https://github.com/MayaqqDev/Estrogen/wiki/Credits")
     }
 
     mappings {
@@ -102,6 +106,27 @@ cloche {
             server()
         }
 
+        metadata {
+            metadata {
+                custom("modmenu", mapOf(
+                    "links" to mapOf(
+                        "estrogen.credits" to "https://github.com/MayaqqDev/Estrogen/wiki/Credits",
+                        "modmenu.discord" to "https://discord.gg/hue",
+                        "modmenu.kofi" to "https://ko-fi.com/mayaqq",
+                        "modmenu.curseforge" to "https://www.curseforge.com/minecraft/mc-mods/estrogen",
+                        "modmenu.modrinth" to "https://modrinth.com/mod/estrogen",
+                        "modmenu.wiki" to "https://github.com/MayaqqDev/Estrogen/wiki"
+                    )
+                ))
+                custom("catalogue", mapOf(
+                    "icon" to mapOf("item" to "estrogen:estrogen_pill"),
+                    "banner" to "icon.png",
+                    "background" to "estrogen_background.png",
+                    "configFactory" to "dev.mayaqq.estrogen.fabric.integrations.catalogue.CatalogueCompat"
+                ))
+            }
+        }
+
         dependencies {
             fabricApi(libs.versions.fapi)
             modApi(libs.fabric.kotlin)
@@ -126,7 +151,7 @@ cloche {
                 else -> error("Invalid item viewer for Fabric: $item_viewer_forge")
             }
 
-            modRuntimeOnly(libs.fabric.devauth)
+            if (devauth_enabled.toBoolean()) modRuntimeOnly(libs.fabric.devauth)
         }
 
         metadata {
@@ -148,6 +173,12 @@ cloche {
         include(libs.forge.baubly)
         include(libs.forge.mixinExtras)
         include(files(project.relativePath("libs/Kritter-0.0.1-forge.jar")))
+
+        metadata {
+            blurLogo = false
+            modProperty("catalogueItemIcon", "estrogen:estrogen_pill")
+            modProperty("catalogueBackground", "estrogen_background.png")
+        }
 
         runs {
             client()
@@ -172,7 +203,7 @@ cloche {
                 else -> error("Invalid item viewer for Forge: $item_viewer_forge")
             }
 
-            modRuntimeOnly(libs.forge.devauth)
+            if (devauth_enabled.toBoolean()) modRuntimeOnly(libs.forge.devauth)
         }
     }
 }
