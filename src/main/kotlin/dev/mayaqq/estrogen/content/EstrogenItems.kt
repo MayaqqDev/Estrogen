@@ -1,12 +1,8 @@
 package dev.mayaqq.estrogen.content
 
-import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.estrogen.Estrogen
-import dev.mayaqq.estrogen.content.items.EstrogenCookieItem
-import dev.mayaqq.estrogen.content.items.GenderChangePotionItem
-import dev.mayaqq.estrogen.content.items.HorseUrineBottleItem
-import dev.mayaqq.estrogen.content.items.MothElytraItem
-import dev.mayaqq.estrogen.content.items.ThighHighsItem
+import dev.mayaqq.estrogen.config.EstrogenCommonConfig
+import dev.mayaqq.estrogen.content.items.*
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.effect.MobEffectInstance
@@ -27,7 +23,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
             food(FoodProperties.Builder().effect(
                 MobEffectInstance(
                     EstrogenEffects.ESTROGEN,
-                    TODO("EstrogenConfig.common().estrogenPillDuration.get()"),
+                    EstrogenCommonConfig.Durations.estrogenPillDuration,
                     0,
                     false,
                     false,
@@ -46,7 +42,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
             food(FoodProperties.Builder().effect(
                 MobEffectInstance(
                     EstrogenEffects.ESTROGEN,
-                    TODO("EstrogenConfig.common().crystalEstrogenPillDuration.get()"),
+                    EstrogenCommonConfig.Durations.crystalEstrogenPillDuration,
                     1,
                     false,
                     false,
@@ -76,7 +72,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
             food(
                 FoodProperties.Builder().effect(MobEffectInstance(
                     EstrogenEffects.ESTROGEN,
-                    TODO("EstrogenConfig.common().estrogenChipCookieDuration.get()"),
+                    EstrogenCommonConfig.Durations.estrogenChipCookieDuration,
                     0,
                     false,
                     false,

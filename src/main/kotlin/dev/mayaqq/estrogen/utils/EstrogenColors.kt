@@ -13,6 +13,9 @@ object EstrogenColors {
 
     val ESTROGEN_PATCHES_BAR = Color(0, 179, 255)
 
+    val MOTH_YELLOW = Color(255, 197, 20)
+    val MOTH_PINK = Color(255, 131, 192)
+
     private val DASH_OVERLAY = arrayOf(
         Color(77, 128, 204),
         Color(253, 126, 247).darker()
