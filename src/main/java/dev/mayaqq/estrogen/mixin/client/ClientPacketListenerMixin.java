@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.mixin.client;
 import dev.mayaqq.cynosure.utils.fun.UwUfyKt;
 import dev.mayaqq.estrogen.client.content.sounds.MothFlyingSoundInstance;
 import dev.mayaqq.estrogen.content.EstrogenEnchantments;
+import dev.mayaqq.estrogen.content.entities.MothEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.player.LocalPlayer;
@@ -44,7 +45,6 @@ public class ClientPacketListenerMixin {
      */
     @Inject(method = "postAddEntitySoundInstance", at = @At("HEAD"))
     private void postAddEntitySoundInstanceMixin(Entity entity, CallbackInfo ci) {
-        //TODO:
         if (entity instanceof MothEntity moth) {
             minecraft.getSoundManager().queueTickingSound(new MothFlyingSoundInstance(moth));
         }
