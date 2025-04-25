@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.estrogen.client.content.entityRenderers.moth.MothRenderer
 import dev.mayaqq.estrogen.content.entities.MothEntity
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import net.minecraft.core.registries.Registries
@@ -22,7 +23,7 @@ object EstrogenEntities : Registrar<EntityType<*>> by Estrogen..Registries.ENTIT
             clientTrackingRange(80)
             fireImmune()
         }
-        renderer(TODO("::MothRenderer"))
+        renderer(::MothRenderer)
         attributes(MothEntity::createAttributes)
         spawnPlacement(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MothEntity::checkMobSpawnRules)
         spawnEgg(EstrogenColors.MOTH_YELLOW.argb, EstrogenColors.MOTH_PINK.argb)
