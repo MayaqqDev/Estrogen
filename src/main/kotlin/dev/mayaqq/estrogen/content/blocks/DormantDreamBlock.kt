@@ -1,3 +1,5 @@
+@file:Suppress("OVERRIDE_DEPRECATION")
+
 package dev.mayaqq.estrogen.content.blocks
 
 import dev.mayaqq.estrogen.content.EstrogenBlocks
@@ -16,7 +18,6 @@ import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
 
-@Suppress("deprecation")
 class DormantDreamBlock(properties: Properties) : AbstractGlassBlock(properties) {
     override fun getStateForPlacement(context: BlockPlaceContext): BlockState {
         return defaultBlockState().setValue(POWERED, context.level.hasNeighborSignal(context.clickedPos))
