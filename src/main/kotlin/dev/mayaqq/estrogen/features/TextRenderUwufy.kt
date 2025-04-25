@@ -12,7 +12,7 @@ object TextRenderUwufy {
     var isEnabled: Boolean = false
 
     @Subscription
-    fun onTick(event: ClientTickEvent) {
+    fun onTick(event: ClientTickEvent.End) {
         val client = Minecraft.getInstance()
         if (client.player == null) {
             disconnect()

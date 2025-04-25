@@ -36,7 +36,9 @@ cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.5+1.20.1"
 flywheel = "1.0.2"
-cynosure = "0.1.0.81"
+cynosure = "0.1.0.88"
+kittyconfig-mc = "0.1.0.9+1.20.1"
+kittyconfig-ksp = "0.1.5"
 
 # Fabric Only Dependencies
 fapi = "0.92.2"
@@ -73,6 +75,8 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kritter = { module = "uwu.serenity.kritter:kritter-common", version.ref = "kritter" }
 flywheel-api = { module = "dev.engine-room.flywheel:flywheel-common-mojmap-api-1.20.1", version.ref = "flywheel" }
 cynosure = { module = "dev.mayaqq.cynosure:cynosure-common", version.ref = "cynosure" }
+kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-minecraft-common", version.ref = "kittyconfig-mc" }
+kittyconfig-ksp = { module = "uwu.serenity.kittyconfig:kittyconfig-ksp", version.ref = "kittyconfig-ksp" }
 
 # Fabric dependencies
 fabric-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "flk" }
@@ -93,6 +97,8 @@ fabric-kritter = { module = "uwu.serenity.kritter:kritter-fabric", version.ref =
 fabric-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-fabric-api-1.20.1", version.ref = "flywheel" }
 fabric-flywheel = { module = "dev.engine-room.flywheel:flywheel-fabric-1.20.1", version.ref = "flywheel" }
 fabric-cynosure = { module = "dev.mayaqq.cynosure:cynosure-fabric", version.ref = "cynosure" }
+fabric-kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-minecraft-fabric", version.ref = "kittyconfig-mc" }
+
 
 # Forge depencencies
 forge-kotlin = { module = "thedarkcolour:kotlinforforge", version.ref = "kff" }
@@ -108,6 +114,8 @@ forge-kritter = { module = "uwu.serenity.kritter:kritter-forge", version.ref = "
 forge-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-forge-api-1.20.1", version.ref = "flywheel" }
 forge-flywheel = { module = "dev.engine-room.flywheel:flywheel-forge-1.20.1", version.ref = "flywheel" }
 forge-cynosure = { module = "dev.mayaqq.cynosure:cynosure-forge", version.ref = "cynosure" }
+forge-kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-forge", version.ref = "kittyconfig-mc" }
+
 
 [bundles]
 fabric-cardinalComponents = [ "fabric-cardinalComponents-base", "fabric-cardinalComponents-entity" ]

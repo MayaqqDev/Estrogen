@@ -1,11 +1,14 @@
 package dev.mayaqq.estrogen.client.features.dash
 
 import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
+import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import dev.mayaqq.estrogen.features.dash.CommonDash.removeDashing
 import dev.mayaqq.estrogen.features.dash.CommonDash.setDashing
+import dev.mayaqq.estrogen.network.EstrogenNetwork
+import dev.mayaqq.estrogen.network.messages.c2s.DashPacket
 import net.minecraft.client.Minecraft
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.core.BlockPos
@@ -41,8 +44,7 @@ object ClientDash {
     private var lastPos: BlockPos? = null
 
     fun tick() {
-        val player = Minecraft.getInstance().player
-        if (player == null) return
+        val player = Minecraft.getInstance().player ?: return
         if (!player.hasEffect(EstrogenEffects.ESTROGEN)) {
             reset()
             return
@@ -63,7 +65,7 @@ object ClientDash {
         isOnCooldown = dashCooldown > 0 || dashes == 0
 
         if (extraParticleTicks > 0) {
-            //TODO: EstrogenNetworkManager.CHANNEL.sendToServer(DashPacket(false, dashLevel))
+            EstrogenNetwork.sendToServer(DashPacket(false, dashLevel))
             extraParticleTicks--
         }
 
@@ -110,7 +112,7 @@ object ClientDash {
 
             // Dash particles
             if (player.blockPosition() !== lastPos) {
-                //TODO: EstrogenNetworkManager.CHANNEL.sendToServer(DashPacket(false, dashLevel))
+                EstrogenNetwork.sendToServer(DashPacket(false, dashLevel))
             }
             lastPos = player.blockPosition()
         }
@@ -127,7 +129,7 @@ object ClientDash {
         // Decrement the dash counter
         if (dashes > 0) dashes--
 
-        //TODO: EstrogenNetworkManager.CHANNEL.sendToServer(DashPacket(true, dashLevel))
+        EstrogenNetwork.sendToServer(DashPacket(true, dashLevel))
 
         // math from Entity.lookAt()
         dashXRot = Mth.wrapDegrees(
@@ -137,7 +139,7 @@ object ClientDash {
             ) * (180f / Math.PI.toFloat()).toDouble())).toFloat()
         ).toDouble()
         ClientDash.dashDirection = dashDirection
-        dashDeltaModifier = TODO("EstrogenConfig.server().dashDeltaModifier.get()")
+        dashDeltaModifier = EstrogenCommonConfig.Dash.deltaModifier
     }
 
     private fun hyperJump(player: LocalPlayer, jumpDirection: Vec3) {

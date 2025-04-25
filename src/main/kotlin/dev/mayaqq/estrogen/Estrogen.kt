@@ -1,21 +1,15 @@
 package dev.mayaqq.estrogen
 
 import dev.mayaqq.cynosure.utils.isModLoaded
-import dev.mayaqq.estrogen.content.AdvancementTriggers
-import dev.mayaqq.estrogen.content.EstrogenAttributes
-import dev.mayaqq.estrogen.content.EstrogenBlockEntities
-import dev.mayaqq.estrogen.content.EstrogenBlocks
-import dev.mayaqq.estrogen.content.EstrogenCreativeTab
-import dev.mayaqq.estrogen.content.EstrogenEffects
-import dev.mayaqq.estrogen.content.EstrogenEnchantments
-import dev.mayaqq.estrogen.content.EstrogenItems
-import dev.mayaqq.estrogen.content.EstrogenPotions
-import dev.mayaqq.estrogen.content.EstrogenSounds
+import dev.mayaqq.estrogen.config.EstrogenCommonConfig
+import dev.mayaqq.estrogen.config.Instance
+import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.content.advancements.triggers.KilledWithEffectTrigger
 import net.minecraft.resources.ResourceLocation
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import uwu.serenity.kittyconfig.api.defaults.load
 import uwu.serenity.kritter.RegistryManager
 
 const val MOD_ID = "estrogen"
@@ -40,11 +34,14 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
             }
         }
 
+        EstrogenCommonConfig.Instance.load()
+
         EstrogenAttributes.register()
         EstrogenSounds.register()
         EstrogenBlocks.register()
         EstrogenBlockEntities.register()
         EstrogenEffects.register()
+        EstrogenParticles.register()
         EstrogenEnchantments.register()
         AdvancementTriggers.register()
         EstrogenPotions.register()

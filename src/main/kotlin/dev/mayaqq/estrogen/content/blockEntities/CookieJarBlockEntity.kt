@@ -36,7 +36,7 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
                 continue
             }
             val itemStack = jarItemStack.split(1)
-            sync()
+            setChanged()
             return itemStack
         }
         return ItemStack.EMPTY
@@ -63,7 +63,7 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
 
             i++
         }
-        sync()
+        setChanged()
         return itemStackCopy
     }
 
@@ -88,7 +88,7 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
             result.grow(fromJarStack.count)
             if (result.count == result.maxStackSize) break
         }
-        sync()
+        setChanged()
         return result
     }
 
@@ -153,7 +153,7 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
 
     override fun removeItem(slot: Int, count: Int): ItemStack {
         val itemStack = ContainerHelper.removeItem(items, slot, count)
-        if (!itemStack.isEmpty) sync()
+        if (!itemStack.isEmpty) setChanged()
         return itemStack
     }
 
@@ -169,7 +169,7 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
             itemStack.count = this.maxStackSize
         }
 
-        sync()
+        setChanged()
     }
 
     override fun stillValid(player: Player): Boolean {
@@ -187,7 +187,7 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
         return ClientboundBlockEntityDataPacket.create(this)
     }
 
-    override fun getUpdateTag(): CompoundTag? = saveWithFullMetadata()
+    override fun getUpdateTag(): CompoundTag = saveWithFullMetadata()
 
     private fun sync(saveAswell: Boolean = true) {
         if(saveAswell) setChanged()

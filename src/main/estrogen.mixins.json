@@ -3,9 +3,10 @@
   "minVersion": "0.8",
   "package": "dev.mayaqq.estrogen.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [],
+  "mixins": [
+    "PlayerMixin"
+  ],
   "client": [
-    "client.ArmorStandRendererMixin",
     "client.ClientPacketListenerMixin",
     "client.CapeLayerMixin",
     "client.HumanoidMobRendererMixin",
