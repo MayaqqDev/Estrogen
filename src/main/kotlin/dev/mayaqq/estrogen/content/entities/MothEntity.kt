@@ -57,6 +57,14 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
     val takingOffAnimationState: AnimationState = AnimationState()
 
     var ticksToFuzzUp: Int = 0
+        get() {
+            if (field == 0) {
+                field = this.random.nextIntBetweenInclusive(12000, 36000)
+            }
+            return field
+        }
+        private set
+
     private var fuzzingUp = false
     private var fuzzupCooldown = 0
 
@@ -96,7 +104,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         }
 
         if (!this.level().isClientSide && !this.isFuzzy() && !this.isBaby) {
-            if (this.level().gameTime % this.getTicksToFuzzUp() == 0L) {
+            if (this.level().gameTime % this.ticksToFuzzUp == 0L) {
                 this.setFuzzy()
                 for (i in 0..6) {
                     this.spawnFuzzyParticle(
@@ -242,16 +250,9 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
 
     override fun readyForShearing(): Boolean = this.isAlive && this.isFuzzy() && !this.isBaby
 
-    fun getTicksToFuzzUp(): Int {
-        if (ticksToFuzzUp == 0) {
-            ticksToFuzzUp = this.random.nextIntBetweenInclusive(12000, 36000)
-        }
-        return ticksToFuzzUp
-    }
-
     override fun addAdditionalSaveData(compound: CompoundTag) {
         super.addAdditionalSaveData(compound)
-        compound.putInt("TicksToFuzzUp", this.getTicksToFuzzUp())
+        compound.putInt("TicksToFuzzUp", this.ticksToFuzzUp)
         compound.putBoolean("Fuzzy", this.isFuzzy())
     }
 

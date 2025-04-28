@@ -1,0 +1,28 @@
+{
+  "targets": [
+    "swap",
+    "swap2"
+  ],
+  "passes": [
+    {
+      "name": "estrogen:aberration",
+      "intarget": "minecraft:main",
+      "outtarget": "swap",
+      "uniforms": [
+        {
+          "name": "Intensity",
+          "values": [ 5.0 ]
+        },
+        {
+          "name": "ColorModulate",
+          "values": [ 0.7, 1.0, 0.9, 1.0 ]
+        }
+      ]
+    },
+    {
+      "name": "blit",
+      "intarget": "swap",
+      "outtarget": "minecraft:main"
+    }
+  ]
+}

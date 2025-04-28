@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import dev.mayaqq.estrogen.content.EstrogenItems;
 import net.minecraft.client.renderer.entity.layers.CapeLayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +17,7 @@ public class CapeLayerMixin {
     )
     private boolean onRenderCape(ItemStack instance, Item item, Operation<Boolean> original) {
         //TODO: Thios
-        if (instance.is(EstrogenItems.MOTH_ELYTRA.get())) {
+        if (instance.is(EstrogenItems.INSTANCE.getMOTH_ELYTRA())) {
             return true;
         } else {
             return original.call(instance, item);

@@ -1,5 +1,9 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
+import earth.terrarium.cloche.api.target.FabricTarget
+import earth.terrarium.cloche.tasks.GenerateModJsonJarsEntry
+import net.msrandom.minecraftcodev.core.utils.osName
+import net.msrandom.minecraftcodev.remapper.task.RemapJar
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -60,7 +64,7 @@ cloche {
         icon = "assets/estrogen/icon.png"
         url = "https://github.com/MayaqqDev/Estrogen"
         sources = "https://github.com/MayaqqDev/Estrogen"
-        author { "Mayaqq" }
+        author("Mayaqq")
         contributor("https://github.com/MayaqqDev/Estrogen/wiki/Credits")
     }
 
@@ -99,11 +103,23 @@ cloche {
         include(libs.fabric.baubly)
         include(libs.fabric.kritter)
         include(libs.fabric.flywheel)
+        include(libs.fabric.kittyconfig)
 
         includedClient() // includedClient() is not a run
         runs {
-            client() // this is just the client run not client sourceset
-            server()
+            val paths = listOf(
+                "build/classes/java/fabric",
+                "build/classes/kotlin/fabric",
+                "build/generated/ksp/fabric/classes",
+                "build/resources/fabric"
+            ).joinToString(/*if (osName().contains("Windows")) ";" else */ ":") { project.file(it).absolutePath }
+
+            client {
+                jvmArgs("-Dfabric.classPathGroups=$paths")
+            } // this is just the client run not client sourceset
+            server {
+                jvmArgs("-Dfabric.classPathGroups=$paths")
+            }
         }
 
         metadata {
@@ -117,6 +133,9 @@ cloche {
                         "modmenu.modrinth" to "https://modrinth.com/mod/estrogen",
                         "modmenu.wiki" to "https://github.com/MayaqqDev/Estrogen/wiki"
                     )
+                ))
+                custom("cynosure", mapOf(
+                    "autosubscription" to true
                 ))
                 custom("catalogue", mapOf(
                     "icon" to mapOf("item" to "estrogen:estrogen_pill"),
@@ -220,6 +239,13 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
     }
 }
+
+tasks.withType<GenerateModJsonJarsEntry> {
+    val fabricRemapJar: RemapJar by tasks
+    jar.set(fabricRemapJar.archiveFile)
+}
+
+tasks.named { it == "kspFabricKotlin" || it == "kspForgeKotlin" }.configureEach { enabled = false }
 
 publishing {
     publications {

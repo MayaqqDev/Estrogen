@@ -37,7 +37,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
     }
 
     fun syncStyles(player: ServerPlayer) {
-        EstrogenNetwork.sendToClient(player, ThighHighStylesPacket(styles))
+        EstrogenNetwork.sendToPlayer(ThighHighStylesPacket(styles), player)
     }
 
     fun getDefaultColor(tintIndex: Int): Int {
@@ -118,12 +118,11 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
 
         fun getItemColor(stack: ItemStack, tintIndex: Int): Int {
             val item = stack.item as ThighHighsItem
-            if (item.getStyle(stack) == null) return -1
+            if (item.getStyle(stack) != null) return -1
             return item.getColor(stack, tintIndex)
         }
 
-        val CAULDRON_INTERACTION: CauldronInteraction =
-            CauldronInteraction { blockState: BlockState, level: Level, blockPos: BlockPos, player: Player, interactionHand: InteractionHand, itemStack: ItemStack ->
+        val CAULDRON_INTERACTION: CauldronInteraction = CauldronInteraction { blockState, level, blockPos, player, _, itemStack ->
                 val item = itemStack.item
                 if (item !is ThighHighsItem) {
                     return@CauldronInteraction InteractionResult.PASS

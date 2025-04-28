@@ -21,27 +21,27 @@ object DreamBlockEffect {
         val player = Minecraft.getInstance().player
         if (player == null) return
 
-        if (TODO("DreamBlock.isInDreamBlock(player)")) {
-            dreamBlockTick++
-            if (dreamBlockTick == 1) {
-                player.playSound(EstrogenSounds.DREAM_BLOCK_ENTER, 1.0f, 1.0f)
-            } else if (dreamBlockTick == 2) {
-                if (sound == null) {
-                    sound = DreamBlockSoundInstance(player)
-                }
-                Minecraft.getInstance().soundManager.play(sound)
-            }
-            isInDreamBlock = true
-        } else {
-            if (isInDreamBlock) {
-                player.playSound(EstrogenSounds.DREAM_BLOCK_EXIT, 1.0f, 1.0f)
-            }
-            if (sound != null) {
-                Minecraft.getInstance().soundManager.stop(sound)
-                sound = null
-            }
-            dreamBlockTick = 0
-            isInDreamBlock = false
-        }
+//        if (TODO("DreamBlock.isInDreamBlock(player)")) {
+//            dreamBlockTick++
+//            if (dreamBlockTick == 1) {
+//                player.playSound(EstrogenSounds.DREAM_BLOCK_ENTER, 1.0f, 1.0f)
+//            } else if (dreamBlockTick == 2) {
+//                if (sound == null) {
+//                    sound = DreamBlockSoundInstance(player)
+//                }
+//                Minecraft.getInstance().soundManager.play(sound)
+//            }
+//            isInDreamBlock = true
+//        } else {
+//            if (isInDreamBlock) {
+//                player.playSound(EstrogenSounds.DREAM_BLOCK_EXIT, 1.0f, 1.0f)
+//            }
+//            if (sound != null) {
+//                Minecraft.getInstance().soundManager.stop(sound)
+//                sound = null
+//            }
+//            dreamBlockTick = 0
+//            isInDreamBlock = false
+//        }
     }
 }

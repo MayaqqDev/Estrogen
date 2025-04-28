@@ -14,6 +14,7 @@ import dev.mayaqq.cynosure.utils.colors.floatRed
 import dev.mayaqq.cynosure.utils.pushPop
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.getDashLevel
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.isOnCooldown
+import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import net.minecraft.client.Minecraft
@@ -26,16 +27,19 @@ object DashOverlay : HudOverlay {
 
     override fun render(gui: Gui, graphics: GuiGraphics, partialTick: Float) {
         val player = Minecraft.getInstance().player ?: return
-        if (player.hasEffect(EstrogenEffects.ESTROGEN) && isOnCooldown() && TODO("EstrogenConfig.client().dashOverlay.get()")) {
+        if (player.hasEffect(EstrogenEffects.ESTROGEN) && isOnCooldown() && EstrogenClientConfig.UI.dashOverlay) {
             val dc: Color = EstrogenColors.getDashColor(getDashLevel(), false)
             renderOverlay(graphics, dc.floatRed, dc.floatGreen, dc.floatBlue)
         }
 //        if (TODO("DreamBlockEffect.isInDreamBlock()")) {
 //            renderOverlay(graphics, 0.2f, 0.0f, 0.2f)
 //        }
+        if (player.hasEffect(EstrogenEffects.DREAMING)) {
+            renderOverlay(graphics, 0.1f, 0.3f, 0.3f, 0.1f)
+        }
     }
 
-    private fun renderOverlay(graphics: GuiGraphics, red: Float, green: Float, blue: Float) {
+    private fun renderOverlay(graphics: GuiGraphics, red: Float, green: Float, blue: Float, alpha: Float = 1.0f) {
         graphics.pushPop {
             translate(graphics.guiWidth().toFloat() / 2.0f, graphics.guiHeight().toFloat() / 2.0f, 0.0f)
             scale(1.5f, 1.5f, 1.5f)
@@ -63,7 +67,7 @@ object DashOverlay : HudOverlay {
                 graphics.guiWidth(),
                 graphics.guiHeight()
             )
-            RenderSystem.setShaderColor(red, green, blue, 1.0f)
+            RenderSystem.setShaderColor(red, green, blue, alpha)
             RenderSystem.defaultBlendFunc()
             RenderSystem.disableBlend()
             RenderSystem.depthMask(true)

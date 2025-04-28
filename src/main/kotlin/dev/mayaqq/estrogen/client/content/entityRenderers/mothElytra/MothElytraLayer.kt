@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.LivingEntity
 
-class MothElytraLayer<T : LivingEntity?, M : EntityModel<T>?>(
+class MothElytraLayer<T : LivingEntity, M : EntityModel<T>>(
     renderer: RenderLayerParent<T, M>,
     modelSet: EntityModelSet
 ) : RenderLayer<T, M>(renderer) {
@@ -34,7 +34,7 @@ class MothElytraLayer<T : LivingEntity?, M : EntityModel<T>?>(
         netHeadYaw: Float,
         headPitch: Float
     ) {
-        val itemStack = livingEntity!!.getItemBySlot(EquipmentSlot.CHEST)
+        val itemStack = livingEntity.getItemBySlot(EquipmentSlot.CHEST)
         if (!itemStack.`is`(EstrogenItems.MOTH_ELYTRA)) {
             return
         }
@@ -48,7 +48,7 @@ class MothElytraLayer<T : LivingEntity?, M : EntityModel<T>?>(
             poseStack.scale(1.5f, 1.5f, 1.5f)
         }
         poseStack.translate(0.0f, 0.15f, -0.05f)
-        this.parentModel?.copyPropertiesTo(this.elytraModel)
+        this.parentModel.copyPropertiesTo(this.elytraModel)
         elytraModel.setupAnim(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch)
         val vertexConsumer = ItemRenderer.getArmorFoilBuffer(
             buffer, RenderType.armorCutoutNoCull(
