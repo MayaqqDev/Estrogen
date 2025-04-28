@@ -67,7 +67,7 @@ class DashTrailParticle(
 
     override fun render(buffer: VertexConsumer, renderInfo: Camera, partialTicks: Float) {
         val pos = renderInfo.position
-        //if (isLocalPlayer && Minecraft.getInstance().options.cameraType.isFirstPerson && pos.distanceToSqr(x, y, z) < 4.0f) return
+        if (isLocalPlayer && Minecraft.getInstance().options.cameraType.isFirstPerson && pos.distanceToSqr(x, y, z) < 4.0f) return
         val x = (this.x - pos.x()).toFloat()
         val y = (this.y - pos.y()).toFloat()
         val z = (this.z - pos.z()).toFloat()
