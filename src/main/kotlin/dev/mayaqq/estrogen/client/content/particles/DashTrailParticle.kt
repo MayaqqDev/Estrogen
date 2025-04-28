@@ -59,15 +59,17 @@ class DashTrailParticle(
         val consumer = ModelConsumer()
         matrices.pushPose()
         renderer.model.young = entity.isBaby // Unbaby the player model
-        renderer.model.renderToBuffer(matrices, consumer, 0, OverlayTexture.NO_OVERLAY, 255f, 255f, 255f, 255f)
+        renderer.model.renderToBuffer(matrices, consumer, 0, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f)
         matrices.popPose()
         vertices = consumer.data
         vertexCount = consumer.vertexCount
+        Estrogen.info("Created dash paricle with data: {}, {}", vertexCount, vertices)
     }
 
     override fun render(buffer: VertexConsumer, renderInfo: Camera, partialTicks: Float) {
         val pos = renderInfo.position
-        if (isLocalPlayer && Minecraft.getInstance().options.cameraType.isFirstPerson && pos.distanceToSqr(x, y, z) < 4.0f) return
+        Estrogen.info("Begin render dash particle {}", this)
+        //if (isLocalPlayer && Minecraft.getInstance().options.cameraType.isFirstPerson && pos.distanceToSqr(x, y, z) < 4.0f) return
         val x = (this.x - pos.x()).toFloat()
         val y = (this.y - pos.y()).toFloat()
         val z = (this.z - pos.z()).toFloat()
@@ -87,10 +89,11 @@ class DashTrailParticle(
                 .endVertex()
         }
 
+        Estrogen.info("Rendered dash particle: {}, {}, {}, {}, {} ,{} ,{}", x, y ,z, r, g, b, alpha)
         matrices.popPose()
     }
 
-    override fun getRenderType(): ParticleRenderType = DASH_PLAYER
+    override fun getRenderType(): ParticleRenderType = RENDER_TYPE
 
     private class ModelConsumer : VertexConsumer {
         var data: FloatArray = FloatArray(12)
@@ -138,7 +141,7 @@ class DashTrailParticle(
     companion object {
         private val WHITE_TEXTURE: ResourceLocation = id("textures/misc/pixel.png")
 
-        private val DASH_PLAYER: ParticleRenderType = object : ParticleRenderType {
+        val RENDER_TYPE: ParticleRenderType = object : ParticleRenderType {
             override fun begin(builder: BufferBuilder, textureManager: TextureManager) {
                 RenderSystem.depthMask(true)
                 RenderSystem.setShaderTexture(0, WHITE_TEXTURE)

@@ -2,19 +2,20 @@
 package dev.mayaqq.estrogen.client
 
 import dev.mayaqq.cynosure.client.entity.registerDefinition
+import dev.mayaqq.cynosure.client.events.ParticleRenderTypeRegistrationEvent
 import dev.mayaqq.cynosure.client.events.entity.RenderLayerRegistrationEvent
 import dev.mayaqq.cynosure.client.render.gui.HudOverlayRegistry
 import dev.mayaqq.cynosure.client.render.gui.VanillaHud
 import dev.mayaqq.cynosure.data.registerResourcepackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.modId
 import dev.mayaqq.cynosure.utils.Environment
 import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DreamTextureGenerator
 import dev.mayaqq.estrogen.client.content.entityRenderers.moth.MothModel
 import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraLayer
 import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraModel
+import dev.mayaqq.estrogen.client.content.particles.DashTrailParticle
 import dev.mayaqq.estrogen.client.features.dash.DashOverlay
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.config.Instance
@@ -34,4 +35,9 @@ fun estrogenClient() {
 @Subscription
 fun addRenderLayers(event: RenderLayerRegistrationEvent) {
     event.addLayer(EntityType.ARMOR_STAND) { MothElytraLayer(it, event.models) }
+}
+
+@Subscription
+fun registerParticleRenderTypes(event: ParticleRenderTypeRegistrationEvent) {
+    event.register(DashTrailParticle.RENDER_TYPE)
 }
