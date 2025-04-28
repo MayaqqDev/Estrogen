@@ -5,7 +5,9 @@ import dev.engine_room.flywheel.api.visual.BlockEntityVisual
 import dev.engine_room.flywheel.api.visualization.BlockEntityVisualizer
 import dev.engine_room.flywheel.api.visualization.VisualizationContext
 import dev.engine_room.flywheel.lib.visual.AbstractBlockEntityVisual
+import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
+import net.minecraft.client.Minecraft
 import java.util.function.Consumer
 
 class DreamBlockVisual(
@@ -36,11 +38,10 @@ class DreamBlockVisual(
             p1: DreamBlockEntity,
             p2: Float
         ): BlockEntityVisual<in DreamBlockEntity> {
-            TODO("Not yet implemented")
+            return TODO()
+            //if(Minecraft.getInstance().player?.hasEffect(EstrogenEffects.DREAMING) == true || )
         }
 
-        override fun skipVanillaRender(p0: DreamBlockEntity): Boolean {
-            TODO("Not yet implemented")
-        }
+        override fun skipVanillaRender(p0: DreamBlockEntity): Boolean = true
     }
 }

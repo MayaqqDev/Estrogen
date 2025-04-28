@@ -3,10 +3,11 @@ package dev.mayaqq.estrogen.features
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
+import dev.mayaqq.cynosure.utils.Environment
 import dev.mayaqq.estrogen.content.EstrogenTags
 import net.minecraft.client.Minecraft
 
-@EventSubscriber
+@EventSubscriber(env = [Environment.CLIENT])
 object TextRenderUwufy {
     @JvmStatic
     var isEnabled: Boolean = false

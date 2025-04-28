@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelAccessor
+import net.minecraft.world.level.block.AbstractGlassBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
@@ -28,43 +29,22 @@ import net.minecraft.world.phys.shapes.VoxelShape
 import uwu.serenity.kritter.stdlib.BlockEntityBlock
 import kotlin.reflect.KClass
 
-class DreamBlock(p0: Properties) : Block(p0), BlockEntityBlock<DreamBlockEntity> {
+class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<DreamBlockEntity> {
 
     companion object {
 
         var lookAngle: Vec3? = null
 
-        @JvmField val UP: BooleanProperty = BooleanProperty.create("up")
-        @JvmField val DOWN: BooleanProperty = BooleanProperty.create("down")
-        @JvmField val NORTH: BooleanProperty = BooleanProperty.create("north")
-        @JvmField val SOUTH: BooleanProperty = BooleanProperty.create("south")
-        @JvmField val EAST: BooleanProperty = BooleanProperty.create("east")
-        @JvmField val WEST: BooleanProperty = BooleanProperty.create("west")
-
-        fun directionProperty(direction: Direction): BooleanProperty {
-            return when (direction) {
-                Direction.UP -> UP
-                Direction.DOWN -> DOWN
-                Direction.NORTH -> NORTH
-                Direction.SOUTH -> SOUTH
-                Direction.EAST -> EAST
-                Direction.WEST -> WEST
-            }
-        }
+        @JvmField val PERSISTENT: BooleanProperty = BooleanProperty.create("persistent")
     }
 
     init {
         registerDefaultState(defaultBlockState()
-            .setValue(UP, false)
-            .setValue(DOWN, false)
-            .setValue(NORTH, false)
-            .setValue(SOUTH, false)
-            .setValue(EAST, false)
-            .setValue(WEST, false))
+            .setValue(PERSISTENT, false))
     }
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
-        builder.add(UP, DOWN, NORTH, SOUTH, EAST, WEST)
+        builder.add(PERSISTENT)
     }
 
     override val blockEntityClass: KClass<out DreamBlockEntity> = DreamBlockEntity::class
@@ -101,24 +81,9 @@ class DreamBlock(p0: Properties) : Block(p0), BlockEntityBlock<DreamBlockEntity>
         pos: BlockPos,
         neighborPos: BlockPos
     ): BlockState {
-        val be = level.getBlockEntity(pos)
-        if (be is DreamBlockEntity && level.isClientSide) {
-            TODO("be.updateTexture(direction.axis !== Direction.Axis.Y)")
-        }
-
-        if (neighborState.`is`(this)) {
-            return state.setValue<Boolean, Boolean>(
-                directionProperty(
-                    direction
-                ), true
-            )
-        } else {
-            return state.setValue<Boolean, Boolean>(
-                directionProperty(
-                    direction
-                ), false
-            )
-        }
+        val be = level.getBlockEntity(pos) as? DreamBlockEntity
+        be?.updateState()
+        return state;
     }
 
     fun isInDreamBlock(player: Player): Boolean {
@@ -158,4 +123,8 @@ class DreamBlock(p0: Properties) : Block(p0), BlockEntityBlock<DreamBlockEntity>
             entity.deltaMovement = lookAngle!!.scale(2.0)
         }
     }
+
+    override fun propagatesSkylightDown(p0: BlockState, p1: BlockGetter, p2: BlockPos): Boolean = false
+
+    override fun getLightBlock(p0: BlockState, level: BlockGetter, p2: BlockPos): Int = level.maxLightLevel
 }

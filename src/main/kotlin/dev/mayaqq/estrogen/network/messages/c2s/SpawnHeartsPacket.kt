@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionHand
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.phys.Vec3
 import org.joml.Vector3f
 
@@ -36,7 +37,7 @@ data class SpawnHeartsPacket(val pos: Vector3f, val ambientSound: ResourceLocati
             if (ambientSound != id("empty")) {
                 val blockPos = pos.blockPos()
                 val event = SoundEvent.createVariableRangeEvent(ambientSound)
-                level.playSound(null, blockPos, event, SoundSource.PLAYERS, 1.0f, 10.0f)
+                level.playSound(null as? Entity, blockPos, event, SoundSource.PLAYERS, 1.0f, 10.0f)
                 sender.swing(InteractionHand.MAIN_HAND, true)
             }
         }

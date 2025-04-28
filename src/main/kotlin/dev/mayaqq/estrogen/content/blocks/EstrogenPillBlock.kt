@@ -8,7 +8,6 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 
 class EstrogenPillBlock(properties: Properties) : HorizontalDirectionalBlock(properties) {
-    val FACING = HorizontalDirectionalBlock.FACING
 
     init {
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH))
@@ -20,5 +19,9 @@ class EstrogenPillBlock(properties: Properties) : HorizontalDirectionalBlock(pro
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
         builder.add(FACING)
+    }
+
+    companion object {
+        val FACING = HorizontalDirectionalBlock.FACING
     }
 }

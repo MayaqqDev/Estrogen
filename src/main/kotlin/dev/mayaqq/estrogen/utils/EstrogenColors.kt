@@ -10,6 +10,7 @@ object EstrogenColors {
     val FILTRATED_HORSE_URINE = Color(225, 225, 20)
     val HORSE_URINE = Color(140, 139, 5)
     val MOLTEN_AMETHYST = Color(174, 122, 253)
+    val DREAM_BLOCK = Color(0.2f, 0f, 0.2f)
 
     val ESTROGEN_PATCHES_BAR = Color(0, 179, 255)
 

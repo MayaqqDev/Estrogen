@@ -64,7 +64,7 @@ object EstrogenClientConfig {
         var animateTexture: Boolean = true
     }
 
-    @CustomName("UI") object UISettings {
+    object UI {
 
         @Comment("Enable dash overlay")
         var dashOverlay: Boolean = true

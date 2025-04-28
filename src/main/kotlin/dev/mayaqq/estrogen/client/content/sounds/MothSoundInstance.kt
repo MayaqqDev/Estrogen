@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.client.content.sounds
 
+import dev.mayaqq.estrogen.content.entities.MothEntity
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance
 import net.minecraft.client.resources.sounds.SoundInstance
 import net.minecraft.sounds.SoundEvent
@@ -10,10 +11,9 @@ abstract class MothSoundInstance(protected val moth: MothEntity, soundEvent: Sou
     AbstractTickableSoundInstance(soundEvent, source, SoundInstance.createUnseededRandom()) {
 
     init {
-        this.moth = moth
-        this.x = (moth.x as Float).toDouble()
-        this.y = (moth.y as Float).toDouble()
-        this.z = (moth.z as Float).toDouble()
+        this.x = moth.x
+        this.y = moth.y
+        this.z = moth.z
         this.looping = true
         this.delay = 0
         this.volume = 0.0f

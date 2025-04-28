@@ -39,11 +39,11 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
     }
 
     override fun applyEffectTick(entity: LivingEntity, amplifier: Int) {
-        if (isModLoaded("cobblemon")) {
-            if (entity.javaClass.getPackageName().contains("cobblemon")) {
-                CobblemonCompat.toFemale(entity)
-            }
-        }
+//        if (isModLoaded("cobblemon")) {
+//            if (entity.javaClass.getPackageName().contains("cobblemon")) {
+//                CobblemonCompat.toFemale(entity)
+//            }
+//        }
 
         // Check if Dash is enabled on the server
         //TODO: CONFIG CHECK if (!EstrogenConfig.server().dashEnabled.get()) return
@@ -124,8 +124,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
 
     companion object {
         fun sendPlayerStatusEffect(player: ServerPlayer, effect: MobEffect, vararg targetPlayers: ServerPlayer) {
-            val effectInstance = player.getEffect(effect)
-            if (effectInstance == null) return
+            val effectInstance = player.getEffect(effect) ?: return
             sendPacket(ClientboundUpdateMobEffectPacket(player.id, effectInstance), *targetPlayers)
         }
 

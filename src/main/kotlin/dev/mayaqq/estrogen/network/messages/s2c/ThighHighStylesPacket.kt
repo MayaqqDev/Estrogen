@@ -4,6 +4,7 @@ import com.teamresourceful.bytecodecs.base.ByteCodec
 import dev.mayaqq.cynosure.network.ClientNetworkContext
 import dev.mayaqq.cynosure.network.Packet
 import dev.mayaqq.cynosure.utils.bytecodecs.ExtraByteCodecs
+import dev.mayaqq.estrogen.content.EstrogenItems
 import net.minecraft.resources.ResourceLocation
 
 @Packet("thigh_high_styles")
@@ -18,6 +19,6 @@ data class ThighHighStylesPacket(val styles: List<ResourceLocation>) : Packet.Cl
     }
 
     override fun ClientNetworkContext.handle() {
-        TODO("Not yet implemented")
+        EstrogenItems.THIGH_HIGHS.loadStyles(styles)
     }
 }
