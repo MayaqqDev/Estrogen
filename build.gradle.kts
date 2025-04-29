@@ -99,6 +99,8 @@ cloche {
     }
 
     fabric {
+        mixins.from(file("src/main/estrogen.mixins.json"))
+
         loaderVersion = libs.versions.fabric
         minecraftVersion = libs.versions.minecraft
 
@@ -190,6 +192,8 @@ cloche {
     }
 
     forge {
+        mixins.from(file("src/main/estrogen.mixins.json"))
+
         loaderVersion = libs.versions.forge.get()
         minecraftVersion = libs.versions.minecraft.get()
 

@@ -11,7 +11,8 @@
     "client.CapeLayerMixin",
     "client.HumanoidMobRendererMixin",
     "client.MinecraftMixin",
-    "client.ReceivingLevelScreenMixin"
+    "client.ReceivingLevelScreenMixin",
+    "client.FontStringRenderOutputMixin"
   ],
   "plugin": "com.moulberry.mixinconstraints.ConstraintsMixinPlugin",
   "injectors": {
