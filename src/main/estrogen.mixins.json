@@ -13,7 +13,7 @@
     "client.MinecraftMixin",
     "client.ReceivingLevelScreenMixin"
   ],
-  "plugin": "dev.mayaqq.estrogen.utils.EstrogenMixinPlugin",
+  "plugin": "com.moulberry.mixinconstraints.ConstraintsMixinPlugin",
   "injectors": {
     "defaultRequire": 1
   }
