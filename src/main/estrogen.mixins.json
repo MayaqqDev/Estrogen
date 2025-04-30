@@ -11,9 +11,10 @@
     "client.CapeLayerMixin",
     "client.HumanoidMobRendererMixin",
     "client.MinecraftMixin",
-    "client.ReceivingLevelScreenMixin"
+    "client.ReceivingLevelScreenMixin",
+    "client.FontStringRenderOutputMixin"
   ],
-  "plugin": "dev.mayaqq.estrogen.utils.EstrogenMixinPlugin",
+  "plugin": "com.moulberry.mixinconstraints.ConstraintsMixinPlugin",
   "injectors": {
     "defaultRequire": 1
   }

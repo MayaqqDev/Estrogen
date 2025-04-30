@@ -93,10 +93,14 @@ cloche {
             modApi(libs.cynosure)
             modCompileOnly(libs.rei.api)
             modCompileOnly(libs.rei.plugin)
+
+            implementation(libs.mixinConstrains)
         }
     }
 
     fabric {
+        mixins.from(file("src/main/estrogen.mixins.json"))
+
         loaderVersion = libs.versions.fabric
         minecraftVersion = libs.versions.minecraft
 
@@ -104,6 +108,8 @@ cloche {
         include(libs.fabric.kritter)
         include(libs.fabric.flywheel)
         include(libs.fabric.kittyconfig)
+
+        include(libs.mixinConstrains)
 
         includedClient() // includedClient() is not a run
         runs {
@@ -186,12 +192,15 @@ cloche {
     }
 
     forge {
+        mixins.from(file("src/main/estrogen.mixins.json"))
+
         loaderVersion = libs.versions.forge.get()
         minecraftVersion = libs.versions.minecraft.get()
 
         include(libs.forge.baubly)
         include(libs.forge.mixinExtras)
         include(files(project.relativePath("libs/Kritter-0.0.1-forge.jar")))
+        include(libs.mixinConstrains)
 
         metadata {
             blurLogo = false
