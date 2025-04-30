@@ -69,4 +69,5 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
             add(EstrogenAttributes.BOOB_GROWING_START_TIME)
         }
     }
+
 }

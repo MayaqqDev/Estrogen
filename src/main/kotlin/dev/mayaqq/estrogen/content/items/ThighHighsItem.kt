@@ -78,13 +78,11 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
         setStyle(stack, styles[randomSource.nextInt(styles.size)])
     }
 
-    fun streamStyleItems(): Stream<ItemStack> {
-        if (styles.isEmpty()) return Stream.empty()
-        return styles.map { style ->
-            ItemStack(this).apply {
-                setStyle(this, style)
-            }
-        }.stream()
+    val styleItems: Sequence<ItemStack>  get() {
+        if (styles.isEmpty()) return emptySequence()
+        return styles.asSequence().map { style ->
+            defaultInstance.apply { setStyle(this, style) }
+        }
     }
 
     fun getStyle(stack: ItemStack): ResourceLocation? {

@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
+import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import net.minecraft.client.Minecraft
@@ -17,6 +18,7 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
 
     override fun render(p0: DreamBlockEntity, p1: Float, p2: PoseStack, p3: MultiBufferSource, p4: Int, p5: Int) {
         if (p0.shouldRender()) {
+            DynamicDreamTexture.prepare()
             renderCubeShader(p0, p2.last().pose(), p3.getBuffer(EstrogenRenderTypes.DREAM_BLOCK))
         }
     }
