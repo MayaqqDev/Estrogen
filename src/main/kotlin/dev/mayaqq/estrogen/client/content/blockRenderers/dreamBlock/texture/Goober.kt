@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture
 import com.mojang.blaze3d.platform.NativeImage
 import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.cynosure.utils.colors.ColorFormat
+import dev.mayaqq.cynosure.utils.colors.Yellow
 import net.minecraft.util.FastColor
 import net.minecraft.util.RandomSource
 import net.minecraft.util.random.SimpleWeightedRandomList
@@ -59,7 +60,7 @@ class Goober(
     }
 
     enum class Colors(val color: Color) {
-        YELLOW(Color(255, 255, 0)),
+        YELLOW(Yellow),
         CYAN(Color(0, 241, 254)),
         PURPLE(Color(126, 126, 218)),
         MAGENTA(Color(255, 71, 231)),
