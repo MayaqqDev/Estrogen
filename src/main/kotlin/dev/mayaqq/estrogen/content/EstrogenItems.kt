@@ -33,8 +33,8 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
                 .fast().alwaysEat().build()
             )
             rarity(Rarity.RARE)
-            standardTooltip()
         }
+        standardTooltip()
     }
 
     val CRYSTAL_ESTROGEN_PILL by item("crystal_estrogen_pill", ::Item) {
@@ -62,9 +62,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
     val TESTOSTERONE_POWDER by item("testosterone_powder", ::Item)
     //TODO: Create version only val USED_FILTER
     val MOTH_FUZZ by item("moth_fuzz", ::Item) {
-        properties {
-            creativeTab(CreativeModeTabs.INGREDIENTS, TabPlacement.AFTER(Items.INK_SAC))
-        }
+        creativeTab(CreativeModeTabs.INGREDIENTS, TabPlacement.AFTER(Items.INK_SAC))
     }
 
     val ESTROGEN_CHIP_COOKIE by item("estrogen_chip_cookie", ::EstrogenCookieItem) {
@@ -81,8 +79,8 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
                 ), 1F).nutrition(8).saturationMod(1.5F).fast().alwaysEat().build()
             )
             stacksTo(64)
-            creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.AFTER(Items.COOKIE))
         }
+        creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.AFTER(Items.COOKIE))
     }
 
     val HORSE_URINE_BOTTLE by item("horse_urine_bottle", ::HorseUrineBottleItem) {
@@ -108,9 +106,9 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
     val COLONTHREE by item("uwu", ::Item) {
         properties {
             stacksTo(1)
-            tooltip {
-                TODO("TOOLTIP hehe")
-            }
+        }
+        tooltip {
+            TODO("TOOLTIP hehe")
         }
     }
 
@@ -119,14 +117,14 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
     val THIGH_HIGHS by item("thigh_highs", {p -> ThighHighsItem(p, 0xf1d85a, 0xff4ea5)}) {
         properties {
             stacksTo(1)
-            tooltip {
-                TODO("THIGHHIGHSTOOLTIPMODIFIER")
-            }
-            bauble()
-            //TODO: baubleWithRenderer {  }
-            onSetup { CauldronInteraction.WATER[it] = ThighHighsItem.CAULDRON_INTERACTION }
-            color(ThighHighsItem::getItemColor)
         }
+        tooltip {
+            TODO("THIGHHIGHSTOOLTIPMODIFIER")
+        }
+        bauble()
+        //TODO: baubleWithRenderer {  }
+        onSetup { CauldronInteraction.WATER[it] = ThighHighsItem.CAULDRON_INTERACTION }
+        color(ThighHighsItem::getItemColor)
     }
 
     val MOTH_ELYTRA by item("moth_elytra", ::MothElytraItem) {
@@ -134,15 +132,16 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
             stacksTo(1)
             durability(626)
             rarity(Rarity.UNCOMMON)
-            creativeTab(CreativeModeTabs.TOOLS_AND_UTILITIES, TabPlacement.AFTER(Items.ELYTRA))
         }
+        creativeTab(CreativeModeTabs.TOOLS_AND_UTILITIES, TabPlacement.AFTER(Items.ELYTRA))
+
     }
 
     val GENDER_CHANGE_POTION by item("gender_change_potion", ::GenderChangePotionItem) {
         properties {
             stacksTo(1)
             rarity(Rarity.RARE)
-            creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.AFTER(Items.HONEY_BOTTLE))
         }
+        creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.AFTER(Items.HONEY_BOTTLE))
     }
 }
