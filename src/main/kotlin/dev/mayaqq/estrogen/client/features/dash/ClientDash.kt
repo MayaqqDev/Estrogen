@@ -56,11 +56,10 @@ object ClientDash {
             refresh(player)
         }
 
-        groundCooldown--
-        if (groundCooldown < 0) groundCooldown = 0
+        if (groundCooldown > 0) groundCooldown--
 
         // During Dash
-        dash(player)
+        if (dashCooldown > 0) dashTick(player)
 
         isOnCooldown = dashCooldown > 0 || dashes == 0
 
@@ -70,66 +69,67 @@ object ClientDash {
         }
 
         // Here is when the dash happens
-        if (EstrogenKeybinds.DASH_KEY.consumeClick() && !isOnCooldown()) dash(player, player.lookAngle)
-    }
+        if (EstrogenKeybinds.DASH_KEY.consumeClick() && !isOnCooldown()) {
+            // Dash level of current dash (number of dashes at the beginning)
+            dashLevel = dashes
+            // Decrement the dash counter
+            if (dashes > 0) dashes--
 
-    private fun dash(player: LocalPlayer) {
-        if (dashCooldown > 0) {
-            dashCooldown--
-            extraParticleTicks = 0
-
-            // End Dash
-            if (dashCooldown == 0) {
-                removeDashing(player.getUUID())
-                if (!player.isFallFlying) {
-                    player.deltaMovement = dashDirection!!.scale(DASH_END_SPEED).scale(dashDeltaModifier)
-                }
-                return@dash
-            }
-
-            player.deltaMovement = dashDirection!!.scale(DASH_SPEED).scale(dashDeltaModifier)
-
-            // Hyper and Super Detection
-            if (Minecraft.getInstance().options.keyJump.isDown) {
-                val doReverse = (Minecraft.getInstance().options.keyDown.isDown)
-                if (player.onGround() && dashXRot > 15 && dashXRot < 60) {
-                    hyperJump(player, if (doReverse) player.lookAngle.reverse() else player.lookAngle)
-                } else if (player.onGround() && dashXRot > 0 && dashXRot < 15) {
-                    superJump(player, if (doReverse) player.lookAngle.reverse() else player.lookAngle)
-                } else if (dashXRot < -60) {
-                    for (direction in Direction.Plane.HORIZONTAL) {
-                        // change required distance from wall here
-                        val vector = Vec3.atLowerCornerOf(direction.normal).scale(0.25)
-                        val aabb = player.boundingBox.expandTowards(vector)
-                        if (player.level().noCollision(player, aabb)) continue
-
-                        val jumpDirection = Vec3.atLowerCornerOf(direction.opposite.normal)
-                        wallJump(player, jumpDirection)
-                        break
-                    }
-                }
-            }
-
-            // Dash particles
-            if (player.blockPosition() !== lastPos) {
-                EstrogenNetwork.sendToServer(DashPacket(false, dashLevel))
-            }
-            lastPos = player.blockPosition()
+            dash(player, player.lookAngle, dashLevel)
         }
     }
 
-    private fun dash(player: LocalPlayer, dashDirection: Vec3) {
+    private fun dashTick(player: LocalPlayer) {
+        dashCooldown--
+        extraParticleTicks = 0
+
+        // End Dash
+        if (dashCooldown == 0) {
+            removeDashing(player.uuid)
+            if (!player.isFallFlying) {
+                player.deltaMovement = dashDirection!!.scale(DASH_END_SPEED).scale(dashDeltaModifier)
+            }
+            return
+        }
+
+        player.deltaMovement = dashDirection!!.scale(DASH_SPEED).scale(dashDeltaModifier)
+
+        // Hyper and Super Detection
+        if (Minecraft.getInstance().options.keyJump.isDown) {
+            val doReverse = (Minecraft.getInstance().options.keyDown.isDown)
+            if (player.onGround() && dashXRot > 15 && dashXRot < 60) {
+                hyperJump(player, if (doReverse) player.lookAngle.reverse() else player.lookAngle)
+            } else if (player.onGround() && dashXRot > 0 && dashXRot < 15) {
+                superJump(player, if (doReverse) player.lookAngle.reverse() else player.lookAngle)
+            } else if (dashXRot < -60) {
+                for (direction in Direction.Plane.HORIZONTAL) {
+                    // change required distance from wall here
+                    val vector = Vec3.atLowerCornerOf(direction.normal).scale(0.25)
+                    val aabb = player.boundingBox.expandTowards(vector)
+                    if (player.level().noCollision(player, aabb)) continue
+
+                    val jumpDirection = Vec3.atLowerCornerOf(direction.opposite.normal)
+                    wallJump(player, jumpDirection)
+                    break
+                }
+            }
+        }
+
+        // Dash particles
+        if (player.blockPosition() !== lastPos) {
+            EstrogenNetwork.sendToServer(DashPacket(false, dashLevel))
+        }
+        lastPos = player.blockPosition()
+    }
+
+    private fun dash(player: LocalPlayer, dashDirection: Vec3, dashLevel: Int = 0) {
         //TODO: DreamBlock.lookAngle = null
-        setDashing(player.getUUID())
+        setDashing(player.uuid)
+
+        EstrogenNetwork.sendToServer(DashPacket(true, dashLevel))
 
         // Set counter to duration of dash
         dashCooldown = 5
-        // Dash level of current dash (number of dashes at the beginning)
-        dashLevel = dashes
-        // Decrement the dash counter
-        if (dashes > 0) dashes--
-
-        EstrogenNetwork.sendToServer(DashPacket(true, dashLevel))
 
         // math from Entity.lookAt()
         dashXRot = Mth.wrapDegrees(
@@ -175,7 +175,7 @@ object ClientDash {
     }
 
     fun reset() {
-        dashes = 0
+        dashes = 1
         dashLevel = 0
         isOnCooldown = false
         dashCooldown = 0

@@ -4,6 +4,7 @@ import earth.terrarium.cloche.api.target.FabricTarget
 import earth.terrarium.cloche.tasks.GenerateModJsonJarsEntry
 import net.msrandom.minecraftcodev.core.utils.osName
 import net.msrandom.minecraftcodev.remapper.task.RemapJar
+import org.apache.tools.ant.taskdefs.condition.Os
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -118,7 +119,7 @@ cloche {
                 "build/classes/kotlin/fabric",
                 "build/generated/ksp/fabric/classes",
                 "build/resources/fabric"
-            ).joinToString(/*if (osName().contains("Windows")) ";" else */ ":") { project.file(it).absolutePath }
+            ).joinToString(if (Os.isFamily(Os.FAMILY_WINDOWS)) ";" else ":") { project.file(it).absolutePath }
 
             client {
                 jvmArgs("-Dfabric.classPathGroups=$paths")
