@@ -42,6 +42,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
         }
     }
 
+    @Deprecated("Becoming part of DreamBlock")
     val DORMANT_DREAM_BLOCK: DormantDreamBlock by block("dormant_dream_block", ::DormantDreamBlock) {
         properties {
             mapColor(MapColor.DIAMOND)
