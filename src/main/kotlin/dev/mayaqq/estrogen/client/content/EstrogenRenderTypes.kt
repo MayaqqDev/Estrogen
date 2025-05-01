@@ -19,6 +19,7 @@ object EstrogenRenderTypes {
         CompositeState.builder()
             .setShaderState(RenderStateShard.ShaderStateShard(EstrogenRenderer::dreamBlockShader))
             .setTextureState(RenderStateShard.TextureStateShard(DynamicDreamTexture.ID, false, false))
+            .setOutputState(EstrogenRenderer.SHADER_BYPASS)
             .createCompositeState(false)
     )
 }
