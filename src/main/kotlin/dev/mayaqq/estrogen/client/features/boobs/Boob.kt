@@ -21,4 +21,9 @@ object Boob {
     fun shouldShow(player: Player): Boolean {
         return player.getAttributeValue(EstrogenAttributes.SHOW_BOOBS) > 0.0
     }
+
+    @JvmStatic
+    fun boobFunc(level: Float): Float {
+        return 1.48f - Mth.invSqrt((level + 0.6f) * 0.95f)
+    }
 }

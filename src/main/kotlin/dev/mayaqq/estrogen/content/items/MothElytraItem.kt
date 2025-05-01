@@ -1,6 +1,8 @@
 package dev.mayaqq.estrogen.content.items
 
+import dev.mayaqq.cynosure.items.DisablesCape
 import dev.mayaqq.estrogen.content.EstrogenItems
+import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.LivingEntity
@@ -10,7 +12,7 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.gameevent.GameEvent
 import java.util.function.Consumer
 
-class MothElytraItem(properties: Properties) : ElytraItem(properties) {
+class MothElytraItem(properties: Properties) : ElytraItem(properties), DisablesCape {
     override fun inventoryTick(stack: ItemStack, level: Level, entity: Entity, slotId: Int, isSelected: Boolean) {
         if (isFlyEnabled(stack) && entity is LivingEntity && entity.getItemBySlot(EquipmentSlot.CHEST) == stack) {
             doVanillaElytraTick(entity, stack)
@@ -32,5 +34,6 @@ class MothElytraItem(properties: Properties) : ElytraItem(properties) {
         }
     }
 
+    override fun disablesCape(itemStack: ItemStack, player: AbstractClientPlayer): Boolean = true
     override fun isValidRepairItem(stack: ItemStack, repair: ItemStack): Boolean = repair.item == EstrogenItems.MOTH_FUZZ
 }

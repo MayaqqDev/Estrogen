@@ -5,6 +5,7 @@ import org.figuramc.figura.avatar.AvatarManager
 import org.figuramc.figura.utils.RenderUtils
 
 object FiguraCompat {
+    @JvmStatic
     fun renderBoobs(player: Player): Boolean {
         if (TODO("EstrogenConfig.client().figura.get()")) {
             val avatar = AvatarManager.getAvatar(player)
@@ -15,6 +16,7 @@ object FiguraCompat {
         return true
     }
 
+    @JvmStatic
     fun renderBoobArmor(player: Player): Boolean {
         if (TODO("EstrogenConfig.client().figura.get()")) {
             val avatar = AvatarManager.getAvatar(player)
