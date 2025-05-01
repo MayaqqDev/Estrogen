@@ -266,8 +266,4 @@ class BoobArmorRenderer {
             }
         }
     }
-
-    fun interface CuboidConsumer {
-        fun visit(var1: PoseStack.Pose?, var2: String?, var3: Int, var4: BoobArmorModel?)
-    }
 }
