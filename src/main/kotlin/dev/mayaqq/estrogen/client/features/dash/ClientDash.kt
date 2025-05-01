@@ -56,11 +56,10 @@ object ClientDash {
             refresh(player)
         }
 
-        groundCooldown--
-        if (groundCooldown < 0) groundCooldown = 0
+        if (groundCooldown > 0) groundCooldown--
 
         // During Dash
-        if (dashCooldown > 0) dashTick(player);
+        if (dashCooldown > 0) dashTick(player)
 
         isOnCooldown = dashCooldown > 0 || dashes == 0
 
@@ -90,7 +89,7 @@ object ClientDash {
             if (!player.isFallFlying) {
                 player.deltaMovement = dashDirection!!.scale(DASH_END_SPEED).scale(dashDeltaModifier)
             }
-            return@dashTick
+            return
         }
 
         player.deltaMovement = dashDirection!!.scale(DASH_SPEED).scale(dashDeltaModifier)
