@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.config
 
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.config.types.DreamBlockRenderMode
+import net.minecraft.client.Minecraft
 import uwu.serenity.kittyconfig.api.Comment
 import uwu.serenity.kittyconfig.api.Config
 import uwu.serenity.kittyconfig.api.CustomName
@@ -13,8 +14,11 @@ import uwu.serenity.kittyconfig.json5.Json5Format
 object EstrogenClientConfig {
 
     @Comment("Enable entity patting")
-    @CustomName("entity")
     var entityPatting: Boolean = true
+
+    @Comment("Estrogen ambient music")
+    @JvmField
+    var ambientMusic: Boolean = true
 
     @Comment("Global settings for chest feature rendering")
     object ChestRenderingGlobal {
@@ -64,10 +68,50 @@ object EstrogenClientConfig {
         var animateTexture: Boolean = true
     }
 
+    @Comment("Settings for Equippable Items")
+    object Accessories {
+
+        var renderEstrogenPatches: Boolean = true
+    }
+
+    @Comment("UI element Configuration")
     object UI {
 
         @Comment("Enable dash overlay")
         var dashOverlay: Boolean = true
+
+        @Comment("Settings for the estrogen button in the create screen")
+        object EstrogenButton {
+
+            @Comment("Enable the estrogen button in the create screen")
+            var enabled: Boolean = true
+
+            @Comment("""
+                X offset the estrogen button in the create screen
+                Offset is calculated off of the center of the Configure Button
+            """)
+            var xOffset: Int = -23
+
+            @Comment("""
+                X offset the estrogen button in the create screen
+                Offset is calculated off of the center of the Configure Button
+            """)
+            var yOffset: Int = 0
+
+            @Comment("Custom Splashes on the main menu! Requires resource reload")
+            var splashText: Boolean = true
+        }
+    }
+
+    @Comment("Compatibility between other mods settings")
+    object Compat {
+
+        @Comment("Enable ears compat")
+        var ears: Boolean = true
+
+        @Comment("Enable figura compat")
+        var figura: Boolean = true
+
     }
 
 }

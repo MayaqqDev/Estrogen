@@ -2,7 +2,7 @@ package dev.mayaqq.estrogen.mixin.client;
 
 import dev.mayaqq.cynosure.utils.fun.UwUOrderedText;
 import dev.mayaqq.cynosure.utils.fun.UwUfyKt;
-import dev.mayaqq.estrogen.features.TextRenderUwufy;
+import dev.mayaqq.estrogen.client.features.TextRendererFeatures;
 import net.minecraft.client.gui.Font;
 import net.minecraft.util.FormattedCharSequence;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,7 +20,7 @@ public class FontMixin {
             argsOnly = true
     )
     private String modifyString(String text) {
-        if (TextRenderUwufy.isEnabled()) return UwUfyKt.uwufy(text);
+        if (TextRendererFeatures.getUwufy()) return UwUfyKt.uwufy(text);
         else return text;
     }
 
@@ -34,7 +34,7 @@ public class FontMixin {
     )
     private FormattedCharSequence modifyText(FormattedCharSequence text) {
         //TODO: Check if this works, kotlin in java is weird and pain and I dont like it
-        if (TextRenderUwufy.isEnabled()) return UwUOrderedText.orderedToUwUText(text);
+        if (TextRendererFeatures.getUwufy()) return UwUOrderedText.orderedToUwUText(text);
         else return text;
     }
 }

@@ -2,10 +2,18 @@
 
 package dev.mayaqq.estrogen.content.blocks
 
+import dev.mayaqq.cynosure.events.api.EventSubscriber
+import dev.mayaqq.cynosure.events.api.Subscription
+import dev.mayaqq.cynosure.events.entity.player.PlayerConnectionEvent
+import dev.mayaqq.cynosure.utils.Environment
+import dev.mayaqq.cynosure.utils.PlatformHooks
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.refresh
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
+import dev.mayaqq.estrogen.client.features.TextRendererFeatures
 import dev.mayaqq.estrogen.features.dash.CommonDash
+import dev.mayaqq.estrogen.network.EstrogenNetwork
+import dev.mayaqq.estrogen.network.messages.s2c.DreamBlockSeedPacket
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.util.Mth
@@ -16,35 +24,71 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.block.AbstractGlassBlock
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BooleanProperty
+import net.minecraft.world.level.levelgen.WorldOptions
 import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.EntityCollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
+import org.apache.commons.codec.digest.MessageDigestAlgorithms
+import uwu.serenity.kritter.internal.Platform
 import uwu.serenity.kritter.stdlib.BlockEntityBlock
+import java.security.MessageDigest
 import kotlin.reflect.KClass
 
 class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<DreamBlockEntity> {
 
+    @EventSubscriber
     companion object {
 
-        var lookAngle: Vec3? = null
-
         @JvmField val PERSISTENT: BooleanProperty = BooleanProperty.create("persistent")
+        @JvmField val UP: BooleanProperty = BooleanProperty.create("up")
+        @JvmField val DOWN: BooleanProperty = BooleanProperty.create("down")
+        @JvmField val NORTH: BooleanProperty = BooleanProperty.create("north")
+        @JvmField val SOUTH: BooleanProperty = BooleanProperty.create("south")
+        @JvmField val EAST: BooleanProperty = BooleanProperty.create("east")
+        @JvmField val WEST: BooleanProperty = BooleanProperty.create("west")
+
+        var lookAngle: Vec3? = null
+        private val md5 = MessageDigest.getInstance(MessageDigestAlgorithms.MD5)
+
+        @Subscription
+        internal fun onPlayerJoin(event: PlayerConnectionEvent.Join) {
+            val seed = event.player.serverLevel().seed.toString()
+            val bytes = md5.digest(seed.toByteArray())
+            val newSeed = WorldOptions.parseSeed(String(bytes)).asLong
+            EstrogenNetwork.sendToPlayer(DreamBlockSeedPacket(newSeed), event.player)
+        }
+
+        internal fun directionProperty(direction: Direction): BooleanProperty = when (direction) {
+            Direction.DOWN -> DOWN
+            Direction.UP -> UP
+            Direction.NORTH -> NORTH
+            Direction.SOUTH -> SOUTH
+            Direction.WEST -> WEST
+            Direction.EAST -> EAST
+        }
     }
 
     init {
         registerDefaultState(defaultBlockState()
+            .setValue(UP, false)
+            .setValue(DOWN, false)
+            .setValue(EAST, false)
+            .setValue(WEST, false)
+            .setValue(NORTH, false)
+            .setValue(SOUTH, false)
             .setValue(PERSISTENT, false))
     }
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
-        builder.add(PERSISTENT)
+        builder.add(PERSISTENT, UP, DOWN, EAST, WEST, NORTH, SOUTH)
     }
 
     override val blockEntityClass: KClass<out DreamBlockEntity> = DreamBlockEntity::class
@@ -54,6 +98,9 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
     override fun canBeReplaced(state: BlockState, fluid: Fluid): Boolean {
         return false
     }
+
+    override fun getRenderShape(p0: BlockState): RenderShape =
+        if ((PlatformHooks.environment == Environment.CLIENT && TextRendererFeatures.obfuscate) || p0.getValue(PERSISTENT)) RenderShape.ENTITYBLOCK_ANIMATED else RenderShape.MODEL
 
     override fun getCollisionShape(
         state: BlockState,
@@ -81,9 +128,8 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         pos: BlockPos,
         neighborPos: BlockPos
     ): BlockState {
-        val be = level.getBlockEntity(pos) as? DreamBlockEntity
-        be?.updateState()
-        return state;
+        return if (neighborState.`is`(this)) state.setValue(directionProperty(direction), true)
+        else state.setValue(directionProperty(direction), false)
     }
 
     fun isInDreamBlock(player: Player): Boolean {

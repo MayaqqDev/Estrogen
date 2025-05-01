@@ -163,8 +163,8 @@ cloche {
             modCompileOnly(libs.fabric.jei.api)
             modImplementation(libs.fabric.modmenu)
             modCompileOnly(libs.fabric.iris)
-            modApi(libs.fabric.flywheel.api)
-            modApi(libs.fabric.flywheel)
+            modCompileOnlyApi(libs.fabric.flywheel.api)
+            modImplementation(libs.fabric.flywheel)
             modApi(libs.fabric.cynosure)
             modApi(libs.fabric.kittyconfig)
 
@@ -215,8 +215,8 @@ cloche {
 
         dependencies {
             api(libs.forge.kotlin)
-            modApi(libs.forge.flywheel.api)
-            modApi(libs.forge.flywheel)
+            modCompileOnlyApi(libs.forge.flywheel.api)
+            modImplementation(libs.forge.flywheel)
             modImplementation(libs.forge.baubly)
             modRuntimeOnly(libs.forge.kritter)
             implementation(libs.forge.mixinExtras)

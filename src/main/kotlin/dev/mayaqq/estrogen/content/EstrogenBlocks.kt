@@ -42,6 +42,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
         }
     }
 
+    @Deprecated("Becoming part of DreamBlock")
     val DORMANT_DREAM_BLOCK: DormantDreamBlock by block("dormant_dream_block", ::DormantDreamBlock) {
         properties {
             mapColor(MapColor.DIAMOND)
@@ -68,6 +69,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             pushReaction(PushReaction.NORMAL)
             isSuffocating(Never)
             sound(EstrogenSoundTypes.DREAM_BLOCK)
+            lightLevel { if (it.getValue(DreamBlock.PERSISTENT)) 10 else 0 }
             dynamicShape()
         }
         item(::DreamBottleItem, "dream_bottle") {

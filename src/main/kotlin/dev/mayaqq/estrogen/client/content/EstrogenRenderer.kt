@@ -1,5 +1,7 @@
 package dev.mayaqq.estrogen.client.content
 
+import com.mojang.blaze3d.pipeline.RenderTarget
+import com.mojang.blaze3d.pipeline.TextureTarget
 import com.mojang.blaze3d.platform.GlStateManager
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.DefaultVertexFormat
@@ -7,6 +9,7 @@ import dev.mayaqq.cynosure.client.events.CoreShaderRegistrationEvent
 import dev.mayaqq.cynosure.client.events.render.LevelRenderEvent
 import dev.mayaqq.cynosure.client.events.render.ReloadLevelRendererEvent
 import dev.mayaqq.cynosure.client.events.render.ResizeRendererEvent
+import dev.mayaqq.cynosure.client.isShaderPackInUse
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.utils.Environment
@@ -14,15 +17,26 @@ import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.id
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.PostChain
+import net.minecraft.client.renderer.RenderStateShard.OutputStateShard
 import net.minecraft.client.renderer.ShaderInstance
 
 @EventSubscriber(env = [Environment.CLIENT])
 object EstrogenRenderer {
 
+    // Render state shards
+    val SHADER_BYPASS: OutputStateShard = OutputStateShard("dream_block_shader_target",
+        { if (isShaderPackInUse) shaderBypassTarget?.bindWrite(Minecraft.ON_OSX) },
+        { if (isShaderPackInUse) Minecraft.getInstance().mainRenderTarget.bindWrite(false) }
+    )
+
+    // Shaders
     lateinit var dreamBlockShader: ShaderInstance
         private set
 
+    // Post chains and framebuffers
     private var dreamingEffect: PostChain? = null
+
+    private var shaderBypassTarget: RenderTarget? = null
 
     @Subscription
     fun onLoadShaders(event: CoreShaderRegistrationEvent) {
@@ -40,17 +54,47 @@ object EstrogenRenderer {
             id("shaders/post/dreaming.json")
         )
         dreamingEffect?.resize(minecraft.window.width, minecraft.window.height)
+
+        if (isShaderPackInUse) {
+            if (shaderBypassTarget == null) shaderBypassTarget = TextureTarget(
+                minecraft.window.width, minecraft.window.height, true, Minecraft.ON_OSX
+            )
+        } else {
+            shaderBypassTarget?.destroyBuffers()
+            shaderBypassTarget = null
+        }
+    }
+
+    @Subscription
+    fun onBeginRender(event: LevelRenderEvent.AfterEntities) {
+        shaderBypassTarget?.clear(Minecraft.ON_OSX)
+        shaderBypassTarget?.copyDepthFrom(Minecraft.getInstance().mainRenderTarget)
     }
 
     @Subscription
     fun onEndRender(event: LevelRenderEvent.End) {
+
+        if (isShaderPackInUse) {
+            val window = Minecraft.getInstance().window
+            RenderSystem.enableBlend()
+            RenderSystem.blendFuncSeparate(
+                GlStateManager.SourceFactor.SRC_ALPHA,
+                GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                GlStateManager.SourceFactor.ZERO,
+                GlStateManager.DestFactor.ONE
+            )
+            shaderBypassTarget?.blitToScreen(window.width, window.height, false)
+            RenderSystem.disableBlend()
+            RenderSystem.defaultBlendFunc()
+        }
+
         if (Minecraft.getInstance().player?.hasEffect(EstrogenEffects.DREAMING) == true)
             dreamingEffect?.process(event.partialTick)
     }
 
     @Subscription
     fun onResizeRenderer(event: ResizeRendererEvent) {
-        val window = Minecraft.getInstance().window
-        dreamingEffect?.resize(window.width, window.height)
+        dreamingEffect?.resize(event.width, event.height)
+        shaderBypassTarget?.resize(event.width, event.height, Minecraft.ON_OSX)
     }
 }

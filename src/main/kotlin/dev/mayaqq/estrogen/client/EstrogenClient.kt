@@ -6,12 +6,10 @@ import dev.mayaqq.cynosure.client.events.ParticleRenderTypeRegistrationEvent
 import dev.mayaqq.cynosure.client.events.entity.RenderLayerRegistrationEvent
 import dev.mayaqq.cynosure.client.render.gui.HudOverlayRegistry
 import dev.mayaqq.cynosure.client.render.gui.VanillaHud
-import dev.mayaqq.cynosure.data.registerResourcepackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.utils.Environment
 import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
-import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DreamTextureGenerator
 import dev.mayaqq.estrogen.client.content.entityRenderers.moth.MothModel
 import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraLayer
 import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraModel
@@ -29,7 +27,7 @@ fun estrogenClient() {
     HudOverlayRegistry.register(VanillaHud.FROSTBITE, id("dash"), DashOverlay)
     MothElytraModel.LAYER_LOCATION.registerDefinition(MothElytraModel.Companion::createBodyLayer)
     MothModel.LAYER_LOCATION.registerDefinition(MothModel::createBodyLayer)
-    registerResourcepackReloadListener(id("dream_texture"), DreamTextureGenerator)
+    // registerResourcepackReloadListener(id("dream_texture"), DreamTextureGenerator)
 }
 
 @Subscription
