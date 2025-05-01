@@ -208,38 +208,22 @@ class BoobArmorRenderer {
         this.scaleZ += vec.z()
     }
 
-    class BoobArmorModel(u: Float,
-                         v: Float,
-                         leftU: Float,
-                         leftV: Float,
-                         rightU: Float,
-                         rightV: Float,
-                         sizeX: Float,
-                         sizeY: Float,
-                         sizeZ: Float,
-                         mirror: Boolean,
-                         squishU: Float,
-                         squishV: Float) {
-        private val sides: Array<ModelPart.Polygon> //private, add to AW/AT or smth, same deal with modelpart.vertex
-
-        init {
-            this.sides = arrayOfNulls<ModelPart.Polygon>(4)
-
+    class BoobArmorModel(u: Float, v: Float, leftU: Float, leftV: Float, rightU: Float, rightV: Float, sizeX: Float, sizeY: Float, sizeZ: Float, mirror: Boolean, squishU: Float, squishV: Float) {
+        private val sides: Array<ModelPart.Polygon> = Array(4) { index ->
             val vertex = ModelPart.Vertex(-4.0f * 1.24f, 0.0f, 0.0f, 0.0f, 0.0f)
             val vertex2 = ModelPart.Vertex(4.0f * 1.24f, 0.0f, 0.0f, 0.0f, 8.0f)
             val vertex3 = ModelPart.Vertex(4.0f * 1.24f, 1.08f * 1.25f, 1.68f * 1.25f, 8.0f, 8.0f)
             val vertex4 = ModelPart.Vertex(-4.0f * 1.24f, 1.08f * 1.25f, 1.68f * 1.25f, 8.0f, 0.0f)
             val vertex5 = ModelPart.Vertex(-4.0f * 1.24f, -1.68f * 1.25f, 1.68f * 1.25f, 0.0f, 0.0f)
             val vertex6 = ModelPart.Vertex(4.0f * 1.24f, -1.68f * 1.25f, 1.68f * 1.25f, 0.0f, 8.0f)
-            this.sides[2] =
-                ModelPart.Polygon(arrayOf<ModelPart.Vertex>(vertex6, vertex5, vertex, vertex2), u, v, u + 8, v + 2, squishU, squishV, mirror, Direction.DOWN)
-            this.sides[1] =
-                ModelPart.Polygon(arrayOf<ModelPart.Vertex>(vertex, vertex5, vertex5, vertex4), leftU, leftV, leftU + 2, leftV + 2, squishU, squishV, mirror, Direction.WEST)
-            this.sides[3] =
-                ModelPart.Polygon(arrayOf<ModelPart.Vertex>(vertex2, vertex, vertex4, vertex3), u, v + 2, u + 8, v + 4, squishU, squishV, mirror, Direction.NORTH)
-            this.sides[0] =
-                ModelPart.Polygon(arrayOf<ModelPart.Vertex>(vertex6, vertex2, vertex3, vertex3), rightU, rightV, rightU + 2, rightV + 2, squishU, squishV, mirror, Direction.EAST)
-        }
+            when (index) {
+                0 -> ModelPart.Polygon(arrayOf(vertex, vertex5, vertex5, vertex4), leftU, leftV, leftU + 2, leftV + 2, squishU, squishV, mirror, Direction.WEST)
+                1 -> ModelPart.Polygon(arrayOf(vertex6, vertex5, vertex, vertex2), u, v, u + 8, v + 2, squishU, squishV, mirror, Direction.DOWN)
+                2 -> ModelPart.Polygon(arrayOf(vertex2, vertex, vertex4, vertex3), u, v + 2, u + 8, v + 4, squishU, squishV, mirror, Direction.NORTH)
+                3 -> ModelPart.Polygon(arrayOf(vertex6, vertex2, vertex3, vertex3), rightU, rightV, rightU + 2, rightV + 2, squishU, squishV, mirror, Direction.EAST)
+                else -> throw IllegalStateException("Unexpected index: $index")
+            }
+        } //private, add to AW/AT or smth, same deal with modelpart.vertex
 
         fun renderCuboid(entry: PoseStack.Pose,
                          vertexConsumer: VertexConsumer,

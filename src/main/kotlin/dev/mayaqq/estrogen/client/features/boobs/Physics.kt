@@ -1,6 +1,8 @@
 package dev.mayaqq.estrogen.client.features.boobs
 
 import dev.mayaqq.cynosure.utils.currentTime
+import dev.mayaqq.estrogen.config.types.ChestConfig
+import dev.mayaqq.estrogen.injection.chestConfig
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec2
@@ -54,13 +56,13 @@ class Physics {
             return
         }
 
-        //TODO: val chestConfig: ChestConfig? = (player as PlayerEntityExtension).`estrogen$getChestConfig`()
-        if (TODO("chestConfig == null")) {
+        val chestConfig: ChestConfig? = player.chestConfig
+        if (chestConfig == null) {
             this.active = false
             return
         }
-        val SPRING_COEFFICIENT: Float = TODO("1.0f / (chestConfig.bounciness() * 10.0f)")
-        val DAMPING_COEFFICIENT: Float = TODO("chestConfig.damping()")
+        val SPRING_COEFFICIENT: Float = 1.0f / (chestConfig.bounciness * 10.0f)
+        val DAMPING_COEFFICIENT: Float = chestConfig.damping
 
         this.previousPosition = player.position()
         val acceleration = velocity.add(this.previousVelocity!!.negated())

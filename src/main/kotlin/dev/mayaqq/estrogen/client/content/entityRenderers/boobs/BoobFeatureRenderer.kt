@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.client.content.entityRenderers.boobs
 import com.mojang.blaze3d.vertex.PoseStack
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.currentTime
+import dev.mayaqq.cynosure.utils.pushPop
 import dev.mayaqq.estrogen.client.features.boobs.Boob
 import dev.mayaqq.estrogen.client.features.boobs.Boob.boobSize
 import dev.mayaqq.estrogen.client.features.boobs.BoobPhysicsManager.getPhysicsForPlayer
@@ -38,60 +39,63 @@ class BoobFeatureRenderer(
 ) : RenderLayer<Player, EntityModel<Player>>(renderer) {
     override fun render(stack: PoseStack, bufferSource: MultiBufferSource, i: Int, entity: Player, f: Float, g: Float, h: Float, j: Float, k: Float, l: Float) {
         val chestConfig: ChestConfig? = entity.chestConfig
-        val entity = entity as AbstractClientPlayer
-        if (Boob.shouldShow(entity) && EstrogenClientConfig.ChestFeature.enabled && chestConfig != null && chestConfig.enabled && entity.isSkinLoaded && !entity.isInvisible) {
+        val entity = entity as AbstractClientPlayer                                                                  // Invisible???? WHEN YOU CANT EVEN SAY
+        if (Boob.shouldShow(entity) && chestConfig != null && chestConfig.enabled && entity.isSkinLoaded && !entity.isInvisible) {
+            // Armor that straight up disables Chest Feature and Armor and everything.
             if (entity.getItemBySlot(EquipmentSlot.CHEST) in EstrogenTags.Items.CHEST_FEATURE_DISABLED) return
 
-            if (!entity.getItemBySlot(EquipmentSlot.CHEST).isEmpty && entity.getItemBySlot(EquipmentSlot.CHEST) !in EstrogenTags.Items.CHEST_ARMOR_IGNORE && EstrogenClientConfig.ChestFeature.armor && chestConfig.armorEnabled) return
+            // If you have a chestplate that isn't ignored, and you have armor rendering on and the person has chest config enabled, don't render anything.
+            if (Boob.fuckedUpArmorConfigCheck(entity)) return
 
             val vertexConsumer = bufferSource.getBuffer(RenderType.entityCutout(entity.skinTextureLocation))
             val m = LivingEntityRenderer.getOverlayCoords(entity, 0.0f)
-            stack.pushPose()
-            var size: Float
-            val startTime: Double = entity.getAttributeValue(EstrogenAttributes.BOOB_GROWING_START_TIME)
-            val currentTime: Double = currentTime(entity.level())
-            if (startTime >= 0.0) {
-                val initialSize = entity.getAttributeValue(EstrogenAttributes.BOOB_INITIAL_SIZE).toFloat()
-                size = boobSize(startTime, currentTime, initialSize, h)
-            } else {
-                size = 0.0f
-            }
-            var yOffset = 0f
-            if (EstrogenClientConfig.ChestFeature.physics && chestConfig.physicsEnabled) {
-                val physics = getPhysicsForPlayer(entity)
-                if (physics.active) {
-                    size += physics.interpolate(currentTime, h.toDouble())!!.x
-                    yOffset = physics.interpolate(currentTime, h.toDouble())!!.y
+            stack.pushPop {
+                var size: Float
+                val startTime: Double = entity.getAttributeValue(EstrogenAttributes.BOOB_GROWING_START_TIME)
+                val currentTime: Double = currentTime(entity.level())
+                if (startTime >= 0.0) {
+                    val initialSize = entity.getAttributeValue(EstrogenAttributes.BOOB_INITIAL_SIZE).toFloat()
+                    size = boobSize(startTime, currentTime, initialSize, h)
+                } else {
+                    size = 0.0f
                 }
-            }
-            this.parentModel.renderBoobs(stack, vertexConsumer, i, m, entity, size, yOffset)
+                var yOffset = 0f
+                // Physics check (global setting checked in physics manager
+                if (chestConfig.physicsEnabled) {
+                    val physics = getPhysicsForPlayer(entity)
+                    if (physics.active) {
+                        size += physics.interpolate(currentTime, h.toDouble())!!.x
+                        yOffset = physics.interpolate(currentTime, h.toDouble())!!.y
+                    }
+                }
+                parentModel.renderBoobs(stack, vertexConsumer, i, m, entity, size, yOffset)
 
-            if (EstrogenClientConfig.ChestFeature.armor && chestConfig.armorEnabled) {
-                val itemStack = entity.getItemBySlot(EquipmentSlot.CHEST)
-                if (itemStack.item is ArmorItem) {
-                    val item = itemStack.item as ArmorItem
-                    if (item.equipmentSlot == EquipmentSlot.CHEST) {
-                        val glint = itemStack.hasFoil()
-                        if (item is DyeableLeatherItem) {
-                            val dyeColor: Int = item.getColor(itemStack)
-                            val o = (dyeColor shr 16 and 255).toFloat() / 255.0f
-                            val p = (dyeColor shr 8 and 255).toFloat() / 255.0f
-                            val q = (dyeColor and 255).toFloat() / 255.0f
+                // Armor Check
+                if (EstrogenClientConfig.ChestRenderingGlobal.armorRendering && chestConfig.armorEnabled) {
+                    val itemStack = entity.getItemBySlot(EquipmentSlot.CHEST)
+                    if (itemStack.item is ArmorItem) {
+                        val item = itemStack.item as ArmorItem
+                        if (item.equipmentSlot == EquipmentSlot.CHEST) {
+                            val glint = itemStack.hasFoil()
+                            if (item is DyeableLeatherItem) {
+                                val dyeColor: Int = item.getColor(itemStack)
+                                val o = (dyeColor shr 16 and 255).toFloat() / 255.0f
+                                val p = (dyeColor shr 8 and 255).toFloat() / 255.0f
+                                val q = (dyeColor and 255).toFloat() / 255.0f
 
-                            this.parentModel.renderBoobArmor(stack, bufferSource, i, glint, o, p, q, false, entity, size, yOffset)
-                            this.parentModel.renderBoobArmor(stack, bufferSource, i, glint, 1.0f, 1.0f, 1.0f, true, entity, size, yOffset)
-                        } else {
-                            this.parentModel.renderBoobArmor(stack, bufferSource, i, glint, 1.0f, 1.0f, 1.0f, false, entity, size, yOffset)
+                                parentModel.renderBoobArmor(stack, bufferSource, i, glint, o, p, q, false, entity, size, yOffset)
+                                parentModel.renderBoobArmor(stack, bufferSource, i, glint, 1.0f, 1.0f, 1.0f, true, entity, size, yOffset)
+                            } else {
+                                parentModel.renderBoobArmor(stack, bufferSource, i, glint, 1.0f, 1.0f, 1.0f, false, entity, size, yOffset)
+                            }
+                            ArmorTrim.getTrim(entity.level().registryAccess(), itemStack)
+                                .ifPresent(Consumer { armorTrim: ArmorTrim ->
+                                    parentModel.renderBoobArmorTrim(stack, bufferSource, i, glint, armorTrim, item.getMaterial(), armorTrimAtlas, entity)
+                                })
                         }
-                        ArmorTrim.getTrim(entity.level().registryAccess(), itemStack)
-                            .ifPresent(Consumer { armorTrim: ArmorTrim ->
-                                this.parentModel.renderBoobArmorTrim(stack, bufferSource, i, glint, armorTrim, item.getMaterial(), this.armorTrimAtlas, entity)
-                            })
                     }
                 }
             }
-
-            stack.popPose()
         }
     }
 }

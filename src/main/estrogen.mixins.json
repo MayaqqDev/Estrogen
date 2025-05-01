@@ -7,7 +7,6 @@
     "PlayerMixin"
   ],
   "client": [
-    "accessor.LivingEntityRendererAccessor",
     "client.ClientPacketListenerMixin",
     "client.FontStringRenderOutputMixin",
     "client.HumanoidMobRendererMixin",

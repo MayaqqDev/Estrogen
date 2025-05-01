@@ -8,13 +8,11 @@ import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobArmorRenderer;
 import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobRendering;
 import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.TextureData;
+import dev.mayaqq.estrogen.client.features.boobs.Boob;
 import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorData;
 import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorDataLoader;
 import dev.mayaqq.estrogen.compat.figura.FiguraCompat;
-import dev.mayaqq.estrogen.config.EstrogenClientConfig;
 import dev.mayaqq.estrogen.content.EstrogenEffects;
-import dev.mayaqq.estrogen.content.EstrogenTags;
-import dev.mayaqq.estrogen.injection.IPlayer;
 import dev.mayaqq.estrogen.injection.IPlayerModel;
 import net.minecraft.Optionull;
 import net.minecraft.client.model.HumanoidModel;
@@ -98,8 +96,8 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
     public void estrogen$renderBoobs(PoseStack matrices, VertexConsumer vertices, int light, int overlay, AbstractClientPlayer player, float size, float yOffset) {
         if (isModLoaded("figura") && !FiguraCompat.renderBoobs(player)) return;
         if (this.estrogen$boobs == null) return;
-        ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
-        if (!chest.isEmpty() && !chest.is(EstrogenTags.Items.INSTANCE.getCHEST_ARMOR_IGNORE()) && EstrogenClientConfig.ChestFeature.INSTANCE.getArmor() && ((IPlayer) player).estrogen$getChestConfig().getArmorEnabled()) {
+        // Calling this here as well to check if the armor texture is empty in these specific circumstances... GOD I LOVE EDGECASES
+        if (Boob.fuckedUpArmorConfigCheck(player)) {
             if (estrogen$getArmorTexture(player, false).isEmpty()) return;
         }
 
@@ -135,7 +133,7 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
         }
         // Rendering
         TextureData textureData = opt.get();
-        VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(textureData.location()), false, glint);
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(textureData.getLocation()), false, glint);
         this.estrogen$boobArmor.copyTransform(this.body);
         this.estrogen$boobArmor.setPitch(this.body.xRot);
         float amplifier = Optionull.mapOrDefault(player.getEffect(EstrogenEffects.getESTROGEN()), MobEffectInstance::getAmplifier, 2);

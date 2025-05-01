@@ -1,8 +1,6 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
-import earth.terrarium.cloche.api.target.FabricTarget
 import earth.terrarium.cloche.tasks.GenerateModJsonJarsEntry
-import net.msrandom.minecraftcodev.core.utils.osName
 import net.msrandom.minecraftcodev.remapper.task.RemapJar
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
@@ -77,6 +75,8 @@ cloche {
     common {
         mixins.from(file("src/main/estrogen.mixins.json"))
 
+        accessWideners.from(file("src/main/estrogen.accessWidener"))
+
         dependencies {
             compileOnly(libs.mixin)
             implementation(libs.kotlinx.serialization.json)
@@ -101,6 +101,7 @@ cloche {
 
     fabric {
         mixins.from(file("src/main/estrogen.mixins.json"))
+        accessWideners.from(file("src/main/estrogen.accessWidener"))
 
         loaderVersion = libs.versions.fabric
         minecraftVersion = libs.versions.minecraft
@@ -194,6 +195,7 @@ cloche {
 
     forge {
         mixins.from(file("src/main/estrogen.mixins.json"))
+        accessWideners.from(file("src/main/estrogen.accessWidener"))
 
         loaderVersion = libs.versions.forge.get()
         minecraftVersion = libs.versions.minecraft.get()

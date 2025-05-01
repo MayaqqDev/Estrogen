@@ -2,10 +2,12 @@
 package dev.mayaqq.estrogen.client
 
 import dev.mayaqq.cynosure.client.entity.registerDefinition
+import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.events.ParticleRenderTypeRegistrationEvent
 import dev.mayaqq.cynosure.client.events.entity.RenderLayerRegistrationEvent
 import dev.mayaqq.cynosure.client.render.gui.HudOverlayRegistry
 import dev.mayaqq.cynosure.client.render.gui.VanillaHud
+import dev.mayaqq.cynosure.client.utils.DefaultSkin
 import dev.mayaqq.cynosure.data.registerResourcepackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
@@ -20,7 +22,9 @@ import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorDataLoader
 import dev.mayaqq.estrogen.client.features.dash.DashOverlay
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.config.Instance
+import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.id
+import dev.mayaqq.estrogen.injection.chestConfig
 import net.minecraft.client.Minecraft
 import net.minecraft.world.entity.EntityType
 import uwu.serenity.kittyconfig.api.defaults.load
@@ -38,11 +42,25 @@ fun estrogenClient() {
 @Subscription
 fun addRenderLayers(event: RenderLayerRegistrationEvent) {
     event.addLayer(EntityType.ARMOR_STAND) { MothElytraLayer(it, event.models) }
-    event.addLayer(EntityType.PLAYER) { MothElytraLayer(it, event.models) }
-    event.addLayer(EntityType.PLAYER) { BoobFeatureRenderer(it, Minecraft.getInstance().modelManager) }
+    DefaultSkin.entries.forEach { skin ->
+        event.addLayer(skin) { MothElytraLayer(it, event.models) }
+        event.addLayer(skin) { BoobFeatureRenderer(it, Minecraft.getInstance().modelManager) }
+    }
 }
 
 @Subscription
 fun registerParticleRenderTypes(event: ParticleRenderTypeRegistrationEvent) {
     event.register(DashTrailParticle.RENDER_TYPE)
+}
+
+var set = false
+
+@Subscription
+fun ticking(event: ClientTickEvent) {
+    //TODO: THIS
+    if (!set) {
+        val player = Minecraft.getInstance().player ?: return
+        player.chestConfig = ChestConfig(EstrogenClientConfig.ChestFeature.enabled, EstrogenClientConfig.ChestFeature.armor, EstrogenClientConfig.ChestFeature.physics, EstrogenClientConfig.ChestFeature.bounciness.toFloat(), EstrogenClientConfig.ChestFeature.damping)
+        set = true
+    }
 }

@@ -44,7 +44,7 @@ mixin_constrains = "1.0.8"
 # Fabric Only Dependencies
 fapi = "0.92.2"
 modmenu = "7.2.2"
-cardinal = "5.2.2"
+cardinal = "5.2.3"
 jei_file_id_fabric = "5101365"
 flk = "1.11.0+kotlin.2.0.0"
 

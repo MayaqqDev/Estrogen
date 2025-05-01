@@ -1,7 +1,12 @@
 package dev.mayaqq.estrogen.client.features.boobs
 
+import dev.mayaqq.cynosure.utils.contains
+import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
+import dev.mayaqq.estrogen.content.EstrogenTags
+import dev.mayaqq.estrogen.injection.chestConfig
 import net.minecraft.util.Mth
+import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.player.Player
 
 object Boob {
@@ -19,11 +24,16 @@ object Boob {
     }
 
     fun shouldShow(player: Player): Boolean {
-        return player.getAttributeValue(EstrogenAttributes.SHOW_BOOBS) > 0.0
+        return player.getAttributeValue(EstrogenAttributes.SHOW_BOOBS) > 0.0 && EstrogenClientConfig.ChestRenderingGlobal.rendering
     }
 
     @JvmStatic
     fun boobFunc(level: Float): Float {
         return 1.48f - Mth.invSqrt((level + 0.6f) * 0.95f)
+    }
+
+    @JvmStatic
+    fun fuckedUpArmorConfigCheck(player: Player): Boolean {
+        return !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty && player.getItemBySlot(EquipmentSlot.CHEST) !in EstrogenTags.Items.CHEST_ARMOR_IGNORE && EstrogenClientConfig.ChestRenderingGlobal.armorRendering && player.chestConfig?.armorEnabled == true
     }
 }
