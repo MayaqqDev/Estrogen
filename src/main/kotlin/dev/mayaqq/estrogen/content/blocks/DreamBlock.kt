@@ -5,9 +5,12 @@ package dev.mayaqq.estrogen.content.blocks
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.PlayerConnectionEvent
+import dev.mayaqq.cynosure.utils.Environment
+import dev.mayaqq.cynosure.utils.PlatformHooks
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.refresh
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
+import dev.mayaqq.estrogen.client.features.TextRendererFeatures
 import dev.mayaqq.estrogen.features.dash.CommonDash
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.DreamBlockSeedPacket
@@ -21,6 +24,7 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.block.AbstractGlassBlock
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
@@ -33,6 +37,7 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 import org.apache.commons.codec.digest.MessageDigestAlgorithms
+import uwu.serenity.kritter.internal.Platform
 import uwu.serenity.kritter.stdlib.BlockEntityBlock
 import java.security.MessageDigest
 import kotlin.reflect.KClass
@@ -42,10 +47,6 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
     @EventSubscriber
     companion object {
 
-        var lookAngle: Vec3? = null
-        private val md5 = MessageDigest.getInstance(MessageDigestAlgorithms.MD5)
-
-
         @JvmField val PERSISTENT: BooleanProperty = BooleanProperty.create("persistent")
         @JvmField val UP: BooleanProperty = BooleanProperty.create("up")
         @JvmField val DOWN: BooleanProperty = BooleanProperty.create("down")
@@ -53,6 +54,9 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         @JvmField val SOUTH: BooleanProperty = BooleanProperty.create("south")
         @JvmField val EAST: BooleanProperty = BooleanProperty.create("east")
         @JvmField val WEST: BooleanProperty = BooleanProperty.create("west")
+
+        var lookAngle: Vec3? = null
+        private val md5 = MessageDigest.getInstance(MessageDigestAlgorithms.MD5)
 
         @Subscription
         internal fun onPlayerJoin(event: PlayerConnectionEvent.Join) {
@@ -94,6 +98,9 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
     override fun canBeReplaced(state: BlockState, fluid: Fluid): Boolean {
         return false
     }
+
+    override fun getRenderShape(p0: BlockState): RenderShape =
+        if ((PlatformHooks.environment == Environment.CLIENT && TextRendererFeatures.obfuscate) || p0.getValue(PERSISTENT)) RenderShape.ENTITYBLOCK_ANIMATED else RenderShape.MODEL
 
     override fun getCollisionShape(
         state: BlockState,

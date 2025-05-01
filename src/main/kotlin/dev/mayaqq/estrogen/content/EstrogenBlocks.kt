@@ -68,6 +68,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             pushReaction(PushReaction.NORMAL)
             isSuffocating(Never)
             sound(EstrogenSoundTypes.DREAM_BLOCK)
+            lightLevel { if (it.getValue(DreamBlock.PERSISTENT)) 10 else 0 }
             dynamicShape()
         }
         item(::DreamBottleItem, "dream_bottle") {

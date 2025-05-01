@@ -2,9 +2,10 @@ package dev.mayaqq.estrogen.mixin.client;
 
 import com.mojang.blaze3d.platform.Window;
 import dev.mayaqq.cynosure.utils.fun.UwUfyKt;
+import dev.mayaqq.estrogen.config.EstrogenClientConfig;
 import dev.mayaqq.estrogen.content.EstrogenEffects;
 import dev.mayaqq.estrogen.content.EstrogenMusic;
-import dev.mayaqq.estrogen.features.TextRenderUwufy;
+import dev.mayaqq.estrogen.client.features.TextRendererFeatures;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.Music;
@@ -23,7 +24,7 @@ public abstract class MinecraftMixin {
 
     @Inject(method = "updateTitle()V", at = @At("HEAD"), cancellable = true)
     private void updateTitle(final CallbackInfo info) {
-        if(TextRenderUwufy.isEnabled()) {
+        if(TextRendererFeatures.getUwufy()) {
             info.cancel();
             this.getWindow().setTitle(UwUfyKt.uwufy(this.createTitle()));
         }
@@ -32,7 +33,7 @@ public abstract class MinecraftMixin {
     @Inject(method = "getSituationalMusic", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;blockPosition()Lnet/minecraft/core/BlockPos;", shift = At.Shift.AFTER), cancellable = true)
     private void getSituationalMusic(CallbackInfoReturnable<Music> cir) {
         LocalPlayer player = Minecraft.getInstance().player;
-        if (/* TODO: EstrogenConfig.client().ambientMusic.get() && */ player.hasEffect(EstrogenEffects.getESTROGEN())) {
+        if (EstrogenClientConfig.ambientMusic && player.hasEffect(EstrogenEffects.getESTROGEN())) {
             cir.setReturnValue(EstrogenMusic.ESTROGEN_AMBIENT);
         }
     }

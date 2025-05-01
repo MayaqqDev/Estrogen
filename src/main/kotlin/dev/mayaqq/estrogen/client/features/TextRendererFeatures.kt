@@ -1,16 +1,23 @@
-package dev.mayaqq.estrogen.features
+package dev.mayaqq.estrogen.client.features
 
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.utils.Environment
+import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenTags
 import net.minecraft.client.Minecraft
 
 @EventSubscriber(env = [Environment.CLIENT])
-object TextRenderUwufy {
+object TextRendererFeatures {
+
     @JvmStatic
-    var isEnabled: Boolean = false
+    var obfuscate: Boolean = false
+        private set
+
+    @JvmStatic
+    var uwufy: Boolean = false
+        private set
 
     @Subscription
     fun onTick(event: ClientTickEvent.End) {
@@ -18,12 +25,14 @@ object TextRenderUwufy {
         if (client.player == null) {
             disconnect()
         } else if (client.player!!.tickCount % 20 == 0) {
-            isEnabled = client.player!!.inventory.contains(EstrogenTags.Items.UWUFYING)
+            uwufy = client.player!!.inventory.contains(EstrogenTags.Items.UWUFYING)
+            obfuscate = client.player!!.hasEffect(EstrogenEffects.DREAMING)
             client.updateTitle()
         }
     }
 
     fun disconnect() {
-        isEnabled = false
+        uwufy = false
+        obfuscate = false
     }
 }
