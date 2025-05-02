@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.client.content.sounds
 
 import dev.mayaqq.estrogen.content.EstrogenSounds
+import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance
 import net.minecraft.client.resources.sounds.SoundInstance
@@ -22,7 +23,7 @@ class DreamBlockSoundInstance(val player: LocalPlayer) : AbstractTickableSoundIn
 
     override fun tick() {
         f++
-        if (TODO("DreamBlock.isInDreamBlock(player)")) {
+        if (DreamBlock.isInDreamBlock(player)) {
             this.pitch = 0.5F + f * 0.01F
             this.volume = 1.0F + f * 0.1F
         } else {

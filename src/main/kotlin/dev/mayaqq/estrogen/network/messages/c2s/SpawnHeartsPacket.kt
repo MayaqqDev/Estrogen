@@ -30,16 +30,14 @@ data class SpawnHeartsPacket(val pos: Vector3f, val ambientSound: ResourceLocati
 
     constructor(pos: Vec3, ambientSound: ResourceLocation) : this(pos.toVector3f(), ambientSound)
 
-    override fun ServerNetworkContext.handle() {
-        return let {
-            val level = sender.serverLevel()
-            level.sendParticles(ParticleTypes.HEART, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 1, 0.5, 0.5, 0.5, 0.5)
-            if (ambientSound != id("empty")) {
-                val blockPos = pos.blockPos()
-                val event = SoundEvent.createVariableRangeEvent(ambientSound)
-                level.playSound(null as? Entity, blockPos, event, SoundSource.PLAYERS, 1.0f, 10.0f)
-                sender.swing(InteractionHand.MAIN_HAND, true)
-            }
+    override fun ServerNetworkContext.handle() = execute {
+        val level = sender.serverLevel()
+        level.sendParticles(ParticleTypes.HEART, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), 1, 0.5, 0.5, 0.5, 0.5)
+        if (ambientSound != id("empty")) {
+            val blockPos = pos.blockPos()
+            val event = SoundEvent.createVariableRangeEvent(ambientSound)
+            level.playSound(null as? Entity, blockPos, event, SoundSource.PLAYERS, 1.0f, 10.0f)
+            sender.swing(InteractionHand.MAIN_HAND, true)
         }
     }
 }

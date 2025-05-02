@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.config
 
 import dev.mayaqq.estrogen.MOD_ID
+import dev.mayaqq.estrogen.client.chestConfigSet
 import dev.mayaqq.estrogen.config.types.DreamBlockRenderMode
 import net.minecraft.client.Minecraft
 import uwu.serenity.kittyconfig.api.Comment
@@ -37,19 +38,19 @@ object EstrogenClientConfig {
     object ChestFeature {
 
         @Comment("Enable chest feature")
-        var enabled: Boolean = true
+        var enabled: Boolean by observable(true) { chestConfigSet = false }
 
         @Comment("Enable chest feature armor")
-        var armor: Boolean = true
+        var armor: Boolean by observable(true) { chestConfigSet = false }
 
         @Comment("Enable chest feature physics")
-        var physics: Boolean = true
+        var physics: Boolean by observable(true) { chestConfigSet = false }
 
         @Comment("Chest feature bounciness")
-        var bounciness: @DecimalRange(0.0, 1.0) Double = 0.27
+        var bounciness: @DecimalRange(0.0, 1.0) Double by observable(0.27) { chestConfigSet = false }
 
         @Comment("Chest feature physics damping")
-        var damping: @DecimalRange(0.0, 1.0) Float = 0.375f
+        var damping: @DecimalRange(0.0, 1.0) Float by observable(0.375f) { chestConfigSet = false }
 
     }
 

@@ -34,7 +34,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
 
     fun init() {
         if (isModLoaded("minecraftcapes")) {
-            mcCapesMessage.split("\n").forEach {
+            mcCapesMessage.trimIndent().split("\n").forEach {
                 info("[ESTROGEN] $it")
             }
         }

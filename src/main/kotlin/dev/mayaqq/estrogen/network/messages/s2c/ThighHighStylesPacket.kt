@@ -18,7 +18,7 @@ data class ThighHighStylesPacket(val styles: List<ResourceLocation>) : Packet.Cl
             .map(::ThighHighStylesPacket, ThighHighStylesPacket::styles)
     }
 
-    override fun ClientNetworkContext.handle() {
+    override fun ClientNetworkContext.handle() = execute {
         EstrogenItems.THIGH_HIGHS.loadStyles(styles)
     }
 }

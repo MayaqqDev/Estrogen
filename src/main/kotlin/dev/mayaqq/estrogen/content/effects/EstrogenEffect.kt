@@ -49,9 +49,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         //TODO: CONFIG CHECK if (!EstrogenConfig.server().dashEnabled.get()) return
 
         // Only tick on the client and if the entity is a player
-        if (!(entity is LocalPlayer && entity.level().isClientSide)) return
-
-        ClientDash.tick()
+        if (entity is LocalPlayer && entity.level().isClientSide) ClientDash.tick()
     }
 
     override fun removeAttributeModifiers(entity: LivingEntity, attributes: AttributeMap, amplifier: Int) {
@@ -118,9 +116,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         }
     }
 
-    override fun isDurationEffectTick(duration: Int, amplifier: Int): Boolean {
-        return true
-    }
+    override fun isDurationEffectTick(duration: Int, amplifier: Int): Boolean = true
 
     companion object {
         fun sendPlayerStatusEffect(player: ServerPlayer, effect: MobEffect, vararg targetPlayers: ServerPlayer) {

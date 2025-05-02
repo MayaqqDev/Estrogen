@@ -70,7 +70,7 @@ object EstrogenSounds : Registrar<SoundEvent> by Estrogen..Registries.SOUND_EVEN
 
 object EstrogenSoundTypes {
 
-    val DREAM_BLOCK: SoundType = LazySoundType(1.0f, 1.0f,
+    val DREAM_BLOCK_ACTIVE: SoundType = LazySoundType(1.0f, 1.0f,
         breakSound = EstrogenSounds::DREAM_BLOCK_BREAK,
         stepSound = EstrogenSounds::DREAM_BLOCK_STEP,
         placeSound = EstrogenSounds::DREAM_BLOCK_PLACE,
@@ -78,7 +78,7 @@ object EstrogenSoundTypes {
         fallSound = EstrogenSounds::DREAM_BLOCK_FALL
     )
 
-    val DORMANT_DREAM_BLOCK: SoundType = LazySoundType(1.0f, 1.0f,
+    val DREAM_BLOCK_DORMANT: SoundType = LazySoundType(1.0f, 1.0f,
         breakSound = EstrogenSounds::DREAM_BLOCK_DORMANT_BREAK,
         stepSound = EstrogenSounds::DREAM_BLOCK_DORMANT_STEP,
         placeSound = EstrogenSounds::DREAM_BLOCK_DORMANT_PLACE,

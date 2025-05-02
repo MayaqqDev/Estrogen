@@ -116,7 +116,7 @@ internal object DynamicDreamTexture {
     }
 
     private fun shouldAnimate(): Boolean {
-        return animateTexture && dreamBlockRenderMode != DreamBlockRenderMode.BASIC && shouldAnimate.get()
+        return animateTexture && dreamBlockRenderMode != DreamBlockRenderMode.BASIC // && shouldAnimate.get()
     }
 
     private val shouldAnimate = AtomicBoolean()

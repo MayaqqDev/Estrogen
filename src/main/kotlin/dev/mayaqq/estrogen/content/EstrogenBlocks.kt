@@ -43,7 +43,9 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
     }
 
     @Deprecated("Becoming part of DreamBlock")
-    val DORMANT_DREAM_BLOCK: DormantDreamBlock by block("dormant_dream_block", ::DormantDreamBlock) {
+    val DORMANT_DREAM_BLOCK: DormantDreamBlock by block("dormant_dream_block", ::DormantDreamBlock)
+
+    val DREAM_BLOCK: DreamBlock by block("dream_block", ::DreamBlock) {
         properties {
             mapColor(MapColor.DIAMOND)
             instrument(NoteBlockInstrument.HAT)
@@ -51,32 +53,19 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             noOcclusion()
             requiresCorrectToolForDrops()
             isRedstoneConductor(Never)
-            sound(EstrogenSoundTypes.DORMANT_DREAM_BLOCK)
+            sound(EstrogenSoundTypes.DREAM_BLOCK_DORMANT)
             isValidSpawn(Never.withArgument())
             isSuffocating(Never)
             isViewBlocking(Never)
         }
         renderType = RenderType::translucent
-        onRegister {  }
-        item(::BlockItem) {
-            standardTooltip()
-        }
-    }
-
-    val DREAM_BLOCK: DreamBlock by block("dream_block", ::DreamBlock) {
-        copyProperties(Blocks::END_GATEWAY)
-        properties {
-            pushReaction(PushReaction.NORMAL)
-            isSuffocating(Never)
-            sound(EstrogenSoundTypes.DREAM_BLOCK)
-            lightLevel { if (it.getValue(DreamBlock.PERSISTENT)) 10 else 0 }
-            dynamicShape()
-        }
         item(::DreamBottleItem, "dream_bottle") {
             properties {
                 rarity(Rarity.EPIC)
             }
+            onRegister { EstrogenItems.DREAM_BOTTLE = it }
         }
+        item(::BlockItem, "dormant_dream_block")
     }
 
     val MOTH_WOOL: Block by block("moth_wool", ::Block) {

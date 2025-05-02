@@ -31,11 +31,14 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.PotionUtils
+import uwu.serenity.kritter.api.entry.RegistryEntry
 
 
 object EstrogenCreativeTab : Registrar<CreativeModeTab> by Estrogen..Registries.CREATIVE_MODE_TAB {
-    val ESTROGEN by creativeTab("estrogen") {
-        icon { EstrogenItems.ESTROGEN_PILL.defaultInstance }
+
+    // Make it an entry here
+    val ESTROGEN: RegistryEntry<CreativeModeTab> = creativeTab("estrogen") {
+        icon { ESTROGEN_PILL.defaultInstance }
         displayItems { 
             accept(ESTROGEN_PILL);
             accept(CRYSTAL_ESTROGEN_PILL);
@@ -53,7 +56,6 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Estrogen..Registries.
             accept(COLONTHREE);
             accept(COOKIE_JAR);
             accept(DREAM_BLOCK);
-            accept(DORMANT_DREAM_BLOCK);
             accept(ESTROGEN_PILL_BLOCK);
             accept(MOTH_WOOL);
             accept(QUILTED_MOTH_WOOL);

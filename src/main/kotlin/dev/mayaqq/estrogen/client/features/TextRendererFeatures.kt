@@ -24,7 +24,7 @@ object TextRendererFeatures {
         val client = Minecraft.getInstance()
         if (client.player == null) {
             disconnect()
-        } else if (client.player!!.tickCount % 20 == 0) {
+        } else {
             uwufy = client.player!!.inventory.contains(EstrogenTags.Items.UWUFYING)
             obfuscate = client.player!!.hasEffect(EstrogenEffects.DREAMING)
             client.updateTitle()

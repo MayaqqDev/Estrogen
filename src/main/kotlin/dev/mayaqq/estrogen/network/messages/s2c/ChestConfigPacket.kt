@@ -22,7 +22,7 @@ data class ChestConfigPacket(val uuid: UUID, val config: ChestConfig) : Packet.C
         )
     }
 
-    override fun ClientNetworkContext.handle() {
+    override fun ClientNetworkContext.handle() = execute {
         // Probably smart to move to client code idk
         Minecraft.getInstance().level?.getPlayerByUUID(uuid)?.chestConfig = config
     }

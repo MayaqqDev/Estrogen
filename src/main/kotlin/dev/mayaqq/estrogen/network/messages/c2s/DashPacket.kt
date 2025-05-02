@@ -14,8 +14,7 @@ import net.minecraft.sounds.SoundSource
 
 @SerializablePacket("dash")
 data class DashPacket(val isInitial: Boolean, val dashLevel: Int) : Packet.Serverbound {
-    override fun ServerNetworkContext.handle() {
-
+    override fun ServerNetworkContext.handle() = execute {
         if (sender.hasEffect(EstrogenEffects.ESTROGEN)) {
             val level = sender.level() as ServerLevel
 

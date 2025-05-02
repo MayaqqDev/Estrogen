@@ -144,4 +144,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         }
         creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.AFTER(Items.HONEY_BOTTLE))
     }
+
+    lateinit var DREAM_BOTTLE: DreamBottleItem
+        internal set
 }

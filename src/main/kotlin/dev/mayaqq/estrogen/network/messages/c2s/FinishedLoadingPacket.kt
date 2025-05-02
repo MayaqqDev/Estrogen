@@ -13,10 +13,9 @@ import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigPacket
 
 @SerializablePacket("finished_load")
 data object FinishedLoadingPacket : Packet.Serverbound {
-    override fun ServerNetworkContext.handle() {
+    override fun ServerNetworkContext.handle() = execute {
         for (player in PlayerLookup.tracking(sender)) {
             EstrogenEffect.sendPlayerStatusEffect(player!!, EstrogenEffects.ESTROGEN, sender)
-
             player.chestConfig?.let {
                 EstrogenNetwork.sendToPlayer(ChestConfigPacket(player.uuid, it), sender)
             }
