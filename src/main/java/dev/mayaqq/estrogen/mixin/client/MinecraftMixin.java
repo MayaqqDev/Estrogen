@@ -1,7 +1,7 @@
 package dev.mayaqq.estrogen.mixin.client;
 
 import com.mojang.blaze3d.platform.Window;
-import dev.mayaqq.cynosure.utils.fun.UwUfyKt;
+import dev.mayaqq.cynosure.utils.fun.UwUfy;
 import dev.mayaqq.estrogen.config.EstrogenClientConfig;
 import dev.mayaqq.estrogen.content.EstrogenEffects;
 import dev.mayaqq.estrogen.content.EstrogenMusic;
@@ -26,7 +26,7 @@ public abstract class MinecraftMixin {
     private void updateTitle(final CallbackInfo info) {
         if(TextRendererFeatures.getUwufy()) {
             info.cancel();
-            this.getWindow().setTitle(UwUfyKt.uwufy(this.createTitle()));
+            this.getWindow().setTitle(UwUfy.uwufy(this.createTitle()));
         }
     }
 

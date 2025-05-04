@@ -1,0 +1,21 @@
+{
+  "duration": 10.0,
+  "looping": true,
+  "bones": {
+    "ass": [
+      {
+        "target": "rotation",
+        "keyframes": [
+          {
+            "timestamp": 0.0,
+            "target": {
+              "type": "cynosure:angle",
+              "value": [ -20.0, 0.0, 0.0 ]
+            },
+            "interpolation": "cynosure:catmullrom"
+          }
+        ]
+      }
+    ]
+  }
+}

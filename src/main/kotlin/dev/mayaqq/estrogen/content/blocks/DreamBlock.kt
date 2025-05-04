@@ -14,20 +14,27 @@ import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.client.features.TextRendererFeatures
 import dev.mayaqq.estrogen.client.features.dash.ClientDash
+import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenSoundTypes
 import dev.mayaqq.estrogen.features.dash.CommonDash
 import dev.mayaqq.estrogen.network.EstrogenNetwork
+import dev.mayaqq.estrogen.network.messages.c2s.DreamBlockRipplePacket
 import dev.mayaqq.estrogen.network.messages.s2c.DreamBlockSeedPacket
 import net.minecraft.client.Minecraft
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.util.Mth
+import net.minecraft.util.RandomSource
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
@@ -40,8 +47,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BooleanProperty
+import net.minecraft.world.level.entity.EntityTypeTest
 import net.minecraft.world.level.levelgen.WorldOptions
 import net.minecraft.world.level.material.Fluid
+import net.minecraft.world.phys.AABB
+import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.EntityCollisionContext
@@ -116,6 +126,39 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
     ): BlockState {
         return if (neighborState.`is`(this)) state.setValue(directionProperty(direction), true)
         else state.setValue(directionProperty(direction), false)
+    }
+
+    override fun isRandomlyTicking(state: BlockState): Boolean = !state.getValue(PERSISTENT)
+
+    override fun randomTick(state: BlockState, level: ServerLevel, pos: BlockPos, random: RandomSource) {
+        // TODO: Possibly configurable range and chance?
+        if (state.getValue(PERSISTENT)) return
+
+        EstrogenServerConfig.DreamBlock.dreamingTickChance
+            .also { if (it < 100 && random.nextIntBetweenInclusive(0, 100) > it) return }
+
+        val range = EstrogenServerConfig.DreamBlock.dreamingEffectRange
+        val aabb = AABB(
+            (-range).toDouble(), (-range).toDouble(), (-range).toDouble(),
+            range.toDouble(), range.toDouble(), range.toDouble()
+        ).move(pos)
+
+        val entities = level.getPlayers {
+            it.isSleeping
+                    && aabb.contains(it.position())
+                    && it.hasEffect(EstrogenEffects.ESTROGEN)
+                    && !it.hasEffect(EstrogenEffects.DREAMING)
+        }
+
+        if (entities.isEmpty()) return
+        val player = entities[random.nextInt(0, entities.size)]
+        player.stopSleeping()
+        player.addEffect(MobEffectInstance(
+            EstrogenEffects.DREAMING,
+            MobEffectInstance.INFINITE_DURATION,
+            0, true, false
+        ))
+
     }
 
     override fun entityInside(state: BlockState, level: Level, pos: BlockPos, entity: Entity) {
@@ -201,11 +244,16 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
 
         @Subscription
         internal fun onAttackBlock(event: InteractionEvent.AttackBlock) {
+            if (event.player.abilities.instabuild) return
             val state = event.level.getBlockState(event.pos)
             if (state.`is`(EstrogenBlocks.DREAM_BLOCK)) {
                 clientOnly {
-                    if (event.level.isClientSide && TextRendererFeatures.obfuscate) {
+                    if (event.level.isClientSide && TextRendererFeatures.obfuscate || state.getValue(PERSISTENT)) {
                         event.result = InteractionResult.FAIL
+                        val hitResult = Minecraft.getInstance().hitResult
+                        if (hitResult is BlockHitResult) {
+                            EstrogenNetwork.sendToServer(DreamBlockRipplePacket(hitResult.location, hitResult.direction))
+                        }
                         return
                     }
                 }

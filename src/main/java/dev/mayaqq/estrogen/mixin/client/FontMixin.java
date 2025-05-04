@@ -1,7 +1,7 @@
 package dev.mayaqq.estrogen.mixin.client;
 
 import dev.mayaqq.cynosure.utils.fun.UwUOrderedText;
-import dev.mayaqq.cynosure.utils.fun.UwUfyKt;
+import dev.mayaqq.cynosure.utils.fun.UwUfy;
 import dev.mayaqq.estrogen.client.features.TextRendererFeatures;
 import net.minecraft.client.gui.Font;
 import net.minecraft.util.FormattedCharSequence;
@@ -20,7 +20,7 @@ public class FontMixin {
             argsOnly = true
     )
     private String modifyString(String text) {
-        if (TextRendererFeatures.getUwufy()) return UwUfyKt.uwufy(text);
+        if (TextRendererFeatures.getUwufy()) return UwUfy.uwufy(text);
         else return text;
     }
 

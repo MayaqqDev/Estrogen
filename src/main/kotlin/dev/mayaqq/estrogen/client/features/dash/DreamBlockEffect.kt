@@ -14,7 +14,8 @@ import net.minecraft.client.Minecraft
 @EventSubscriber(env = [Environment.CLIENT])
 object DreamBlockEffect {
     private var sound: DreamBlockSoundInstance? = null
-    private var isInDreamBlock = false
+    var isInDreamBlock = false
+        private set
     private var dreamBlockTick = 0
 
     @Subscription
