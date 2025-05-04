@@ -28,6 +28,7 @@ object ClientDash {
     private const val SUPER_V_SPEED: Double = 1.0
     private const val BOUNCE_H_SPEED: Double = 0.8
     private const val BOUNCE_V_SPEED: Double = 1.5
+    private const val ULTRA_MULTIPLIER: Double = 1.8
 
     private var isOnCooldown: Boolean = false
 
@@ -42,6 +43,12 @@ object ClientDash {
     private var dashDeltaModifier: Double = 0.0
 
     private var lastPos: BlockPos? = null
+
+    private var dashVelocity: Vec3? = null
+    private var canUltra: Boolean = false
+    private var willUltra: Boolean = false
+    private var ultraCooldown: Int = 0
+    private var ultraVelocity: Vec3? = null
 
     fun tick() {
         val player = Minecraft.getInstance().player ?: return
@@ -68,7 +75,27 @@ object ClientDash {
             extraParticleTicks--
         }
 
-        // Here is when the dash happens
+        // After Dash (check for ultra)
+        if (willUltra) {
+            player.deltaMovement = (ultraVelocity?: dashVelocity!!)
+                .scale(ULTRA_MULTIPLIER)
+                .with(Direction.Axis.Y, 0.42)
+            ultraCooldown = 0
+            ultraVelocity = null
+            willUltra = false
+        }
+        if (canUltra) {
+            if (player.onGround()) {
+                canUltra = false
+                ultraCooldown = 5
+            } else ultraVelocity = player.deltaMovement
+        }
+        if (ultraCooldown > 0) {
+            ultraCooldown--
+            if (player.onGround() and Minecraft.getInstance().options.keyJump.isDown) willUltra = true
+        }
+
+        // Start Dash
         if (EstrogenKeybinds.DASH_KEY.consumeClick() && !isOnCooldown()) {
             // Dash level of current dash (number of dashes at the beginning)
             dashLevel = dashes
@@ -86,13 +113,15 @@ object ClientDash {
         // End Dash
         if (dashCooldown == 0) {
             removeDashing(player.uuid)
-            if (!player.isFallFlying) {
+            if (!player.isFallFlying && dashXRot < 15) {
                 player.deltaMovement = dashDirection!!.scale(DASH_END_SPEED).scale(dashDeltaModifier)
+            } else {
+                canUltra = true
             }
             return
         }
 
-        player.deltaMovement = dashDirection!!.scale(DASH_SPEED).scale(dashDeltaModifier)
+        player.deltaMovement = dashVelocity!!
 
         // Hyper and Super Detection
         if (Minecraft.getInstance().options.keyJump.isDown) {
@@ -139,7 +168,19 @@ object ClientDash {
             ) * (180f / Math.PI.toFloat()).toDouble())).toFloat()
         ).toDouble()
         ClientDash.dashDirection = dashDirection
+
         dashDeltaModifier = EstrogenCommonConfig.Dash.deltaModifier
+
+        // if the player is moving horizontally faster than a regular dash, use that horizontal speed instead
+        dashVelocity = dashDirection.scale(DASH_SPEED).scale(dashDeltaModifier)
+        if (dashDirection.horizontalDot(player.deltaMovement) > 1) {
+            val speedScale = player.deltaMovement.horizontalDistance() / dashVelocity!!.horizontalDistance()
+            dashVelocity = dashVelocity!!.scale(speedScale).with(Direction.Axis.Y, dashVelocity!!.y)
+        }
+    }
+
+    private fun Vec3.horizontalDot(vec3: Vec3): Double {
+        return this.x * vec3.x + this.y * vec3.y
     }
 
     private fun hyperJump(player: LocalPlayer, jumpDirection: Vec3) {
