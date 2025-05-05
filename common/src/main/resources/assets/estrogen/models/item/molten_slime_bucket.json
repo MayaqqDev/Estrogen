@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "estrogen:item/molten_slime_bucket"
-  }
-}
