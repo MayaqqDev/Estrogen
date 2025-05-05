@@ -56,7 +56,7 @@ object ClientDash {
     dashDirection: a unit vector in the direction the dash was started with. used to construct the initial and final dash velocity
     dashXRot: angle of inclination of the dash. used for determining what tech the player does.
     dashVelocity: the velocity applied to the player throughout the dash. this needs not be parallel to dashDirection. allows ultras to be possible
-    ultraVelocity:
+    ultraVelocity: the velocity of the player prior to the ultra. because touching the ground changes the player's velocity, this stores the velocity when they were last in the air.
      */
 
     fun tick() {
