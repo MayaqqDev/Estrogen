@@ -1,6 +1,0 @@
-{
-  "parent": "estrogen:item/bed",
-  "textures": {
-    "bed": "estrogen:block/bed/moth"
-  }
-}

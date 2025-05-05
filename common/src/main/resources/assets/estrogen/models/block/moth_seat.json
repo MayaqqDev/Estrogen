@@ -1,7 +1,0 @@
-{
-  "parent": "create:block/seat",
-  "textures": {
-    "1": "estrogen:block/seat/top_moth",
-    "2": "estrogen:block/seat/side_moth"
-  }
-}
