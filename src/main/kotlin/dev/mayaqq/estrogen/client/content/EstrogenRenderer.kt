@@ -24,13 +24,16 @@ import net.minecraft.client.renderer.ShaderInstance
 object EstrogenRenderer {
 
     // Render state shards
-    val SHADER_BYPASS: OutputStateShard = OutputStateShard("dream_block_shader_target",
+    val SHADER_BYPASS: OutputStateShard = OutputStateShard("shader_bypass",
         { if (isShaderPackInUse) shaderBypassTarget?.bindWrite(Minecraft.ON_OSX) },
         { if (isShaderPackInUse) Minecraft.getInstance().mainRenderTarget.bindWrite(false) }
     )
 
     // Shaders
     lateinit var dreamBlockShader: ShaderInstance
+        private set
+
+    lateinit var cutoutColorShader: ShaderInstance
         private set
 
     // Post chains and framebuffers
@@ -41,6 +44,7 @@ object EstrogenRenderer {
     @Subscription
     fun onLoadShaders(event: CoreShaderRegistrationEvent) {
         event.register(id("rendertype_estrogen_dream"), DefaultVertexFormat.BLOCK, ::dreamBlockShader)
+        //event.register(id("particle_cutout_color"), DefaultVertexFormat.PARTICLE, ::cutoutColorShader)
     }
 
     @Subscription

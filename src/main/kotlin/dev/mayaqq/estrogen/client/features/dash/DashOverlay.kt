@@ -12,10 +12,12 @@ import dev.mayaqq.cynosure.utils.colors.floatBlue
 import dev.mayaqq.cynosure.utils.colors.floatGreen
 import dev.mayaqq.cynosure.utils.colors.floatRed
 import dev.mayaqq.cynosure.utils.pushPop
+import dev.mayaqq.estrogen.client.features.TextRendererFeatures
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.getDashLevel
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.isOnCooldown
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.content.EstrogenEffects
+import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
@@ -31,10 +33,10 @@ object DashOverlay : HudOverlay {
             val dc: Color = EstrogenColors.getDashColor(getDashLevel(), false)
             renderOverlay(graphics, dc.floatRed, dc.floatGreen, dc.floatBlue)
         }
-//        if (TODO("DreamBlockEffect.isInDreamBlock()")) {
-//            renderOverlay(graphics, 0.2f, 0.0f, 0.2f)
-//        }
-        if (player.hasEffect(EstrogenEffects.DREAMING)) {
+        if (DreamBlockEffect.isInDreamBlock) {
+            renderOverlay(graphics, 0.2f, 0.0f, 0.2f)
+        }
+        if (TextRendererFeatures.obfuscate) {
             renderOverlay(graphics, 0.1f, 0.3f, 0.3f, 0.1f)
         }
     }

@@ -13,8 +13,8 @@ object BreastArmorDataLoader : SimpleJsonResourceReloadListener(Gson(), "estroge
     override fun apply(map: Map<ResourceLocation, JsonElement>, resourceManager: ResourceManager, profilerFiller: ProfilerFiller) {
         this.data.clear()
         val new = hashMapOf<ResourceLocation, BreastArmorData>()
-        map.forEach { location, data ->
-            new.put(location, BreastArmorData.fromJson(data))
+        map.forEach { (location, data) ->
+            new[location] = BreastArmorData.fromJson(data)
         }
         this.data.putAll(new)
     }

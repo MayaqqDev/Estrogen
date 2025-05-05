@@ -21,21 +21,6 @@ object EstrogenCommonConfig {
 
     }
 
-    @Comment("Settings which are more fun and not fit for survival")
-    object Minigame {
-
-        @Comment("Enable/Disable all minigame settings")
-        var enabled: Boolean = false
-
-        @Comment("Gives you permanent, unremovable Girl Power effect")
-        var permaDash: Boolean = false
-
-        @Comment("The level of Girl Power Effect when Perma-Dash is enabled")
-        @CustomName("permaDashLevel")
-        var girlPowerLevel: @Range(0, 255) Int = 1
-
-    }
-
     @Comment("Settings for the durations of effects")
     object Durations {
 

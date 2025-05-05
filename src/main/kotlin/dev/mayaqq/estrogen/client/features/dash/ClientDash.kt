@@ -161,7 +161,7 @@ object ClientDash {
     }
 
     private fun dash(player: LocalPlayer, dashDirection: Vec3, dashLevel: Int = 0) {
-        //TODO: DreamBlock.lookAngle = null
+        DreamBlock.lookAngle = null
         setDashing(player.uuid)
 
         EstrogenNetwork.sendToServer(DashPacket(true, dashLevel))

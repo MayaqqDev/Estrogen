@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.mixin.client;
 
-import dev.mayaqq.cynosure.utils.fun.UwUfyKt;
+import dev.mayaqq.cynosure.utils.fun.UwUfy;
 import dev.mayaqq.estrogen.client.content.sounds.MothFlyingSoundInstance;
 import dev.mayaqq.estrogen.content.EstrogenEnchantments;
 import dev.mayaqq.estrogen.content.entities.MothEntity;
@@ -34,7 +34,7 @@ public class ClientPacketListenerMixin {
     private String modifyMessage(String message) {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player != null && EnchantmentHelper.getEnchantments(player.getInventory().getArmor(3)).containsKey(EstrogenEnchantments.INSTANCE.getUWUFYING_CURSE())) {
-            message = UwUfyKt.uwufy(message);
+            message = UwUfy.uwufy(message);
 
         }
         return message;

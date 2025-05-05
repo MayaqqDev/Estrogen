@@ -7,5 +7,5 @@ import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.Dyna
 
 @SerializablePacket("dream_block_seed")
 data class DreamBlockSeedPacket(val seed: Long) : Packet.Clientbound {
-    override fun ClientNetworkContext.handle() = DynamicDreamTexture.changeSeed(seed)
+    override fun ClientNetworkContext.handle() = execute { DynamicDreamTexture.changeSeed(seed) }
 }

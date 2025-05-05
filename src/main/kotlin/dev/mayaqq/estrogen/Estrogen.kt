@@ -6,6 +6,7 @@ import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.utils.isModLoaded
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
+import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.config.Instance
 import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.network.EstrogenNetwork
@@ -34,12 +35,13 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
 
     fun init() {
         if (isModLoaded("minecraftcapes")) {
-            mcCapesMessage.split("\n").forEach {
+            mcCapesMessage.trimIndent().split("\n").forEach {
                 info("[ESTROGEN] $it")
             }
         }
 
         EstrogenCommonConfig.Instance.load()
+        EstrogenServerConfig.Instance.load()
 
         EstrogenAttributes.register()
         EstrogenSounds.register()

@@ -6,6 +6,7 @@ import com.mojang.math.Axis
 import dev.mayaqq.cynosure.utils.colors.floatBlue
 import dev.mayaqq.cynosure.utils.colors.floatGreen
 import dev.mayaqq.cynosure.utils.colors.floatRed
+import dev.mayaqq.cynosure.utils.pushPop
 import dev.mayaqq.estrogen.content.particles.DashTrailParticleOptions
 import dev.mayaqq.estrogen.id
 import net.minecraft.client.Camera
@@ -56,10 +57,10 @@ class DashTrailParticle(
 
         val renderer = Minecraft.getInstance().entityRenderDispatcher.getRenderer(entity) as LivingEntityRenderer<*, *>
         val consumer = ModelConsumer()
-        matrices.pushPose()
-        renderer.model.young = entity.isBaby // Unbaby the player model
-        renderer.model.renderToBuffer(matrices, consumer, 0, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f)
-        matrices.popPose()
+        matrices.pushPop {
+            renderer.model.young = entity.isBaby // Unbaby the player model
+            renderer.model.renderToBuffer(matrices, consumer, 0, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f)
+        }
         vertices = consumer.data
         vertexCount = consumer.vertexCount
     }
@@ -71,22 +72,21 @@ class DashTrailParticle(
         val y = (this.y - pos.y()).toFloat()
         val z = (this.z - pos.z()).toFloat()
 
-        matrices.pushPose()
-        matrices.translate(x, y + 1.5f, z)
-        matrices.scale(-1.0f, -1.0f, 1.0f)
-        matrices.mulPose(Axis.YP.rotationDegrees(yRot))
+        matrices.pushPop {
+            translate(x, y + 1.5f, z)
+            scale(-1.0f, -1.0f, 1.0f)
+            mulPose(Axis.YP.rotationDegrees(yRot))
 
-        val alpha = 1f - Mth.lerp(partialTicks, max((age - 1).toDouble(), 0.0).toFloat(), age.toFloat()) / lifetime
-        for (i in 0..<vertexCount) {
-            val v = i * ModelConsumer.STRIDE
-            buffer.vertex(matrices.last().pose(), vertices[v], vertices[v + 1], vertices[v + 2])
-                .uv(uForVertex(i), vForVertex(i))
-                .color(r, g, b, alpha)
-                .uv2(LightTexture.FULL_BRIGHT)
-                .endVertex()
+            val alpha = 1f - Mth.lerp(partialTicks, max((age - 1).toDouble(), 0.0).toFloat(), age.toFloat()) / lifetime
+            for (i in 0..<vertexCount) {
+                val v = i * ModelConsumer.STRIDE
+                buffer.vertex(last().pose(), vertices[v], vertices[v + 1], vertices[v + 2])
+                    .uv(uForVertex(i), vForVertex(i))
+                    .color(r, g, b, alpha)
+                    .uv2(LightTexture.FULL_BRIGHT)
+                    .endVertex()
+            }
         }
-
-        matrices.popPose()
     }
 
     override fun getRenderType(): ParticleRenderType = RENDER_TYPE

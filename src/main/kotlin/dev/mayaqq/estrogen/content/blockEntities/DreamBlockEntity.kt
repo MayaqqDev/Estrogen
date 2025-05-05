@@ -1,20 +1,33 @@
 package dev.mayaqq.estrogen.content.blockEntities
 
-import dev.mayaqq.estrogen.Estrogen
-import dev.mayaqq.estrogen.client.features.TextRendererFeatures
 import dev.mayaqq.estrogen.content.blocks.DreamBlock
+import it.unimi.dsi.fastutil.longs.LongArrayList
+import it.unimi.dsi.fastutil.longs.LongList
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.core.SectionPos
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
-import uwu.serenity.kritter.stdlib.TickableBlockEntity
 
-class DreamBlockEntity(p0: BlockEntityType<*>, p1: BlockPos, p2: BlockState) : BlockEntity(p0, p1, p2) {
+class DreamBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockState: BlockState) : BlockEntity(type, blockPos, blockState) {
+
+    init {
+        CHUNKS.add(SectionPos.asLong(blockPos))
+    }
 
     val isPersistent: Boolean
         get() = blockState.getValue(DreamBlock.PERSISTENT)
 
     fun isTouchingDreamBlock(direction: Direction): Boolean = blockState.getValue(DreamBlock.directionProperty(direction))
 
+    override fun setRemoved() {
+        super.setRemoved()
+        CHUNKS.remove(SectionPos.asLong(blockPos))
+    }
+
+    companion object {
+        val CHUNKS: LongList = LongArrayList()
+
+    }
 }

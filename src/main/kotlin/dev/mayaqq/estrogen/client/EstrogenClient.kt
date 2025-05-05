@@ -25,9 +25,13 @@ import dev.mayaqq.estrogen.config.Instance
 import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.injection.chestConfig
+import dev.mayaqq.estrogen.network.EstrogenNetwork
+import dev.mayaqq.estrogen.network.messages.c2s.SetChestConfigPacket
 import net.minecraft.client.Minecraft
 import net.minecraft.world.entity.EntityType
 import uwu.serenity.kittyconfig.api.defaults.load
+
+internal var chestConfigSet = false
 
 fun estrogenClient() {
     EstrogenClientConfig.Instance.load()
@@ -40,7 +44,7 @@ fun estrogenClient() {
 }
 
 @Subscription
-fun addRenderLayers(event: RenderLayerRegistrationEvent) {
+internal fun addRenderLayers(event: RenderLayerRegistrationEvent) {
     event.addLayer(EntityType.ARMOR_STAND) { MothElytraLayer(it, event.models) }
     DefaultSkin.entries.forEach { skin ->
         event.addLayer(skin) { MothElytraLayer(it, event.models) }
@@ -49,18 +53,20 @@ fun addRenderLayers(event: RenderLayerRegistrationEvent) {
 }
 
 @Subscription
-fun registerParticleRenderTypes(event: ParticleRenderTypeRegistrationEvent) {
+internal fun registerParticleRenderTypes(event: ParticleRenderTypeRegistrationEvent) {
     event.register(DashTrailParticle.RENDER_TYPE)
 }
 
-var set = false
-
 @Subscription
-fun ticking(event: ClientTickEvent) {
+internal fun ticking(event: ClientTickEvent) {
     //TODO: THIS
-    if (!set) {
+    if (!chestConfigSet) {
         val player = Minecraft.getInstance().player ?: return
-        player.chestConfig = ChestConfig(EstrogenClientConfig.ChestFeature.enabled, EstrogenClientConfig.ChestFeature.armor, EstrogenClientConfig.ChestFeature.physics, EstrogenClientConfig.ChestFeature.bounciness.toFloat(), EstrogenClientConfig.ChestFeature.damping)
-        set = true
+        val config = ChestConfig(EstrogenClientConfig.ChestFeature.enabled, EstrogenClientConfig.ChestFeature.armor, EstrogenClientConfig.ChestFeature.physics, EstrogenClientConfig.ChestFeature.bounciness.toFloat(), EstrogenClientConfig.ChestFeature.damping)
+        player.chestConfig = config
+        EstrogenNetwork.sendToServer(SetChestConfigPacket(config))
+        chestConfigSet = true
     }
+
+
 }
