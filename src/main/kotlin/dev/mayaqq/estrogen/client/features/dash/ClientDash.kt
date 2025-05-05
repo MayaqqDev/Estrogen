@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.core.Direction.Axis
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.block.LiquidBlock
@@ -28,6 +29,8 @@ object ClientDash {
     private const val SUPER_V_SPEED: Double = 1.0
     private const val BOUNCE_H_SPEED: Double = 0.8
     private const val BOUNCE_V_SPEED: Double = 1.5
+    private const val ULTRA_MULTIPLIER: Double = 1.5
+    private const val ULTRA_V_SPEED: Double = 0.42
 
     private var isOnCooldown: Boolean = false
 
@@ -42,6 +45,19 @@ object ClientDash {
     private var dashDeltaModifier: Double = 0.0
 
     private var lastPos: BlockPos? = null
+
+    private var dashVelocity: Vec3? = null
+    private var canUltra: Boolean = false
+    private var willUltra: Boolean = false
+    private var ultraCooldown: Int = 0
+    private var ultraVelocity: Vec3? = null
+
+    /*
+    dashDirection: a unit vector in the direction the dash was started with. used to construct the initial and final dash velocity
+    dashXRot: angle of inclination of the dash. used for determining what tech the player does.
+    dashVelocity: the velocity applied to the player throughout the dash. this needs not be parallel to dashDirection. allows ultras to be possible
+    ultraVelocity: the velocity of the player prior to the ultra. because touching the ground changes the player's velocity, this stores the velocity when they were last in the air.
+     */
 
     fun tick() {
         val player = Minecraft.getInstance().player ?: return
@@ -68,7 +84,27 @@ object ClientDash {
             extraParticleTicks--
         }
 
-        // Here is when the dash happens
+        // After Dash (check for ultra)
+        if (willUltra) {
+            player.deltaMovement = (ultraVelocity?: dashVelocity!!)
+                .scale(ULTRA_MULTIPLIER)
+                .with(Axis.Y, ULTRA_V_SPEED)
+            ultraCooldown = 0
+            ultraVelocity = null
+            willUltra = false
+        }
+        if (canUltra) {
+            if (player.onGround()) {
+                canUltra = false
+                ultraCooldown = 5
+            } else ultraVelocity = player.deltaMovement
+        }
+        if (ultraCooldown > 0) {
+            ultraCooldown--
+            if (player.onGround() and Minecraft.getInstance().options.keyJump.isDown) willUltra = true
+        }
+
+        // Start Dash
         if (EstrogenKeybinds.DASH_KEY.consumeClick() && !isOnCooldown()) {
             // Dash level of current dash (number of dashes at the beginning)
             dashLevel = dashes
@@ -86,13 +122,15 @@ object ClientDash {
         // End Dash
         if (dashCooldown == 0) {
             removeDashing(player.uuid)
-            if (!player.isFallFlying) {
+            if (!player.isFallFlying && dashXRot < 15 || player.onGround()) {
                 player.deltaMovement = dashDirection!!.scale(DASH_END_SPEED).scale(dashDeltaModifier)
+            } else {
+                canUltra = true
             }
             return
         }
 
-        player.deltaMovement = dashDirection!!.scale(DASH_SPEED).scale(dashDeltaModifier)
+        player.deltaMovement = dashVelocity!!
 
         // Hyper and Super Detection
         if (Minecraft.getInstance().options.keyJump.isDown) {
@@ -131,15 +169,26 @@ object ClientDash {
         // Set counter to duration of dash
         dashCooldown = 5
 
-        // math from Entity.lookAt()
-        dashXRot = Mth.wrapDegrees(
-            (-(Mth.atan2(
-                dashDirection.y,
-                dashDirection.horizontalDistance()
-            ) * (180f / Math.PI.toFloat()).toDouble())).toFloat()
-        ).toDouble()
-        ClientDash.dashDirection = dashDirection
+        dashXRot = dashDirection.getXRot()
+        ClientDash.dashDirection = dashDirection.normalize()
+
         dashDeltaModifier = EstrogenCommonConfig.Dash.deltaModifier
+
+        // if the player is moving horizontally faster than a regular dash, use that horizontal speed instead
+        dashVelocity = dashDirection.scale(DASH_SPEED).scale(dashDeltaModifier)
+        if (dashDirection.horizontalDot(player.deltaMovement) > 1) {
+            val speedScale = player.deltaMovement.horizontalDistance() / dashVelocity!!.horizontalDistance()
+            dashVelocity = dashVelocity!!.scale(speedScale).with(Axis.Y, dashVelocity!!.y)
+        }
+    }
+
+    private fun Vec3.horizontalDot(vec3: Vec3): Double {
+        return x * vec3.x + y * vec3.y
+    }
+
+    private fun Vec3.getXRot(): Double {
+        // math from Entity.lookAt()
+        return Mth.wrapDegrees(-Mth.atan2(y, horizontalDistance()) * 180.0 / Math.PI)
     }
 
     private fun hyperJump(player: LocalPlayer, jumpDirection: Vec3) {
