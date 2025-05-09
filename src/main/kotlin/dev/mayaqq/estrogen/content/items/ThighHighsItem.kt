@@ -116,23 +116,17 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
 
         val CAULDRON_INTERACTION: CauldronInteraction = CauldronInteraction { blockState, level, blockPos, player, _, itemStack ->
                 val item = itemStack.item
-                if (item !is ThighHighsItem) {
+                if (item !is ThighHighsItem || !item.hasCustomColor(itemStack))
                     return@CauldronInteraction InteractionResult.PASS
-                }
-                if (!item.hasCustomColor(itemStack)) {
-                    return@CauldronInteraction InteractionResult.PASS
-                }
+
                 if (!level.isClientSide) {
                     item.clearColor(itemStack)
                     player.awardStat(Stats.CLEAN_ARMOR)
+                    level.playSound(null, blockPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.5f, 1.8f)
                     LayeredCauldronBlock.lowerFillLevel(blockState, level, blockPos)
-                }
-
-                level.playLocalSound(blockPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.5f, 1.8f, true)
-
-                if (level.isClientSide) {
-                    val fillHeight = blockState.getValue<Int?>(LayeredCauldronBlock.LEVEL) / 3f
-                    (0..7).forEach { i ->
+                } else {
+                    val fillHeight = blockState.getValue(LayeredCauldronBlock.LEVEL) / 3f
+                    for (i in 0..7) {
                         val xOff = level.random.nextGaussian() / 5 + 0.5
                         val zOff = level.random.nextGaussian() / 5 + 0.5
 
@@ -147,6 +141,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
                         )
                     }
                 }
+
                 InteractionResult.sidedSuccess(level.isClientSide)
             }
     }
