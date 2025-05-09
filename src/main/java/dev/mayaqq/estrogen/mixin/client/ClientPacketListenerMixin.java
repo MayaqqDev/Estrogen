@@ -33,7 +33,7 @@ public class ClientPacketListenerMixin {
     )
     private String modifyMessage(String message) {
         LocalPlayer player = Minecraft.getInstance().player;
-        if (player != null && EnchantmentHelper.getEnchantments(player.getInventory().getArmor(3)).containsKey(EstrogenEnchantments.INSTANCE.getUWUFYING_CURSE())) {
+        if (player != null && EnchantmentHelper.getEnchantments(player.getInventory().getArmor(3)).containsKey(EstrogenEnchantments.INSTANCE.getUwUfyingCurse())) {
             message = UwUfy.uwufy(message);
 
         }

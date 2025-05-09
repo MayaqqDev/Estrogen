@@ -10,15 +10,14 @@ import dev.mayaqq.cynosure.particles.CynosureParticleOptions
 import dev.mayaqq.cynosure.particles.CynosureParticleType
 import dev.mayaqq.estrogen.content.EstrogenParticles
 import net.minecraft.core.UUIDUtil
-import uwu.serenity.kritter.api.entry.getEntry
 import uwu.serenity.kritter.api.entry.getEntryOrThrow
 import java.util.*
 
 data class DashTrailParticleOptions(val player: UUID, val color: Color) : CynosureParticleOptions<DashTrailParticleOptions> {
 
-    override fun getType(): CynosureParticleType<DashTrailParticleOptions> = EstrogenParticles.DASH_TRAIL
+    override fun getType(): CynosureParticleType<DashTrailParticleOptions> = EstrogenParticles.DashTrail
 
-    override fun writeToString(): String = "${EstrogenParticles::DASH_TRAIL.getEntryOrThrow().key.location()} ($player, $color)"
+    override fun writeToString(): String = "${EstrogenParticles::DashTrail.getEntryOrThrow().key.location()} ($player, $color)"
 
     companion object {
 

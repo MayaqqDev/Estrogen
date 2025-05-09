@@ -18,7 +18,7 @@ import uwu.serenity.kritter.stdlib.spawnEgg
 import uwu.serenity.kritter.stdlib.spawnPlacement
 
 object EstrogenEntities : Registrar<EntityType<*>> by Estrogen..Registries.ENTITY_TYPE {
-    val MOTH by entity("moth", MobCategory.CREATURE, ::MothEntity) {
+    val Moth by entity("moth", MobCategory.CREATURE, ::MothEntity) {
         settings {
             sized(0.6f, 0.6f)
             clientTrackingRange(80)

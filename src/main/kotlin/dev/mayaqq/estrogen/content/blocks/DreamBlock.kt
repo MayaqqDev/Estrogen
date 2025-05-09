@@ -8,12 +8,10 @@ import dev.mayaqq.cynosure.events.entity.player.PlayerConnectionEvent
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
 import dev.mayaqq.cynosure.utils.Environment
 import dev.mayaqq.cynosure.utils.PlatformHooks
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.refresh
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.client.features.TextRendererFeatures
-import dev.mayaqq.estrogen.client.features.dash.ClientDash
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenEffects
@@ -27,14 +25,12 @@ import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.server.level.ServerPlayer
 import net.minecraft.util.Mth
 import net.minecraft.util.RandomSource
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
@@ -47,7 +43,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BooleanProperty
-import net.minecraft.world.level.entity.EntityTypeTest
 import net.minecraft.world.level.levelgen.WorldOptions
 import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.phys.AABB
@@ -124,7 +119,8 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         pos: BlockPos,
         neighborPos: BlockPos
     ): BlockState {
-        return if (neighborState.`is`(this)) state.setValue(directionProperty(direction), true)
+        return if (neighborState.`is`(this) && neighborState.getValue(PERSISTENT) == state.getValue(PERSISTENT))
+            state.setValue(directionProperty(direction), true)
         else state.setValue(directionProperty(direction), false)
     }
 
@@ -146,15 +142,15 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         val entities = level.getPlayers {
             it.isSleeping
                     && aabb.contains(it.position())
-                    && it.hasEffect(EstrogenEffects.ESTROGEN)
-                    && !it.hasEffect(EstrogenEffects.DREAMING)
+                    && it.hasEffect(EstrogenEffects.Estrogen)
+                    && !it.hasEffect(EstrogenEffects.Dreaming)
         }
 
         if (entities.isEmpty()) return
         val player = entities[random.nextInt(0, entities.size)]
         player.stopSleeping()
         player.addEffect(MobEffectInstance(
-            EstrogenEffects.DREAMING,
+            EstrogenEffects.Dreaming,
             MobEffectInstance.INFINITE_DURATION,
             0, true, false
         ))
@@ -214,7 +210,7 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
 
         @JvmStatic
         fun canEntityUse(state: BlockState, entity: LivingEntity?): Boolean =
-            state.getValue(PERSISTENT) || entity?.hasEffect(EstrogenEffects.DREAMING) == true
+            state.getValue(PERSISTENT) || entity?.hasEffect(EstrogenEffects.Dreaming) == true
 
         fun isInDreamBlock(player: Player): Boolean {
             if (player.isSpectator) return false
@@ -246,7 +242,7 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         internal fun onAttackBlock(event: InteractionEvent.AttackBlock) {
             if (event.player.abilities.instabuild) return
             val state = event.level.getBlockState(event.pos)
-            if (state.`is`(EstrogenBlocks.DREAM_BLOCK)) {
+            if (state.`is`(EstrogenBlocks.DreamBlock)) {
                 clientOnly {
                     if (event.level.isClientSide && TextRendererFeatures.obfuscate || state.getValue(PERSISTENT)) {
                         event.result = InteractionResult.FAIL

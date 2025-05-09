@@ -33,8 +33,8 @@ public abstract class MinecraftMixin {
     @Inject(method = "getSituationalMusic", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;blockPosition()Lnet/minecraft/core/BlockPos;", shift = At.Shift.AFTER), cancellable = true)
     private void getSituationalMusic(CallbackInfoReturnable<Music> cir) {
         LocalPlayer player = Minecraft.getInstance().player;
-        if (EstrogenClientConfig.ambientMusic && player.hasEffect(EstrogenEffects.getESTROGEN())) {
-            cir.setReturnValue(EstrogenMusic.ESTROGEN_AMBIENT);
+        if (EstrogenClientConfig.ambientMusic && player.hasEffect(EstrogenEffects.getEstrogen())) {
+            cir.setReturnValue(EstrogenMusic.EstrogenAmbient);
         }
     }
 }

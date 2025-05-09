@@ -1,7 +1,9 @@
 package dev.mayaqq.estrogen.client.content
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat
+import dev.mayaqq.cynosure.client.render.fixed
 import com.mojang.blaze3d.vertex.VertexFormat
+import dev.mayaqq.cynosure.client.render.BufferOutputStage
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture
 import net.minecraft.client.renderer.RenderStateShard
 import net.minecraft.client.renderer.RenderType
@@ -21,5 +23,5 @@ object EstrogenRenderTypes {
             .setTextureState(RenderStateShard.TextureStateShard(DynamicDreamTexture.ID, false, false))
             .setOutputState(EstrogenRenderer.SHADER_BYPASS)
             .createCompositeState(false)
-    )
+    ).fixed(BufferOutputStage.BLOCK_ENTITY)
 }

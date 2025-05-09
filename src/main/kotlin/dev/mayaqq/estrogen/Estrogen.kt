@@ -64,11 +64,11 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
     @Subscription
     fun postInit(event: PostInitEvent) {
         EntityAttributes.modify(EntityType.PLAYER) {
-            add(EstrogenAttributes.DASH_LEVEL)
-            add(EstrogenAttributes.FALL_DAMAGE_RESISTANCE)
-            add(EstrogenAttributes.SHOW_BOOBS)
-            add(EstrogenAttributes.BOOB_INITIAL_SIZE)
-            add(EstrogenAttributes.BOOB_GROWING_START_TIME)
+            add(EstrogenAttributes.DashLevel)
+            add(EstrogenAttributes.FallDamageResistance)
+            add(EstrogenAttributes.ShowBoobs)
+            add(EstrogenAttributes.BoobInitialSize)
+            add(EstrogenAttributes.BoobGrowingStartTime)
         }
     }
 

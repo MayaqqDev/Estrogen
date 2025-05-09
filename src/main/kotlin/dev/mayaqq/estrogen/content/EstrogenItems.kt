@@ -18,12 +18,12 @@ import uwu.serenity.kritter.client.stdlib.color
 import uwu.serenity.kritter.stdlib.item
 
 object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
-    val ESTROGEN_PILL by item("estrogen_pill", ::Item) {
+    val EstrogenPill by item("estrogen_pill", ::Item) {
         properties {
             stacksTo(16)
             food(FoodProperties.Builder().effect(
                 MobEffectInstance(
-                    EstrogenEffects.ESTROGEN,
+                    EstrogenEffects.Estrogen,
                     EstrogenCommonConfig.Durations.estrogenPillDuration,
                     0,
                     false,
@@ -37,12 +37,12 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         standardTooltip()
     }
 
-    val CRYSTAL_ESTROGEN_PILL by item("crystal_estrogen_pill", ::Item) {
+    val CrystalEstrogenPill by item("crystal_estrogen_pill", ::Item) {
         properties {
             stacksTo(16)
             food(FoodProperties.Builder().effect(
                 MobEffectInstance(
-                    EstrogenEffects.ESTROGEN,
+                    EstrogenEffects.Estrogen,
                     EstrogenCommonConfig.Durations.crystalEstrogenPillDuration,
                     1,
                     false,
@@ -56,21 +56,21 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         }
     }
 
-    val BALLS by item("balls", ::Item)
+    val Balls by item("balls", ::Item)
 
-    val TESTOSTERONE_CHUNK by item("testosterone_chunk", ::Item)
-    val TESTOSTERONE_POWDER by item("testosterone_powder", ::Item)
+    val TestosteroneChunk by item("testosterone_chunk", ::Item)
+    val TestosteronePowder by item("testosterone_powder", ::Item)
     //TODO: Create version only val USED_FILTER
-    val MOTH_FUZZ by item("moth_fuzz", ::Item) {
+    val MothFuzz by item("moth_fuzz", ::Item) {
         creativeTab(CreativeModeTabs.INGREDIENTS, TabPlacement.AFTER(Items.INK_SAC))
     }
 
-    val ESTROGEN_CHIP_COOKIE by item("estrogen_chip_cookie", ::EstrogenCookieItem) {
+    val EstrogenChipCookie by item("estrogen_chip_cookie", ::EstrogenCookieItem) {
         properties {
             rarity(Rarity.RARE)
             food(
                 FoodProperties.Builder().effect(MobEffectInstance(
-                    EstrogenEffects.ESTROGEN,
+                    EstrogenEffects.Estrogen,
                     EstrogenCommonConfig.Durations.estrogenChipCookieDuration,
                     0,
                     false,
@@ -83,7 +83,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.AFTER(Items.COOKIE))
     }
 
-    val HORSE_URINE_BOTTLE by item("horse_urine_bottle", ::HorseUrineBottleItem) {
+    val HorseUrineBottle by item("horse_urine_bottle", ::HorseUrineBottleItem) {
         properties {
             stacksTo(16)
             food(
@@ -103,7 +103,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
 
     //TODO: Incomplete Estrogen Patch FOR CREATE ESTROGEN
 
-    val COLONTHREE by item("uwu", ::Item) {
+    val ColonThree by item("uwu", ::Item) {
         properties {
             stacksTo(1)
         }
@@ -114,7 +114,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
 
     //TODO: Incomplete Colonthree FOR CREATE ESTROGEN
 
-    val THIGH_HIGHS by item("thigh_highs", {p -> ThighHighsItem(p, 0xf1d85a, 0xff4ea5)}) {
+    val ThighHighs by item("thigh_highs", { p -> ThighHighsItem(p, 0xf1d85a, 0xff4ea5)}) {
         properties {
             stacksTo(1)
         }
@@ -127,7 +127,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         color(ThighHighsItem::getItemColor)
     }
 
-    val MOTH_ELYTRA by item("moth_elytra", ::MothElytraItem) {
+    val MothElytra by item("moth_elytra", ::MothElytraItem) {
         properties {
             stacksTo(1)
             durability(626)
@@ -137,7 +137,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
 
     }
 
-    val GENDER_CHANGE_POTION by item("gender_change_potion", ::GenderChangePotionItem) {
+    val GenderChangePotion by item("gender_change_potion", ::GenderChangePotionItem) {
         properties {
             stacksTo(1)
             rarity(Rarity.RARE)
@@ -145,6 +145,6 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.AFTER(Items.HONEY_BOTTLE))
     }
 
-    lateinit var DREAM_BOTTLE: DreamBottleItem
+    lateinit var DreamBottle: DreamBottleItem
         internal set
 }

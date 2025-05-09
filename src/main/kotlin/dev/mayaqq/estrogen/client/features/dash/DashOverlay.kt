@@ -2,11 +2,7 @@ package dev.mayaqq.estrogen.client.features.dash
 
 import com.mojang.blaze3d.platform.GlStateManager
 import com.mojang.blaze3d.systems.RenderSystem
-import dev.mayaqq.cynosure.client.events.render.BeginHudRenderEvent
 import dev.mayaqq.cynosure.client.render.gui.HudOverlay
-import dev.mayaqq.cynosure.events.api.EventSubscriber
-import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.utils.Environment
 import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.cynosure.utils.colors.floatBlue
 import dev.mayaqq.cynosure.utils.colors.floatGreen
@@ -17,7 +13,6 @@ import dev.mayaqq.estrogen.client.features.dash.ClientDash.getDashLevel
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.isOnCooldown
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.content.EstrogenEffects
-import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
@@ -29,7 +24,7 @@ object DashOverlay : HudOverlay {
 
     override fun render(gui: Gui, graphics: GuiGraphics, partialTick: Float) {
         val player = Minecraft.getInstance().player ?: return
-        if (player.hasEffect(EstrogenEffects.ESTROGEN) && isOnCooldown() && EstrogenClientConfig.UI.dashOverlay) {
+        if (player.hasEffect(EstrogenEffects.Estrogen) && isOnCooldown() && EstrogenClientConfig.UI.dashOverlay) {
             val dc: Color = EstrogenColors.getDashColor(getDashLevel(), false)
             renderOverlay(graphics, dc.floatRed, dc.floatGreen, dc.floatBlue)
         }

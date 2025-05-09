@@ -9,6 +9,7 @@ import net.minecraft.core.SectionPos
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
+import uwu.serenity.kritter.client.stdlib.clientOnly
 
 class DreamBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockState: BlockState) : BlockEntity(type, blockPos, blockState) {
 
@@ -19,7 +20,9 @@ class DreamBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockState:
     val isPersistent: Boolean
         get() = blockState.getValue(DreamBlock.PERSISTENT)
 
-    fun isTouchingDreamBlock(direction: Direction): Boolean = blockState.getValue(DreamBlock.directionProperty(direction))
+    fun isTouchingDreamBlock(direction: Direction): Boolean {
+        return blockState.getValue(DreamBlock.directionProperty(direction))
+    }
 
     override fun setRemoved() {
         super.setRemoved()

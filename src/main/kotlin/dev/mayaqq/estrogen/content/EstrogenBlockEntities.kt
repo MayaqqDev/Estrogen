@@ -16,13 +16,13 @@ import uwu.serenity.kritter.stdlib.blockEntity
 object EstrogenBlockEntities : Registrar<BlockEntityType<*>> by Estrogen..Registries.BLOCK_ENTITY_TYPE {
 
     val DREAM_BLOCK: BlockEntityType<DreamBlockEntity> by blockEntity("dream_block", ::DreamBlockEntity) {
-        validBlock(EstrogenBlocks::DREAM_BLOCK)
+        validBlock(EstrogenBlocks::DreamBlock)
         renderer(::DreamBlockRenderer)
         visual(::DreamBlockVisual)
     }
 
     val COOKIE_JAR: BlockEntityType<CookieJarBlockEntity> by blockEntity("cookie_jar_block", ::CookieJarBlockEntity) {
-        validBlock(EstrogenBlocks::COOKIE_JAR)
+        validBlock(EstrogenBlocks::CookieJar)
         renderer(::CookieJarRenderer)
         visual(::CookieJarVisual)
     }

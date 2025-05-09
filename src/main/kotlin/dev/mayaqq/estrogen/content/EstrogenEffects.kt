@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.estrogen.Estrogen
-import dev.mayaqq.estrogen.client.features.dash.DreamBlockEffect
 import dev.mayaqq.estrogen.content.effects.DreamingEffect
 import dev.mayaqq.estrogen.content.effects.EstrogenEffect
 import dev.mayaqq.estrogen.utils.EstrogenColors
@@ -14,7 +13,7 @@ import uwu.serenity.kritter.api.entry
 @Suppress("unused")
 object EstrogenEffects : Registrar<MobEffect> by Estrogen..Registries.MOB_EFFECT {
     @JvmStatic
-    val ESTROGEN: EstrogenEffect by entry("estrogen", {EstrogenEffect(MobEffectCategory.BENEFICIAL, 104164161)})
+    val Estrogen: EstrogenEffect by entry("estrogen", {EstrogenEffect(MobEffectCategory.BENEFICIAL, 104164161)})
 
-    val DREAMING: DreamingEffect by entry("dreaming", fun() = DreamingEffect(MobEffectCategory.BENEFICIAL, EstrogenColors.DREAM_BLOCK))
+    val Dreaming: DreamingEffect by entry("dreaming", fun() = DreamingEffect(MobEffectCategory.BENEFICIAL, EstrogenColors.DREAM_BLOCK))
 }

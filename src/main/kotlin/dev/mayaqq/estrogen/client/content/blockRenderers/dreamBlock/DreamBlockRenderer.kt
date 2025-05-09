@@ -20,6 +20,7 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
         if (p0.shouldRender()) {
             DynamicDreamTexture.prepare()
             renderCubeShader(p0, p2.last().pose(), p3.getBuffer(EstrogenRenderTypes.DREAM_BLOCK))
+            (p3 as MultiBufferSource.BufferSource).endBatch()
         }
     }
     private fun renderCubeShader(blockEntity: DreamBlockEntity, pose: Matrix4f, consumer: VertexConsumer) {
@@ -126,6 +127,6 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
     companion object {
 
         fun DreamBlockEntity.shouldRender(): Boolean = isPersistent
-                || Minecraft.getInstance().player?.hasEffect(EstrogenEffects.DREAMING) == true
+                || Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming) == true
     }
 }

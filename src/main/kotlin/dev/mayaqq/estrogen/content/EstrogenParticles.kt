@@ -1,12 +1,8 @@
 package dev.mayaqq.estrogen.content
 
-import dev.mayaqq.cynosure.client.events.ParticleFactoryRegistrationEvent
 import dev.mayaqq.cynosure.client.particles.provider
-import dev.mayaqq.cynosure.events.api.EventSubscriber
-import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.particles.CynosureParticleType
 import dev.mayaqq.cynosure.particles.particleType
-import dev.mayaqq.cynosure.utils.Environment
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.particles.DashTrailParticle
 import dev.mayaqq.estrogen.client.content.particles.MothFuzzParticle
@@ -20,11 +16,11 @@ import uwu.serenity.kritter.api.Registrar
 //@EventSubscriber(env = [Environment.CLIENT])
 object EstrogenParticles : Registrar<ParticleType<*>> by Estrogen..Registries.PARTICLE_TYPE {
 
-    val MOTH_FUZZ: SimpleParticleType by particleType("moth_fuzz") {
+    val MothFuzz: SimpleParticleType by particleType("moth_fuzz") {
         provider { sprites -> ParticleProvider { _, clientLevel, x, y, z, _, _, _ -> MothFuzzParticle(clientLevel, x, y, z, sprites) } }
     }
 
-    val DASH_TRAIL: CynosureParticleType<DashTrailParticleOptions> by particleType(
+    val DashTrail: CynosureParticleType<DashTrailParticleOptions> by particleType(
         "dash_trail",
         DashTrailParticleOptions.CODEC,
         DashTrailParticleOptions.NETWORK_CODEC
@@ -34,17 +30,8 @@ object EstrogenParticles : Registrar<ParticleType<*>> by Estrogen..Registries.PA
     }
 
     // TODO: Implement dream block ripples from walking on punching
-    val DREAM_BLOCK_RIPPLE: SimpleParticleType by particleType("dream_ripple") {
+    val DreamBlockRipple: SimpleParticleType by particleType("dream_ripple") {
         overrideLimiter = true
     }
 
-//    // dunno if this will cause server side issues tho it shouldn't cs of the client side subscriber thin
-//    // if it dooes move to estrogen client it just prettier here
-//    @Subscription
-//    fun onRegisterParticles(event: ParticleFactoryRegistrationEvent) {
-//        event.register(DASH_TRAIL, ::DashTrailParticle)
-//        event.register(MOTH_FUZZ) { sprites ->
-//            ParticleProvider { _, clientLevel, x, y, z, _, _, _ -> MothFuzzParticle(clientLevel, x, y, z, sprites) }
-//        }
-//    }
 }

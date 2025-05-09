@@ -61,7 +61,7 @@ object ClientDash {
 
     fun tick() {
         val player = Minecraft.getInstance().player ?: return
-        if (!player.hasEffect(EstrogenEffects.ESTROGEN)) {
+        if (!player.hasEffect(EstrogenEffects.Estrogen)) {
             reset()
             return
         }
@@ -231,7 +231,7 @@ object ClientDash {
     }
 
     fun refresh(player: Player) {
-        dashes = player.getAttributeValue(EstrogenAttributes.DASH_LEVEL).toInt().toShort().toInt()
+        dashes = player.getAttributeValue(EstrogenAttributes.DashLevel).toInt().toShort().toInt()
     }
 
     private fun canRefresh(player: Player): Boolean {

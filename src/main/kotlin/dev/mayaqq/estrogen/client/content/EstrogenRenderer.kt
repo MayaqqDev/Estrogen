@@ -92,7 +92,7 @@ object EstrogenRenderer {
             RenderSystem.defaultBlendFunc()
         }
 
-        if (Minecraft.getInstance().player?.hasEffect(EstrogenEffects.DREAMING) == true)
+        if (Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming) == true)
             dreamingEffect?.process(event.partialTick)
     }
 

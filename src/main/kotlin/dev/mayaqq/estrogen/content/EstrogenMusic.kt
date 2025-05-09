@@ -6,5 +6,5 @@ import net.minecraft.sounds.Musics
 
 object EstrogenMusic : Musics() {
     @JvmField
-    val ESTROGEN_AMBIENT: Music = Music(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(EstrogenSounds.ESTROGEN_AMBIENT), 0, 0, true)
+    val EstrogenAmbient: Music = Music(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(EstrogenSounds.ESTROGEN_AMBIENT), 0, 0, true)
 }

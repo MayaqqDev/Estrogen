@@ -26,7 +26,7 @@ object TextRendererFeatures {
             disconnect()
         } else {
             uwufy = client.player!!.inventory.contains(EstrogenTags.Items.UWUFYING)
-            obfuscate = client.player!!.hasEffect(EstrogenEffects.DREAMING)
+            obfuscate = client.player!!.hasEffect(EstrogenEffects.Dreaming)
             client.updateTitle()
         }
     }

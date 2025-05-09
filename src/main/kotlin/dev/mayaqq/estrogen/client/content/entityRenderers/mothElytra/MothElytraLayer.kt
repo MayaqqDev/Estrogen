@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra
 
 import com.mojang.blaze3d.vertex.PoseStack
 import dev.mayaqq.cynosure.modId
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenItems
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.model.geom.EntityModelSet
@@ -35,7 +34,7 @@ class MothElytraLayer<T : LivingEntity, M : EntityModel<T>>(
         headPitch: Float
     ) {
         val itemStack = livingEntity.getItemBySlot(EquipmentSlot.CHEST)
-        if (!itemStack.`is`(EstrogenItems.MOTH_ELYTRA)) {
+        if (!itemStack.`is`(EstrogenItems.MothElytra)) {
             return
         }
         poseStack.pushPose()
