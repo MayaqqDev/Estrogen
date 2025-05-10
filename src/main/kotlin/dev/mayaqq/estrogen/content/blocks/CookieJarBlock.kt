@@ -224,7 +224,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
 
     override val blockEntityClass: KClass<out CookieJarBlockEntity> = CookieJarBlockEntity::class
 
-    override fun getBlockEntityType(): BlockEntityType<out CookieJarBlockEntity> = EstrogenBlockEntities.COOKIE_JAR
+    override fun getBlockEntityType(): BlockEntityType<out CookieJarBlockEntity> = EstrogenBlockEntities.CookieJar
 
 
 }

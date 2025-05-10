@@ -36,7 +36,7 @@ import uwu.serenity.kritter.api.entry.RegistryEntry
 object EstrogenCreativeTab : Registrar<CreativeModeTab> by Estrogen..Registries.CREATIVE_MODE_TAB {
 
     // Make it an entry here
-    val ESTROGEN: RegistryEntry<CreativeModeTab> = creativeTab("estrogen") {
+    val Estrogen: RegistryEntry<CreativeModeTab> = creativeTab("estrogen") {
         icon { EstrogenPill.defaultInstance }
         displayItems { 
             accept(EstrogenPill);

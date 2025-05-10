@@ -73,7 +73,7 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
 
     override val blockEntityClass: KClass<out DreamBlockEntity> = DreamBlockEntity::class
 
-    override fun getBlockEntityType(): BlockEntityType<out DreamBlockEntity> = EstrogenBlockEntities.DREAM_BLOCK
+    override fun getBlockEntityType(): BlockEntityType<out DreamBlockEntity> = EstrogenBlockEntities.DreamBlock
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
         builder.add(PERSISTENT, UP, DOWN, EAST, WEST, NORTH, SOUTH)
