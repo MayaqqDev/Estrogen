@@ -4,16 +4,17 @@ package dev.mayaqq.estrogen.content.recipes
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import com.teamresourceful.bytecodecs.base.ByteCodec
+import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
+import dev.mayaqq.cynosure.core.bytecodecs.ExtraByteCodecs
+import dev.mayaqq.cynosure.core.bytecodecs.item.ItemStackByteCodec
+import dev.mayaqq.cynosure.core.bytecodecs.toByteCodec
+import dev.mayaqq.cynosure.core.codecs.IngredientCodec
+import dev.mayaqq.cynosure.core.codecs.advancements.PredicateCodecs
+import dev.mayaqq.cynosure.core.codecs.fieldOf
+import dev.mayaqq.cynosure.core.codecs.item.ItemStackCodec
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
-import dev.mayaqq.cynosure.utils.bytecodecs.ExtraByteCodecs
-import dev.mayaqq.cynosure.utils.codecs.Codecs
-import dev.mayaqq.cynosure.utils.codecs.IngredientCodec
-import dev.mayaqq.cynosure.utils.codecs.ItemStackCodec
-import dev.mayaqq.cynosure.utils.codecs.advancements.EntityPredicateCodec
-import dev.mayaqq.cynosure.utils.codecs.fieldOf
-import dev.mayaqq.estrogen.content.EstrogenRecipeSerializers
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData
 import net.minecraft.advancements.critereon.EntityPredicate
@@ -22,7 +23,6 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.util.ExtraCodecs
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
@@ -38,7 +38,7 @@ class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredie
 
     override fun getResultItem(access: RegistryAccess): ItemStack = result.copy()
     override fun getId(): ResourceLocation = id
-    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipeSerializers.ENTITY_INTERACTION_SERIALIZER
+    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.ENTITY_INTERACTION_SERIALIZER
     override fun getType(): RecipeType<*> = EstrogenRecipes.ENTITY_INTERACTION
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = true
 
@@ -46,22 +46,21 @@ class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredie
         fun codec(id: ResourceLocation): Codec<EntityInteractionRecipe> = RecordCodecBuilder.create { instance ->
             instance.group(
                 RecordCodecBuilder.point(id),
-                IngredientCodec.CODEC.fieldOf("ingredient").forGetter(EntityInteractionRecipe::ingredient),
-                ItemStackCodec.CODEC.fieldOf("result").forGetter(EntityInteractionRecipe::result),
-                EntityPredicateCodec.CODEC.fieldOf("entity").forGetter(EntityInteractionRecipe::predicate),
+                IngredientCodec.fieldOf("ingredient").forGetter(EntityInteractionRecipe::ingredient),
+                ItemStackCodec.fieldOf("result").forGetter(EntityInteractionRecipe::result),
+                PredicateCodecs.ENTITY.fieldOf("entity").forGetter(EntityInteractionRecipe::predicate),
                 ResourceLocation.CODEC.fieldOf("sound").forGetter(EntityInteractionRecipe::sound)
             ).apply(instance, ::EntityInteractionRecipe)
         }
 
-        fun netcodec(id: ResourceLocation): ByteCodec<EntityInteractionRecipe> = RecordCodecBuilder.create { instance ->
-            instance.group(
-                RecordCodecBuilder.point(id),
-                IngredientCodec.BYTE_CODEC.fieldOf("ingredient").forGetter(EntityInteractionRecipe::ingredient),
-                ItemStackCodec.NETWORK_CODEC.fieldOf("result").forGetter(EntityInteractionRecipe::result),
-                EntityPredicateCodec.BYTE_CODEC.fieldOf("entity").forGetter(EntityInteractionRecipe::predicate),
-                ResourceLocation.CODEC.fieldOf("sound").forGetter(EntityInteractionRecipe::sound)
-            ).apply(instance, ::EntityInteractionRecipe)
-        }
+        fun netcodec(id: ResourceLocation): ByteCodec<EntityInteractionRecipe> = ObjectByteCodec.create(
+            ByteCodec.unit(id) fieldOf { _ -> id }, // TODO: Prob make a helper function in cynosure
+            IngredientCodec.NETWORK fieldOf EntityInteractionRecipe::ingredient,
+            ItemStackByteCodec fieldOf EntityInteractionRecipe::result,
+            PredicateCodecs.ENTITY.toByteCodec() fieldOf EntityInteractionRecipe::predicate,
+            ExtraByteCodecs.RESOURCE_LOCATION.fieldOf(EntityInteractionRecipe::sound),
+            ::EntityInteractionRecipe
+        )
     }
 }
 
