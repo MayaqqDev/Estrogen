@@ -15,7 +15,7 @@ import net.minecraft.sounds.SoundSource
 @SerializablePacket("dash")
 data class DashPacket(val isInitial: Boolean, val dashLevel: Int) : Packet.Serverbound {
     override fun ServerNetworkContext.handle() = execute {
-        if (sender.hasEffect(EstrogenEffects.ESTROGEN)) {
+        if (sender.hasEffect(EstrogenEffects.Estrogen)) {
             val level = sender.level() as ServerLevel
 
             // Spawn particles around the player

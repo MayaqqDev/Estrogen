@@ -153,7 +153,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         }
     }
 
-    private fun getParticleType(): ParticleOptions = EstrogenParticles.MOTH_FUZZ
+    private fun getParticleType(): ParticleOptions = EstrogenParticles.MothFuzz
 
     // Stolen from bee code :3
     private fun spawnFuzzyParticle(
@@ -238,7 +238,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         this.setSheared()
         val i = 1 + this.random.nextInt(3)
         for (j in 0..< i) {
-            val itemEntity = this.spawnAtLocation(EstrogenItems.MOTH_FUZZ.newStack(), 0.5f)
+            val itemEntity = this.spawnAtLocation(EstrogenItems.MothFuzz.newStack(), 0.5f)
             if (itemEntity == null) continue
             itemEntity.deltaMovement = itemEntity.deltaMovement.add(
                 ((this.random.nextFloat() - this.random.nextFloat()) * 0.1f).toDouble(),
@@ -332,7 +332,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
 
     override fun getSoundVolume(): Float = 0.4f
 
-    override fun getBreedOffspring(level: ServerLevel, otherParent: AgeableMob): MothEntity? = EstrogenEntities.MOTH.create(level)
+    override fun getBreedOffspring(level: ServerLevel, otherParent: AgeableMob): MothEntity? = EstrogenEntities.Moth.create(level)
 
     override fun getStandingEyeHeight(pose: Pose, dimensions: EntityDimensions): Float {
         if (this.isBaby) {

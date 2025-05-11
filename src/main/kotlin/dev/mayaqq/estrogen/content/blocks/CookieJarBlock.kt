@@ -32,7 +32,6 @@ import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.material.Fluids
 import net.minecraft.world.level.pathfinder.PathComputationType
 import net.minecraft.world.phys.BlockHitResult
-import net.minecraft.world.phys.shapes.BooleanOp
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
@@ -103,7 +102,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
                     0.7f + 0.5f * (cookieJarBlockEntity.count.toFloat() / 512)
                 )
                 if (level is ServerLevel) {
-                    AdvancementTriggers.INSERT_JAR.trigger(player as ServerPlayer)
+                    AdvancementTriggers.InsertJar.trigger(player as ServerPlayer)
                     level.sendParticles(
                         ParticleTypes.CRIT,
                         pos.x.toDouble() + 0.5,
@@ -225,7 +224,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
 
     override val blockEntityClass: KClass<out CookieJarBlockEntity> = CookieJarBlockEntity::class
 
-    override fun getBlockEntityType(): BlockEntityType<out CookieJarBlockEntity> = EstrogenBlockEntities.COOKIE_JAR
+    override fun getBlockEntityType(): BlockEntityType<out CookieJarBlockEntity> = EstrogenBlockEntities.CookieJar
 
 
 }

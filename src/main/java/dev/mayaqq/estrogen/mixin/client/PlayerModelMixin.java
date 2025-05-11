@@ -103,7 +103,7 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
 
         this.estrogen$boobs.copyFrom(this.body);
         this.estrogen$boobs.xRot = this.body.xRot + 1.0F;
-        float amplifier = Optionull.mapOrDefault(player.getEffect(EstrogenEffects.getESTROGEN()), MobEffectInstance::getAmplifier, 2);
+        float amplifier = Optionull.mapOrDefault(player.getEffect(EstrogenEffects.getEstrogen()), MobEffectInstance::getAmplifier, 2);
         Quaternionf bodyRotation = (new Quaternionf()).rotationZYX(this.body.zRot, this.body.yRot, this.body.xRot);
         this.estrogen$boobs.offsetPos(new Vector3f(0.0F, 4.0F + size * 0.864F * boobFunc(1 + amplifier) + yOffset, -1.9F + size * -1.944F * boobFunc(1 + amplifier)).rotate(bodyRotation));
         this.estrogen$boobs.yScale = (1 + size * 2.0F * boobFunc(1 + amplifier)) / 2.0F;
@@ -136,7 +136,7 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
         VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(textureData.getLocation()), false, glint);
         this.estrogen$boobArmor.copyTransform(this.body);
         this.estrogen$boobArmor.setPitch(this.body.xRot);
-        float amplifier = Optionull.mapOrDefault(player.getEffect(EstrogenEffects.getESTROGEN()), MobEffectInstance::getAmplifier, 2);
+        float amplifier = Optionull.mapOrDefault(player.getEffect(EstrogenEffects.getEstrogen()), MobEffectInstance::getAmplifier, 2);
         Quaternionf bodyRotation = (new Quaternionf()).rotationZYX(this.body.zRot, this.body.yRot, this.body.xRot);
         this.estrogen$boobArmor.translate((new Vector3f(0.0F, 4.0F + size * 0.864F * boobFunc(1 + amplifier) + yOffset, -4.0F + size * (-1.944F - 0.24F*3.0F) * boobFunc(1 + amplifier))).rotate(bodyRotation));
         this.estrogen$boobArmor.setScaleY((1 + size * 2.0F * boobFunc(1 + amplifier)) / 2.0F);

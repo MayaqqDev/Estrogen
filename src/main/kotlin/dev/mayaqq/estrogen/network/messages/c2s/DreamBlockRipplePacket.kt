@@ -4,8 +4,8 @@ import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
 import dev.mayaqq.cynosure.network.Packet
 import dev.mayaqq.cynosure.network.ServerNetworkContext
-import dev.mayaqq.cynosure.utils.bytecodecs.ExtraByteCodecs
-import dev.mayaqq.cynosure.utils.codecs.fieldOf
+import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
+import dev.mayaqq.cynosure.core.codecs.fieldOf
 import dev.mayaqq.cynosure.utils.toBlockPos
 import dev.mayaqq.estrogen.content.EstrogenSounds
 import net.minecraft.core.Direction
@@ -17,7 +17,7 @@ data class DreamBlockRipplePacket(val position: Vec3, val face: Direction) : Pac
 
     companion object {
         val CODEC: ByteCodec<DreamBlockRipplePacket> = ObjectByteCodec.create(
-            ExtraByteCodecs.VEC3 fieldOf DreamBlockRipplePacket::position,
+            ByteCodecs.VEC3 fieldOf DreamBlockRipplePacket::position,
             ByteCodec.ofEnum(Direction::class.java) fieldOf DreamBlockRipplePacket::face,
             ::DreamBlockRipplePacket
         )

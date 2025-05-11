@@ -4,7 +4,6 @@ import dev.mayaqq.cynosure.entities.PlayerLookup
 import dev.mayaqq.cynosure.network.Packet
 import dev.mayaqq.cynosure.network.SerializablePacket
 import dev.mayaqq.cynosure.network.ServerNetworkContext
-import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.effects.EstrogenEffect
 import dev.mayaqq.estrogen.injection.chestConfig
@@ -15,7 +14,7 @@ import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigPacket
 data object FinishedLoadingPacket : Packet.Serverbound {
     override fun ServerNetworkContext.handle() = execute {
         for (player in PlayerLookup.tracking(sender)) {
-            EstrogenEffect.sendPlayerStatusEffect(player!!, EstrogenEffects.ESTROGEN, sender)
+            EstrogenEffect.sendPlayerStatusEffect(player!!, EstrogenEffects.Estrogen, sender)
             player.chestConfig?.let {
                 EstrogenNetwork.sendToPlayer(ChestConfigPacket(player.uuid, it), sender)
             }

@@ -77,9 +77,9 @@ class GenderChangePotionItem(properties: Properties) : Item(properties) {
 
     fun changeGender(level: Level, livingEntity: LivingEntity?) {
         if (!level.isClientSide && livingEntity is Player) {
-            val showBoobs = livingEntity.getAttribute(EstrogenAttributes.SHOW_BOOBS)
-            val startTime = livingEntity.getAttribute(EstrogenAttributes.BOOB_GROWING_START_TIME)
-            val initialSize = livingEntity.getAttribute(EstrogenAttributes.BOOB_INITIAL_SIZE)
+            val showBoobs = livingEntity.getAttribute(EstrogenAttributes.ShowBoobs)
+            val startTime = livingEntity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)
+            val initialSize = livingEntity.getAttribute(EstrogenAttributes.BoobInitialSize)
             if (showBoobs != null && startTime != null && initialSize != null) {
                 if (showBoobs.baseValue > 0.0) {
                     showBoobs.baseValue = 0.0
@@ -98,9 +98,9 @@ class GenderChangePotionItem(properties: Properties) : Item(properties) {
 
     fun changeGender(level: Level, livingEntity: LivingEntity?, gender: Int) {
         if (!level.isClientSide && livingEntity is Player) {
-            val showBoobs = livingEntity.getAttribute(EstrogenAttributes.SHOW_BOOBS)
-            val startTime = livingEntity.getAttribute(EstrogenAttributes.BOOB_GROWING_START_TIME)
-            val initialSize = livingEntity.getAttribute(EstrogenAttributes.BOOB_INITIAL_SIZE)
+            val showBoobs = livingEntity.getAttribute(EstrogenAttributes.ShowBoobs)
+            val startTime = livingEntity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)
+            val initialSize = livingEntity.getAttribute(EstrogenAttributes.BoobInitialSize)
             if (showBoobs != null && startTime != null && initialSize != null) {
                 if (gender == 0) {
                     showBoobs.baseValue = 0.0

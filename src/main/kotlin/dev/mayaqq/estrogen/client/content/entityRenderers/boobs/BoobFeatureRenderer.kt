@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.client.content.entityRenderers.boobs
 import com.mojang.blaze3d.vertex.PoseStack
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.currentTime
-import dev.mayaqq.cynosure.utils.pushPop
+import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.estrogen.client.features.boobs.Boob
 import dev.mayaqq.estrogen.client.features.boobs.Boob.boobSize
 import dev.mayaqq.estrogen.client.features.boobs.BoobPhysicsManager.getPhysicsForPlayer
@@ -51,10 +51,10 @@ class BoobFeatureRenderer(
             val m = LivingEntityRenderer.getOverlayCoords(entity, 0.0f)
             stack.pushPop {
                 var size: Float
-                val startTime: Double = entity.getAttributeValue(EstrogenAttributes.BOOB_GROWING_START_TIME)
+                val startTime: Double = entity.getAttributeValue(EstrogenAttributes.BoobGrowingStartTime)
                 val currentTime: Double = currentTime(entity.level())
                 if (startTime >= 0.0) {
-                    val initialSize = entity.getAttributeValue(EstrogenAttributes.BOOB_INITIAL_SIZE).toFloat()
+                    val initialSize = entity.getAttributeValue(EstrogenAttributes.BoobInitialSize).toFloat()
                     size = boobSize(startTime, currentTime, initialSize, h)
                 } else {
                     size = 0.0f

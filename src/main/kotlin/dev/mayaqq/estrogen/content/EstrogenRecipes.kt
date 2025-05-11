@@ -11,8 +11,8 @@ import uwu.serenity.kritter.api.Registrar
 
 object EstrogenRecipes : Registrar<RecipeType<*>> by Estrogen..Registries.RECIPE_TYPE {
     val ENTITY_INTERACTION by recipeType<EntityInteractionRecipe>("entity_interaction")
-}
 
-object EstrogenRecipeSerializers : Registrar<RecipeSerializer<*>> by Estrogen..Registries.RECIPE_SERIALIZER {
-    val ENTITY_INTERACTION_SERIALIZER by codecSerializer("entity_interaction", EntityInteractionRecipe::codec, EntityInteractionRecipe::netcodec) {};
+    object Serializers : Registrar<RecipeSerializer<*>> by sibling(Registries.RECIPE_SERIALIZER) {
+        val ENTITY_INTERACTION_SERIALIZER by codecSerializer("entity_interaction", EntityInteractionRecipe::codec, EntityInteractionRecipe::netcodec) {};
+    }
 }

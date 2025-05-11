@@ -3,10 +3,11 @@ package dev.mayaqq.estrogen.client.content.particles
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.*
 import com.mojang.math.Axis
+import dev.mayaqq.cynosure.client.utils.lastPose
 import dev.mayaqq.cynosure.utils.colors.floatBlue
 import dev.mayaqq.cynosure.utils.colors.floatGreen
 import dev.mayaqq.cynosure.utils.colors.floatRed
-import dev.mayaqq.cynosure.utils.pushPop
+import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.estrogen.content.particles.DashTrailParticleOptions
 import dev.mayaqq.estrogen.id
 import net.minecraft.client.Camera
@@ -80,7 +81,7 @@ class DashTrailParticle(
             val alpha = 1f - Mth.lerp(partialTicks, max((age - 1).toDouble(), 0.0).toFloat(), age.toFloat()) / lifetime
             for (i in 0..<vertexCount) {
                 val v = i * ModelConsumer.STRIDE
-                buffer.vertex(last().pose(), vertices[v], vertices[v + 1], vertices[v + 2])
+                buffer.vertex(lastPose, vertices[v], vertices[v + 1], vertices[v + 2])
                     .uv(uForVertex(i), vForVertex(i))
                     .color(r, g, b, alpha)
                     .uv2(LightTexture.FULL_BRIGHT)

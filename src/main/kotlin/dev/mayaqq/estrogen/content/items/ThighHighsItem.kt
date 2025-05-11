@@ -1,34 +1,33 @@
 package dev.mayaqq.estrogen.content.items
 
 import com.google.common.collect.Multimap
+import dev.mayaqq.cynosure.items.extensions.CustomTooltip
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ThighHighStylesPacket
 import earth.terrarium.baubly.common.Bauble
 import earth.terrarium.baubly.common.SlotInfo
-import net.minecraft.core.BlockPos
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.particles.ParticleTypes
+import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.stats.Stats
 import net.minecraft.util.RandomSource
-import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.LayeredCauldronBlock
-import net.minecraft.world.level.block.state.BlockState
 import java.util.*
-import java.util.stream.Stream
 
-class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondaryColor: Int) : Item(properties), Bauble {
+class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondaryColor: Int) : Item(properties), Bauble, CustomTooltip {
     private val styles = mutableListOf<ResourceLocation>()
 
     fun loadStyles(styles: List<ResourceLocation>) {
@@ -101,9 +100,22 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
         stack.tag?.remove(SPECIAL_STYLE)
     }
 
+    override fun MutableList<Component>.modifyTooltip(stack: ItemStack, player: Player, flags: TooltipFlag) {
+
+    }
+
+    override fun appendHoverText(stack: ItemStack, level: Level, list: MutableList<Component>, p3: TooltipFlag) {
+        getStyle(stack)?.let {
+            val translationKey = it.toLanguageKey("tooltip.thigh_highs")
+            list.add(1, Component.translatable(translationKey))
+        } ?: run {
+
+        }
+    }
+
     override fun getModifiers(defaultModifiers: Multimap<Attribute, AttributeModifier>, stack: ItemStack, slot: SlotInfo, uuid: UUID): Multimap<Attribute, AttributeModifier> {
         defaultModifiers.put(
-            EstrogenAttributes.FALL_DAMAGE_RESISTANCE,
+            EstrogenAttributes.FallDamageResistance,
             AttributeModifier(uuid, "ThighHighsFallDamageResistance", 100.0, AttributeModifier.Operation.ADDITION)
         )
         return defaultModifiers
@@ -122,23 +134,17 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
 
         val CAULDRON_INTERACTION: CauldronInteraction = CauldronInteraction { blockState, level, blockPos, player, _, itemStack ->
                 val item = itemStack.item
-                if (item !is ThighHighsItem) {
+                if (item !is ThighHighsItem || !item.hasCustomColor(itemStack))
                     return@CauldronInteraction InteractionResult.PASS
-                }
-                if (!item.hasCustomColor(itemStack)) {
-                    return@CauldronInteraction InteractionResult.PASS
-                }
+
                 if (!level.isClientSide) {
                     item.clearColor(itemStack)
                     player.awardStat(Stats.CLEAN_ARMOR)
+                    level.playSound(null, blockPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.5f, 1.8f)
                     LayeredCauldronBlock.lowerFillLevel(blockState, level, blockPos)
-                }
-
-                level.playLocalSound(blockPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.5f, 1.8f, true)
-
-                if (level.isClientSide) {
-                    val fillHeight = blockState.getValue<Int?>(LayeredCauldronBlock.LEVEL) / 3f
-                    (0..7).forEach { i ->
+                } else {
+                    val fillHeight = blockState.getValue(LayeredCauldronBlock.LEVEL) / 3f
+                    for (i in 0..7) {
                         val xOff = level.random.nextGaussian() / 5 + 0.5
                         val zOff = level.random.nextGaussian() / 5 + 0.5
 
@@ -153,6 +159,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
                         )
                     }
                 }
+
                 InteractionResult.sidedSuccess(level.isClientSide)
             }
     }

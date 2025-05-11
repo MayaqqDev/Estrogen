@@ -11,6 +11,7 @@ object EstrogenDamageSources {
     val GIRLPOWER = ResourceKey.create(Registries.DAMAGE_TYPE, id("girlpower"))
 
     fun of(level: Level, key: ResourceKey<DamageType>): DamageSource {
+
         return DamageSource(level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolder(key).get())
     }
 }

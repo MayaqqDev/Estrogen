@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.content.items
 
-import dev.mayaqq.cynosure.items.DisablesCape
+import dev.mayaqq.cynosure.items.extensions.DisablesCape
 import dev.mayaqq.estrogen.content.EstrogenItems
 import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.world.entity.Entity
@@ -36,5 +36,5 @@ class MothElytraItem(properties: Properties) : ElytraItem(properties), DisablesC
 
     //TODO: this is borked in cynosure bc idk im stupid ig
     override fun disablesCape(itemStack: ItemStack, player: AbstractClientPlayer): Boolean = true
-    override fun isValidRepairItem(stack: ItemStack, repair: ItemStack): Boolean = repair.item == EstrogenItems.MOTH_FUZZ
+    override fun isValidRepairItem(stack: ItemStack, repair: ItemStack): Boolean = repair.item == EstrogenItems.MothFuzz
 }

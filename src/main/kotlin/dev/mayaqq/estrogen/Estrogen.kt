@@ -1,10 +1,10 @@
 package dev.mayaqq.estrogen
 
+import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.cynosure.entities.EntityAttributes
 import dev.mayaqq.cynosure.events.PostInitEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.utils.isModLoaded
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.config.Instance
@@ -56,7 +56,6 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         EstrogenCreativeTab.register()
         EstrogenEntities.register()
         EstrogenRecipes.register()
-        EstrogenRecipeSerializers.register()
 
         info("Injecting Estrogen into your veins!")
 
@@ -66,11 +65,11 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
     @Subscription
     fun postInit(event: PostInitEvent) {
         EntityAttributes.modify(EntityType.PLAYER) {
-            add(EstrogenAttributes.DASH_LEVEL)
-            add(EstrogenAttributes.FALL_DAMAGE_RESISTANCE)
-            add(EstrogenAttributes.SHOW_BOOBS)
-            add(EstrogenAttributes.BOOB_INITIAL_SIZE)
-            add(EstrogenAttributes.BOOB_GROWING_START_TIME)
+            add(EstrogenAttributes.DashLevel)
+            add(EstrogenAttributes.FallDamageResistance)
+            add(EstrogenAttributes.ShowBoobs)
+            add(EstrogenAttributes.BoobInitialSize)
+            add(EstrogenAttributes.BoobGrowingStartTime)
         }
     }
 

@@ -11,8 +11,9 @@ import dev.mayaqq.cynosure.client.utils.DefaultSkin
 import dev.mayaqq.cynosure.data.registerResourcepackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.utils.Environment
+import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
+import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobFeatureRenderer
 import dev.mayaqq.estrogen.client.content.entityRenderers.moth.MothModel
 import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraLayer
@@ -36,6 +37,7 @@ internal var chestConfigSet = false
 fun estrogenClient() {
     EstrogenClientConfig.Instance.load()
     EstrogenKeybinds
+    EstrogenRenderTypes
     HudOverlayRegistry.register(VanillaHud.FROSTBITE, id("dash"), DashOverlay)
     MothElytraModel.LAYER_LOCATION.registerDefinition(MothElytraModel.Companion::createBodyLayer)
     MothModel.LAYER_LOCATION.registerDefinition(MothModel::createBodyLayer)

@@ -1,12 +1,10 @@
 package dev.mayaqq.estrogen.content.items
 
 import dev.mayaqq.estrogen.content.EstrogenBlocks
-import dev.mayaqq.estrogen.content.EstrogenSoundTypes
 import dev.mayaqq.estrogen.content.EstrogenSounds
 import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.world.InteractionResult
-import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.ItemNameBlockItem
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.context.BlockPlaceContext
@@ -18,7 +16,7 @@ class DreamBottleItem(p0: Block, p1: Properties) : ItemNameBlockItem(p0, p1) {
 
     public override fun getPlaceSound(state: BlockState): SoundEvent = EstrogenSounds.DREAM_BLOCK_PLACE
 
-    override fun getPlacementState(p0: BlockPlaceContext): BlockState = EstrogenBlocks.DREAM_BLOCK.defaultBlockState()
+    override fun getPlacementState(p0: BlockPlaceContext): BlockState = EstrogenBlocks.DreamBlock.defaultBlockState()
         .setValue(DreamBlock.PERSISTENT, true)
 
     override fun place(context: BlockPlaceContext): InteractionResult {
