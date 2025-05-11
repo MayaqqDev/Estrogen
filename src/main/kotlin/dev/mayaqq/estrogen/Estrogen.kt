@@ -55,6 +55,8 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         EstrogenItems.register()
         EstrogenCreativeTab.register()
         EstrogenEntities.register()
+        EstrogenRecipes.register()
+        EstrogenRecipeSerializers.register()
 
         info("Injecting Estrogen into your veins!")
 
