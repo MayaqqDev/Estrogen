@@ -4,7 +4,7 @@ import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
 import dev.mayaqq.cynosure.network.Packet
 import dev.mayaqq.cynosure.network.ServerNetworkContext
-import dev.mayaqq.cynosure.core.bytecodecs.ExtraByteCodecs
+import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.cynosure.core.codecs.fieldOf
 import dev.mayaqq.cynosure.utils.toBlockPos
 import dev.mayaqq.estrogen.id
@@ -22,8 +22,8 @@ data class SpawnHeartsPacket(val pos: Vector3f, val ambientSound: ResourceLocati
 
     companion object {
         val CODEC: ByteCodec<SpawnHeartsPacket> = ObjectByteCodec.create(
-            ExtraByteCodecs.VECTOR_3F fieldOf SpawnHeartsPacket::pos,
-            ExtraByteCodecs.RESOURCE_LOCATION fieldOf SpawnHeartsPacket::ambientSound,
+            ByteCodecs.VECTOR_3F fieldOf SpawnHeartsPacket::pos,
+            ByteCodecs.RESOURCE_LOCATION fieldOf SpawnHeartsPacket::ambientSound,
             ::SpawnHeartsPacket
         )
     }

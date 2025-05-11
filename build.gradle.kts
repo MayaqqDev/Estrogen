@@ -32,7 +32,6 @@ repositories {
     maven(url = "https://maven.ladysnake.org/releases") { name = "Ladysnake Maven"; description = "Trinkets" }
     maven(url = "https://repo.unascribed.com") { name = "Unascribed Maven"; description = "Ears" }
     maven(url = "https://api.modrinth.com/maven") { name = "Modrinth Maven"; description = "Jukeboxfix, Ad Astra" }
-    maven(url = "https://maven.figuramc.org/releases") { name = "Figura Maven"; description = "Figura" }
     maven(url = "https://maven.is-immensely.gay/nightly") { name = "Sappho Company"; description = "Critter, Cynosure" }
     maven(url = "https://maven.is-immensely.gay/releases") { name = "Sappho Company"; description = "Kittyconfig" }
     maven(url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1") { name = "DevAuth maven"; description = "DevAuth" }
@@ -40,6 +39,7 @@ repositories {
     maven(url = "https://maven.impactdev.net/repository/development/") { name = "ImpactDev Maven"; description = "Cobblemon" }
     maven(url = "https://maven.squiddev.cc") { name = "Squid Maven"; description = "Create needs CC: Tweaked for some reason" }
     maven(url = "https://maven.msrandom.net/repository/root") { name = "Ashley"}
+    maven(url = "https://maven.figuramc.org/releases") { name = "Figura Maven"; description = "Figura" } // Second last cs figura misconfigured their maven
     maven(url = "https://jitpack.io/") { name = "Jitpack maven"; description = "Mixin Extras & Fabric ASM" } //NOTE: LEAVE THIS AS LAST
     mavenLocal()
     mavenCentral()
@@ -161,7 +161,7 @@ cloche {
             modImplementation(libs.fabric.baubly)
             modImplementation(libs.fabric.trinkets)
             modRuntimeOnly(libs.fabric.kritter)
-            modCompileOnly("${libs.fabric.emi.get()}:api") // No clue how to do the :api thing in the version catalog directly
+            modCompileOnly(libs.fabric.emi) // No clue how to do the :api thing in the version catalog directly
             modCompileOnly(libs.fabric.jei.api)
             modImplementation(libs.fabric.modmenu)
             modCompileOnly(libs.fabric.iris)

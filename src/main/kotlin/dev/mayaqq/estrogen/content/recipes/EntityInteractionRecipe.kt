@@ -5,7 +5,7 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
-import dev.mayaqq.cynosure.core.bytecodecs.ExtraByteCodecs
+import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.cynosure.core.bytecodecs.item.ItemStackByteCodec
 import dev.mayaqq.cynosure.core.bytecodecs.toByteCodec
 import dev.mayaqq.cynosure.core.codecs.IngredientCodec
@@ -54,11 +54,11 @@ class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredie
         }
 
         fun netcodec(id: ResourceLocation): ByteCodec<EntityInteractionRecipe> = ObjectByteCodec.create(
-            ByteCodec.unit(id) fieldOf { _ -> id }, // TODO: Prob make a helper function in cynosure
+            ByteCodecs.constant(id),
             IngredientCodec.NETWORK fieldOf EntityInteractionRecipe::ingredient,
             ItemStackByteCodec fieldOf EntityInteractionRecipe::result,
             PredicateCodecs.ENTITY.toByteCodec() fieldOf EntityInteractionRecipe::predicate,
-            ExtraByteCodecs.RESOURCE_LOCATION.fieldOf(EntityInteractionRecipe::sound),
+            ByteCodecs.RESOURCE_LOCATION.fieldOf(EntityInteractionRecipe::sound),
             ::EntityInteractionRecipe
         )
     }
