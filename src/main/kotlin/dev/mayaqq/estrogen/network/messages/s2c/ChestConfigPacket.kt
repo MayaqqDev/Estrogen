@@ -5,7 +5,7 @@ import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
 import dev.mayaqq.cynosure.network.ClientNetworkContext
 import dev.mayaqq.cynosure.network.Packet
 import dev.mayaqq.cynosure.network.serialization.KByteCodec
-import dev.mayaqq.cynosure.utils.codecs.fieldOf
+import dev.mayaqq.cynosure.core.codecs.fieldOf
 import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.injection.chestConfig
 import net.minecraft.client.Minecraft

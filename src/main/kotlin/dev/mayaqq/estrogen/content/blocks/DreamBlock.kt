@@ -6,8 +6,9 @@ import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.PlayerConnectionEvent
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
-import dev.mayaqq.cynosure.utils.Environment
-import dev.mayaqq.cynosure.utils.PlatformHooks
+import dev.mayaqq.cynosure.core.Environment
+import dev.mayaqq.cynosure.core.PlatformHooks
+import dev.mayaqq.cynosure.core.currentEnvironment
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.refresh
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
@@ -91,7 +92,7 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
     }
 
     override fun getRenderShape(p0: BlockState): RenderShape =
-        if ((PlatformHooks.environment == Environment.CLIENT && TextRendererFeatures.obfuscate) || p0.getValue(PERSISTENT)) RenderShape.ENTITYBLOCK_ANIMATED else RenderShape.MODEL
+        if ((currentEnvironment == Environment.CLIENT && TextRendererFeatures.obfuscate) || p0.getValue(PERSISTENT)) RenderShape.ENTITYBLOCK_ANIMATED else RenderShape.MODEL
 
     override fun getCollisionShape(
         state: BlockState,

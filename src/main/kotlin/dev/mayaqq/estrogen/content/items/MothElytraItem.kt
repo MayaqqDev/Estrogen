@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.content.items
 
-import dev.mayaqq.cynosure.items.DisablesCape
+import dev.mayaqq.cynosure.items.extensions.DisablesCape
 import dev.mayaqq.estrogen.content.EstrogenItems
 import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.world.entity.Entity

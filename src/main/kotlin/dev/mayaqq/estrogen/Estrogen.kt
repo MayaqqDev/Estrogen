@@ -1,10 +1,10 @@
 package dev.mayaqq.estrogen
 
+import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.cynosure.entities.EntityAttributes
 import dev.mayaqq.cynosure.events.PostInitEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.utils.isModLoaded
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.config.Instance

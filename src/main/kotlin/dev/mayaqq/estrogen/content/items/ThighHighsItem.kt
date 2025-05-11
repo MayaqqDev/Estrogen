@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.content.items
 
 import com.google.common.collect.Multimap
+import dev.mayaqq.cynosure.items.extensions.CustomTooltip
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ThighHighStylesPacket
@@ -8,6 +9,7 @@ import earth.terrarium.baubly.common.Bauble
 import earth.terrarium.baubly.common.SlotInfo
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.particles.ParticleTypes
+import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
@@ -17,12 +19,15 @@ import net.minecraft.util.RandomSource
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.LayeredCauldronBlock
 import java.util.*
 
-class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondaryColor: Int) : Item(properties), Bauble {
+class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondaryColor: Int) : Item(properties), Bauble, CustomTooltip {
     private val styles = mutableListOf<ResourceLocation>()
 
     fun loadStyles(styles: List<ResourceLocation>) {
@@ -93,6 +98,19 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
 
     fun clearStyle(stack: ItemStack) {
         stack.tag?.remove(SPECIAL_STYLE)
+    }
+
+    override fun MutableList<Component>.modifyTooltip(stack: ItemStack, player: Player, flags: TooltipFlag) {
+
+    }
+
+    override fun appendHoverText(stack: ItemStack, level: Level, list: MutableList<Component>, p3: TooltipFlag) {
+        getStyle(stack)?.let {
+            val translationKey = it.toLanguageKey("tooltip.thigh_highs")
+            list.add(1, Component.translatable(translationKey))
+        } ?: run {
+
+        }
     }
 
     override fun getModifiers(defaultModifiers: Multimap<Attribute, AttributeModifier>, stack: ItemStack, slot: SlotInfo, uuid: UUID): Multimap<Attribute, AttributeModifier> {

@@ -17,7 +17,7 @@ package dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture
 //import dev.mayaqq.cynosure.client.utils.color
 //import dev.mayaqq.cynosure.events.api.EventSubscriber
 //import dev.mayaqq.cynosure.events.api.Subscription
-//import dev.mayaqq.cynosure.utils.Environment
+//import dev.mayaqq.cynosure.core.Environment
 //import dev.mayaqq.cynosure.utils.colors.Color
 //import dev.mayaqq.cynosure.utils.json.toGson
 //import dev.mayaqq.estrogen.MOD_ID

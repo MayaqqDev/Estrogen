@@ -7,6 +7,9 @@ import dev.engine_room.flywheel.api.visualization.VisualizationManager
 import dev.engine_room.flywheel.api.visualization.VisualizerRegistry
 import dev.engine_room.flywheel.lib.visualization.SimpleBlockEntityVisualizer
 import dev.engine_room.flywheel.lib.visualization.VisualizationHelper
+import dev.mayaqq.cynosure.items.extensions.CustomTooltip
+import dev.mayaqq.cynosure.items.extensions.registerExtension
+import dev.mayaqq.cynosure.tooltips.DescriptionTooltip
 import earth.terrarium.baubly.Baubly
 import earth.terrarium.baubly.client.BaubleRenderer
 import earth.terrarium.baubly.client.BaublyClient
@@ -19,6 +22,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
+import org.spongepowered.asm.mixin.injection.Desc
 import uwu.serenity.kritter.client.stdlib.clientOnly
 import uwu.serenity.kritter.stdlib.BlockBuilder
 import uwu.serenity.kritter.stdlib.BlockEntityBuilder
@@ -28,11 +32,15 @@ import uwu.serenity.kritter.stdlib.ItemBuilder
 // Transgenders is back :>
 // Items
 
-fun ItemBuilder<*>.tooltip(tooltip: (Item) -> Nothing) {
-    // TODO: Cynosure tooltip api
+inline fun ItemBuilder<*>.tooltip(crossinline tooltip: (Item) -> CustomTooltip) {
+    onRegister {
+        it.registerExtension(tooltip(it))
+    }
 }
 fun ItemBuilder<*>.standardTooltip() {
-    // TODO: Cynosure tooltip api
+    onRegister {
+        it.registerExtension(DescriptionTooltip(DescriptionTooltip.Themes.Default))
+    }
 }
 
 fun <I> ItemBuilder<I>.bauble() where I : Item, I : Bauble {

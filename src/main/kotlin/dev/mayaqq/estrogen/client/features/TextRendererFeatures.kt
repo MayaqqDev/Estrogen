@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.client.features
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.utils.Environment
+import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenTags
 import net.minecraft.client.Minecraft

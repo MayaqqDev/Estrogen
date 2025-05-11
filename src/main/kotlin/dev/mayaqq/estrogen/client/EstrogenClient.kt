@@ -11,7 +11,7 @@ import dev.mayaqq.cynosure.client.utils.DefaultSkin
 import dev.mayaqq.cynosure.data.registerResourcepackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.utils.Environment
+import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobFeatureRenderer

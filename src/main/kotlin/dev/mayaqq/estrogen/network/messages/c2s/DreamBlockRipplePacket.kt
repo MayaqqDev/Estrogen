@@ -4,8 +4,8 @@ import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
 import dev.mayaqq.cynosure.network.Packet
 import dev.mayaqq.cynosure.network.ServerNetworkContext
-import dev.mayaqq.cynosure.utils.bytecodecs.ExtraByteCodecs
-import dev.mayaqq.cynosure.utils.codecs.fieldOf
+import dev.mayaqq.cynosure.core.bytecodecs.ExtraByteCodecs
+import dev.mayaqq.cynosure.core.codecs.fieldOf
 import dev.mayaqq.cynosure.utils.toBlockPos
 import dev.mayaqq.estrogen.content.EstrogenSounds
 import net.minecraft.core.Direction

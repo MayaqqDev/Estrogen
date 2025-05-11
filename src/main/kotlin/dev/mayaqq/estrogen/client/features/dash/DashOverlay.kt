@@ -7,7 +7,7 @@ import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.cynosure.utils.colors.floatBlue
 import dev.mayaqq.cynosure.utils.colors.floatGreen
 import dev.mayaqq.cynosure.utils.colors.floatRed
-import dev.mayaqq.cynosure.utils.pushPop
+import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.estrogen.client.features.TextRendererFeatures
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.getDashLevel
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.isOnCooldown
