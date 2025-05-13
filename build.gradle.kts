@@ -161,7 +161,7 @@ cloche {
             modImplementation(libs.fabric.baubly)
             modImplementation(libs.fabric.trinkets)
             modRuntimeOnly(libs.fabric.kritter)
-            modCompileOnly(libs.fabric.emi) // No clue how to do the :api thing in the version catalog directly
+            modCompileOnly(libs.fabric.emi)
             modCompileOnly(libs.fabric.jei.api)
             modImplementation(libs.fabric.modmenu)
             modCompileOnly(libs.fabric.iris)
@@ -189,6 +189,10 @@ cloche {
             entrypoint("client") {
                 adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric::init")
+            }
+            entrypoint("emi") {
+                adapter.set("kotlin")
+                value.set("dev.mayaqq.estrogen.compat.emi.EmiEstrogenPlugin")
             }
         }
     }
@@ -224,6 +228,7 @@ cloche {
             modRuntimeOnly(libs.forge.kritter)
             implementation(libs.forge.mixinExtras)
             compileOnlyApi(libs.forge.jei.api)
+            modCompileOnly(libs.forge.emi)
             modApi(libs.forge.cynosure)
             modApi(libs.forge.kittyconfig)
 

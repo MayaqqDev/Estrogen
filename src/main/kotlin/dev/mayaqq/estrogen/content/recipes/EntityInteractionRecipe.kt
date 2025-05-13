@@ -17,6 +17,7 @@ import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData
+import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
 import net.minecraft.advancements.critereon.EntityPredicate
 import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
@@ -25,13 +26,14 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 
-class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredient, val result: ItemStack, val predicate: EntityPredicate, val sound: ResourceLocation?) : Recipe<InteractionData> {
+class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredient, val result: ItemStack, val predicate: EntityPredicate, val sound: ResourceLocation) : Recipe<InteractionData>, RecipeViewerInfo {
     override fun matches(data: InteractionData, level: Level): Boolean = ingredient.test(data.item) && predicate.matches(data.player, data.entity)
 
     override fun assemble(data: InteractionData, registryAccess: RegistryAccess): ItemStack = result.copy()
@@ -62,6 +64,9 @@ class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredie
             ::EntityInteractionRecipe
         )
     }
+
+    override val display: ItemStack = Items.COW_SPAWN_EGG.defaultInstance
+    override val catalyst: ResourceLocation = TODO("Hand Texture")
 }
 
 @Subscription
