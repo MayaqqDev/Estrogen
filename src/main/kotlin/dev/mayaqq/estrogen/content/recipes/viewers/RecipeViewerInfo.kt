@@ -5,5 +5,6 @@ import net.minecraft.world.item.ItemStack
 
 interface RecipeViewerInfo {
     val display: ItemStack
-    val catalyst: ResourceLocation
+    val catalyst: ItemStack
+    val id: ResourceLocation
 }

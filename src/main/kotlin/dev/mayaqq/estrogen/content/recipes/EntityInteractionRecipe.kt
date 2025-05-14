@@ -12,12 +12,14 @@ import dev.mayaqq.cynosure.core.codecs.IngredientCodec
 import dev.mayaqq.cynosure.core.codecs.advancements.PredicateCodecs
 import dev.mayaqq.cynosure.core.codecs.fieldOf
 import dev.mayaqq.cynosure.core.codecs.item.ItemStackCodec
+import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
+import dev.mayaqq.estrogen.id
 import net.minecraft.advancements.critereon.EntityPredicate
 import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
@@ -32,8 +34,10 @@ import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
-class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredient, val result: ItemStack, val predicate: EntityPredicate, val sound: ResourceLocation) : Recipe<InteractionData>, RecipeViewerInfo {
+class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredient, val result: ItemStack, val predicate: EntityPredicate, val sound: Optional<ResourceLocation>) : Recipe<InteractionData> {
     override fun matches(data: InteractionData, level: Level): Boolean = ingredient.test(data.item) && predicate.matches(data.player, data.entity)
 
     override fun assemble(data: InteractionData, registryAccess: RegistryAccess): ItemStack = result.copy()
@@ -44,14 +48,14 @@ class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredie
     override fun getType(): RecipeType<*> = EstrogenRecipes.ENTITY_INTERACTION
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = true
 
-    companion object {
+    companion object: RecipeViewerInfo {
         fun codec(id: ResourceLocation): Codec<EntityInteractionRecipe> = RecordCodecBuilder.create { instance ->
             instance.group(
                 RecordCodecBuilder.point(id),
                 IngredientCodec.fieldOf("ingredient").forGetter(EntityInteractionRecipe::ingredient),
                 ItemStackCodec.fieldOf("result").forGetter(EntityInteractionRecipe::result),
                 PredicateCodecs.ENTITY.fieldOf("entity").forGetter(EntityInteractionRecipe::predicate),
-                ResourceLocation.CODEC.fieldOf("sound").forGetter(EntityInteractionRecipe::sound)
+                ResourceLocation.CODEC.optionalFieldOf("sound").forGetter(EntityInteractionRecipe::sound)
             ).apply(instance, ::EntityInteractionRecipe)
         }
 
@@ -60,13 +64,14 @@ class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredie
             IngredientCodec.NETWORK fieldOf EntityInteractionRecipe::ingredient,
             ItemStackByteCodec fieldOf EntityInteractionRecipe::result,
             PredicateCodecs.ENTITY.toByteCodec() fieldOf EntityInteractionRecipe::predicate,
-            ByteCodecs.RESOURCE_LOCATION.fieldOf(EntityInteractionRecipe::sound),
+            ByteCodecs.RESOURCE_LOCATION.optionalFieldOf(EntityInteractionRecipe::sound),
             ::EntityInteractionRecipe
         )
-    }
 
-    override val display: ItemStack = Items.COW_SPAWN_EGG.defaultInstance
-    override val catalyst: ResourceLocation = TODO("Hand Texture")
+        override val display: ItemStack = Items.COW_SPAWN_EGG.defaultInstance
+        override val catalyst: ItemStack = Items.GLASS_BOTTLE.defaultInstance
+        override val id: ResourceLocation = id("entity_interaction")
+    }
 }
 
 @Subscription
@@ -75,7 +80,8 @@ fun onEntityInteraction(event: InteractionEvent.UseEntity) {
         event.level.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION).forEach { recipe ->
             val data = InteractionData(event.getUsedStack(),  event.entity, event.player as ServerPlayer)
             if (recipe.matches(data, event.level)) {
-                if (recipe.sound != null) BuiltInRegistries.SOUND_EVENT.get(recipe.sound)?.let { event.entity.playSound(it) }
+                val sound: ResourceLocation? = recipe.sound.getOrNull()
+                if (sound != null) BuiltInRegistries.SOUND_EVENT.get(sound)?.let { event.entity.playSound(it) }
 
                 if (!event.player.isCreative) event.getUsedStack().shrink(1)
                 event.player.inventory.placeItemBackInInventory(recipe.assemble(data, event.level.registryAccess()))
