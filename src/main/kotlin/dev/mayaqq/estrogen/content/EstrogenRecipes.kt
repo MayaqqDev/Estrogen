@@ -13,6 +13,6 @@ object EstrogenRecipes : Registrar<RecipeType<*>> by Estrogen..Registries.RECIPE
     val ENTITY_INTERACTION by recipeType<EntityInteractionRecipe>("entity_interaction")
 
     object Serializers : Registrar<RecipeSerializer<*>> by sibling(Registries.RECIPE_SERIALIZER) {
-        val ENTITY_INTERACTION_SERIALIZER by codecSerializer("entity_interaction", EntityInteractionRecipe::codec, EntityInteractionRecipe::netcodec) {};
+        val ENTITY_INTERACTION_SERIALIZER by codecSerializer("entity_interaction", EntityInteractionRecipe::codec, EntityInteractionRecipe::netcodec) {}
     }
 }

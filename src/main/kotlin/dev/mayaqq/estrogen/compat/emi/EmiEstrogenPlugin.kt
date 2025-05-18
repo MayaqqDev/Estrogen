@@ -4,21 +4,26 @@ import dev.emi.emi.api.EmiEntrypoint
 import dev.emi.emi.api.EmiPlugin
 import dev.emi.emi.api.EmiRegistry
 import dev.emi.emi.api.recipe.EmiRecipeCategory
-import dev.emi.emi.api.stack.EmiStack
+import dev.emi.emi.api.render.EmiTexture
+import dev.emi.emi.api.widget.WidgetHolder
+import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
+import dev.mayaqq.estrogen.compat.emi.recipes.EntityInteractionEmiRecipe
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
-import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
-import net.minecraft.advancements.critereon.EntityPredicate
-import net.minecraft.world.item.crafting.RecipeType
 
 @EmiEntrypoint
 object EmiEstrogenPlugin : EmiPlugin {
-    override fun register(registry: EmiRegistry) {
-        addRecipe(registry, EntityInteractionRecipe, EstrogenRecipes.ENTITY_INTERACTION)
-    }
 
-    fun addRecipe(registry: EmiRegistry, viewerInfo: RecipeViewerInfo, recipeType: RecipeType<*>) {
-        val category = EmiRecipeCategory(viewerInfo.id, StackWithCatalystEmiRenderable(viewerInfo.display, viewerInfo.catalyst))
-        registry.addCategory(category)
+    val interactionCategory = EmiRecipeCategory(EntityInteractionRecipe.id, StackWithCatalystEmiRenderable(EntityInteractionRecipe.display, EntityInteractionRecipe.catalyst))
+
+    override fun register(registry: EmiRegistry) {
+        registry.addCategory(interactionCategory)
+        registry.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION).forEach { recipe ->
+            registry.addRecipe(EntityInteractionEmiRecipe(interactionCategory, recipe))
+        }
     }
+}
+
+fun WidgetHolder.addTexture(texture: RecipeTextures, x: Int, y: Int) {
+    this.addTexture(EmiTexture(texture.textureLocation, texture.startX, texture.startY, texture.width, texture.height), x, y)
 }

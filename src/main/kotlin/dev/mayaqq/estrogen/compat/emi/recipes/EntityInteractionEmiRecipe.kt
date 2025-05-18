@@ -2,14 +2,14 @@ package dev.mayaqq.estrogen.compat.emi.recipes
 
 import dev.emi.emi.api.recipe.BasicEmiRecipe
 import dev.emi.emi.api.recipe.EmiRecipeCategory
-import dev.emi.emi.api.render.EmiTexture
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.SlotWidget
 import dev.emi.emi.api.widget.WidgetHolder
+import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
+import dev.mayaqq.estrogen.compat.emi.addTexture
 import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
-import net.minecraft.ChatFormatting
-import net.minecraft.advancements.AdvancementRewards.Builder.recipe
+import dev.mayaqq.estrogen.content.recipes.getSpawnEggs
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.inventory.InventoryScreen
 import net.minecraft.world.entity.LivingEntity
@@ -25,10 +25,10 @@ class EntityInteractionEmiRecipe(category: EmiRecipeCategory, val recipe: Entity
 
     }
     override fun addWidgets(widgets: WidgetHolder) {
-        widgets.addTexture(EmiTexture.SHADOW, 62, 47)
-        widgets.addTexture(EmiTexture.ARROW_DOWN, 74, 10)
+        widgets.addTexture(RecipeTextures.JEI_DOWN_ARROW, 62, 47)
+        widgets.addTexture(RecipeTextures.JEI_SHADOW, 74, 10)
 
-        val matchingStacks: Array<ItemStack> = recipe.predicate
+        val matchingStacks: Array<ItemStack> = recipe.entity.getSpawnEggs().toTypedArray()
 
         val eggs: SlotWidget = widgets.addSlot(EmiIngredient.of(Ingredient.of(*matchingStacks)), 27, 38)
 
@@ -37,10 +37,8 @@ class EntityInteractionEmiRecipe(category: EmiRecipeCategory, val recipe: Entity
         widgets.addSlot(outputs[0], 132, 38).recipeContext(this)
 
         widgets.addDrawable(0, 0, 0, 0) { matrices, mouseX, mouseY, delta ->
-            val item =
-                (System.currentTimeMillis() / 1000 % eggs.stack.emiStacks.size).toInt()
+            val item = (System.currentTimeMillis() / 1000 % eggs.stack.emiStacks.size).toInt()
             val current: EmiIngredient = eggs.stack.emiStacks[item]
-
             val stack = current.emiStacks[0].itemStack
             val entity = Minecraft.getInstance().level?.let {
                 (stack.item as SpawnEggItem).getType(stack.getOrCreateTag()).create(

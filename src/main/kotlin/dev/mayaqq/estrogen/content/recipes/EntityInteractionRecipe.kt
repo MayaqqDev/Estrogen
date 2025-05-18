@@ -34,6 +34,7 @@ import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
+import net.minecraft.world.item.SpawnEggItem
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeSerializer
@@ -86,6 +87,26 @@ class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredie
         override val catalyst: ItemStack = Items.GLASS_BOTTLE.defaultInstance
         override val id: ResourceLocation = id("entity_interaction")
     }
+}
+
+fun Either<EntityType<*>, TagKey<EntityType<*>>>.getSpawnEggs(): ArrayList<ItemStack> {
+    val array = arrayListOf<ItemStack>()
+    if (this.isRight && this.right != null) {
+        BuiltInRegistries.ENTITY_TYPE.getTagOrEmpty(this.right!!).forEach {
+            val either = it.unwrap()
+            if (either.left().isPresent) {
+                val entity = BuiltInRegistries.ENTITY_TYPE.get(either.left().get()) as EntityType<*>
+                array.add(entityToEgg(entity)?: return@forEach)
+            }
+        }
+    } else {
+        array.add(entityToEgg(this.left!!)?: return array)
+    }
+    return array
+}
+
+private fun entityToEgg(entity: EntityType<*>): ItemStack? {
+    return SpawnEggItem.byId(entity)?.defaultInstance
 }
 
 @Subscription
