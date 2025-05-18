@@ -7,26 +7,28 @@ import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
 import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.cynosure.core.bytecodecs.item.ItemStackByteCodec
-import dev.mayaqq.cynosure.core.bytecodecs.toByteCodec
 import dev.mayaqq.cynosure.core.codecs.IngredientCodec
-import dev.mayaqq.cynosure.core.codecs.advancements.PredicateCodecs
 import dev.mayaqq.cynosure.core.codecs.fieldOf
 import dev.mayaqq.cynosure.core.codecs.item.ItemStackCodec
-import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
+import dev.mayaqq.cynosure.utils.Either
+import dev.mayaqq.cynosure.utils.contains
+import dev.mayaqq.cynosure.utils.isRight
 import dev.mayaqq.estrogen.content.EstrogenRecipes
+import dev.mayaqq.estrogen.content.recipes.data.EntityTypeRecipeCodec
 import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
 import dev.mayaqq.estrogen.id
-import net.minecraft.advancements.critereon.EntityPredicate
 import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.tags.TagKey
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.Ingredient
@@ -34,11 +36,18 @@ import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
-import java.util.Optional
+import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
-class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredient, val result: ItemStack, val predicate: EntityPredicate, val sound: Optional<ResourceLocation>) : Recipe<InteractionData> {
-    override fun matches(data: InteractionData, level: Level): Boolean = ingredient.test(data.item) && predicate.matches(data.player, data.entity)
+class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredient, val result: ItemStack, val entity: Either<EntityType<*>, TagKey<EntityType<*>>>, val sound: Optional<ResourceLocation>) : Recipe<InteractionData> {
+    override fun matches(data: InteractionData, level: Level): Boolean {
+        if (!ingredient.test(data.item)) return false
+        return if (entity.isRight && entity.right != null) {
+            data.entity.type in entity.right!!
+        } else {
+            data.entity.type == entity.left
+        }
+    }
 
     override fun assemble(data: InteractionData, registryAccess: RegistryAccess): ItemStack = result.copy()
 
@@ -54,7 +63,7 @@ class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredie
                 RecordCodecBuilder.point(id),
                 IngredientCodec.fieldOf("ingredient").forGetter(EntityInteractionRecipe::ingredient),
                 ItemStackCodec.fieldOf("result").forGetter(EntityInteractionRecipe::result),
-                PredicateCodecs.ENTITY.fieldOf("entity").forGetter(EntityInteractionRecipe::predicate),
+                EntityTypeRecipeCodec.fieldOf("entity").forGetter(EntityInteractionRecipe::entity),
                 ResourceLocation.CODEC.optionalFieldOf("sound").forGetter(EntityInteractionRecipe::sound)
             ).apply(instance, ::EntityInteractionRecipe)
         }
@@ -63,7 +72,7 @@ class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredie
             ByteCodecs.constant(id),
             IngredientCodec.NETWORK fieldOf EntityInteractionRecipe::ingredient,
             ItemStackByteCodec fieldOf EntityInteractionRecipe::result,
-            PredicateCodecs.ENTITY.toByteCodec() fieldOf EntityInteractionRecipe::predicate,
+            EntityTypeRecipeCodec.NETWORK fieldOf EntityInteractionRecipe::entity,
             ByteCodecs.RESOURCE_LOCATION.optionalFieldOf(EntityInteractionRecipe::sound),
             ::EntityInteractionRecipe
         )
