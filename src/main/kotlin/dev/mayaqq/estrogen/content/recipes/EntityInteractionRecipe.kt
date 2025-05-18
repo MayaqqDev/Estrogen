@@ -7,7 +7,9 @@ import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
 import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.cynosure.core.bytecodecs.item.ItemStackByteCodec
+import dev.mayaqq.cynosure.core.bytecodecs.toByteCodec
 import dev.mayaqq.cynosure.core.codecs.IngredientCodec
+import dev.mayaqq.cynosure.core.codecs.advancements.PredicateCodecs
 import dev.mayaqq.cynosure.core.codecs.fieldOf
 import dev.mayaqq.cynosure.core.codecs.item.ItemStackCodec
 import dev.mayaqq.cynosure.events.api.EventSubscriber
@@ -21,6 +23,7 @@ import dev.mayaqq.estrogen.content.recipes.data.EntityTypeRecipeCodec
 import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
 import dev.mayaqq.estrogen.id
+import net.minecraft.advancements.critereon.EntityPredicate
 import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
@@ -39,7 +42,7 @@ import net.minecraft.world.level.Level
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
-class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredient, val result: ItemStack, val entity: Either<EntityType<*>, TagKey<EntityType<*>>>, val sound: Optional<ResourceLocation>) : Recipe<InteractionData> {
+class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredient, val result: ItemStack, val entity: Either<EntityType<*>, TagKey<EntityType<*>>>, val sound: Optional<ResourceLocation>, val predicate: Optional<EntityPredicate>) : Recipe<InteractionData> {
     override fun matches(data: InteractionData, level: Level): Boolean {
         if (!ingredient.test(data.item)) return false
         return if (entity.isRight && entity.right != null) {
@@ -64,7 +67,8 @@ class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredie
                 IngredientCodec.fieldOf("ingredient").forGetter(EntityInteractionRecipe::ingredient),
                 ItemStackCodec.fieldOf("result").forGetter(EntityInteractionRecipe::result),
                 EntityTypeRecipeCodec.fieldOf("entity").forGetter(EntityInteractionRecipe::entity),
-                ResourceLocation.CODEC.optionalFieldOf("sound").forGetter(EntityInteractionRecipe::sound)
+                ResourceLocation.CODEC.optionalFieldOf("sound").forGetter(EntityInteractionRecipe::sound),
+                PredicateCodecs.ENTITY.optionalFieldOf("predicate").forGetter(EntityInteractionRecipe::predicate),
             ).apply(instance, ::EntityInteractionRecipe)
         }
 
@@ -74,6 +78,7 @@ class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredie
             ItemStackByteCodec fieldOf EntityInteractionRecipe::result,
             EntityTypeRecipeCodec.NETWORK fieldOf EntityInteractionRecipe::entity,
             ByteCodecs.RESOURCE_LOCATION.optionalFieldOf(EntityInteractionRecipe::sound),
+            PredicateCodecs.ENTITY.toByteCodec().optionalFieldOf(EntityInteractionRecipe::predicate),
             ::EntityInteractionRecipe
         )
 
