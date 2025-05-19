@@ -7,8 +7,7 @@
     "item": "minecraft:glass_bottle"
   },
   "result": {
-    "count": 1,
-    "id": "estrogen:horse_urine_bottle"
+    "item": "estrogen:horse_urine_bottle"
   },
   "sound": "minecraft:item.bottle.fill",
   "predicate": {

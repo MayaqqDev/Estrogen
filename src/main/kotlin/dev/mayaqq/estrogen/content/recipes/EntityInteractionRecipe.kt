@@ -18,6 +18,7 @@ import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
 import dev.mayaqq.cynosure.utils.Either
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.isRight
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.data.EntityTypeRecipeCodec
 import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData
@@ -115,6 +116,7 @@ fun onEntityInteraction(event: InteractionEvent.UseEntity) {
         event.level.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION).forEach { recipe ->
             val data = InteractionData(event.getUsedStack(),  event.entity, event.player as ServerPlayer)
             if (recipe.matches(data, event.level)) {
+                Estrogen.info("Recipe Matches")
                 val sound: ResourceLocation? = recipe.sound.getOrNull()
                 if (sound != null) BuiltInRegistries.SOUND_EVENT.get(sound)?.let { event.entity.playSound(it) }
 

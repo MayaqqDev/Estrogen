@@ -12,6 +12,7 @@ import dev.mayaqq.cynosure.core.bytecodecs.FriendlyByteCodec
 import dev.mayaqq.cynosure.core.codecs.Codecs
 import dev.mayaqq.cynosure.utils.Either
 import dev.mayaqq.cynosure.utils.entityTypeTag
+import dev.mayaqq.estrogen.Estrogen
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
@@ -19,8 +20,8 @@ import net.minecraft.tags.TagKey
 import net.minecraft.world.entity.EntityType
 
 object EntityTypeRecipeCodec : Codec<Either<EntityType<*>, TagKey<EntityType<*>>>> by Codecs.either(
-    Codec.PASSTHROUGH.comapFlatMap(EntityTypeRecipeCodec::decodeEntityType, EntityTypeRecipeCodec::encodeEntityType),
-    Codec.PASSTHROUGH.comapFlatMap(EntityTypeRecipeCodec::decodeEntityTag, EntityTypeRecipeCodec::encodeEntityTag)
+    Codecs.lazy({Codec.PASSTHROUGH.comapFlatMap(EntityTypeRecipeCodec::decodeEntityType, EntityTypeRecipeCodec::encodeEntityType)}),
+    Codecs.lazy({Codec.PASSTHROUGH.comapFlatMap(EntityTypeRecipeCodec::decodeEntityTag, EntityTypeRecipeCodec::encodeEntityTag)})
 ) {
 
     @JvmField
@@ -64,7 +65,7 @@ object EntityTypeRecipeCodec : Codec<Either<EntityType<*>, TagKey<EntityType<*>>
             if (json.has("tag")) {
                 DataResult.success(entityTypeTag(ResourceLocation(json["tag"].asString)))
             } else {
-                return DataResult.error { "Invalid JSON: Expected 'entity' or 'tag'" }
+                DataResult.error { "Invalid JSON: Expected 'entity' or 'tag'" }
             }
         } else {
             return DataResult.error { "Invalid JSON: Expected 'entity' or 'tag'" }
