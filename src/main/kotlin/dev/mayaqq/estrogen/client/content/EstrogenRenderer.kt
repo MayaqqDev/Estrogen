@@ -44,7 +44,7 @@ object EstrogenRenderer {
     @Subscription
     fun onLoadShaders(event: CoreShaderRegistrationEvent) {
         event.register(id("rendertype_estrogen_dream"), DefaultVertexFormat.BLOCK, ::dreamBlockShader)
-        //event.register(id("particle_cutout_color"), DefaultVertexFormat.PARTICLE, ::cutoutColorShader)
+        //event.register(recipeId("particle_cutout_color"), DefaultVertexFormat.PARTICLE, ::cutoutColorShader)
     }
 
     @Subscription

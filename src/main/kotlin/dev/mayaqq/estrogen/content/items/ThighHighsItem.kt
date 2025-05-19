@@ -104,7 +104,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
 
     }
 
-    override fun appendHoverText(stack: ItemStack, level: Level, list: MutableList<Component>, p3: TooltipFlag) {
+    override fun appendHoverText(stack: ItemStack, level: Level?, list: MutableList<Component>, flags: TooltipFlag) {
         getStyle(stack)?.let {
             val translationKey = it.toLanguageKey("tooltip.thigh_highs")
             list.add(1, Component.translatable(translationKey))

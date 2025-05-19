@@ -21,7 +21,7 @@ package dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture
 //import dev.mayaqq.cynosure.utils.colors.Color
 //import dev.mayaqq.cynosure.utils.json.toGson
 //import dev.mayaqq.estrogen.MOD_ID
-//import dev.mayaqq.estrogen.id
+//import dev.mayaqq.estrogen.recipeId
 //import it.unimi.dsi.fastutil.ints.IntArrayList
 //import it.unimi.dsi.fastutil.ints.IntList
 //import kotlinx.serialization.ExperimentalSerializationApi
@@ -66,7 +66,7 @@ package dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture
 //        }
 //
 //        val set: MutableList<Color> = mutableListOf()
-//        p0.getResourceStack(id("goober_colors.json")).forEach { resource ->
+//        p0.getResourceStack(recipeId("goober_colors.json")).forEach { resource ->
 //            val json = resource.open().use { Json.decodeFromStream<JsonObject>(it) }
 //            val replace = json["replace"]?.jsonPrimitive?.booleanOrNull ?: false
 //            if (replace) set.clear()

@@ -43,7 +43,7 @@ import net.minecraft.world.level.Level
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
-class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredient, val result: ItemStack, val entity: Either<EntityType<*>, TagKey<EntityType<*>>>, val sound: Optional<ResourceLocation>, val predicate: Optional<EntityPredicate>) : Recipe<InteractionData> {
+class EntityInteractionRecipe(val recipeId: ResourceLocation, val ingredient: Ingredient, val result: ItemStack, val entity: Either<EntityType<*>, TagKey<EntityType<*>>>, val sound: Optional<ResourceLocation>, val predicate: Optional<EntityPredicate>) : Recipe<InteractionData> {
     override fun matches(data: InteractionData, level: Level): Boolean {
         if (!ingredient.test(data.item)) return false
         return if (entity.isRight && entity.right != null) {
@@ -56,7 +56,7 @@ class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredie
     override fun assemble(data: InteractionData, registryAccess: RegistryAccess): ItemStack = result.copy()
 
     override fun getResultItem(access: RegistryAccess): ItemStack = result.copy()
-    override fun getId(): ResourceLocation = id
+    override fun getId(): ResourceLocation = recipeId
     override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.ENTITY_INTERACTION_SERIALIZER
     override fun getType(): RecipeType<*> = EstrogenRecipes.ENTITY_INTERACTION
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = true
@@ -74,7 +74,7 @@ class EntityInteractionRecipe(val id: ResourceLocation, val ingredient: Ingredie
         }
 
         fun netcodec(id: ResourceLocation): ByteCodec<EntityInteractionRecipe> = ObjectByteCodec.create(
-            ByteCodecs.constant(id),
+            ByteCodecs.constantFieldOf(id),
             IngredientCodec.NETWORK fieldOf EntityInteractionRecipe::ingredient,
             ItemStackByteCodec fieldOf EntityInteractionRecipe::result,
             EntityTypeRecipeCodec.NETWORK fieldOf EntityInteractionRecipe::entity,

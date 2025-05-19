@@ -51,7 +51,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
 
-import static dev.mayaqq.cynosure.utils.PlatformHooksKt.isModLoaded;
+import static dev.mayaqq.cynosure.core.PlatformHooksKt.isModLoaded;
 import static dev.mayaqq.estrogen.client.features.boobs.Boob.boobFunc;
 
 @Mixin(PlayerModel.class)

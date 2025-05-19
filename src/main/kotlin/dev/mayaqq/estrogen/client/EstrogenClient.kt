@@ -41,7 +41,7 @@ fun estrogenClient() {
     HudOverlayRegistry.register(VanillaHud.FROSTBITE, id("dash"), DashOverlay)
     MothElytraModel.LAYER_LOCATION.registerDefinition(MothElytraModel.Companion::createBodyLayer)
     MothModel.LAYER_LOCATION.registerDefinition(MothModel::createBodyLayer)
-    // registerResourcepackReloadListener(id("dream_texture"), DreamTextureGenerator)
+    // registerResourcepackReloadListener(recipeId("dream_texture"), DreamTextureGenerator)
     registerResourcepackReloadListener(id("estrogen_armor_data"), BreastArmorDataLoader)
 }
 

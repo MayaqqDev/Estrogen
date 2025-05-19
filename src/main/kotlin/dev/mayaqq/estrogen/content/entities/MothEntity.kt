@@ -1,7 +1,7 @@
 package dev.mayaqq.estrogen.content.entities
 
-import dev.mayaqq.cynosure.utils.Loader
-import dev.mayaqq.cynosure.utils.currentLoader
+import dev.mayaqq.cynosure.core.Loader
+import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.estrogen.content.*
 import net.minecraft.Util
 import net.minecraft.core.BlockPos

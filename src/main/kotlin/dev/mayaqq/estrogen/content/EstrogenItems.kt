@@ -107,9 +107,11 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         properties {
             stacksTo(1)
         }
+        /* TODO:
         tooltip {
             TODO("TOOLTIP hehe")
         }
+         */
     }
 
     //TODO: Incomplete Colonthree FOR CREATE ESTROGEN
@@ -118,9 +120,11 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         properties {
             stacksTo(1)
         }
+        /* TODO:
         tooltip {
             TODO("THIGHHIGHSTOOLTIPMODIFIER")
         }
+         */
         bauble()
         //TODO: baubleWithRenderer {  }
         onSetup { CauldronInteraction.WATER[it] = ThighHighsItem.CAULDRON_INTERACTION }
