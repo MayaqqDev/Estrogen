@@ -116,7 +116,6 @@ fun onEntityInteraction(event: InteractionEvent.UseEntity) {
         event.level.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION).forEach { recipe ->
             val data = InteractionData(event.getUsedStack(),  event.entity, event.player as ServerPlayer)
             if (recipe.matches(data, event.level)) {
-                Estrogen.info("Recipe Matches")
                 val sound: ResourceLocation? = recipe.sound.getOrNull()
                 if (sound != null) BuiltInRegistries.SOUND_EVENT.get(sound)?.let { event.entity.playSound(it) }
 
