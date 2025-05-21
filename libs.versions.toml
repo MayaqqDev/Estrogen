@@ -18,7 +18,7 @@ architectury = "9.1.12"
 devauth = "1.2.1"
 create_fabric = "0.5.1-f-build.1224+mc1.20.1"
 trinkets = "3.7.1"
-rei = "12.0.626"
+rei = "12.1.785"
 emi = "1.0.29+1.20.1"
 jei = "15.2.0.27"
 mixin_extras = "0.3.5"
@@ -87,7 +87,7 @@ fabric-create = { module = "com.simibubi.create:create-fabric-1.20.1", version.r
 fabric-baubly = { module = "earth.terrarium.baubly:baubly-fabric-1.20.1", version.ref = "baubly" }
 fabric-trinkets = { module = "dev.emi:trinkets", version.ref = "trinkets" }
 fabric-emi = { module = "dev.emi:emi-fabric", version.ref = "emi" }
-fabric-rei = { module = "me.shedaniel:RoughltEnoughItems-fabric", version.ref = "rei" }
+fabric-rei = { module = "me.shedaniel:RoughlyEnoughItems-fabric", version.ref = "rei" }
 fabric-jei-api = { module = "mezz.jei:jei-1.20.1-fabric-api", version.ref = "jei" }
 fabric-jei = { module = "curse.maven:jei-238222", version.ref = "jei_file_id_fabric" }
 fabric-modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
@@ -109,6 +109,7 @@ forge-baubly = { module = "earth.terrarium.baubly:baubly-forge-1.20.1", version.
 forge-emi = { module = "dev.emi:emi-forge", version.ref = "emi" }
 forge-jei-api = { module = "mezz.jei:jei-1.20.1-forge-api", version.ref = "jei" }
 forge-jei = { module = "curse.maven:jei-238222", version.ref = "jei_file_id_forge" }
+forge-rei = { module = "me.shedaniel:RoughlyEnoughItems-forge", version.ref = "rei" }
 forge-curios = { module = "top.theillusivec4.curios:curios-forge", version.ref = "curios" }
 forge-mixinExtras = { module = "io.github.llamalad7:mixinextras-forge", version.ref = "mixin_extras" }
 forge-devauth = { module = "me.djtheredstoner:DevAuth-forge-latest", version.ref = "devauth" }

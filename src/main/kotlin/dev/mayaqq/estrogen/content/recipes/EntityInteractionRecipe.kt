@@ -112,6 +112,7 @@ private fun entityToEgg(entity: EntityType<*>): ItemStack? {
 
 @Subscription
 fun onEntityInteraction(event: InteractionEvent.UseEntity) {
+    if (event.result == null) event.result = InteractionResult.PASS
     if (event.level is ServerLevel) {
         event.level.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION).forEach { recipe ->
             val data = InteractionData(event.getUsedStack(),  event.entity, event.player as ServerPlayer)

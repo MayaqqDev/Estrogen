@@ -92,8 +92,8 @@ cloche {
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
             modApi(libs.cynosure)
-            modCompileOnly(libs.rei.api)
-            modCompileOnly(libs.rei.plugin)
+            //modCompileOnly(libs.rei.api)
+            //modCompileOnly(libs.rei.plugin)
 
             implementation(libs.mixinConstrains)
         }
@@ -162,6 +162,7 @@ cloche {
             modImplementation(libs.fabric.trinkets)
             modRuntimeOnly(libs.fabric.kritter)
             modCompileOnly(libs.fabric.emi)
+            modCompileOnly(libs.fabric.rei)
             modCompileOnly(libs.fabric.jei.api)
             modImplementation(libs.fabric.modmenu)
             modCompileOnly(libs.fabric.iris)
@@ -193,6 +194,10 @@ cloche {
             entrypoint("emi") {
                 adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.compat.emi.EmiEstrogenPlugin")
+            }
+            entrypoint("rei_client") {
+                adapter.set("kotlin")
+                value.set("dev.mayaqq.estrogen.compat.rei.ReiEstrogenPlugin")
             }
         }
     }
@@ -226,6 +231,7 @@ cloche {
             modImplementation(libs.forge.flywheel)
             modImplementation(libs.forge.baubly)
             modRuntimeOnly(libs.forge.kritter)
+            modCompileOnly(libs.forge.rei)
             implementation(libs.forge.mixinExtras)
             compileOnlyApi(libs.forge.jei.api)
             modCompileOnly(libs.forge.emi)
