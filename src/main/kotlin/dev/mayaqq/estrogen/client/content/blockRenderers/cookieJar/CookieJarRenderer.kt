@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.client.content.blockRenderers.cookieJar
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.blockEntities.CookieJarBlockEntity
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.MultiBufferSource

@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.content
 
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.id
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries

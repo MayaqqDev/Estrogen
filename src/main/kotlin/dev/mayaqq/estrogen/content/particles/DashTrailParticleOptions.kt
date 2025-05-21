@@ -5,9 +5,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
 import dev.mayaqq.cynosure.core.codecs.fieldOf
-import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.cynosure.particles.CynosureParticleOptions
 import dev.mayaqq.cynosure.particles.CynosureParticleType
+import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.estrogen.content.EstrogenParticles
 import net.minecraft.core.UUIDUtil
 import uwu.serenity.kritter.api.entry.getEntryOrThrow

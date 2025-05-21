@@ -1,11 +1,7 @@
 package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.estrogen.Estrogen
-import dev.mayaqq.estrogen.content.blocks.CookieJarBlock
-import dev.mayaqq.estrogen.content.blocks.DormantDreamBlock
-import dev.mayaqq.estrogen.content.blocks.DreamBlock
-import dev.mayaqq.estrogen.content.blocks.EstrogenPillBlock
-import dev.mayaqq.estrogen.content.blocks.ModelBedBlock
+import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.registries.Registries

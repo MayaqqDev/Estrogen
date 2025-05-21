@@ -2,29 +2,21 @@ package dev.mayaqq.estrogen.utils.render
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
-import dev.architectury.platform.Mod
 import dev.engine_room.flywheel.api.material.Material
-import dev.engine_room.flywheel.api.model.Mesh
 import dev.engine_room.flywheel.api.model.Model
-import dev.engine_room.flywheel.lib.material.LightShaders
 import dev.engine_room.flywheel.lib.material.Materials
 import dev.engine_room.flywheel.lib.material.SimpleMaterial
 import dev.engine_room.flywheel.lib.model.SimpleModel
 import dev.engine_room.flywheel.lib.util.RendererReloadCache
 import dev.engine_room.flywheel.lib.vertex.FullVertexView
-import dev.mayaqq.estrogen.Estrogen
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.ItemBlockRenderTypes
-import net.minecraft.client.renderer.LightTexture
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.client.resources.model.BakedModel
-import net.minecraft.nbt.CompoundTag
-import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemDisplayContext
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
 
 /**
  * This will probably be moved to cynosure

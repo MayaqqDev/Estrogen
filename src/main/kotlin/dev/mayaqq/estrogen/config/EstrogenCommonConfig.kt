@@ -3,9 +3,7 @@ package dev.mayaqq.estrogen.config
 import dev.mayaqq.estrogen.MOD_ID
 import uwu.serenity.kittyconfig.api.Comment
 import uwu.serenity.kittyconfig.api.Config
-import uwu.serenity.kittyconfig.api.CustomName
 import uwu.serenity.kittyconfig.api.validation.DecimalRange
-import uwu.serenity.kittyconfig.api.validation.Range
 
 @Config("$MOD_ID/common", side = Config.Side.COMMON)
 object EstrogenCommonConfig {

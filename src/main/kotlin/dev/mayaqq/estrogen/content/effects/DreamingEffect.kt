@@ -1,12 +1,9 @@
 package dev.mayaqq.estrogen.content.effects
 
 import dev.mayaqq.cynosure.utils.colors.Color
-import dev.mayaqq.estrogen.Estrogen
-import dev.mayaqq.estrogen.client.content.block.ClientDreamBlock
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectCategory
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.ai.attributes.AttributeMap
 
 class DreamingEffect(category: MobEffectCategory, color: Color) : MobEffect(category, color.toInt()) {
 

@@ -2,11 +2,7 @@ package dev.mayaqq.estrogen.content.advancements.triggers
 
 import com.google.gson.JsonObject
 import dev.mayaqq.estrogen.id
-import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance
-import net.minecraft.advancements.critereon.ContextAwarePredicate
-import net.minecraft.advancements.critereon.DeserializationContext
-import net.minecraft.advancements.critereon.SerializationContext
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger
+import net.minecraft.advancements.critereon.*
 import net.minecraft.server.level.ServerPlayer
 
 open class InsertJarTrigger : SimpleCriterionTrigger<InsertJarTrigger.TriggerInstance>() {

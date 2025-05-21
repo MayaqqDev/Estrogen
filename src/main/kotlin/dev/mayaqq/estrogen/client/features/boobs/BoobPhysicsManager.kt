@@ -1,9 +1,9 @@
 package dev.mayaqq.estrogen.client.features.boobs
 
+import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.world.LevelEvent
-import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.world.entity.player.Player

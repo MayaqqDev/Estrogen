@@ -2,9 +2,7 @@ package dev.mayaqq.estrogen.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import dev.mayaqq.estrogen.content.EstrogenEffects;
 import dev.mayaqq.estrogen.client.features.TextRendererFeatures;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Style;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

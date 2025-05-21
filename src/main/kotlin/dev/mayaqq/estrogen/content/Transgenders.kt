@@ -3,10 +3,8 @@ package dev.mayaqq.estrogen.content
 import dev.engine_room.flywheel.api.visual.BlockEntityVisual
 import dev.engine_room.flywheel.api.visualization.BlockEntityVisualizer
 import dev.engine_room.flywheel.api.visualization.VisualizationContext
-import dev.engine_room.flywheel.api.visualization.VisualizationManager
 import dev.engine_room.flywheel.api.visualization.VisualizerRegistry
 import dev.engine_room.flywheel.lib.visualization.SimpleBlockEntityVisualizer
-import dev.engine_room.flywheel.lib.visualization.VisualizationHelper
 import dev.mayaqq.cynosure.items.extensions.CustomTooltip
 import dev.mayaqq.cynosure.items.extensions.registerExtension
 import dev.mayaqq.cynosure.tooltips.DescriptionTooltip
@@ -14,17 +12,10 @@ import earth.terrarium.baubly.Baubly
 import earth.terrarium.baubly.client.BaubleRenderer
 import earth.terrarium.baubly.client.BaublyClient
 import earth.terrarium.baubly.common.Bauble
-import net.minecraft.core.registries.Registries
-import net.minecraft.resources.ResourceKey
-import net.minecraft.world.damagesource.DamageSource
-import net.minecraft.world.damagesource.DamageType
 import net.minecraft.world.item.Item
-import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
-import org.spongepowered.asm.mixin.injection.Desc
 import uwu.serenity.kritter.client.stdlib.clientOnly
-import uwu.serenity.kritter.stdlib.BlockBuilder
 import uwu.serenity.kritter.stdlib.BlockEntityBuilder
 import uwu.serenity.kritter.stdlib.ItemBuilder
 

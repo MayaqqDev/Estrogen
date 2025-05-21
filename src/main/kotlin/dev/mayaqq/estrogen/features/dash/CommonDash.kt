@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.features.dash
 
-import java.util.UUID
+import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
 object CommonDash {

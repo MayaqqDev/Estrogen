@@ -3,10 +3,10 @@
 package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.estrogen.Estrogen
-import net.minecraft.sounds.SoundEvent
-import uwu.serenity.kritter.api.Registrar
 import net.minecraft.core.registries.Registries
+import net.minecraft.sounds.SoundEvent
 import net.minecraft.world.level.block.SoundType
+import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.internal.ExperimentalKritterAPI
 import uwu.serenity.kritter.stdlib.sound
 import uwu.serenity.kritter.utils.LazySoundType

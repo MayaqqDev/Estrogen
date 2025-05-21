@@ -12,7 +12,6 @@ import dev.mayaqq.cynosure.core.bytecodecs.FriendlyByteCodec
 import dev.mayaqq.cynosure.core.codecs.Codecs
 import dev.mayaqq.cynosure.utils.Either
 import dev.mayaqq.cynosure.utils.entityTypeTag
-import dev.mayaqq.estrogen.Estrogen
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation

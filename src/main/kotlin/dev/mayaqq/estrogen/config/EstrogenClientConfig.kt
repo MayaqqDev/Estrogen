@@ -3,13 +3,10 @@ package dev.mayaqq.estrogen.config
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.chestConfigSet
 import dev.mayaqq.estrogen.config.types.DreamBlockRenderMode
-import net.minecraft.client.Minecraft
 import uwu.serenity.kittyconfig.api.Comment
 import uwu.serenity.kittyconfig.api.Config
-import uwu.serenity.kittyconfig.api.CustomName
 import uwu.serenity.kittyconfig.api.observable.observable
 import uwu.serenity.kittyconfig.api.validation.DecimalRange
-import uwu.serenity.kittyconfig.json5.Json5Format
 
 @Config(id = "$MOD_ID/client", side = Config.Side.CLIENT)
 object EstrogenClientConfig {

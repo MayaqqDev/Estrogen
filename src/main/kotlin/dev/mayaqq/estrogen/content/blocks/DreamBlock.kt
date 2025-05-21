@@ -2,21 +2,20 @@
 
 package dev.mayaqq.estrogen.content.blocks
 
+import dev.mayaqq.cynosure.core.Environment
+import dev.mayaqq.cynosure.core.currentEnvironment
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.PlayerConnectionEvent
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
-import dev.mayaqq.cynosure.core.Environment
-import dev.mayaqq.cynosure.core.PlatformHooks
-import dev.mayaqq.cynosure.core.currentEnvironment
-import dev.mayaqq.estrogen.client.features.dash.ClientDash.refresh
-import dev.mayaqq.estrogen.content.EstrogenBlockEntities
-import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.client.features.TextRendererFeatures
+import dev.mayaqq.estrogen.client.features.dash.ClientDash.refresh
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
+import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenSoundTypes
+import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.features.dash.CommonDash
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.c2s.DreamBlockRipplePacket

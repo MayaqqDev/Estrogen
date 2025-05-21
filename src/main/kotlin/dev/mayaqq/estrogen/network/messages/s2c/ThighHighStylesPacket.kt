@@ -1,9 +1,9 @@
 package dev.mayaqq.estrogen.network.messages.s2c
 
 import com.teamresourceful.bytecodecs.base.ByteCodec
+import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.cynosure.network.ClientNetworkContext
 import dev.mayaqq.cynosure.network.Packet
-import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.estrogen.content.EstrogenItems
 import net.minecraft.resources.ResourceLocation
 

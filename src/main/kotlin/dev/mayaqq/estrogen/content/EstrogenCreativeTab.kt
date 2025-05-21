@@ -1,36 +1,36 @@
 package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.estrogen.Estrogen
-import net.minecraft.core.registries.Registries
-import net.minecraft.world.item.CreativeModeTab
-import uwu.serenity.kritter.api.Registrar
-import uwu.serenity.kritter.stdlib.creativeTab
-import dev.mayaqq.estrogen.content.EstrogenItems.EstrogenPill
-import dev.mayaqq.estrogen.content.EstrogenItems.CrystalEstrogenPill
-import dev.mayaqq.estrogen.content.EstrogenItems.GenderChangePotion
-import dev.mayaqq.estrogen.content.EstrogenItems.Balls
-import dev.mayaqq.estrogen.content.EstrogenItems.MothFuzz
-import dev.mayaqq.estrogen.content.EstrogenItems.TestosteroneChunk
-import dev.mayaqq.estrogen.content.EstrogenItems.TestosteronePowder
-import dev.mayaqq.estrogen.content.EstrogenItems.EstrogenChipCookie
-import dev.mayaqq.estrogen.content.EstrogenItems.HorseUrineBottle
-import dev.mayaqq.estrogen.content.EstrogenItems.ThighHighs
-import dev.mayaqq.estrogen.content.EstrogenItems.MothElytra
-import dev.mayaqq.estrogen.content.EstrogenItems.ColonThree
 import dev.mayaqq.estrogen.content.EstrogenBlocks.CookieJar
 import dev.mayaqq.estrogen.content.EstrogenBlocks.DreamBlock
 import dev.mayaqq.estrogen.content.EstrogenBlocks.EstrogenPillBlock
+import dev.mayaqq.estrogen.content.EstrogenBlocks.MothBed
+import dev.mayaqq.estrogen.content.EstrogenBlocks.MothCarpet
 import dev.mayaqq.estrogen.content.EstrogenBlocks.MothWool
-import dev.mayaqq.estrogen.content.EstrogenBlocks.QuiltedMothWool
 import dev.mayaqq.estrogen.content.EstrogenBlocks.QuiltedMothBed
 import dev.mayaqq.estrogen.content.EstrogenBlocks.QuiltedMothCarpet
-import dev.mayaqq.estrogen.content.EstrogenBlocks.MothCarpet
-import dev.mayaqq.estrogen.content.EstrogenBlocks.MothBed
+import dev.mayaqq.estrogen.content.EstrogenBlocks.QuiltedMothWool
+import dev.mayaqq.estrogen.content.EstrogenItems.Balls
+import dev.mayaqq.estrogen.content.EstrogenItems.ColonThree
+import dev.mayaqq.estrogen.content.EstrogenItems.CrystalEstrogenPill
+import dev.mayaqq.estrogen.content.EstrogenItems.EstrogenChipCookie
+import dev.mayaqq.estrogen.content.EstrogenItems.EstrogenPill
+import dev.mayaqq.estrogen.content.EstrogenItems.GenderChangePotion
+import dev.mayaqq.estrogen.content.EstrogenItems.HorseUrineBottle
+import dev.mayaqq.estrogen.content.EstrogenItems.MothElytra
+import dev.mayaqq.estrogen.content.EstrogenItems.MothFuzz
+import dev.mayaqq.estrogen.content.EstrogenItems.TestosteroneChunk
+import dev.mayaqq.estrogen.content.EstrogenItems.TestosteronePowder
+import dev.mayaqq.estrogen.content.EstrogenItems.ThighHighs
+import net.minecraft.core.registries.Registries
+import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.PotionUtils
+import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.entry.RegistryEntry
+import uwu.serenity.kritter.stdlib.creativeTab
 
 
 object EstrogenCreativeTab : Registrar<CreativeModeTab> by Estrogen..Registries.CREATIVE_MODE_TAB {

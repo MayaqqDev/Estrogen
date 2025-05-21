@@ -3,9 +3,7 @@ package dev.mayaqq.estrogen.forge.compat
 import dev.mayaqq.estrogen.compat.rei.ReiEstrogenPlugin
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin
 import me.shedaniel.rei.api.common.plugins.PluginView
-import me.shedaniel.rei.api.common.plugins.REIPlugin
 import me.shedaniel.rei.api.common.plugins.REIPluginProvider
-import java.util.Collections
 
 /*
  This is a fucked up way to go around REI only having the annotation on the forge side... (Fuck you REI)

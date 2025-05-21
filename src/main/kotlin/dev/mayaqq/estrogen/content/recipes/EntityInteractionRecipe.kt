@@ -18,7 +18,6 @@ import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
 import dev.mayaqq.cynosure.utils.Either
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.isRight
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.data.EntityTypeRecipeCodec
 import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData

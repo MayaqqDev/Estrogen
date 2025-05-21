@@ -4,10 +4,10 @@ import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.*
 import com.mojang.math.Axis
 import dev.mayaqq.cynosure.client.utils.lastPose
+import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.utils.colors.floatBlue
 import dev.mayaqq.cynosure.utils.colors.floatGreen
 import dev.mayaqq.cynosure.utils.colors.floatRed
-import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.estrogen.content.particles.DashTrailParticleOptions
 import dev.mayaqq.estrogen.id
 import net.minecraft.client.Camera

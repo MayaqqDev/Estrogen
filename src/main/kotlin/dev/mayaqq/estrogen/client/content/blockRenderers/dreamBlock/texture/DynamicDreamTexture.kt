@@ -7,7 +7,6 @@ import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.config.EstrogenClientConfig.DreamBlock.animateTexture
 import dev.mayaqq.estrogen.config.EstrogenClientConfig.DreamBlock.dreamBlockRenderMode
 import dev.mayaqq.estrogen.config.types.DreamBlockRenderMode
-import dev.mayaqq.estrogen.id
 import it.unimi.dsi.fastutil.objects.ObjectArrayList
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.DynamicTexture

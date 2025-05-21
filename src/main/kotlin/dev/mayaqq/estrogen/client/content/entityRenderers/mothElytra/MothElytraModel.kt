@@ -1,11 +1,9 @@
 package dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra
 
-import com.google.common.base.Suppliers
 import com.google.common.collect.ImmutableList
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import dev.mayaqq.cynosure.modId
-import dev.mayaqq.estrogen.Estrogen
 import net.minecraft.client.model.AgeableListModel
 import net.minecraft.client.model.geom.ModelLayerLocation
 import net.minecraft.client.model.geom.ModelPart
@@ -17,7 +15,6 @@ import net.minecraft.client.model.geom.builders.MeshDefinition
 import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Pose
-import java.util.function.Supplier
 import kotlin.math.pow
 
 class MothElytraModel<T : LivingEntity?>(root: ModelPart) :

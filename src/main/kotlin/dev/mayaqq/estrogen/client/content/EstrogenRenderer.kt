@@ -10,9 +10,9 @@ import dev.mayaqq.cynosure.client.events.render.LevelRenderEvent
 import dev.mayaqq.cynosure.client.events.render.ReloadLevelRendererEvent
 import dev.mayaqq.cynosure.client.events.render.ResizeRendererEvent
 import dev.mayaqq.cynosure.client.isShaderPackInUse
+import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.id
 import net.minecraft.client.Minecraft

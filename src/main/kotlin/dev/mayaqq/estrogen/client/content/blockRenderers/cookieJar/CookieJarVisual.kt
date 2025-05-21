@@ -6,7 +6,6 @@ import dev.engine_room.flywheel.api.instance.Instance
 import dev.engine_room.flywheel.api.visualization.VisualizationContext
 import dev.engine_room.flywheel.lib.instance.InstanceTypes
 import dev.engine_room.flywheel.lib.instance.TransformedInstance
-import dev.engine_room.flywheel.lib.transform.TransformStack
 import dev.engine_room.flywheel.lib.util.RecyclingPoseStack
 import dev.engine_room.flywheel.lib.visual.AbstractBlockEntityVisual
 import dev.mayaqq.estrogen.content.blockEntities.CookieJarBlockEntity

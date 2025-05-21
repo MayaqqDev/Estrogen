@@ -4,17 +4,17 @@
   "package": "dev.mayaqq.estrogen.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "PlayerMixin",
-    "BottleItemMixin"
+    "BottleItemMixin",
+    "PlayerMixin"
   ],
   "client": [
-    "client.accessor.LevelRendererAccessor",
     "client.ClientPacketListenerMixin",
     "client.FontStringRenderOutputMixin",
     "client.HumanoidMobRendererMixin",
     "client.MinecraftMixin",
     "client.PlayerModelMixin",
-    "client.ReceivingLevelScreenMixin"
+    "client.ReceivingLevelScreenMixin",
+    "client.accessor.LevelRendererAccessor"
   ],
   "plugin": "com.moulberry.mixinconstraints.ConstraintsMixinPlugin",
   "injectors": {

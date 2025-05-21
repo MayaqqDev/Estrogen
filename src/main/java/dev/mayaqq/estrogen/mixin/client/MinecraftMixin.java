@@ -2,10 +2,10 @@ package dev.mayaqq.estrogen.mixin.client;
 
 import com.mojang.blaze3d.platform.Window;
 import dev.mayaqq.cynosure.utils.fun.UwUfy;
+import dev.mayaqq.estrogen.client.features.TextRendererFeatures;
 import dev.mayaqq.estrogen.config.EstrogenClientConfig;
 import dev.mayaqq.estrogen.content.EstrogenEffects;
 import dev.mayaqq.estrogen.content.EstrogenMusic;
-import dev.mayaqq.estrogen.client.features.TextRendererFeatures;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.sounds.Music;

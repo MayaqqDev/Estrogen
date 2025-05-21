@@ -1,9 +1,5 @@
 package dev.mayaqq.estrogen.compat.cobblemon
 
-import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
-import com.cobblemon.mod.common.pokemon.Gender
-import net.minecraft.world.entity.Entity
-
 object CobblemonCompat {
 //    fun toFemale(entity: Entity) {
 //        if (entity is PokemonEntity) {
