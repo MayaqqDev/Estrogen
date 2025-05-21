@@ -18,7 +18,7 @@ import net.minecraft.world.item.SpawnEggItem
 import net.minecraft.world.item.crafting.Ingredient
 
 
-class EntityInteractionEmiRecipe(category: EmiRecipeCategory, val recipe: EntityInteractionRecipe) : BasicEmiRecipe(category, recipe.recipeId, 177, 70) {
+class EntityInteractionEmiRecipe(category: EmiRecipeCategory, val recipe: EntityInteractionRecipe) : BasicEmiRecipe(category, recipe.recipeId, EntityInteractionRecipe.width, EntityInteractionRecipe.height) {
     init {
         this.inputs.add(EmiIngredient.of(recipe.ingredients[0]))
         this.outputs.add(EmiStack.of(recipe.result))

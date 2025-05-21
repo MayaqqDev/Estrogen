@@ -86,6 +86,8 @@ class EntityInteractionRecipe(val recipeId: ResourceLocation, val ingredient: In
         override val display: ItemStack = Items.COW_SPAWN_EGG.defaultInstance
         override val catalyst: ItemStack = Items.GLASS_BOTTLE.defaultInstance
         override val id: ResourceLocation = id("entity_interaction")
+        override val height: Int = 70
+        override val width: Int = 177
     }
 }
 

@@ -45,10 +45,10 @@ class EntityInteractionReiRecipe(recipe: EntityInteractionRecipe, val entity: Ei
 
         override fun getTitle(): Component = Component.translatable("estrogen.recipe.entity_interaction")
 
-        override fun getIcon(): Renderer = StackWithCatalystRmiRenderable(viewerInfo.display, viewerInfo.catalyst)
+        override fun getIcon(): Renderer = StackWithCatalystRmiRenderable(viewerInfo)
 
-        override fun getDisplayHeight(): Int = 70
-        override fun getDisplayWidth(recipe: EntityInteractionReiRecipe): Int = 177
+        override fun getDisplayHeight(): Int = EntityInteractionRecipe.height
+        override fun getDisplayWidth(recipe: EntityInteractionReiRecipe): Int = EntityInteractionRecipe.width
 
         var slot: Slot? = null
 

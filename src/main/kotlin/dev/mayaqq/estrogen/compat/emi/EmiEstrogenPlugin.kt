@@ -14,7 +14,7 @@ import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
 @EmiEntrypoint
 object EmiEstrogenPlugin : EmiPlugin {
 
-    val interactionCategory = EmiRecipeCategory(EntityInteractionRecipe.id, StackWithCatalystEmiRenderable(EntityInteractionRecipe.display, EntityInteractionRecipe.catalyst))
+    val interactionCategory = EmiRecipeCategory(EntityInteractionRecipe.id, StackWithCatalystEmiRenderable(EntityInteractionRecipe))
 
     override fun register(registry: EmiRegistry) {
         registry.addCategory(interactionCategory)
