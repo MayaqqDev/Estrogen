@@ -12,11 +12,11 @@ interface RecipeViewerInfo {
     val width: Int
     val height: Int
 
-    fun render(graphics: GuiGraphics, mouseX: Int, mouseY: Int, delta: Float) {
-        graphics.renderFakeItem(display, 0, 0)
+    fun render(graphics: GuiGraphics, offsetX: Int, offsetY: Int, delta: Float) {
+        graphics.renderFakeItem(display, offsetX, offsetY)
         graphics.pushPop {
             scale(0.5f, 0.5f, 0.5f)
-            graphics.renderFakeItem(catalyst, 8, 8)
+            graphics.renderFakeItem(catalyst, offsetX + 8, offsetY + 8)
         }
     }
 }

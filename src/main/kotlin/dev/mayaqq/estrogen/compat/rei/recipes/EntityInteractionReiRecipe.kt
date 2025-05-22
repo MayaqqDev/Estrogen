@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.compat.rei.recipes
 import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.utils.Either
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
-import dev.mayaqq.estrogen.compat.rei.StackWithCatalystRmiRenderable
+import dev.mayaqq.estrogen.compat.rei.StackWithCatalystReiRenderable
 import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
 import dev.mayaqq.estrogen.content.recipes.getSpawnEggs
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
@@ -45,7 +45,7 @@ class EntityInteractionReiRecipe(recipe: EntityInteractionRecipe, val entity: Ei
 
         override fun getTitle(): Component = Component.translatable("estrogen.recipe.entity_interaction")
 
-        override fun getIcon(): Renderer = StackWithCatalystRmiRenderable(viewerInfo)
+        override fun getIcon(): Renderer = StackWithCatalystReiRenderable(viewerInfo)
 
         override fun getDisplayHeight(): Int = EntityInteractionRecipe.height
         override fun getDisplayWidth(recipe: EntityInteractionReiRecipe): Int = EntityInteractionRecipe.width
