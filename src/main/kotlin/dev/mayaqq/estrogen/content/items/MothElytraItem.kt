@@ -24,10 +24,10 @@ class MothElytraItem(properties: Properties) : ElytraItem(properties), DisablesC
 
         if (!entity.level().isClientSide && nextRoll % 10 == 0) {
             if ((nextRoll / 10) % 2 == 0) {
-                stack.hurtAndBreak<LivingEntity?>(
+                stack.hurtAndBreak(
                     1,
-                    entity,
-                    Consumer { p: LivingEntity -> p.broadcastBreakEvent(EquipmentSlot.CHEST) })
+                    entity
+                ) { player: LivingEntity -> player.broadcastBreakEvent(EquipmentSlot.CHEST) }
             }
 
             entity.gameEvent(GameEvent.ELYTRA_GLIDE)
