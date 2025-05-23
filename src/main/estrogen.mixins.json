@@ -14,7 +14,8 @@
     "client.MinecraftMixin",
     "client.PlayerModelMixin",
     "client.ReceivingLevelScreenMixin",
-    "client.accessor.LevelRendererAccessor"
+    "client.accessor.LevelRendererAccessor",
+    "client.accessor.ItemPropertiesAccessor"
   ],
   "plugin": "com.moulberry.mixinconstraints.ConstraintsMixinPlugin",
   "injectors": {

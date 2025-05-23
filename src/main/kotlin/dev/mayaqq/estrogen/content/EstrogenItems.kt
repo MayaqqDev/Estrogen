@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.content
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.items.*
+import dev.mayaqq.estrogen.id
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.effect.MobEffectInstance
@@ -146,6 +147,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
             stacksTo(1)
             rarity(Rarity.RARE)
         }
+        textureProperty(id("gender")) { _, _, entity, _ -> entity.getAttributeValue(EstrogenAttributes.ShowBoobs).toFloat()}
         creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.AFTER(Items.HONEY_BOTTLE))
     }
 

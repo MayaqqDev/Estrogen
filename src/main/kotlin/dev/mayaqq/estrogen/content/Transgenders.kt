@@ -8,10 +8,14 @@ import dev.engine_room.flywheel.lib.visualization.SimpleBlockEntityVisualizer
 import dev.mayaqq.cynosure.items.extensions.CustomTooltip
 import dev.mayaqq.cynosure.items.extensions.registerExtension
 import dev.mayaqq.cynosure.tooltips.DescriptionTooltip
+import dev.mayaqq.estrogen.mixin.client.accessor.ItemPropertiesAccessor
 import earth.terrarium.baubly.Baubly
 import earth.terrarium.baubly.client.BaubleRenderer
 import earth.terrarium.baubly.client.BaublyClient
 import earth.terrarium.baubly.common.Bauble
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction
+import net.minecraft.client.renderer.item.ItemProperties
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -42,6 +46,14 @@ inline fun <I> ItemBuilder<I>.baubleWithRenderer(crossinline renderer: () -> Bau
     onRegister {
         Baubly.registerBauble(it)
         clientOnly { BaublyClient.registerBaubleRenderer(it, renderer()) }
+    }
+}
+
+fun <I> ItemBuilder<I>.textureProperty(id: ResourceLocation, consumer: ClampedItemPropertyFunction) where I : Item {
+    onRegister {
+        clientOnly {
+            ItemPropertiesAccessor.register(it, id, consumer)
+        }
     }
 }
 
