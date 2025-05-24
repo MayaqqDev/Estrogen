@@ -1,6 +1,11 @@
+@file:EventSubscriber
 package dev.mayaqq.estrogen.content.advancements.triggers
 
 import com.google.gson.JsonObject
+import dev.mayaqq.cynosure.events.api.EventSubscriber
+import dev.mayaqq.cynosure.events.api.Subscription
+import dev.mayaqq.cynosure.events.entity.LivingEntityEvent
+import dev.mayaqq.estrogen.content.AdvancementTriggers
 import dev.mayaqq.estrogen.id
 import net.minecraft.advancements.critereon.*
 import net.minecraft.core.registries.BuiltInRegistries
@@ -15,6 +20,18 @@ class KilledWithEffectTrigger : SimpleCriterionTrigger<KilledWithEffectTrigger.T
     }
 
     override fun getId(): ResourceLocation = ID
+
+
+    fun trigger(player: ServerPlayer, entityType: Entity) {
+        this.trigger(
+            player
+        ) { instance: TriggerInstance ->
+            instance.matches(
+                player,
+                entityType
+            )
+        }
+    }
 
     class TriggerInstance(val entity: ContextAwarePredicate, val mobEffect: MobEffect, player: ContextAwarePredicate) : AbstractCriterionTriggerInstance(ID, player) {
         fun matches(player: ServerPlayer, entity: Entity): Boolean {
@@ -43,4 +60,9 @@ class KilledWithEffectTrigger : SimpleCriterionTrigger<KilledWithEffectTrigger.T
     companion object {
         val ID = id("killed_with_effect")
     }
+}
+
+@Subscription
+fun onEntityDeath(event: LivingEntityEvent.Death) {
+    if (event.source.entity is ServerPlayer) AdvancementTriggers.KilledWithEffect.trigger(event.source.entity as ServerPlayer, event.entity)
 }

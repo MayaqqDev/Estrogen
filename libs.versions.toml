@@ -36,7 +36,7 @@ cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.5+1.20.1"
 flywheel = "1.0.2"
-cynosure = "0.1.0.125"
+cynosure = "0.1.0.126"
 kittyconfig-mc = "0.1.0.12+1.20.1"
 kittyconfig-ksp = "0.1.5"
 mixin_constrains = "1.0.8"
@@ -68,7 +68,6 @@ ears = { module = "com.unascribed:ears-api", version.ref="ears" }
 figura = { module = "org.figuramc:figura-common-mojmap", version.ref="figura"}
 createNewAge = { module = "maven.modrinth:create-new-age", version.ref = "new_age" }
 mixinExtras = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixin_extras" }
-cobblemon = { module = "com.cobblemon:mod", version.ref = "cobblemon" }
 rei-api = { module = "me.shedaniel:RoughlyEnoughItems-api", version.ref = "rei" }
 rei-plugin = { module = "me.shedaniel:RoughlyEnoughItems-default-plugin", version.ref = "rei" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
@@ -100,6 +99,7 @@ fabric-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-fabric-api-1
 fabric-flywheel = { module = "dev.engine-room.flywheel:flywheel-fabric-1.20.1", version.ref = "flywheel" }
 fabric-cynosure = { module = "dev.mayaqq.cynosure:cynosure-fabric", version.ref = "cynosure" }
 fabric-kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-minecraft-fabric", version.ref = "kittyconfig-mc" }
+fabric-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
 
 
 # Forge depencencies
@@ -118,6 +118,7 @@ forge-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-forge-api-1.2
 forge-flywheel = { module = "dev.engine-room.flywheel:flywheel-forge-1.20.1", version.ref = "flywheel" }
 forge-cynosure = { module = "dev.mayaqq.cynosure:cynosure-forge", version.ref = "cynosure" }
 forge-kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-forge", version.ref = "kittyconfig-mc" }
+forge-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
 
 
 [bundles]

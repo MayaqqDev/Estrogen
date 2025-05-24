@@ -9,6 +9,7 @@ import dev.mayaqq.cynosure.client.render.gui.HudOverlayRegistry
 import dev.mayaqq.cynosure.client.render.gui.VanillaHud
 import dev.mayaqq.cynosure.client.utils.DefaultSkin
 import dev.mayaqq.cynosure.core.Environment
+import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.cynosure.data.registerResourcepackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
@@ -21,6 +22,7 @@ import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraM
 import dev.mayaqq.estrogen.client.content.particles.DashTrailParticle
 import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorDataLoader
 import dev.mayaqq.estrogen.client.features.dash.DashOverlay
+import dev.mayaqq.estrogen.compat.ears.EarsCompat
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.config.Instance
 import dev.mayaqq.estrogen.config.types.ChestConfig
@@ -43,6 +45,8 @@ fun estrogenClient() {
     MothModel.LAYER_LOCATION.registerDefinition(MothModel::createBodyLayer)
     // registerResourcepackReloadListener(recipeId("dream_texture"), DreamTextureGenerator)
     registerResourcepackReloadListener(id("estrogen_armor_data"), BreastArmorDataLoader)
+
+    if (isModLoaded("ears")) EarsCompat.boob()
 }
 
 @Subscription

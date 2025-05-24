@@ -86,7 +86,6 @@ cloche {
 //            modImplementation(libs.baubly)
             modCompileOnly(libs.ears)
             modCompileOnly(libs.figura)
-            modCompileOnly(libs.cobblemon)
             modCompileOnly(libs.createNewAge)
             modImplementation(libs.kittyconfig)
             implementation(libs.mixinExtras)

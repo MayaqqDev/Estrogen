@@ -43,80 +43,81 @@ class GenderChangePotionItem(properties: Properties) : Item(properties) {
         return stack
     }
 
-    fun playParticles(level: Level, livingEntity: LivingEntity) {
-        if (level.isClientSide()) {
-            val playerPos = livingEntity.position()
-            val heightIncrement = livingEntity.boundingBox.ysize / 50
+    companion object {
+        fun playParticles(level: Level, livingEntity: LivingEntity) {
+            if (level.isClientSide()) {
+                val playerPos = livingEntity.position()
+                val heightIncrement = livingEntity.boundingBox.ysize / 50
 
-            for (i in 0..49) {
-                val angle = i * Math.PI / 16
-                var x = playerPos.x + 0.5 * cos(angle)
-                var y = playerPos.y + i * heightIncrement
-                var z = playerPos.z + 0.5 * sin(angle)
+                for (i in 0..49) {
+                    val angle = i * Math.PI / 16
+                    var x = playerPos.x + 0.5 * cos(angle)
+                    var y = playerPos.y + i * heightIncrement
+                    var z = playerPos.z + 0.5 * sin(angle)
 
-                y += level.random.nextFloat() * 0.1 * (if (level.random.nextBoolean()) 1 else -1)
+                    y += level.random.nextFloat() * 0.1 * (if (level.random.nextBoolean()) 1 else -1)
 
-                level.addParticle(
-                    DustParticleOptions(Vector3f(1f, 0.30f, 0.70f), 1f),
-                    x, y, z,
-                    0.0, 0.0, 0.0
-                )
+                    level.addParticle(
+                        DustParticleOptions(Vector3f(1f, 0.30f, 0.70f), 1f),
+                        x, y, z,
+                        0.0, 0.0, 0.0
+                    )
 
-                x = playerPos.x + 0.5 * cos(angle + Math.PI)
-                z = playerPos.z + 0.5 * sin(angle + Math.PI)
-                y += level.random.nextFloat() * 0.1 * (if (level.random.nextBoolean()) 1 else -1)
+                    x = playerPos.x + 0.5 * cos(angle + Math.PI)
+                    z = playerPos.z + 0.5 * sin(angle + Math.PI)
+                    y += level.random.nextFloat() * 0.1 * (if (level.random.nextBoolean()) 1 else -1)
 
-                level.addParticle(
-                    DustParticleOptions(Vector3f(0.15f, 0.20f, 0.81f), 1f),
-                    x, y, z,
-                    0.0, 0.0, 0.0
-                )
+                    level.addParticle(
+                        DustParticleOptions(Vector3f(0.15f, 0.20f, 0.81f), 1f),
+                        x, y, z,
+                        0.0, 0.0, 0.0
+                    )
+                }
             }
         }
-    }
 
-    fun changeGender(level: Level, livingEntity: LivingEntity?) {
-        if (!level.isClientSide && livingEntity is Player) {
-            val showBoobs = livingEntity.getAttribute(EstrogenAttributes.ShowBoobs)
-            val startTime = livingEntity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)
-            val initialSize = livingEntity.getAttribute(EstrogenAttributes.BoobInitialSize)
-            if (showBoobs != null && startTime != null && initialSize != null) {
-                if (showBoobs.baseValue > 0.0) {
-                    showBoobs.baseValue = 0.0
-                    startTime.baseValue = -1.0
-                    initialSize.baseValue = 0.0
-                } else {
-                    showBoobs.baseValue = 1.0
-                    if (startTime.baseValue < 0.0) {
-                        val currentTime: Double = currentTime(livingEntity.level())
-                        startTime.baseValue = currentTime
+        fun changeGender(level: Level, livingEntity: LivingEntity?) {
+            if (!level.isClientSide && livingEntity is Player) {
+                val showBoobs = livingEntity.getAttribute(EstrogenAttributes.ShowBoobs)
+                val startTime = livingEntity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)
+                val initialSize = livingEntity.getAttribute(EstrogenAttributes.BoobInitialSize)
+                if (showBoobs != null && startTime != null && initialSize != null) {
+                    if (showBoobs.baseValue > 0.0) {
+                        showBoobs.baseValue = 0.0
+                        startTime.baseValue = -1.0
+                        initialSize.baseValue = 0.0
+                    } else {
+                        showBoobs.baseValue = 1.0
+                        if (startTime.baseValue < 0.0) {
+                            val currentTime: Double = currentTime(livingEntity.level())
+                            startTime.baseValue = currentTime
+                        }
+                    }
+                }
+            }
+        }
+
+        fun changeGender(level: Level, livingEntity: LivingEntity?, gender: Int) {
+            if (!level.isClientSide && livingEntity is Player) {
+                val showBoobs = livingEntity.getAttribute(EstrogenAttributes.ShowBoobs)
+                val startTime = livingEntity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)
+                val initialSize = livingEntity.getAttribute(EstrogenAttributes.BoobInitialSize)
+                if (showBoobs != null && startTime != null && initialSize != null) {
+                    if (gender == 0) {
+                        showBoobs.baseValue = 0.0
+                        startTime.baseValue = -1.0
+                        initialSize.baseValue = 0.0
+                    } else {
+                        showBoobs.baseValue = 1.0
+                        if (startTime.baseValue < 0.0) {
+                            val currentTime: Double = currentTime(livingEntity.level())
+                            startTime.baseValue = currentTime
+                        }
                     }
                 }
             }
         }
     }
-
-    fun changeGender(level: Level, livingEntity: LivingEntity?, gender: Int) {
-        if (!level.isClientSide && livingEntity is Player) {
-            val showBoobs = livingEntity.getAttribute(EstrogenAttributes.ShowBoobs)
-            val startTime = livingEntity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)
-            val initialSize = livingEntity.getAttribute(EstrogenAttributes.BoobInitialSize)
-            if (showBoobs != null && startTime != null && initialSize != null) {
-                if (gender == 0) {
-                    showBoobs.baseValue = 0.0
-                    startTime.baseValue = -1.0
-                    initialSize.baseValue = 0.0
-                } else {
-                    showBoobs.baseValue = 1.0
-                    if (startTime.baseValue < 0.0) {
-                        val currentTime: Double = currentTime(livingEntity.level())
-                        startTime.baseValue = currentTime
-                    }
-                }
-            }
-        }
-    }
-
     override fun getUseDuration(stack: ItemStack): Int = 40
     override fun getUseAnimation(stack: ItemStack): UseAnim = UseAnim.DRINK
     override fun getDrinkingSound(): SoundEvent = SoundEvents.GENERIC_DRINK
