@@ -1,5 +1,5 @@
 {
-  "parent": "estrogen:block/bed/template_bed_foot",
+  "parent": "cynosure:block/bed/template_bed_foot",
   "textures": {
     "bed": "estrogen:block/bed/quilted_moth"
   }

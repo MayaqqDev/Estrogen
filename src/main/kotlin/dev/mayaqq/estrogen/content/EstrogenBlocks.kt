@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.content
 
+import dev.mayaqq.cynosure.blocks.model.ModelBedBlock
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
