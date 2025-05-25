@@ -17,8 +17,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Pose
 import kotlin.math.pow
 
-class MothElytraModel<T : LivingEntity?>(root: ModelPart) :
-    AgeableListModel<T>() {
+class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>() {
     private val root: ModelPart = root.getChild("root")
     private val WingR: ModelPart = this.root.getChild("WingR")
     private val WingL: ModelPart = this.root.getChild("WingL")

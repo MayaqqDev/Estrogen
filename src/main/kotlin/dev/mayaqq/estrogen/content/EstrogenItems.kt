@@ -152,7 +152,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
                     entity != null &&
                     entity.attributes.hasAttribute(EstrogenAttributes.ShowBoobs) &&
                     entity.getAttributeValue(EstrogenAttributes.ShowBoobs) != 0.0
-                ) 1.0f else 0.0f;
+                ) 1.0f else 0.0f
         }
         creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.AFTER(Items.HONEY_BOTTLE))
     }

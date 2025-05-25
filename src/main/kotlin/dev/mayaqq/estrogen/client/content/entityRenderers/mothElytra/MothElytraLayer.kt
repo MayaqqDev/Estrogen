@@ -1,8 +1,8 @@
 package dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra
 
 import com.mojang.blaze3d.vertex.PoseStack
-import dev.mayaqq.cynosure.modId
 import dev.mayaqq.estrogen.content.EstrogenItems
+import dev.mayaqq.estrogen.id
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.model.geom.EntityModelSet
 import net.minecraft.client.renderer.MultiBufferSource
@@ -68,6 +68,6 @@ class MothElytraLayer<T : LivingEntity, M : EntityModel<T>>(
     }
 
     companion object {
-        private val WINGS_LOCATION: ResourceLocation = modId("textures/entity/moth_elytra.png")
+        private val WINGS_LOCATION: ResourceLocation = id("textures/entity/moth_elytra.png")
     }
 }
