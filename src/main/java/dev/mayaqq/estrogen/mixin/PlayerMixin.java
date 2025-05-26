@@ -21,6 +21,9 @@ public abstract class PlayerMixin extends LivingEntity implements IPlayer {
     @Nullable
     private ChestConfig estrogen$chestConfig;
 
+   @Unique
+   private long estrogen$lastFlap = 0;
+
     protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
@@ -38,5 +41,15 @@ public abstract class PlayerMixin extends LivingEntity implements IPlayer {
     @Inject(method = "jumpFromGround()V", at = @At("HEAD"), cancellable = true)
     private void jumpFromGround(CallbackInfo callbackInfo) {
         if (CommonDash.INSTANCE.isDashing(getUUID())) callbackInfo.cancel();
+    }
+
+    @Override
+    public void estrogen$flap() {
+        estrogen$lastFlap = System.currentTimeMillis();
+    }
+
+    @Override
+    public long estrogen$getLastFlap() {
+        return estrogen$lastFlap;
     }
 }

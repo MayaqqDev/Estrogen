@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import dev.mayaqq.cynosure.modId
+import dev.mayaqq.estrogen.injection.getLastFlap
 import net.minecraft.client.model.AgeableListModel
 import net.minecraft.client.model.geom.ModelLayerLocation
 import net.minecraft.client.model.geom.ModelPart
@@ -15,6 +16,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition
 import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Pose
+import net.minecraft.world.entity.player.Player
 import kotlin.math.pow
 
 class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>() {
@@ -64,6 +66,17 @@ class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>(
             WingL.zRot = zRot
             WingL.yRot = yRot
         }
+
+        /*** Flapping these cheeks lol ***/
+        if (entity is Player) {
+            val flapTime = System.currentTimeMillis() - entity.getLastFlap()
+            if (flapTime <= 1500) {
+                WingL.xRot =+ flapTime / 1000f
+            } else if (flapTime <= 3000) {
+                WingL.xRot =- flapTime / 1000f + 1.5f
+            }
+        }
+        /***                           ***/
 
         WingR.yRot = -WingL.yRot
         WingR.xRot = WingL.xRot
