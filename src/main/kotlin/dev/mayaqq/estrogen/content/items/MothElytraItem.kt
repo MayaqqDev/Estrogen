@@ -2,6 +2,8 @@ package dev.mayaqq.estrogen.content.items
 
 import dev.mayaqq.cynosure.items.extensions.DisablesCape
 import dev.mayaqq.estrogen.content.EstrogenItems
+import dev.mayaqq.estrogen.network.EstrogenNetwork
+import dev.mayaqq.estrogen.network.messages.c2s.FlapPacket
 import net.minecraft.client.Minecraft
 import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.client.player.LocalPlayer
@@ -23,8 +25,10 @@ class MothElytraItem(properties: Properties) : ElytraItem(properties), DisablesC
     override fun inventoryTick(stack: ItemStack, level: Level, entity: Entity, slotId: Int, isSelected: Boolean) {
         if (cooldown > 0) cooldown--
         if (entity is LivingEntity && !entity.isFallFlying) {
-            flaps = 3
             cooldown = 20
+        }
+        if (entity.onGround()) {
+            flaps = 3
         }
         if (isFlyEnabled(stack) && entity is LivingEntity && entity.getItemBySlot(EquipmentSlot.CHEST) == stack) {
             doVanillaElytraTick(entity, stack)
@@ -33,7 +37,7 @@ class MothElytraItem(properties: Properties) : ElytraItem(properties), DisablesC
                     flaps--
                     cooldown = 20
                     entity.addDeltaMovement(Vec3(0.0, 0.7, 0.0))
-                    entity.playSound(SoundEvents.ENDER_DRAGON_FLAP, 1.0f, 1.4f)
+                    EstrogenNetwork.sendToServer(FlapPacket(flaps))
                 }
             }
         }
