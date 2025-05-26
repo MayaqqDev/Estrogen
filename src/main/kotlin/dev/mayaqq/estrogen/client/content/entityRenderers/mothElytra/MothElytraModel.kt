@@ -72,8 +72,10 @@ class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>(
             val flapTime = System.currentTimeMillis() - entity.getLastFlap()
             if (flapTime <= 1500) {
                 WingL.xRot =+ flapTime / 1000f
+                WingL.yRot =+ (flapTime / 1000f) / 2
             } else if (flapTime <= 3000) {
                 WingL.xRot =- flapTime / 1000f + 1.5f
+                WingL.yRot =- (flapTime / 1000f + 1.5f) / 2
             }
         }
         /***                           ***/
