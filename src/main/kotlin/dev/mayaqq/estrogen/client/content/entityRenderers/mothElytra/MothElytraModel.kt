@@ -17,7 +17,9 @@ import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Pose
 import net.minecraft.world.entity.player.Player
+import java.lang.Math.pow
 import kotlin.math.pow
+import kotlin.math.sin
 
 class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>() {
     private val root: ModelPart = root.getChild("root")
@@ -69,13 +71,14 @@ class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>(
 
         /*** Flapping these cheeks lol ***/
         if (entity is Player) {
-            val flapTime = System.currentTimeMillis() - entity.getLastFlap()
-            if (flapTime <= 1500) {
-                WingL.xRot =+ flapTime / 1000f
-                WingL.yRot =+ (flapTime / 1000f) / 2
-            } else if (flapTime <= 3000) {
-                WingL.xRot =- flapTime / 1000f + 1.5f
-                WingL.yRot =- (flapTime / 1000f + 1.5f) / 2
+            val flapDuration = 1000.0
+            val flapStartTime = entity.getLastFlap()
+            val flap = (System.currentTimeMillis() - flapStartTime).toDouble()
+
+            if (flap <= flapDuration) {
+                val progress = (flap / flapDuration).coerceIn(0.0, 1.0)
+
+                WingL.xRot += flap(progress).toFloat()
             }
         }
         /***                           ***/
@@ -104,6 +107,21 @@ class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>(
     ) {
         root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha)
     }
+
+    // I have n o idea what im doing
+    private fun flap(x: Double): Double {
+        return if (x < 0.2) {
+            // SLightly go upwards
+            1.0
+        } else if(x < 0.7) {
+            // drop down
+            1.0
+        } else {
+            // GO back up
+            1.0
+        }
+    }
+
 
     override fun headParts(): Iterable<ModelPart> {
         return ImmutableList.of()
