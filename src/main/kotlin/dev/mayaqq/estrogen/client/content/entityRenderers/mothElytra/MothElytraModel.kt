@@ -14,6 +14,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder
 import net.minecraft.client.model.geom.builders.LayerDefinition
 import net.minecraft.client.model.geom.builders.MeshDefinition
 import net.minecraft.client.player.AbstractClientPlayer
+import net.minecraft.util.Mth
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Pose
 import net.minecraft.world.entity.player.Player
@@ -70,15 +71,15 @@ class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>(
         }
 
         /*** Flapping these cheeks lol ***/
-        if (entity is Player) {
-            val flapDuration = 1000.0
+        if (entity is Player && entity.isFallFlying) {
+            val flapDuration = 1000.0f
             val flapStartTime = entity.getLastFlap()
-            val flap = (System.currentTimeMillis() - flapStartTime).toDouble()
+            val flap = (System.currentTimeMillis() - flapStartTime).toFloat()
 
             if (flap <= flapDuration) {
-                val progress = (flap / flapDuration).coerceIn(0.0, 1.0)
+                val progress = (flap / flapDuration).coerceIn(0.0f, 1.0f)
 
-                WingL.xRot += flap(progress).toFloat()
+                WingL.xRot += Mth.cos(progress * Mth.TWO_PI * 10)
             }
         }
         /***                           ***/
