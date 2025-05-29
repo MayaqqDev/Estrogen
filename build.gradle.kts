@@ -1,7 +1,5 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
-import earth.terrarium.cloche.tasks.GenerateModJsonJarsEntry
-import net.msrandom.minecraftcodev.remapper.task.RemapJar
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -266,10 +264,10 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks.withType<GenerateModJsonJarsEntry> {
-    val fabricRemapJar: RemapJar by tasks
-    jar.set(fabricRemapJar.archiveFile)
-}
+//tasks.withType<GenerateModJsonJarsEntry> {
+//    val fabricRemapJar: RemapJar by tasks
+//    jar.set(fabricRemapJar.archiveFile)
+//}
 
 tasks.named { it == "kspFabricKotlin" || it == "kspForgeKotlin" }.configureEach { enabled = false }
 
