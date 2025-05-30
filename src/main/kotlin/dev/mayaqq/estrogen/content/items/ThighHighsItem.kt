@@ -100,7 +100,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
         stack.tag?.remove(SPECIAL_STYLE)
     }
 
-    override fun MutableList<Component>.modifyTooltip(stack: ItemStack, player: Player, flags: TooltipFlag) {
+    override fun MutableList<Component>.modifyTooltip(stack: ItemStack, player: Player?, flags: TooltipFlag) {
 
     }
 

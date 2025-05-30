@@ -24,6 +24,7 @@ import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
 import dev.mayaqq.estrogen.id
 import net.minecraft.advancements.critereon.EntityPredicate
+import net.minecraft.core.NonNullList
 import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
@@ -60,6 +61,7 @@ class EntityInteractionRecipe(val recipeId: ResourceLocation, val ingredient: In
     override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.ENTITY_INTERACTION_SERIALIZER
     override fun getType(): RecipeType<*> = EstrogenRecipes.ENTITY_INTERACTION
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = true
+    override fun getIngredients(): NonNullList<Ingredient> = NonNullList.of(Ingredient.EMPTY, ingredient)
 
     companion object: RecipeViewerInfo {
         fun codec(id: ResourceLocation): Codec<EntityInteractionRecipe> = RecordCodecBuilder.create { instance ->
