@@ -1,7 +1,8 @@
 package dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra
 
 import com.mojang.blaze3d.vertex.PoseStack
-import dev.mayaqq.estrogen.content.EstrogenItems
+import dev.mayaqq.cynosure.client.utils.pushPop
+import dev.mayaqq.estrogen.content.items.MothElytraItem
 import dev.mayaqq.estrogen.id
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.model.geom.EntityModelSet
@@ -34,37 +35,35 @@ class MothElytraLayer<T : LivingEntity, M : EntityModel<T>>(
         headPitch: Float
     ) {
         val itemStack = livingEntity.getItemBySlot(EquipmentSlot.CHEST)
-        if (!itemStack.`is`(EstrogenItems.MothElytra)) {
-            return
+        if (itemStack.item !is MothElytraItem) return
+        poseStack.pushPop {
+            val name = itemStack.displayName.string.replace("[", "").replace("]", "")
+            if (name.equals("big", ignoreCase = true)) {
+                poseStack.scale(2f, 2f, 2f)
+            } else if (name.equals("small", ignoreCase = true)) {
+                poseStack.scale(1f, 1f, 1f)
+            } else {
+                poseStack.scale(1.5f, 1.5f, 1.5f)
+            }
+            poseStack.translate(0.0f, 0.15f, -0.05f)
+            parentModel.copyPropertiesTo(elytraModel)
+            elytraModel.setupAnim(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch)
+            val vertexConsumer = ItemRenderer.getArmorFoilBuffer(
+                buffer, RenderType.armorCutoutNoCull(
+                    WINGS_LOCATION
+                ), false, itemStack.hasFoil()
+            )
+            elytraModel.renderToBuffer(
+                poseStack,
+                vertexConsumer,
+                packedLight,
+                OverlayTexture.NO_OVERLAY,
+                1.0f,
+                1.0f,
+                1.0f,
+                1.0f
+            )
         }
-        poseStack.pushPose()
-        val name = itemStack.displayName.string.replace("[", "").replace("]", "")
-        if (name.equals("big", ignoreCase = true)) {
-            poseStack.scale(2f, 2f, 2f)
-        } else if (name.equals("small", ignoreCase = true)) {
-            poseStack.scale(1f, 1f, 1f)
-        } else {
-            poseStack.scale(1.5f, 1.5f, 1.5f)
-        }
-        poseStack.translate(0.0f, 0.15f, -0.05f)
-        this.parentModel.copyPropertiesTo(this.elytraModel)
-        elytraModel.setupAnim(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch)
-        val vertexConsumer = ItemRenderer.getArmorFoilBuffer(
-            buffer, RenderType.armorCutoutNoCull(
-                WINGS_LOCATION
-            ), false, itemStack.hasFoil()
-        )
-        elytraModel.renderToBuffer(
-            poseStack,
-            vertexConsumer,
-            packedLight,
-            OverlayTexture.NO_OVERLAY,
-            1.0f,
-            1.0f,
-            1.0f,
-            1.0f
-        )
-        poseStack.popPose()
     }
 
     companion object {

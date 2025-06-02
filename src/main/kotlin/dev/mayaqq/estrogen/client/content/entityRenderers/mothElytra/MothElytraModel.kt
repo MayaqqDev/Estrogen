@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import dev.mayaqq.cynosure.modId
+import dev.mayaqq.estrogen.injection.getLastFlap
 import net.minecraft.client.model.AgeableListModel
 import net.minecraft.client.model.geom.ModelLayerLocation
 import net.minecraft.client.model.geom.ModelPart
@@ -13,9 +14,13 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder
 import net.minecraft.client.model.geom.builders.LayerDefinition
 import net.minecraft.client.model.geom.builders.MeshDefinition
 import net.minecraft.client.player.AbstractClientPlayer
+import net.minecraft.util.Mth
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Pose
+import net.minecraft.world.entity.player.Player
+import java.lang.Math.pow
 import kotlin.math.pow
+import kotlin.math.sin
 
 class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>() {
     private val root: ModelPart = root.getChild("root")
@@ -65,6 +70,20 @@ class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>(
             WingL.yRot = yRot
         }
 
+        /*** Flapping these cheeks lol ***/
+        if (entity is Player && entity.isFallFlying) {
+            val flapDuration = 1000.0f
+            val flapStartTime = entity.getLastFlap()
+            val flap = (System.currentTimeMillis() - flapStartTime).toFloat()
+
+            if (flap <= flapDuration) {
+                val progress = (flap / flapDuration).coerceIn(0.0f, 1.0f)
+
+                WingL.xRot += Mth.cos(progress * Mth.TWO_PI * 10)
+            }
+        }
+        /***                           ***/
+
         WingR.yRot = -WingL.yRot
         WingR.xRot = WingL.xRot
         WingR.zRot = -WingL.zRot
@@ -89,6 +108,21 @@ class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>(
     ) {
         root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha)
     }
+
+    // I have n o idea what im doing
+    private fun flap(x: Double): Double {
+        return if (x < 0.2) {
+            // SLightly go upwards
+            1.0
+        } else if(x < 0.7) {
+            // drop down
+            1.0
+        } else {
+            // GO back up
+            1.0
+        }
+    }
+
 
     override fun headParts(): Iterable<ModelPart> {
         return ImmutableList.of()

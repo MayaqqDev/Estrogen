@@ -18,7 +18,7 @@ object ReiEstrogenPlugin : REIClientPlugin {
     override fun registerDisplays(registry: DisplayRegistry) {
         registry.add(EntityInteractionReiRecipe)
         registry.registerRecipeFiller(EntityInteractionRecipe::class.java, EstrogenRecipes.ENTITY_INTERACTION) { recipe ->
-            return@registerRecipeFiller EntityInteractionReiRecipe(recipe, recipe.entity)
+            EntityInteractionReiRecipe(recipe, recipe.entity)
         }
     }
 }

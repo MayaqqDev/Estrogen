@@ -24,7 +24,7 @@ data class DashPacket(val isInitial: Boolean, val dashLevel: Int) : Packet.Serve
             if (isInitial) {
                 // Set dashing and play dash sound if this is the initial packet
                 CommonDash.setDashing(sender.uuid)
-                level.playSound(null, sender.blockPosition(), EstrogenSounds.DASH, SoundSource.PLAYERS, 1.0f, 1.0f)
+                level.playSound(null, sender, EstrogenSounds.DASH, SoundSource.PLAYERS, 1.0f, 1.0f)
             } else {
                 // Otherwise spawn trail
                 val dashColor = EstrogenColors.getDashColor(dashLevel, true)
