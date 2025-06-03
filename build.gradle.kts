@@ -241,14 +241,24 @@ cloche {
     }
 }
 
-dependencies.registerTransform(FixMultiRelease::class) {
-    from.attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, "jar")
-    to.attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, "fixed-jar")
+val fixedAttribute = Attribute.of("fixed-jar", Boolean::class.javaObjectType)
+
+dependencies {
+    registerTransform(FixMultiRelease::class) {
+        from.attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, ArtifactTypeDefinition.JAR_TYPE).attribute(fixedAttribute, false)
+        to.attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, ArtifactTypeDefinition.JAR_TYPE).attribute(fixedAttribute, true)
+    }
+
+    artifactTypes {
+        named(ArtifactTypeDefinition.JAR_TYPE) {
+            attributes.attribute(fixedAttribute, false)
+        }
+    }
 }
 
 configurations.named("forgeRuntimeClasspath") {
     attributes {
-        attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, "fixed-jar")
+        attribute(fixedAttribute, true)
     }
 }
 

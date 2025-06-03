@@ -9,9 +9,9 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.util.jar.JarInputStream
-import java.util.jar.JarOutputStream
-import java.util.jar.Manifest
 import java.util.zip.ZipEntry
+import java.util.zip.ZipInputStream
+import java.util.zip.ZipOutputStream
 
 
 @CacheableTransform
@@ -31,26 +31,27 @@ abstract class FixMultiRelease : TransformAction<TransformParameters.None> {
             // copy jar but remove Multi-Release attribute
             val outputFile = outputs.file("${file.name.substring(0, file.name.lastIndexOf('.'))}-fixed.jar")
 
-            JarInputStream(FileInputStream(file)).use { inputJar ->
-                JarOutputStream(FileOutputStream(outputFile)).use { outputJar ->
+            ZipInputStream(FileInputStream(file)).use { inputJar ->
+                ZipOutputStream(FileOutputStream(outputFile)).use { outputJar ->
                     var entry = inputJar.nextEntry
                     while (entry != null) {
                         if (entry.name.equals("META-INF/MANIFEST.MF", ignoreCase = true)) {
-                            // Skip the manifest entry, we will handle it later
+                            val data = String(inputJar.readBytes())
+                                .lines()
+                                .filterNot { it.startsWith("Multi-Release:") }
+                                .joinToString("\n")
+
+                            outputJar.putNextEntry(ZipEntry("META-INF/MANIFEST.MF"))
+                            outputJar.write(data.toByteArray())
+                            outputJar.closeEntry()
                             entry = inputJar.nextEntry
-                            continue
+                        } else {
+                            outputJar.putNextEntry(entry)
+                            inputJar.copyTo(outputJar)
+                            outputJar.closeEntry()
+                            entry = inputJar.nextEntry
                         }
-
-                        outputJar.putNextEntry(entry)
-                        inputJar.copyTo(outputJar)
-                        entry = inputJar.nextEntry
                     }
-
-                    val manifest = Manifest(inputJar.manifest)
-                    manifest.mainAttributes.remove("Multi-Release")
-
-                    outputJar.putNextEntry(ZipEntry("META-INF/MANIFEST.MF"))
-                    manifest.write(outputJar)
                 }
             }
         }
