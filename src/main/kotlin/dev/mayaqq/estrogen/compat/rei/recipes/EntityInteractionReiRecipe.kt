@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.compat.rei.recipes
 
 import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.utils.Either
-import dev.mayaqq.cynosure.utils.fold
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.rei.StackWithCatalystReiRenderable
 import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
@@ -25,8 +24,9 @@ import net.minecraft.network.chat.Component
 import net.minecraft.tags.TagKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.SpawnEggItem
 import java.util.*
-import kotlin.jvm.optionals.getOrNull
 
 
 class EntityInteractionReiRecipe(val recipe: EntityInteractionRecipe, val entity: Either<EntityType<*>, TagKey<EntityType<*>>>) : BasicDisplay(
@@ -50,8 +50,6 @@ class EntityInteractionReiRecipe(val recipe: EntityInteractionRecipe, val entity
         override fun getDisplayHeight(): Int = EntityInteractionRecipe.height
         override fun getDisplayWidth(recipe: EntityInteractionReiRecipe): Int = EntityInteractionRecipe.width
 
-        var slot: Slot? = null
-
         override fun setupDisplay(recipe: EntityInteractionReiRecipe, bounds: Rectangle): MutableList<Widget> {
             val widgets = mutableListOf<Widget>()
 
@@ -62,7 +60,6 @@ class EntityInteractionReiRecipe(val recipe: EntityInteractionRecipe, val entity
                 .disableBackground()
                 .entries(EntryIngredients.ofItemStacks(recipe.entity.getSpawnEggs()))
             widgets.add(eggSlot)
-            slot = eggSlot
 
             val slot: Slot = Widgets.createSlot(Point(bounds.x + 51, bounds.y + 5 + 4))
                 .markInput()
@@ -77,21 +74,11 @@ class EntityInteractionReiRecipe(val recipe: EntityInteractionRecipe, val entity
 
             widgets.add(outputSlot)
 
-            @Suppress("UnstableApiUsage")
-            val entities = recipe.entity
-                .fold(
-                    { listOf(it) },
-                    { key ->
-                        val registry = registryAccess().registry(key.registry()).getOrNull() ?: return@fold listOf()
-                        val tag = registry.getTagOrEmpty(key)
-                        return@fold tag.mapNotNull { holder -> holder.unwrap().map({ registry.get(it) }, { it }) }
-                    }
-                )
-                .map { type -> lazy { Minecraft.getInstance().level?.let(type::create) as? LivingEntity } }
-
             widgets.add(Widgets.createDrawableWidget { graphics, mouseX, mouseY, delta ->
-                val index = (System.currentTimeMillis() / 2000) % entities.size
-                val entity by entities.getOrNull(index.toInt()) ?: return@createDrawableWidget
+                val stack = eggSlot.currentEntry.value as ItemStack
+                val entity = (stack.item as SpawnEggItem)
+                    .getType(stack.getOrCreateTag())
+                    .create(Minecraft.getInstance().level) as LivingEntity? ?: return@createDrawableWidget
 
                 graphics.pushPop {
                     translate(bounds.getX().toDouble(), bounds.getY().toDouble() + 4, 0.0)
@@ -100,17 +87,15 @@ class EntityInteractionReiRecipe(val recipe: EntityInteractionRecipe, val entity
                     RecipeTextures.JEI_SLOT.render(graphics, 131, 37)
                     RecipeTextures.JEI_SHADOW.render(graphics, 62, 47)
                     RecipeTextures.JEI_DOWN_ARROW.render(graphics, 74, 10)
-                    if (entity != null) {
-                        InventoryScreen.renderEntityInInventoryFollowsMouse(
-                            graphics,
-                            88,
-                            55,
-                            20,
-                            (-mouseX).toFloat() + 87,
-                            (-mouseY).toFloat() + 20,
-                            entity!!
-                        )
-                    }
+                    InventoryScreen.renderEntityInInventoryFollowsMouse(
+                        graphics,
+                        88,
+                        55,
+                        20,
+                        (-mouseX).toFloat() + 87,
+                        (-mouseY).toFloat() + 20,
+                        entity
+                    )
                 }
             })
 
