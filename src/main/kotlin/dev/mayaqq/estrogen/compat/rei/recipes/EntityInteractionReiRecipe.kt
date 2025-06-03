@@ -59,17 +59,20 @@ class EntityInteractionReiRecipe(val recipe: EntityInteractionRecipe, val entity
 
             val eggSlot: Slot = Widgets.createSlot(Point(bounds.x + 27, bounds.y + 38 + 4))
                 .markInput()
+                .disableBackground()
                 .entries(EntryIngredients.ofItemStacks(recipe.entity.getSpawnEggs()))
             widgets.add(eggSlot)
             slot = eggSlot
 
             val slot: Slot = Widgets.createSlot(Point(bounds.x + 51, bounds.y + 5 + 4))
                 .markInput()
+                .disableBackground()
                 .entries(recipe.inputs[0])
             widgets.add(slot)
 
             val outputSlot: Slot = Widgets.createSlot(Point(bounds.x + 132, bounds.y + 38 + 4))
                 .markOutput()
+                .disableBackground()
                 .entries(recipe.outputs[0])
 
             widgets.add(outputSlot)

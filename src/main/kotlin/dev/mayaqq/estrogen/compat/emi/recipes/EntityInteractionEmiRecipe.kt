@@ -8,6 +8,7 @@ import dev.emi.emi.api.widget.SlotWidget
 import dev.emi.emi.api.widget.WidgetHolder
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.emi.addTexture
+import dev.mayaqq.estrogen.compat.emi.withBackground
 import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
 import dev.mayaqq.estrogen.content.recipes.getSpawnEggs
 import net.minecraft.client.Minecraft
@@ -25,16 +26,16 @@ class EntityInteractionEmiRecipe(category: EmiRecipeCategory, val recipe: Entity
 
     }
     override fun addWidgets(widgets: WidgetHolder) {
-        widgets.addTexture(RecipeTextures.JEI_DOWN_ARROW, 62, 47)
-        widgets.addTexture(RecipeTextures.JEI_SHADOW, 74, 10)
+        widgets.addTexture(RecipeTextures.JEI_SHADOW, 62, 47)
+        widgets.addTexture(RecipeTextures.JEI_DOWN_ARROW, 74, 10)
 
         val matchingStacks: Array<ItemStack> = recipe.entity.getSpawnEggs().toTypedArray()
 
-        val eggs: SlotWidget = widgets.addSlot(EmiIngredient.of(Ingredient.of(*matchingStacks)), 27, 38)
+        val eggs: SlotWidget = widgets.addSlot(EmiIngredient.of(Ingredient.of(*matchingStacks)), 27, 38).withBackground(RecipeTextures.JEI_SLOT)
 
-        widgets.addSlot(inputs[0], 51, 5)
+        widgets.addSlot(inputs[0], 51, 5).withBackground(RecipeTextures.JEI_SLOT)
 
-        widgets.addSlot(outputs[0], 132, 38).recipeContext(this)
+        widgets.addSlot(outputs[0], 132, 38).recipeContext(this).withBackground(RecipeTextures.JEI_SLOT)
 
         widgets.addDrawable(0, 0, 0, 0) { matrices, mouseX, mouseY, delta ->
             val item = (System.currentTimeMillis() / 1000 % eggs.stack.emiStacks.size).toInt()

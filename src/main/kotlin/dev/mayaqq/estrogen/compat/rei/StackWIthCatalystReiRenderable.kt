@@ -7,6 +7,6 @@ import net.minecraft.client.gui.GuiGraphics
 
 class StackWithCatalystReiRenderable(val viewerInfo: RecipeViewerInfo) : Renderer {
     override fun render(graphics: GuiGraphics, bounds: Rectangle, mouseX: Int, mouseY: Int, delta: Float) {
-        viewerInfo.render(graphics, 0, 0, delta)
+        viewerInfo.render(graphics, bounds.centerX - 9, bounds.centerY - 9, delta)
     }
 }

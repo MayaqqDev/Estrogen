@@ -187,7 +187,7 @@ cloche {
             }
             entrypoint("jei_mod_plugin") {
                 adapter.set("kotlin")
-                value.set("dev.mayaqq.estrogen.compat.jei.JeiModPlugin")
+                value.set("dev.mayaqq.estrogen.compat.jei.JeiEstrogenPlugin")
             }
         }
     }
