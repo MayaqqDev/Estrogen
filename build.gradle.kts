@@ -162,7 +162,7 @@ cloche {
                 "EMI" -> modRuntimeOnly(libs.fabric.emi)
                 "JEI" -> modRuntimeOnly(libs.fabric.jei)
                 "disabled" -> {}
-                else -> error("Invalid item viewer for Fabric: $item_viewer_forge")
+                else -> error("Invalid item viewer for Fabric: $item_viewer_fabric")
             }
 
             if (devauth_enabled.toBoolean()) modRuntimeOnly(libs.fabric.devauth)
