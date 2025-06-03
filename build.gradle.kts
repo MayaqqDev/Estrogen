@@ -43,8 +43,7 @@ repositories {
     mavenCentral()
 }
 
-val item_viewer_forge: String by project
-val item_viewer_fabric: String by project
+val item_viewer: String by project
 
 val devauth_enabled: String by project
 
@@ -157,12 +156,12 @@ cloche {
             modApi(libs.fabric.cynosure)
             modApi(libs.fabric.kittyconfig)
 
-            when(item_viewer_fabric) {
+            when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
                 "EMI" -> modRuntimeOnly(libs.fabric.emi)
                 "JEI" -> modRuntimeOnly(libs.fabric.jei)
                 "disabled" -> {}
-                else -> error("Invalid item viewer for Fabric: $item_viewer_fabric")
+                else -> error("Invalid item viewer for Fabric: $item_viewer")
             }
 
             if (devauth_enabled.toBoolean()) modRuntimeOnly(libs.fabric.devauth)
@@ -228,11 +227,12 @@ cloche {
             modApi(libs.forge.cynosure)
             modApi(libs.forge.kittyconfig)
 
-            when(item_viewer_forge) {
+            when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)
+                "REI" -> modRuntimeOnly(libs.forge.rei)
                 "JEI" -> modRuntimeOnly(libs.forge.jei)
                 "disabled" -> {}
-                else -> error("Invalid item viewer for Forge: $item_viewer_forge")
+                else -> error("Invalid item viewer for Forge: $item_viewer")
             }
 
             if (devauth_enabled.toBoolean()) modRuntimeOnly(libs.forge.devauth)
