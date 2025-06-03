@@ -1,5 +1,6 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
+import dev.mayaqq.multijarfixer.FixMultiRelease
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -239,6 +240,27 @@ cloche {
     }
 }
 
+
+val fixedAttribute = Attribute.of("fixed-jar", Boolean::class.javaObjectType)
+
+dependencies {
+    registerTransform(FixMultiRelease::class) {
+        from.attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, ArtifactTypeDefinition.JAR_TYPE).attribute(fixedAttribute, false)
+        to.attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, ArtifactTypeDefinition.JAR_TYPE).attribute(fixedAttribute, true)
+    }
+
+    artifactTypes {
+        named(ArtifactTypeDefinition.JAR_TYPE) {
+            attributes.attribute(fixedAttribute, false)
+        }
+    }
+}
+
+configurations.named("forgeRuntimeClasspath") {
+    attributes {
+        attribute(fixedAttribute, true)
+    }
+}
 
 java {
     withSourcesJar()
