@@ -103,7 +103,7 @@ cloche {
         loaderVersion = libs.versions.fabric
         minecraftVersion = libs.versions.minecraft
 
-        include(libs.fabric.baubly)
+        include(libs.fabric.baubly) { exclude(group = "me.shedaniel") }
         include(libs.fabric.kritter)
         include(libs.fabric.flywheel)
         include(libs.fabric.kittyconfig)
@@ -112,19 +112,8 @@ cloche {
 
         includedClient() // includedClient() is not a run
         runs {
-            val paths = listOf(
-                "build/classes/java/fabric",
-                "build/classes/kotlin/fabric",
-                "build/generated/ksp/fabric/classes",
-                "build/resources/fabric"
-            ).joinToString(if (Os.isFamily(Os.FAMILY_WINDOWS)) ";" else ":") { project.file(it).absolutePath }
-
-            client {
-                jvmArgs("-Dfabric.classPathGroups=$paths")
-            } // this is just the client run not client sourceset
-            server {
-                jvmArgs("-Dfabric.classPathGroups=$paths")
-            }
+            client()
+            server()
         }
 
         metadata {
@@ -155,7 +144,7 @@ cloche {
             fabricApi(libs.versions.fapi)
             modApi(libs.fabric.kotlin)
             modApi.bundle(libs.bundles.fabric.cardinalComponents)
-            modImplementation(libs.fabric.baubly)
+            modImplementation(libs.fabric.baubly) { exclude(group = "me.shedaniel") }
             modImplementation(libs.fabric.trinkets)
             modRuntimeOnly(libs.fabric.kritter)
             modCompileOnly(libs.fabric.emi)
@@ -210,7 +199,7 @@ cloche {
         loaderVersion = libs.versions.forge.get()
         minecraftVersion = libs.versions.minecraft.get()
 
-        include(libs.forge.baubly)
+        include(libs.forge.baubly) { exclude(group = "me.shedaniel") }
         include(libs.forge.mixinExtras)
         include(files(project.relativePath("libs/Kritter-0.0.1-forge.jar")))
         include(libs.mixinConstrains)
@@ -230,7 +219,7 @@ cloche {
             api(libs.forge.kotlin)
             modCompileOnlyApi(libs.forge.flywheel.api)
             modImplementation(libs.forge.flywheel)
-            modImplementation(libs.forge.baubly)
+            modImplementation(libs.forge.baubly) { exclude(group = "me.shedaniel") }
             modRuntimeOnly(libs.forge.kritter)
             modCompileOnly(libs.forge.rei)
             implementation(libs.forge.mixinExtras)
@@ -268,8 +257,6 @@ tasks.withType<KotlinCompile> {
 //    val fabricRemapJar: RemapJar by tasks
 //    jar.set(fabricRemapJar.archiveFile)
 //}
-
-tasks.named { it == "kspFabricKotlin" || it == "kspForgeKotlin" }.configureEach { enabled = false }
 
 publishing {
     publications {
