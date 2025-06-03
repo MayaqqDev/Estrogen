@@ -1,6 +1,7 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
-import org.apache.tools.ant.taskdefs.condition.Os
+import dev.mayaqq.multijarfixer.FixMultiRelease
+import org.gradle.api.internal.artifacts.ArtifactAttributes
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -112,19 +113,8 @@ cloche {
 
         includedClient() // includedClient() is not a run
         runs {
-            val paths = listOf(
-                "build/classes/java/fabric",
-                "build/classes/kotlin/fabric",
-                "build/generated/ksp/fabric/classes",
-                "build/resources/fabric"
-            ).joinToString(if (Os.isFamily(Os.FAMILY_WINDOWS)) ";" else ":") { project.file(it).absolutePath }
-
-            client {
-                jvmArgs("-Dfabric.classPathGroups=$paths")
-            } // this is just the client run not client sourceset
-            server {
-                jvmArgs("-Dfabric.classPathGroups=$paths")
-            }
+            client()
+            server()
         }
 
         metadata {
@@ -251,6 +241,17 @@ cloche {
     }
 }
 
+dependencies.registerTransform(FixMultiRelease::class) {
+    from.attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, "jar")
+    to.attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, "fixed-jar")
+}
+
+configurations.named("forgeRuntimeClasspath") {
+    attributes {
+        attribute(ArtifactTypeDefinition.ARTIFACT_TYPE_ATTRIBUTE, "fixed-jar")
+    }
+}
+
 
 java {
     withSourcesJar()
@@ -263,13 +264,6 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
     }
 }
-
-//tasks.withType<GenerateModJsonJarsEntry> {
-//    val fabricRemapJar: RemapJar by tasks
-//    jar.set(fabricRemapJar.archiveFile)
-//}
-
-tasks.named { it == "kspFabricKotlin" || it == "kspForgeKotlin" }.configureEach { enabled = false }
 
 publishing {
     publications {
