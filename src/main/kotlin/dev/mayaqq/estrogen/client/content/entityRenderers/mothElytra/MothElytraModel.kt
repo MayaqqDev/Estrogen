@@ -18,9 +18,7 @@ import net.minecraft.util.Mth
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Pose
 import net.minecraft.world.entity.player.Player
-import java.lang.Math.pow
 import kotlin.math.pow
-import kotlin.math.sin
 
 class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>() {
     private val root: ModelPart = root.getChild("root")
@@ -79,7 +77,7 @@ class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>(
             if (flap <= flapDuration) {
                 val progress = (flap / flapDuration).coerceIn(0.0f, 1.0f)
 
-                WingL.xRot += Mth.cos(progress * Mth.TWO_PI * 10)
+                WingL.xRot += Mth.cos(progress * Mth.TWO_PI * 1)
             }
         }
         /***                           ***/
