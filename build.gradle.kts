@@ -49,6 +49,8 @@ val devauth_enabled: String by project
 
 dependencies {
     ksp(libs.kittyconfig.ksp)
+    compileOnly(libs.kritter)
+    compileOnly(libs.cynosure)
 }
 
 cloche {
@@ -79,7 +81,6 @@ cloche {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.coroutines.core)
             api(libs.flywheel.api)
-            compileOnly(libs.kritter)
 //            modImplementation(libs.baubly)
             modCompileOnly(libs.ears)
             modCompileOnly(libs.figura)
@@ -87,7 +88,6 @@ cloche {
             modImplementation(libs.kittyconfig)
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
-            modApi(libs.cynosure)
             //modCompileOnly(libs.rei.api)
             //modCompileOnly(libs.rei.plugin)
 
