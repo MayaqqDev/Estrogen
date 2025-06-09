@@ -1,6 +1,7 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
 import dev.mayaqq.multijarfixer.FixMultiRelease
+import net.msrandom.stubs.GenerateStubApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -272,6 +273,11 @@ tasks.withType<KotlinCompile> {
         languageVersion = KotlinVersion.KOTLIN_2_0
         freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
     }
+}
+
+tasks.named("createCommonApiStub", GenerateStubApi::class) {
+    excludes.add(libs.kritter.get().toString())
+    excludes.add(libs.cynosure.get().toString())
 }
 
 //tasks.withType<GenerateModJsonJarsEntry> {
