@@ -122,4 +122,20 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             }
         }
     }
+
+    val DreamCatcher: DreamCatcherBlock by block("dream_catcher", ::DreamCatcherBlock) {
+        properties {
+            mapColor(Blocks.OAK_PLANKS.defaultMapColor())
+            forceSolidOn()
+            instrument(NoteBlockInstrument.BASS)
+            noCollission()
+            strength(1.0F)
+            ignitedByLava()
+        }
+        renderType = RenderType::cutout
+        item(::BlockItem) {
+            standardTooltip()
+            creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(Items.BARREL))
+        }
+    }
 }
