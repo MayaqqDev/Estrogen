@@ -7,6 +7,7 @@ import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.DreamBlockRe
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.DreamBlockVisual
 import dev.mayaqq.estrogen.content.blockEntities.CookieJarBlockEntity
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
+import dev.mayaqq.estrogen.content.blockEntities.DreamCatcherBlockEntity
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.level.block.entity.BlockEntityType
 import uwu.serenity.kritter.api.Registrar
@@ -21,9 +22,14 @@ object EstrogenBlockEntities : Registrar<BlockEntityType<*>> by Estrogen..Regist
         visual(::DreamBlockVisual)
     }
 
-    val CookieJar: BlockEntityType<CookieJarBlockEntity> by blockEntity("cookie_jar_block", ::CookieJarBlockEntity) {
+    //TODO:
+    val CookieJar: BlockEntityType<CookieJarBlockEntity> by blockEntity("cookie_jar", ::CookieJarBlockEntity) {
         validBlock(EstrogenBlocks::CookieJar)
         renderer(::CookieJarRenderer)
         visual(::CookieJarVisual)
+    }
+
+    val DreamCatcher: BlockEntityType<DreamCatcherBlockEntity> by blockEntity("dream_catcher", ::DreamCatcherBlockEntity) {
+        validBlock(EstrogenBlocks::DreamCatcher)
     }
 }
