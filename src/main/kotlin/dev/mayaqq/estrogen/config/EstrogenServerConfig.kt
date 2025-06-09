@@ -18,7 +18,7 @@ object EstrogenServerConfig {
         var drain: Boolean = true
 
         @Comment("The amount of ticks it takes for the estrogen patches to drain a millibucket")
-        var drainSpeed: @Range(min = 0) Int = 72
+        var drainSpeed: @Range(min = 0) Int = 144
 
     }
 
