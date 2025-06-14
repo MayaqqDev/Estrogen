@@ -276,8 +276,8 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.named("createCommonApiStub", GenerateStubApi::class) {
-    excludes.add(libs.kritter.get().toString())
-    excludes.add(libs.cynosure.get().toString())
+    excludes.add(libs.kritter.get().group)
+    excludes.add(libs.cynosure.get().group)
 }
 
 //tasks.withType<GenerateModJsonJarsEntry> {
