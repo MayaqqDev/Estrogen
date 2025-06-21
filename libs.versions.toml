@@ -1,7 +1,7 @@
 [versions]
 
 # Stuff
-kotlin = "2.0.0"
+kotlin = "2.2.0-RC3"
 cloche = "0.10.8"
 
 # Minecraft
