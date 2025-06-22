@@ -122,4 +122,12 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             }
         }
     }
+
+    val ColonThreeBlock: ColonThreeBlock by block("colon_three", ::ColonThreeBlock) {
+        copyProperties(Blocks::NETHERITE_BLOCK)
+        properties {
+            randomTicks()
+        }
+        item(::BlockItem, "colon_three")
+    }
 }
