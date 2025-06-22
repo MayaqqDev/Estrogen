@@ -10,7 +10,7 @@ plugins {
     kotlin("jvm") version libs.versions.kotlin
     kotlin("plugin.serialization") version libs.versions.kotlin
     `maven-publish`
-    id("com.google.devtools.ksp") version "2.1.21-2.0.1"
+      id("com.google.devtools.ksp") version "2.2.0-RC3-2.0.2"
 }
 
 repositories {

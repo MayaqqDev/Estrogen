@@ -2,7 +2,7 @@
 
 # Stuff
 kotlin = "2.2.0-RC3"
-cloche = "0.10.8"
+cloche = "0.10.10"
 
 # Minecraft
 minecraft = "1.20.1"
