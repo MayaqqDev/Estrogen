@@ -1,6 +1,7 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
-import dev.mayaqq.multijarfixer.FixMultiRelease
+import earth.terrarium.cloche.tasks.GenerateModJsonJarsEntry
+import net.msrandom.minecraftcodev.remapper.task.RemapJar
 import net.msrandom.stubs.GenerateStubApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -10,7 +11,6 @@ plugins {
     kotlin("jvm") version libs.versions.kotlin
     kotlin("plugin.serialization") version libs.versions.kotlin
     `maven-publish`
-      id("com.google.devtools.ksp") version "2.2.0-RC3-2.0.2"
 }
 
 repositories {
@@ -51,8 +51,6 @@ val devauth_enabled: String by project
 
 dependencies {
     ksp(libs.kittyconfig.ksp)
-    compileOnly(libs.kritter)
-    compileOnly(libs.cynosure)
 }
 
 cloche {
@@ -90,6 +88,8 @@ cloche {
             modImplementation(libs.kittyconfig)
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
+            modCompileOnly(libs.kritter)
+            modCompileOnly(libs.cynosure)
 
             implementation(libs.mixinConstrains)
         }
@@ -240,7 +240,14 @@ cloche {
     }
 }
 
+tasks.named { it == "kspFabricKotlin" || it == "kspForgeKotlin" }.configureEach { enabled = false }
 
+tasks.withType<GenerateModJsonJarsEntry> {
+    val fabricRemapJar: RemapJar by tasks
+    jar.set(fabricRemapJar.archiveFile)
+}
+
+/*
 val fixedAttribute = Attribute.of("fixed-jar", Boolean::class.javaObjectType)
 
 dependencies {
@@ -261,6 +268,7 @@ configurations.named("forgeRuntimeClasspath") {
         attribute(fixedAttribute, true)
     }
 }
+*/
 
 java {
     withSourcesJar()
@@ -270,13 +278,17 @@ tasks.withType<KotlinCompile> {
 //    explicitApiMode = org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode.Warning
     compilerOptions {
         languageVersion = KotlinVersion.KOTLIN_2_0
-        freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
+        //freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
     }
 }
 
 tasks.named("createCommonApiStub", GenerateStubApi::class) {
     excludes.add(libs.kritter.get().group)
     excludes.add(libs.cynosure.get().group)
+}
+
+tasks.named { it == "accessWidenForgeMinecraft" }.all {
+
 }
 
 publishing {
