@@ -1,7 +1,5 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
-import earth.terrarium.cloche.tasks.GenerateModJsonJarsEntry
-import net.msrandom.minecraftcodev.remapper.task.RemapJar
 import net.msrandom.stubs.GenerateStubApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -51,6 +49,8 @@ val devauth_enabled: String by project
 
 dependencies {
     ksp(libs.kittyconfig.ksp)
+    compileOnly(libs.kritter)
+    compileOnly(libs.cynosure)
 }
 
 cloche {
@@ -88,8 +88,6 @@ cloche {
             modImplementation(libs.kittyconfig)
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
-            modCompileOnly(libs.kritter)
-            modCompileOnly(libs.cynosure)
 
             implementation(libs.mixinConstrains)
         }
@@ -238,13 +236,6 @@ cloche {
             if (devauth_enabled.toBoolean()) modRuntimeOnly(libs.forge.devauth)
         }
     }
-}
-
-tasks.named { it == "kspFabricKotlin" || it == "kspForgeKotlin" }.configureEach { enabled = false }
-
-tasks.withType<GenerateModJsonJarsEntry> {
-    val fabricRemapJar: RemapJar by tasks
-    jar.set(fabricRemapJar.archiveFile)
 }
 
 /*
