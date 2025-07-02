@@ -2,12 +2,11 @@
 
 # Stuff
 kotlin = "2.0.0"
-cloche = "0.10.0"
+cloche = "0.9.5"
 
 # Minecraft
 minecraft = "1.20.1"
 fabric = "0.16.9"
-
 
 # Common Dependencies
 kritter = "0.1.0+1.20.1"
@@ -54,10 +53,6 @@ curios = "5.4.7+1.20.1"
 create_forge = "0.5.1.f-27"
 jei_file_id_forge = "4712868"
 kff = "4.11.0"
-
-# Enables
-
-
 
 [libraries]
 

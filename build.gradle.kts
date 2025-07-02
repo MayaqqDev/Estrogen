@@ -1,6 +1,7 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
-import dev.mayaqq.multijarfixer.FixMultiRelease
+import earth.terrarium.cloche.tasks.GenerateModJsonJarsEntry
+import net.msrandom.minecraftcodev.remapper.task.RemapJar
 import net.msrandom.stubs.GenerateStubApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -50,8 +51,6 @@ val devauth_enabled: String by project
 
 dependencies {
     ksp(libs.kittyconfig.ksp)
-    compileOnly(libs.kritter)
-    compileOnly(libs.cynosure)
 }
 
 cloche {
@@ -89,8 +88,8 @@ cloche {
             modImplementation(libs.kittyconfig)
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
-            //modCompileOnly(libs.rei.api)
-            //modCompileOnly(libs.rei.plugin)
+            modCompileOnly(libs.kritter)
+            modCompileOnly(libs.cynosure)
 
             implementation(libs.mixinConstrains)
         }
@@ -146,7 +145,6 @@ cloche {
             modApi.bundle(libs.bundles.fabric.cardinalComponents)
             modImplementation(libs.fabric.baubly) { exclude(group = "me.shedaniel") }
             modImplementation(libs.fabric.trinkets)
-            modRuntimeOnly(libs.fabric.kritter)
             modCompileOnly(libs.fabric.emi)
             modCompileOnly(libs.fabric.rei)
             modCompileOnly(libs.fabric.jei)
@@ -155,6 +153,7 @@ cloche {
             modCompileOnlyApi(libs.fabric.flywheel.api)
             modImplementation(libs.fabric.flywheel)
             modApi(libs.fabric.cynosure)
+            modApi(libs.fabric.kritter)
             modApi(libs.fabric.kittyconfig)
 
             when(item_viewer) {
@@ -201,7 +200,7 @@ cloche {
 
         include(libs.forge.baubly) { exclude(group = "me.shedaniel") }
         include(libs.forge.mixinExtras)
-        include(files(project.relativePath("libs/Kritter-0.0.1-forge.jar")))
+        include(libs.forge.kritter)
         include(libs.mixinConstrains)
 
         metadata {
@@ -220,12 +219,12 @@ cloche {
             modCompileOnlyApi(libs.forge.flywheel.api)
             modImplementation(libs.forge.flywheel)
             modImplementation(libs.forge.baubly) { exclude(group = "me.shedaniel") }
-            modRuntimeOnly(libs.forge.kritter)
             modCompileOnly(libs.forge.rei)
             implementation(libs.forge.mixinExtras)
             compileOnlyApi(libs.forge.jei)
             modCompileOnly(libs.forge.emi)
             modApi(libs.forge.cynosure)
+            modApi(libs.forge.kritter)
             modApi(libs.forge.kittyconfig)
 
             when(item_viewer) {
@@ -241,7 +240,14 @@ cloche {
     }
 }
 
+tasks.named { it == "kspFabricKotlin" || it == "kspForgeKotlin" }.configureEach { enabled = false }
 
+tasks.withType<GenerateModJsonJarsEntry> {
+    val fabricRemapJar: RemapJar by tasks
+    jar.set(fabricRemapJar.archiveFile)
+}
+
+/*
 val fixedAttribute = Attribute.of("fixed-jar", Boolean::class.javaObjectType)
 
 dependencies {
@@ -262,6 +268,7 @@ configurations.named("forgeRuntimeClasspath") {
         attribute(fixedAttribute, true)
     }
 }
+*/
 
 java {
     withSourcesJar()
@@ -271,7 +278,7 @@ tasks.withType<KotlinCompile> {
 //    explicitApiMode = org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode.Warning
     compilerOptions {
         languageVersion = KotlinVersion.KOTLIN_2_0
-        freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
+        //freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
     }
 }
 
@@ -280,10 +287,9 @@ tasks.named("createCommonApiStub", GenerateStubApi::class) {
     excludes.add(libs.cynosure.get().group)
 }
 
-//tasks.withType<GenerateModJsonJarsEntry> {
-//    val fabricRemapJar: RemapJar by tasks
-//    jar.set(fabricRemapJar.archiveFile)
-//}
+tasks.named { it == "accessWidenForgeMinecraft" }.all {
+
+}
 
 publishing {
     publications {

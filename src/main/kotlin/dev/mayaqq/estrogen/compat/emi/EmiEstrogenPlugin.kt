@@ -5,12 +5,15 @@ import dev.emi.emi.api.EmiPlugin
 import dev.emi.emi.api.EmiRegistry
 import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.render.EmiTexture
+import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.SlotWidget
 import dev.emi.emi.api.widget.WidgetHolder
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.emi.recipes.EntityInteractionEmiRecipe
+import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
+import dev.mayaqq.estrogen.id
 
 @EmiEntrypoint
 object EmiEstrogenPlugin : EmiPlugin {
@@ -22,6 +25,9 @@ object EmiEstrogenPlugin : EmiPlugin {
         registry.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION).forEach { recipe ->
             registry.addRecipe(EntityInteractionEmiRecipe(interactionCategory, recipe))
         }
+
+        registry.removeEmiStacks(EmiStack.of(EstrogenBlocks.ColonThreeBlock.asItem()))
+        registry.removeRecipes(id("crafting/colon_three"))
     }
 }
 

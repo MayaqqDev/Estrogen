@@ -1,10 +1,10 @@
 package dev.mayaqq.estrogen.content
 
+import dev.mayaqq.cynosure.utils.colors.White
 import dev.mayaqq.cynosure.utils.colors.toUInt
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.entityRenderers.moth.MothRenderer
 import dev.mayaqq.estrogen.content.entities.MothEntity
-import dev.mayaqq.estrogen.utils.EstrogenColors
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.MobCategory
@@ -27,6 +27,6 @@ object EstrogenEntities : Registrar<EntityType<*>> by Estrogen..Registries.ENTIT
         renderer(::MothRenderer)
         attributes(MothEntity::createAttributes)
         spawnPlacement(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MothEntity::checkMobSpawnRules)
-        spawnEgg(EstrogenColors.MOTH_YELLOW.toUInt(), EstrogenColors.MOTH_PINK.toUInt())
+        spawnEgg(White.toUInt(), White.toUInt())
     }
 }

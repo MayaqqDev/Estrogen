@@ -22,7 +22,10 @@ import dev.mayaqq.estrogen.content.EstrogenItems.MothFuzz
 import dev.mayaqq.estrogen.content.EstrogenItems.TestosteroneChunk
 import dev.mayaqq.estrogen.content.EstrogenItems.TestosteronePowder
 import dev.mayaqq.estrogen.content.EstrogenItems.ThighHighs
+import dev.mayaqq.estrogen.id
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
+import net.minecraft.network.chat.Component
 import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -37,40 +40,41 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Estrogen..Registries.
 
     // Make it an entry here
     val Estrogen: RegistryEntry<CreativeModeTab> = creativeTab("estrogen") {
+        title = Component.translatable("itemGroup.estrogen.estrogen")
         icon { EstrogenPill.defaultInstance }
         displayItems { 
-            accept(EstrogenPill);
-            accept(CrystalEstrogenPill);
-            accept(GenderChangePotion);
-            accept(Balls);
-            accept(MothFuzz);
-            accept(TestosteroneChunk);
-            accept(TestosteronePowder);
-            accept(EstrogenChipCookie);
-            accept(HorseUrineBottle);
-            //accept(ESTROGEN_PATCHES.get().getFullStack());
-            //accept(ESTROGEN_PATCHES);
-            accept(ThighHighs);
-            accept(MothElytra);
-            accept(ColonThree);
-            accept(CookieJar);
-            accept(DreamBlock);
-            accept(EstrogenPillBlock);
-            accept(MothWool);
-            accept(QuiltedMothWool);
-            accept(MothCarpet);
-            accept(QuiltedMothCarpet);
-            accept(MothBed);
-            accept(QuiltedMothBed);
-            accept(tippedArrow(EstrogenPotions.EstrogenPotion));
-//            accept(MOLTEN_SLIME.getBucket());
-//            accept(TESTOSTERONE_MIXTURE.getBucket());
-//            accept(LIQUID_ESTROGEN.getBucket());
-//            accept(FILTRATED_HORSE_URINE.getBucket());
-//            accept(HORSE_URINE.getBucket());
-//            accept(MOLTEN_AMETHYST.getBucket());
-//            accept(GENDER_FLUID.getBucket());
-//            accept(MOTH.getSpawnEgg());
+            accept(EstrogenPill)
+            accept(CrystalEstrogenPill)
+            accept(GenderChangePotion)
+            accept(Balls)
+            accept(MothFuzz)
+            accept(TestosteroneChunk)
+            accept(TestosteronePowder)
+            accept(EstrogenChipCookie)
+            accept(HorseUrineBottle)
+            //accept(ESTROGEN_PATCHES.get().getFullStack())
+            //accept(ESTROGEN_PATCHES)
+            accept(ThighHighs)
+            accept(MothElytra)
+            accept(ColonThree)
+            accept(CookieJar)
+            accept(DreamBlock)
+            accept(EstrogenPillBlock)
+            accept(MothWool)
+            accept(QuiltedMothWool)
+            accept(MothCarpet)
+            accept(QuiltedMothCarpet)
+            accept(MothBed)
+            accept(QuiltedMothBed)
+            accept(tippedArrow(EstrogenPotions.EstrogenPotion))
+//            accept(MOLTEN_SLIME.getBucket())
+//            accept(TESTOSTERONE_MIXTURE.getBucket())
+//            accept(LIQUID_ESTROGEN.getBucket())
+//            accept(FILTRATED_HORSE_URINE.getBucket())
+//            accept(HORSE_URINE.getBucket())
+//            accept(MOLTEN_AMETHYST.getBucket())
+//            accept(GENDER_FLUID.getBucket())
+            accept(BuiltInRegistries.ITEM.get(id("moth_spawn_egg")))
             ThighHighs.styleItems.forEach(::accept)
         }
     }
