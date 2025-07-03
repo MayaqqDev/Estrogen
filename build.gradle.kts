@@ -49,8 +49,6 @@ val devauth_enabled: String by project
 
 dependencies {
     ksp(libs.kittyconfig.ksp)
-    compileOnly(libs.kritter)
-    compileOnly(libs.cynosure)
 }
 
 cloche {
@@ -88,6 +86,9 @@ cloche {
             modImplementation(libs.kittyconfig)
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
+
+            modCompileOnly(libs.kritter)
+            modCompileOnly(libs.cynosure)
 
             implementation(libs.mixinConstrains)
         }
@@ -150,12 +151,9 @@ cloche {
             modCompileOnly(libs.fabric.iris)
             modCompileOnlyApi(libs.fabric.flywheel.api)
             modImplementation(libs.fabric.flywheel)
-            modApi(libs.fabric.cynosure)
-            modApi(libs.fabric.kritter)
+            modImplementation(libs.fabric.cynosure)
+            modImplementation(libs.fabric.kritter)
             modApi(libs.fabric.kittyconfig)
-
-            compileOnly(libs.cynosure)
-            compileOnly(libs.kritter)
 
             when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -224,12 +222,9 @@ cloche {
             implementation(libs.forge.mixinExtras)
             compileOnlyApi(libs.forge.jei)
             modCompileOnly(libs.forge.emi)
-            modApi(libs.forge.cynosure)
-            modApi(libs.forge.kritter)
+            modImplementation(libs.forge.cynosure)
+            modImplementation(libs.forge.kritter)
             modApi(libs.forge.kittyconfig)
-
-            compileOnly(libs.cynosure)
-            compileOnly(libs.kritter)
 
             when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)
