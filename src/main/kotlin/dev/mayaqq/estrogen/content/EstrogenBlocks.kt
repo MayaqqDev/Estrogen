@@ -118,7 +118,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
         item(::BlockItem, "quilted_moth_bed") {
             properties {
                 stacksTo(1)
-                creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(::MothBed::asStack))
+                creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER { stack -> stack.`is`(ItemTags.BEDS) })
             }
         }
     }
