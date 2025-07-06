@@ -167,6 +167,7 @@ cloche {
             modApi(libs.fabric.cynosure)
             modApi(libs.fabric.kritter)
             modApi(libs.fabric.kittyconfig)
+            modApi(libs.fabric.botarium)
 
             when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -238,6 +239,7 @@ cloche {
             modApi(libs.forge.cynosure)
             modApi(libs.forge.kritter)
             modApi(libs.forge.kittyconfig)
+            modApi(libs.forge.botarium)
 
             when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)

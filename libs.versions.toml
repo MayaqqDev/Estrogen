@@ -95,6 +95,7 @@ fabric-flywheel = { module = "dev.engine-room.flywheel:flywheel-fabric-1.20.1", 
 fabric-cynosure = { module = "dev.mayaqq.cynosure:cynosure-fabric", version.ref = "cynosure" }
 fabric-kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-minecraft-fabric", version.ref = "kittyconfig-mc" }
 fabric-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
+fabric-botarium = { module = "earth.terrarium.botarium:botarium-fabric-1.20.1", version.ref = "botarium" }
 
 
 # Forge depencencies
@@ -114,7 +115,7 @@ forge-flywheel = { module = "dev.engine-room.flywheel:flywheel-forge-1.20.1", ve
 forge-cynosure = { module = "dev.mayaqq.cynosure:cynosure-forge", version.ref = "cynosure" }
 forge-kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-forge", version.ref = "kittyconfig-mc" }
 forge-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
-
+forge-botarium = { module = "earth.terrarium.botarium:botarium-forge-1.20.1", version.ref = "botarium" }
 
 [bundles]
 fabric-cardinalComponents = [ "fabric-cardinalComponents-base", "fabric-cardinalComponents-entity" ]
