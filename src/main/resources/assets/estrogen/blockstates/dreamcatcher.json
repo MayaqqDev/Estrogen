@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "estrogen:block/dreamcatcher",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "estrogen:block/dreamcatcher"
+    },
+    "facing=south": {
+      "model": "estrogen:block/dreamcatcher",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "estrogen:block/dreamcatcher",
+      "y": 270
+    }
+  }
+}

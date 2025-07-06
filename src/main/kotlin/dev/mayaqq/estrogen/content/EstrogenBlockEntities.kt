@@ -29,7 +29,7 @@ object EstrogenBlockEntities : Registrar<BlockEntityType<*>> by Estrogen..Regist
         visual(::CookieJarVisual)
     }
 
-    val DreamCatcher: BlockEntityType<DreamCatcherBlockEntity> by blockEntity("dream_catcher", ::DreamCatcherBlockEntity) {
+    val DreamCatcher: BlockEntityType<DreamCatcherBlockEntity> by blockEntity("dreamcatcher", ::DreamCatcherBlockEntity) {
         validBlock(EstrogenBlocks::DreamCatcher)
     }
 }

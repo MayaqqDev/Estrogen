@@ -86,7 +86,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
 
     fun getStyle(stack: ItemStack): ResourceLocation? {
         if (styles.isEmpty()) return null
-        stack.tag?.let {
+        stack.tag?.let { it ->
             if (it.contains(SPECIAL_STYLE)) {
                 ResourceLocation(it.getString(SPECIAL_STYLE)).let {
                     if (styles.contains(it)) return it

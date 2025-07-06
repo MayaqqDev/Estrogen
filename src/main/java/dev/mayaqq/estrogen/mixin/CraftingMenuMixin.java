@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import dev.mayaqq.estrogen.content.EstrogenRecipes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.item.crafting.CraftingRecipe;
@@ -18,7 +19,9 @@ public class CraftingMenuMixin {
             at = @At(value = "INVOKE", target = "Ljava/util/Optional;isPresent()Z")
     )
     private static boolean creativelessCheck(Optional<CraftingRecipe> instance, Operation<Boolean> original, @Local(argsOnly = true) Player player) {
-        if (player.isCreative()) return false;
+        if (instance.isPresent()) {
+            if (player.isCreative() && instance.get().getType() == EstrogenRecipes.INSTANCE.getCREATIVELESS_SHAPED_RECIPE()) return false;
+        }
         return original.call(instance);
     }
 }

@@ -4,6 +4,7 @@ import dev.mayaqq.cynosure.blocks.model.ModelBedBlock
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
+import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.ItemTags
@@ -20,7 +21,6 @@ import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.creative.TabPlacement
 import uwu.serenity.kritter.client.stdlib.renderType
 import uwu.serenity.kritter.stdlib.Never
-import uwu.serenity.kritter.stdlib.asStack
 import uwu.serenity.kritter.stdlib.block
 
 @Suppress("unused")
@@ -131,7 +131,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
         item(::BlockItem, "colon_three")
     }
 
-    val DreamCatcher: DreamCatcherBlock by block("dream_catcher", ::DreamCatcherBlock) {
+    val DreamCatcher: DreamCatcherBlock by block("dreamcatcher", ::DreamCatcherBlock) {
         properties {
             mapColor(Blocks.OAK_PLANKS.defaultMapColor())
             forceSolidOn()
@@ -141,7 +141,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             ignitedByLava()
         }
         renderType = RenderType::cutout
-        item(::BlockItem) {
+        item(::DreamCatcherItem) {
             standardTooltip()
             creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(Items.BARREL))
         }
