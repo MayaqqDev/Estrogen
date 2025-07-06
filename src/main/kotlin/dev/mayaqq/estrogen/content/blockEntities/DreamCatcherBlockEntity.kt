@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.content.blockEntities
 
 import dev.engine_room.flywheel.lib.visualization.VisualizationHelper
+import dev.mayaqq.estrogen.utils.EstrogenColors.getDye
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.protocol.Packet
@@ -29,9 +30,9 @@ class DreamCatcherBlockEntity(be: BlockEntityType<*>, pos: BlockPos, state: Bloc
         super.load(tag)
         if (tag.contains("colors")) {
             val colors = tag.getCompound("colors")
-            colorLeft = DyeColor.entries.firstOrNull { it.name == colors.getString("left") }
-            colorMiddle = DyeColor.entries.firstOrNull { it.name == colors.getString("middle") }
-            colorRight = DyeColor.entries.firstOrNull { it.name == colors.getString("middle") }
+            colorLeft = getDye(colors.getString("left"))
+            colorMiddle = getDye(colors.getString("middle"))
+            colorRight = getDye(colors.getString("middle"))
         }
         if(level?.isClientSide == true) updateOnClient() else sync(false)
     }

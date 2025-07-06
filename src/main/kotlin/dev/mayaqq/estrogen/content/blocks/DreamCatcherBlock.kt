@@ -4,10 +4,15 @@ package dev.mayaqq.estrogen.content.blocks
 
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.blockEntities.DreamCatcherBlockEntity
+import dev.mayaqq.estrogen.content.items.DreamCatcherItem
+import dev.mayaqq.estrogen.utils.EstrogenColors.getDye
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelAccessor
 import net.minecraft.world.level.LevelReader
 import net.minecraft.world.level.block.*
@@ -95,4 +100,21 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
         builder.add(FACING)
     }
+
+    override fun setPlacedBy(level: Level, pos: BlockPos, state: BlockState, entity: LivingEntity?, stack: ItemStack) {
+        super.setPlacedBy(level, pos, state, entity, stack)
+        level.getBlockEntity(pos)?.let { be ->
+            if (be is DreamCatcherBlockEntity) {
+                if (stack.item is DreamCatcherItem) {
+                    stack.orCreateTag.getCompound("colors")?.let { tag ->
+                        be.colorLeft = getDye(tag.getString("left"))
+                        be.colorMiddle = getDye(tag.getString("middle"))
+                        be.colorRight = getDye(tag.getString("right"))
+                    }
+                }
+            }
+        }
+    }
+
+    //TODO: Drop correct dreamcatcher on broken, right now not really feasable without datagen bc its a hassle
 }
