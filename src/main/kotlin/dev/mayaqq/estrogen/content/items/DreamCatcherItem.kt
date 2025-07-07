@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.content.items
 
+import dev.mayaqq.estrogen.Estrogen
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.ItemStack
@@ -15,16 +16,16 @@ class DreamCatcherItem(block: Block, properties: Properties) : BlockItem(block, 
         stack.orCreateTag.put("colors", colors)
     }
 
-    fun left(stack: ItemStack): Int? {
-        return stack.orCreateTag.getCompound("colors")?.getInt("left")
+    fun isBlank(stack: ItemStack): Boolean {
+        return left(stack).nullOrNeg() && middle(stack).nullOrNeg() && right(stack).nullOrNeg()
     }
 
-    fun middle(stack: ItemStack): Int? {
-        return stack.orCreateTag.getCompound("colors")?.getInt("middle")
-    }
+    fun left(stack: ItemStack): Int? = getColor(stack, "left")
+    fun middle(stack: ItemStack): Int? = getColor(stack, "middle")
+    fun right(stack: ItemStack): Int? = getColor(stack, "right")
 
-    fun right(stack: ItemStack): Int? {
-        return stack.orCreateTag.getCompound("colors")?.getInt("right")
+    fun getColor(stack: ItemStack, color: String): Int? {
+        return stack.orCreateTag.getCompound("colors")?.getInt(color)
     }
 
     fun getColor(stack: ItemStack, tintIndex: Int): Int {
@@ -42,6 +43,10 @@ class DreamCatcherItem(block: Block, properties: Properties) : BlockItem(block, 
         fun getItemColor(stack: ItemStack, tintIndex: Int): Int {
             val item = stack.item as DreamCatcherItem
             return item.getColor(stack, tintIndex)
+        }
+
+        private fun Int?.nullOrNeg(): Boolean {
+            return this == null || this <= 0
         }
     }
 }
