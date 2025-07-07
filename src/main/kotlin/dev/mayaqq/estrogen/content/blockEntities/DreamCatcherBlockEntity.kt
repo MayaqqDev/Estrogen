@@ -1,6 +1,10 @@
 package dev.mayaqq.estrogen.content.blockEntities
 
 import dev.engine_room.flywheel.lib.visualization.VisualizationHelper
+import dev.mayaqq.estrogen.content.items.DreamCatcherItem
+import dev.mayaqq.estrogen.utils.TriColor
+import dev.mayaqq.estrogen.utils.getTriColor
+import dev.mayaqq.estrogen.utils.putTriColor
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.protocol.Packet
@@ -12,25 +16,16 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
 class DreamCatcherBlockEntity(be: BlockEntityType<*>, pos: BlockPos, state: BlockState) : BlockEntity(be, pos, state) {
-    var colorLeft: Int? = null
-    var colorMiddle: Int? = null
-    var colorRight: Int? = null
+    var triColor: TriColor? = null
 
     override fun saveAdditional(tag: CompoundTag) {
-        val colors = CompoundTag()
-        colors.putInt("left", colorLeft ?: -1)
-        colors.putInt("middle", colorMiddle ?: -1)
-        colors.putInt("right", colorRight ?: -1)
-        tag.put("colors", colors)
+        if (triColor != null) tag.putTriColor(triColor!!)
     }
 
     override fun load(tag: CompoundTag) {
         super.load(tag)
         if (tag.contains("colors")) {
-            val colors = tag.getCompound("colors")
-            colorLeft = colors.getInt("left")
-            colorMiddle = colors.getInt("middle")
-            colorRight = colors.getInt("middle")
+            triColor = tag.getTriColor()
         }
         if(level?.isClientSide == true) updateOnClient() else sync(false)
     }
@@ -41,6 +36,11 @@ class DreamCatcherBlockEntity(be: BlockEntityType<*>, pos: BlockPos, state: Bloc
 
     fun updateOnClient() {
         VisualizationHelper.queueUpdate(this)
+    }
+
+    fun setColors(triColor: TriColor) {
+        this.triColor = triColor
+        sync()
     }
 
     private fun sync(saveAswell: Boolean = true) {

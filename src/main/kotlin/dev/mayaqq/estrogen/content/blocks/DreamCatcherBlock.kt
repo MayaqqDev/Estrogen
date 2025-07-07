@@ -105,10 +105,9 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
         level.getBlockEntity(pos)?.let { be ->
             if (be is DreamCatcherBlockEntity) {
                 if (stack.item is DreamCatcherItem) {
-                    stack.orCreateTag.getCompound("colors")?.let { tag ->
-                        be.colorLeft = tag.getInt("left")
-                        be.colorMiddle = tag.getInt("middle")
-                        be.colorRight = tag.getInt("right")
+                    val item = stack.item as DreamCatcherItem
+                    if (!item.isBlank(stack)) {
+                        be.setColors(item.triColor(stack)!!)
                     }
                 }
             }
