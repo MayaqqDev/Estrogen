@@ -3,7 +3,6 @@ package dev.mayaqq.estrogen.utils
 import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.cynosure.utils.colors.darker
 import dev.mayaqq.cynosure.utils.colors.lighter
-import net.minecraft.world.item.DyeColor
 
 object EstrogenColors {
     val MOLTEN_SLIME = Color(144, 238, 144)
@@ -31,6 +30,4 @@ object EstrogenColors {
         }
         return if (particle) DASH_OVERLAY[level - 1].lighter() else DASH_OVERLAY[level - 1]
     }
-
-    fun getDye(name: String) = DyeColor.entries.firstOrNull { it.name == name }
 }

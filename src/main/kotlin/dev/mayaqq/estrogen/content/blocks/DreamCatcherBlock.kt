@@ -5,7 +5,6 @@ package dev.mayaqq.estrogen.content.blocks
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.blockEntities.DreamCatcherBlockEntity
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
-import dev.mayaqq.estrogen.utils.EstrogenColors.getDye
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.entity.LivingEntity
@@ -107,9 +106,9 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
             if (be is DreamCatcherBlockEntity) {
                 if (stack.item is DreamCatcherItem) {
                     stack.orCreateTag.getCompound("colors")?.let { tag ->
-                        be.colorLeft = getDye(tag.getString("left"))
-                        be.colorMiddle = getDye(tag.getString("middle"))
-                        be.colorRight = getDye(tag.getString("right"))
+                        be.colorLeft = tag.getInt("left")
+                        be.colorMiddle = tag.getInt("middle")
+                        be.colorRight = tag.getInt("right")
                     }
                 }
             }

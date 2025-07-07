@@ -1,28 +1,26 @@
 package dev.mayaqq.estrogen.content.blockEntities
 
 import dev.engine_room.flywheel.lib.visualization.VisualizationHelper
-import dev.mayaqq.estrogen.utils.EstrogenColors.getDye
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.world.item.DyeColor
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
 class DreamCatcherBlockEntity(be: BlockEntityType<*>, pos: BlockPos, state: BlockState) : BlockEntity(be, pos, state) {
-    var colorLeft: DyeColor? = null
-    var colorMiddle: DyeColor? = null
-    var colorRight: DyeColor? = null
+    var colorLeft: Int? = null
+    var colorMiddle: Int? = null
+    var colorRight: Int? = null
 
     override fun saveAdditional(tag: CompoundTag) {
         val colors = CompoundTag()
-        colors.putString("left", colorLeft?.name ?: "empty")
-        colors.putString("middle", colorMiddle?.name ?: "empty")
-        colors.putString("right", colorRight?.name ?: "empty")
+        colors.putInt("left", colorLeft ?: -1)
+        colors.putInt("middle", colorMiddle ?: -1)
+        colors.putInt("right", colorRight ?: -1)
         tag.put("colors", colors)
     }
 
@@ -30,9 +28,9 @@ class DreamCatcherBlockEntity(be: BlockEntityType<*>, pos: BlockPos, state: Bloc
         super.load(tag)
         if (tag.contains("colors")) {
             val colors = tag.getCompound("colors")
-            colorLeft = getDye(colors.getString("left"))
-            colorMiddle = getDye(colors.getString("middle"))
-            colorRight = getDye(colors.getString("middle"))
+            colorLeft = colors.getInt("left")
+            colorMiddle = colors.getInt("middle")
+            colorRight = colors.getInt("middle")
         }
         if(level?.isClientSide == true) updateOnClient() else sync(false)
     }
