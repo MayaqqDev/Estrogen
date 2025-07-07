@@ -1,7 +1,11 @@
 package dev.mayaqq.estrogen.content.recipes
 
 import dev.mayaqq.cynosure.utils.colors.Color
+import dev.mayaqq.cynosure.utils.colors.White
 import dev.mayaqq.cynosure.utils.colors.lighter
+import dev.mayaqq.cynosure.utils.colors.minecraft.diffuseColor
+import dev.mayaqq.cynosure.utils.colors.minecraft.fireworkColorAsColor
+import dev.mayaqq.cynosure.utils.colors.minecraft.textColorAsColor
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import net.minecraft.core.RegistryAccess
@@ -60,8 +64,7 @@ class DreamCatcherDyeRecipe(id: ResourceLocation, category: CraftingBookCategory
     }
 
     private fun colorFromDye(dyeStack: ItemStack): Color {
-        val dyeColors = (dyeStack.item as DyeItem).dyeColor.textureDiffuseColors
-        return Color(dyeColors[0], dyeColors[1], dyeColors[2], 1f).lighter()
+        return (dyeStack.item as DyeItem).dyeColor.textColorAsColor
     }
 
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = width * height >= 4
