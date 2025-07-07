@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.content
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenBlocks.CookieJar
 import dev.mayaqq.estrogen.content.EstrogenBlocks.DreamBlock
+import dev.mayaqq.estrogen.content.EstrogenBlocks.DreamCatcher
 import dev.mayaqq.estrogen.content.EstrogenBlocks.EstrogenPillBlock
 import dev.mayaqq.estrogen.content.EstrogenBlocks.MothBed
 import dev.mayaqq.estrogen.content.EstrogenBlocks.MothCarpet
@@ -58,6 +59,7 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Estrogen..Registries.
             accept(MothElytra)
             accept(ColonThree)
             accept(CookieJar)
+            accept(DreamCatcher)
             accept(DreamBlock)
             accept(EstrogenPillBlock)
             accept(MothWool)

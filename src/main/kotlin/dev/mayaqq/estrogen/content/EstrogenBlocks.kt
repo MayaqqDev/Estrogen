@@ -4,6 +4,9 @@ import dev.mayaqq.cynosure.blocks.model.ModelBedBlock
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
+import dev.mayaqq.estrogen.content.items.DreamCatcherItem
+import dev.mayaqq.estrogen.content.items.ThighHighsItem
+import dev.mayaqq.estrogen.content.items.ThighHighsItem.Companion.getItemColor
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.ItemTags
@@ -18,9 +21,9 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument
 import net.minecraft.world.level.material.MapColor
 import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.creative.TabPlacement
+import uwu.serenity.kritter.client.stdlib.color
 import uwu.serenity.kritter.client.stdlib.renderType
 import uwu.serenity.kritter.stdlib.Never
-import uwu.serenity.kritter.stdlib.asStack
 import uwu.serenity.kritter.stdlib.block
 
 @Suppress("unused")
@@ -118,7 +121,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
         item(::BlockItem, "quilted_moth_bed") {
             properties {
                 stacksTo(1)
-                creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(::MothBed::asStack))
+                creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER { stack -> stack.`is`(ItemTags.BEDS) })
             }
         }
     }
@@ -129,5 +132,22 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             randomTicks()
         }
         item(::BlockItem, "colon_three")
+    }
+
+    val DreamCatcher: DreamCatcherBlock by block("dreamcatcher", ::DreamCatcherBlock) {
+        properties {
+            mapColor(Blocks.OAK_PLANKS.defaultMapColor())
+            forceSolidOn()
+            instrument(NoteBlockInstrument.BASS)
+            noCollission()
+            strength(1.0F)
+            ignitedByLava()
+        }
+        renderType = RenderType::cutout
+        item(::DreamCatcherItem) {
+            standardTooltip()
+            creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(Items.BARREL))
+            color(DreamCatcherItem::getItemColor)
+        }
     }
 }
