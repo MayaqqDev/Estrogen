@@ -15,6 +15,7 @@ import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.id
+import dev.mayaqq.estrogen.utils.render.blitWithDepth
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.PostChain
 import net.minecraft.client.renderer.RenderStateShard.OutputStateShard
@@ -36,6 +37,9 @@ object EstrogenRenderer {
     lateinit var cutoutColorShader: ShaderInstance
         private set
 
+    lateinit var blitWithDepthShader: ShaderInstance
+        private set
+
     // Post chains and framebuffers
     private var dreamingEffect: PostChain? = null
 
@@ -44,6 +48,7 @@ object EstrogenRenderer {
     @Subscription
     fun onLoadShaders(event: CoreShaderRegistrationEvent) {
         event.register(id("rendertype_estrogen_dream"), DefaultVertexFormat.BLOCK, ::dreamBlockShader)
+        event.register(id("blit_with_depth"), DefaultVertexFormat.BLIT_SCREEN, ::blitWithDepthShader)
         //event.register(recipeId("particle_cutout_color"), DefaultVertexFormat.PARTICLE, ::cutoutColorShader)
     }
 
@@ -87,7 +92,7 @@ object EstrogenRenderer {
                 GlStateManager.SourceFactor.ZERO,
                 GlStateManager.DestFactor.ONE
             )
-            shaderBypassTarget?.blitToScreen(window.width, window.height, false)
+            shaderBypassTarget?.blitWithDepth(window.width, window.height)
             RenderSystem.disableBlend()
             RenderSystem.defaultBlendFunc()
         }
