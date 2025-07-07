@@ -1,11 +1,7 @@
 package dev.mayaqq.estrogen.content.recipes
 
 import dev.mayaqq.cynosure.utils.colors.Color
-import dev.mayaqq.cynosure.utils.colors.White
-import dev.mayaqq.cynosure.utils.colors.lighter
 import dev.mayaqq.cynosure.utils.colors.minecraft.diffuseColor
-import dev.mayaqq.cynosure.utils.colors.minecraft.fireworkColorAsColor
-import dev.mayaqq.cynosure.utils.colors.minecraft.textColorAsColor
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import net.minecraft.core.RegistryAccess
@@ -38,17 +34,20 @@ class DreamCatcherDyeRecipe(id: ResourceLocation, category: CraftingBookCategory
 
             if (dyes.size == 3) {
                 val new = stack.copyWithCount(1)
-                val newLeft = item.left(new)?.let {
-                    mixColorWithDye(Color(item.left(new)!!), dyes[0])
-                } ?: colorFromDye(dyes[0])
-                val newMiddle = item.middle(new)?.let {
-                    mixColorWithDye(Color(item.middle(new)!!), dyes[1])
-                } ?: colorFromDye(dyes[1])
-                val newRight = item.right(new)?.let {
-                    mixColorWithDye(Color(item.right(new)!!), dyes[2])
-                } ?: colorFromDye(dyes[2])
+                var newLeft: Int
+                var newMiddle: Int
+                var newRight: Int
+                if (item.isBlank(new)) {
+                    newLeft = colorFromDye(dyes[0]).toInt()
+                    newMiddle = colorFromDye(dyes[1]).toInt()
+                    newRight = colorFromDye(dyes[2]).toInt()
+                } else {
+                    newLeft = mixColorWithDye(Color(item.left(new)!!), dyes[0]).toInt()
+                    newMiddle = mixColorWithDye(Color(item.middle(new)!!), dyes[1]).toInt()
+                    newRight = mixColorWithDye(Color(item.right(new)!!), dyes[2]).toInt()
+                }
 
-                item.setDyes(new, newLeft.toInt(), newMiddle.toInt(), newRight.toInt())
+                item.setDyes(new, newLeft, newMiddle, newRight)
 
                 return new
             }
@@ -59,12 +58,11 @@ class DreamCatcherDyeRecipe(id: ResourceLocation, category: CraftingBookCategory
     private fun mixColorWithDye(original: Color, dyeStack: ItemStack): Color {
         if (dyeStack.isEmpty || dyeStack.item !is DyeItem) return original
         val dyeColor: Color = colorFromDye(dyeStack)
-        if (original.toInt() == -1) return dyeColor
         return original.mix(dyeColor, .5f)
     }
 
     private fun colorFromDye(dyeStack: ItemStack): Color {
-        return (dyeStack.item as DyeItem).dyeColor.textColorAsColor
+        return (dyeStack.item as DyeItem).dyeColor.diffuseColor
     }
 
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = width * height >= 4
