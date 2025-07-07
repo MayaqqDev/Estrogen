@@ -82,4 +82,4 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Estrogen..Registries.
     }
 }
 
-private fun tippedArrow(potion: Potion): ItemStack = Items.POTION.defaultInstance.also { PotionUtils.setPotion(it, potion) }
+private fun tippedArrow(potion: Potion): ItemStack = Items.TIPPED_ARROW.defaultInstance.also { PotionUtils.setPotion(it, potion) }

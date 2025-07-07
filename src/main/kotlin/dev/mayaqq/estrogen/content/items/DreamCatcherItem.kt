@@ -25,7 +25,7 @@ class DreamCatcherItem(block: Block, properties: Properties) : BlockItem(block, 
     fun right(stack: ItemStack): Int? = getColor(stack, "right")
 
     fun getColor(stack: ItemStack, color: String): Int? {
-        return stack.orCreateTag.getCompound("colors")?.getInt(color)
+        return stack.orCreateTag.getCompound("colors")?.getInt(color)?.takeIf { it != 0 } ?: -1
     }
 
     fun getColor(stack: ItemStack, tintIndex: Int): Int {
