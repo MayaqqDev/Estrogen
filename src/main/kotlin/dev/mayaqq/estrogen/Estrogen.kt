@@ -1,17 +1,13 @@
 package dev.mayaqq.estrogen
 
 import dev.mayaqq.cynosure.core.isModLoaded
-import dev.mayaqq.cynosure.entities.EntityAttributes
-import dev.mayaqq.cynosure.events.PostInitEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
-import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.config.Instance
 import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.entity.EntityType
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import uwu.serenity.kittyconfig.api.defaults.load
@@ -63,16 +59,4 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
 
         EstrogenNetwork
     }
-
-    @Subscription
-    fun postInit(event: PostInitEvent) {
-        EntityAttributes.modify(EntityType.PLAYER) {
-            add(EstrogenAttributes.DashLevel)
-            add(EstrogenAttributes.FallDamageResistance)
-            add(EstrogenAttributes.ShowBoobs)
-            add(EstrogenAttributes.BoobInitialSize)
-            add(EstrogenAttributes.BoobGrowingStartTime)
-        }
-    }
-
 }
