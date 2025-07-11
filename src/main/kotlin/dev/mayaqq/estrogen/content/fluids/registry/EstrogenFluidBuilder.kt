@@ -1,14 +1,12 @@
 package dev.mayaqq.estrogen.content.fluids.registry
 
 import dev.mayaqq.cynosure.client.render.RenderLayerMap
-import dev.mayaqq.estrogen.MOD_ID
 import earth.terrarium.botarium.common.registry.fluid.BotariumFlowingFluid
 import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock
 import earth.terrarium.botarium.common.registry.fluid.BotariumSourceFluid
 import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem
 import earth.terrarium.botarium.common.registry.fluid.FluidData
 import earth.terrarium.botarium.common.registry.fluid.FluidProperties
-import earth.terrarium.botarium.common.registry.fluid.FluidRegistry
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
@@ -102,7 +100,11 @@ class FluidBuilder<S : BotariumSourceFluid, F : BotariumFlowingFluid>(
     private fun buildProperties() {
         val builder = FluidProperties.create()
         if (_properties != null)  _properties!!.invoke(builder)
-        fluidData = fluidRegistry.register(builder.build(key.location))
+        if (owner is FluidRegistryProvider) {
+            fluidData = (owner as FluidRegistryProvider).getFluidRegistry().register(builder.build(key.location))
+        } else {
+            throw Exception("Your Fluid Registrar must implement FluidRegistryProvider")
+        }
     }
 
     private fun createFlowingEntry() : F = flowingFactory.invoke(fluidData!!)
@@ -119,11 +121,4 @@ class FluidBuilder<S : BotariumSourceFluid, F : BotariumFlowingFluid>(
         blockEntry!!,
         bucketEntry!!
     )
-
-    companion object {
-        val fluidRegistry = FluidRegistry(MOD_ID)
-        init {
-            fluidRegistry.initialize()
-        }
-    }
 }
