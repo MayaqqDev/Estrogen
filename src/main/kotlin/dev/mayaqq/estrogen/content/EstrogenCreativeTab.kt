@@ -11,6 +11,13 @@ import dev.mayaqq.estrogen.content.EstrogenBlocks.MothWool
 import dev.mayaqq.estrogen.content.EstrogenBlocks.QuiltedMothBed
 import dev.mayaqq.estrogen.content.EstrogenBlocks.QuiltedMothCarpet
 import dev.mayaqq.estrogen.content.EstrogenBlocks.QuiltedMothWool
+import dev.mayaqq.estrogen.content.EstrogenFluids.FiltratedHorseUrine
+import dev.mayaqq.estrogen.content.EstrogenFluids.GenderFluid
+import dev.mayaqq.estrogen.content.EstrogenFluids.HorseUrine
+import dev.mayaqq.estrogen.content.EstrogenFluids.LiquidEstrogen
+import dev.mayaqq.estrogen.content.EstrogenFluids.MoltenAmethyst
+import dev.mayaqq.estrogen.content.EstrogenFluids.MoltenSlime
+import dev.mayaqq.estrogen.content.EstrogenFluids.TestosteroneMixture
 import dev.mayaqq.estrogen.content.EstrogenItems.Balls
 import dev.mayaqq.estrogen.content.EstrogenItems.ColonThree
 import dev.mayaqq.estrogen.content.EstrogenItems.CrystalEstrogenPill
@@ -70,13 +77,13 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Estrogen..Registries.
             accept(MothBed)
             accept(QuiltedMothBed)
             accept(tippedArrow(EstrogenPotions.EstrogenPotion))
-//            accept(MOLTEN_SLIME.getBucket())
-//            accept(TESTOSTERONE_MIXTURE.getBucket())
-//            accept(LIQUID_ESTROGEN.getBucket())
-//            accept(FILTRATED_HORSE_URINE.getBucket())
-//            accept(HORSE_URINE.getBucket())
-//            accept(MOLTEN_AMETHYST.getBucket())
-//            accept(GENDER_FLUID.getBucket())
+            accept(MoltenSlime.bucket)
+            accept(TestosteroneMixture.bucket)
+            accept(LiquidEstrogen.bucket)
+            accept(FiltratedHorseUrine.bucket)
+            accept(HorseUrine.bucket)
+            accept(MoltenAmethyst.bucket)
+            accept(GenderFluid.bucket)
             accept(BuiltInRegistries.ITEM.get(id("moth_spawn_egg")))
             ThighHighs.styleItems.forEach(::accept)
         }

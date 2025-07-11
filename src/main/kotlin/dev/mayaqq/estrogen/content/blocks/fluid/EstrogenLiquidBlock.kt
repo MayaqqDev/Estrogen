@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.content.blocks
+package dev.mayaqq.estrogen.content.blocks.fluid
 
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock

@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.content.fluids.registry
 
+import dev.mayaqq.cynosure.client.render.RenderLayerMap
 import dev.mayaqq.estrogen.MOD_ID
 import earth.terrarium.botarium.common.registry.fluid.BotariumFlowingFluid
 import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock
@@ -26,12 +27,13 @@ import uwu.serenity.kritter.stdlib.ItemBuilder
 import uwu.serenity.kritter.stdlib.location
 
 
+@Suppress("UNCHECKED_CAST")
 inline fun <S : BotariumSourceFluid, F : BotariumFlowingFluid> Registrar<Fluid>.fluid(
     name: String,
     noinline sourceFactory: (FluidData) -> S,
     noinline flowingFactory: (FluidData) -> F,
     builder: FluidBuilder<S, F>.() -> Unit = {}
-): RegistryEntry<S> = FluidBuilder(name, this, this.getCallback(), sourceFactory, flowingFactory).apply(builder).register()
+): EstrogenFluidEntry<S, F> = FluidBuilder(name, this, this.getCallback(), sourceFactory, flowingFactory).apply(builder).register() as EstrogenFluidEntry<S, F>
 
 class FluidBuilder<S : BotariumSourceFluid, F : BotariumFlowingFluid>(
     name: String,
@@ -60,12 +62,9 @@ class FluidBuilder<S : BotariumSourceFluid, F : BotariumFlowingFluid>(
 
     fun renderType(renderType: () -> RenderType) {
         onRegister {
-            //TODO: Render type map
             clientOnly {
-                /*
-                ClientPlatform.fluidRenderLayerMap(f, rt);
-                ClientPlatform.fluidRenderLayerMap(flowingWrapper.get(), rt);
-                 */
+                RenderLayerMap.putFluid(it, renderType.invoke())
+                RenderLayerMap.putFluid(flowingWrapper!!.value, renderType.invoke())
             }
         }
     }
