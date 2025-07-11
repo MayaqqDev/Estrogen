@@ -101,7 +101,7 @@ class FluidBuilder<S : BotariumSourceFluid, F : BotariumFlowingFluid>(
         val builder = FluidProperties.create()
         if (_properties != null)  _properties!!.invoke(builder)
         if (owner is FluidRegistryProvider) {
-            fluidData = (owner as FluidRegistryProvider).getFluidRegistry().register(builder.build(key.location))
+            fluidData = (owner as FluidRegistryProvider).fluidRegistry.register(builder.build(key.location))
         } else {
             throw Exception("Your Fluid Registrar must implement FluidRegistryProvider")
         }
