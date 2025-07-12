@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen
 
-import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
@@ -17,6 +16,7 @@ const val MOD_ID = "estrogen"
 const val MOD_NAME = "Estrogen"
 
 internal inline fun id(path: String) = ResourceLocation(MOD_ID, path)
+inline fun mcid(path: String) = ResourceLocation("minecraft", path)
 
 @EventSubscriber
 object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager by RegistryManager(MOD_ID) {
@@ -33,6 +33,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         EstrogenParticles.register()
         EstrogenEnchantments.register()
         AdvancementTriggers.register()
+        EstrogenFluids.register()
         EstrogenPotions.register()
         EstrogenItems.register()
         EstrogenCreativeTab.register()
