@@ -1,8 +1,8 @@
 package dev.mayaqq.estrogen.content.recipes
 
-import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
+import dev.mayaqq.estrogen.utils.TriColor
 import net.minecraft.core.RegistryAccess
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.inventory.CraftingContainer
@@ -33,34 +33,18 @@ class DreamCatcherDyeRecipe(id: ResourceLocation, category: CraftingBookCategory
 
             if (dyes.size == 3) {
                 val new = stack.copyWithCount(1)
-                val newLeft = item.left(new)?.let {
-                    mixColorWithDye(Color(item.left(new)!!), dyes[0])
-                } ?: colorFromDye(dyes[0])
-                val newMiddle = item.middle(new)?.let {
-                    mixColorWithDye(Color(item.middle(new)!!), dyes[1])
-                } ?: colorFromDye(dyes[1])
-                val newRight = item.right(new)?.let {
-                    mixColorWithDye(Color(item.right(new)!!), dyes[2])
-                } ?: colorFromDye(dyes[2])
+                val newTriColor: TriColor = if (item.isBlank(new)) {
+                    TriColor.fromDyes(dyes)
+                } else {
+                    item.triColor(new)!!.mix(TriColor.fromDyes(dyes))
+                }
 
-                item.setDyes(new, newLeft.toInt(), newMiddle.toInt(), newRight.toInt())
+                item.setDyes(new, newTriColor)
 
                 return new
             }
         }
         return ItemStack.EMPTY
-    }
-
-    private fun mixColorWithDye(original: Color, dyeStack: ItemStack): Color {
-        if (dyeStack.isEmpty || dyeStack.item !is DyeItem) return original
-        val dyeColor: Color = colorFromDye(dyeStack)
-        if (original.toInt() == -1) return dyeColor
-        return original.mix(dyeColor, .5f)
-    }
-
-    private fun colorFromDye(dyeStack: ItemStack): Color {
-        val dyeColors = (dyeStack.item as DyeItem).dyeColor.textureDiffuseColors
-        return Color(dyeColors[0], dyeColors[1], dyeColors[2], 1f)
     }
 
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = width * height >= 4

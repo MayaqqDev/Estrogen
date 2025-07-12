@@ -1,13 +1,19 @@
 package dev.mayaqq.estrogen.content
 
+import dev.mayaqq.cynosure.entities.EntityAttributes
+import dev.mayaqq.cynosure.events.PostInitEvent
+import dev.mayaqq.cynosure.events.api.EventSubscriber
+import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.Estrogen
 import net.minecraft.core.registries.Registries
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.RangedAttribute
 import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.entry
 import kotlin.math.pow
 
+@EventSubscriber
 object EstrogenAttributes : Registrar<Attribute> by Estrogen..Registries.ATTRIBUTE {
     // Dash Level
     val DashLevel by entry("dash_level", {RangedAttribute("attribute.name.estrogen.dash_level", 0.0, 0.0, 10.0).setSyncable(true)})
@@ -18,5 +24,14 @@ object EstrogenAttributes : Registrar<Attribute> by Estrogen..Registries.ATTRIBU
     // Fall Damage Resistance
     val FallDamageResistance by entry("fall_damage_resistance", {RangedAttribute("attribute.name.estrogen.fall_damage_resistance", 1.0, 1.0, 100.0).setSyncable(true)})
 
-    //TODO: In old estrogen, we register attributes sooner so we can use them in the mixin, not sure if that will break for us.
+    @Subscription
+    fun postInit(event: PostInitEvent) {
+        EntityAttributes.modify(EntityType.PLAYER) {
+            add(DashLevel)
+            add(FallDamageResistance)
+            add(ShowBoobs)
+            add(BoobInitialSize)
+            add(BoobGrowingStartTime)
+        }
+    }
 }

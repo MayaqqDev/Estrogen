@@ -1,0 +1,9 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "estrogen:item/dreamcatcher",
+    "layer1": "estrogen:item/dreamcatcher_left",
+    "layer2": "estrogen:item/dreamcatcher_middle",
+    "layer3": "estrogen:item/dreamcatcher_right"
+  }
+}

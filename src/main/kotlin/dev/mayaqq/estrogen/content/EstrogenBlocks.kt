@@ -1,15 +1,15 @@
 package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.cynosure.blocks.model.ModelBedBlock
+import dev.mayaqq.cynosure.blocks.poi.add
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
-import dev.mayaqq.estrogen.content.items.ThighHighsItem
-import dev.mayaqq.estrogen.content.items.ThighHighsItem.Companion.getItemColor
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.ItemTags
+import net.minecraft.world.entity.ai.village.poi.PoiTypes
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.CreativeModeTabs
 import net.minecraft.world.item.Items
