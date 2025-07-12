@@ -110,8 +110,8 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
     ) {
         consumer.vertex(pose, x, y, z)
         val borderChannel = if (isBorder) 255 else 0
-        val scotomaChannel = if (shouldMigraine()) 255 else 0
-        consumer.color(borderChannel, scotomaChannel, 0, 0)
+        val seeThroughChannel = if (shouldSeeThrough()) 255 else 0
+        consumer.color(borderChannel, seeThroughChannel, 0, 0)
         consumer.uv(0f, 0f)
             .uv2(LightTexture.FULL_BRIGHT)
             .normal(0f, 0f, 0f)
@@ -127,7 +127,7 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
         fun DreamBlockEntity.shouldRender(): Boolean = isPersistent
                 || Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming) == true
 
-        fun shouldMigraine(): Boolean {
+        fun shouldSeeThrough(): Boolean {
             val player = Minecraft.getInstance().player as? Player
             player?.let {return DreamBlock.isInDreamBlock(player)} ?: return false
         }
