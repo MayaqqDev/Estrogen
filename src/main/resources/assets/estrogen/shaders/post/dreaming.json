@@ -1,7 +1,6 @@
 {
   "targets": [
-    "swap",
-    "swap2"
+    "swap"
   ],
   "passes": [
     {
@@ -32,7 +31,7 @@
     {
       "name": "estrogen:aberration",
       "intarget": "swap",
-      "outtarget": "swap2",
+      "outtarget": "minecraft:main",
       "uniforms": [
         {
           "name": "Intensity",
@@ -43,11 +42,6 @@
           "values": [ 0.9, 1.0, 0.96, 1.0 ]
         }
       ]
-    },
-    {
-      "name": "blit",
-      "intarget": "swap2",
-      "outtarget": "minecraft:main"
     }
   ]
 }
