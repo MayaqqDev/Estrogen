@@ -5,9 +5,34 @@
   ],
   "passes": [
     {
-      "name": "estrogen:aberration",
+      "name": "estrogen:dreamy_fog",
       "intarget": "minecraft:main",
       "outtarget": "swap",
+      "auxtargets": [
+        {
+          "name": "DiffuseDepthSampler",
+          "id": "minecraft:main:depth"
+        }
+      ],
+      "uniforms": [
+        {
+          "name": "Color",
+          "values": [ 0.08, 0.18, 0.14 ]
+        },
+        {
+          "name": "Start",
+          "values": [ 20.0 ]
+        },
+        {
+          "name": "End",
+          "values": [ 70.0 ]
+        }
+      ]
+    },
+    {
+      "name": "estrogen:aberration",
+      "intarget": "swap",
+      "outtarget": "swap2",
       "uniforms": [
         {
           "name": "Intensity",
@@ -21,7 +46,7 @@
     },
     {
       "name": "blit",
-      "intarget": "swap",
+      "intarget": "swap2",
       "outtarget": "minecraft:main"
     }
   ]
