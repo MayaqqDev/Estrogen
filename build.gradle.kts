@@ -292,7 +292,7 @@ tasks.withType<KotlinCompile> {
 //    explicitApiMode = org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode.Warning
     compilerOptions {
         languageVersion = KotlinVersion.KOTLIN_2_0
-        //freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
+        freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
     }
 }
 

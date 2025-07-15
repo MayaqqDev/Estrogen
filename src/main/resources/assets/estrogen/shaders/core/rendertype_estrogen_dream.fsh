@@ -7,6 +7,7 @@ uniform float GameTime;
 
 in vec4 vertexColor;
 in vec4 texProj0;
+in vec2 screenSize;
 
 const mat4 SCALE_TRANSLATE = mat4(
     0.5, 0.0, 0.0, 0.25,
@@ -31,13 +32,33 @@ mat4 dreamBlockLayer(float layer) {
 out vec4 fragColor;
 
 void main() {
-    if (vertexColor.w > 0.1) {
-        fragColor = vertexColor;
+    // vertexColor.x is 1.0 for the borders of a dream block and 0.0 otherwise
+    // vertexColor.y is 1.0 when the player is inside a dream block and 0.0 otherwise
+    vec4 rescaledTexProj = texProj0 * vec4(screenSize / screenSize.y, 1.0, 1.0);
+    vec3 color;
+    float alpha;
+    if (vertexColor.x > 0.5) {
+        color = vec3(1.0, 1.0, 1.0);
     } else {
-        vec3 color = textureProj(Sampler0, texProj0).rgb;
+        color = textureProj(Sampler0, rescaledTexProj).rgb;
         for (int i = 0; i < 8; i++) {
-            color += textureProj(Sampler0, texProj0 * dreamBlockLayer(float(i + 1) * 2)).rgb;
+            color += textureProj(Sampler0, rescaledTexProj * dreamBlockLayer(float(i + 1) * 2)).rgb;
         }
-        fragColor = vec4(color, 1.0);
     }
+    if (vertexColor.y > 0.5) {
+        vec2 pos = rescaledTexProj.xy / rescaledTexProj.w - vec2(0.5, 0.5) * screenSize / screenSize.y;
+        float angle = 5 * atan(pos.y, pos.x);
+        float dist = dot(pos, pos) + (sin(angle + GameTime * 1000) + sin(angle - GameTime * 5000)) / 90;
+        if (dist > 0.1) {
+            alpha = 1.0;
+        } else if (dist > 0.09) {
+            alpha = 1.0;
+            color = vec3(1.0, 1.0, 1.0);
+        } else {
+            alpha = 0.0;
+        }
+    } else {
+        alpha = 1.0;
+    }
+    fragColor = vec4(color, alpha);
 }

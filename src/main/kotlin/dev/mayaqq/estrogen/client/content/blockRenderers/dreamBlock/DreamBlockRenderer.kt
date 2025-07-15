@@ -6,12 +6,14 @@ import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
+import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.LightTexture
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
 import net.minecraft.core.Direction
+import net.minecraft.world.entity.player.Player
 import org.joml.Matrix4f
 
 class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEntityRenderer<DreamBlockEntity> {
@@ -50,12 +52,11 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
         addInnerVertexShader(blockEntity, pose, consumer, x1, y1, z2)
         addInnerVertexShader(blockEntity, pose, consumer, x0, y1, z3)
 
-        if (!blockEntity.isTouchingDreamBlock(direction)) {
-            addOuterVertexShader(blockEntity, pose, consumer, x0, y1, z3)
-            addOuterVertexShader(blockEntity, pose, consumer, x1, y1, z2)
-            addOuterVertexShader(blockEntity, pose, consumer, x1, y0, z1)
-            addOuterVertexShader(blockEntity, pose, consumer, x0, y0, z0)
-        }
+        if (blockEntity.isTouchingDreamBlock(direction)) return
+        addOuterVertexShader(blockEntity, pose, consumer, x0, y1, z3)
+        addOuterVertexShader(blockEntity, pose, consumer, x1, y1, z2)
+        addOuterVertexShader(blockEntity, pose, consumer, x1, y0, z1)
+        addOuterVertexShader(blockEntity, pose, consumer, x0, y0, z0)
     }
 
     /**
@@ -108,11 +109,9 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
         isBorder: Boolean
     ) {
         consumer.vertex(pose, x, y, z)
-        if (isBorder) {
-            consumer.color(255, 255, 255, 255)
-        } else {
-            consumer.color(0, 0, 0, 0)
-        }
+        val borderChannel = if (isBorder) 255 else 0
+        val seeThroughChannel = if (shouldSeeThrough()) 255 else 0
+        consumer.color(borderChannel, seeThroughChannel, 0, 0)
         consumer.uv(0f, 0f)
             .uv2(LightTexture.FULL_BRIGHT)
             .normal(0f, 0f, 0f)
@@ -127,5 +126,10 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
 
         fun DreamBlockEntity.shouldRender(): Boolean = isPersistent
                 || Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming) == true
+
+        fun shouldSeeThrough(): Boolean {
+            val player = Minecraft.getInstance().player as? Player
+            player?.let {return DreamBlock.isInDreamBlock(player)} ?: return false
+        }
     }
 }
