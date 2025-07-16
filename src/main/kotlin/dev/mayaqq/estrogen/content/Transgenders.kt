@@ -8,7 +8,6 @@ import dev.engine_room.flywheel.lib.visualization.SimpleBlockEntityVisualizer
 import dev.mayaqq.cynosure.items.extensions.CustomTooltip
 import dev.mayaqq.cynosure.items.extensions.registerExtension
 import dev.mayaqq.cynosure.tooltips.DescriptionTooltip
-import dev.mayaqq.estrogen.client.ticking
 import dev.mayaqq.estrogen.content.blocks.fluid.LavaLikeLiquidBlock
 import dev.mayaqq.estrogen.content.fluids.registry.FluidBuilder
 import dev.mayaqq.estrogen.id
@@ -27,7 +26,6 @@ import net.minecraft.client.renderer.item.ClampedItemPropertyFunction
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
-import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
