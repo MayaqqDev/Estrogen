@@ -226,21 +226,6 @@ cloche {
         runs {
             client()
             server()
-            /*
-            val paths = listOf(
-                "build/classes/java/forge",
-                "build/classes/kotlin/forge",
-                "build/generated/ksp/forge/classes",
-                "build/resources/forge"
-            ).joinToString(if (Os.isFamily(Os.FAMILY_WINDOWS)) ";" else ":") { project.file(it).absolutePath }
-
-            client {
-                jvmArgs("-Dfabric.classPathGroups=$paths")
-            } // this is just the client run not client sourceset
-            server {
-                jvmArgs("-Dfabric.classPathGroups=$paths")
-            }
-             */
         }
 
         dependencies {
@@ -310,7 +295,6 @@ tasks.named("createCommonApiStub", GenerateStubApi::class) {
 }
 
 tasks.named("processForgeResources") {
-
 }
 
 publishing {

@@ -48,7 +48,7 @@ jei_file_id_fabric = "5101365"
 flk = "1.11.0+kotlin.2.0.0"
 
 # Forge Only Dependencies
-forge = "47.2.19"
+forge = "47.4.0"
 curios = "5.4.7+1.20.1"
 create_forge = "0.5.1.f-27"
 jei_file_id_forge = "4712868"
