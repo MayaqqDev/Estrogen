@@ -127,7 +127,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         bauble()
         //TODO: baubleWithRenderer {  }
         onSetup { CauldronInteraction.WATER[it] = ThighHighsItem.CAULDRON_INTERACTION }
-        color(ThighHighsItem::getItemColor)
+        //color(ThighHighsItem::getItemColor)
     }
 
     val EstrogenPatches by item("estrogen_patches", ::EstrogenPatchesItem) {

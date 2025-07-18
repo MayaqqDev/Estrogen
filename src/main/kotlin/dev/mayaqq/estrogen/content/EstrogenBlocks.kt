@@ -147,7 +147,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
         item(::DreamCatcherItem) {
             standardTooltip()
             creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(Items.BARREL))
-            color(DreamCatcherItem::getItemColor)
+            //color(DreamCatcherItem::getItemColor)
         }
     }
 }

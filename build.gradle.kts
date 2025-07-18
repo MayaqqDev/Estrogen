@@ -50,7 +50,7 @@ val item_viewer: String by project
 val devauth_enabled: String by project
 
 dependencies {
-    ksp(libs.kittyconfig.ksp)
+    //ksp(libs.kittyconfig.ksp)
 }
 
 cloche {
@@ -85,7 +85,7 @@ cloche {
             modCompileOnly(libs.ears)
             modCompileOnly(libs.figura)
             modCompileOnly(libs.createNewAge)
-            modImplementation(libs.kittyconfig)
+            //modImplementation(libs.kittyconfig)
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
 
@@ -106,7 +106,7 @@ cloche {
         include(libs.fabric.baubly) { exclude(group = "me.shedaniel") }
         include(libs.fabric.kritter)
         include(libs.fabric.flywheel)
-        include(libs.fabric.kittyconfig)
+        //include(libs.fabric.kittyconfig)
 
         include(libs.mixinConstrains)
 
@@ -166,8 +166,9 @@ cloche {
             modImplementation(libs.fabric.flywheel)
             modImplementation(libs.fabric.cynosure)
             modImplementation(libs.fabric.kritter)
-            modApi(libs.fabric.kittyconfig)
+            //modApi(libs.fabric.kittyconfig)
             modApi(libs.fabric.botarium)
+            implementation(libs.mixinConstrains)
 
             when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -225,6 +226,21 @@ cloche {
         runs {
             client()
             server()
+            /*
+            val paths = listOf(
+                "build/classes/java/forge",
+                "build/classes/kotlin/forge",
+                "build/generated/ksp/forge/classes",
+                "build/resources/forge"
+            ).joinToString(if (Os.isFamily(Os.FAMILY_WINDOWS)) ";" else ":") { project.file(it).absolutePath }
+
+            client {
+                jvmArgs("-Dfabric.classPathGroups=$paths")
+            } // this is just the client run not client sourceset
+            server {
+                jvmArgs("-Dfabric.classPathGroups=$paths")
+            }
+             */
         }
 
         dependencies {
@@ -238,8 +254,9 @@ cloche {
             modCompileOnly(libs.forge.emi)
             modImplementation(libs.forge.cynosure)
             modImplementation(libs.forge.kritter)
-            modApi(libs.forge.kittyconfig)
+            //modApi(libs.forge.kittyconfig)
             modApi(libs.forge.botarium)
+            implementation(libs.mixinConstrains)
 
             when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)
@@ -292,7 +309,7 @@ tasks.named("createCommonApiStub", GenerateStubApi::class) {
     excludes.add(libs.cynosure.get().group)
 }
 
-tasks.named { it == "accessWidenForgeMinecraft" }.all {
+tasks.named("processForgeResources") {
 
 }
 

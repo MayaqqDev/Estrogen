@@ -25,7 +25,7 @@ import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorDataLoader
 import dev.mayaqq.estrogen.client.features.dash.DashOverlay
 import dev.mayaqq.estrogen.compat.ears.EarsCompat
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
-import dev.mayaqq.estrogen.config.Instance
+//import dev.mayaqq.estrogen.config.Instance
 import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.injection.chestConfig
@@ -33,13 +33,13 @@ import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.c2s.SetChestConfigPacket
 import net.minecraft.client.Minecraft
 import net.minecraft.world.entity.EntityType
-import uwu.serenity.kittyconfig.api.defaults.load
+//import uwu.serenity.kittyconfig.api.defaults.load
 
 internal var chestConfigSet = false
 
 fun estrogenClient() {
     CynosureSplashLoader.amount += 30
-    EstrogenClientConfig.Instance.load()
+    //EstrogenClientConfig.Instance.load()
     EstrogenKeybinds
     EstrogenRenderTypes
     HudOverlayRegistry.register(VanillaHud.FROSTBITE, id("dash"), DashOverlay)
