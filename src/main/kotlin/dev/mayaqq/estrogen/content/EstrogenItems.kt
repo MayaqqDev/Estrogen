@@ -53,8 +53,8 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
                 .fast().alwaysEat().build()
             )
             rarity(Rarity.EPIC)
-            standardTooltip()
         }
+        standardTooltip()
     }
 
     val Balls by item("balls", ::Item)
