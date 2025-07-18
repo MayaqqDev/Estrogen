@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra
 import com.google.common.collect.ImmutableList
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
-import dev.mayaqq.cynosure.modId
+import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.injection.getLastFlap
 import net.minecraft.client.model.AgeableListModel
 import net.minecraft.client.model.geom.ModelLayerLocation
@@ -19,6 +19,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Pose
 import net.minecraft.world.entity.player.Player
 import kotlin.math.pow
+
 
 class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>() {
     private val root: ModelPart = root.getChild("root")
@@ -132,7 +133,7 @@ class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>(
 
     companion object {
 
-        val LAYER_LOCATION: ModelLayerLocation = ModelLayerLocation(modId("moth_elytra"), "main")
+        val LAYER_LOCATION: ModelLayerLocation = ModelLayerLocation(id("moth_elytra"), "main")
 
         fun createBodyLayer(): LayerDefinition {
             val meshdefinition = MeshDefinition()

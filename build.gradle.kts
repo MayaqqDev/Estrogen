@@ -1,5 +1,6 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
+import dev.mayaqq.multijarfixer.FixMultiRelease
 import net.msrandom.stubs.GenerateStubApi
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
@@ -253,7 +254,6 @@ cloche {
     }
 }
 
-/*
 val fixedAttribute = Attribute.of("fixed-jar", Boolean::class.javaObjectType)
 
 dependencies {
@@ -274,7 +274,6 @@ configurations.named("forgeRuntimeClasspath") {
         attribute(fixedAttribute, true)
     }
 }
-*/
 
 java {
     withSourcesJar()

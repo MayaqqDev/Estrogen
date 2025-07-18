@@ -58,7 +58,7 @@ abstract class FixMultiRelease : TransformAction<TransformParameters.None> {
     }
 
     private fun isMultiReleaseJar(file: File): Boolean? = JarInputStream(FileInputStream(file)).use {
-        if (it.manifest.mainAttributes.getValue("Multi-Release") == "true") {
+        if (it.manifest?.mainAttributes?.getValue("Multi-Release") == "true") {
             var entry = it.nextEntry
             while (entry != null) {
                 if (entry.name.startsWith("META-INF/versions/")) {
