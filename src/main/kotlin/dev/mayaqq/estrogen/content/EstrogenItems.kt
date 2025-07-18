@@ -53,8 +53,8 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
                 .fast().alwaysEat().build()
             )
             rarity(Rarity.EPIC)
-            standardTooltip()
         }
+        standardTooltip()
     }
 
     val Balls by item("balls", ::Item)
@@ -100,8 +100,6 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         }
     }
 
-    //TODO: val ESTROGEN_PATCHES by item("estrogen_patches", ::EstrogenPatchesItem)
-
     //TODO: Incomplete Estrogen Patch FOR CREATE ESTROGEN
 
     val ColonThree by item("uwu", ::Item) {
@@ -130,6 +128,14 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         //TODO: baubleWithRenderer {  }
         onSetup { CauldronInteraction.WATER[it] = ThighHighsItem.CAULDRON_INTERACTION }
         color(ThighHighsItem::getItemColor)
+    }
+
+    val EstrogenPatches by item("estrogen_patches", ::EstrogenPatchesItem) {
+        properties {
+            stacksTo(1)
+        }
+        bauble()
+        //TODO: baubleWithRenderer {  }
     }
 
     val MothElytra by item("moth_elytra", ::MothElytraItem) {

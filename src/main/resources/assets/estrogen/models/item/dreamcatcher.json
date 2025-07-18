@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "estrogen:item/dreamcatcher_blank"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "estrogen:colored": 1.0
+      },
+      "model": "estrogen:item/dreamcatcher_colored"
+    }
+  ]
+}

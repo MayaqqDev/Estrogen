@@ -1,6 +1,7 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
 import net.msrandom.stubs.GenerateStubApi
+import org.apache.tools.ant.taskdefs.condition.Os
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -110,8 +111,19 @@ cloche {
 
         includedClient() // includedClient() is not a run
         runs {
-            client()
-            server()
+            val paths = listOf(
+                "build/classes/java/fabric",
+                "build/classes/kotlin/fabric",
+                "build/generated/ksp/fabric/classes",
+                "build/resources/fabric"
+            ).joinToString(if (Os.isFamily(Os.FAMILY_WINDOWS)) ";" else ":") { project.file(it).absolutePath }
+
+            client {
+                jvmArgs("-Dfabric.classPathGroups=$paths")
+            } // this is just the client run not client sourceset
+            server {
+                jvmArgs("-Dfabric.classPathGroups=$paths")
+            }
         }
 
         metadata {
@@ -154,6 +166,7 @@ cloche {
             modImplementation(libs.fabric.cynosure)
             modImplementation(libs.fabric.kritter)
             modApi(libs.fabric.kittyconfig)
+            modApi(libs.fabric.botarium)
 
             when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -225,6 +238,7 @@ cloche {
             modImplementation(libs.forge.cynosure)
             modImplementation(libs.forge.kritter)
             modApi(libs.forge.kittyconfig)
+            modApi(libs.forge.botarium)
 
             when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)
@@ -270,7 +284,7 @@ tasks.withType<KotlinCompile> {
 //    explicitApiMode = org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode.Warning
     compilerOptions {
         languageVersion = KotlinVersion.KOTLIN_2_0
-        //freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
+        freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
     }
 }
 

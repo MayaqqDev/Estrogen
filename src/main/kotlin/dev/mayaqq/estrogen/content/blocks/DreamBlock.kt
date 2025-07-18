@@ -14,6 +14,7 @@ import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenEffects
+import dev.mayaqq.estrogen.content.EstrogenPoiTypes
 import dev.mayaqq.estrogen.content.EstrogenSoundTypes
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.features.dash.CommonDash
@@ -24,6 +25,8 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.Mth
 import net.minecraft.util.RandomSource
@@ -31,6 +34,7 @@ import net.minecraft.world.InteractionResult
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.ai.village.poi.PoiManager
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
@@ -56,7 +60,9 @@ import org.apache.commons.codec.digest.MessageDigestAlgorithms
 import uwu.serenity.kritter.client.stdlib.clientOnly
 import uwu.serenity.kritter.stdlib.BlockEntityBlock
 import java.security.MessageDigest
+import kotlin.jvm.optionals.getOrNull
 import kotlin.reflect.KClass
+import kotlin.streams.toList
 
 class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<DreamBlockEntity> {
 
@@ -148,13 +154,19 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
 
         if (entities.isEmpty()) return
         val player = entities[random.nextInt(0, entities.size)]
+
+        val inRange = level.poiManager.getInRange({holder -> holder.`is`(
+            BuiltInRegistries.POINT_OF_INTEREST_TYPE.getResourceKey(EstrogenPoiTypes.DreamCatcher).getOrNull()?: return@getInRange false
+        )}, player.blockPosition(), EstrogenServerConfig.DreamBlock.dreamCatcherRange, PoiManager.Occupancy.ANY)
+
+        if (inRange.toList().isNotEmpty()) return
+
         player.stopSleeping()
         player.addEffect(MobEffectInstance(
             EstrogenEffects.Dreaming,
             MobEffectInstance.INFINITE_DURATION,
             0, true, false
         ))
-
     }
 
     override fun entityInside(state: BlockState, level: Level, pos: BlockPos, entity: Entity) {

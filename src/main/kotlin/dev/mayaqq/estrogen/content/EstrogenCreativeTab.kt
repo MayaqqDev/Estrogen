@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.content
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenBlocks.CookieJar
 import dev.mayaqq.estrogen.content.EstrogenBlocks.DreamBlock
+import dev.mayaqq.estrogen.content.EstrogenBlocks.DreamCatcher
 import dev.mayaqq.estrogen.content.EstrogenBlocks.EstrogenPillBlock
 import dev.mayaqq.estrogen.content.EstrogenBlocks.MothBed
 import dev.mayaqq.estrogen.content.EstrogenBlocks.MothCarpet
@@ -10,10 +11,18 @@ import dev.mayaqq.estrogen.content.EstrogenBlocks.MothWool
 import dev.mayaqq.estrogen.content.EstrogenBlocks.QuiltedMothBed
 import dev.mayaqq.estrogen.content.EstrogenBlocks.QuiltedMothCarpet
 import dev.mayaqq.estrogen.content.EstrogenBlocks.QuiltedMothWool
+import dev.mayaqq.estrogen.content.EstrogenFluids.FiltratedHorseUrine
+import dev.mayaqq.estrogen.content.EstrogenFluids.GenderFluid
+import dev.mayaqq.estrogen.content.EstrogenFluids.HorseUrine
+import dev.mayaqq.estrogen.content.EstrogenFluids.LiquidEstrogen
+import dev.mayaqq.estrogen.content.EstrogenFluids.MoltenAmethyst
+import dev.mayaqq.estrogen.content.EstrogenFluids.MoltenSlime
+import dev.mayaqq.estrogen.content.EstrogenFluids.TestosteroneMixture
 import dev.mayaqq.estrogen.content.EstrogenItems.Balls
 import dev.mayaqq.estrogen.content.EstrogenItems.ColonThree
 import dev.mayaqq.estrogen.content.EstrogenItems.CrystalEstrogenPill
 import dev.mayaqq.estrogen.content.EstrogenItems.EstrogenChipCookie
+import dev.mayaqq.estrogen.content.EstrogenItems.EstrogenPatches
 import dev.mayaqq.estrogen.content.EstrogenItems.EstrogenPill
 import dev.mayaqq.estrogen.content.EstrogenItems.GenderChangePotion
 import dev.mayaqq.estrogen.content.EstrogenItems.HorseUrineBottle
@@ -52,12 +61,13 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Estrogen..Registries.
             accept(TestosteronePowder)
             accept(EstrogenChipCookie)
             accept(HorseUrineBottle)
-            //accept(ESTROGEN_PATCHES.get().getFullStack())
-            //accept(ESTROGEN_PATCHES)
+            accept(EstrogenPatches.getFullStack())
+            accept(EstrogenPatches)
             accept(ThighHighs)
             accept(MothElytra)
             accept(ColonThree)
             accept(CookieJar)
+            accept(DreamCatcher)
             accept(DreamBlock)
             accept(EstrogenPillBlock)
             accept(MothWool)
@@ -67,17 +77,17 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Estrogen..Registries.
             accept(MothBed)
             accept(QuiltedMothBed)
             accept(tippedArrow(EstrogenPotions.EstrogenPotion))
-//            accept(MOLTEN_SLIME.getBucket())
-//            accept(TESTOSTERONE_MIXTURE.getBucket())
-//            accept(LIQUID_ESTROGEN.getBucket())
-//            accept(FILTRATED_HORSE_URINE.getBucket())
-//            accept(HORSE_URINE.getBucket())
-//            accept(MOLTEN_AMETHYST.getBucket())
-//            accept(GENDER_FLUID.getBucket())
+            accept(MoltenSlime.bucket)
+            accept(TestosteroneMixture.bucket)
+            accept(LiquidEstrogen.bucket)
+            accept(FiltratedHorseUrine.bucket)
+            accept(HorseUrine.bucket)
+            accept(MoltenAmethyst.bucket)
+            accept(GenderFluid.bucket)
             accept(BuiltInRegistries.ITEM.get(id("moth_spawn_egg")))
             ThighHighs.styleItems.forEach(::accept)
         }
     }
 }
 
-private fun tippedArrow(potion: Potion): ItemStack = Items.POTION.defaultInstance.also { PotionUtils.setPotion(it, potion) }
+private fun tippedArrow(potion: Potion): ItemStack = Items.TIPPED_ARROW.defaultInstance.also { PotionUtils.setPotion(it, potion) }
