@@ -75,6 +75,4 @@ internal fun ticking(event: ClientTickEvent) {
         EstrogenNetwork.sendToServer(SetChestConfigPacket(config))
         chestConfigSet = true
     }
-
-
 }

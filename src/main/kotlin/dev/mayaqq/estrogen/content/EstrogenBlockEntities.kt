@@ -22,7 +22,6 @@ object EstrogenBlockEntities : Registrar<BlockEntityType<*>> by Estrogen..Regist
         visual(::DreamBlockVisual)
     }
 
-    //TODO:
     val CookieJar: BlockEntityType<CookieJarBlockEntity> by blockEntity("cookie_jar", ::CookieJarBlockEntity) {
         validBlock(EstrogenBlocks::CookieJar)
         renderer(::CookieJarRenderer)

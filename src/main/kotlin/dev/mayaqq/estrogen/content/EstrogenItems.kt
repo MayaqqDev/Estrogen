@@ -1,18 +1,28 @@
 package dev.mayaqq.estrogen.content
 
+import dev.mayaqq.cynosure.items.extensions.CustomTooltip
+import dev.mayaqq.cynosure.tooltips.DescriptionTooltip
 import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.estrogen.client.content.baubles.EstrogenPatchesRenderer
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.items.*
 import dev.mayaqq.estrogen.id
+import net.minecraft.ChatFormatting
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.registries.Registries
+import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.Style
+import net.minecraft.network.chat.TextColor
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.CreativeModeTabs
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.Rarity
+import net.minecraft.world.item.TooltipFlag
 import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.creative.TabPlacement
 import uwu.serenity.kritter.stdlib.item
@@ -105,11 +115,18 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         properties {
             stacksTo(1)
         }
-        /* TODO:
         tooltip {
-            TODO("TOOLTIP hehe")
+            object : CustomTooltip {
+                override fun MutableList<Component>.modifyTooltip(
+                    stack: ItemStack,
+                    player: Player?,
+                    flags: TooltipFlag
+                ) {
+                    add(Component.literal("UwU").withStyle(ChatFormatting.LIGHT_PURPLE))
+                }
+
+            }
         }
-         */
     }
 
     //TODO: Incomplete Colonthree FOR CREATE ESTROGEN
@@ -118,11 +135,25 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         properties {
             stacksTo(1)
         }
-        /* TODO:
         tooltip {
-            TODO("THIGHHIGHSTOOLTIPMODIFIER")
+            object : CustomTooltip {
+                override fun MutableList<Component>.modifyTooltip(
+                    stack: ItemStack,
+                    player: Player?,
+                    flags: TooltipFlag
+                ) {
+                    val item = stack.item as? ThighHighsItem ?: return
+                    item.getStyle(stack)?.let {
+                        add(1, Component.translatable(it.toLanguageKey("tooltip.thigh_highs")))
+                    }?: add(1, Component.translatable("item.dyed").withStyle(
+                        ChatFormatting.GRAY,
+                        ChatFormatting.ITALIC
+                    ))
+                }
+
+            }
         }
-         */
+        standardTooltip()
         bauble()
         //TODO: baubleWithRenderer {  }
         onSetup { CauldronInteraction.WATER[it] = ThighHighsItem.CAULDRON_INTERACTION }
@@ -134,7 +165,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
             stacksTo(1)
         }
         bauble()
-        //TODO: baubleWithRenderer {  }
+        baubleWithRenderer(::EstrogenPatchesRenderer)
     }
 
     val MothElytra by item("moth_elytra", ::MothElytraItem) {

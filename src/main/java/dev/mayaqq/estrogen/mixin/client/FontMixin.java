@@ -33,7 +33,6 @@ public class FontMixin {
             argsOnly = true
     )
     private FormattedCharSequence modifyText(FormattedCharSequence text) {
-        //TODO: Check if this works, kotlin in java is weird and pain and I dont like it
         if (TextRendererFeatures.getUwufy()) return UwUOrderedText.orderedToUwUText(text);
         else return text;
     }

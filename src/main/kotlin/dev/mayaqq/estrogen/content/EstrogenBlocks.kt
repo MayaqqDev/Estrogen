@@ -2,6 +2,8 @@ package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.cynosure.blocks.model.ModelBedBlock
 import dev.mayaqq.cynosure.blocks.poi.add
+import dev.mayaqq.cynosure.core.Loader
+import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
@@ -113,6 +115,10 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
                 creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER { stack -> stack.`is`(ItemTags.BEDS) })
             }
         }
+        onRegister {
+            //TODO: make this work on forge
+            if (currentLoader == Loader.FABRIC) PoiTypes.HOME.add(it)
+        }
     }
 
     val QuiltedMothBed: ModelBedBlock by block("quilted_moth_bed", ::ModelBedBlock) {
@@ -122,6 +128,10 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
                 stacksTo(1)
                 creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER { stack -> stack.`is`(ItemTags.BEDS) })
             }
+        }
+        onRegister {
+            //TODO: make this work on forge
+            if (currentLoader == Loader.FABRIC) PoiTypes.HOME.add(it)
         }
     }
 
