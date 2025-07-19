@@ -135,24 +135,6 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         properties {
             stacksTo(1)
         }
-        tooltip {
-            object : CustomTooltip {
-                override fun MutableList<Component>.modifyTooltip(
-                    stack: ItemStack,
-                    player: Player?,
-                    flags: TooltipFlag
-                ) {
-                    val item = stack.item as? ThighHighsItem ?: return
-                    item.getStyle(stack)?.let {
-                        add(1, Component.translatable(it.toLanguageKey("tooltip.thigh_highs")))
-                    }?: add(1, Component.translatable("item.dyed").withStyle(
-                        ChatFormatting.GRAY,
-                        ChatFormatting.ITALIC
-                    ))
-                }
-
-            }
-        }
         standardTooltip()
         bauble()
         //TODO: baubleWithRenderer {  }

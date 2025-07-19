@@ -7,6 +7,7 @@ import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ThighHighStylesPacket
 import earth.terrarium.baubly.common.Bauble
 import earth.terrarium.baubly.common.SlotInfo
+import net.minecraft.ChatFormatting
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.network.chat.Component
@@ -27,7 +28,7 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.LayeredCauldronBlock
 import java.util.*
 
-class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondaryColor: Int) : Item(properties), Bauble, CustomTooltip {
+class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondaryColor: Int) : Item(properties), Bauble {
     private val styles = mutableListOf<ResourceLocation>()
 
     fun loadStyles(styles: List<ResourceLocation>) {
@@ -100,17 +101,13 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
         stack.tag?.remove(SPECIAL_STYLE)
     }
 
-    override fun MutableList<Component>.modifyTooltip(stack: ItemStack, player: Player?, flags: TooltipFlag) {
-
-    }
-
     override fun appendHoverText(stack: ItemStack, level: Level?, list: MutableList<Component>, flags: TooltipFlag) {
         getStyle(stack)?.let {
-            val translationKey = it.toLanguageKey("tooltip.thigh_highs")
-            list.add(1, Component.translatable(translationKey))
-        } ?: run {
-
-        }
+            list.add(1, Component.translatable(it.toLanguageKey("tooltip.thigh_highs")))
+        }?: list.add(1, Component.translatable("item.dyed").withStyle(
+            ChatFormatting.GRAY,
+            ChatFormatting.ITALIC
+        ))
     }
 
     override fun getModifiers(defaultModifiers: Multimap<Attribute, AttributeModifier>, stack: ItemStack, slot: SlotInfo, uuid: UUID): Multimap<Attribute, AttributeModifier> {

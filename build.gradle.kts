@@ -112,19 +112,8 @@ cloche {
 
         includedClient() // includedClient() is not a run
         runs {
-            val paths = listOf(
-                "build/classes/java/fabric",
-                "build/classes/kotlin/fabric",
-                "build/generated/ksp/fabric/classes",
-                "build/resources/fabric"
-            ).joinToString(if (Os.isFamily(Os.FAMILY_WINDOWS)) ";" else ":") { project.file(it).absolutePath }
-
-            client {
-                jvmArgs("-Dfabric.classPathGroups=$paths")
-            } // this is just the client run not client sourceset
-            server {
-                jvmArgs("-Dfabric.classPathGroups=$paths")
-            }
+            client()
+            server()
         }
 
         metadata {
