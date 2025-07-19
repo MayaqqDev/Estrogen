@@ -11,6 +11,7 @@ plugins {
     kotlin("jvm") version libs.versions.kotlin
     kotlin("plugin.serialization") version libs.versions.kotlin
     `maven-publish`
+    id("com.dorongold.task-tree") version "4.0.1"
 }
 
 repositories {
