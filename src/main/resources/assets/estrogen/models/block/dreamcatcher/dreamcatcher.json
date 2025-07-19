@@ -4,8 +4,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [16, 32],
 	"textures": {
-		"0": "estrogen:block/dreamcatcher",
-		"particle": "estrogen:block/dreamcatcher"
+		"0": "estrogen:block/dreamcatcher/dreamcatcher",
+		"particle": "estrogen:block/dreamcatcher/dreamcatcher"
 	},
 	"elements": [
 		{

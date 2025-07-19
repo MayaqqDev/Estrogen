@@ -27,7 +27,6 @@ class DreamCatcherItem(block: Block, properties: Properties) : BlockItem(block, 
     }
 
     companion object {
-
         fun getItemColor(stack: ItemStack, tintIndex: Int): Int {
             val item = stack.item as DreamCatcherItem
             return item.getColor(stack, tintIndex)

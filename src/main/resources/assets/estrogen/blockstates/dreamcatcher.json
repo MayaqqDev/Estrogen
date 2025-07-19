@@ -1,18 +1,33 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "estrogen:block/dreamcatcher",
+    "facing=east,colored=false": {
+      "model": "estrogen:block/dreamcatcher/dreamcatcher",
       "y": 90
     },
-    "facing=north": {
-      "model": "estrogen:block/dreamcatcher"
+    "facing=north,colored=false": {
+      "model": "estrogen:block/dreamcatcher/dreamcatcher"
     },
-    "facing=south": {
-      "model": "estrogen:block/dreamcatcher",
+    "facing=south,colored=false": {
+      "model": "estrogen:block/dreamcatcher/dreamcatcher",
       "y": 180
     },
-    "facing=west": {
-      "model": "estrogen:block/dreamcatcher",
+    "facing=west,colored=false": {
+      "model": "estrogen:block/dreamcatcher/dreamcatcher",
+      "y": 270
+    },
+    "facing=east,colored=true": {
+      "model": "estrogen:block/dreamcatcher/dreamcatcher_colored",
+      "y": 90
+    },
+    "facing=north,colored=true": {
+      "model": "estrogen:block/dreamcatcher/dreamcatcher_colored"
+    },
+    "facing=south,colored=true": {
+      "model": "estrogen:block/dreamcatcher/dreamcatcher_colored",
+      "y": 180
+    },
+    "facing=west,colored=true": {
+      "model": "estrogen:block/dreamcatcher/dreamcatcher_colored",
       "y": 270
     }
   }

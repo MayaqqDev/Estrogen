@@ -2,14 +2,19 @@
 
 package dev.mayaqq.estrogen.content.blocks
 
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
+import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.blockEntities.DreamCatcherBlockEntity
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
+import dev.mayaqq.estrogen.utils.TriColor
+import dev.mayaqq.estrogen.utils.getTriColor
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.BlockPlaceContext
+import net.minecraft.world.level.BlockAndTintGetter
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelAccessor
@@ -18,14 +23,17 @@ import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
+import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 import uwu.serenity.kritter.stdlib.BlockEntityBlock
+import kotlin.jvm.optionals.getOrNull
 import kotlin.reflect.KClass
 
 
 class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(properties), BlockEntityBlock<DreamCatcherBlockEntity>, EntityBlock {
+
     override fun canSurvive(state: BlockState, level: LevelReader, pos: BlockPos): Boolean {
         return canSupportCenter(level, pos.relative(Direction.UP), Direction.DOWN)
     }
@@ -59,6 +67,22 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
     override val blockEntityClass: KClass<out DreamCatcherBlockEntity> = DreamCatcherBlockEntity::class
     override fun getBlockEntityType(): BlockEntityType<out DreamCatcherBlockEntity> = EstrogenBlockEntities.DreamCatcher
 
+    fun triColor(getter: BlockAndTintGetter, pos: BlockPos): TriColor? {
+        getter.getBlockEntity(pos, EstrogenBlockEntities.DreamCatcher).getOrNull()?.let {
+            return it.triColor
+        }
+        return null
+    }
+
+    fun getColor(getter: BlockAndTintGetter, pos: BlockPos, tintIndex: Int): Int {
+        return when (tintIndex) {
+            1 -> triColor(getter, pos)?.left?.toInt()?: -1
+            2 -> triColor(getter, pos)?.middle?.toInt()?: -1
+            3 -> triColor(getter, pos)?.right?.toInt()?: -1
+            else -> -1
+        }
+    }
+
     companion object {
         @JvmStatic private val SHAPE_NORTH = Shapes.or(
             Shapes.box(0.375, -0.0625, 0.4375, 0.6875, 0.875, 0.5625),
@@ -87,17 +111,36 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
             Shapes.box(0.4375, 0.125, 0.0625, 0.5625, 0.6875, 0.875),
             Shapes.box(0.4375, 0.0625, 0.125, 0.5625, 0.75, 0.8125)
         )
+
+        fun getBlockColor(state: BlockState, view: BlockAndTintGetter?, pos: BlockPos?, tint: Int): Int {
+            if (state.`is`(EstrogenBlocks.DreamCatcher) && view != null && pos != null) {
+                return (state.block as DreamCatcherBlock).getColor(view, pos, tint)
+            }
+            return -1
+        }
+
+        val COLORED: BooleanProperty = BooleanProperty.create("colored")
     }
     init {
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH))
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(COLORED, false))
     }
 
     override fun getStateForPlacement(context: BlockPlaceContext): BlockState {
-        return this.defaultBlockState().setValue(FACING, context.horizontalDirection.opposite)
+        return this.defaultBlockState()
+            .setValue(
+            FACING,
+            context.horizontalDirection.opposite
+        )
+            .setValue(
+                COLORED,
+                context.itemInHand.item is DreamCatcherItem &&
+                        !(context.itemInHand.item as DreamCatcherItem).isBlank(context.itemInHand)
+            )
     }
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
         builder.add(FACING)
+        builder.add(COLORED)
     }
 
     override fun setPlacedBy(level: Level, pos: BlockPos, state: BlockState, entity: LivingEntity?, stack: ItemStack) {

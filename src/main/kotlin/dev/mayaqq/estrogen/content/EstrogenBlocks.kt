@@ -143,6 +143,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             ignitedByLava()
         }
         renderType = RenderType::cutout
+        color(DreamCatcherBlock::getBlockColor)
         item(::DreamCatcherItem) {
             standardTooltip()
             creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(Items.BARREL))
