@@ -114,7 +114,10 @@ cloche {
         runs {
             client()
             server()
+            data()
         }
+
+        data()
 
         metadata {
             metadata {
@@ -178,6 +181,10 @@ cloche {
             entrypoint("client") {
                 adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric::init")
+            }
+            entrypoint("fabric_datagen") {
+                adapter.set("kotlin")
+                value.set("dev.mayaqq.estrogen.datagen.EstrogenDatagen")
             }
             entrypoint("emi") {
                 adapter.set("kotlin")
