@@ -167,5 +167,5 @@ inline fun <S : BotariumSourceFluid, F : BotariumFlowingFluid> FluidBuilder<S, F
 }
 
 // blocks
-
+@Stub
 expect fun BlockBuilder<*>.color(provider: (state: BlockState, view: BlockAndTintGetter?, pos: BlockPos?, tint: Int) -> Int)
