@@ -1,4 +1,5 @@
 {
+	"render_type": "minecraft:cutout",
 	"format_version": "1.9.0",
 	"credit": "Made with Blockbench",
 	"texture_size": [16, 32],

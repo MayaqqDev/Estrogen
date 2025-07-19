@@ -2,6 +2,7 @@
 
 package dev.mayaqq.estrogen.content.blocks
 
+import dev.mayaqq.cynosure.blocks.poi.anyInRange
 import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.core.currentEnvironment
 import dev.mayaqq.cynosure.events.api.EventSubscriber
@@ -155,11 +156,11 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         if (entities.isEmpty()) return
         val player = entities[random.nextInt(0, entities.size)]
 
-        val inRange = level.poiManager.getInRange({holder -> holder.`is`(
-            BuiltInRegistries.POINT_OF_INTEREST_TYPE.getResourceKey(EstrogenPoiTypes.DreamCatcher).getOrNull()?: return@getInRange false
-        )}, player.blockPosition(), EstrogenServerConfig.DreamBlock.dreamCatcherRange, PoiManager.Occupancy.ANY)
-
-        if (inRange.toList().isNotEmpty()) return
+        if (level.poiManager.anyInRange(
+                EstrogenPoiTypes.DreamCatcher,
+                player.blockPosition(),
+                EstrogenServerConfig.DreamBlock.dreamCatcherRange
+        )) return
 
         player.stopSleeping()
         player.addEffect(MobEffectInstance(
