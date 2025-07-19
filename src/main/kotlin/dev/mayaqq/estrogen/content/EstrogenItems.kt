@@ -15,7 +15,6 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.item.Rarity
 import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.creative.TabPlacement
-import uwu.serenity.kritter.client.stdlib.color
 import uwu.serenity.kritter.stdlib.item
 
 object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
@@ -127,7 +126,7 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         bauble()
         //TODO: baubleWithRenderer {  }
         onSetup { CauldronInteraction.WATER[it] = ThighHighsItem.CAULDRON_INTERACTION }
-        //color(ThighHighsItem::getItemColor)
+        color(ThighHighsItem::getItemColor)
     }
 
     val EstrogenPatches by item("estrogen_patches", ::EstrogenPatchesItem) {

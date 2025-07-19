@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument
 import net.minecraft.world.level.material.MapColor
 import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.creative.TabPlacement
-import uwu.serenity.kritter.client.stdlib.color
 import uwu.serenity.kritter.client.stdlib.renderType
 import uwu.serenity.kritter.stdlib.Never
 import uwu.serenity.kritter.stdlib.block
@@ -147,7 +146,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
         item(::DreamCatcherItem) {
             standardTooltip()
             creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(Items.BARREL))
-            //color(DreamCatcherItem::getItemColor)
+            color(DreamCatcherItem::getItemColor)
         }
     }
 }
