@@ -6,6 +6,7 @@ import dev.mayaqq.cynosure.client.utils.lastPose
 import dev.mayaqq.cynosure.utils.toVector3f
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture
+import dev.mayaqq.estrogen.client.features.dash.DreamBlockEffect
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import net.minecraft.client.Minecraft
@@ -34,6 +35,15 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
         val vertices = faceVertices[direction]!!
         val directions = vertexDirections[direction]!!
 
+        // vertices for outer face
+        for ((i, vertex) in vertices.asReversed().withIndex()) {
+            val vertexCoords = Vector3f(vertex)
+                .mul(0.999f)
+                .add(0.0005f, 0.0005f, 0.0005f)
+            val uv = vertexUVs[i]
+            addVertexShader(pose, consumer, vertexCoords, true, uv)
+        }
+        if (DreamBlockEffect.isInDreamBlock) return
         // vertices for inner face
         for ((i, vertex) in vertices.withIndex()) {
             val adjacentDirections = directions[i] to directions[(i + 1) % 4]
@@ -55,14 +65,7 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
                         .toVector3f()
                         .mul(vertexCoords2D.second.toFloat() / 16f)
                 )
-            addVertexShader(pose, consumer, vertexCoords3D.x, vertexCoords3D.y, vertexCoords3D.z, false)
-        }
-        // vertices for outer face
-        for (vertex in vertices.asReversed()) {
-            val vertexCoords = Vector3f(vertex)
-                .mul(0.999f)
-                .add(0.0005f, 0.0005f, 0.0005f)
-            addVertexShader(pose, consumer, vertexCoords.x, vertexCoords.y, vertexCoords.z, true)
+            addVertexShader(pose, consumer, vertexCoords3D, false)
         }
     }
 
@@ -113,15 +116,15 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
     private fun addVertexShader(
         pose: Matrix4f,
         consumer: VertexConsumer,
-        x: Float,
-        y: Float,
-        z: Float,
-        isBorder: Boolean
+        position: Vector3f,
+        isBorder: Boolean,
+        uv: Pair<Int, Int> = 0 to 0
     ) {
         val borderChannel = if (isBorder) 255 else 0
-        consumer.vertex(pose, x, y, z)
-            .color(borderChannel, 0, 0, 0)
-            .uv(0f, 0f)
+        val seeThroughChannel = if (DreamBlockEffect.isInDreamBlock) 255 else 0
+        consumer.vertex(pose, position.x, position.y, position.z)
+            .color(borderChannel, seeThroughChannel, 0, 0)
+            .uv(uv.first.toFloat(), uv.second.toFloat())
             .uv2(LightTexture.FULL_BRIGHT)
             .normal(0f, 0f, 0f)
             .endVertex()
@@ -135,7 +138,12 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
         fun DreamBlockEntity.shouldRender(): Boolean = isPersistent
                 || Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming) == true
 
-
+        val vertexUVs = listOf(
+            0 to 0,
+            1 to 0,
+            1 to 1,
+            0 to 1
+        )
         val faceVertices = mapOf(
             Direction.DOWN to listOf(Vector3f(0f, 0f, 0f), Vector3f(1f, 0f, 0f), Vector3f(1f, 0f, 1f), Vector3f(0f, 0f, 1f)),
             Direction.UP to listOf(Vector3f(0f, 1f, 0f), Vector3f(0f, 1f, 1f), Vector3f(1f, 1f, 1f), Vector3f(1f, 1f, 0f)),

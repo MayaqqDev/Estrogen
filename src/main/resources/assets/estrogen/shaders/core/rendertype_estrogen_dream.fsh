@@ -7,6 +7,7 @@ uniform float GameTime;
 
 in vec4 vertexColor;
 in vec4 texProj0;
+in vec2 uv;
 
 const mat4 SCALE_TRANSLATE = mat4(
     0.5, 0.0, 0.0, 0.25,
@@ -32,8 +33,11 @@ out vec4 fragColor;
 
 void main() {
     vec3 color;
-    float alpha;
     if (vertexColor.x > 0.5) {
+        if (vertexColor.y > 0.5 && !(
+            abs(uv.x - 0.5) > 7.0/16.0 ||
+            abs(uv.y - 0.5) > 7.0/16.0
+        )) discard;
         color = vec3(1.0, 1.0, 1.0);
     } else {
         color = textureProj(Sampler0, texProj0).rgb;

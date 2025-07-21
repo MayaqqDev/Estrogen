@@ -8,7 +8,8 @@
   "fragment": "estrogen:rendertype_estrogen_dream",
   "attributes": [
     "Position",
-    "Color"
+    "Color",
+    "UV0"
   ],
   "samplers": [
     { "name": "Sampler0" }
