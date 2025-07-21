@@ -91,16 +91,7 @@ object DashOverlay : HudOverlay {
             translate(graphics.guiWidth().toFloat() / 2.0f, graphics.guiHeight().toFloat() / 2.0f, 0.0f)
             scale(1.5f, 1.5f, 1.5f)
             translate((-graphics.guiWidth()).toFloat() / 2.0f, (-graphics.guiHeight()).toFloat() / 2.0f, 0.0f)
-            // RenderSystem.setShaderTexture(0, atlasLocation);
-            // RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            // Matrix4f $$10 = this.pose.last().pose();
-            // BufferBuilder $$11 = Tesselator.getInstance().getBuilder();
-            // $$11.begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-            // $$11.vertex($$10, (float)x1, (float)y1, (float)blitOffset).uv(minU, minV).endVertex();
-            // $$11.vertex($$10, (float)x1, (float)y2, (float)blitOffset).uv(minU, maxV).endVertex();
-            // $$11.vertex($$10, (float)x2, (float)y2, (float)blitOffset).uv(maxU, maxV).endVertex();
-            // $$11.vertex($$10, (float)x2, (float)y1, (float)blitOffset).uv(maxU, minV).endVertex();
-            // BufferUploader.drawWithShader($$11.end());
+
             RenderSystem.setShaderTexture(0, DynamicDreamTexture.ID)
             RenderSystem.setShader { EstrogenRenderer.dreamBlockShader }
             val bufferBuilder = Tesselator.getInstance().builder
