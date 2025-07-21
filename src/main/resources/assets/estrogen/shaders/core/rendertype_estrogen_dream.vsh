@@ -11,11 +11,9 @@ uniform vec2 ScreenSize;
 
 out vec4 vertexColor;
 out vec4 texProj0;
-out vec2 screenSize;
 
 void main() {
     gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
     vertexColor = Color;
-    screenSize = ScreenSize;
-    texProj0 = projection_from_position(gl_Position);
+    texProj0 = projection_from_position(gl_Position) * vec4(ScreenSize / ScreenSize.y, 1.0, 1.0);
 }
