@@ -13,10 +13,11 @@ out vec4 fragColor;
 
 void main() {
     float f = 0.2;
-    float see_through_dist = 0.02 * sin(7 * atan(texProj0.y, texProj0.x) + 15708 * GameTime);
-    if (length(texProj0) < 0.2 + see_through_dist) discard;
+    float angle = atan(texProj0.y, texProj0.x);
+    float see_through_dist = 0.02 * (sin(7 * angle + 15708 * GameTime) + sin(9 * angle - 14137 * GameTime));
+    if (length(texProj0) < 0.3 + see_through_dist) discard;
     vec3 color;
-    if (length(texProj0) < 0.22 + see_through_dist) {
+    if (length(texProj0) < 0.32 + see_through_dist) {
         color = vec3(1.0);
     } else {
         color = vec3(0.0);

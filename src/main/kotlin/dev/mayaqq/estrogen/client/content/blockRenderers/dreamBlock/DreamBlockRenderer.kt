@@ -43,7 +43,6 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
             val uv = vertexUVs[i]
             addVertexShader(pose, consumer, vertexCoords, true, uv)
         }
-        if (DreamBlockEffect.isInDreamBlock) return
         // vertices for inner face
         for ((i, vertex) in vertices.withIndex()) {
             val adjacentDirections = directions[i] to directions[(i + 1) % 4]

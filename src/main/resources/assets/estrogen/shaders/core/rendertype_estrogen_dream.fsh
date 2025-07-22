@@ -33,11 +33,15 @@ out vec4 fragColor;
 
 void main() {
     vec3 color;
+    float alpha = 1.0;
     if (vertexColor.x > 0.5) {
-        if (vertexColor.y > 0.5 && !(
-            abs(uv.x - 0.5) > 7.0/16.0 ||
-            abs(uv.y - 0.5) > 7.0/16.0
-        )) discard;
+        if (vertexColor.y > 0.5) {
+            alpha = 0.2;
+            if (
+                abs(uv.x - 0.5) < 7.0/16.0 &&
+                abs(uv.y - 0.5) < 7.0/16.0
+            ) discard;
+        }
         color = vec3(1.0, 1.0, 1.0);
     } else {
         color = textureProj(Sampler0, texProj0).rgb;
@@ -45,5 +49,5 @@ void main() {
             color += textureProj(Sampler0, texProj0 * dreamBlockLayer(float(i + 1) * 2)).rgb;
         }
     }
-    fragColor = vec4(color, 1.0);
+    fragColor = vec4(color, alpha);
 }
