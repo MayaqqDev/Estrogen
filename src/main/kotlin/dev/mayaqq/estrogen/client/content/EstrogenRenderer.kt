@@ -35,6 +35,7 @@ object EstrogenRenderer {
         private set
 
     lateinit var dreamBlockOverlayShader: ShaderInstance
+        private set
 
     lateinit var cutoutColorShader: ShaderInstance
         private set
