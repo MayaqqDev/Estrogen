@@ -93,9 +93,9 @@ object DashOverlay : HudOverlay {
             translate((-graphics.guiWidth()).toFloat() / 2.0f, (-graphics.guiHeight()).toFloat() / 2.0f, 0.0f)
 
             RenderSystem.setShaderTexture(0, DynamicDreamTexture.ID)
-            RenderSystem.setShader { EstrogenRenderer.dreamBlockShader }
+            RenderSystem.setShader { EstrogenRenderer.dreamBlockOverlayShader }
             val bufferBuilder = Tesselator.getInstance().builder
-            bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK)
+            bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION)
             val width = graphics.guiWidth()
             val height = graphics.guiHeight()
             vertex(bufferBuilder, lastPose, 0, 0)
@@ -108,10 +108,5 @@ object DashOverlay : HudOverlay {
 }
 
 private fun vertex(bufferBuilder: BufferBuilder, pose: Matrix4f, x: Int, y: Int) {
-    bufferBuilder.vertex(pose, x.toFloat(), y.toFloat(), -90f)
-        .color(0, 0, 0, 0)
-        .uv(x.toFloat(), y.toFloat())
-        .uv2(LightTexture.FULL_BRIGHT)
-        .normal(0f, 0f, 0f)
-        .endVertex()
+    bufferBuilder.vertex(pose, x.toFloat(), y.toFloat(), -90f).endVertex()
 }
