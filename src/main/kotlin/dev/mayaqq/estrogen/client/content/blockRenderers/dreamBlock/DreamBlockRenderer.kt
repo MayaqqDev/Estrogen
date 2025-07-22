@@ -2,117 +2,128 @@ package dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
+import dev.mayaqq.cynosure.client.utils.lastPose
+import dev.mayaqq.cynosure.utils.toVector3f
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture
+import dev.mayaqq.estrogen.client.features.dash.DreamBlockEffect
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
-import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.LightTexture
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
 import net.minecraft.core.Direction
-import net.minecraft.world.entity.player.Player
 import org.joml.Matrix4f
+import org.joml.Vector3f
+import kotlin.collections.listOf
 
 class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEntityRenderer<DreamBlockEntity> {
 
-    override fun render(p0: DreamBlockEntity, p1: Float, p2: PoseStack, p3: MultiBufferSource, p4: Int, p5: Int) {
-        if (p0.shouldRender()) {
+    override fun render(blockEntity: DreamBlockEntity, partialTick: Float, poseStack: PoseStack, buffer: MultiBufferSource, packedLight: Int, packedOverlay: Int) {
+        if (blockEntity.shouldRender()) {
             DynamicDreamTexture.prepare()
-            renderCubeShader(p0, p2.last().pose(), p3.getBuffer(EstrogenRenderTypes.DREAM_BLOCK))
+            for (direction in Direction.entries) {
+                if (blockEntity.isTouchingDreamBlock(direction)) continue
+                renderFaceShader(blockEntity, poseStack.lastPose, buffer.getBuffer(EstrogenRenderTypes.DREAM_BLOCK), direction)
+            }
         }
     }
-    private fun renderCubeShader(blockEntity: DreamBlockEntity, pose: Matrix4f, consumer: VertexConsumer) {
-        this.renderFaceShader(blockEntity, pose, consumer, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, Direction.SOUTH)
-        this.renderFaceShader(blockEntity, pose, consumer, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, Direction.NORTH)
-        this.renderFaceShader(blockEntity, pose, consumer, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, Direction.EAST)
-        this.renderFaceShader(blockEntity, pose, consumer, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, Direction.WEST)
-        this.renderFaceShader(blockEntity, pose, consumer, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, Direction.DOWN)
-        this.renderFaceShader(blockEntity, pose, consumer, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, Direction.UP)
+
+    private fun renderFaceShader(blockEntity: DreamBlockEntity, pose: Matrix4f, consumer: VertexConsumer, direction: Direction) {
+        val vertices = faceVertices[direction]!!
+        val directions = vertexDirections[direction]!!
+
+        // vertices for outer face
+        for ((i, vertex) in vertices.asReversed().withIndex()) {
+            val vertexCoords = Vector3f(vertex)
+                .mul(0.999f)
+                .add(0.0005f, 0.0005f, 0.0005f)
+            val uv = vertexUVs[i]
+            addVertexShader(pose, consumer, vertexCoords, true, uv)
+        }
+        // vertices for inner face
+        for ((i, vertex) in vertices.withIndex()) {
+            val adjacentDirections = directions[i] to directions[(i + 1) % 4]
+            val vertexCoords2D = positionInnerVertex(blockEntity, direction, adjacentDirections)
+            val vertexCoords3D = Vector3f(vertex)
+                .sub(
+                    direction
+                        .normal
+                        .toVector3f()
+                        .mul(1f/16f)
+                ).add(
+                    adjacentDirections.first
+                        .normal
+                        .toVector3f()
+                        .mul(vertexCoords2D.first.toFloat() / 16f)
+                ).add(
+                    adjacentDirections.second
+                        .normal
+                        .toVector3f()
+                        .mul(vertexCoords2D.second.toFloat() / 16f)
+                )
+            addVertexShader(pose, consumer, vertexCoords3D, false)
+        }
     }
 
-    private fun renderFaceShader(
+    private fun positionInnerVertex(
         blockEntity: DreamBlockEntity,
-        pose: Matrix4f,
-        consumer: VertexConsumer,
-        x0: Float,
-        x1: Float,
-        y0: Float,
-        y1: Float,
-        z0: Float,
-        z1: Float,
-        z2: Float,
-        z3: Float,
-        direction: Direction
-    ) {
-        addInnerVertexShader(blockEntity, pose, consumer, x0, y0, z0)
-        addInnerVertexShader(blockEntity, pose, consumer, x1, y0, z1)
-        addInnerVertexShader(blockEntity, pose, consumer, x1, y1, z2)
-        addInnerVertexShader(blockEntity, pose, consumer, x0, y1, z3)
-
-        if (blockEntity.isTouchingDreamBlock(direction)) return
-        addOuterVertexShader(blockEntity, pose, consumer, x0, y1, z3)
-        addOuterVertexShader(blockEntity, pose, consumer, x1, y1, z2)
-        addOuterVertexShader(blockEntity, pose, consumer, x1, y0, z1)
-        addOuterVertexShader(blockEntity, pose, consumer, x0, y0, z0)
+        faceDirection: Direction,
+        vertexDirections: Pair<Direction, Direction>
+    ): Pair<Int, Int> {
+        val isTouching = blockEntity.isTouchingDreamBlock(vertexDirections.first) to
+                blockEntity.isTouchingDreamBlock(vertexDirections.second)
+        return when (isTouching) {
+            false to false -> -1 to -1
+            false to true -> -1 to 1
+            true to false -> 1 to -1
+            true to true -> positionVertexCheckCorners(
+                blockEntity, faceDirection, vertexDirections
+            )
+            else -> -1 to -1
+        }
     }
 
-    /**
-     * Vertices for the inner faces, which will have the shader applied.
-     * Vertices are moved when there are neighboring dream blocks, so that their interiors connect.
-     */
-    private fun addInnerVertexShader(
+    private fun positionVertexCheckCorners(
         blockEntity: DreamBlockEntity,
-        pose: Matrix4f,
-        consumer: VertexConsumer,
-        x: Float,
-        y: Float,
-        z: Float
-    ) {
-        // ternary nightmare
-        val x2 =
-            if (blockEntity.isTouchingDreamBlock(if (x > 0.5) Direction.EAST else Direction.WEST)) x else x * 7f / 8f + 1f / 16f
-        val y2 =
-            if (blockEntity.isTouchingDreamBlock(if (y > 0.5) Direction.UP else Direction.DOWN)) y else y * 7f / 8f + 1f / 16f
-        val z2 =
-            if (blockEntity.isTouchingDreamBlock(if (z > 0.5) Direction.SOUTH else Direction.NORTH)) z else z * 7f / 8f + 1f / 16f
-
-        addVertexShader(pose, consumer, x2, y2, z2, false)
+        faceDirection: Direction,
+        vertexDirections: Pair<Direction, Direction>
+    ): Pair<Int, Int> {
+        val isTouching = blockEntity.isTouchingTouchingDreamBlock(vertexDirections.first, faceDirection) to
+                blockEntity.isTouchingTouchingDreamBlock(vertexDirections.second, faceDirection)
+        return when (isTouching) {
+            false to false -> 0 to 0
+            false to true -> 0 to 1
+            true to false -> 1 to 0
+            true to true -> 1 to 1
+            else -> 0 to 0
+        }
     }
 
-    /**
-     * Workaround to changing canOcclude() via config
-     */
-    private fun addOuterVertexShader(
-        blockEntity: DreamBlockEntity,
-        pose: Matrix4f,
-        consumer: VertexConsumer,
-        x: Float,
-        y: Float,
-        z: Float
-    ) {
-        val x2 = x * 0.999f + 0.0005f
-        val y2 = y * 0.999f + 0.0005f
-        val z2 = z * 0.999f + 0.0005f
-
-        addVertexShader(pose, consumer, x2, y2, z2, true)
+    private fun DreamBlockEntity.isTouchingTouchingDreamBlock(blockDirection: Direction, faceDirection: Direction): Boolean {
+        return this.level?.let { level ->
+            level.getBlockEntity(this.blockPos.relative(blockDirection))?.let { blockEntity ->
+                if (blockEntity is DreamBlockEntity) {
+                    blockEntity.isTouchingDreamBlock(faceDirection)
+                } else false
+            } ?: false
+        } ?: false
     }
 
     private fun addVertexShader(
         pose: Matrix4f,
         consumer: VertexConsumer,
-        x: Float,
-        y: Float,
-        z: Float,
-        isBorder: Boolean
+        position: Vector3f,
+        isBorder: Boolean,
+        uv: Pair<Int, Int> = 0 to 0
     ) {
-        consumer.vertex(pose, x, y, z)
         val borderChannel = if (isBorder) 255 else 0
-        val seeThroughChannel = if (shouldSeeThrough()) 255 else 0
-        consumer.color(borderChannel, seeThroughChannel, 0, 0)
-        consumer.uv(0f, 0f)
+        val seeThroughChannel = if (DreamBlockEffect.isInDreamBlock) 255 else 0
+        consumer.vertex(pose, position.x, position.y, position.z)
+            .color(borderChannel, seeThroughChannel, 0, 0)
+            .uv(uv.first.toFloat(), uv.second.toFloat())
             .uv2(LightTexture.FULL_BRIGHT)
             .normal(0f, 0f, 0f)
             .endVertex()
@@ -123,13 +134,30 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
     }
 
     companion object {
-
         fun DreamBlockEntity.shouldRender(): Boolean = isPersistent
                 || Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming) == true
 
-        fun shouldSeeThrough(): Boolean {
-            val player = Minecraft.getInstance().player as? Player
-            player?.let {return DreamBlock.isInDreamBlock(player)} ?: return false
-        }
+        val vertexUVs = listOf(
+            0 to 0,
+            1 to 0,
+            1 to 1,
+            0 to 1
+        )
+        val faceVertices = mapOf(
+            Direction.DOWN to listOf(Vector3f(0f, 0f, 0f), Vector3f(1f, 0f, 0f), Vector3f(1f, 0f, 1f), Vector3f(0f, 0f, 1f)),
+            Direction.UP to listOf(Vector3f(0f, 1f, 0f), Vector3f(0f, 1f, 1f), Vector3f(1f, 1f, 1f), Vector3f(1f, 1f, 0f)),
+            Direction.NORTH to listOf(Vector3f(0f, 0f, 0f), Vector3f(0f, 1f, 0f), Vector3f(1f, 1f, 0f), Vector3f(1f, 0f, 0f)),
+            Direction.SOUTH to listOf(Vector3f(0f, 0f, 1f), Vector3f(1f, 0f, 1f), Vector3f(1f, 1f, 1f), Vector3f(0f, 1f, 1f)),
+            Direction.WEST to listOf(Vector3f(0f, 0f, 0f), Vector3f(0f, 0f, 1f), Vector3f(0f, 1f, 1f), Vector3f(0f, 1f, 0f)),
+            Direction.EAST to listOf(Vector3f(1f, 0f, 0f), Vector3f(1f, 1f, 0f), Vector3f(1f, 1f, 1f), Vector3f(1f, 0f, 1f)),
+        )
+        val vertexDirections = mapOf(
+            Direction.DOWN to listOf(Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH),
+            Direction.UP to listOf(Direction.NORTH, Direction.WEST, Direction.SOUTH, Direction.EAST),
+            Direction.NORTH to listOf(Direction.DOWN, Direction.WEST, Direction.UP, Direction.EAST),
+            Direction.SOUTH to listOf(Direction.WEST, Direction.DOWN, Direction.EAST, Direction.UP),
+            Direction.WEST to listOf(Direction.NORTH, Direction.DOWN, Direction.SOUTH, Direction.UP),
+            Direction.EAST to listOf(Direction.DOWN, Direction.NORTH, Direction.UP, Direction.SOUTH)
+        )
     }
 }

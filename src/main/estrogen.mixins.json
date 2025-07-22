@@ -11,6 +11,7 @@
     "BlockStateParserMixin"
   ],
   "client": [
+    "client.AdvancementTabMixin",
     "client.ClientPacketListenerMixin",
     "client.FontStringRenderOutputMixin",
     "client.HumanoidMobRendererMixin",
