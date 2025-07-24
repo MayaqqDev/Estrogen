@@ -34,6 +34,9 @@ object EstrogenRenderer {
     lateinit var dreamBlockShader: ShaderInstance
         private set
 
+    lateinit var dreamBlockOverlayShader: ShaderInstance
+        private set
+
     lateinit var cutoutColorShader: ShaderInstance
         private set
 
@@ -48,6 +51,7 @@ object EstrogenRenderer {
     @Subscription
     fun onLoadShaders(event: CoreShaderRegistrationEvent) {
         event.register(id("rendertype_estrogen_dream"), DefaultVertexFormat.BLOCK, ::dreamBlockShader)
+        event.register(id("dreamblock_overlay"), DefaultVertexFormat.POSITION, ::dreamBlockOverlayShader)
         event.register(id("blit_with_depth"), DefaultVertexFormat.BLIT_SCREEN, ::blitWithDepthShader)
         //event.register(recipeId("particle_cutout_color"), DefaultVertexFormat.PARTICLE, ::cutoutColorShader)
     }
