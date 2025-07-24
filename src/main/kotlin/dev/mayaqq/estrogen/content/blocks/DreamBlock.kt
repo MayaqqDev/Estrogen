@@ -26,8 +26,6 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.core.registries.Registries
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.Mth
 import net.minecraft.util.RandomSource
@@ -35,7 +33,6 @@ import net.minecraft.world.InteractionResult
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.ai.village.poi.PoiManager
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
@@ -108,7 +105,11 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
     ): VoxelShape {
         if (context is EntityCollisionContext) {
             val entity = context.entity
-            if (entity is Player && canEntityUse(state, entity) && (CommonDash.isDashing(entity.getUUID()) || isInDreamBlock(entity))) {
+            if (
+                entity is Player &&
+                canEntityUse(state, entity) &&
+                (CommonDash.isDashing(entity.getUUID()) || isInDreamBlock(entity))
+                ) {
                 return Shapes.empty()
             }
         }
@@ -188,9 +189,9 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         }
     }
 
-    override fun propagatesSkylightDown(p0: BlockState, p1: BlockGetter, p2: BlockPos): Boolean = false
+    override fun propagatesSkylightDown(state: BlockState, level: BlockGetter, pos: BlockPos): Boolean = false
 
-    override fun getLightBlock(state: BlockState, level: BlockGetter, p2: BlockPos): Int {
+    override fun getLightBlock(state: BlockState, level: BlockGetter, pos: BlockPos): Int {
         clientOnly {
             if (level is ClientLevel)
                 return if (canEntityUse(state, Minecraft.getInstance().player)) level.maxLightLevel else 0

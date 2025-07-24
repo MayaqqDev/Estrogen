@@ -11,6 +11,7 @@ import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.item.context.UseOnContext
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.phys.shapes.CollisionContext
 
 class DreamBottleItem(p0: Block, p1: Properties) : ItemNameBlockItem(p0, p1) {
 
@@ -27,6 +28,10 @@ class DreamBottleItem(p0: Block, p1: Properties) : ItemNameBlockItem(p0, p1) {
             context.player!!.inventory.placeItemBackInInventory(Items.GLASS_BOTTLE.defaultInstance)
         }
         return result
+    }
+
+    override fun canPlace(context: BlockPlaceContext, state: BlockState): Boolean {
+        return super.canPlace(context, state)
     }
 
     override fun useOn(context: UseOnContext): InteractionResult {

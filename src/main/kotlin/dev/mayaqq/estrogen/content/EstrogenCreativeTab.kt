@@ -21,6 +21,7 @@ import dev.mayaqq.estrogen.content.EstrogenFluids.TestosteroneMixture
 import dev.mayaqq.estrogen.content.EstrogenItems.Balls
 import dev.mayaqq.estrogen.content.EstrogenItems.ColonThree
 import dev.mayaqq.estrogen.content.EstrogenItems.CrystalEstrogenPill
+import dev.mayaqq.estrogen.content.EstrogenItems.DreamBottle
 import dev.mayaqq.estrogen.content.EstrogenItems.EstrogenChipCookie
 import dev.mayaqq.estrogen.content.EstrogenItems.EstrogenPatches
 import dev.mayaqq.estrogen.content.EstrogenItems.EstrogenPill
@@ -69,6 +70,7 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Estrogen..Registries.
             accept(CookieJar)
             accept(DreamCatcher)
             accept(DreamBlock)
+            accept(DreamBottle)
             accept(EstrogenPillBlock)
             accept(MothWool)
             accept(QuiltedMothWool)

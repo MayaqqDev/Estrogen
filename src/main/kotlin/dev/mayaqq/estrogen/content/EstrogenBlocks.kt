@@ -51,6 +51,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             instrument(NoteBlockInstrument.HAT)
             strength(3.0f)
             noOcclusion()
+            dynamicShape()
             requiresCorrectToolForDrops()
             isRedstoneConductor(Never)
             sound(EstrogenSoundTypes.DREAM_BLOCK_DORMANT)

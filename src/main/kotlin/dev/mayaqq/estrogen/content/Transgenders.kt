@@ -52,7 +52,7 @@ inline fun ItemBuilder<*>.tooltip(crossinline tooltip: (Item) -> CustomTooltip) 
 }
 fun ItemBuilder<*>.standardTooltip() {
     onRegister {
-        it.registerExtension(DescriptionTooltip(DescriptionTooltip.Themes.Default))
+        it.registerExtension(DescriptionTooltip(DescriptionTooltip.Theme.Default))
     }
 }
 
