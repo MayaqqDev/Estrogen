@@ -9,7 +9,8 @@
     "ItemParserMixin",
     "PlayerMixin",
     "BlockStateParserMixin",
-    "SpongeBlockMixin"
+    "fabric.SpongeBlockMixin",
+    "forge.SpongeBlockMixin"
   ],
   "client": [
     "client.AdvancementTabMixin",
@@ -23,7 +24,7 @@
     "client.accessor.LevelRendererAccessor",
     "client.ItemPropertiesMixin"
   ],
-  "plugin": "com.moulberry.mixinconstraints.ConstraintsMixinPlugin",
+  "plugin": "dev.mayaqq.estrogen.utils.EstrogenMixinPlugin",
   "injectors": {
     "defaultRequire": 1
   }

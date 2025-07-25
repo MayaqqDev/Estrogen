@@ -142,7 +142,7 @@ fun <S : BotariumSourceFluid, F : BotariumFlowingFluid> FluidBuilder<S, F>.water
         canConvertToSource(false)
         canDrown(true)
         canExtinguish(true)
-        canHydrate(true)
+        canHydrate(false)
         canPushEntity(true)
         canSwim(true)
         viscosity(1500)

@@ -37,11 +37,11 @@ object EstrogenFluids : Registrar<Fluid> by Estrogen..Registries.FLUID, FluidReg
                 canConvertToSource(false)
                 canDrown(true)
                 canExtinguish(true)
-                canHydrate(true)
                 canPushEntity(true)
                 canSwim(true)
                 viscosity(1500)
                 density(1500)
+                canHydrate(false)
             }
             renderType(RenderType::translucent)
             block(::EstrogenLiquidBlock) {
@@ -87,7 +87,7 @@ object EstrogenFluids : Registrar<Fluid> by Estrogen..Registries.FLUID, FluidReg
             canConvertToSource(false)
             canDrown(true)
             canExtinguish(true)
-            canHydrate(true)
+            canHydrate(false)
             canSwim(true)
             viscosity(1500)
             density(1500)
