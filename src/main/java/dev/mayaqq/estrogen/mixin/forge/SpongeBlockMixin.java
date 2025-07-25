@@ -1,10 +1,6 @@
 package dev.mayaqq.estrogen.mixin.forge;
 
-import com.moulberry.mixinconstraints.annotations.IfModAbsent;
-import com.moulberry.mixinconstraints.annotations.IfModLoaded;
-import dev.mayaqq.estrogen.Estrogen;
-import dev.mayaqq.estrogen.content.EstrogenFluids;
-import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock;
+import dev.mayaqq.estrogen.features.sponge.SpongeExtension;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SpongeBlock;
@@ -29,12 +25,6 @@ public class SpongeBlockMixin {
     private static void inject(BlockPos center, Level level, BlockState state, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         BlockState blockState = level.getBlockState(pos);
         FluidState fluidState = level.getFluidState(pos);
-        if (fluidState.is(EstrogenFluids.INSTANCE.getHorseUrine().getSource()) || fluidState.is(EstrogenFluids.INSTANCE.getHorseUrine().getFlowing())) {
-            level.setBlockAndUpdate(
-                    pos,
-                    EstrogenFluids.INSTANCE.getFiltratedHorseUrine().getBlock().withPropertiesOf(blockState)
-            );
-            cir.setReturnValue(true);
-        }
+        SpongeExtension.INSTANCE.onSuckUp(blockState, fluidState, center, level, pos, cir);
     }
 }
