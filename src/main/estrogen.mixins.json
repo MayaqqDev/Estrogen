@@ -8,7 +8,8 @@
     "CraftingMenuMixin",
     "ItemParserMixin",
     "PlayerMixin",
-    "BlockStateParserMixin"
+    "BlockStateParserMixin",
+    "SpongeBlockMixin"
   ],
   "client": [
     "client.AdvancementTabMixin",
