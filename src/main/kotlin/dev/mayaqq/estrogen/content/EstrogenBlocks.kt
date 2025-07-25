@@ -8,7 +8,10 @@ import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
+import dev.mayaqq.estrogen.content.items.ThighHighsItem
+import dev.mayaqq.estrogen.utils.EstrogenColors
 import net.minecraft.client.renderer.RenderType
+import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.entity.ai.village.poi.PoiTypes
@@ -19,13 +22,16 @@ import net.minecraft.world.item.Rarity
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.CarpetBlock
+import net.minecraft.world.level.block.LayeredCauldronBlock
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument
 import net.minecraft.world.level.material.MapColor
 import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.creative.TabPlacement
+import uwu.serenity.kritter.client.stdlib.color
 import uwu.serenity.kritter.client.stdlib.renderType
 import uwu.serenity.kritter.stdlib.Never
 import uwu.serenity.kritter.stdlib.block
+import kotlin.collections.set
 
 @Suppress("unused")
 object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
@@ -159,6 +165,39 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             standardTooltip()
             creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(Items.BARREL))
             color(DreamCatcherItem::getItemColor)
+            onSetup { CauldronInteraction.WATER[it] = ThighHighsItem.CAULDRON_INTERACTION }
         }
+    }
+
+    val HorseUrineCauldron: LayeredCauldronBlock by block(
+        "horse_urine_cauldron", { properties -> LayeredCauldronBlock(
+            properties,
+            {false},
+            CauldronInteractions.HORSE_URINE
+        ) }) {
+        copyProperties(Blocks::CAULDRON)
+        renderType = RenderType::cutout
+        color { _, _, _, tint -> return@color if (tint == 0) EstrogenColors.HORSE_URINE.toInt() else -1 }
+    }
+
+    val FiltratedHorseUrineCauldron: LayeredCauldronBlock by block(
+        "filtrated_horse_urine_cauldron", { properties -> LayeredCauldronBlock(
+            properties,
+            {false},
+            CauldronInteractions.FILTRATED_HORSE_URINE
+        ) }) {
+        copyProperties(Blocks::CAULDRON)
+        renderType = RenderType::cutout
+        color { _, _, _, tint -> return@color if (tint == 0) EstrogenColors.FILTRATED_HORSE_URINE.toInt() else -1 }
+    }
+
+    val LiquidEstrogenCauldron: LayeredCauldronBlock by block(
+        "liquid_estrogen_cauldron", { properties -> LayeredCauldronBlock(
+            properties,
+            {false},
+            CauldronInteractions.ESTROGEN
+        ) }) {
+        copyProperties(Blocks::CAULDRON)
+        renderType = RenderType::cutout
     }
 }
