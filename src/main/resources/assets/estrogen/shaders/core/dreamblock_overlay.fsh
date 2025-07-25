@@ -15,7 +15,7 @@ out vec4 fragColor;
 void main() {
     float f = 0.2;
     float angle = atan(texProj0.y, texProj0.x);
-    float A = pow(vertexColor.x, 3) * (4.0 - 3.0 * vertexColor.x);
+    float A = vertexColor.x / (2.0 * vertexColor.x * (vertexColor.x - 1.0) + 1.0);
     float see_through_dist = 0.02 * (sin(7 * angle + 15708 * GameTime) + sin(9 * angle - 14137 * GameTime));
     if (length(texProj0) < A * (0.3 + see_through_dist)) discard;
     vec3 color;
