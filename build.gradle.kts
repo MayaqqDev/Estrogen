@@ -93,7 +93,9 @@ cloche {
             modCompileOnly(libs.kritter)
             modCompileOnly(libs.cynosure)
 
-            implementation(libs.mixinConstrains)
+            implementation(libs.mixinConstrains) {
+                exclude(group = "org.slf4j")
+            }
         }
     }
 
@@ -109,7 +111,9 @@ cloche {
         include(libs.fabric.flywheel)
         //include(libs.fabric.kittyconfig)
 
-        include(libs.mixinConstrains)
+        include(libs.mixinConstrains) {
+            exclude(group = "org.slf4j")
+        }
 
         includedClient() // includedClient() is not a run
         runs {
@@ -161,7 +165,9 @@ cloche {
             modImplementation(libs.fabric.kritter)
             //modApi(libs.fabric.kittyconfig)
             modApi(libs.fabric.botarium)
-            implementation(libs.mixinConstrains)
+            implementation(libs.mixinConstrains) {
+                exclude(group = "org.slf4j")
+            }
 
             when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -212,7 +218,9 @@ cloche {
         include(libs.forge.baubly) { exclude(group = "me.shedaniel") }
         include(libs.forge.mixinExtras)
         include(libs.forge.kritter)
-        include(libs.mixinConstrains)
+        include(libs.mixinConstrains) {
+            exclude(group = "org.slf4j")
+        }
 
         metadata {
             blurLogo = false
@@ -238,7 +246,9 @@ cloche {
             modImplementation(libs.forge.kritter)
             //modApi(libs.forge.kittyconfig)
             modApi(libs.forge.botarium)
-            implementation(libs.mixinConstrains)
+            implementation(libs.mixinConstrains) {
+                exclude(group = "org.slf4j")
+            }
 
             when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)
