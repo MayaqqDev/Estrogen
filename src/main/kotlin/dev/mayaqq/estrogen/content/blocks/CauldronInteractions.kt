@@ -69,7 +69,8 @@ object CauldronInteractions {
     }
 
     private fun emptyBottle(cauldron: () -> LayeredCauldronBlock): CauldronInteraction = CauldronInteraction { state, level, pos, player, hand, stack ->
-        if (state.hasProperty(LayeredCauldronBlock.LEVEL) && state.getValue(LayeredCauldronBlock.LEVEL) == 3) InteractionResult.PASS
+        if (state.hasProperty(LayeredCauldronBlock.LEVEL) && state.getValue(LayeredCauldronBlock.LEVEL) == 3)
+            return@CauldronInteraction InteractionResult.PASS
         if (!level.isClientSide) {
             val item: Item = stack.item
             player.setItemInHand(hand, ItemUtils.createFilledResult(
