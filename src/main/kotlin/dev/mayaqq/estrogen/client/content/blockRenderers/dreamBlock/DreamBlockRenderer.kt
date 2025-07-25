@@ -120,7 +120,7 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
         uv: Pair<Int, Int> = 0 to 0
     ) {
         val borderChannel = if (isBorder) 255 else 0
-        val seeThroughChannel = if (DreamBlockEffect.isInDreamBlock) 255 else 0
+        val seeThroughChannel = if (DreamBlockEffect.isEyeInDream) 255 else 0
         consumer.vertex(pose, position.x, position.y, position.z)
             .color(borderChannel, seeThroughChannel, 0, 0)
             .uv(uv.first.toFloat(), uv.second.toFloat())

@@ -6,17 +6,25 @@ import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
+import dev.mayaqq.cynosure.utils.toBlockPos
 import dev.mayaqq.estrogen.client.content.sounds.DreamBlockSoundInstance
 import dev.mayaqq.estrogen.content.EstrogenSounds
+import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import net.minecraft.client.Minecraft
+import net.minecraft.core.BlockPos
+import net.minecraft.world.phys.Vec3
+import kotlin.math.floor
 
 @EventSubscriber(env = [Environment.CLIENT])
 object DreamBlockEffect {
     private var sound: DreamBlockSoundInstance? = null
     var isInDreamBlock = false
         private set
-    private var dreamBlockTick = 0
+    var isEyeInDream = false
+        private set
+    var dreamBlockTick = 0
+        private set
 
     @Subscription
     fun tick(event: ClientTickEvent.End) {
@@ -33,6 +41,7 @@ object DreamBlockEffect {
                 }
             }
             isInDreamBlock = true
+            isEyeInDream = player.clientLevel.getBlockEntity(player.eyePosition.toBlockPos()) is DreamBlockEntity
         } else {
             if (isInDreamBlock) {
                 player.playSound(EstrogenSounds.DREAM_BLOCK_EXIT, 1.0f, 1.0f)
@@ -43,6 +52,12 @@ object DreamBlockEffect {
             }
             dreamBlockTick = 0
             isInDreamBlock = false
+            isEyeInDream = false
         }
+    }
+
+    // Remove this when cynosure pr is approved...!
+    private fun Vec3.toBlockPos(): BlockPos {
+        return BlockPos(floor(this.x).toInt(), floor(this.y).toInt(), floor(this.z).toInt())
     }
 }

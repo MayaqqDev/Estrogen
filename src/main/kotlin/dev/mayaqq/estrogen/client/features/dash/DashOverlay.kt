@@ -14,6 +14,7 @@ import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.cynosure.utils.colors.floatBlue
 import dev.mayaqq.cynosure.utils.colors.floatGreen
 import dev.mayaqq.cynosure.utils.colors.floatRed
+import dev.mayaqq.cynosure.utils.toBlockPos
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture
@@ -22,14 +23,18 @@ import dev.mayaqq.estrogen.client.features.dash.ClientDash.getDashLevel
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.isOnCooldown
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.content.EstrogenEffects
+import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.renderer.LightTexture
 import net.minecraft.client.renderer.ShaderInstance
+import net.minecraft.core.BlockPos
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.phys.Vec3
 import org.joml.Matrix4f
+import kotlin.math.floor
 
 object DashOverlay : HudOverlay {
     private val DASH_OVERLAY = ResourceLocation("textures/misc/nausea.png")
@@ -41,8 +46,11 @@ object DashOverlay : HudOverlay {
             renderOverlay(graphics, dc.floatRed, dc.floatGreen, dc.floatBlue)
         }
         if (DreamBlockEffect.isInDreamBlock) {
-            //renderOverlay(graphics, 0.2f, 0.0f, 0.2f)
-            renderDream(graphics)
+            if (DreamBlockEffect.isEyeInDream) {
+                renderDream(graphics)
+            } else {
+                renderOverlay(graphics, 0.2f, 0.0f, 0.2f)
+            }
         }
         if (TextRendererFeatures.obfuscate) {
             renderOverlay(graphics, 0.1f, 0.3f, 0.3f, 0.1f)
