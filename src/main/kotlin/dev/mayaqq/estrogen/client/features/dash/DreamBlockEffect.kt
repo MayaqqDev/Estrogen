@@ -23,7 +23,8 @@ object DreamBlockEffect {
         private set
     var isEyeInDream = false
         private set
-    var dreamBlockTick = 0
+    private var dreamBlockTick = 0
+    var eyeDreamTick = 0
         private set
 
     @Subscription
@@ -42,6 +43,9 @@ object DreamBlockEffect {
             }
             isInDreamBlock = true
             isEyeInDream = player.clientLevel.getBlockEntity(player.eyePosition.toBlockPos()) is DreamBlockEntity
+            if (isEyeInDream) {
+                eyeDreamTick++
+            } else eyeDreamTick = 0
         } else {
             if (isInDreamBlock) {
                 player.playSound(EstrogenSounds.DREAM_BLOCK_EXIT, 1.0f, 1.0f)
@@ -51,6 +55,7 @@ object DreamBlockEffect {
                 sound = null
             }
             dreamBlockTick = 0
+            eyeDreamTick = 0
             isInDreamBlock = false
             isEyeInDream = false
         }

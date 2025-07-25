@@ -6,6 +6,7 @@ uniform sampler2D Sampler0;
 uniform float GameTime;
 
 in vec2 texProj0;
+in vec4 vertexColor;
 
 out vec4 fragColor;
 
@@ -14,10 +15,11 @@ out vec4 fragColor;
 void main() {
     float f = 0.2;
     float angle = atan(texProj0.y, texProj0.x);
+    float A = pow(vertexColor.x, 3) * (4.0 - 3.0 * vertexColor.x);
     float see_through_dist = 0.02 * (sin(7 * angle + 15708 * GameTime) + sin(9 * angle - 14137 * GameTime));
-    if (length(texProj0) < 0.3 + see_through_dist) discard;
+    if (length(texProj0) < A * (0.3 + see_through_dist)) discard;
     vec3 color;
-    if (length(texProj0) < 0.32 + see_through_dist) {
+    if (length(texProj0) < A * (0.32 + see_through_dist)) {
         color = vec3(1.0);
     } else {
         color = vec3(0.0);
