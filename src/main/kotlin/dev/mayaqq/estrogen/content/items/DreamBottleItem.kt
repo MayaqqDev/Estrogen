@@ -7,6 +7,7 @@ import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemNameBlockItem
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.context.BlockPlaceContext
@@ -21,24 +22,8 @@ class DreamBottleItem(p0: Block, p1: Properties) : ItemNameBlockItem(p0, p1) {
 
     public override fun getPlaceSound(state: BlockState): SoundEvent = EstrogenSounds.DREAM_BLOCK_PLACE
 
-    override fun getPlacementState(p0: BlockPlaceContext): BlockState = EstrogenBlocks.DreamBlock.defaultBlockState()
-        .setValue(DreamBlock.PERSISTENT, true)
-
-    override fun place(context: BlockPlaceContext): InteractionResult {
-        val pos = context.clickedPos
-        val blockAABB = AABB(pos)
-        val entitiesInside = context.level.getEntities(null, blockAABB) {
-            it.isAlive && !it.isSpectator
-        }
-        if (entitiesInside.isNotEmpty()) return InteractionResult.FAIL
-
-        val result = super.place(context)
-        if (result == InteractionResult.SUCCESS && context.player != null && !context.player!!
-                .isCreative
-        ) {
-            context.player!!.inventory.placeItemBackInInventory(Items.GLASS_BOTTLE.defaultInstance)
-        }
-        return result
+    override fun getPlacementState(context: BlockPlaceContext): BlockState? {
+        return super.getPlacementState(context)?.setValue(DreamBlock.PERSISTENT, true)
     }
 
     override fun useOn(context: UseOnContext): InteractionResult {
