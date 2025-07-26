@@ -7,7 +7,8 @@
   "vertex": "estrogen:dreamblock_overlay",
   "fragment": "estrogen:dreamblock_overlay",
   "attributes": [
-    "Position"
+    "Position",
+    "Color"
   ],
   "samplers": [
     { "name": "Sampler0" }
