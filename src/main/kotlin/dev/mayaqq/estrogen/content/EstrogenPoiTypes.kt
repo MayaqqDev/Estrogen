@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.cynosure.blocks.poi.PoiHelpers
 import dev.mayaqq.cynosure.blocks.poi.PoiHelpers.registerState
-import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.core.Loader
 import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.estrogen.Estrogen

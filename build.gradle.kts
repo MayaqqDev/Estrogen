@@ -2,7 +2,6 @@
 
 import dev.mayaqq.multijarfixer.FixMultiRelease
 import net.msrandom.stubs.GenerateStubApi
-import org.apache.tools.ant.taskdefs.condition.Os
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 

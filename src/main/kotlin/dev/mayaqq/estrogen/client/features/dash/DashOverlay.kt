@@ -2,11 +2,7 @@ package dev.mayaqq.estrogen.client.features.dash
 
 import com.mojang.blaze3d.platform.GlStateManager
 import com.mojang.blaze3d.systems.RenderSystem
-import com.mojang.blaze3d.vertex.BufferBuilder
-import com.mojang.blaze3d.vertex.BufferUploader
-import com.mojang.blaze3d.vertex.DefaultVertexFormat
-import com.mojang.blaze3d.vertex.Tesselator
-import com.mojang.blaze3d.vertex.VertexFormat
+import com.mojang.blaze3d.vertex.*
 import dev.mayaqq.cynosure.client.render.gui.HudOverlay
 import dev.mayaqq.cynosure.client.utils.lastPose
 import dev.mayaqq.cynosure.client.utils.pushPop

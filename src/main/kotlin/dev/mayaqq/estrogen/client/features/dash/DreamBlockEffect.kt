@@ -6,7 +6,6 @@ import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.utils.toBlockPos
 import dev.mayaqq.estrogen.client.content.sounds.DreamBlockSoundInstance
 import dev.mayaqq.estrogen.content.EstrogenSounds
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity

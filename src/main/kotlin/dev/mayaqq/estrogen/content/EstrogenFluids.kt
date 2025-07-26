@@ -4,7 +4,6 @@ package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
-import dev.mayaqq.estrogen.content.blocks.CauldronInteractions
 import dev.mayaqq.estrogen.content.blocks.fluid.EstrogenLiquidBlock
 import dev.mayaqq.estrogen.content.fluids.registry.FluidRegistryProvider
 import dev.mayaqq.estrogen.content.fluids.registry.fluid

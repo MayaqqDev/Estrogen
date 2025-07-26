@@ -1,8 +1,7 @@
 package dev.mayaqq.estrogen.config
 
-import dev.mayaqq.estrogen.MOD_ID
-import dev.mayaqq.estrogen.client.chestConfigSet
 import dev.mayaqq.estrogen.config.types.DreamBlockRenderMode
+
 //import uwu.serenity.kittyconfig.api.Comment
 //import uwu.serenity.kittyconfig.api.Config
 //import uwu.serenity.kittyconfig.api.observable.observable

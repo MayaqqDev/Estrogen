@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.cynosure.items.extensions.CustomTooltip
-import dev.mayaqq.cynosure.tooltips.DescriptionTooltip
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.baubles.EstrogenPatchesRenderer
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
@@ -11,18 +10,11 @@ import net.minecraft.ChatFormatting
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.Style
-import net.minecraft.network.chat.TextColor
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.food.FoodProperties
-import net.minecraft.world.item.CreativeModeTabs
-import net.minecraft.world.item.Item
-import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
-import net.minecraft.world.item.Rarity
-import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.item.*
 import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.creative.TabPlacement
 import uwu.serenity.kritter.stdlib.item

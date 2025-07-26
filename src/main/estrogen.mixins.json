@@ -4,11 +4,11 @@
   "package": "dev.mayaqq.estrogen.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BlockStateParserMixin",
     "BottleItemMixin",
     "CraftingMenuMixin",
     "ItemParserMixin",
     "PlayerMixin",
-    "BlockStateParserMixin",
     "fabric.SpongeBlockMixin",
     "forge.SpongeBlockMixin"
   ],
@@ -17,12 +17,12 @@
     "client.ClientPacketListenerMixin",
     "client.FontStringRenderOutputMixin",
     "client.HumanoidMobRendererMixin",
+    "client.ItemPropertiesMixin",
     "client.MinecraftMixin",
     "client.PlayerModelMixin",
     "client.ReceivingLevelScreenMixin",
     "client.accessor.ItemPropertiesAccessor",
-    "client.accessor.LevelRendererAccessor",
-    "client.ItemPropertiesMixin"
+    "client.accessor.LevelRendererAccessor"
   ],
   "plugin": "dev.mayaqq.estrogen.utils.EstrogenMixinPlugin",
   "injectors": {

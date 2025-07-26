@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.config
 
-import dev.mayaqq.estrogen.MOD_ID
 //import uwu.serenity.kittyconfig.api.Comment
 //import uwu.serenity.kittyconfig.api.Config
 //import uwu.serenity.kittyconfig.api.validation.DecimalRange

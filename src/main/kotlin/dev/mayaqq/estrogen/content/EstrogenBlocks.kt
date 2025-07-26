@@ -30,7 +30,6 @@ import uwu.serenity.kritter.api.creative.TabPlacement
 import uwu.serenity.kritter.client.stdlib.renderType
 import uwu.serenity.kritter.stdlib.Never
 import uwu.serenity.kritter.stdlib.block
-import kotlin.collections.set
 
 @Suppress("unused")
 object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {

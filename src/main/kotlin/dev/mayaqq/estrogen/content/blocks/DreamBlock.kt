@@ -13,11 +13,7 @@ import dev.mayaqq.cynosure.utils.rem
 import dev.mayaqq.estrogen.client.features.TextRendererFeatures
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.refresh
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
-import dev.mayaqq.estrogen.content.EstrogenBlockEntities
-import dev.mayaqq.estrogen.content.EstrogenBlocks
-import dev.mayaqq.estrogen.content.EstrogenEffects
-import dev.mayaqq.estrogen.content.EstrogenPoiTypes
-import dev.mayaqq.estrogen.content.EstrogenSoundTypes
+import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.features.dash.CommonDash
 import dev.mayaqq.estrogen.network.EstrogenNetwork
@@ -59,9 +55,7 @@ import org.apache.commons.codec.digest.MessageDigestAlgorithms
 import uwu.serenity.kritter.client.stdlib.clientOnly
 import uwu.serenity.kritter.stdlib.BlockEntityBlock
 import java.security.MessageDigest
-import kotlin.jvm.optionals.getOrNull
 import kotlin.reflect.KClass
-import kotlin.streams.toList
 
 class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<DreamBlockEntity> {
 

@@ -5,7 +5,7 @@ import dev.mayaqq.cynosure.network.Packet
 import dev.mayaqq.cynosure.network.SerializablePacket
 import dev.mayaqq.estrogen.injection.flap
 import net.minecraft.client.Minecraft
-import java.util.UUID
+import java.util.*
 
 @SerializablePacket("flap_sync")
 data class FlapSyncPacket(val flaps: Int, val player: String) : Packet.Clientbound {

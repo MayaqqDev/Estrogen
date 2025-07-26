@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.content.blockEntities
 
 import dev.engine_room.flywheel.lib.visualization.VisualizationHelper
-import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.utils.TriColor
 import dev.mayaqq.estrogen.utils.getTriColor
 import dev.mayaqq.estrogen.utils.putTriColor

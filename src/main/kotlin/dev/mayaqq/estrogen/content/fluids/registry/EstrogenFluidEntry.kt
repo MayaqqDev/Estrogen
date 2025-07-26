@@ -1,10 +1,6 @@
 package dev.mayaqq.estrogen.content.fluids.registry
 
-import earth.terrarium.botarium.common.registry.fluid.BotariumFlowingFluid
-import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock
-import earth.terrarium.botarium.common.registry.fluid.BotariumSourceFluid
-import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem
-import earth.terrarium.botarium.common.registry.fluid.FluidData
+import earth.terrarium.botarium.common.registry.fluid.*
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.level.material.Fluid
 import uwu.serenity.kritter.api.entry.Delegate

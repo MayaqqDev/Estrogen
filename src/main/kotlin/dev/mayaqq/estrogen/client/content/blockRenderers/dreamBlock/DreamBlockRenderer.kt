@@ -17,7 +17,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
 import net.minecraft.core.Direction
 import org.joml.Matrix4f
 import org.joml.Vector3f
-import kotlin.collections.listOf
 
 class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEntityRenderer<DreamBlockEntity> {
 

@@ -1,12 +1,9 @@
 package dev.mayaqq.estrogen.content.items
 
-import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenSounds
-import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.world.InteractionResult
-import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemNameBlockItem
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.context.BlockPlaceContext

@@ -1,11 +1,11 @@
 package dev.mayaqq.estrogen.modules
 
-import org.objectweb.asm.Type;
 import dev.mayaqq.cynosure.core.mod.Mod
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.api.EstrogenEntrypoint
 import dev.mayaqq.estrogen.api.EstrogenModule
 import net.minecraftforge.fml.ModList
+import org.objectweb.asm.Type
 
 actual fun getModules(): Set<ModuleContainer> {
     val list = arrayListOf<ModuleContainer>()

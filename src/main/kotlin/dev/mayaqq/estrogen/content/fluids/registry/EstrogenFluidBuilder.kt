@@ -1,12 +1,7 @@
 package dev.mayaqq.estrogen.content.fluids.registry
 
 import dev.mayaqq.cynosure.client.render.RenderLayerMap
-import earth.terrarium.botarium.common.registry.fluid.BotariumFlowingFluid
-import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock
-import earth.terrarium.botarium.common.registry.fluid.BotariumSourceFluid
-import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem
-import earth.terrarium.botarium.common.registry.fluid.FluidData
-import earth.terrarium.botarium.common.registry.fluid.FluidProperties
+import earth.terrarium.botarium.common.registry.fluid.*
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
