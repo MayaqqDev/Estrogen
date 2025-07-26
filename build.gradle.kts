@@ -42,7 +42,6 @@ repositories {
     maven(url = "https://maven.msrandom.net/repository/root") { name = "Ashley"}
     maven(url = "https://maven.figuramc.org/releases") { name = "Figura Maven"; description = "Figura" } // Second last cs figura misconfigured their maven
     maven(url = "https://jitpack.io/") { name = "Jitpack maven"; description = "Mixin Extras & Fabric ASM" } //NOTE: LEAVE THIS AS LAST
-    mavenLocal()
     mavenCentral()
 }
 
@@ -301,7 +300,23 @@ tasks.named("createCommonApiStub", GenerateStubApi::class) {
     excludes.add(libs.cynosure.get().group)
 }
 
-tasks.named("processForgeResources") {
+tasks.named("createCommonDataApiStub", GenerateStubApi::class) {
+    excludes.add(libs.kritter.get().group)
+    excludes.add(libs.cynosure.get().group)
+}
+
+tasks.compileKotlin {
+    //TODO: REMOVE THIS
+    doFirst {
+        println(libraries.joinToString("\n"))
+    }
+}
+
+buildscript {
+    //TODO: REMOVE THIS
+    dependencies {
+        classpath("net.msrandom:minecraft-codev-core:0.6.2-fs-test")
+    }
 }
 
 publishing {
