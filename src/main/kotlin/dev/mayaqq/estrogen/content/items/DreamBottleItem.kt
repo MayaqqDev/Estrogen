@@ -13,6 +13,7 @@ import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.item.context.UseOnContext
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.shapes.BooleanOp
 import net.minecraft.world.phys.shapes.Shapes
 
@@ -24,13 +25,12 @@ class DreamBottleItem(p0: Block, p1: Properties) : ItemNameBlockItem(p0, p1) {
         .setValue(DreamBlock.PERSISTENT, true)
 
     override fun place(context: BlockPlaceContext): InteractionResult {
-        val player = context.player ?: return InteractionResult.FAIL
         val pos = context.clickedPos
-        if (Shapes.joinIsNotEmpty(
-                Shapes.block().move(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble()),
-                Shapes.create(player.boundingBox),
-                BooleanOp.AND
-        )) return InteractionResult.FAIL
+        val blockAABB = AABB(pos)
+        val entitiesInside = context.level.getEntities(null, blockAABB) {
+            it.isAlive && !it.isSpectator
+        }
+        if (entitiesInside.isNotEmpty()) return InteractionResult.FAIL
 
         val result = super.place(context)
         if (result == InteractionResult.SUCCESS && context.player != null && !context.player!!
