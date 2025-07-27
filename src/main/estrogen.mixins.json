@@ -6,6 +6,7 @@
   "mixins": [
     "BottleItemMixin",
     "CraftingMenuMixin",
+    "EntityMixin",
     "ItemParserMixin",
     "PlayerMixin",
     "BlockStateParserMixin"
