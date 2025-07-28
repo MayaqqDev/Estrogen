@@ -290,7 +290,10 @@ tasks.named("createCommonApiStub", GenerateStubApi::class) {
     excludes.add(libs.cynosure.get().group)
 }
 
-tasks.named("processForgeResources") {
+tasks.compileKotlin {
+    doFirst {
+        println(libraries.joinToString("\n"))
+    }
 }
 
 publishing {
