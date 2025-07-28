@@ -117,8 +117,6 @@ cloche {
             data()
         }
 
-        data()
-
         metadata {
             metadata {
                 custom("modmenu", mapOf(
@@ -182,7 +180,7 @@ cloche {
                 adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric::init")
             }
-            entrypoint("fabric_datagen") {
+            entrypoint("fabric-datagen") {
                 adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.datagen.EstrogenDatagen")
             }
@@ -290,10 +288,12 @@ tasks.named("createCommonApiStub", GenerateStubApi::class) {
     excludes.add(libs.cynosure.get().group)
 }
 
+//Lemme just disable compiling java to fix issues
+tasks.compileJava {
+    enabled = false
+}
 tasks.compileKotlin {
-    doFirst {
-        println(libraries.joinToString("\n"))
-    }
+    enabled = false
 }
 
 publishing {
