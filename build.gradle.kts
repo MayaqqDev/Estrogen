@@ -24,6 +24,7 @@ repositories {
     maven(url = "https://maven.blamejared.com/") { name = "Blamejared" }
     maven(url = "https://maven.createmod.net/") { name = "Create" }
     maven(url = "https://maven.tterrag.com") { name = "Tterrag" }
+    maven(url = "https://repo.nyon.dev/releases") { name = "KotlinLangForge" }
     maven(url = "https://maven.theillusivec4.top/") { name = "TheIllusivec4" }
     maven(url = "https://mvn.devos.one/snapshots/") { name = "Devos Maven"; description = "Create Fabric, Porting Lib, Forge Tags, Milk Lib & Fabric Registrate" }
     maven(url = "https://cursemaven.com") { name = "Curseforge Maven"; description = "Forge Config API Port" }
@@ -91,9 +92,7 @@ cloche {
             modCompileOnly(libs.kritter)
             modCompileOnly(libs.cynosure)
 
-            implementation(libs.mixinConstrains) {
-                exclude(group = "org.slf4j")
-            }
+            implementation(libs.mixinConstrains)
         }
     }
 
@@ -109,9 +108,7 @@ cloche {
         include(libs.fabric.flywheel)
         //include(libs.fabric.kittyconfig)
 
-        include(libs.mixinConstrains) {
-            exclude(group = "org.slf4j")
-        }
+        include(libs.mixinConstrains)
 
         includedClient() // includedClient() is not a run
         runs {
@@ -163,9 +160,7 @@ cloche {
             modImplementation(libs.fabric.kritter)
             //modApi(libs.fabric.kittyconfig)
             modApi(libs.fabric.botarium)
-            implementation(libs.mixinConstrains) {
-                exclude(group = "org.slf4j")
-            }
+            implementation(libs.mixinConstrains)
 
             when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -216,9 +211,7 @@ cloche {
         include(libs.forge.baubly) { exclude(group = "me.shedaniel") }
         include(libs.forge.mixinExtras)
         include(libs.forge.kritter)
-        include(libs.mixinConstrains) {
-            exclude(group = "org.slf4j")
-        }
+        include(libs.mixinConstrains)
 
         metadata {
             blurLogo = false
@@ -244,9 +237,7 @@ cloche {
             modImplementation(libs.forge.kritter)
             //modApi(libs.forge.kittyconfig)
             modApi(libs.forge.botarium)
-            implementation(libs.mixinConstrains) {
-                exclude(group = "org.slf4j")
-            }
+            implementation(libs.mixinConstrains)
 
             when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)
@@ -299,23 +290,7 @@ tasks.named("createCommonApiStub", GenerateStubApi::class) {
     excludes.add(libs.cynosure.get().group)
 }
 
-tasks.named("createCommonDataApiStub", GenerateStubApi::class) {
-    excludes.add(libs.kritter.get().group)
-    excludes.add(libs.cynosure.get().group)
-}
-
-tasks.compileKotlin {
-    //TODO: REMOVE THIS
-    doFirst {
-        println(libraries.joinToString("\n"))
-    }
-}
-
-buildscript {
-    //TODO: REMOVE THIS
-    dependencies {
-        classpath("net.msrandom:minecraft-codev-core:0.6.2-fs-test")
-    }
+tasks.named("processForgeResources") {
 }
 
 publishing {

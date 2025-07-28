@@ -1,8 +1,8 @@
 [versions]
 
 # Stuff
-kotlin = "2.0.0"
-cloche = "0.11.13"
+kotlin = "2.2.0"
+cloche = "0.11.20"
 
 # Minecraft
 minecraft = "1.20.1"
@@ -35,7 +35,7 @@ cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.5+1.20.1"
 flywheel = "1.0.2"
-cynosure = "0.1.0.166"
+cynosure = "0.1.0.161"
 kittyconfig-mc = "0.1.0.12+1.20.1"
 kittyconfig-ksp = "0.1.5"
 mixin_constrains = "1.0.8"
@@ -53,6 +53,7 @@ curios = "5.4.7+1.20.1"
 create_forge = "0.5.1.f-27"
 jei_file_id_forge = "4712868"
 kff = "4.11.0"
+klf = "2.10.0-k2.2.0-2.0+forge"
 
 [libraries]
 
@@ -99,7 +100,7 @@ fabric-botarium = { module = "earth.terrarium.botarium:botarium-fabric-1.20.1", 
 
 
 # Forge depencencies
-forge-kotlin = { module = "thedarkcolour:kotlinforforge", version.ref = "kff" }
+forge-kotlin = { module = "dev.nyon:KotlinLangForge", version.ref = "klf" }
 forge-create = { module = "com.simibubi.create:create-1.20.1", version.ref = "create_forge" }
 forge-baubly = { module = "earth.terrarium.baubly:baubly-forge-1.20.1", version.ref = "baubly" }
 forge-emi = { module = "dev.emi:emi-forge", version.ref = "emi" }
