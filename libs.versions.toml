@@ -35,7 +35,7 @@ cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.5+1.20.1"
 flywheel = "1.0.2"
-cynosure = "0.1.0.166"
+cynosure = "0.1.0.167"
 kittyconfig-mc = "0.1.0.12+1.20.1"
 kittyconfig-ksp = "0.1.5"
 mixin_constrains = "1.0.8"
@@ -53,7 +53,7 @@ curios = "5.4.7+1.20.1"
 create_forge = "0.5.1.f-27"
 jei_file_id_forge = "4712868"
 kff = "4.11.0"
-klf = "2.7.1-k2.1.21-2.0+forge"
+klf = "2.10.1-k2.2.0-2.0+forge"
 
 [libraries]
 

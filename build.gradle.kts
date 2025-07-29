@@ -97,7 +97,7 @@ cloche {
     }
 
     fabric {
-        mixins.from(file("src/main/estrogen.mixins.json"))
+        mixins.from(file("src/main/estrogen.mixins.json"), file("src/fabric/estrogen-fabric.mixins.json"))
         accessWideners.from(file("src/main/estrogen.accessWidener"))
 
         loaderVersion = libs.versions.fabric
@@ -114,7 +114,11 @@ cloche {
         runs {
             client()
             server()
-            data()
+            data {
+                jvmArgs("-Dfabric-api.datagen.output-dir=${file("build/generated/resources/main")}")
+                jvmArgs("-Destrogen.datagen.fabric-output-dir=${file("build/generated/resources/fabric")}")
+                jvmArgs("-Destrogen.datagen.forge-output-dir=${file("build/generated/resources/forge")}")
+            }
         }
 
         data()
@@ -214,6 +218,7 @@ cloche {
         include(libs.mixinConstrains)
 
         metadata {
+            modLoader = ""
             blurLogo = false
             modProperty("catalogueItemIcon", "estrogen:estrogen_pill")
             modProperty("catalogueBackground", "estrogen_background.png")

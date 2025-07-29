@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.mayaqq.estrogen.fabric.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "PackInvoker"
+  ],
+  "client": [
+  ],
+  "plugin": "dev.mayaqq.estrogen.utils.EstrogenMixinPlugin",
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

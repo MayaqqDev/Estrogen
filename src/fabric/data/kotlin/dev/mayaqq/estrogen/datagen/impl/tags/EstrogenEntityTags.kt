@@ -1,0 +1,23 @@
+package dev.mayaqq.estrogen.datagen.impl.tags
+
+import dev.mayaqq.estrogen.content.EstrogenTags
+import dev.mayaqq.estrogen.datagen.platform.PlatformHelper
+import dev.mayaqq.estrogen.datagen.tags.BaseTagProvider
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.minecraft.core.HolderLookup
+import net.minecraft.world.entity.EntityType
+import java.util.concurrent.CompletableFuture
+
+class EstrogenEntityTags(
+    data: FabricDataOutput,
+    completableFeature: CompletableFuture<HolderLookup.Provider>,
+    helper: PlatformHelper
+) : BaseTagProvider.EntityProvider(data, completableFeature, helper) {
+    override fun addTags(provider: HolderLookup.Provider) {
+        getOrCreateTagBuilder(EstrogenTags.Entities.URINE_GIVING)
+            .add(EntityType.HORSE)
+            .add(EntityType.ZOMBIE_HORSE)
+            .add(EntityType.DONKEY)
+            .add(EntityType.MULE)
+    }
+}

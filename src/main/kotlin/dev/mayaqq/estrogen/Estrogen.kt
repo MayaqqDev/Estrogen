@@ -2,13 +2,19 @@ package dev.mayaqq.estrogen
 
 //import dev.mayaqq.estrogen.config.Instance
 //import uwu.serenity.kittyconfig.api.defaults.load
+import dev.mayaqq.cynosure.events.PostInitEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
+import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.network.EstrogenNetwork
+import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.item.Item
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import uwu.serenity.kritter.RegistryManager
+import uwu.serenity.kritter.get
 
 const val MOD_ID = "estrogen"
 const val MOD_NAME = "Estrogen"
@@ -43,5 +49,11 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         info("Injecting Estrogen into your veins!")
 
         EstrogenNetwork
+    }
+
+    @Subscription
+    fun postInit(event: PostInitEvent) {
+        val key = Estrogen[ResourceKey.create(Registries.ITEM, id("estrogen_pill"))]
+        Estrogen.info("Info: $key")
     }
 }

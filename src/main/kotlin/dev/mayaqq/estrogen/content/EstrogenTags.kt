@@ -41,6 +41,7 @@ object EstrogenTags {
             TagKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation("moonlight", "non_recolorable"))
         val MAGNET: TagKey<Item> =
             TagKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation("create_new_age", "magnet"))
+        val UPRIGHT_ON_BELT = TagKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation("create", "upright_on_belt"))
     }
 
     object Blocks {
@@ -55,6 +56,7 @@ object EstrogenTags {
         val WATER: TagKey<Fluid> = TagKey.create(BuiltInRegistries.FLUID.key(), mcId("water"))
         val LAVA: TagKey<Fluid> = TagKey.create(BuiltInRegistries.FLUID.key(), mcId("lava"))
         val URINE: TagKey<Fluid> = TagKey.create(BuiltInRegistries.FLUID.key(), id("urine"))
+        val PROCESSING_LAVA: TagKey<Fluid> = TagKey.create(BuiltInRegistries.FLUID.key(), ResourceLocation("create", "fan_processing_catalysts/blasting"))
     }
 
     object Entities {
