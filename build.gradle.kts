@@ -117,6 +117,8 @@ cloche {
             data()
         }
 
+        data()
+
         metadata {
             metadata {
                 custom("modmenu", mapOf(
