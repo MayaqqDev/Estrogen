@@ -20,7 +20,7 @@ public class CraftingMenuMixin {
     )
     private static boolean creativelessCheck(Optional<CraftingRecipe> instance, Operation<Boolean> original, @Local(argsOnly = true) Player player) {
         if (instance.isPresent()) {
-            if (player.isCreative() && instance.get().getId().equals(new ResourceLocation("estrogen", "crafting/colon_three"))) return false;
+            if (player.isCreative() && instance.get().getId().equals(new ResourceLocation("estrogen", "colon_three"))) return false;
         }
         return original.call(instance);
     }

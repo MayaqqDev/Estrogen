@@ -1,9 +1,13 @@
 package dev.mayaqq.estrogen.datagen
 
+import dev.mayaqq.estrogen.datagen.impl.advancements.EstrogenAdvancements
+import dev.mayaqq.estrogen.datagen.impl.loottables.EstrogenLoottables
+import dev.mayaqq.estrogen.datagen.impl.recipes.minecraft.EstrogenCraftingRecipes
 import dev.mayaqq.estrogen.datagen.impl.tags.EstrogenBlockTags
 import dev.mayaqq.estrogen.datagen.impl.tags.EstrogenEntityTags
 import dev.mayaqq.estrogen.datagen.impl.tags.EstrogenFluidTags
 import dev.mayaqq.estrogen.datagen.impl.tags.EstrogenItemTags
+import dev.mayaqq.estrogen.datagen.impl.translations.EstrogenTranslations
 import dev.mayaqq.estrogen.datagen.platform.CommonRecipeHelper
 import dev.mayaqq.estrogen.datagen.platform.FabricRecipeHelper
 import dev.mayaqq.estrogen.datagen.platform.ForgeRecipeHelper
@@ -39,15 +43,20 @@ object EstrogenDatagen : DataGeneratorEntrypoint {
         pack.addProvider(::EstrogenBlockTags)
         pack.addProvider(::EstrogenEntityTags)
         pack.addProvider(::EstrogenItemTags)
+        pack.addProvider(::EstrogenAdvancements)
+        pack.addProvider(::EstrogenTranslations)
+        pack.addProvider(::EstrogenLoottables)
     }
 
     fun setupFabric(pack: EstrogenPack, fdg: FabricDataGenerator, path: Path) {
         pack.addProvider(::EstrogenFluidTags)
+        pack.addProvider(::EstrogenCraftingRecipes)
         setupCommon(EstrogenPack.create(fdg, "Estrogen (Common Fabric)", path, CommonRecipeHelper));
     }
 
     fun setupForge(pack: EstrogenPack, fdg: FabricDataGenerator, path: Path) {
         pack.addProvider(::EstrogenFluidTags)
+        pack.addProvider(::EstrogenCraftingRecipes)
         setupCommon(EstrogenPack.create(fdg, "Estrogen (Common Forge)", path, CommonRecipeHelper));
     }
 

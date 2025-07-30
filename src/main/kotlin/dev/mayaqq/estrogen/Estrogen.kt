@@ -19,7 +19,7 @@ import uwu.serenity.kritter.get
 const val MOD_ID = "estrogen"
 const val MOD_NAME = "Estrogen"
 
-internal inline fun id(path: String) = ResourceLocation(MOD_ID, path)
+inline fun id(path: String) = ResourceLocation(MOD_ID, path)
 inline fun mcid(path: String) = ResourceLocation("minecraft", path)
 
 @EventSubscriber
