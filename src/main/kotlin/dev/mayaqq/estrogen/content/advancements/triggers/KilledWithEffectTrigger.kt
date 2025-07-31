@@ -16,7 +16,11 @@ import net.minecraft.world.entity.Entity
 
 class KilledWithEffectTrigger : SimpleCriterionTrigger<KilledWithEffectTrigger.TriggerInstance>() {
     override fun createInstance(json: JsonObject, predicate: ContextAwarePredicate, context: DeserializationContext): TriggerInstance {
-        return TriggerInstance(EntityPredicate.fromJson(json, "entity", context), BuiltInRegistries.MOB_EFFECT.getHolder(json.get("mobeffect").asInt).get().value(), predicate)
+        return TriggerInstance(
+            EntityPredicate.fromJson(json, "entity", context),
+            BuiltInRegistries.MOB_EFFECT.get(ResourceLocation(json.get("mob_effect").asString))?:
+            throw NullPointerException(json.get("mob_effect").asString)
+            , predicate)
     }
 
     override fun getId(): ResourceLocation = ID
@@ -46,7 +50,7 @@ class KilledWithEffectTrigger : SimpleCriterionTrigger<KilledWithEffectTrigger.T
         override fun serializeToJson(context: SerializationContext): JsonObject {
             val json = super.serializeToJson(context)
             json.add("entity", entity.toJson(context))
-            json.addProperty("mobeffect", BuiltInRegistries.MOB_EFFECT.getId(mobEffect))
+            json.addProperty("mob_effect", BuiltInRegistries.MOB_EFFECT.getResourceKey(mobEffect).get().location().toString())
             return json
         }
 

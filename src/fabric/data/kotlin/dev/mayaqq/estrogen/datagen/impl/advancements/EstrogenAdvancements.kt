@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.datagen.impl.advancements
 
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenFluids
@@ -13,9 +14,12 @@ import net.minecraft.advancements.Advancement
 import net.minecraft.advancements.FrameType
 import net.minecraft.advancements.critereon.*
 import net.minecraft.advancements.critereon.InventoryChangeTrigger.TriggerInstance.hasItems
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Items
+import uwu.serenity.kritter.entries
 import java.util.function.Consumer
 
 
@@ -207,7 +211,7 @@ class EstrogenAdvancements(output: FabricDataOutput) : FabricAdvancementProvider
 
     fun getItems(): ItemPredicate {
         return ItemPredicate(
-            null, EstrogenItems.allEntries.map { entry -> entry.value }.toSet(),
+            null, Estrogen.entries(Registries.ITEM).map { entry -> entry.value }.toSet(),
             MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, EnchantmentPredicate.NONE, EnchantmentPredicate.NONE,
             null, NbtPredicate.ANY
         )
