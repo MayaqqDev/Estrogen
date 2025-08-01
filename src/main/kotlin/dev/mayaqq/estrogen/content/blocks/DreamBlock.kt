@@ -221,6 +221,7 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         fun canEntityUse(state: BlockState, entity: LivingEntity?): Boolean =
             state.getValue(PERSISTENT) || entity?.hasEffect(EstrogenEffects.Dreaming) == true
 
+        @JvmStatic
         fun isInDreamBlock(player: Player): Boolean {
             if (player.isSpectator) return false
 
