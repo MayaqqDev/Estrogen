@@ -33,7 +33,8 @@ object CauldronInteractions {
         Items.BUCKET to bucket { EstrogenFluids.FiltratedHorseUrine.bucket }
     ) }
     private val PRE_ESTROGEN by lazy { createMap(
-        Items.BUCKET to bucket { EstrogenFluids.LiquidEstrogen.bucket }
+        Items.BUCKET to bucket { EstrogenFluids.LiquidEstrogen.bucket },
+        Items.COOKIE to cookie()
     ) }
     private val PRE_WATER by lazy { createMap() }
     private val PRE_EMPTY by lazy { createMap(
@@ -100,6 +101,26 @@ object CauldronInteractions {
                     stack,
                     player,
                     EstrogenItems.HorseUrineBottle.defaultInstance
+                )
+            )
+            player.awardStat(Stats.USE_CAULDRON)
+            player.awardStat(Stats.ITEM_USED.get(item))
+            LayeredCauldronBlock.lowerFillLevel(state, level, pos)
+            level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0f, 1.0f)
+            level.gameEvent(null, GameEvent.FLUID_PICKUP, pos)
+        }
+        InteractionResult.sidedSuccess(level.isClientSide)
+    }
+
+    private fun cookie(): CauldronInteraction = CauldronInteraction { state, level, pos, player, hand, stack ->
+        if (!level.isClientSide) {
+            val item: Item = stack.item
+            player.setItemInHand(
+                hand,
+                ItemUtils.createFilledResult(
+                    stack,
+                    player,
+                    EstrogenItems.EstrogenPill.defaultInstance
                 )
             )
             player.awardStat(Stats.USE_CAULDRON)

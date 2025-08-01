@@ -178,10 +178,9 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
         color { _, _, _, tint -> return@color if (tint == 0) EstrogenColors.HORSE_URINE.toInt() else -1 }
     }
 
-    val FiltratedHorseUrineCauldron: LayeredCauldronBlock by block(
-        "filtrated_horse_urine_cauldron", { properties -> LayeredCauldronBlock(
+    val FiltratedHorseUrineCauldron: FiltratedHorseUrineCauldron by block(
+        "filtrated_horse_urine_cauldron", { properties -> FiltratedHorseUrineCauldron(
             properties,
-            {false},
             CauldronInteractions.FILTRATED_HORSE_URINE
         ) }) {
         copyProperties(Blocks::CAULDRON)
