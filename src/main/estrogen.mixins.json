@@ -7,6 +7,7 @@
     "BlockStateParserMixin",
     "BottleItemMixin",
     "CraftingMenuMixin",
+    "EntityMixin",
     "ItemParserMixin",
     "PlayerMixin",
     "PistonMovingBlockEntityMixin",

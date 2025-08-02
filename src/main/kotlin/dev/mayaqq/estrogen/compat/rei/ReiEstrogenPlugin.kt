@@ -1,9 +1,11 @@
 package dev.mayaqq.estrogen.compat.rei
 
 import dev.mayaqq.estrogen.compat.rei.recipes.EntityInteractionReiRecipe
+import dev.mayaqq.estrogen.compat.rei.recipes.SpongingReiRecipe
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
+import dev.mayaqq.estrogen.content.recipes.SpongingRecipe
 import dev.mayaqq.estrogen.id
 import me.shedaniel.rei.api.client.entry.filtering.base.BasicFilteringRule
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin
@@ -17,13 +19,14 @@ object ReiEstrogenPlugin : REIClientPlugin {
 
     override fun registerCategories(registry: CategoryRegistry) {
         registry.add(EntityInteractionReiRecipe.Category(EntityInteractionRecipe))
+        registry.add(SpongingReiRecipe.Category(SpongingRecipe))
     }
 
     override fun registerDisplays(registry: DisplayRegistry) {
         registry.add(EntityInteractionReiRecipe)
-        registry.registerRecipeFiller(EntityInteractionRecipe::class.java, EstrogenRecipes.ENTITY_INTERACTION) { recipe ->
-            EntityInteractionReiRecipe(recipe, recipe.entity)
-        }
+        registry.add(SpongingReiRecipe)
+        registry.registerRecipeFiller(EntityInteractionRecipe::class.java, EstrogenRecipes.ENTITY_INTERACTION, ::EntityInteractionReiRecipe)
+        registry.registerRecipeFiller(SpongingRecipe::class.java, EstrogenRecipes.SPONGING, ::SpongingReiRecipe)
     }
 
     @Suppress("UnstableApiUsage")
