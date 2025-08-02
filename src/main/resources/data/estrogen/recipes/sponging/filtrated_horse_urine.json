@@ -1,0 +1,7 @@
+{
+  "type": "estrogen:sponging",
+  "input": {
+    "tag": "estrogen:urine_giving"
+  },
+  "output": "estrogen:filtrated_horse_urine"
+}

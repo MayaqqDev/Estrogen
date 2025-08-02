@@ -1,9 +1,9 @@
 package dev.mayaqq.estrogen.features.sponge
 
-import dev.mayaqq.estrogen.content.EstrogenFluids.FiltratedHorseUrine
-import dev.mayaqq.estrogen.content.EstrogenFluids.HorseUrine
-import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock
+import dev.mayaqq.estrogen.content.EstrogenRecipes
+import dev.mayaqq.estrogen.content.recipes.inventory.FluidData
 import net.minecraft.core.BlockPos
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.material.FluidState
@@ -18,11 +18,13 @@ object SpongeExtension {
         pos: BlockPos,
         cir: CallbackInfoReturnable<Boolean>
     ) {
-        if ((fluidState.`is`(HorseUrine.source)  || fluidState.`is`(HorseUrine.flowing))
-            && blockState.hasProperty(BotariumLiquidBlock.LEVEL)) {
-            //TODO: Particles
-            level.setBlockAndUpdate(pos, FiltratedHorseUrine.block.withPropertiesOf(blockState))
-            cir.returnValue = true
+        level.recipeManager.getAllRecipesFor(EstrogenRecipes.SPONGING).forEach { recipe ->
+            if (recipe.matches(FluidData(fluidState), level)) {
+                level.setBlockAndUpdate(pos,
+                    BuiltInRegistries.BLOCK.get(recipe.output).withPropertiesOf(blockState)
+                )
+                cir.returnValue = true
+            }
         }
     }
 }
