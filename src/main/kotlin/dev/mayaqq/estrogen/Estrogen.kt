@@ -5,6 +5,9 @@ package dev.mayaqq.estrogen
 import dev.mayaqq.cynosure.events.PostInitEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
+import dev.mayaqq.estrogen.config.EstrogenClientConfig
+import dev.mayaqq.estrogen.config.EstrogenCommonConfig
+import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import net.minecraft.core.registries.Registries
@@ -13,6 +16,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import uwu.serenity.kittyconfig.loadConfig
 import uwu.serenity.kritter.RegistryManager
 import uwu.serenity.kritter.get
 
@@ -26,8 +30,9 @@ inline fun mcid(path: String) = ResourceLocation("minecraft", path)
 object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager by RegistryManager(MOD_ID) {
 
     fun init() {
-        //EstrogenCommonConfig.Instance.load()
-        //EstrogenServerConfig.Instance.load()
+        // TODO: When intellij plugin use the extensions instead of the top-level variants
+        loadConfig(EstrogenCommonConfig)
+        loadConfig(EstrogenServerConfig)
 
         EstrogenAttributes.register()
         EstrogenSounds.register()
