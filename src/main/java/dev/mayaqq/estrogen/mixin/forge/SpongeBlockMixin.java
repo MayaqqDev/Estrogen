@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.mixin.forge;
 
-import dev.mayaqq.estrogen.features.sponge.SpongeExtension;
+import dev.mayaqq.estrogen.content.EstrogenTags;
+import dev.mayaqq.estrogen.content.recipes.SpongingRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SpongeBlock;
@@ -25,6 +26,11 @@ public class SpongeBlockMixin {
     private static void inject(BlockPos center, Level level, BlockState state, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         BlockState blockState = level.getBlockState(pos);
         FluidState fluidState = level.getFluidState(pos);
-        SpongeExtension.INSTANCE.onSuckUp(blockState, fluidState, center, level, pos, cir);
+        BlockState suckedUp = SpongingRecipe.onSuckUp(blockState, fluidState, center, level, pos);
+        if (fluidState.is(EstrogenTags.Fluids.INSTANCE.getSPONGE_IGNORING())) cir.setReturnValue(false);
+        if (suckedUp != null) {
+            level.setBlock(pos, suckedUp, 3);
+            cir.setReturnValue(true);
+        }
     }
 }

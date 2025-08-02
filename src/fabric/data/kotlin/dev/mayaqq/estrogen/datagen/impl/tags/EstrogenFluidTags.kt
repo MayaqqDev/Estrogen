@@ -28,6 +28,9 @@ class EstrogenFluidTags(
         getOrCreateTagBuilder(EstrogenTags.Fluids.PROCESSING_LAVA)
             .add(EstrogenFluids.MoltenSlime.value)
             .add(EstrogenFluids.MoltenSlime.flowing)
+        getOrCreateTagBuilder(EstrogenTags.Fluids.SPONGE_IGNORING)
+            .add(EstrogenFluids.FiltratedHorseUrine.value)
+            .add(EstrogenFluids.FiltratedHorseUrine.flowing)
 
         if (platform == Platform.FABRIC) {
             getOrCreateTagBuilder(EstrogenTags.Fluids.WATER)

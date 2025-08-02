@@ -21,47 +21,38 @@ object EstrogenTags {
     }
 
     object Items {
-        val THIGHS: TagKey<Item> =
-            TagKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation("trinkets", "legs/thighs"))
-        val CURIOS_THIGHS: TagKey<Item> =
-            TagKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation("curios", "thighs"))
-        val MUSIC_DISCS: TagKey<Item> = TagKey.create(BuiltInRegistries.ITEM.key(), mcId("music_discs"))
-        val UWUFYING: TagKey<Item> = TagKey.create(BuiltInRegistries.ITEM.key(), id("uwufying"))
-        val LAVA_BUCKETS: TagKey<Item> = TagKey.create(BuiltInRegistries.ITEM.key(), commonId("lava_buckets"))
-        val COOKIES: TagKey<Item> = TagKey.create(BuiltInRegistries.ITEM.key(), commonId("cookies"))
-        val CHEST_FEATURE_DISABLED: TagKey<Item> =
-            TagKey.create(BuiltInRegistries.ITEM.key(), id("chest_feature_disabled"))
-        val LEATHER_ITEMS: TagKey<Item> = TagKey.create(BuiltInRegistries.ITEM.key(), commonId("leather_items"))
-        val LIGHT_EMITTERS: TagKey<Item> = TagKey.create(BuiltInRegistries.ITEM.key(), commonId("light_emitters"))
-        val MALUM_GROSS_FOODS: TagKey<Item> =
-            TagKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation("malum", "gross_foods"))
-        val CHEST_ARMOR_IGNORE: TagKey<Item> =
-            TagKey.create(BuiltInRegistries.ITEM.key(), id("chest_armor_ignore"))
-        val NON_RECOLORABLE: TagKey<Item> =
-            TagKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation("moonlight", "non_recolorable"))
-        val MAGNET: TagKey<Item> =
-            TagKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation("create_new_age", "magnet"))
-        val UPRIGHT_ON_BELT = TagKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation("create", "upright_on_belt"))
+        val THIGHS: TagKey<Item> = TagKey.create(Registries.ITEM, ResourceLocation("trinkets", "legs/thighs"))
+        val CURIOS_THIGHS: TagKey<Item> = TagKey.create(Registries.ITEM, ResourceLocation("curios", "thighs"))
+        val MUSIC_DISCS: TagKey<Item> = TagKey.create(Registries.ITEM, mcId("music_discs"))
+        val UWUFYING: TagKey<Item> = TagKey.create(Registries.ITEM, id("uwufying"))
+        val LAVA_BUCKETS: TagKey<Item> = TagKey.create(Registries.ITEM, commonId("lava_buckets"))
+        val COOKIES: TagKey<Item> = TagKey.create(Registries.ITEM, commonId("cookies"))
+        val CHEST_FEATURE_DISABLED: TagKey<Item> = TagKey.create(Registries.ITEM, id("chest_feature_disabled"))
+        val LEATHER_ITEMS: TagKey<Item> = TagKey.create(Registries.ITEM, commonId("leather_items"))
+        val LIGHT_EMITTERS: TagKey<Item> = TagKey.create(Registries.ITEM, commonId("light_emitters"))
+        val MALUM_GROSS_FOODS: TagKey<Item> = TagKey.create(Registries.ITEM, ResourceLocation("malum", "gross_foods"))
+        val CHEST_ARMOR_IGNORE: TagKey<Item> = TagKey.create(Registries.ITEM, id("chest_armor_ignore"))
+        val NON_RECOLORABLE: TagKey<Item> = TagKey.create(Registries.ITEM, ResourceLocation("moonlight", "non_recolorable"))
+        val MAGNET: TagKey<Item> = TagKey.create(Registries.ITEM, ResourceLocation("create_new_age", "magnet"))
+        val UPRIGHT_ON_BELT = TagKey.create(Registries.ITEM, ResourceLocation("create", "upright_on_belt"))
     }
 
     object Blocks {
-        val PICKAXE_MINABLE: TagKey<Block> = TagKey.create(BuiltInRegistries.BLOCK.key(), mcId("mineable/pickaxe"))
-        val MAGNET_12: TagKey<Block> =
-            TagKey.create(BuiltInRegistries.BLOCK.key(), ResourceLocation("create_new_age", "magnets/force_12"))
-        val NON_RECOLORABLE: TagKey<Block> =
-            TagKey.create(BuiltInRegistries.BLOCK.key(), ResourceLocation("moonlight", "non_recolorable"))
+        val PICKAXE_MINABLE: TagKey<Block> = TagKey.create(Registries.BLOCK, mcId("mineable/pickaxe"))
+        val MAGNET_12: TagKey<Block> = TagKey.create(Registries.BLOCK, ResourceLocation("create_new_age", "magnets/force_12"))
+        val NON_RECOLORABLE: TagKey<Block> = TagKey.create(Registries.BLOCK, ResourceLocation("moonlight", "non_recolorable"))
     }
 
     object Fluids {
-        val WATER: TagKey<Fluid> = TagKey.create(BuiltInRegistries.FLUID.key(), mcId("water"))
-        val LAVA: TagKey<Fluid> = TagKey.create(BuiltInRegistries.FLUID.key(), mcId("lava"))
-        val URINE: TagKey<Fluid> = TagKey.create(BuiltInRegistries.FLUID.key(), id("urine"))
-        val PROCESSING_LAVA: TagKey<Fluid> = TagKey.create(BuiltInRegistries.FLUID.key(), ResourceLocation("create", "fan_processing_catalysts/blasting"))
+        val WATER: TagKey<Fluid> = TagKey.create(Registries.FLUID, mcId("water"))
+        val LAVA: TagKey<Fluid> = TagKey.create(Registries.FLUID, mcId("lava"))
+        val URINE: TagKey<Fluid> = TagKey.create(Registries.FLUID, id("urine"))
+        val PROCESSING_LAVA: TagKey<Fluid> = TagKey.create(Registries.FLUID, ResourceLocation("create", "fan_processing_catalysts/blasting"))
+        val SPONGE_IGNORING: TagKey<Fluid> = TagKey.create(Registries.FLUID, id("sponge_ignoring"))
     }
 
     object Entities {
-        val URINE_GIVING: TagKey<EntityType<*>> =
-            TagKey.create(BuiltInRegistries.ENTITY_TYPE.key(), id("urine_giving"))
+        val URINE_GIVING: TagKey<EntityType<*>> = TagKey.create(Registries.ENTITY_TYPE, id("urine_giving"))
     }
 
     object Biomes {

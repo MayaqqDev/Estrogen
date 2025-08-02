@@ -16,22 +16,23 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
-import net.minecraft.world.entity.EntityType
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.LiquidBlock
 import net.minecraft.world.level.material.Fluid
 
-object FluidRecipeCodec : Codec<Either<Fluid, TagKey<Fluid>>> by Codecs.either(
-    Codecs.lazy({Codec.PASSTHROUGH.comapFlatMap(FluidRecipeCodec::decodeFluid, FluidRecipeCodec::encodeFluid)}),
+object FluidRecipeCodec : Codec<Either<Block, TagKey<Fluid>>> by Codecs.either(
+    Codecs.lazy({Codec.PASSTHROUGH.comapFlatMap(FluidRecipeCodec::decodeFluidBlock, FluidRecipeCodec::encodeFluidBlock)}),
     Codecs.lazy({Codec.PASSTHROUGH.comapFlatMap(FluidRecipeCodec::decodeFluidTag, FluidRecipeCodec::encodeFluidTag)})
 ) {
 
     @JvmField
-    val NETWORK: ByteCodec<Either<Fluid, TagKey<Fluid>>> = ByteCodecs.either(
-        FriendlyByteCodec(::encodeFluidToNetwork, ::decodeFluidFromNetwork),
+    val NETWORK: ByteCodec<Either<Block, TagKey<Fluid>>> = ByteCodecs.either(
+        FriendlyByteCodec(::encodeFluidBlockToNetwork, ::decodeFluidBlockFromNetwork),
         FriendlyByteCodec(::encodeFluidTagToNetwork, ::decodeFluidTagFromNetwork)
     )
 
-    private fun encodeFluidToNetwork(fluid: Fluid, buf: FriendlyByteBuf) {
-        buf.writeResourceLocation(BuiltInRegistries.FLUID.getKey(fluid))
+    private fun encodeFluidBlockToNetwork(block: Block, buf: FriendlyByteBuf) {
+        buf.writeResourceLocation(BuiltInRegistries.BLOCK.getKey(block))
     }
 
     private fun encodeFluidTagToNetwork(tag: TagKey<Fluid>, buf: FriendlyByteBuf) {
@@ -42,15 +43,15 @@ object FluidRecipeCodec : Codec<Either<Fluid, TagKey<Fluid>>> by Codecs.either(
         return fluidTag(buf.readResourceLocation())
     }
 
-    private fun decodeFluidFromNetwork(buf: FriendlyByteBuf): Fluid {
-        return BuiltInRegistries.FLUID.get(buf.readResourceLocation())
+    private fun decodeFluidBlockFromNetwork(buf: FriendlyByteBuf): Block {
+        return BuiltInRegistries.BLOCK.get(buf.readResourceLocation())
     }
 
-    private fun decodeFluid(dynamic: Dynamic<*>): DataResult<Fluid> {
+    private fun decodeFluidBlock(dynamic: Dynamic<*>): DataResult<Block> {
         val json = dynamic.convert(JsonOps.INSTANCE).value
         return if (json is JsonObject) {
             if (json.has("fluid")) {
-                DataResult.success(BuiltInRegistries.FLUID.get(ResourceLocation(json["fluid"].asString)))
+                DataResult.success(BuiltInRegistries.BLOCK.get(ResourceLocation(json["fluid"].asString)))
             } else {
                 DataResult.error { "Invalid JSON: Expected 'fluid' or 'tag'" }
             }
@@ -72,9 +73,9 @@ object FluidRecipeCodec : Codec<Either<Fluid, TagKey<Fluid>>> by Codecs.either(
         }
     }
 
-    private fun encodeFluid(fluid: Fluid): Dynamic<JsonElement> {
+    private fun encodeFluidBlock(fluid: Block): Dynamic<JsonElement> {
         val json = JsonObject()
-        json.addProperty("fluid", BuiltInRegistries.FLUID.getKey(fluid).toString())
+        json.addProperty("fluid", BuiltInRegistries.BLOCK.getKey(fluid).toString())
         return Dynamic(JsonOps.INSTANCE, json)
     }
 
