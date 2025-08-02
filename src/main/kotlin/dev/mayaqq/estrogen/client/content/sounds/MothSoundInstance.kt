@@ -20,14 +20,14 @@ abstract class MothSoundInstance(protected val moth: MothEntity, soundEvent: Sou
     }
 
     override fun tick() {
-        if (this.moth.isRemoved()) {
+        if (this.moth.isRemoved) {
             this.stop()
             return
         }
-        this.x = (this.moth.x as Float).toDouble()
-        this.y = (this.moth.y as Float).toDouble()
-        this.z = (this.moth.z as Float).toDouble()
-        val f = this.moth.getDeltaMovement().horizontalDistance() as Float
+        this.x = this.moth.x
+        this.y = this.moth.y
+        this.z = this.moth.z
+        val f = this.moth.deltaMovement.horizontalDistance().toFloat()
         if (f >= 0.01f) {
             this.pitch = Mth.lerp(
                 Mth.clamp(f, this.minPitch, this.maxPitch),
@@ -43,7 +43,7 @@ abstract class MothSoundInstance(protected val moth: MothEntity, soundEvent: Sou
 
     private val minPitch: Float
         get() {
-            if (this.moth.isBaby()) {
+            if (this.moth.isBaby) {
                 return 1.1f
             }
             return 0.7f
@@ -51,7 +51,7 @@ abstract class MothSoundInstance(protected val moth: MothEntity, soundEvent: Sou
 
     private val maxPitch: Float
         get() {
-            if (this.moth.isBaby()) {
+            if (this.moth.isBaby) {
                 return 1.5f
             }
             return 1.1f
@@ -62,7 +62,7 @@ abstract class MothSoundInstance(protected val moth: MothEntity, soundEvent: Sou
     }
 
     override fun canPlaySound(): Boolean {
-        return !this.moth.isSilent()
+        return !this.moth.isSilent
     }
 
     companion object {

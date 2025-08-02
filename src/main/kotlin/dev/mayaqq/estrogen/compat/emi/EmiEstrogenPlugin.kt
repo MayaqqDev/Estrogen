@@ -10,24 +10,30 @@ import dev.emi.emi.api.widget.SlotWidget
 import dev.emi.emi.api.widget.WidgetHolder
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.emi.recipes.EntityInteractionEmiRecipe
+import dev.mayaqq.estrogen.compat.emi.recipes.SpongingEmiRecipe
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
+import dev.mayaqq.estrogen.content.recipes.SpongingRecipe
 import dev.mayaqq.estrogen.id
 
 @EmiEntrypoint
 object EmiEstrogenPlugin : EmiPlugin {
 
     val interactionCategory = EmiRecipeCategory(EntityInteractionRecipe.id, StackWithCatalystEmiRenderable(EntityInteractionRecipe))
+    val spongingCategory = EmiRecipeCategory(SpongingRecipe.id, StackWithCatalystEmiRenderable(SpongingRecipe))
 
     override fun register(registry: EmiRegistry) {
         registry.addCategory(interactionCategory)
         registry.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION).forEach { recipe ->
             registry.addRecipe(EntityInteractionEmiRecipe(interactionCategory, recipe))
         }
+        registry.recipeManager.getAllRecipesFor(EstrogenRecipes.SPONGING).forEach { recipe ->
+            registry.addRecipe(SpongingEmiRecipe(spongingCategory, recipe))
+        }
 
         registry.removeEmiStacks(EmiStack.of(EstrogenBlocks.ColonThreeBlock.asItem()))
-        registry.removeRecipes(id("crafting/colon_three"))
+        registry.removeRecipes(id("colon_three"))
     }
 }
 
