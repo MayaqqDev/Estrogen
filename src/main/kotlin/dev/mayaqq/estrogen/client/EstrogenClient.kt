@@ -33,13 +33,15 @@ import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.c2s.SetChestConfigPacket
 import net.minecraft.client.Minecraft
 import net.minecraft.world.entity.EntityType
+import uwu.serenity.kittyconfig.loadConfig
+
 //import uwu.serenity.kittyconfig.api.defaults.load
 
 internal var chestConfigSet = false
 
 fun estrogenClient() {
+    loadConfig(EstrogenClientConfig)
     CynosureSplashLoader.amount += 30
-    //EstrogenClientConfig.Instance.load()
     EstrogenKeybinds
     EstrogenRenderTypes
     HudOverlayRegistry.register(VanillaHud.FROSTBITE, id("dash"), DashOverlay)

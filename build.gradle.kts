@@ -9,6 +9,9 @@ plugins {
     alias(libs.plugins.cloche)
     kotlin("jvm") version libs.versions.kotlin
     kotlin("plugin.serialization") version libs.versions.kotlin
+    id("uwu.serenity.kittyconfig") version libs.versions.kittyconfig
+    // Need to explicitly set ksp versions cs cloche loads an old version by default
+    id("com.google.devtools.ksp") version "2.2.0-2.0.2"
     `maven-publish`
     id("com.dorongold.task-tree") version "4.0.1"
 }
@@ -43,15 +46,12 @@ repositories {
     maven(url = "https://maven.figuramc.org/releases") { name = "Figura Maven"; description = "Figura" } // Second last cs figura misconfigured their maven
     maven(url = "https://jitpack.io/") { name = "Jitpack maven"; description = "Mixin Extras & Fabric ASM" } //NOTE: LEAVE THIS AS LAST
     mavenCentral()
+    mavenLocal()
 }
 
 val item_viewer: String by project
 
 val devauth_enabled: String by project
-
-dependencies {
-    //ksp(libs.kittyconfig.ksp)
-}
 
 cloche {
     metadata {
@@ -81,11 +81,10 @@ cloche {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.coroutines.core)
             api(libs.flywheel.api)
-//            modImplementation(libs.baubly)
             modCompileOnly(libs.ears)
             modCompileOnly(libs.figura)
             modCompileOnly(libs.createNewAge)
-            //modImplementation(libs.kittyconfig)
+            modImplementation(libs.kittyconfig)
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
 
@@ -293,6 +292,7 @@ tasks.withType<KotlinCompile> {
 tasks.named("createCommonApiStub", GenerateStubApi::class) {
     excludes.add(libs.kritter.get().group)
     excludes.add(libs.cynosure.get().group)
+    excludes.add(libs.kittyconfig.get().group)
 }
 
 //Lemme just disable compiling java to fix issues
