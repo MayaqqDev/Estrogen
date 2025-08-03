@@ -5,8 +5,6 @@ import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.config.EstrogenClientConfig.DreamBlock.animateTexture
-import dev.mayaqq.estrogen.config.EstrogenClientConfig.DreamBlock.dreamBlockRenderMode
-import dev.mayaqq.estrogen.config.types.DreamBlockRenderMode
 import it.unimi.dsi.fastutil.objects.ObjectArrayList
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.DynamicTexture
@@ -115,7 +113,7 @@ internal object DynamicDreamTexture {
     }
 
     private fun shouldAnimate(): Boolean {
-        return animateTexture && dreamBlockRenderMode != DreamBlockRenderMode.BASIC // && shouldAnimate.get()
+        return animateTexture
     }
 
     private val shouldAnimate = AtomicBoolean()
