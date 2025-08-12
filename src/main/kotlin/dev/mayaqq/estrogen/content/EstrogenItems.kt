@@ -10,6 +10,7 @@ import net.minecraft.ChatFormatting
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.player.Player
@@ -62,7 +63,6 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
 
     val TestosteroneChunk by item("testosterone_chunk", ::Item)
     val TestosteronePowder by item("testosterone_powder", ::Item)
-    //TODO: Create version only val USED_FILTER
     val MothFuzz by item("moth_fuzz", ::Item) {
         creativeTab(CreativeModeTabs.INGREDIENTS, TabPlacement.AFTER(Items.INK_SAC))
     }
@@ -101,8 +101,6 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
         }
     }
 
-    //TODO: Incomplete Estrogen Patch FOR CREATE ESTROGEN
-
     val ColonThree by item("uwu", ::Item) {
         properties {
             stacksTo(1)
@@ -120,8 +118,6 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
             }
         }
     }
-
-    //TODO: Incomplete Colonthree FOR CREATE ESTROGEN
 
     val ThighHighs by item("thigh_highs", { p -> ThighHighsItem(p, 0xf1d85a, 0xff4ea5)}) {
         properties {
@@ -169,4 +165,14 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
 
     lateinit var DreamBottle: DreamBottleItem
         internal set
+
+    // Transfer Items
+    val Centrifuge by item("centrifuge", {p -> TransferItem(p, ResourceLocation("createestrogen", "centrifuge"))})
+    val UsedFilter by item("used_filter", {p -> TransferItem(p, ResourceLocation("createestrogen", "used_filter"))})
+    val IncompleteEstrogenPatches by item("incomplete_estrogen_patches", {p -> TransferItem(p, ResourceLocation("createestrogen", "incomplete_estrogen_patches"))}) {
+        properties { stacksTo(1) }
+    }
+    val IncompleteUwu by item("incomplete_uwu", {p -> TransferItem(p, ResourceLocation("createestrogen", "incomplete_uwu"))}) {
+        properties { stacksTo(1) }
+    }
 }

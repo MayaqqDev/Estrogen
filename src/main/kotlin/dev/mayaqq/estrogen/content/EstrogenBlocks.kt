@@ -9,10 +9,12 @@ import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.content.items.ThighHighsItem
+import dev.mayaqq.estrogen.content.items.TransferItem
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.entity.ai.village.poi.PoiTypes
 import net.minecraft.world.item.BlockItem
@@ -47,7 +49,11 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
     }
 
     @Deprecated("Becoming part of DreamBlock")
-    val DormantDreamBlock: DormantDreamBlock by block("dormant_dream_block", ::DormantDreamBlock)
+    val DormantDreamBlock: DormantDreamBlock by block("dormant_dream_block", ::DormantDreamBlock) {
+        properties {
+            randomTicks()
+        }
+    }
 
     val DreamBlock: DreamBlock by block("dream_block", ::DreamBlock) {
         properties {
@@ -197,4 +203,10 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
         copyProperties(Blocks::CAULDRON)
         renderType = RenderType::cutout
     }
+
+    // Convert to Create: Estrogen
+    val Centrifuge: TransferBlock by block("centrifuge", {p -> TransferBlock(
+        p,
+        ResourceLocation("createestrogen", "centrifuge")
+    )})
 }
