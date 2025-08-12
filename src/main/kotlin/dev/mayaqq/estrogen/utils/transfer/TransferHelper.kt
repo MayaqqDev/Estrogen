@@ -3,7 +3,6 @@ package dev.mayaqq.estrogen.utils.transfer
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.OutgoingChatMessage
 import net.minecraft.world.level.Level
 
 object TransferHelper {
