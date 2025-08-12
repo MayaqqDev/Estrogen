@@ -87,14 +87,14 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
         }
     }
 
-    val MothCarpet: CarpetBlock by block("moth_carpet", ::CarpetBlock) {
+    val MothCarpet: CarpetBlock by block("moth_wool_carpet", ::CarpetBlock) {
         copyProperties(Blocks::ORANGE_CARPET)
         item(::BlockItem) {
             creativeTab(CreativeModeTabs.BUILDING_BLOCKS)
         }
     }
 
-    val QuiltedMothCarpet: CarpetBlock by block("quilted_moth_carpet", ::CarpetBlock) {
+    val QuiltedMothCarpet: CarpetBlock by block("quilted_moth_wool_carpet", ::CarpetBlock) {
         copyProperties(Blocks::ORANGE_CARPET)
         item(::BlockItem) {
             creativeTab(CreativeModeTabs.BUILDING_BLOCKS)
