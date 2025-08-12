@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.cloche)
     kotlin("jvm") version libs.versions.kotlin
     kotlin("plugin.serialization") version libs.versions.kotlin
-    id("uwu.serenity.kittyconfig") version libs.versions.kittyconfig
+    alias(libs.plugins.kittyconfig)
     // Need to explicitly set ksp versions cs cloche loads an old version by default
     id("com.google.devtools.ksp") version "2.2.0-2.0.2"
     `maven-publish`

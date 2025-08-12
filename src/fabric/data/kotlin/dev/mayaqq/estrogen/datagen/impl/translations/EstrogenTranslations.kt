@@ -161,7 +161,7 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("subtitles.estrogen.music.aurum_berry", "erora - Aurum Berry")
         tb.add("subtitles.estrogen.music.inferred_dreams", "erora - Inferred Dreams")
         tb.add("subtitles.estrogen.music.sleeping_dreams", "erora - Sleeping Dreams")
-        tb.add("subtitles.estrogen.music.inner_selfrealization", "erora - Inner Selfrealization")
+        tb.add("subtitles.estrogen.music.inner_self_realization", "erora - Inner Self-realization")
         tb.add("subtitles.estrogen.cookie_jar.full", "Cookie Jar is full")
         tb.add("subtitles.estrogen.cookie_jar.insert", "Cookie Jar gets inserted into")
         tb.add("subtitles.estrogen.entity.moth.death", "Rosy Maple Moth dies")

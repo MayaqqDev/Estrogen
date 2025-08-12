@@ -156,10 +156,10 @@
       "estrogen:music/sleeping"
     ]
   },
-  "inner_selfrealization": {
-    "subtitle": "subtitles.estrogen.music.inner_selfrealization",
+  "inner_self_realization": {
+    "subtitle": "subtitles.estrogen.music.inner_self_realization",
     "sounds": [
-      "estrogen:music/inner_self-realization"
+      "estrogen:music/inner_self_realization"
     ]
   },
   "estrogen_ambient": {
