@@ -13,6 +13,7 @@ import dev.mayaqq.estrogen.compat.emi.withBackground
 import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
 import dev.mayaqq.estrogen.content.recipes.SpongingRecipe
 import dev.mayaqq.estrogen.content.recipes.getSpawnEggs
+import dev.mayaqq.estrogen.mixin.client.accessor.LiquidBlockAccessor
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.inventory.InventoryScreen
 import net.minecraft.core.registries.BuiltInRegistries
@@ -29,7 +30,7 @@ class SpongingEmiRecipe(category: EmiRecipeCategory, val recipe: SpongingRecipe)
         val output = this.recipe.output
         if (input.isLeft) {
             val fluidBlock = input.left!!
-            this.inputs.add(EmiStack.of((fluidBlock as LiquidBlock).fluid))
+            this.inputs.add(EmiStack.of((fluidBlock as LiquidBlockAccessor).fluid()))
         } else {
             this.inputs.add(EmiIngredient.of(input.right!!))
         }

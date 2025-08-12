@@ -24,7 +24,8 @@
     "client.PlayerModelMixin",
     "client.ReceivingLevelScreenMixin",
     "client.accessor.ItemPropertiesAccessor",
-    "client.accessor.LevelRendererAccessor"
+    "client.accessor.LevelRendererAccessor",
+    "client.accessor.LiquidBlockAccessor"
   ],
   "plugin": "dev.mayaqq.estrogen.utils.EstrogenMixinPlugin",
   "injectors": {
