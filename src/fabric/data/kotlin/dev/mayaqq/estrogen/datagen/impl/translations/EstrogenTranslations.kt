@@ -42,6 +42,7 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("item.estrogen.thigh_highs.desc", "§7§oDyeable")
         tb.add(EstrogenItems.MothElytra, "Rosy Maple Elytra")
         tb.add(EstrogenItems.GenderChangePotion, "Gender Change Potion")
+        tb.add("estrogen.item.transfer_dummy", "Create: Estrogen item")
         // Potion
         tb.add("item.minecraft.tipped_arrow.effect.estrogen", "Arrow of Girl Power")
         tb.add("item.minecraft.potion.effect.estrogen", "Potion of Girl Power")

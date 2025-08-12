@@ -72,5 +72,7 @@ class EstrogenItemTags(
             .add(EstrogenBlocks.QuiltedMothBed.asItem())
         getOrCreateTagBuilder(EstrogenTags.Items.MAGNET)
             .add(EstrogenBlocks.DreamBlock.asItem())
+        getOrCreateTagBuilder(EstrogenTags.Items.DISABLES_CAPE)
+            .add(EstrogenItems.MothElytra)
     }
 }
