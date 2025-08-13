@@ -2,6 +2,9 @@ package dev.mayaqq.estrogen.content.items
 
 import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.cynosure.items.extensions.CustomTooltip
+import dev.mayaqq.cynosure.text.Text.sendToAll
+import dev.mayaqq.cynosure.text.TextUtils.splitLines
+import dev.mayaqq.cynosure.text.TextUtils.splitToWidth
 import dev.mayaqq.estrogen.utils.transfer.TransferHelper
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
@@ -23,7 +26,7 @@ class TransferItem(properties: Properties, val new: ResourceLocation) : Item(pro
                 new.tag = slot.get().tag
                 slot.set(new)
             }
-        } else if (level.gameTime % 100 == 0L) TransferHelper.message(level)
+        } else if (level.gameTime % 100 == 0L) TransferHelper.message.sendToAll(level)
     }
 
     override fun MutableList<Component>.modifyTooltip(
@@ -31,7 +34,7 @@ class TransferItem(properties: Properties, val new: ResourceLocation) : Item(pro
         player: Player?,
         flags: TooltipFlag
     ) {
-        TransferHelper.messageParts.forEach { add(it) }
+        addAll(TransferHelper.message.splitLines())
     }
 
     override fun getDescriptionId(): String {

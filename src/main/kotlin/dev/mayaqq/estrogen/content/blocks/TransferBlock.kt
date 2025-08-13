@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.content.blocks
 
 import dev.mayaqq.cynosure.core.isModLoaded
+import dev.mayaqq.cynosure.text.Text.sendToAll
 import dev.mayaqq.estrogen.utils.transfer.TransferHelper
 import net.minecraft.core.BlockPos
 import net.minecraft.core.registries.BuiltInRegistries
@@ -31,6 +32,6 @@ class TransferBlock(properties: Properties, val new: ResourceLocation) : Block(p
             BuiltInRegistries.BLOCK.getOptional(new).getOrNull()?.let {
                 level.setBlockAndUpdate(pos, this.defaultBlockState())
             }
-        } else TransferHelper.message(level)
+        } else TransferHelper.message.sendToAll(level)
     }
 }

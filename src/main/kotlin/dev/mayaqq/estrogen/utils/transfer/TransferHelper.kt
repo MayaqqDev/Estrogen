@@ -1,42 +1,42 @@
 package dev.mayaqq.estrogen.utils.transfer
 
-import dev.mayaqq.cynosure.helpers.McFont
-import net.minecraft.ChatFormatting
-import net.minecraft.network.chat.ClickEvent
-import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.MutableComponent
-import net.minecraft.world.level.Level
+import dev.mayaqq.cynosure.text.CommonText
+import dev.mayaqq.cynosure.text.Text
+import dev.mayaqq.cynosure.text.TextBuilder.append
+import dev.mayaqq.cynosure.text.TextStyle.color
+import dev.mayaqq.cynosure.text.TextStyle.underlined
+import dev.mayaqq.cynosure.text.TextStyle.url
+import dev.mayaqq.cynosure.utils.colors.McBlue
+import dev.mayaqq.cynosure.utils.colors.McRed
 
 object TransferHelper {
-    val messageParts = listOf<Component>(
-        Component.literal("The Estrogen mod has updated and has been split into ").withStyle(ChatFormatting.RED),
-        Component.literal("")
-            .append(Component.literal("[Estrogen]")
-                .withStyle { it.withClickEvent(
-            ClickEvent(ClickEvent.Action.OPEN_URL, "https://modrinth.com/mod/estrogen"))
-            .withColor(ChatFormatting.BLUE).withUnderlined(true)
-        })
-        .append(Component.literal(" and ").withStyle(ChatFormatting.RED))
-        .append(
-            Component.literal("[Create: Estrogen]").withStyle { it.withClickEvent(
-                ClickEvent(ClickEvent.Action.OPEN_URL, "https://modrinth.com/mod/create-estrogen"))
-                .withColor(ChatFormatting.BLUE).withUnderlined(true)
-            }
-        )
-        .append(Component.literal(", please install ").withStyle(ChatFormatting.RED)),
-        Component.literal("")
-            .append(Component.literal("Create: Estrogen")
-                .withStyle { it.withClickEvent(
-            ClickEvent(ClickEvent.Action.OPEN_URL, "https://modrinth.com/mod/create-estrogen"))
-            .withColor(ChatFormatting.BLUE).withUnderlined(true)
-        })
-        .append(Component.literal(" to fix.").withStyle(ChatFormatting.RED))
-    )
-    val message: MutableComponent = Component.literal("").apply { messageParts.forEach { this.append(it) } }
-
-    fun message(level: Level) {
-        level.server?.playerList?.players?.forEach { player ->
-            player.displayClientMessage(message, false)
+    val message = Text.of {
+        append("The Estrogen mod has updated and has been split into")
+        append(CommonText.NEWLINE)
+        append("[Estrogen]") {
+            url = "https://modrinth.com/mod/estrogen"
+            color = McBlue
+            underlined = true
         }
+        append(CommonText.SPACE)
+        append("and")
+        append(CommonText.SPACE)
+        append("[Create: Estrogen]") {
+            url = "https://modrinth.com/mod/create-estrogen"
+            color = McBlue
+            underlined = true
+        }
+        append(".")
+        append(CommonText.NEWLINE)
+        append("Please install")
+        append(CommonText.SPACE)
+        append("Create: Estrogen") {
+            url = "https://modrinth.com/mod/create-estrogen"
+            color = McBlue
+            underlined = true
+        }
+        append(CommonText.SPACE)
+        append("to fix.")
+        color = McRed
     }
 }
