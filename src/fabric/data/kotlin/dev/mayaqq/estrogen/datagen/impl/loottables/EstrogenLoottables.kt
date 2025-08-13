@@ -5,6 +5,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
 import net.minecraft.world.level.block.BedBlock
 import net.minecraft.world.level.block.state.properties.BedPart
+import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider
 
 
 class EstrogenLoottables(output: FabricDataOutput) : FabricBlockLootTableProvider(output) {
@@ -19,12 +21,18 @@ class EstrogenLoottables(output: FabricDataOutput) : FabricBlockLootTableProvide
         add(EstrogenBlocks.MothCarpet, createSingleItemTable(EstrogenBlocks.MothCarpet))
         add(
             EstrogenBlocks.MothBed,
-            createSinglePropConditionTable<BedPart?>(EstrogenBlocks.MothBed, BedBlock.PART, BedPart.HEAD)
+            createSinglePropConditionTable(EstrogenBlocks.MothBed, BedBlock.PART, BedPart.HEAD)
         )
         add(
             EstrogenBlocks.QuiltedMothBed,
-            createSinglePropConditionTable<BedPart?>(EstrogenBlocks.QuiltedMothBed, BedBlock.PART, BedPart.HEAD)
+            createSinglePropConditionTable(EstrogenBlocks.QuiltedMothBed, BedBlock.PART, BedPart.HEAD)
         )
-        add(EstrogenBlocks.DreamCatcher, createSingleItemTable(EstrogenBlocks.DreamCatcher))
+        add(EstrogenBlocks.DreamCatcher, createSingleItemTable(EstrogenBlocks.DreamCatcher).apply(
+            CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
+                .copy(
+                "colors",
+                "colors"
+            )
+        ))
     }
 }
