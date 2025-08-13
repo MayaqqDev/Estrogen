@@ -1,6 +1,10 @@
 {
   "variants": {
-    "": {
+    "persistent=false": {
+      "model": "estrogen:block/dream_block/dormant_dream_block",
+      "y": 90
+    },
+    "persistent=true": {
       "model": "estrogen:block/dream_block/dream_block"
     }
   }

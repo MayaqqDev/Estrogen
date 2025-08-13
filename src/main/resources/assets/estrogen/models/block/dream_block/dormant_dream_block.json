@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "estrogen:block/dormant_dream_block/dormant_dream_block"
+  }
+}
