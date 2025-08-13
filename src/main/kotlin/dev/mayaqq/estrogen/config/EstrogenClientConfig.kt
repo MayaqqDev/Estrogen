@@ -36,20 +36,19 @@ object EstrogenClientConfig {
     object ChestFeature {
 
         @Comment("Enable chest feature")
-        var enabled: Boolean /* by observable(true) { chestConfigSet = false }*/ = true
+        var enabled: Boolean by observable(true) { chestConfigSet = false }
 
         @Comment("Enable chest feature armor")
-        var armor: Boolean /*by observable(true) { chestConfigSet = false }*/ = true
+        var armor: Boolean by observable(true) { chestConfigSet = false }
 
         @Comment("Enable chest feature physics")
-        var physics: Boolean /* by observable(true) { chestConfigSet = false } */ = true
+        var physics: Boolean by observable(true) { chestConfigSet = false }
 
         @Comment("Chest feature bounciness")
         var bounciness: @DecimalRange(0.0, 1.0) Double by observable(0.27) { chestConfigSet = false }
 
         @Comment("Chest feature physics damping")
         var damping: @DecimalRange(0.0, 1.0)  Float  by observable(0.375f) { chestConfigSet = false }
-
     }
 
     @Comment("Settings for the dreamn block")

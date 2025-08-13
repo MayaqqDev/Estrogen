@@ -61,7 +61,7 @@ class Physics {
             this.active = false
             return
         }
-        val SPRING_COEFFICIENT: Float = 1.0f / (chestConfig.bounciness * 10.0f)
+        val SPRING_COEFFICIENT: Float = 1.0f / (chestConfig.bounciness.toFloat() * 10.0f)
         val DAMPING_COEFFICIENT: Float = chestConfig.damping
 
         this.previousPosition = player.position()

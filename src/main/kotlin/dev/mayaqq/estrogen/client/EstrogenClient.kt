@@ -30,6 +30,7 @@ import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.injection.chestConfig
 import dev.mayaqq.estrogen.network.EstrogenNetwork
+import dev.mayaqq.estrogen.network.messages.c2s.FinishedLoadingPacket
 import dev.mayaqq.estrogen.network.messages.c2s.SetChestConfigPacket
 import net.minecraft.client.Minecraft
 import net.minecraft.world.entity.EntityType
@@ -72,9 +73,9 @@ internal fun ticking(event: ClientTickEvent) {
     //TODO: THIS
     if (!chestConfigSet) {
         val player = Minecraft.getInstance().player ?: return
-        val config = ChestConfig(EstrogenClientConfig.ChestFeature.enabled, EstrogenClientConfig.ChestFeature.armor, EstrogenClientConfig.ChestFeature.physics, EstrogenClientConfig.ChestFeature.bounciness.toFloat(), EstrogenClientConfig.ChestFeature.damping)
+        val config = ChestConfig(EstrogenClientConfig.ChestFeature.enabled, EstrogenClientConfig.ChestFeature.armor, EstrogenClientConfig.ChestFeature.physics, EstrogenClientConfig.ChestFeature.bounciness, EstrogenClientConfig.ChestFeature.damping)
         player.chestConfig = config
-        EstrogenNetwork.sendToServer(SetChestConfigPacket(config))
+        ChestConfig.sync()
         chestConfigSet = true
     }
 }
