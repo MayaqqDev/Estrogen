@@ -90,8 +90,6 @@ cloche {
 
             modCompileOnly(libs.kritter)
             modCompileOnly(libs.cynosure)
-
-            implementation(libs.mixinConstrains)
         }
     }
 
@@ -106,8 +104,6 @@ cloche {
         include(libs.fabric.kritter)
         include(libs.fabric.flywheel)
         //include(libs.fabric.kittyconfig)
-
-        include(libs.mixinConstrains)
 
         includedClient() // includedClient() is not a run
         runs {
@@ -163,7 +159,6 @@ cloche {
             modImplementation(libs.fabric.kritter)
             //modApi(libs.fabric.kittyconfig)
             modApi(libs.fabric.botarium)
-            implementation(libs.mixinConstrains)
 
             when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -214,7 +209,6 @@ cloche {
         include(libs.forge.baubly) { exclude(group = "me.shedaniel") }
         include(libs.forge.mixinExtras)
         include(libs.forge.kritter)
-        include(libs.mixinConstrains)
 
         metadata {
             modLoader = ""
@@ -241,7 +235,6 @@ cloche {
             modImplementation(libs.forge.kritter)
             //modApi(libs.forge.kittyconfig)
             modApi(libs.forge.botarium)
-            implementation(libs.mixinConstrains)
 
             when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)
