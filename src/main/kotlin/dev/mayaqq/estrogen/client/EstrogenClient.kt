@@ -70,7 +70,7 @@ internal fun registerParticleRenderTypes(event: ParticleRenderTypeRegistrationEv
 
 @Subscription
 internal fun ticking(event: ClientTickEvent) {
-    //TODO: THIS
+    //Meh good enough
     if (!chestConfigSet) {
         val player = Minecraft.getInstance().player ?: return
         val config = ChestConfig(EstrogenClientConfig.ChestFeature.enabled, EstrogenClientConfig.ChestFeature.armor, EstrogenClientConfig.ChestFeature.physics, EstrogenClientConfig.ChestFeature.bounciness, EstrogenClientConfig.ChestFeature.damping)

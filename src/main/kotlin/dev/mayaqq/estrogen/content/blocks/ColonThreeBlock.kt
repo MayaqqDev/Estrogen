@@ -8,7 +8,6 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockState
 
-//TODO: Hide recipe for this from Recipe Viewers
 class ColonThreeBlock(properties: Properties) : Block(properties) {
     override fun randomTick(state: BlockState, level: ServerLevel, pos: BlockPos, random: RandomSource) {
         if (random.nextInt(10) == 0) {
