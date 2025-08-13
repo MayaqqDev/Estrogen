@@ -205,7 +205,7 @@ cloche {
     }
 
     forge {
-        mixins.from(file("src/main/estrogen.mixins.json"))
+        mixins.from(file("src/main/estrogen.mixins.json"), file("src/forge/estrogen-forge.mixins.json"))
         accessWideners.from(file("src/main/estrogen.accessWidener"))
 
         loaderVersion = libs.versions.forge.get()

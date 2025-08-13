@@ -1,10 +1,9 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "dev.mayaqq.estrogen.fabric.mixins",
+  "package": "dev.mayaqq.estrogen.forge.mixins",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "PackInvoker",
     "SpongeBlockMixin"
   ],
   "client": [

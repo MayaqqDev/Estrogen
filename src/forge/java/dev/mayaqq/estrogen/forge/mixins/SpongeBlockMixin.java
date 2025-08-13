@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.mixin.fabric;
+package dev.mayaqq.estrogen.forge.mixins;
 
 import dev.mayaqq.estrogen.content.EstrogenTags;
 import dev.mayaqq.estrogen.content.recipes.SpongingRecipe;
@@ -23,11 +23,11 @@ public class SpongeBlockMixin {
             ),
             cancellable = true
     )
-    private static void inject(BlockPos center, Level level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+    private static void inject(BlockPos center, Level level, BlockState state, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         BlockState blockState = level.getBlockState(pos);
         FluidState fluidState = level.getFluidState(pos);
-        if (fluidState.is(EstrogenTags.Fluids.INSTANCE.getSPONGE_IGNORING())) cir.setReturnValue(false);
         BlockState suckedUp = SpongingRecipe.onSuckUp(blockState, fluidState, center, level, pos);
+        if (fluidState.is(EstrogenTags.Fluids.INSTANCE.getSPONGE_IGNORING())) cir.setReturnValue(false);
         if (suckedUp != null) {
             level.setBlock(pos, suckedUp, 3);
             cir.setReturnValue(true);
