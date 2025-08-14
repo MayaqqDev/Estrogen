@@ -7,3 +7,4 @@
 - Doubled Default Time it takes for patches to Drain
 - Dream Catcher
 - Sponging Recipe
+- Vanilla Unbalanced Datapack for when no extra modules installed.
