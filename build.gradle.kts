@@ -59,7 +59,7 @@ cloche {
         name = "Estrogen"
         description = "Create Addon Based around expressing yourself, fluid handling and expanding your factory. This mod adds a lot of new Items, Blocks, Mechanics and more!"
         license = "LGPL-3.0"
-        icon = "assets/estrogen/icon.png"
+        icon = "icon.png"
         url = "https://github.com/MayaqqDev/Estrogen"
         sources = "https://github.com/MayaqqDev/Estrogen"
         author("Mayaqq")
