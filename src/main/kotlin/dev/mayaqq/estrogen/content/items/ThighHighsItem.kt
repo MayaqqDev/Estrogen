@@ -1,6 +1,11 @@
 package dev.mayaqq.estrogen.content.items
 
 import com.google.common.collect.Multimap
+import dev.mayaqq.cynosure.text.Text
+import dev.mayaqq.cynosure.text.TextStyle.color
+import dev.mayaqq.cynosure.text.TextStyle.italic
+import dev.mayaqq.cynosure.utils.colors.McGray
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ThighHighStylesPacket
@@ -100,12 +105,15 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
     }
 
     override fun appendHoverText(stack: ItemStack, level: Level?, list: MutableList<Component>, flags: TooltipFlag) {
-        getStyle(stack)?.let {
-            list.add(1, Component.translatable(it.toLanguageKey("tooltip.thigh_highs")))
-        }?: list.add(1, Component.translatable("item.dyed").withStyle(
-            ChatFormatting.GRAY,
-            ChatFormatting.ITALIC
-        ))
+        getStyle(stack)?.let { style ->
+            list.add(1,
+                Component.translatable(style.toLanguageKey("tooltip.thigh_highs"))
+            )} ?:
+            list.add(1,
+            Text.translatable(if (hasCustomColor(stack)) "item.dyed" else "estrogen.item.dyeable") {
+                color = McGray;
+                italic = true
+            })
     }
 
     override fun getModifiers(defaultModifiers: Multimap<Attribute, AttributeModifier>, stack: ItemStack, slot: SlotInfo, uuid: UUID): Multimap<Attribute, AttributeModifier> {

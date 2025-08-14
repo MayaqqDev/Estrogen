@@ -39,7 +39,7 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add(EstrogenItems.MothFuzz, "Moth Fuzz")
         tb.add(BuiltInRegistries.ITEM.get(id("moth_spawn_egg")), "Rosy Maple Moth Spawn Egg")
         tb.add(EstrogenItems.ThighHighs, "Thigh Highs")
-        tb.add("item.estrogen.thigh_highs.desc", "§7§oDyeable")
+        tb.add("estrogen.item.dyeable", "Dyeable")
         tb.add(EstrogenItems.MothElytra, "Rosy Maple Elytra")
         tb.add(EstrogenItems.GenderChangePotion, "Gender Change Potion")
         tb.add("estrogen.item.transfer_dummy", "Create: Estrogen item")
