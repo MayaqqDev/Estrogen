@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen
 
 //import dev.mayaqq.estrogen.config.Instance
 //import uwu.serenity.kittyconfig.api.defaults.load
+import dev.mayaqq.cynosure.data.registerDatapackReloadListener
 import dev.mayaqq.cynosure.events.PostInitEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
@@ -9,6 +10,7 @@ import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.*
+import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLoader
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
@@ -52,6 +54,8 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         EstrogenPoiTypes.register()
 
         info("Injecting Estrogen into your veins!")
+
+        registerDatapackReloadListener(id("thigh_high_styles"), ThighHighStyleLoader)
 
         EstrogenNetwork
     }
