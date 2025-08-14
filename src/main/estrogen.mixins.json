@@ -22,6 +22,7 @@
     "client.MinecraftMixin",
     "client.PlayerModelMixin",
     "client.ReceivingLevelScreenMixin",
+    "client.ClientTextTooltipMixin",
     "client.accessor.ItemPropertiesAccessor",
     "client.accessor.LevelRendererAccessor",
     "client.accessor.LiquidBlockAccessor"
