@@ -15,9 +15,17 @@ object TextRendererFeatures {
     var obfuscate: Boolean = false
         private set
 
+    private var uwufyInternal: Boolean = false
+
     @JvmStatic
-    var uwufy: Boolean = false
-        private set
+    var uwufy: Boolean
+        get() = uwufyInternal
+        private set(value) {
+            uwufyInternal = value
+            dirty = true
+        }
+
+    private var dirty: Boolean = false
 
     @Subscription
     fun onTick(event: ClientTickEvent.End) {
@@ -27,6 +35,9 @@ object TextRendererFeatures {
         } else {
             uwufy = client.player!!.inventory.contains(EstrogenTags.Items.UWUFYING)
             obfuscate = client.player!!.hasEffect(EstrogenEffects.Dreaming)
+        }
+        if (dirty) {
+            dirty = false
             client.updateTitle()
         }
     }

@@ -15,18 +15,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Player.class)
-public abstract class PlayerMixin extends LivingEntity implements IPlayer {
-
+public abstract class PlayerMixin implements IPlayer {
     @Unique
     @Nullable
     private ChestConfig estrogen$chestConfig;
 
    @Unique
    private long estrogen$lastFlap = 0;
-
-    protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level level) {
-        super(entityType, level);
-    }
 
     @Override
     public @Nullable ChestConfig estrogen$getChestConfig() {
@@ -40,7 +35,7 @@ public abstract class PlayerMixin extends LivingEntity implements IPlayer {
 
     @Inject(method = "jumpFromGround()V", at = @At("HEAD"), cancellable = true)
     private void jumpFromGround(CallbackInfo callbackInfo) {
-        if (CommonDash.INSTANCE.isDashing(getUUID())) callbackInfo.cancel();
+        if (CommonDash.INSTANCE.isDashing(((Player) (Object) this).getUUID())) callbackInfo.cancel();
     }
 
     @Override

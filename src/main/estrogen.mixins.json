@@ -10,12 +10,13 @@
     "EntityMixin",
     "ItemParserMixin",
     "PlayerMixin",
-    "PistonMovingBlockEntityMixin",
+    "PistonMovingBlockEntityMixin"
   ],
   "client": [
     "client.AdvancementTabMixin",
     "client.ClientPacketListenerMixin",
     "client.FontStringRenderOutputMixin",
+    "client.FontMixin",
     "client.HumanoidMobRendererMixin",
     "client.ItemPropertiesMixin",
     "client.MinecraftMixin",
