@@ -98,7 +98,7 @@ fabric-botarium = { module = "earth.terrarium.botarium:botarium-fabric-1.20.1", 
 
 
 # Forge depencencies
-forge-kotlin = { module = "dev.nyon:KotlinLangForge", version.ref = "klf" }
+forge-kotlin = { module = "thedarkcolour:kotlinforforge", version.ref = "kff" }
 forge-create = { module = "com.simibubi.create:create-1.20.1", version.ref = "create_forge" }
 forge-baubly = { module = "earth.terrarium.baubly:baubly-forge-1.20.1", version.ref = "baubly" }
 forge-emi = { module = "dev.emi:emi-forge", version.ref = "emi" }

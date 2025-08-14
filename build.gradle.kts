@@ -211,7 +211,8 @@ cloche {
         include(libs.forge.kritter)
 
         metadata {
-            modLoader = ""
+            modLoader = "kotlinforforge"
+            loaderVersion("4.11")
             blurLogo = false
             modProperty("catalogueItemIcon", "estrogen:estrogen_pill")
             modProperty("catalogueBackground", "estrogen_background.png")

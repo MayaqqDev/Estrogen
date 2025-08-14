@@ -8,7 +8,6 @@
   ],
   "client": [
   ],
-  "plugin": "dev.mayaqq.estrogen.utils.EstrogenMixinPlugin",
   "injectors": {
     "defaultRequire": 1
   }

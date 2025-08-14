@@ -1,25 +1,29 @@
 package dev.mayaqq.estrogen.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.mayaqq.estrogen.content.blocks.FiltratedHorseUrineCauldron;
 import net.minecraft.world.level.block.piston.PistonMovingBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(PistonMovingBlockEntity.class)
 public class PistonMovingBlockEntityMixin {
-    @ModifyVariable(
+    @WrapOperation(
             method = "<init>(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;ZZ)V",
-            at = @At(value = "CTOR_HEAD", args="enforce=POST_DELEGATE", ordinal = 2),
-            argsOnly = true,
-            ordinal = 1
+            at = @At(
+                    value = "FIELD",
+                    opcode = Opcodes.PUTFIELD,
+                    target = "Lnet/minecraft/world/level/block/piston/PistonMovingBlockEntity;movedState:Lnet/minecraft/world/level/block/state/BlockState;"
+            )
     )
-    private BlockState modify(BlockState original) {
+    private void modify(PistonMovingBlockEntity entity, BlockState original, Operation<BlockState> operation) {
         if (original.getBlock() instanceof FiltratedHorseUrineCauldron block) {
-            return block.progress(original);
+            operation.call(entity, block.progress(original));
         } else {
-            return original;
+            operation.call(entity, original);
         }
     }
 }
