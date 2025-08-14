@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "apa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "p": {
+      "item": "estrogen:estrogen_pill"
+    }
+  },
+  "result": {
+    "item": "estrogen:crystal_estrogen_pill",
+    "count": 1
+  },
+  "show_notification": true
+}

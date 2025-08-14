@@ -6,4 +6,4 @@
 - Moth Elytra Flapping
 - Doubled Default Time it takes for patches to Drain
 - Dream Catcher
-- Moth Wool Carpets renamed to just Moth Carpets
+- Sponging Recipe

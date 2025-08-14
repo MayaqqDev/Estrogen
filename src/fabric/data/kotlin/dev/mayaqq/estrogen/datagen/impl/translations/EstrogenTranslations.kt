@@ -293,6 +293,10 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("gui.estrogen.cosmetics.claim.forbidden", "Failed, code was already claimed.")
         tb.add("gui.estrogen.cosmetics.claim.not_found", "Failed, code is invalid.")
         tb.add("gui.estrogen.cosmetics.claim.failed", "Unknown error occurred while claiming.")
+
+        // Datapacks
+        tb.add("datapacks.estrogen.vanillamode", "§eVanilla§7: §3Estrogen")
+        tb.add("datapack.estrogen.vanillamode", "§lExtra§r Unbalanced Recipes for Estrogen mod")
     }
 
     private fun thighHigh(builder: TranslationBuilder, styleName: String?, value: String?) {

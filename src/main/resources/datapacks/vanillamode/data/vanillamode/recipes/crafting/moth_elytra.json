@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "fff",
+    "fpf",
+    "fff"
+  ],
+  "key": {
+    "f": {
+      "item": "estrogen:moth_fuzz"
+    },
+    "p": {
+      "item": "minecraft:elytra"
+    }
+  },
+  "result": {
+    "item": "estrogen:moth_elytra",
+    "count": 1
+  },
+  "show_notification": true
+}

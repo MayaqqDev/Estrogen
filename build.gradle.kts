@@ -64,6 +64,7 @@ cloche {
         sources = "https://github.com/MayaqqDev/Estrogen"
         author("Mayaqq")
         contributor("https://github.com/MayaqqDev/Estrogen/wiki/Credits")
+
     }
 
     mappings {
@@ -139,6 +140,7 @@ cloche {
                     "background" to "estrogen_background.png",
                     "configFactory" to "dev.mayaqq.estrogen.fabric.integrations.catalogue.CatalogueCompat"
                 ))
+                custom("cynosure:datapacks", listOf("vanillamode"))
             }
         }
 
@@ -216,6 +218,7 @@ cloche {
             blurLogo = false
             modProperty("catalogueItemIcon", "estrogen:estrogen_pill")
             modProperty("catalogueBackground", "estrogen_background.png")
+            modProperty("cynosure:datapacks", listOf("vanillamode"))
         }
 
         runs {

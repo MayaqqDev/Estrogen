@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "pdb",
+    "awz",
+    "roi"
+  ],
+  "key": {
+    "w": {
+      "item": "minecraft:water_bottle"
+    },
+    "p": {
+      "item": "minecraft:poppy"
+    },
+    "d": {
+      "item": "minecraft:dandelion"
+    },
+    "b": {
+      "item": "minecraft:blue_orchid"
+    },
+    "a": {
+      "item": "minecraft:allium"
+    },
+    "z": {
+      "item": "minecraft:azure_bluet"
+    },
+    "r": {
+      "item": "minecraft:red_tulip"
+    },
+    "o": {
+      "item": "minecraft:orange_tulip"
+    },
+    "i": {
+      "item": "minecraft:pink_tulip"
+    }
+  },
+  "result": {
+    "item": "estrogen:gender_change_potion",
+    "count": 1
+  },
+  "show_notification": true
+}
