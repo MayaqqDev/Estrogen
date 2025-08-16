@@ -198,6 +198,10 @@ cloche {
                 adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.compat.jei.JeiEstrogenPlugin")
             }
+            entrypoint("modmenu") {
+                adapter.set("kotlin")
+                value.set("dev.mayaqq.estrogen.fabric.compat.ModMenuIntegration")
+            }
         }
     }
 

@@ -9,5 +9,7 @@ public abstract class EstrogenModule {
 
     public abstract val flags: Array<EstrogenFlag>
 
-    public fun hasFlag(flag: EstrogenFlag): Boolean = flags.contains(flag)
+    public fun hasFlag(flag: EstrogenFlag): Boolean {
+        return flags.contains(flag) || flags.any { it.inheritedFlags.contains(flag) }
+    }
 }

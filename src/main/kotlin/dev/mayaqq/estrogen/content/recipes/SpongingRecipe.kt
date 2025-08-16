@@ -38,7 +38,6 @@ import net.minecraft.world.level.material.Fluids
 
 class SpongingRecipe(val recipeId: ResourceLocation, val input: Either<Block, TagKey<Fluid>>, val output: ResourceLocation) : Recipe<FluidData> {
     override fun matches(data: FluidData, level: Level): Boolean {
-        if (anyModuleHasFlag(EstrogenFlag.DISABLES_SPONGING_RECIPE)) return false
         if (data.fluid.`is`(Fluids.EMPTY)) return false
         if (input.isLeft) {
             val fluidBlock = input.left!!
