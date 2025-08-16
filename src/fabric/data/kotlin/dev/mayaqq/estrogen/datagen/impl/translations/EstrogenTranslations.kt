@@ -234,6 +234,7 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("estrogen.button.config", "Config")
         tb.add("estrogen.button.module_configs", "Modules")
         tb.add("estrogen.button.cosmetics","Cosmetics")
+        tb.add("estrogen.button.colon_three", ":3")
         tb.add("estrogen.button.close", "Close")
 
         // Curios :eyeroll:
