@@ -2,7 +2,9 @@ package dev.mayaqq.estrogen.content.blocks
 
 import dev.mayaqq.cynosure.core.isClient
 import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.estrogen.api.EstrogenFlag
 import dev.mayaqq.estrogen.content.EstrogenBlocks
+import dev.mayaqq.estrogen.modules.anyModuleHasFlag
 import net.minecraft.core.BlockPos
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.util.RandomSource
@@ -21,6 +23,7 @@ class FiltratedHorseUrineCauldron(properties: Properties, interactions: Map<Item
     }
 
     fun progress(state: BlockState, level: LevelAccessor): BlockState {
+        if (anyModuleHasFlag(EstrogenFlag.DISABLES_CAULDRON_ESTROGEN)) return state
         if (level.random.nextInt(3) == 1 && !level.isClientSide) {
             val newState = state.cycle(PROGRESS)
             return if (newState.getValue(PROGRESS) == 5) {
