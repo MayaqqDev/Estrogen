@@ -64,7 +64,6 @@ cloche {
         sources = "https://github.com/MayaqqDev/Estrogen"
         author("Mayaqq")
         contributor("https://github.com/MayaqqDev/Estrogen/wiki/Credits")
-
     }
 
     mappings {
@@ -201,6 +200,10 @@ cloche {
             entrypoint("modmenu") {
                 adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.fabric.compat.ModMenuIntegration")
+            }
+            entrypoint("estrogen") {
+                adapter.set("kotlin")
+                value.set("dev.mayaqq.estrogen.Estrogen")
             }
         }
     }
