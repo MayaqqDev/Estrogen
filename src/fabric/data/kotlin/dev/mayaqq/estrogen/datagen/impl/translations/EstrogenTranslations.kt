@@ -231,6 +231,10 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
 
         // Menu Screen
         tb.add("estrogen.screen.menu.title", "Estrogen Menu")
+        tb.add("estrogen.button.config", "Config")
+        tb.add("estrogen.button.module_configs", "Modules")
+        tb.add("estrogen.button.cosmetics","Cosmetics")
+        tb.add("estrogen.button.close", "Close")
 
         // Curios :eyeroll:
         tb.add("curios.modifiers.thighs", "Thigh High Modifiers")
