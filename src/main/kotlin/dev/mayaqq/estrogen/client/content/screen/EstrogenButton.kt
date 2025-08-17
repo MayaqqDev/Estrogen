@@ -20,7 +20,7 @@ class EstrogenButton(
     y: Int,
     width: Int,
     height: Int,
-    val renderer: Renderer,
+    val renderers: Array<Renderer>,
     onPress: OnPress,
     createNarration: CreateNarration,
     val color: Color
@@ -30,12 +30,17 @@ class EstrogenButton(
         graphics.fill(x, y, x + width, y + height, -0x2FEFEFF0)
         graphics.renderOutline(x + 1, y + 1, width - 2, height - 2,  if (isHoveredOrFocused) Yellow.toInt() else color.toInt())
 
-        with(renderer) {
-            this@EstrogenButton.renderComponents(graphics, mouseX, mouseY, partialTick)
+        renderers.forEach {
+            with(it) {
+                this@EstrogenButton.renderComponents(graphics, mouseX, mouseY, partialTick)
+            }
         }
     }
 
-    class Builder(private val renderer: Renderer, private val onPress: OnPress) {
+    class Builder(vararg renderers: Renderer, private val onPress: OnPress) {
+
+        private var renderers = arrayOf(*renderers)
+
         private var tooltip: Tooltip? = null
         private var x = 0
         private var y = 0
@@ -90,7 +95,7 @@ class EstrogenButton(
                 this.y,
                 this.width,
                 this.height,
-                this.renderer,
+                this.renderers,
                 this.onPress,
                 this.createNarration,
                 this.color

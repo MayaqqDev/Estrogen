@@ -77,4 +77,5 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
     override fun createConfigScreen(): (Screen) -> Screen = { EstrogenMenuScreen(it) }
     override val flags: Array<EstrogenFlag> = arrayOf()
     override val color: Color = LightBlue
+    override val description: String = "Base Estrogen, contains some recipes + a build-in datapack for vanilla integration."
 }

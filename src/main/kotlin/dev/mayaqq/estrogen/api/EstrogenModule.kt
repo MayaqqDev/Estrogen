@@ -12,6 +12,8 @@ public interface EstrogenModule {
 
     public val color: Color
 
+    public val description: String
+
     public fun hasFlag(flag: EstrogenFlag): Boolean {
         return flags.contains(flag) || flags.any { it.inheritedFlags.contains(flag) }
     }
