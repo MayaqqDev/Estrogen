@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderType.CompositeState
 
 object EstrogenRenderTypes {
-
     val DREAM_BLOCK: RenderType = RenderType.create(
         "estrogen:dream_block",
         DefaultVertexFormat.BLOCK,
@@ -19,12 +18,10 @@ object EstrogenRenderTypes {
         false,
         false,
         CompositeState.builder()
-            .setShaderState(EstrogenRenderer.CeaselessShaderShard(EstrogenRenderer::dreamBlockShader))
+            .setShaderState(RenderStateShard.ShaderStateShard(EstrogenRenderer::dreamBlockShader))
             .setTextureState(RenderStateShard.TextureStateShard(DynamicDreamTexture.ID, false, false))
             .setOutputState(EstrogenRenderer.SHADER_BYPASS)
             .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
             .createCompositeState(false)
     ).fixed(BufferOutputStage.BLOCK_ENTITY)
-
-    class CustomRenderType
 }
