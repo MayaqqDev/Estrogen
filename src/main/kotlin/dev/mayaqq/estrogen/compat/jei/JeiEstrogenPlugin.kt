@@ -1,19 +1,11 @@
 package dev.mayaqq.estrogen.compat.jei
 
 import dev.mayaqq.cynosure.text.Text
-import dev.mayaqq.cynosure.utils.isLeft
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
-import dev.mayaqq.estrogen.compat.jei.JeiEstrogenPlugin.recipeTypes
-import dev.mayaqq.estrogen.compat.jei.recipes.EntityInteractionJeiRecipe
-import dev.mayaqq.estrogen.compat.jei.recipes.SpongingJeiRecipe
-import dev.mayaqq.estrogen.compat.jei.recipes.SpongingJeiRecipe.first
 import dev.mayaqq.estrogen.compat.recipeviewers.GenericRecipeViewerPlugin
 import dev.mayaqq.estrogen.compat.recipeviewers.base.RVRecipe
 import dev.mayaqq.estrogen.compat.recipeviewers.base.Role
-import dev.mayaqq.estrogen.content.EstrogenBlocks
-import dev.mayaqq.estrogen.content.EstrogenRecipes
-import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.exceptions.EmptyTagException
 import mezz.jei.api.IModPlugin
