@@ -45,8 +45,8 @@ object EmiEstrogenPlugin : EmiPlugin {
                             widgets.addSlot(slot.ingredient.toEmi(), slot.x, slot.y).withBackground(slot.background)
                         }
                         rvrecipe.drawables.forEach { drawable ->
-                            widgets.addDrawable(drawable.x, drawable.y, 0, 0) {graphics, offsetX, offsetY, partialTick  ->
-                                drawable.coorded.draw(graphics, offsetX, offsetY, partialTick)
+                            widgets.addDrawable(drawable.x, drawable.y, 0, 0) {graphics, mouseX, mouseY, partialTick  ->
+                                drawable.coorded.draw(graphics, 0, 0, mouseX, mouseY, partialTick)
                             }
                         }
                     }

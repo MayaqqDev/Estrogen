@@ -23,7 +23,7 @@ abstract class RVRecipe<T : Recipe<*>>(
     abstract fun catalysts(): List<RvIngredient>
 
     fun addTexture(texture: RecipeTextures, x: Int, y: Int) = textures.add(ObjectWithCoords(texture, x, y))
-    fun addSlot(rvIngredient: RvIngredient, x: Int, y: Int): Slot = Slot(rvIngredient, x, y).apply { slots.add(this) }
+    fun addSlot(rvIngredient: RvIngredient, x: Int, y: Int, role: Role): Slot = Slot(rvIngredient, x, y, role).apply { slots.add(this) }
     fun addDrawable(x: Int, y: Int, drawable: RvDrawable) = drawables.add(ObjectWithCoords(drawable, x, y))
 
     data class ObjectWithCoords<T>(val coorded: T, val x: Int, val y: Int)
@@ -31,6 +31,13 @@ abstract class RVRecipe<T : Recipe<*>>(
 
 }
 
-open class RvRecipeData<T : Recipe<*>, C : RVRecipe<T>>(val info: RecipeViewerInfo, val recipeClass: KClass<C>)
+open class RvRecipeData<T : Recipe<*>, C : RVRecipe<T>>(val info: RecipeViewerInfo, val recipeClass: KClass<C> , val actualRecipeClass: KClass<T>)
 
-class Slot(var ingredient: RvIngredient, var x: Int, var y: Int, var background: RecipeTextures = RecipeTextures.JEI_SLOT)
+class Slot(var ingredient: RvIngredient, var x: Int, var y: Int, var role: Role, var background: RecipeTextures = RecipeTextures.JEI_SLOT)
+
+enum class Role {
+    INPUT,
+    OUTPUT,
+    CATALYST,
+    RENDER_ONLY
+}

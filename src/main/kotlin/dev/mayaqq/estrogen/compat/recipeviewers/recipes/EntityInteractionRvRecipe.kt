@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.compat.recipeviewers.recipes
 
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.base.RVRecipe
+import dev.mayaqq.estrogen.compat.recipeviewers.base.Role
 import dev.mayaqq.estrogen.compat.recipeviewers.base.RvRecipeData
 import dev.mayaqq.estrogen.compat.recipeviewers.base.ingredient.RvIngredient
 import dev.mayaqq.estrogen.content.EstrogenRecipes
@@ -22,12 +23,12 @@ class EntityInteractionRvRecipe(recipe: EntityInteractionRecipe) : RVRecipe<Enti
         addTexture(RecipeTextures.JEI_DOWN_ARROW, 74, 10)
 
         val matchingStacks: Array<ItemStack> = recipe.entity.getSpawnEggs().toTypedArray()
-        val eggs = addSlot(RvIngredient.of(Ingredient.of(*matchingStacks)), 27, 38)
+        val eggs = addSlot(RvIngredient.of(Ingredient.of(*matchingStacks)), 27, 38, Role.RENDER_ONLY)
 
-        addSlot(inputs()[0], 51, 5)
-        addSlot(outputs()[0], 132, 38)
+        addSlot(inputs()[0], 51, 5, Role.INPUT)
+        addSlot(outputs()[0], 132, 38, Role.OUTPUT)
 
-        addDrawable(0, 0) { matrices, mouseX, mouseY, delta ->
+        addDrawable(0, 0) { matrices, offsetX, offsetY, mouseX, mouseY, delta ->
             val item = (System.currentTimeMillis() / 1000 % eggs.ingredient.size).toInt()
             val current = eggs.ingredient
             val stack = current.items.first()
@@ -52,6 +53,9 @@ class EntityInteractionRvRecipe(recipe: EntityInteractionRecipe) : RVRecipe<Enti
     override fun outputs(): List<RvIngredient> = listOf(RvIngredient.of(recipe.result))
     override fun catalysts(): List<RvIngredient> = listOf()
 
-    companion object : RvRecipeData<EntityInteractionRecipe, EntityInteractionRvRecipe>(EntityInteractionRecipe, EntityInteractionRvRecipe::class)
+    companion object : RvRecipeData<EntityInteractionRecipe, EntityInteractionRvRecipe>(
+        EntityInteractionRecipe,
+        EntityInteractionRvRecipe::class,
+        EntityInteractionRecipe::class)
 
 }
