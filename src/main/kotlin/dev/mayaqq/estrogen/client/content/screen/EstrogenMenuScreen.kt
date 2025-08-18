@@ -20,7 +20,7 @@ import net.minecraft.sounds.SoundEvents
 
 class EstrogenMenuScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.translatable("estrogen.screen.menu.title")) {
 
-    override fun isPauseScreen(): Boolean = false
+    override fun isPauseScreen(): Boolean = true
 
     val titleText = Text.of("Estrogen") {
         color = LightBlue

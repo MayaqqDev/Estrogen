@@ -71,7 +71,7 @@ class ModulesScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.of("e
         )
     }
 
-    override fun isPauseScreen(): Boolean = false
+    override fun isPauseScreen(): Boolean = true
 
     override fun mouseScrolled(mouseX: Double, mouseY: Double, delta: Double): Boolean {
         if (scrollProgress + delta > 0.0 && scrollProgress + delta < (modules.size * (10 + buttonWidth) - width + 30)) {
