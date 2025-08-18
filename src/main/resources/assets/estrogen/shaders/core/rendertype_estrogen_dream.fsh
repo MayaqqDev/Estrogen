@@ -3,7 +3,7 @@
 #moj_import <matrix.glsl>
 
 uniform sampler2D Sampler0;
-uniform float GameTime;
+uniform float CeaselessGameTime;
 
 in vec4 vertexColor;
 in vec4 texProj0;
@@ -19,7 +19,7 @@ const mat4 SCALE_TRANSLATE = mat4(
 mat4 dreamBlockLayer(float layer) {
     mat4 translate = mat4(
         1.0, 0.0, 0.0, 17.0 / layer,
-        0.0, 1.0, 0.0, (2.0 + layer / 1.5) * (GameTime * 3.5),
+        0.0, 1.0, 0.0, (2.0 + layer / 1.5) * (CeaselessGameTime * 3.5),
         0.0, 0.0, 1.0, 0.0,
         0.0, 0.0, 0.0, 1.0
     );
