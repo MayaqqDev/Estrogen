@@ -1,0 +1,94 @@
+package dev.mayaqq.estrogen.client.content.screen
+
+import com.mojang.blaze3d.systems.RenderSystem
+import com.mojang.blaze3d.vertex.BufferBuilder
+import com.mojang.blaze3d.vertex.BufferUploader
+import com.mojang.blaze3d.vertex.DefaultVertexFormat
+import com.mojang.blaze3d.vertex.Tesselator
+import com.mojang.blaze3d.vertex.VertexFormat
+import dev.mayaqq.cynosure.helpers.McClient
+import dev.mayaqq.cynosure.text.Text
+import dev.mayaqq.cynosure.text.TextStyle.bold
+import dev.mayaqq.cynosure.text.TextStyle.color
+import dev.mayaqq.cynosure.utils.colors.Red
+import dev.mayaqq.estrogen.client.content.EstrogenRenderer
+import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture
+import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture.ID
+import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.screens.Screen
+import net.minecraft.client.renderer.LightTexture
+import net.minecraft.network.chat.Component
+import org.joml.Matrix4f
+
+abstract class BaseEstrogenScreen(val previous: Screen?, title: Component) : Screen(title) {
+
+    val closeButton = EstrogenButton.Builder(EstrogenButton.TextRenderer(Text.of("X") {
+        color = Red
+        bold = true
+    })) {
+        McClient.setScreen(null)
+    }
+
+    abstract fun baseInit()
+
+    override fun init() {
+        if (shouldGenerateNewTexture) {
+            DynamicDreamTexture.prepare()
+            DynamicDreamTexture.changeSeed(0xB00B5)
+            generatedTexture = true
+        }
+        baseInit()
+        val buttonSize = 25
+        val cornerOffset = 10
+        closeButton.bounds(width - buttonSize - cornerOffset, height - buttonSize - cornerOffset, buttonSize, buttonSize).buildAndAdd()
+    }
+
+    override fun render(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+        renderBackground(graphics)
+        baseRender(graphics, mouseX, mouseY, partialTick)
+        super.render(graphics, mouseX, mouseY, partialTick)
+    }
+
+    abstract fun baseRender(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float)
+
+    fun EstrogenButton.Builder.buildAndAdd() {
+        addRenderableWidget(this.build())
+    }
+
+    override fun renderBackground(gui: GuiGraphics) {
+        renderDream(gui, 0, width, 0, height)
+        gui.fillGradient(0, 0, this.width, this.height, -1072689136, -804253680)
+    }
+
+    private fun renderDream(graphics: GuiGraphics, minX: Int, maxX: Int, minY: Int, maxY: Int) {
+        RenderSystem.setShaderTexture(0, ID)
+        RenderSystem.setShader(EstrogenRenderer::dreamBlockShader)
+        val bufferBuilder = Tesselator.getInstance().builder
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK)
+        dreamVertex(bufferBuilder, graphics.pose().last().pose(), minX, minY)
+        dreamVertex(bufferBuilder, graphics.pose().last().pose(), minX, maxY)
+        dreamVertex(bufferBuilder, graphics.pose().last().pose(), maxX, maxY)
+        dreamVertex(bufferBuilder, graphics.pose().last().pose(), maxX, minY)
+        BufferUploader.drawWithShader(bufferBuilder.end())
+    }
+
+    private fun dreamVertex(bufferBuilder: BufferBuilder, pose: Matrix4f, x: Int, y: Int) {
+        bufferBuilder.vertex(pose, x.toFloat(), y.toFloat(), 0f)
+            .color(0, 0, 0, 0)
+            .uv(x.toFloat(), y.toFloat())
+            .uv2(LightTexture.FULL_BRIGHT)
+            .normal(0f, 0f, 0f)
+            .endVertex()
+    }
+
+    override fun shouldCloseOnEsc(): Boolean = true
+    override fun onClose() {
+        if (hasShiftDown()) McClient.setScreen(null) else previous?.let { McClient.setScreen(it) }?: super.onClose()
+    }
+
+    companion object {
+        private var generatedTexture = false
+        private val shouldGenerateNewTexture
+            get() = !generatedTexture && !DynamicDreamTexture.init
+    }
+}

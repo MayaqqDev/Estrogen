@@ -3,7 +3,7 @@
 #moj_import <matrix.glsl>
 
 uniform sampler2D Sampler0;
-uniform float GameTime;
+uniform float CeaselessGameTime;
 
 in vec2 texProj0;
 in vec4 vertexColor;
@@ -16,7 +16,7 @@ void main() {
     float f = 0.2;
     float angle = atan(texProj0.y, texProj0.x);
     float A = vertexColor.x / (2.0 * vertexColor.x * (vertexColor.x - 1.0) + 1.0);
-    float see_through_dist = 0.02 * (sin(7 * angle + 15708 * GameTime) + sin(9 * angle - 14137 * GameTime));
+    float see_through_dist = 0.02 * (sin(7 * angle + 15708 * CeaselessGameTime) + sin(9 * angle - 14137 * CeaselessGameTime));
     if (length(texProj0) < A * (0.3 + see_through_dist)) discard;
     vec3 color;
     if (length(texProj0) < A * (0.32 + see_through_dist)) {
@@ -35,7 +35,7 @@ void main() {
             vec3 plane_point = vec3(texProj0.x * a, texProj0.y * a, f * a);
             float fade = max(1.0 - length(plane_point) / 30.0, 0.0);
             plane_point.xz += vec2(j * 1.618);
-            plane_point.z += GameTime * 8000.0;
+            plane_point.z += CeaselessGameTime * 8000.0;
             vec2 tex_index = plane_point.xz;
             color += texture(Sampler0, tex_index / 10.0).rgb * fade;
         }

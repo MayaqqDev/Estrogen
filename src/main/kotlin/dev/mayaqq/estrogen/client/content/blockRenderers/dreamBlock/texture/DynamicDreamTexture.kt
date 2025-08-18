@@ -22,7 +22,7 @@ internal object DynamicDreamTexture {
     private lateinit var texture: DynamicTexture
     private var seed: Long = 0xB00B5
     private var animationTick = 0
-    private var init = false
+    var init = false
 
     fun prepare() {
         if (init) return

@@ -6,6 +6,7 @@ import dev.mayaqq.estrogen.api.EstrogenEntrypoint
 import dev.mayaqq.estrogen.api.EstrogenModule
 import net.minecraftforge.fml.ModList
 import org.objectweb.asm.Type
+import kotlin.jvm.optionals.getOrNull
 
 actual fun getModules(): Set<ModuleContainer> {
     val list = arrayListOf<ModuleContainer>()
@@ -25,7 +26,8 @@ actual fun getModules(): Set<ModuleContainer> {
                                 data.modId,
                                 data.displayName,
                                 data.description,
-                                data.version.toString()
+                                data.version.toString(),
+                                data.logoFile.getOrNull()
                             )
                         ))
                     }

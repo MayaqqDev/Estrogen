@@ -6,12 +6,19 @@ import dev.mayaqq.cynosure.data.registerDatapackReloadListener
 import dev.mayaqq.cynosure.events.PostInitEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
+import dev.mayaqq.cynosure.utils.colors.Color
+import dev.mayaqq.cynosure.utils.colors.LightBlue
+import dev.mayaqq.estrogen.api.EstrogenEntrypoint
+import dev.mayaqq.estrogen.api.EstrogenFlag
+import dev.mayaqq.estrogen.api.EstrogenModule
+import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLoader
 import dev.mayaqq.estrogen.network.EstrogenNetwork
+import net.minecraft.client.gui.screens.Screen
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
@@ -29,7 +36,8 @@ inline fun id(path: String) = ResourceLocation(MOD_ID, path)
 inline fun mcid(path: String) = ResourceLocation("minecraft", path)
 
 @EventSubscriber
-object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager by RegistryManager(MOD_ID) {
+@EstrogenEntrypoint
+object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager by RegistryManager(MOD_ID), EstrogenModule {
 
     fun init() {
         // TODO: When intellij plugin use the extensions instead of the top-level variants
@@ -65,4 +73,9 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         val key = Estrogen[ResourceKey.create(Registries.ITEM, id("estrogen_pill"))]
         Estrogen.info("Info: $key")
     }
+
+    override fun createConfigScreen(): (Screen) -> Screen = { EstrogenMenuScreen(it) }
+    override val flags: Array<EstrogenFlag> = arrayOf()
+    override val color: Color = LightBlue
+    override val description: String = "Base Estrogen, contains some recipes + a build-in datapack for vanilla integration."
 }

@@ -19,10 +19,12 @@ object EstrogenRenderTypes {
         false,
         false,
         CompositeState.builder()
-            .setShaderState(RenderStateShard.ShaderStateShard(EstrogenRenderer::dreamBlockShader))
+            .setShaderState(EstrogenRenderer.CeaselessShaderShard(EstrogenRenderer::dreamBlockShader))
             .setTextureState(RenderStateShard.TextureStateShard(DynamicDreamTexture.ID, false, false))
             .setOutputState(EstrogenRenderer.SHADER_BYPASS)
             .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
             .createCompositeState(false)
     ).fixed(BufferOutputStage.BLOCK_ENTITY)
+
+    class CustomRenderType
 }

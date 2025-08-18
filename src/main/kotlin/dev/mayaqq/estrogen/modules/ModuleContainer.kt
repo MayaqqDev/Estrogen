@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.modules
 
 import dev.mayaqq.cynosure.core.mod.Mod
+import dev.mayaqq.estrogen.api.EstrogenFlag
 import dev.mayaqq.estrogen.api.EstrogenModule
 
 data class ModuleContainer(
@@ -8,4 +9,6 @@ data class ModuleContainer(
     val mod: Mod,
     val modid: String = mod.modid,
     val modname: String = mod.name
-)
+) {
+    fun hasFlag(flag: EstrogenFlag): Boolean = module.hasFlag(flag)
+}
