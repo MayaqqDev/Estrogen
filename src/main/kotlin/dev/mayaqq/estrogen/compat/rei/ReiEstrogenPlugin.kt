@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.compat.rei
 
+import dev.mayaqq.estrogen.compat.recipeviewers.GenericRecipeViewerPlugin
 import dev.mayaqq.estrogen.compat.rei.recipes.EntityInteractionReiRecipe
 import dev.mayaqq.estrogen.compat.rei.recipes.SpongingReiRecipe
 import dev.mayaqq.estrogen.content.EstrogenBlocks
@@ -31,6 +32,8 @@ object ReiEstrogenPlugin : REIClientPlugin {
 
     @Suppress("UnstableApiUsage")
     override fun registerBasicEntryFiltering(rule: BasicFilteringRule<*>) {
-        rule.hide(EntryStack.of(VanillaEntryTypes.ITEM, EstrogenBlocks.ColonThreeBlock.asItem().defaultInstance))
+        GenericRecipeViewerPlugin.removedFromRecipeViewers.forEach {
+            rule.hide(EntryStack.of(VanillaEntryTypes.ITEM, it))
+        }
     }
 }

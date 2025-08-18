@@ -192,6 +192,7 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         // EMI
         tb.add("emi.category.estrogen.centrifuging", "Centrifuging")
         tb.add("emi.category.estrogen.entity_interaction", "Entity Interaction")
+        tb.add("emi.category.estrogen.sponging", "Sponging")
 
         // Tags
         // Items
@@ -204,6 +205,7 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("tag.item.estrogen.chest_armor_ignore", "Chest Armor Ignore")
         // Fluids
         tb.add("tag.fluid.estrogen.urine", "Urine")
+        tb.add("tag.fluid.estrogen.sponge_ignoring", "Sponge Ignoring")
 
         // Ponder
         // Centrifuge
@@ -234,7 +236,8 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("estrogen.button.config", "Config")
         tb.add("estrogen.button.module_configs", "Modules")
         tb.add("estrogen.button.cosmetics","Cosmetics")
-        tb.add("estrogen.button.colon_three", ":3")
+        tb.add("estrogen.button.memorial", "Memorial")
+            tb.add("estrogen.button.memorial.desc", "Unlock the memorial by finding it in-game.")
         tb.add("estrogen.button.close", "Close")
 
         // Curios :eyeroll:
@@ -305,6 +308,9 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         // Datapacks
         tb.add("datapacks.estrogen.vanillamode", "§eVanilla§7: §3Estrogen")
         tb.add("datapack.estrogen.vanillamode", "§lExtra§r Unbalanced Recipes for Estrogen mod")
+
+        // Generic
+        tb.add("estrogen.generic.coming_soon", "Coming Soon")
     }
 
     private fun thighHigh(builder: TranslationBuilder, styleName: String?, value: String?) {

@@ -3,38 +3,77 @@ package dev.mayaqq.estrogen.compat.emi
 import dev.emi.emi.api.EmiEntrypoint
 import dev.emi.emi.api.EmiPlugin
 import dev.emi.emi.api.EmiRegistry
+import dev.emi.emi.api.recipe.BasicEmiRecipe
 import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.render.EmiTexture
+import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.SlotWidget
 import dev.emi.emi.api.widget.WidgetHolder
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
-import dev.mayaqq.estrogen.compat.emi.recipes.EntityInteractionEmiRecipe
-import dev.mayaqq.estrogen.compat.emi.recipes.SpongingEmiRecipe
-import dev.mayaqq.estrogen.content.EstrogenBlocks
-import dev.mayaqq.estrogen.content.EstrogenRecipes
-import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
-import dev.mayaqq.estrogen.content.recipes.SpongingRecipe
-import dev.mayaqq.estrogen.id
-
+import dev.mayaqq.estrogen.compat.recipeviewers.GenericRecipeViewerPlugin
+import dev.mayaqq.estrogen.compat.recipeviewers.base.ingredient.RvIngredient
 @EmiEntrypoint
 object EmiEstrogenPlugin : EmiPlugin {
 
-    val interactionCategory = EmiRecipeCategory(EntityInteractionRecipe.id, StackWithCatalystEmiRenderable(EntityInteractionRecipe))
-    val spongingCategory = EmiRecipeCategory(SpongingRecipe.id, StackWithCatalystEmiRenderable(SpongingRecipe))
 
     override fun register(registry: EmiRegistry) {
-        registry.addCategory(interactionCategory)
-        registry.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION).forEach { recipe ->
-            registry.addRecipe(EntityInteractionEmiRecipe(interactionCategory, recipe))
-        }
-        registry.recipeManager.getAllRecipesFor(EstrogenRecipes.SPONGING).forEach { recipe ->
-            registry.addRecipe(SpongingEmiRecipe(spongingCategory, recipe))
+
+        GenericRecipeViewerPlugin.rvRecipes.forEach { rvrecipeinfo ->
+            val category = EmiRecipeCategory(rvrecipeinfo.info.id) {graphics, offsetX, offsetY, partialTick ->
+                rvrecipeinfo.info.render(graphics, offsetX, offsetY, partialTick)
+            }
+
+            registry.addCategory(category)
+
+            registry.recipeManager.recipes.filter { it.type == rvrecipeinfo.info.type }.forEach { recipe ->
+                val rvrecipe = rvrecipeinfo.recipeClass.constructors.first().call(recipe)
+                registry.addRecipe(object : BasicEmiRecipe(category, rvrecipeinfo.info.id, rvrecipeinfo.info.width, rvrecipeinfo.info.height) {
+                    init {
+                        rvrecipe.init()
+
+                        this.inputs.addAll(rvrecipe.inputs().map { it.toEmi() })
+                        this.outputs.addAll(rvrecipe.outputs().map { it.toEmiStack() })
+                        this.catalysts.addAll(rvrecipe.catalysts().map { it.toEmi() })
+                    }
+
+                    override fun addWidgets(widgets: WidgetHolder) {
+                        rvrecipe.textures.forEach { texture ->
+                            widgets.addTexture(texture.coorded, texture.x, texture.y)
+                        }
+                        rvrecipe.slots.forEach { slot ->
+                            widgets.addSlot(slot.ingredient.toEmi(), slot.x, slot.y).withBackground(slot.background)
+                        }
+                        rvrecipe.drawables.forEach { drawable ->
+                            widgets.addDrawable(drawable.x, drawable.y, 0, 0) {graphics, offsetX, offsetY, partialTick  ->
+                                drawable.coorded.draw(graphics, offsetX, offsetY, partialTick)
+                            }
+                        }
+                    }
+
+                })
+            }
+
         }
 
-        registry.removeEmiStacks(EmiStack.of(EstrogenBlocks.ColonThreeBlock.asItem()))
-        registry.removeRecipes(id("colon_three"))
+        //Hiding
+        GenericRecipeViewerPlugin.removedFromRecipeViewers.forEach { registry.removeEmiStacks(EmiStack.of(it)) }
+        GenericRecipeViewerPlugin.removedRecipesFromRecipeViewers.forEach { registry.removeRecipes(it) }
     }
+}
+
+fun RvIngredient.toEmi(): EmiIngredient = when {
+    this.ingredient != null -> EmiIngredient.of(this.ingredient)
+    this.item != null -> EmiStack.of(item)
+    this.fluid != null -> EmiStack.of(fluid)
+    this.fluidTag != null -> EmiIngredient.of(fluidTag)
+    else -> EmiStack.EMPTY
+}
+
+fun RvIngredient.toEmiStack(): EmiStack = when {
+    this.item != null -> EmiStack.of(item)
+    this.fluid != null -> EmiStack.of(fluid)
+    else -> EmiStack.EMPTY
 }
 
 fun WidgetHolder.addTexture(texture: RecipeTextures, x: Int, y: Int) {

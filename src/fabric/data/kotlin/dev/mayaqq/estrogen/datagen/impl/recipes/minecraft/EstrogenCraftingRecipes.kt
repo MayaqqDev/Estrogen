@@ -94,5 +94,15 @@ class EstrogenCraftingRecipes(output: FabricDataOutput, val helper: PlatformReci
             .save(writer, "estrogen:thigh_high_dye")
         SpecialRecipeBuilder.special(EstrogenRecipes.Serializers.DREAMCATCHER_DYE_SERIALIZER)
             .save(writer, "estrogen:dreamcatcher_dye")
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, EstrogenBlocks.DreamCatcher, 1)
+            .define('S', Items.STRING)
+            .define('C', Items.COBWEB)
+            .define('W', Items.STICK)
+            .define('F', Items.FEATHER)
+            .pattern("WSW")
+            .pattern("WCW")
+            .pattern("FFF")
+            .unlockedBy(getHasName(Items.COBWEB), has(Items.COBWEB))
+            .save(writer)
     }
 }
