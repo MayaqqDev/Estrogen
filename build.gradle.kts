@@ -103,6 +103,7 @@ cloche {
         include(libs.fabric.baubly) { exclude(group = "me.shedaniel") }
         include(libs.fabric.kritter)
         include(libs.fabric.flywheel)
+        include(libs.fabric.botarium)
         //include(libs.fabric.kittyconfig)
 
         includedClient() // includedClient() is not a run
@@ -218,6 +219,7 @@ cloche {
         include(libs.forge.baubly) { exclude(group = "me.shedaniel") }
         include(libs.forge.mixinExtras)
         include(libs.forge.kritter)
+        include(libs.forge.botarium)
 
         metadata {
             modLoader = "kotlinforforge"

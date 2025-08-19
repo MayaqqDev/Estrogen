@@ -45,7 +45,7 @@ object JeiEstrogenPlugin : IModPlugin {
             registry.addRecipeCategories(object : IRecipeCategory<Any> {
                 override fun getRecipeType(): RecipeType<Any> = recipeTypes[recipeData.info.type]!!
 
-                override fun getTitle(): Component = Text.of("${recipeData.info.id.namespace}.recipe.${recipeData.info.id.path}")
+                override fun getTitle(): Component = Text.translatable("${recipeData.info.id.namespace}.recipe.${recipeData.info.id.path}")
 
                 override fun getBackground(): IDrawable {
                     return object : IDrawable {
@@ -73,7 +73,6 @@ object JeiEstrogenPlugin : IModPlugin {
                     }
                     val rvRecipe = recipeInstances[actualRecipe]!!
                     rvRecipe.slots.forEach { slot ->
-                        Estrogen.info("Doing slot $slot")
                         val jeiSlot = layout.addSlot(slot.role.toJei(), slot.x, slot.y)
                             .setBackground(JeiSlot(RecipeTextures.JEI_SLOT), -1, -1)
 
