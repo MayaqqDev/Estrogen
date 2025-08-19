@@ -188,15 +188,15 @@ cloche {
             }
             entrypoint("emi") {
                 adapter.set("kotlin")
-                value.set("dev.mayaqq.estrogen.compat.emi.EmiEstrogenPlugin")
+                value.set("dev.mayaqq.estrogen.compat.recipeviewers.emi.EmiEstrogenPlugin")
             }
             entrypoint("rei_client") {
                 adapter.set("kotlin")
-                value.set("dev.mayaqq.estrogen.compat.rei.ReiEstrogenPlugin")
+                value.set("dev.mayaqq.estrogen.compat.recipeviewers.rei.ReiEstrogenPlugin")
             }
             entrypoint("jei_mod_plugin") {
                 adapter.set("kotlin")
-                value.set("dev.mayaqq.estrogen.compat.jei.JeiEstrogenPlugin")
+                value.set("dev.mayaqq.estrogen.compat.recipeviewers.jei.JeiEstrogenPlugin")
             }
             entrypoint("modmenu") {
                 adapter.set("kotlin")

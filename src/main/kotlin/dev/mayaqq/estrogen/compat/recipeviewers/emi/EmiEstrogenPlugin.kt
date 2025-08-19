@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.compat.emi
+package dev.mayaqq.estrogen.compat.recipeviewers.emi
 
 import dev.emi.emi.api.EmiEntrypoint
 import dev.emi.emi.api.EmiPlugin

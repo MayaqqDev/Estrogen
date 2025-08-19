@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.compat.rei
+package dev.mayaqq.estrogen.compat.recipeviewers.rei
 
 import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.text.Text

@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.forge.compat
 
-import dev.mayaqq.estrogen.compat.rei.ReiEstrogenPlugin
+import dev.mayaqq.estrogen.compat.recipeviewers.rei.ReiEstrogenPlugin
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin
 import me.shedaniel.rei.api.common.plugins.PluginView
 import me.shedaniel.rei.api.common.plugins.REIPluginProvider

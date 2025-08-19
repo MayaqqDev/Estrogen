@@ -1,7 +1,6 @@
-package dev.mayaqq.estrogen.compat.jei
+package dev.mayaqq.estrogen.compat.recipeviewers.jei
 
 import dev.mayaqq.cynosure.text.Text
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.GenericRecipeViewerPlugin
 import dev.mayaqq.estrogen.compat.recipeviewers.base.RVRecipe
@@ -111,6 +110,12 @@ object JeiEstrogenPlugin : IModPlugin {
         GenericRecipeViewerPlugin.removedFromRecipeViewers.forEach {
             registry.ingredientManager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, listOf(it))
         }
+    }
+
+    class JeiSlot(val texture: RecipeTextures) : IDrawable {
+        override fun getWidth(): Int = texture.width
+        override fun getHeight(): Int = texture.height
+        override fun draw(graphics: GuiGraphics, xOffset: Int, yOffset: Int) = texture.render(graphics, xOffset, yOffset)
     }
 }
 
