@@ -8,12 +8,6 @@ import dev.mayaqq.estrogen.compat.recipeviewers.base.RVRecipe
 import dev.mayaqq.estrogen.compat.recipeviewers.base.Role
 import dev.mayaqq.estrogen.compat.recipeviewers.base.RvRecipeData
 import dev.mayaqq.estrogen.compat.recipeviewers.base.ingredient.RvIngredient
-import dev.mayaqq.estrogen.compat.rei.recipes.EntityInteractionReiRecipe
-import dev.mayaqq.estrogen.compat.rei.recipes.SpongingReiRecipe
-import dev.mayaqq.estrogen.content.EstrogenBlocks
-import dev.mayaqq.estrogen.content.EstrogenRecipes
-import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
-import dev.mayaqq.estrogen.content.recipes.SpongingRecipe
 import dev.mayaqq.estrogen.id
 import me.shedaniel.math.Point
 import me.shedaniel.math.Rectangle
@@ -33,8 +27,6 @@ import me.shedaniel.rei.api.common.entry.EntryStack
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes
 import me.shedaniel.rei.api.common.util.EntryIngredients
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.crafting.Recipe
 import java.util.Optional
 
 object ReiEstrogenPlugin : REIClientPlugin {
