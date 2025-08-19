@@ -26,6 +26,9 @@ object EstrogenClientConfig {
 
         @Comment("Maxim Delay between songs in ticks")
         var maxDelayBetweenSongs: @Range(0, 100000) Int = 0
+
+        @Comment("If shall the Music wait for the current one to finish")
+        var replacesCurrentMusic: Boolean = true
     }
 
     @Comment("Global settings for chest feature rendering")

@@ -13,7 +13,8 @@ object EstrogenMusic : Musics() {
         BuiltInRegistries.SOUND_EVENT.wrapAsHolder(EstrogenSounds.ESTROGEN_AMBIENT),
         EstrogenClientConfig.Music.minDelayBetweenSongs,
         EstrogenClientConfig.Music.maxDelayBetweenSongs,
-        true).register { player, manager, biome ->
+        EstrogenClientConfig.Music.replacesCurrentMusic
+    ).register { player, manager, biome ->
             EstrogenClientConfig.Music.enabled && player.hasEffect(Estrogen)
         }
 }
