@@ -5,8 +5,6 @@ import dev.mayaqq.estrogen.id
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.core.registries.Registries
-
 
 class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(output, "en_us") {
 
@@ -181,16 +179,19 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("curios.identifier.thighs", "Thighs")
 
         // Recipe Viewers
-        tb.add("create.recipe.centrifuging", "Centrifuging")
-        tb.add("create.recipe.entity_interaction", "Entity Interaction")
-        tb.add("recipe.entity_interaction.cant_be_baby", "This entity can't be a baby")
+        tb.add("estrogen.recipe.centrifuging", "Centrifuging")
+        tb.add("estrogen.recipe.entity_interaction", "Entity Interaction")
+        tb.add("estrogen.recipe.liquid_estrogen_cauldron", "Cauldron Shaking")
+        tb.add("estrogen.recipe.liquid_estrogen_cauldron.tooltip", "Repeat")
+
+        tb.add("estrogen.recipe.common.disabled", "A Module disables this Recipe")
 
         // Enchantments
         tb.add(EstrogenEnchantments.UwUfyingCurse, "Curse of Uwufying")
         tb.add("enchantment.estrogen.uwufy_curse.desc", "UwUfies your chat messages >///<")
 
         // EMI
-        tb.add("emi.category.estrogen.centrifuging", "Centrifuging")
+        tb.add("emi.category.estrogen.liquid_estrogen_cauldron", "Cauldron Shaking")
         tb.add("emi.category.estrogen.entity_interaction", "Entity Interaction")
         tb.add("emi.category.estrogen.sponging", "Sponging")
 

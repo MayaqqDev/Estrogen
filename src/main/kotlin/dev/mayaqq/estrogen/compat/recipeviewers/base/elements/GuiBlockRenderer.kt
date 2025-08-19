@@ -26,12 +26,12 @@ import org.joml.Matrix4f
 
 class GuiBlockRenderer(
     val block: BlockState,
-    val blockEntity: BlockEntity?,
-    val x: Int,
-    val y: Int,
-    val z: Int,
-    val rotation: Vec3,
-    val scale: Double,
+    val blockEntity: BlockEntity? = null,
+    val x: Int = 0,
+    val y: Int = 0,
+    val z: Int = 0,
+    val rotation: Vec3 = Vec3(22.5, 45.0, 0.0),
+    val scale: Double = 20.0,
 ) : RvDrawable {
     override fun draw(
         graphics: GuiGraphics,

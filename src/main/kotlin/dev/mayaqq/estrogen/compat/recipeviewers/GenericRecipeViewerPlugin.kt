@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.compat.recipeviewers
 
 import dev.mayaqq.estrogen.compat.recipeviewers.recipes.EntityInteractionRvRecipe
+import dev.mayaqq.estrogen.compat.recipeviewers.recipes.LiquidEstrogenCauldronRvRecipe
 import dev.mayaqq.estrogen.compat.recipeviewers.recipes.SpongingRvRecipe
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.id
@@ -14,6 +15,6 @@ object GenericRecipeViewerPlugin {
     )
 
     val rvRecipes = listOf(
-        EntityInteractionRvRecipe, SpongingRvRecipe
+        EntityInteractionRvRecipe, SpongingRvRecipe, LiquidEstrogenCauldronRvRecipe
     )
 }
