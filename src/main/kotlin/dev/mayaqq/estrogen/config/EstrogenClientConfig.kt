@@ -7,6 +7,7 @@ import uwu.serenity.kittyconfig.Config
 import uwu.serenity.kittyconfig.observable.observable
 import uwu.serenity.kittyconfig.toml.TomlFormat
 import uwu.serenity.kittyconfig.validation.DecimalRange
+import uwu.serenity.kittyconfig.validation.Range
 
 
 @Config("$MOD_ID/client", TomlFormat::class)
@@ -15,9 +16,17 @@ object EstrogenClientConfig {
     @Comment("Enable entity patting")
     var entityPatting: Boolean = true
 
-    @Comment("Estrogen ambient music")
-    @JvmField
-    var ambientMusic: Boolean = true
+    @Comment("Estrogen ambient music settings")
+    object Music {
+        @Comment("Enable Estrogen Ambient Music")
+        var enabled: Boolean = true
+
+        @Comment("Minimum Delay between songs in ticks")
+        var minDelayBetweenSongs: @Range(0, 100000) Int = 0
+
+        @Comment("Maxim Delay between songs in ticks")
+        var maxDelayBetweenSongs: @Range(0, 100000) Int = 0
+    }
 
     @Comment("Global settings for chest feature rendering")
     object ChestRenderingGlobal {

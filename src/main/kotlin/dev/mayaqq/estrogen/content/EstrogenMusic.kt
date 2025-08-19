@@ -11,9 +11,9 @@ object EstrogenMusic : Musics() {
     @JvmField
     val EstrogenAmbient: Music = Music(
         BuiltInRegistries.SOUND_EVENT.wrapAsHolder(EstrogenSounds.ESTROGEN_AMBIENT),
-        0,
-        0,
+        EstrogenClientConfig.Music.minDelayBetweenSongs,
+        EstrogenClientConfig.Music.maxDelayBetweenSongs,
         true).register { player, manager, biome ->
-            EstrogenClientConfig.ambientMusic && player.hasEffect(Estrogen)
+            EstrogenClientConfig.Music.enabled && player.hasEffect(Estrogen)
         }
 }
