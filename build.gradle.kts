@@ -104,6 +104,7 @@ cloche {
         include(libs.fabric.kritter)
         include(libs.fabric.flywheel)
         include(libs.fabric.botarium)
+        include(libs.fabric.lithostitched)
         //include(libs.fabric.kittyconfig)
 
         includedClient() // includedClient() is not a run
@@ -161,6 +162,7 @@ cloche {
             modImplementation(libs.fabric.kritter)
             //modApi(libs.fabric.kittyconfig)
             modApi(libs.fabric.botarium)
+            modImplementation(libs.fabric.lithostitched)
 
             when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -220,6 +222,7 @@ cloche {
         include(libs.forge.mixinExtras)
         include(libs.forge.kritter)
         include(libs.forge.botarium)
+        include(libs.forge.lithostitched)
 
         metadata {
             modLoader = "kotlinforforge"
@@ -248,6 +251,7 @@ cloche {
             modImplementation(libs.forge.kritter)
             //modApi(libs.forge.kittyconfig)
             modApi(libs.forge.botarium)
+            modImplementation(libs.forge.lithostitched)
 
             when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)

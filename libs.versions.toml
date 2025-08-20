@@ -45,6 +45,7 @@ modmenu = "7.2.2"
 cardinal = "5.2.3"
 jei_file_id_fabric = "5101365"
 flk = "1.11.0+kotlin.2.0.0"
+lithostitched_fabric = "1.4.11-fabric-1.20"
 
 # Forge Only Dependencies
 forge = "47.4.0"
@@ -53,6 +54,7 @@ create_forge = "0.5.1.f-27"
 jei_file_id_forge = "4712868"
 kff = "4.11.0"
 klf = "2.10.1-k2.2.0-2.0+forge"
+lithostitched_forge = "1.4.11-forge-1.20"
 
 [libraries]
 
@@ -95,6 +97,7 @@ fabric-cynosure = { module = "dev.mayaqq.cynosure:cynosure-fabric", version.ref 
 fabric-kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-minecraft-fabric", version.ref = "kittyconfig" }
 fabric-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
 fabric-botarium = { module = "earth.terrarium.botarium:botarium-fabric-1.20.1", version.ref = "botarium" }
+fabric-lithostitched = { module = "maven.modrinth:lithostitched", version.ref = "lithostitched_fabric" }
 
 
 # Forge depencencies
@@ -115,6 +118,7 @@ forge-cynosure = { module = "dev.mayaqq.cynosure:cynosure-forge", version.ref = 
 forge-kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-forge", version.ref = "kittyconfig" }
 forge-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
 forge-botarium = { module = "earth.terrarium.botarium:botarium-forge-1.20.1", version.ref = "botarium" }
+forge-lithostitched = { module = "maven.modrinth:lithostitched", version.ref = "lithostitched_forge" }
 
 [bundles]
 fabric-cardinalComponents = [ "fabric-cardinalComponents-base", "fabric-cardinalComponents-entity" ]

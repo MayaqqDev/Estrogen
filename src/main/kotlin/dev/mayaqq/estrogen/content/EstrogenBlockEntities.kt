@@ -5,9 +5,11 @@ import dev.mayaqq.estrogen.client.content.blockRenderers.cookieJar.CookieJarRend
 import dev.mayaqq.estrogen.client.content.blockRenderers.cookieJar.CookieJarVisual
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.DreamBlockRenderer
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.DreamBlockVisual
+import dev.mayaqq.estrogen.client.content.blockRenderers.memorial.MemorialRenderer
 import dev.mayaqq.estrogen.content.blockEntities.CookieJarBlockEntity
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.content.blockEntities.DreamCatcherBlockEntity
+import dev.mayaqq.estrogen.content.blockEntities.MemorialBlockEntity
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.level.block.entity.BlockEntityType
 import uwu.serenity.kritter.api.Registrar
@@ -30,5 +32,10 @@ object EstrogenBlockEntities : Registrar<BlockEntityType<*>> by Estrogen..Regist
 
     val DreamCatcher: BlockEntityType<DreamCatcherBlockEntity> by blockEntity("dreamcatcher", ::DreamCatcherBlockEntity) {
         validBlock(EstrogenBlocks::DreamCatcher)
+    }
+
+    val Memorial: BlockEntityType<MemorialBlockEntity> by blockEntity("memorial", ::MemorialBlockEntity) {
+        validBlock(EstrogenBlocks::Memorial)
+        renderer(::MemorialRenderer)
     }
 }
