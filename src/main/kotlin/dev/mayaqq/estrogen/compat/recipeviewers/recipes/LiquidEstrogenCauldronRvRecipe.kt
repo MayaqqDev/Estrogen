@@ -1,0 +1,108 @@
+package dev.mayaqq.estrogen.compat.recipeviewers.recipes
+
+import dev.mayaqq.cynosure.client.utils.pushPop
+import dev.mayaqq.cynosure.client.utils.translate
+import dev.mayaqq.cynosure.helpers.McClient
+import dev.mayaqq.cynosure.helpers.McFont
+import dev.mayaqq.cynosure.text.Text
+import dev.mayaqq.cynosure.text.TextStyle.color
+import dev.mayaqq.cynosure.utils.colors.McGray
+import dev.mayaqq.cynosure.utils.colors.McGreen
+import dev.mayaqq.cynosure.utils.colors.McRed
+import dev.mayaqq.cynosure.utils.colors.Red
+import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.estrogen.api.EstrogenFlag
+import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
+import dev.mayaqq.estrogen.compat.recipeviewers.base.RVRecipe
+import dev.mayaqq.estrogen.compat.recipeviewers.base.Role
+import dev.mayaqq.estrogen.compat.recipeviewers.base.RvRecipeData
+import dev.mayaqq.estrogen.compat.recipeviewers.base.elements.GuiBlockRenderer
+import dev.mayaqq.estrogen.compat.recipeviewers.base.ingredient.RvIngredient
+import dev.mayaqq.estrogen.content.EstrogenBlocks
+import dev.mayaqq.estrogen.content.EstrogenFluids
+import dev.mayaqq.estrogen.content.EstrogenItems
+import dev.mayaqq.estrogen.content.EstrogenRecipes
+import dev.mayaqq.estrogen.content.recipes.LiquidEstrogenCauldronRecipe
+import dev.mayaqq.estrogen.mixin.client.accessor.LiquidBlockAccessor
+import dev.mayaqq.estrogen.modules.anyModuleHasFlag
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.block.LayeredCauldronBlock
+import net.minecraft.world.level.block.piston.PistonBaseBlock
+import net.minecraft.world.level.block.piston.PistonHeadBlock
+import net.minecraft.world.level.block.state.properties.PistonType
+import net.minecraft.world.phys.Vec3
+
+class LiquidEstrogenCauldronRvRecipe(recipe: LiquidEstrogenCauldronRecipe) : RVRecipe<LiquidEstrogenCauldronRecipe>(recipe) {
+
+    var extended = false
+    var extendCounter = System.currentTimeMillis()
+
+    fun recipeDisabled(): Boolean {
+        return McClient.level?.recipeManager?.getAllRecipesFor(EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON)?.any { !it.enabled } == true || anyModuleHasFlag(EstrogenFlag.DISABLES_CAULDRON_ESTROGEN)
+    }
+
+    override fun init() {
+        if (recipeDisabled()) {
+            addDrawable(0, 0) { graphics, offsetX, offsetY, mouseX, mouseY, delta ->
+                graphics.fill(0, 0, info.width, info.height, -0x2FEFEFF0)
+                val text = Text.translatable("estrogen.recipe.common.disabled") {
+                    color = McRed
+                }
+                graphics.drawString(
+                    McFont,
+                    text,
+                    (info.width / 2) - (McFont.width(text) / 2),
+                    (info.height / 2) - McFont.lineHeight / 2,
+                    0xFFFFFF,
+                    false
+                )
+            }
+        } else {
+
+            addSlot(RvIngredient.of(EstrogenFluids.FiltratedHorseUrine.bucket.defaultInstance), 10, 14, Role.INPUT)
+            addSlot(RvIngredient.of(EstrogenFluids.LiquidEstrogen.source), 148, 35, Role.OUTPUT)
+            addTexture(RecipeTextures.JEI_ARROW, 72, 40)
+
+            addTexture(RecipeTextures.JEI_SHADOW, 104, 49)
+
+            addDrawable(120, 54, GuiBlockRenderer(EstrogenBlocks.LiquidEstrogenCauldron.defaultBlockState()
+                .setValue(LayeredCauldronBlock.LEVEL, 3)))
+
+            addDrawable(0, 0) { graphics, offsetX, offsetY, mouseX, mouseY, delta ->
+                graphics.renderTooltip(McFont, Text.of("\uD83D\uDD04 ") {
+                    color = McGreen
+                    append(Text.translatable("estrogen.recipe.liquid_estrogen_cauldron.tooltip") {
+                        color = McGray
+                    })
+                }, 97, 20)
+                if (System.currentTimeMillis() - extendCounter > 700) {
+                    extended = !extended
+                    extendCounter = System.currentTimeMillis()
+                }
+                RecipeTextures.JEI_DOWN_ARROW.render(graphics, 27 + if (extended) 20 else 0, 18)
+                GuiBlockRenderer(
+                    EstrogenBlocks.FiltratedHorseUrineCauldron.defaultBlockState(),
+                    x = 30 + if (extended) 20 else 0, y = 55, rotation = Vec3.ZERO
+                ).draw(graphics, offsetX, offsetY, mouseX, mouseY, delta)
+                if (extended) {
+                    GuiBlockRenderer(
+                        Blocks.PISTON_HEAD.defaultBlockState().setValue(PistonHeadBlock.TYPE, PistonType.STICKY),
+                        x = 30, y = 55, rotation = Vec3(0.0, 270.0, 0.0)
+                    ).draw(graphics, offsetX, offsetY, mouseX, mouseY, delta)
+                }
+                GuiBlockRenderer(Blocks.STICKY_PISTON.defaultBlockState().setValue(PistonBaseBlock.EXTENDED, extended),
+                    x = 10, y = 55, rotation = Vec3(0.0, 270.0, 0.0)
+                ).draw(graphics, offsetX, offsetY, mouseX, mouseY, delta)
+            }
+        }
+    }
+
+    override fun inputs() = listOf(RvIngredient.of((EstrogenFluids.FiltratedHorseUrine.block as LiquidBlockAccessor).fluid()))
+    override fun outputs() = listOf(RvIngredient.of((EstrogenFluids.LiquidEstrogen.block as LiquidBlockAccessor).fluid()))
+    override fun catalysts(): List<RvIngredient> = listOf(RvIngredient.of(Items.CAULDRON.defaultInstance))
+
+
+    companion object : RvRecipeData<LiquidEstrogenCauldronRecipe, LiquidEstrogenCauldronRvRecipe>(LiquidEstrogenCauldronRecipe, LiquidEstrogenCauldronRvRecipe::class, LiquidEstrogenCauldronRecipe::class)
+}

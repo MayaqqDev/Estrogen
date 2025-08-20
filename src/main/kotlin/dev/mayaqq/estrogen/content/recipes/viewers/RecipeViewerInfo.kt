@@ -5,6 +5,7 @@ import dev.mayaqq.cynosure.client.utils.pushPop
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.RecipeType
 
 
 interface RecipeViewerInfo {
@@ -13,6 +14,7 @@ interface RecipeViewerInfo {
     val id: ResourceLocation
     val width: Int
     val height: Int
+    val type: RecipeType<*>
 
     fun render(graphics: GuiGraphics, offsetX: Int, offsetY: Int, delta: Float) {
 

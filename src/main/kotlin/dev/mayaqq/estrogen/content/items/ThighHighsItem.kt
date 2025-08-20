@@ -6,6 +6,7 @@ import dev.mayaqq.cynosure.text.TextStyle.color
 import dev.mayaqq.cynosure.text.TextStyle.italic
 import dev.mayaqq.cynosure.utils.colors.McGray
 import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ThighHighStylesPacket
@@ -119,7 +120,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
     override fun getModifiers(defaultModifiers: Multimap<Attribute, AttributeModifier>, stack: ItemStack, slot: SlotInfo, uuid: UUID): Multimap<Attribute, AttributeModifier> {
         defaultModifiers.put(
             EstrogenAttributes.FallDamageResistance,
-            AttributeModifier(uuid, "ThighHighsFallDamageResistance", 100.0, AttributeModifier.Operation.ADDITION)
+            AttributeModifier(uuid, "ThighHighsFallDamageResistance", EstrogenServerConfig.ThighHighs.fallDamageReduction.toDouble(), AttributeModifier.Operation.ADDITION)
         )
         return defaultModifiers
     }

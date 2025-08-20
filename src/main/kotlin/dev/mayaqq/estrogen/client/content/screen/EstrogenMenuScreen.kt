@@ -4,12 +4,18 @@ import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.client.utils.translate
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.openUri
+import dev.mayaqq.cynosure.text.CommonText
 import dev.mayaqq.cynosure.text.Text
+import dev.mayaqq.cynosure.text.TextBuilder.append
 import dev.mayaqq.cynosure.text.TextStyle.bold
 import dev.mayaqq.cynosure.text.TextStyle.color
 import dev.mayaqq.cynosure.utils.colors.Color
+import dev.mayaqq.cynosure.utils.colors.Gray
 import dev.mayaqq.cynosure.utils.colors.LightBlue
+import dev.mayaqq.cynosure.utils.colors.Red
 import dev.mayaqq.cynosure.utils.colors.White
+import dev.mayaqq.cynosure.utils.file.GlobalStorage
+import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.screen.modules.ModulesScreen
 import dev.mayaqq.estrogen.id
 import net.minecraft.client.gui.GuiGraphics
@@ -20,7 +26,7 @@ import net.minecraft.sounds.SoundEvents
 
 class EstrogenMenuScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.translatable("estrogen.screen.menu.title")) {
 
-    override fun isPauseScreen(): Boolean = false
+    override fun isPauseScreen(): Boolean = true
 
     val titleText = Text.of("Estrogen") {
         color = LightBlue
@@ -36,7 +42,8 @@ class EstrogenMenuScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.
     val bCosmetics = EstrogenButton.Builder(EstrogenButton.TextRenderer(Text.translatable("estrogen.button.cosmetics"))) {
         //TODO: open cosmetics screen
     }
-    val bColonThree = EstrogenButton.Builder(EstrogenButton.TextRenderer(Text.translatable("estrogen.button.colon_three"))) {
+    val bMemorial = EstrogenButton.Builder(EstrogenButton.TextRenderer(Text.translatable("estrogen.button.memorial"))) {
+        //TODO: Open memorial Screen
         McClient.soundManager.play(SimpleSoundInstance.forUI(SoundEvents.CAT_AMBIENT, 1.0F))
     }
     val bClose = EstrogenButton.Builder(EstrogenButton.TextRenderer(Text.translatable("estrogen.button.close"))) {
@@ -63,10 +70,25 @@ class EstrogenMenuScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.
         val y = this.height / 4 + 48
         val rowHeight = 24
 
+        val memorialEnabled = GlobalStorage.getData(MOD_ID).resolve("/memorial/unlocked").toFile().exists()
+        if (!memorialEnabled) {
+            bMemorial.disabled(true)
+            bMemorial.tooltip(Tooltip.create(Text.of {
+                append(Text.translatable("estrogen.button.memorial.desc")) {
+                    color = Red
+                }
+                append(CommonText.NEWLINE)
+                append(CommonText.NEWLINE)
+                append(Text.translatable("estrogen.generic.coming_soon")) {
+                    color = Gray
+                }
+            }))
+        }
+
         bConfig.bounds(this.width / 2 - 100, y, 200, 20).color(transBlue).buildAndAdd()
         bModuleConfigs.bounds(this.width / 2 - 100, y + rowHeight * 1, 200, 20).color(transPink).buildAndAdd()
         bCosmetics.bounds(this.width / 2 - 100, y + rowHeight * 2, 200, 20).color(transWhite).buildAndAdd()
-        bColonThree.bounds(this.width / 2 - 100, y + rowHeight * 3, 200, 20).color(transPink).buildAndAdd()
+        bMemorial.bounds(this.width / 2 - 100, y + rowHeight * 3, 200, 20).color(transPink).buildAndAdd()
         bClose.bounds(this.width / 2 - 100, y + rowHeight * 4, 200, 20).color(transBlue).buildAndAdd()
 
         bModrinth.bounds(this.width / 2 - 100 - 24, y, 20, 20).color(transBlue)

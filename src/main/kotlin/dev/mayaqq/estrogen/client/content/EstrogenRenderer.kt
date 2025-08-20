@@ -6,6 +6,7 @@ import com.mojang.blaze3d.platform.GlStateManager
 import com.mojang.blaze3d.shaders.Uniform
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.DefaultVertexFormat
+import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.events.CoreShaderRegistrationEvent
 import dev.mayaqq.cynosure.client.events.render.GameRenderEvent
 import dev.mayaqq.cynosure.client.events.render.LevelRenderEvent
@@ -33,14 +34,6 @@ object EstrogenRenderer {
         { if (isShaderPackInUse) shaderBypassTarget?.bindWrite(Minecraft.ON_OSX) },
         { if (isShaderPackInUse) Minecraft.getInstance().mainRenderTarget.bindWrite(false) }
     )
-
-    class CeaselessShaderShard(state: () -> ShaderInstance) : RenderStateShard.ShaderStateShard(state) {
-        override fun setupRenderState() {
-            dreamBlockShader.getUniform("CeaselessGameTime")?.set(ceaselessGameTime.toFloat())
-            super.setupRenderState()
-        }
-
-    }
 
     // Shaders
     lateinit var dreamBlockShader: ShaderInstance
@@ -123,11 +116,17 @@ object EstrogenRenderer {
         shaderBypassTarget?.resize(event.width, event.height, Minecraft.ON_OSX)
     }
 
-    var ceaselessGameTime = System.nanoTime()
-        private set
+    var clientTickCounter = 0
 
     @Subscription
     fun onGameRender(event: GameRenderEvent) {
-        ceaselessGameTime += event.nanos - ceaselessGameTime
+        if (::dreamBlockShader.isInitialized) {
+            dreamBlockShader.getUniform("CeaselessGameTime")?.set(((clientTickCounter % 24000L + event.partialTick) / 24000.0F))
+        }
+    }
+
+    @Subscription
+    fun tickEvent(event: ClientTickEvent.Begin) {
+        clientTickCounter++
     }
 }

@@ -5,8 +5,6 @@ import dev.mayaqq.estrogen.id
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.core.registries.Registries
-
 
 class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(output, "en_us") {
 
@@ -129,6 +127,10 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add(EstrogenBlocks.QuiltedMothCarpet, "Quilted Rosy Maple Wool Carpet")
         tb.add(EstrogenBlocks.MothBed, "Rosy Maple Bed")
         tb.add(EstrogenBlocks.QuiltedMothBed, "Quilted Rosy Maple Bed")
+        tb.add(EstrogenBlocks.Memorial, "Memorial")
+        tb.add("block.estrogen.memorial.line1", "-- Estrogen Mod --")
+        tb.add("block.estrogen.memorial.line2", "This memorial dedicated to those")
+        tb.add("block.estrogen.memorial.line3", "Who perished on the climb")
         tb.add(EstrogenFluids.LiquidEstrogen.block, "Liquid Estrogen")
         tb.add(EstrogenFluids.HorseUrine.block, "Horse Urine")
         tb.add(EstrogenFluids.FiltratedHorseUrine.block, "Filtrated Horse Urine")
@@ -162,8 +164,8 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("subtitles.estrogen.music.inferred_dreams", "erora - Inferred Dreams")
         tb.add("subtitles.estrogen.music.sleeping_dreams", "erora - Sleeping Dreams")
         tb.add("subtitles.estrogen.music.inner_self_realization", "erora - Inner Self-realization")
-        tb.add("subtitles.estrogen.cookie_jar.full", "Cookie Jar is full")
-        tb.add("subtitles.estrogen.cookie_jar.insert", "Cookie Jar gets inserted into")
+        tb.add("subtitles.estrogen.block.cookie_jar.full", "Cookie Jar is full")
+        tb.add("subtitles.estrogen.block.cookie_jar.insert", "Cookie Jar gets inserted into")
         tb.add("subtitles.estrogen.entity.moth.death", "Rosy Maple Moth dies")
         tb.add("subtitles.estrogen.entity.moth.hurt", "Rosy Maple Moth hurts")
         tb.add("subtitles.estrogen.entity.moth.loop", "Rosy Maple Moth buzzes")
@@ -181,17 +183,21 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("curios.identifier.thighs", "Thighs")
 
         // Recipe Viewers
-        tb.add("create.recipe.centrifuging", "Centrifuging")
-        tb.add("create.recipe.entity_interaction", "Entity Interaction")
-        tb.add("recipe.entity_interaction.cant_be_baby", "This entity can't be a baby")
+        tb.add("estrogen.recipe.centrifuging", "Centrifuging")
+        tb.add("estrogen.recipe.entity_interaction", "Entity Interaction")
+        tb.add("estrogen.recipe.liquid_estrogen_cauldron", "Cauldron Shaking")
+        tb.add("estrogen.recipe.liquid_estrogen_cauldron.tooltip", "Repeat")
+
+        tb.add("estrogen.recipe.common.disabled", "A Module disables this Recipe")
 
         // Enchantments
         tb.add(EstrogenEnchantments.UwUfyingCurse, "Curse of Uwufying")
         tb.add("enchantment.estrogen.uwufy_curse.desc", "UwUfies your chat messages >///<")
 
         // EMI
-        tb.add("emi.category.estrogen.centrifuging", "Centrifuging")
+        tb.add("emi.category.estrogen.liquid_estrogen_cauldron", "Cauldron Shaking")
         tb.add("emi.category.estrogen.entity_interaction", "Entity Interaction")
+        tb.add("emi.category.estrogen.sponging", "Sponging")
 
         // Tags
         // Items
@@ -204,6 +210,7 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("tag.item.estrogen.chest_armor_ignore", "Chest Armor Ignore")
         // Fluids
         tb.add("tag.fluid.estrogen.urine", "Urine")
+        tb.add("tag.fluid.estrogen.sponge_ignoring", "Sponge Ignoring")
 
         // Ponder
         // Centrifuge
@@ -234,7 +241,8 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("estrogen.button.config", "Config")
         tb.add("estrogen.button.module_configs", "Modules")
         tb.add("estrogen.button.cosmetics","Cosmetics")
-        tb.add("estrogen.button.colon_three", ":3")
+        tb.add("estrogen.button.memorial", "Memorial")
+            tb.add("estrogen.button.memorial.desc", "Unlock the memorial by finding it in-game.")
         tb.add("estrogen.button.close", "Close")
 
         // Curios :eyeroll:
@@ -305,6 +313,9 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         // Datapacks
         tb.add("datapacks.estrogen.vanillamode", "§eVanilla§7: §3Estrogen")
         tb.add("datapack.estrogen.vanillamode", "§lExtra§r Unbalanced Recipes for Estrogen mod")
+
+        // Generic
+        tb.add("estrogen.generic.coming_soon", "Coming Soon")
     }
 
     private fun thighHigh(builder: TranslationBuilder, styleName: String?, value: String?) {

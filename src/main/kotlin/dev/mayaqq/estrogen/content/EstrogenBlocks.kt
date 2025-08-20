@@ -204,6 +204,11 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
         renderType = RenderType::cutout
     }
 
+    val Memorial: MemorialBlock by block("memorial", ::MemorialBlock) {
+        copyProperties(Blocks::REINFORCED_DEEPSLATE)
+        properties {}
+    }
+
     // Convert to Create: Estrogen
     val Centrifuge: TransferBlock by block("centrifuge", {p -> TransferBlock(
         p,
