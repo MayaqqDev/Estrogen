@@ -1,0 +1,36 @@
+package dev.mayaqq.estrogen.content.features
+
+import com.mojang.serialization.Codec
+import dev.mayaqq.estrogen.content.EstrogenBlocks
+import dev.mayaqq.estrogen.content.blocks.MemorialBlock.Companion.PART
+import net.minecraft.core.Direction
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.levelgen.feature.Feature
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration
+
+class MemorialFeature() : Feature<NoneFeatureConfiguration>(NoneFeatureConfiguration.CODEC) {
+    override fun place(ctx: FeaturePlaceContext<NoneFeatureConfiguration>): Boolean {
+        val level = ctx.level()
+        val pos = ctx.origin()
+
+
+        if (!level.isClientSide) {
+            val state = EstrogenBlocks.Memorial.defaultBlockState()
+
+            for (y in 0..2) {
+                for (x in 0..1) {
+                    level.setBlock(
+                        pos
+                            .relative(Direction.WEST, x)
+                            .relative(Direction.UP, y),
+                        state.setValue(PART, x + (y + y) + 1),
+                        3
+                    )
+                }
+            }
+        }
+        return true
+    }
+}
