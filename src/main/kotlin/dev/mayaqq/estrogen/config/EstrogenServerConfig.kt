@@ -23,6 +23,11 @@ object EstrogenServerConfig {
 
     }
 
+    object ThighHighs {
+        @Comment("The amount of Fall Damage Reduction Thigh Highs add")
+        var fallDamageReduction: @Range(min = 0, max = 1000) Int = 100
+    }
+
     @Comment("Settings for the dream block")
     object DreamBlock {
 
