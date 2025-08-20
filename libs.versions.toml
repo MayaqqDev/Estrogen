@@ -36,7 +36,7 @@ mixin = "0.8.3"
 iris = "1.7.5+1.20.1"
 flywheel = "1.0.2"
 cynosure = "0.1.0.175"
-kittyconfig = "1.1.3"
+kittyconfig = "1.2.11"
 mixin_constrains = "1.0.8"
 
 # Fabric Only Dependencies
@@ -101,7 +101,7 @@ fabric-lithostitched = { module = "maven.modrinth:lithostitched", version.ref = 
 
 
 # Forge depencencies
-forge-kotlin = { module = "thedarkcolour:kotlinforforge", version.ref = "kff" }
+forge-kotlin = { module = "dev.nyon:KotlinLangForge", version.ref = "klf" }
 forge-create = { module = "com.simibubi.create:create-1.20.1", version.ref = "create_forge" }
 forge-baubly = { module = "earth.terrarium.baubly:baubly-forge-1.20.1", version.ref = "baubly" }
 forge-emi = { module = "dev.emi:emi-forge", version.ref = "emi" }

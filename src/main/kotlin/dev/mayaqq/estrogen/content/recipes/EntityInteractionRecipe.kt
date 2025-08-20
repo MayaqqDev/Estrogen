@@ -1,6 +1,8 @@
 @file:EventSubscriber
 package dev.mayaqq.estrogen.content.recipes
 
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import com.teamresourceful.bytecodecs.base.ByteCodec
@@ -15,8 +17,14 @@ import dev.mayaqq.cynosure.core.codecs.item.ItemStackCodec
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
+import dev.mayaqq.cynosure.network.serialization.ByteCodec
 import dev.mayaqq.cynosure.utils.Either
 import dev.mayaqq.cynosure.utils.contains
+import dev.mayaqq.cynosure.utils.dfu.toCynosure
+import dev.mayaqq.cynosure.utils.fold
+import dev.mayaqq.cynosure.utils.foldToRight
+import dev.mayaqq.cynosure.utils.ifLeft
+import dev.mayaqq.cynosure.utils.ifRight
 import dev.mayaqq.cynosure.utils.isRight
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.data.EntityTypeRecipeCodec
@@ -63,7 +71,8 @@ class EntityInteractionRecipe(val recipeId: ResourceLocation, val ingredient: In
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = true
     override fun getIngredients(): NonNullList<Ingredient> = NonNullList.of(Ingredient.EMPTY, ingredient)
 
-    companion object: RecipeViewerInfo {
+    companion object : RecipeViewerInfo {
+
         fun codec(id: ResourceLocation): Codec<EntityInteractionRecipe> = RecordCodecBuilder.create { instance ->
             instance.group(
                 RecordCodecBuilder.point(id),
@@ -81,7 +90,7 @@ class EntityInteractionRecipe(val recipeId: ResourceLocation, val ingredient: In
             ItemStackByteCodec fieldOf EntityInteractionRecipe::result,
             EntityTypeRecipeCodec.NETWORK fieldOf EntityInteractionRecipe::entity,
             ByteCodecs.RESOURCE_LOCATION.optionalFieldOf(EntityInteractionRecipe::sound),
-            PredicateCodecs.ENTITY.toByteCodec().optionalFieldOf(EntityInteractionRecipe::predicate),
+            ByteCodecs.constantFieldOf(Optional.empty()),
             ::EntityInteractionRecipe
         )
 
@@ -94,25 +103,20 @@ class EntityInteractionRecipe(val recipeId: ResourceLocation, val ingredient: In
     }
 }
 
-fun Either<EntityType<*>, TagKey<EntityType<*>>>.getSpawnEggs(): ArrayList<ItemStack> {
-    val array = arrayListOf<ItemStack>()
-    if (this.isRight && this.right != null) {
-        BuiltInRegistries.ENTITY_TYPE.getTagOrEmpty(this.right!!).forEach {
-            val either = it.unwrap()
-            if (either.left().isPresent) {
-                val entity = BuiltInRegistries.ENTITY_TYPE.get(either.left().get()) as EntityType<*>
-                array.add(entityToEgg(entity)?: return@forEach)
-            }
-        }
-    } else {
-        array.add(entityToEgg(this.left!!)?: return array)
+fun Either<EntityType<*>, TagKey<EntityType<*>>>.getSpawnEggs(): Array<ItemStack> = fold(
+    { arrayOf(entityToEgg(it) ?: return emptyArray()) },
+    {
+        BuiltInRegistries.ENTITY_TYPE.getTagOrEmpty(it).mapNotNull { holder ->
+            entityToEgg(
+                holder.unwrap()
+                    .toCynosure()
+                    .foldToRight { key -> BuiltInRegistries.ENTITY_TYPE[key] ?: return@mapNotNull null }
+            )
+        }.toTypedArray()
     }
-    return array
-}
+)
 
-private fun entityToEgg(entity: EntityType<*>): ItemStack? {
-    return SpawnEggItem.byId(entity)?.defaultInstance
-}
+private fun entityToEgg(entity: EntityType<*>): ItemStack? = SpawnEggItem.byId(entity)?.defaultInstance
 
 @Subscription
 fun onEntityInteraction(event: InteractionEvent.UseEntity) {
