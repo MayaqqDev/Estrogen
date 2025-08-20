@@ -7,9 +7,6 @@
     "PackInvoker",
     "SpongeBlockMixin"
   ],
-  "client": [
-    "PostPassMixin"
-  ],
   "injectors": {
     "defaultRequire": 1
   }

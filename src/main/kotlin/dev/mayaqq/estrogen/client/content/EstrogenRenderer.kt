@@ -80,8 +80,6 @@ object EstrogenRenderer {
 
     private var shaderBypassTarget: RenderTarget? = null
 
-    @PublishedApi @JvmField internal var depthInPostPass: Boolean = false
-
     // Misc
     private lateinit var celshadeSource: OutlineBufferSource
     internal var celshadeCounter: Int = 0
