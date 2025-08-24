@@ -15,6 +15,7 @@ import dev.mayaqq.cynosure.utils.colors.LightBlue
 import dev.mayaqq.cynosure.utils.colors.Red
 import dev.mayaqq.cynosure.utils.colors.White
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.screen.modules.ModulesScreen
 import dev.mayaqq.estrogen.id
@@ -23,6 +24,7 @@ import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.resources.sounds.SimpleSoundInstance
 import net.minecraft.sounds.SoundEvents
+import kotlin.io.path.exists
 
 class EstrogenMenuScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.translatable("estrogen.screen.menu.title")) {
 
@@ -43,8 +45,7 @@ class EstrogenMenuScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.
         //TODO: open cosmetics screen
     }
     val bMemorial = EstrogenButton.Builder(EstrogenButton.TextRenderer(Text.translatable("estrogen.button.memorial"))) {
-        //TODO: Open memorial Screen
-        McClient.soundManager.play(SimpleSoundInstance.forUI(SoundEvents.CAT_AMBIENT, 1.0F))
+        McClient.setScreen(MemorialScreen(this))
     }
     val bClose = EstrogenButton.Builder(EstrogenButton.TextRenderer(Text.translatable("estrogen.button.close"))) {
         this.onClose()
@@ -70,7 +71,8 @@ class EstrogenMenuScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.
         val y = this.height / 4 + 48
         val rowHeight = 24
 
-        val memorialEnabled = GlobalStorage.getData(MOD_ID).resolve("/memorial/unlocked").toFile().exists()
+        val memorialEnabled = GlobalStorage.getData(MOD_ID).resolve("memorial").exists()
+        Estrogen.info("Memorial enabled: $memorialEnabled")
         if (!memorialEnabled) {
             bMemorial.disabled(true)
             bMemorial.tooltip(Tooltip.create(Text.of {

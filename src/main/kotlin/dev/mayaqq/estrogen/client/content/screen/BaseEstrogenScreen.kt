@@ -15,6 +15,7 @@ import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture.ID
 import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.renderer.LightTexture
 import net.minecraft.network.chat.Component
@@ -53,6 +54,14 @@ abstract class BaseEstrogenScreen(val previous: Screen?, title: Component) : Scr
 
     fun EstrogenButton.Builder.buildAndAdd() {
         addRenderableWidget(this.build())
+    }
+
+    fun AbstractWidget.add() {
+        addRenderableWidget(this)
+    }
+
+    fun AbstractWidget.addRenderable() {
+        addRenderableOnly(this)
     }
 
     override fun renderBackground(gui: GuiGraphics) {

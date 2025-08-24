@@ -1,14 +1,19 @@
 package dev.mayaqq.estrogen.content.blocks
 
+import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.get
+import dev.mayaqq.cynosure.utils.file.GlobalStorage
 import dev.mayaqq.cynosure.utils.rem
+import dev.mayaqq.estrogen.MOD_ID
+import dev.mayaqq.estrogen.client.content.screen.MemorialScreen
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.blockEntities.MemorialBlockEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.item.ItemStack
+import net.minecraft.world.InteractionHand
+import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.BaseEntityBlock
@@ -19,10 +24,16 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.IntegerProperty
+import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 import uwu.serenity.kritter.stdlib.BlockEntityBlock
+import java.nio.file.Path
+import kotlin.io.path.createFile
+import kotlin.io.path.createParentDirectories
+import kotlin.io.path.exists
+import kotlin.io.path.notExists
 import kotlin.reflect.KClass
 
 class MemorialBlock(properties: Properties): BaseEntityBlock(properties), BlockEntityBlock<MemorialBlockEntity> {
@@ -30,6 +41,19 @@ class MemorialBlock(properties: Properties): BaseEntityBlock(properties), BlockE
     init {
         this.registerDefaultState(this.defaultBlockState().setValue(PART, 1))
     }
+
+    override fun use(
+        state: BlockState,
+        level: Level,
+        pos: BlockPos,
+        player: Player,
+        hand: InteractionHand,
+        result: BlockHitResult
+    ): InteractionResult = if (level.isClientSide) {
+        if (file.notExists()) file.createParentDirectories().createFile()
+        McClient.setScreen(MemorialScreen())
+        InteractionResult.SUCCESS
+    } else InteractionResult.CONSUME
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
         builder.add(PART)
@@ -103,5 +127,8 @@ class MemorialBlock(properties: Properties): BaseEntityBlock(properties), BlockE
             Shapes.box(0.0, 0.0, 0.1875, 1.0, 0.6875, 0.8125),
             Shapes.box(0.3125, 0.6875, 0.1875, 1.0, 1.0, 0.8125)
         )
+
+        val file: Path = GlobalStorage.getData(MOD_ID).resolve("memorial")
+
     }
 }
