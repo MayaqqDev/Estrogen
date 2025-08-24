@@ -90,7 +90,7 @@ class EntityInteractionRecipe(val recipeId: ResourceLocation, val ingredient: In
         override val id: ResourceLocation = id("entity_interaction")
         override val height: Int = 70
         override val width: Int = 177
-        override val type: RecipeType<*> = EstrogenRecipes.ENTITY_INTERACTION
+        override val type: RecipeType<*> get() = EstrogenRecipes.ENTITY_INTERACTION
     }
 }
 

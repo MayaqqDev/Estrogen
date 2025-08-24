@@ -2,6 +2,8 @@ package dev.mayaqq.estrogen
 
 //import dev.mayaqq.estrogen.config.Instance
 //import uwu.serenity.kittyconfig.api.defaults.load
+import dev.mayaqq.cynosure.core.Loader
+import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.cynosure.data.registerDatapackReloadListener
 import dev.mayaqq.cynosure.events.PostInitEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
@@ -41,8 +43,11 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
 
     fun init() {
         // TODO: When intellij plugin use the extensions instead of the top-level variants
-        loadConfig(EstrogenCommonConfig)
-        loadConfig(EstrogenServerConfig)
+        //TODO: Ofc remove this once kittyconfig works
+        if (currentLoader == Loader.FABRIC) {
+            loadConfig(EstrogenCommonConfig)
+            loadConfig(EstrogenServerConfig)
+        }
 
         EstrogenAttributes.register()
         EstrogenSounds.register()

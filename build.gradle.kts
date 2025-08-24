@@ -225,8 +225,8 @@ cloche {
         include(libs.forge.lithostitched)
 
         metadata {
-            modLoader = "kotlinforforge"
-            loaderVersion("4.11")
+            modLoader = "javafml"
+            loaderVersion("47")
             blurLogo = false
             modProperty("catalogueItemIcon", "estrogen:estrogen_pill")
             modProperty("catalogueBackground", "estrogen_background.png")
@@ -239,7 +239,7 @@ cloche {
         }
 
         dependencies {
-            api(libs.forge.kotlin)
+            api(libs.forge.kotlin.lang)
             modCompileOnlyApi(libs.forge.flywheel.api)
             modImplementation(libs.forge.flywheel)
             modImplementation(libs.forge.baubly) { exclude(group = "me.shedaniel") }
