@@ -3,10 +3,13 @@ package dev.mayaqq.estrogen
 //import dev.mayaqq.estrogen.config.Instance
 //import uwu.serenity.kittyconfig.api.defaults.load
 import dev.mayaqq.cynosure.biome.BiomeModifiers
+import dev.mayaqq.cynosure.core.Loader
+import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.cynosure.data.registerDatapackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.cynosure.utils.colors.LightBlue
+import dev.mayaqq.cynosure.utils.tag
 import dev.mayaqq.estrogen.api.EstrogenEntrypoint
 import dev.mayaqq.estrogen.api.EstrogenFlag
 import dev.mayaqq.estrogen.api.EstrogenModule
@@ -61,7 +64,9 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         EstrogenPoiTypes.register()
         EstrogenFeatures.register()
 
-        BiomeModifiers.addFeature({it.baseTemperature <= 0.0},
+        BiomeModifiers.addFeature({it.`is`(Registries.BIOME.tag(
+            ResourceLocation(if (currentLoader == Loader.FABRIC) "c" else "forge", "is_cold/overworld")
+        ))},
             GenerationStep.Decoration.SURFACE_STRUCTURES,
             ResourceKey.create(
                 Registries.PLACED_FEATURE,

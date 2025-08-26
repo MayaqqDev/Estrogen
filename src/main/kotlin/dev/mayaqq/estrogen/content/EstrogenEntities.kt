@@ -31,9 +31,9 @@ object EstrogenEntities : Registrar<EntityType<*>> by Estrogen..Registries.ENTIT
         spawnPlacement(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MothEntity::checkMobSpawnRules)
         spawnEgg(White.toUInt(), White.toUInt())
         addSpawn(
-            { it in EstrogenTags.Biomes.SPAWNS_MOTH },
+            { it.`is`(EstrogenTags.Biomes.SPAWNS_MOTH) },
             MobCategory.CREATURE,
-            50,
+            100,
             1 to 3,
         )
     }

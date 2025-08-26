@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#forge:is_cold/overworld",
-  "features": "estrogen:memorial",
-  "step": "surface_structures"
-}
