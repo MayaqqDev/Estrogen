@@ -51,13 +51,13 @@ object EstrogenDatagen : DataGeneratorEntrypoint {
     fun setupFabric(pack: EstrogenPack, fdg: FabricDataGenerator, path: Path) {
         pack.addProvider(::EstrogenFluidTags)
         pack.addProvider(::EstrogenCraftingRecipes)
-        setupCommon(EstrogenPack.create(fdg, "Estrogen (Common Fabric)", path, CommonRecipeHelper));
+        setupCommon(pack);
     }
 
     fun setupForge(pack: EstrogenPack, fdg: FabricDataGenerator, path: Path) {
         pack.addProvider(::EstrogenFluidTags)
         pack.addProvider(::EstrogenCraftingRecipes)
-        setupCommon(EstrogenPack.create(fdg, "Estrogen (Common Forge)", path, CommonRecipeHelper));
+        setupCommon(pack);
     }
 
     private inline fun required(property: String) = System.getProperty(property)?:
