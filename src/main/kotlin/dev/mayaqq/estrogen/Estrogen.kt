@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen
 
 //import dev.mayaqq.estrogen.config.Instance
 //import uwu.serenity.kittyconfig.api.defaults.load
+import dev.mayaqq.cynosure.biome.BiomeModifiers
 import dev.mayaqq.cynosure.core.Loader
 import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.cynosure.data.registerDatapackReloadListener
@@ -25,6 +26,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
+import net.minecraft.world.level.levelgen.GenerationStep
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import uwu.serenity.kittyconfig.loadConfig
@@ -43,11 +45,8 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
 
     fun init() {
         // TODO: When intellij plugin use the extensions instead of the top-level variants
-        //TODO: Ofc remove this once kittyconfig works
-        if (currentLoader == Loader.FABRIC) {
-            loadConfig(EstrogenCommonConfig)
-            loadConfig(EstrogenServerConfig)
-        }
+        loadConfig(EstrogenCommonConfig)
+        loadConfig(EstrogenServerConfig)
 
         EstrogenAttributes.register()
         EstrogenSounds.register()
@@ -66,6 +65,14 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         EstrogenRecipes.Serializers.register()
         EstrogenPoiTypes.register()
         EstrogenFeatures.register()
+
+        BiomeModifiers.addFeature({it.baseTemperature <= 0.0},
+            GenerationStep.Decoration.SURFACE_STRUCTURES,
+            ResourceKey.create(
+                Registries.PLACED_FEATURE,
+                id("memorial")
+            )
+        )
 
         info("Injecting Estrogen into your veins!")
 

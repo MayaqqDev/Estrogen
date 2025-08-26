@@ -27,22 +27,4 @@ fun init() {
         val stack = entity.getItemBySlot(EquipmentSlot.CHEST)
         if (stack.item is MothElytraItem) isFlyEnabled(stack) else false
     }
-
-    //TODO: This into cynosure api
-    BiomeModifications.addFeature(
-        BiomeSelectors.tag(Registries.BIOME.tag(ResourceLocation("c", "is_cold/overworld"))),
-        GenerationStep.Decoration.SURFACE_STRUCTURES,
-        ResourceKey.create(
-            Registries.PLACED_FEATURE,
-            id("memorial")
-        )
-    )
-    BiomeModifications.addSpawn(
-        BiomeSelectors.tag(EstrogenTags.Biomes.SPAWNS_MOTH),
-        MobCategory.CREATURE,
-        EstrogenEntities.Moth,
-        50,
-        1,
-        3
-    )
 }

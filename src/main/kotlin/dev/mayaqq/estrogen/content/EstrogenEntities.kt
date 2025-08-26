@@ -1,7 +1,9 @@
 package dev.mayaqq.estrogen.content
 
+import dev.mayaqq.cynosure.utils.addSpawn
 import dev.mayaqq.cynosure.utils.colors.White
 import dev.mayaqq.cynosure.utils.colors.toUInt
+import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.entityRenderers.moth.MothRenderer
 import dev.mayaqq.estrogen.content.entities.MothEntity
@@ -28,5 +30,11 @@ object EstrogenEntities : Registrar<EntityType<*>> by Estrogen..Registries.ENTIT
         attributes(MothEntity::createAttributes)
         spawnPlacement(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MothEntity::checkMobSpawnRules)
         spawnEgg(White.toUInt(), White.toUInt())
+        addSpawn(
+            { it in EstrogenTags.Biomes.SPAWNS_MOTH },
+            MobCategory.CREATURE,
+            50,
+            1 to 3,
+        )
     }
 }
