@@ -8,3 +8,4 @@
 - Dream Catcher
 - Sponging Recipe
 - Vanilla Unbalanced Datapack for when no extra modules installed.
+- Moths now spawn 2 times more common

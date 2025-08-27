@@ -64,6 +64,19 @@ cloche {
         sources = "https://github.com/MayaqqDev/Estrogen"
         author("Mayaqq")
         contributor("https://github.com/MayaqqDev/Estrogen/wiki/Credits")
+
+        dependency {
+            modId = "cynosure"
+            required = true
+        }
+        dependency {
+            modId = "kittyconfig"
+            required = true
+        }
+        dependency {
+            modId = "lithostitched"
+            required = true
+        }
     }
 
     mappings {
@@ -145,6 +158,19 @@ cloche {
                     "configFactory" to "dev.mayaqq.estrogen.fabric.integrations.catalogue.CatalogueCompat"
                 ))
                 custom("cynosure:datapacks", listOf("vanillamode"))
+            }
+
+            dependency {
+                modId = "fabric-api"
+                required = true
+            }
+            dependency {
+                modId = "fabric-language-kotlin"
+                required = true
+            }
+            dependency {
+                modId = "trinkets"
+                required = true
             }
         }
 
@@ -228,13 +254,20 @@ cloche {
         include(libs.forge.lithostitched)
         include(libs.kittyconfig)
 
+        datagenDirectory.set(file("build/generated/resources/forge"))
+
         metadata {
-            modLoader = "kotlinforforge"
-            loaderVersion("4.11")
+            modLoader = "javafml"
+            loaderVersion("47")
             blurLogo = false
             modProperty("catalogueItemIcon", "estrogen:estrogen_pill")
             modProperty("catalogueBackground", "estrogen_background.png")
             modProperty("cynosure:datapacks", listOf("vanillamode"))
+
+            dependency {
+                modId = "curios"
+                required = true
+            }
         }
 
         runs {
@@ -244,8 +277,10 @@ cloche {
             }
         }
 
+        data()
+
         dependencies {
-            api(libs.forge.kotlin)
+            api(libs.forge.kotlin.lang)
             modCompileOnlyApi(libs.forge.flywheel.api)
             modImplementation(libs.forge.flywheel)
             modImplementation(libs.forge.baubly) { exclude(group = "me.shedaniel") }

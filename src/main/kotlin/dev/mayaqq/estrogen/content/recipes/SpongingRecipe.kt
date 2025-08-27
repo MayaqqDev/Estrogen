@@ -93,7 +93,7 @@ class SpongingRecipe(val recipeId: ResourceLocation, val input: Either<Block, Ta
         override val catalyst: ItemStack = Items.BUCKET.defaultInstance
         override val id: ResourceLocation = id("sponging")
         override val height: Int = 70
-        override val type: RecipeType<*> = EstrogenRecipes.SPONGING
+        override val type: RecipeType<*> get() = EstrogenRecipes.SPONGING
         override val width: Int = 177
     }
 }

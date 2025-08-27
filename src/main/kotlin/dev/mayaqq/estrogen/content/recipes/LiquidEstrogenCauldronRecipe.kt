@@ -41,11 +41,11 @@ class LiquidEstrogenCauldronRecipe(val recipeId: ResourceLocation, val enabled: 
         )
 
         override val display: ItemStack = Items.CAULDRON.defaultInstance
-        override val catalyst: ItemStack = EstrogenFluids.FiltratedHorseUrine.bucket.defaultInstance
+        override val catalyst: ItemStack get() = EstrogenFluids.FiltratedHorseUrine.bucket.defaultInstance
         override val id: ResourceLocation = id("liquid_estrogen_cauldron")
         override val height: Int = 70
         override val width: Int = 177
-        override val type: RecipeType<*> = EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON
+        override val type: RecipeType<*> get() = EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON
 
     }
 

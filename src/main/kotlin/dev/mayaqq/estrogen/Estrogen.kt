@@ -2,17 +2,18 @@ package dev.mayaqq.estrogen
 
 //import dev.mayaqq.estrogen.config.Instance
 //import uwu.serenity.kittyconfig.api.defaults.load
+import dev.mayaqq.cynosure.biome.BiomeModifiers
+import dev.mayaqq.cynosure.core.Loader
+import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.cynosure.data.registerDatapackReloadListener
-import dev.mayaqq.cynosure.events.PostInitEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
-import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.cynosure.utils.colors.LightBlue
+import dev.mayaqq.cynosure.utils.tag
 import dev.mayaqq.estrogen.api.EstrogenEntrypoint
 import dev.mayaqq.estrogen.api.EstrogenFlag
 import dev.mayaqq.estrogen.api.EstrogenModule
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
-import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.*
@@ -23,6 +24,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
+import net.minecraft.world.level.levelgen.GenerationStep
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import uwu.serenity.kittyconfig.loadConfig
@@ -60,18 +62,23 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         EstrogenRecipes.register()
         EstrogenRecipes.Serializers.register()
         EstrogenPoiTypes.register()
+        EstrogenFeatures.register()
+
+        BiomeModifiers.addFeature({it.`is`(Registries.BIOME.tag(
+            ResourceLocation(if (currentLoader == Loader.FABRIC) "c" else "forge", "is_cold/overworld")
+        ))},
+            GenerationStep.Decoration.SURFACE_STRUCTURES,
+            ResourceKey.create(
+                Registries.PLACED_FEATURE,
+                id("memorial")
+            )
+        )
 
         info("Injecting Estrogen into your veins!")
 
         registerDatapackReloadListener(id("thigh_high_styles"), ThighHighStyleLoader)
 
         EstrogenNetwork
-    }
-
-    @Subscription
-    fun postInit(event: PostInitEvent) {
-        val key = Estrogen[ResourceKey.create(Registries.ITEM, id("estrogen_pill"))]
-        Estrogen.info("Info: $key")
     }
 
     override fun createConfigScreen(): (Screen) -> Screen = { EstrogenMenuScreen(it) }
