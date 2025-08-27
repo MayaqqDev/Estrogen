@@ -1,0 +1,30 @@
+{
+    "targets": [
+        "input",
+        "swap"
+    ],
+    "passes": [
+        {
+            "name": "estrogen:cel",
+            "intarget": "input",
+            "outtarget": "swap",
+            "auxtargets": [
+                {
+                    "name": "DiffuseDepthSampler",
+                    "id": "input:depth"
+                }
+            ],
+            "uniforms": [
+                {
+                    "name": "Color",
+                    "values": [0.0, 0.0, 0.0, 1.0]
+                }
+            ]
+        },
+        {
+            "name": "blit",
+            "intarget": "swap",
+            "outtarget": "input"
+        }
+    ]
+}

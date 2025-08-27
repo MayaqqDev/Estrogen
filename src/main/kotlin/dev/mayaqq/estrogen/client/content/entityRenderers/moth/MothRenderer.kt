@@ -1,6 +1,11 @@
 package dev.mayaqq.estrogen.client.content.entityRenderers.moth
 
+import com.mojang.blaze3d.vertex.PoseStack
+import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
+import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import dev.mayaqq.estrogen.content.entities.MothEntity
+import net.minecraft.client.renderer.MultiBufferSource
+import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.entity.EntityRendererProvider
 import net.minecraft.client.renderer.entity.MobRenderer
 import net.minecraft.resources.ResourceLocation

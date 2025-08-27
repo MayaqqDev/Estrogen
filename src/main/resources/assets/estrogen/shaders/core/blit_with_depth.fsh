@@ -13,7 +13,7 @@ out vec4 fragColor;
 
 void main() {
 
-    if (texture(DiffuseDepthSampler, texCoord).r > texture(MainDepthSampler, texCoord).r) {
+    if (texture(MainDepthSampler, texCoord).r < texture(DiffuseDepthSampler, texCoord).r) {
         discard;
     }
 

@@ -116,6 +116,7 @@ cloche {
         include(libs.fabric.baubly) { exclude(group = "me.shedaniel") }
         include(libs.fabric.kritter)
         include(libs.fabric.flywheel)
+        include(libs.kittyconfig)
         include(libs.fabric.botarium)
         include(libs.fabric.lithostitched)
         //include(libs.fabric.kittyconfig)
@@ -123,7 +124,9 @@ cloche {
         includedClient() // includedClient() is not a run
         runs {
             client()
-            server()
+            server {
+                runDir("runServer")
+            }
             data {
                 jvmArgs("-Dfabric-api.datagen.output-dir=${file("build/generated/resources/main")}")
                 jvmArgs("-Destrogen.datagen.fabric-output-dir=${file("build/generated/resources/fabric")}")
@@ -249,6 +252,7 @@ cloche {
         include(libs.forge.kritter)
         include(libs.forge.botarium)
         include(libs.forge.lithostitched)
+        include(libs.kittyconfig)
 
         datagenDirectory.set(file("build/generated/resources/forge"))
 
@@ -268,8 +272,9 @@ cloche {
 
         runs {
             client()
-            server()
-            data()
+            server {
+                runDir("runServer")
+            }
         }
 
         data()

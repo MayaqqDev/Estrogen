@@ -5,11 +5,8 @@ import dev.mayaqq.estrogen.compat.recipeviewers.base.RVRecipe
 import dev.mayaqq.estrogen.compat.recipeviewers.base.Role
 import dev.mayaqq.estrogen.compat.recipeviewers.base.RvRecipeData
 import dev.mayaqq.estrogen.compat.recipeviewers.base.ingredient.RvIngredient
-import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
-import dev.mayaqq.estrogen.content.recipes.SpongingRecipe
 import dev.mayaqq.estrogen.content.recipes.getSpawnEggs
-import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.inventory.InventoryScreen
 import net.minecraft.world.entity.LivingEntity
@@ -22,7 +19,7 @@ class EntityInteractionRvRecipe(recipe: EntityInteractionRecipe) : RVRecipe<Enti
         addTexture(RecipeTextures.JEI_SHADOW, 62, 47)
         addTexture(RecipeTextures.JEI_DOWN_ARROW, 74, 10)
 
-        val matchingStacks: Array<ItemStack> = recipe.entity.getSpawnEggs().toTypedArray()
+        val matchingStacks: Array<ItemStack> = recipe.entity.getSpawnEggs()
         val eggs = addSlot(RvIngredient.of(Ingredient.of(*matchingStacks)), 27, 38, Role.RENDER_ONLY)
 
         addSlot(inputs()[0], 51, 5, Role.INPUT)
