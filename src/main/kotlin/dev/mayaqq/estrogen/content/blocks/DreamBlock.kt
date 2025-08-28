@@ -10,6 +10,7 @@ import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.PlayerConnectionEvent
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
 import dev.mayaqq.cynosure.utils.rem
+import dev.mayaqq.estrogen.client.content.models.Connection
 import dev.mayaqq.estrogen.client.features.TextRendererFeatures
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.refresh
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
@@ -130,7 +131,6 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
     override fun isRandomlyTicking(state: BlockState): Boolean = !state.getValue(PERSISTENT)
 
     override fun randomTick(state: BlockState, level: ServerLevel, pos: BlockPos, random: RandomSource) {
-        // TODO: Possibly configurable range and chance?
         if (state.getValue(PERSISTENT)) return
 
         EstrogenServerConfig.DreamBlock.dreamingTickChance
@@ -239,6 +239,10 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
             // can't use betweenClosedStream because it also sometimes includes blocks that the player
             // is touching the face of, but not colliding with. >:(
         }
+
+        @JvmStatic
+        fun isTouchingDreamBlock(state: BlockState, direction: Direction): Boolean =
+            state.block is DreamBlock && state.getValue(directionProperty(direction))
 
         @Subscription
         internal fun onPlayerJoin(event: PlayerConnectionEvent.Join) {

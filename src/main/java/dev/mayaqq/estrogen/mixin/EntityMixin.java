@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class EntityMixin {
     @WrapMethod(method = "setSharedFlag")
     private void stayGlidingDreamBlock(int flag, boolean set, Operation<Void> original) {
-        if (flag == 7 && (Object) this instanceof Player && DreamBlock.isInDreamBlock((Player) (Object) this)) return;
+        //if (flag == 7 && (Object) this instanceof Player && DreamBlock.isInDreamBlock((Player) (Object) this)) return;
         original.call(flag, set);
     }
 }

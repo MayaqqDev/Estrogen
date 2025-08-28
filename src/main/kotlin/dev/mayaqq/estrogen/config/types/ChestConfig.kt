@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.config.types
 
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.network.EstrogenNetwork
-import dev.mayaqq.estrogen.network.messages.c2s.FinishedLoadingPacket
 import dev.mayaqq.estrogen.network.messages.c2s.SetChestConfigPacket
 import kotlinx.serialization.Serializable
 
@@ -14,9 +13,6 @@ data class ChestConfig(
     val bounciness: Double,
     val damping: Float
 ) {
-    fun send() {
-        EstrogenNetwork.sendToServer(SetChestConfigPacket(current))
-    }
     companion object {
         @JvmStatic
         val current get() = ChestConfig(
@@ -29,8 +25,7 @@ data class ChestConfig(
 
         @JvmStatic
         fun sync() {
-            current.send()
-            EstrogenNetwork.sendToServer(FinishedLoadingPacket)
+            EstrogenNetwork.sendToServer(SetChestConfigPacket(current))
         }
     }
 }

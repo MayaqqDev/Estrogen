@@ -22,7 +22,7 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
 
     override fun render(blockEntity: DreamBlockEntity, partialTick: Float, poseStack: PoseStack, buffer: MultiBufferSource, packedLight: Int, packedOverlay: Int) {
         if (blockEntity.shouldRender()) {
-            DynamicDreamTexture.prepare()
+            DynamicDreamTexture.prepareIfNeeded()
             for (direction in Direction.entries) {
                 if (blockEntity.isTouchingDreamBlock(direction)) continue
                 renderFaceShader(blockEntity, poseStack.lastPose, buffer.getBuffer(EstrogenRenderTypes.DREAM_BLOCK), direction)

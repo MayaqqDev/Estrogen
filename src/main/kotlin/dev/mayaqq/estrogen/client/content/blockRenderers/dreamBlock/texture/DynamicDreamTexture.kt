@@ -24,7 +24,7 @@ internal object DynamicDreamTexture {
     private var animationTick = 0
     var init = false
 
-    fun prepare() {
+    fun prepareIfNeeded() {
         if (init) return
         texture = DynamicTexture(128, 128, false)
         Minecraft.getInstance().textureManager.register(ID, texture)
@@ -68,6 +68,7 @@ internal object DynamicDreamTexture {
                 val goober = Goober(posX, posY, color, style, animTick, beginFrame, transparency)
                 goobers.add(goober)
                 count--
+                attempts = 16
             } else {
                 attempts--
                 if (attempts == 0) {

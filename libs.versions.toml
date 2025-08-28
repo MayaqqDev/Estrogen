@@ -2,7 +2,7 @@
 
 # Stuff
 kotlin = "2.2.10"
-cloche = "0.11.22"
+cloche = "0.13.2"
 
 # Minecraft
 minecraft = "1.20.1"
@@ -48,7 +48,7 @@ flk = "1.11.0+kotlin.2.0.0"
 lithostitched_fabric = "1.4.11-fabric-1.20"
 
 # Forge Only Dependencies
-forge = "47.4.0"
+forge = "47.3.0"
 curios = "5.4.7+1.20.1"
 create_forge = "0.5.1.f-27"
 jei_file_id_forge = "4712868"
@@ -101,8 +101,7 @@ fabric-lithostitched = { module = "maven.modrinth:lithostitched", version.ref = 
 
 
 # Forge depencencies
-forge-kotlin = { module = "thedarkcolour:kotlinforforge", version.ref = "kff" }
-forge-kotlin-lang = { module = "dev.nyon:KotlinLangForge", version.ref = "klf" }
+forge-kotlin = { module = "dev.nyon:KotlinLangForge", version.ref = "klf" }
 forge-create = { module = "com.simibubi.create:create-1.20.1", version.ref = "create_forge" }
 forge-baubly = { module = "earth.terrarium.baubly:baubly-forge-1.20.1", version.ref = "baubly" }
 forge-emi = { module = "dev.emi:emi-forge", version.ref = "emi" }

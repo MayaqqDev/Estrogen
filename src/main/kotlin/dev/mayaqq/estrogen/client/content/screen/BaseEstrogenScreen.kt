@@ -34,7 +34,7 @@ abstract class BaseEstrogenScreen(val previous: Screen?, title: Component) : Scr
 
     override fun init() {
         if (shouldGenerateNewTexture) {
-            DynamicDreamTexture.prepare()
+            DynamicDreamTexture.prepareIfNeeded()
             DynamicDreamTexture.changeSeed(0xB00B5)
             generatedTexture = true
         }

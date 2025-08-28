@@ -1,6 +1,7 @@
 @file:EventSubscriber(env = [Environment.CLIENT])
 package dev.mayaqq.estrogen.client
 
+//import dev.mayaqq.estrogen.config.Instance
 import dev.mayaqq.cynosure.client.entity.registerDefinition
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.events.ParticleRenderTypeRegistrationEvent
@@ -25,18 +26,23 @@ import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorDataLoader
 import dev.mayaqq.estrogen.client.features.dash.DashOverlay
 import dev.mayaqq.estrogen.compat.ears.EarsCompat
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
-//import dev.mayaqq.estrogen.config.Instance
 import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.injection.chestConfig
-import dev.mayaqq.estrogen.network.EstrogenNetwork
-import dev.mayaqq.estrogen.network.messages.c2s.FinishedLoadingPacket
-import dev.mayaqq.estrogen.network.messages.c2s.SetChestConfigPacket
 import net.minecraft.client.Minecraft
+import net.minecraft.client.resources.model.Material
+import net.minecraft.client.resources.model.ModelResourceLocation
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.inventory.InventoryMenu
 import uwu.serenity.kittyconfig.loadConfig
 
-//import uwu.serenity.kittyconfig.api.defaults.load
+
+val THIGH_HIGH_ITEM_LOCATION: ResourceLocation = ModelResourceLocation(id("thigh_highs"), "inventory")
+
+const val THIGH_HIGH_MODELS_DIRECTORY = "models/thigh_highs"
+
+const val THIGH_HIGH_ITEM_TEXTURES = "textures/item/thigh_highs"
 
 internal var chestConfigSet = false
 

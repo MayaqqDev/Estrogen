@@ -1,9 +1,7 @@
 package dev.mayaqq.estrogen.mixin;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.commands.arguments.blocks.BlockStateParser;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -14,11 +12,11 @@ import java.util.stream.Stream;
 
 @Mixin(BlockStateParser.class)
 public class BlockStateParserMixin {
-    @WrapOperation(
+    @ModifyExpressionValue(
             method = "suggestItem",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/core/HolderLookup;listElementIds()Ljava/util/stream/Stream;")
     )
-    private Stream<ResourceKey<Item>> suggestItem(HolderLookup instance, Operation<Stream<ResourceKey<Item>>> original) {
-        return original.call(instance).filter(item -> !item.location().equals(new ResourceLocation("estrogen", "colon_three")));
+    private Stream<ResourceKey<Item>> suggestItem(Stream<ResourceKey<Item>> original) {
+        return original.filter(item -> !item.location().equals(new ResourceLocation("estrogen", "colon_three")));
     }
 }

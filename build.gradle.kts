@@ -98,6 +98,7 @@ cloche {
             modCompileOnly(libs.figura)
             modCompileOnly(libs.createNewAge)
             modImplementation(libs.kittyconfig)
+            include(libs.kittyconfig) { isTransitive = false }
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
 
@@ -113,12 +114,6 @@ cloche {
         loaderVersion = libs.versions.fabric
         minecraftVersion = libs.versions.minecraft
 
-        include(libs.fabric.baubly) { exclude(group = "me.shedaniel") }
-        include(libs.fabric.kritter)
-        include(libs.fabric.flywheel)
-        include(libs.kittyconfig)
-        include(libs.fabric.botarium)
-        include(libs.fabric.lithostitched)
         //include(libs.fabric.kittyconfig)
 
         includedClient() // includedClient() is not a run
@@ -193,6 +188,12 @@ cloche {
             modApi(libs.fabric.botarium)
             modImplementation(libs.fabric.lithostitched)
 
+            include(libs.fabric.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
+            include(libs.fabric.kritter) { isTransitive = false }
+            include(libs.fabric.flywheel) { isTransitive = false }
+            include(libs.fabric.botarium) { isTransitive = false }
+            include(libs.fabric.lithostitched) { isTransitive = false }
+
             when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
                 "EMI" -> modRuntimeOnly(libs.fabric.emi)
@@ -247,18 +248,11 @@ cloche {
         loaderVersion = libs.versions.forge.get()
         minecraftVersion = libs.versions.minecraft.get()
 
-        include(libs.forge.baubly) { exclude(group = "me.shedaniel") }
-        include(libs.forge.mixinExtras)
-        include(libs.forge.kritter)
-        include(libs.forge.botarium)
-        include(libs.forge.lithostitched)
-        include(libs.kittyconfig)
-
         datagenDirectory.set(file("build/generated/resources/forge"))
 
         metadata {
-            modLoader = "javafml"
-            loaderVersion("47")
+            modLoader = "klf"
+            loaderVersion("1")
             blurLogo = false
             modProperty("catalogueItemIcon", "estrogen:estrogen_pill")
             modProperty("catalogueBackground", "estrogen_background.png")
@@ -277,10 +271,8 @@ cloche {
             }
         }
 
-        data()
-
         dependencies {
-            api(libs.forge.kotlin.lang)
+            api(libs.forge.kotlin)
             modCompileOnlyApi(libs.forge.flywheel.api)
             modImplementation(libs.forge.flywheel)
             modImplementation(libs.forge.baubly) { exclude(group = "me.shedaniel") }
@@ -293,6 +285,12 @@ cloche {
             //modApi(libs.forge.kittyconfig)
             modApi(libs.forge.botarium)
             modImplementation(libs.forge.lithostitched)
+
+            include(libs.forge.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
+            include(libs.forge.mixinExtras) { isTransitive = false }
+            include(libs.forge.kritter) { isTransitive = false }
+            include(libs.forge.botarium) { isTransitive = false }
+            include(libs.forge.lithostitched) { isTransitive = false }
 
             when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)

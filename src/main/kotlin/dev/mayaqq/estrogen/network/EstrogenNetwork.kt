@@ -17,7 +17,6 @@ val EstrogenNetwork = NetworkChannel(id("main"), 1) {
 
     // C2S
     serverbound<DashPacket>()
-    serverbound<FinishedLoadingPacket>()
     serverbound<SetChestConfigPacket>()
     serverbound<SpawnHeartsPacket>(SpawnHeartsPacket.CODEC)
     serverbound(DreamBlockRipplePacket.CODEC)

@@ -20,7 +20,7 @@ class DreamBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockState:
         get() = blockState.getValue(DreamBlock.PERSISTENT)
 
     fun isTouchingDreamBlock(direction: Direction): Boolean {
-        return blockState.getValue(DreamBlock.directionProperty(direction))
+        return DreamBlock.isTouchingDreamBlock(blockState, direction)
     }
 
     override fun setRemoved() {
@@ -30,6 +30,5 @@ class DreamBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockState:
 
     companion object {
         val CHUNKS: LongList = LongArrayList()
-
     }
 }
