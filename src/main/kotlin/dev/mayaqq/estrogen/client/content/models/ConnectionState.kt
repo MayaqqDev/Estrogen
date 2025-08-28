@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.client.content.models
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 
 
-data class Connection(
+data class ConnectionState(
     val up: Boolean,
     val down: Boolean,
     val left: Boolean,
@@ -15,7 +15,7 @@ data class Connection(
 )
 
 
-val Connection.textureShift: Int get() {
+val ConnectionState.textureShift: Int get() {
     var tileX = 0
     var tileY = 0
     val borders =

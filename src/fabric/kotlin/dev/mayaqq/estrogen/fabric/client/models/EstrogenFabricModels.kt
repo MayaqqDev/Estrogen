@@ -15,7 +15,6 @@ import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext
 import net.minecraft.client.resources.model.BakedModel
-import net.minecraft.client.resources.model.ModelBaker
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.packs.resources.ResourceManager
 import net.minecraft.util.RandomSource
@@ -52,7 +51,7 @@ object EstrogenFabricModels : PreparableModelLoadingPlugin<Preparations>, Prepar
 
         context.modifyModelAfterBake().register { model, ctx ->
             if (ctx.id() == ClientDreamBlock.DORMANT_MODEL)
-                FabricDreamBlockModel(model!!, ctx.textureGetter().apply(ClientDreamBlock.DORMANT_CONNECTED_TEXTURE))
+                FabricConnectedModel(model!!, ctx.textureGetter().apply(ClientDreamBlock.DORMANT_CONNECTED_TEXTURE))
             else model
         }
     }

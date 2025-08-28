@@ -10,7 +10,6 @@ import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.PlayerConnectionEvent
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
 import dev.mayaqq.cynosure.utils.rem
-import dev.mayaqq.estrogen.client.content.models.Connection
 import dev.mayaqq.estrogen.client.features.TextRendererFeatures
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.refresh
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
