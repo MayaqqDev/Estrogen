@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.content.blocks
 import dev.mayaqq.cynosure.events.PostInitEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.utils.rem
+import dev.mayaqq.cynosure.utils.of
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenItems
@@ -82,7 +82,7 @@ object CauldronInteractions {
             player.awardStat(Stats.USE_CAULDRON)
             player.awardStat(Stats.ITEM_USED.get(item))
             level.setBlockAndUpdate(pos,
-                if (state % cauldron.invoke()) state.cycle(LayeredCauldronBlock.LEVEL)
+                if (state of cauldron.invoke()) state.cycle(LayeredCauldronBlock.LEVEL)
                 else cauldron.invoke().defaultBlockState()
             )
             level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0f, 1.0f)

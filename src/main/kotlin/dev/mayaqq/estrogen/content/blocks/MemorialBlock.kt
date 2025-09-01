@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.content.blocks
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.get
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
-import dev.mayaqq.cynosure.utils.rem
+import dev.mayaqq.cynosure.utils.of
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.screen.MemorialScreen
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
@@ -74,7 +74,7 @@ class MemorialBlock(properties: Properties): BaseEntityBlock(properties), BlockE
         super.onRemove(state, level, pos, newState, byPiston)
         if (!level.isClientSide) {
             Direction.entries.forEach { dir ->
-                if (level[pos.relative(dir)] % EstrogenBlocks.Memorial) {
+                if (level[pos.relative(dir)] of EstrogenBlocks.Memorial) {
                     level.removeBlock(pos.relative(dir), true)
                 }
             }

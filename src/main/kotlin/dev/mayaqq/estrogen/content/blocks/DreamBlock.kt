@@ -9,7 +9,7 @@ import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.PlayerConnectionEvent
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
-import dev.mayaqq.cynosure.utils.rem
+import dev.mayaqq.cynosure.utils.of
 import dev.mayaqq.estrogen.client.features.TextRendererFeatures
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.refresh
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
@@ -122,7 +122,7 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         pos: BlockPos,
         neighborPos: BlockPos
     ): BlockState {
-        return if (neighborState % this && neighborState.getValue(PERSISTENT) == state.getValue(PERSISTENT))
+        return if (neighborState of this && neighborState.getValue(PERSISTENT) == state.getValue(PERSISTENT))
             state.setValue(directionProperty(direction), true)
         else state.setValue(directionProperty(direction), false)
     }

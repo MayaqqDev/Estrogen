@@ -7,6 +7,7 @@ import dev.mayaqq.estrogen.api.EstrogenModule
 import net.minecraftforge.fml.ModList
 import org.objectweb.asm.Type
 import kotlin.jvm.optionals.getOrNull
+import kotlin.reflect.KClass
 
 actual fun getModules(): Set<ModuleContainer> {
     val list = arrayListOf<ModuleContainer>()
@@ -18,7 +19,7 @@ actual fun getModules(): Set<ModuleContainer> {
                     val clazz = Class.forName(annot.memberName)
                     if (EstrogenModule::class.java.isAssignableFrom(clazz)) {
                         val pluginClass = clazz.asSubclass(EstrogenModule::class.java)
-                        val plugin = pluginClass.getConstructor().newInstance()
+                        val plugin = pluginClass.kotlin.objectInstance?: pluginClass.getConstructor().newInstance()
                         val data = scan.iModInfoData[0].mods[0]
                         list.add(ModuleContainer(
                             plugin,

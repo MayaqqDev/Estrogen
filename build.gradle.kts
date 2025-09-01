@@ -113,13 +113,6 @@ cloche {
         loaderVersion = libs.versions.fabric
         minecraftVersion = libs.versions.minecraft
 
-        include(libs.fabric.baubly) { exclude(group = "me.shedaniel") }
-        include(libs.fabric.kritter)
-        include(libs.fabric.flywheel)
-        include(libs.kittyconfig)
-        include(libs.fabric.botarium)
-        include(libs.fabric.lithostitched)
-        //include(libs.fabric.kittyconfig)
 
         includedClient() // includedClient() is not a run
         runs {
@@ -175,6 +168,13 @@ cloche {
         }
 
         dependencies {
+            include(libs.fabric.baubly) { exclude(group = "me.shedaniel") }
+            include(libs.fabric.kritter)
+            include(libs.fabric.flywheel)
+            include(libs.kittyconfig)
+            include(libs.fabric.botarium)
+            include(libs.fabric.lithostitched)
+
             fabricApi(libs.versions.fapi)
             modApi(libs.fabric.kotlin)
             modApi.bundle(libs.bundles.fabric.cardinalComponents)
@@ -247,13 +247,6 @@ cloche {
         loaderVersion = libs.versions.forge.get()
         minecraftVersion = libs.versions.minecraft.get()
 
-        include(libs.forge.baubly) { exclude(group = "me.shedaniel") }
-        include(libs.forge.mixinExtras)
-        include(libs.forge.kritter)
-        include(libs.forge.botarium)
-        include(libs.forge.lithostitched)
-        include(libs.kittyconfig)
-
         datagenDirectory.set(file("build/generated/resources/forge"))
 
         metadata {
@@ -275,11 +268,19 @@ cloche {
             server {
                 runDir("runServer")
             }
+            data() // NEEDED FOR GENERATED DATA TO ATTACH ON FORGE! SCREAM AT ASHLEY FOR THIS
         }
 
         data()
 
         dependencies {
+            include(libs.forge.baubly) { exclude(group = "me.shedaniel") }
+            include(libs.forge.mixinExtras)
+            include(libs.forge.kritter)
+            include(libs.forge.botarium)
+            include(libs.forge.lithostitched)
+            include(libs.kittyconfig)
+
             api(libs.forge.kotlin.lang)
             modCompileOnlyApi(libs.forge.flywheel.api)
             modImplementation(libs.forge.flywheel)
