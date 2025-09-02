@@ -1,19 +1,24 @@
 package dev.mayaqq.estrogen.client.content.screen.cosmetics
 
 import dev.mayaqq.cynosure.client.utils.pushPop
-import dev.mayaqq.cynosure.client.utils.translated
+import dev.mayaqq.cynosure.helpers.McClient
+import dev.mayaqq.cynosure.helpers.McFont
+import dev.mayaqq.cynosure.helpers.McLevel
+import dev.mayaqq.cynosure.helpers.McPlayer
+import dev.mayaqq.cynosure.text.CommonText
 import dev.mayaqq.cynosure.text.unaryMinus
 import dev.mayaqq.cynosure.text.unaryPlus
-import dev.mayaqq.cynosure.utils.colors.LimeGreen
 import dev.mayaqq.estrogen.client.content.screen.BaseEstrogenScreen
 import dev.mayaqq.estrogen.client.content.screen.EstrogenButton
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
 import dev.mayaqq.estrogen.id
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
-import net.minecraft.network.chat.Component
+import net.minecraft.client.gui.screens.inventory.InventoryScreen
+import net.minecraft.world.entity.player.Inventory
+import org.joml.Quaternionf
 
-class CosmeticsScreen(previous: Screen?) : BaseEstrogenScreen(previous, -"gui.estrogen.cosmetics.title") {
+class CosmeticsBaseScreen(previous: Screen?) : BaseEstrogenScreen(previous, -"gui.estrogen.cosmetics.title") {
 
     val rCosmeticsPreview = EstrogenButton.Builder(PreviewRenderer()) {}
         .color(EstrogenMenuScreen.transBlue).renderOnly(true)
@@ -80,6 +85,21 @@ class PreviewRenderer() : EstrogenButton.Renderer {
         mouseY: Int,
         partialTick: Float
     ) {
-
+        if (this.message == CommonText.EMPTY) this.message = -"gui.estrogen.cosmetics.no_preview"
+        McPlayer?.let { player ->
+            graphics.pushPop {
+                InventoryScreen.renderEntityInInventory(
+                    graphics,
+                    width / 2,
+                    height / 2,
+                    10,
+                    Quaternionf(),
+                    Quaternionf(),
+                    player
+                )
+            }
+        }?: {
+            this@renderComponents.renderString(graphics, McFont, 0xFFFFFF)
+        }
     }
 }
