@@ -8,7 +8,7 @@ import dev.mayaqq.estrogen.client.content.screen.EstrogenButton
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
 import net.minecraft.client.gui.screens.Screen
 
-class CosmeticsLoginScreen(previous: Screen?) : CosmeticsBaseScreen(previous, -"gui.estrogen.cosmetics.title", true) {
+class CosmeticsLoginScreen(previous: Screen?) : CosmeticsBaseScreen(previous, -"gui.estrogen.cosmetics.title", /*TODO: this to false*/true) {
     val bLogin = EstrogenButton.Builder(EstrogenButton.TextRenderer(-"gui.estrogen.cosmetics.login")) {
         //TODO: Login here
     }.color(EstrogenMenuScreen.transWhite)

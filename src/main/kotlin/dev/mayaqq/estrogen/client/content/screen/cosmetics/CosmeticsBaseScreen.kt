@@ -1,50 +1,22 @@
 package dev.mayaqq.estrogen.client.content.screen.cosmetics
 
-import dev.mayaqq.cynosure.helpers.McFont
+import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.McPlayer
-import dev.mayaqq.cynosure.text.CommonText
 import dev.mayaqq.cynosure.text.unaryMinus
 import dev.mayaqq.estrogen.client.content.screen.BaseEstrogenScreen
 import dev.mayaqq.estrogen.client.content.screen.EstrogenButton
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
 import dev.mayaqq.estrogen.client.content.screen.cosmetics.widget.CosmeticPreview
-import dev.mayaqq.estrogen.id
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
-import net.minecraft.client.gui.screens.inventory.InventoryScreen
 import net.minecraft.network.chat.Component
-import net.minecraft.util.Mth
-import net.minecraft.world.entity.player.Player
-import org.joml.Quaternionf
 
 
 open class CosmeticsBaseScreen(previous: Screen?, title: Component, val ableToClaim: Boolean = false) : BaseEstrogenScreen(previous, title) {
     val rTitle = EstrogenButton.Builder(EstrogenButton.TextRenderer(-"gui.estrogen.cosmetics.title")) {}
         .color(EstrogenMenuScreen.transPink).renderOnly(true)
     val bClaimCosmetics = EstrogenButton.Builder(EstrogenButton.TextRenderer(-"gui.estrogen.cosmetics.claim")) {
-        // Claim Cosmetics
-    }.color(EstrogenMenuScreen.transWhite)
-    val bRefresh = EstrogenButton.Builder(object : EstrogenButton.Renderer {
-        override fun EstrogenButton.renderComponents(
-            graphics: GuiGraphics,
-            mouseX: Int,
-            mouseY: Int,
-            partialTick: Float
-        ) {
-            graphics.blit(id("textures/gui/icons/refresh.png"),
-                this.x + 14,
-                this.y + 15,
-                0F,
-                0F,
-                16,
-                16,
-                16,
-                16
-            )
-        }
-
-    }) {
-        // Refresh
+        McClient.setScreen(CosmeticsClaimScreen(this))
     }.color(EstrogenMenuScreen.transWhite)
 
     override fun baseInit() {
