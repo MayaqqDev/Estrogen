@@ -15,6 +15,7 @@ import dev.mayaqq.cynosure.utils.colors.White
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.screen.cosmetics.CosmeticsBaseScreen
+import dev.mayaqq.estrogen.client.content.screen.cosmetics.CosmeticsLoginScreen
 import dev.mayaqq.estrogen.client.content.screen.modules.ModulesScreen
 import dev.mayaqq.estrogen.id
 import net.minecraft.client.gui.GuiGraphics
@@ -38,7 +39,7 @@ class EstrogenMenuScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.
         McClient.setScreen(ModulesScreen(this))
     }
     val bCosmetics = EstrogenButton.Builder(EstrogenButton.TextRenderer(Text.translatable("estrogen.button.cosmetics"))) {
-        McClient.setScreen(CosmeticsBaseScreen(this))
+        McClient.setScreen(CosmeticsLoginScreen(this))
     }
     val bMemorial = EstrogenButton.Builder(EstrogenButton.TextRenderer(Text.translatable("estrogen.button.memorial"))) {
         McClient.setScreen(MemorialScreen(this))

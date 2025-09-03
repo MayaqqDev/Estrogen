@@ -18,7 +18,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 
-class EstrogenButton(
+open class EstrogenButton(
     x: Int,
     y: Int,
     width: Int,
@@ -151,7 +151,7 @@ class EstrogenButton(
         }
     }
 
-    class IconRenderer(val icon: ResourceLocation) : Renderer {
+    open class IconRenderer(val icon: ResourceLocation) : Renderer {
         override fun EstrogenButton.renderComponents(
             graphics: GuiGraphics,
             mouseX: Int,

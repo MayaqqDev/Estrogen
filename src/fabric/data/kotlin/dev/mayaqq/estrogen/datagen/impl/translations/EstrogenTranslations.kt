@@ -270,11 +270,12 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("gui.estrogen.cosmetics.title", "Estrogen Cosmetics")
         tb.add("gui.estrogen.cosmetics.back", "Go Back")
         tb.add("gui.estrogen.cosmetics.close", "Close")
+        tb.add("gui.estrogen.cosmetics.login", "Login")
         tb.add("gui.estrogen.cosmetics.claim", "Claim Reward")
         tb.add("gui.estrogen.cosmetics.none", "None")
         tb.add("gui.estrogen.cosmetics.no_preview", "Cosmetics Preview only in-game")
         tb.add("gui.estrogen.cosmetics.no_cosmetics", "No Cosmetics Available")
-        tb.add("gui.estrogen.cosmetics.patreon_link", "https://patreon.com/mayaqq")
+        tb.add("gui.estrogen.cosmetics.patreon_ad", "Get Cosmetics on Patreon")
 
         tb.add(
             "gui.estrogen.cosmetics.login.description", """
