@@ -27,7 +27,7 @@ open class EstrogenButton(
     onPress: OnPress,
     createNarration: CreateNarration,
     val color: Color,
-    val disabled: Boolean,
+    var disabled: Boolean,
     val renderOnly: Boolean
 ) : Button(x, y, width, height, CommonText.EMPTY, onPress, createNarration) {
 

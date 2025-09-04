@@ -52,17 +52,11 @@ abstract class BaseEstrogenScreen(val previous: Screen?, title: Component) : Scr
 
     abstract fun baseRender(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float)
 
-    fun EstrogenButton.Builder.buildAndAdd() {
-        addRenderableWidget(this.build())
-    }
+    fun EstrogenButton.Builder.buildAndAdd(): EstrogenButton = addRenderableWidget(this.build())
 
-    fun AbstractWidget.add() {
-        addRenderableWidget(this)
-    }
+    fun AbstractWidget.add(): AbstractWidget = addRenderableWidget(this)
 
-    fun AbstractWidget.addRenderable() {
-        addRenderableOnly(this)
-    }
+    fun AbstractWidget.addRenderable(): AbstractWidget = addRenderableOnly(this)
 
     override fun renderBackground(gui: GuiGraphics) {
         renderDream(gui, 0, width, 0, height)
