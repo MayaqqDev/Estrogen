@@ -330,15 +330,17 @@ configurations.named("forgeRuntimeClasspath") {
 }
 
 java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
     withSourcesJar()
 }
-
-tasks.withType<KotlinCompile> {
-//    explicitApiMode = org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode.Warning
+kotlin {
     compilerOptions {
         languageVersion = KotlinVersion.KOTLIN_2_0
         freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
     }
+    jvmToolchain(17)
 }
 
 tasks.named("createCommonApiStub", GenerateStubApi::class) {
