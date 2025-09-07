@@ -378,3 +378,7 @@ publishing {
         }
     }
 }
+
+tasks.named("runForgeData") {
+    enabled = false
+}
