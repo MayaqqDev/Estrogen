@@ -47,12 +47,12 @@ object EstrogenFluids : Registrar<Fluid> by Estrogen..Registries.FLUID, FluidReg
             }
             renderType(RenderType::translucent)
             block({ data, properties -> EstrogenLiquidBlock(data, properties,
-                BaseEstrogenLiquidBlock.FluidInteraction { pos, state, fluidState ->
+                arrayOf(BaseEstrogenLiquidBlock.FluidInteraction { pos, state, fluidState ->
                     if (fluidState.`is`(Fluids.WATER)) {
                         return@FluidInteraction Blocks.CALCITE.defaultBlockState()
                     }
                     return@FluidInteraction null
-                }
+                })
             )}) {
                 copyProperties(Blocks::WATER)
                 properties {
@@ -103,12 +103,12 @@ object EstrogenFluids : Registrar<Fluid> by Estrogen..Registries.FLUID, FluidReg
         }
         renderType(RenderType::translucent)
         block({ data, properties -> EstrogenLiquidBlock(data, properties,
-            BaseEstrogenLiquidBlock.FluidInteraction { pos, state, fluidState ->
+            arrayOf(BaseEstrogenLiquidBlock.FluidInteraction { pos, state, fluidState ->
                 if (fluidState.`is`(FluidTags.LAVA)) {
                     return@FluidInteraction Blocks.PRISMARINE.defaultBlockState()
                 }
                 return@FluidInteraction null
-            }
+            })
         )}) {
             copyProperties(Blocks::WATER)
             properties {

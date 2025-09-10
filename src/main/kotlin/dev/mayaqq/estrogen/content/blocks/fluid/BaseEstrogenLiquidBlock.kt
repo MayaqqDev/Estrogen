@@ -9,7 +9,6 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.material.FluidState
 
 open class BaseEstrogenLiquidBlock(data: FluidData, properties: Properties, val interactions: Array<FluidInteraction> = emptyArray()) : BotariumLiquidBlock(data, properties) {
-    constructor(data: FluidData, properties: Properties, vararg interactions: FluidInteraction): this(data, properties, arrayOf(*interactions))
 
     override fun onPlace(state: BlockState, level: Level, pos: BlockPos, old: BlockState, movedByPiston: Boolean) {
         if (this.fluidInteraction(level, pos, state)) {

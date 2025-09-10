@@ -366,8 +366,8 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
 
     companion object {
         const val TICKS_PER_FLAP: Int = 2
-        private val DATA_FUZZY: EntityDataAccessor<Boolean?> = SynchedEntityData.defineId<Boolean?>(MothEntity::class.java, EntityDataSerializers.BOOLEAN)
-        private val ANIMATION_STATES: EntityDataAccessor<Byte?> = SynchedEntityData.defineId<Byte?>(MothEntity::class.java, EntityDataSerializers.BYTE)
+        private val DATA_FUZZY: EntityDataAccessor<Boolean> = SynchedEntityData.defineId<Boolean>(MothEntity::class.java, EntityDataSerializers.BOOLEAN)
+        private val ANIMATION_STATES: EntityDataAccessor<Byte> = SynchedEntityData.defineId<Byte>(MothEntity::class.java, EntityDataSerializers.BYTE)
 
         val shearsTag: TagKey<Item> = TagKey.create(Registries.ITEM, ResourceLocation(if (currentLoader == Loader.FORGE) "forge" else "c", "shears"))
 
@@ -378,11 +378,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
             .add(Attributes.FOLLOW_RANGE, 48.0)
 
         fun checkMobSpawnRules(type: EntityType<out Mob?>, level: LevelAccessor, spawnType: MobSpawnType, pos: BlockPos, random: RandomSource): Boolean {
-            return Mob.checkMobSpawnRules(type, level, spawnType, pos, random) && getDayTime(level) >= 1300 && getDayTime(level) <= 23999 && level.moonPhase != 4
-        }
-
-        private fun getDayTime(level: LevelAccessor): Int {
-            return (level.dayTime() % 24000L).toInt()
+            return Mob.checkMobSpawnRules(type, level, spawnType, pos, random) && level.dayTime() % 24000 in 13000..< 23000 && level.moonPhase != 4
         }
     }
 
@@ -397,7 +393,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
 
         override fun canUse(): Boolean {
             val level = this.moth.level()
-            if (this.moth.getRandom().nextInt(20) !== 0) return false
+            if (this.moth.getRandom().nextInt(20) != 0) return false
             val mothPos = this.moth.blockPosition()
             val pos = this.moth.blockPosition().mutable()
 

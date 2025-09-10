@@ -7,6 +7,8 @@ import dev.mayaqq.cynosure.core.Loader
 import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.cynosure.data.registerDatapackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
+import dev.mayaqq.cynosure.events.api.Subscription
+import dev.mayaqq.cynosure.events.entity.player.PlayerTickEvent
 import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.cynosure.utils.colors.LightBlue
 import dev.mayaqq.cynosure.utils.tag
@@ -79,6 +81,11 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         registerDatapackReloadListener(id("thigh_high_styles"), ThighHighStyleLoader)
 
         EstrogenNetwork
+    }
+
+    @Subscription
+    fun onLevelTick(event: PlayerTickEvent.End) {
+        Estrogen.info("Time: ${event.player.level().dayTime()}")
     }
 
     override fun createConfigScreen(): (Screen) -> Screen = { EstrogenMenuScreen(it) }
