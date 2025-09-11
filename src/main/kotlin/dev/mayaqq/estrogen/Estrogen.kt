@@ -65,6 +65,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         EstrogenRecipes.Serializers.register()
         EstrogenPoiTypes.register()
         EstrogenFeatures.register()
+        EstrogenLootFunctions.register()
 
         BiomeModifiers.addFeature({it.`is`(Registries.BIOME.tag(
             ResourceLocation(if (currentLoader == Loader.FABRIC) "c:climate_cold" else "forge:is_cold/overworld")
@@ -81,11 +82,6 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         registerDatapackReloadListener(id("thigh_high_styles"), ThighHighStyleLoader)
 
         EstrogenNetwork
-    }
-
-    @Subscription
-    fun onLevelTick(event: PlayerTickEvent.End) {
-        Estrogen.info("Time: ${event.player.level().dayTime()}")
     }
 
     override fun createConfigScreen(): (Screen) -> Screen = { EstrogenMenuScreen(it) }
