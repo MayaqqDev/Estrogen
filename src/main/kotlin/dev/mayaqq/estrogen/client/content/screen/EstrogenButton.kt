@@ -1,22 +1,14 @@
 package dev.mayaqq.estrogen.client.content.screen
 
-import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.text.CommonText
-import dev.mayaqq.cynosure.utils.colors.Color
-import dev.mayaqq.cynosure.utils.colors.McGray
-import dev.mayaqq.cynosure.utils.colors.Red
-import dev.mayaqq.cynosure.utils.colors.White
-import dev.mayaqq.cynosure.utils.colors.Yellow
-import dev.mayaqq.cynosure.utils.colors.darker
-import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.cynosure.utils.colors.*
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.sounds.SoundManager
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.util.Mth
 
 open class EstrogenButton(
     x: Int,

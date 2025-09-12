@@ -11,7 +11,6 @@ import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.server.DataPackSyncEvent
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenItems
-import dev.mayaqq.estrogen.content.items.ThighHighsItem
 import dev.mayaqq.estrogen.id
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer

@@ -5,14 +5,12 @@ import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.text.TextStyle.color
 import dev.mayaqq.cynosure.text.TextStyle.italic
 import dev.mayaqq.cynosure.utils.colors.McGray
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ThighHighStylesPacket
 import earth.terrarium.baubly.common.Bauble
 import earth.terrarium.baubly.common.SlotInfo
-import net.minecraft.ChatFormatting
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.network.chat.Component

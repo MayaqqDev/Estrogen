@@ -1,15 +1,12 @@
 @file:EventSubscriber
 package dev.mayaqq.estrogen.content.recipes
 
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
 import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.cynosure.core.bytecodecs.item.ItemStackByteCodec
-import dev.mayaqq.cynosure.core.bytecodecs.toByteCodec
 import dev.mayaqq.cynosure.core.codecs.IngredientCodec
 import dev.mayaqq.cynosure.core.codecs.advancements.PredicateCodecs
 import dev.mayaqq.cynosure.core.codecs.fieldOf
@@ -17,15 +14,8 @@ import dev.mayaqq.cynosure.core.codecs.item.ItemStackCodec
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
-import dev.mayaqq.cynosure.network.serialization.ByteCodec
-import dev.mayaqq.cynosure.utils.Either
-import dev.mayaqq.cynosure.utils.contains
+import dev.mayaqq.cynosure.utils.*
 import dev.mayaqq.cynosure.utils.dfu.toCynosure
-import dev.mayaqq.cynosure.utils.fold
-import dev.mayaqq.cynosure.utils.foldToRight
-import dev.mayaqq.cynosure.utils.ifLeft
-import dev.mayaqq.cynosure.utils.ifRight
-import dev.mayaqq.cynosure.utils.isRight
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.data.EntityTypeRecipeCodec
 import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData

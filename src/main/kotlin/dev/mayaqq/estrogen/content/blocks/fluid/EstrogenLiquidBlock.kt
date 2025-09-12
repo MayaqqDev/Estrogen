@@ -1,12 +1,10 @@
 package dev.mayaqq.estrogen.content.blocks.fluid
 
 import dev.mayaqq.estrogen.content.EstrogenEffects
-import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock
 import earth.terrarium.botarium.common.registry.fluid.FluidData
 import net.minecraft.core.BlockPos
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.Entity
-import net.minecraft.world.entity.Interaction
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState

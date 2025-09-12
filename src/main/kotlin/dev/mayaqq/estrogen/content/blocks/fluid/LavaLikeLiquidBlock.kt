@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.content.blocks.fluid
 
-import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock
 import earth.terrarium.botarium.common.registry.fluid.FluidData
 import net.minecraft.core.BlockPos
 import net.minecraft.world.entity.Entity

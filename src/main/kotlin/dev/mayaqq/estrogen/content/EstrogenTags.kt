@@ -1,13 +1,8 @@
 package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.cynosure.modId
-import dev.mayaqq.cynosure.utils.blockTag
-import dev.mayaqq.cynosure.utils.entityTypeTag
-import dev.mayaqq.cynosure.utils.fluidTag
-import dev.mayaqq.cynosure.utils.itemTag
-import dev.mayaqq.cynosure.utils.tag
+import dev.mayaqq.cynosure.utils.*
 import dev.mayaqq.estrogen.id
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey

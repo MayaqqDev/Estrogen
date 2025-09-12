@@ -9,14 +9,11 @@ import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.utils.Either
 import dev.mayaqq.cynosure.utils.isLeft
-import dev.mayaqq.estrogen.api.EstrogenFlag
-import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.data.FluidRecipeCodec
 import dev.mayaqq.estrogen.content.recipes.inventory.FluidData
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
 import dev.mayaqq.estrogen.id
-import dev.mayaqq.estrogen.modules.anyModuleHasFlag
 import net.minecraft.core.BlockPos
 import net.minecraft.core.NonNullList
 import net.minecraft.core.RegistryAccess

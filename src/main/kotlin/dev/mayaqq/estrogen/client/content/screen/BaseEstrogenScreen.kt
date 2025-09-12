@@ -1,11 +1,7 @@
 package dev.mayaqq.estrogen.client.content.screen
 
 import com.mojang.blaze3d.systems.RenderSystem
-import com.mojang.blaze3d.vertex.BufferBuilder
-import com.mojang.blaze3d.vertex.BufferUploader
-import com.mojang.blaze3d.vertex.DefaultVertexFormat
-import com.mojang.blaze3d.vertex.Tesselator
-import com.mojang.blaze3d.vertex.VertexFormat
+import com.mojang.blaze3d.vertex.*
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.text.TextStyle.bold

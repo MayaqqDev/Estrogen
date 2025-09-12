@@ -3,7 +3,6 @@ package dev.mayaqq.estrogen.content
 import dev.mayaqq.cynosure.utils.addSpawn
 import dev.mayaqq.cynosure.utils.colors.White
 import dev.mayaqq.cynosure.utils.colors.toUInt
-import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.entityRenderers.moth.MothRenderer
 import dev.mayaqq.estrogen.content.entities.MothEntity

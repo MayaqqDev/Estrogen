@@ -7,7 +7,6 @@ import dev.mayaqq.estrogen.api.EstrogenModule
 import net.minecraftforge.fml.ModList
 import org.objectweb.asm.Type
 import kotlin.jvm.optionals.getOrNull
-import kotlin.reflect.KClass
 
 actual fun getModules(): Set<ModuleContainer> {
     val list = arrayListOf<ModuleContainer>()

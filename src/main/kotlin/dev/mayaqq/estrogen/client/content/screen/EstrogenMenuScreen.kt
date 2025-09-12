@@ -14,7 +14,6 @@ import dev.mayaqq.cynosure.utils.colors.Red
 import dev.mayaqq.cynosure.utils.colors.White
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
 import dev.mayaqq.estrogen.MOD_ID
-import dev.mayaqq.estrogen.client.content.screen.cosmetics.CosmeticsBaseScreen
 import dev.mayaqq.estrogen.client.content.screen.cosmetics.CosmeticsLoginScreen
 import dev.mayaqq.estrogen.client.content.screen.modules.ModulesScreen
 import dev.mayaqq.estrogen.id

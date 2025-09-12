@@ -9,7 +9,6 @@ import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.content.items.ThighHighsItem
-import dev.mayaqq.estrogen.content.items.TransferItem
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.cauldron.CauldronInteraction

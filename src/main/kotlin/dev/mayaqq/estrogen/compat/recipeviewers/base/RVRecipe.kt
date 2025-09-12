@@ -3,10 +3,7 @@ package dev.mayaqq.estrogen.compat.recipeviewers.base
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.base.ingredient.RvIngredient
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
-import net.minecraft.client.gui.GuiGraphics
-import net.minecraft.world.Container
 import net.minecraft.world.item.crafting.Recipe
-import net.minecraft.world.item.crafting.RecipeType
 import kotlin.reflect.KClass
 
 abstract class RVRecipe<T : Recipe<*>>(

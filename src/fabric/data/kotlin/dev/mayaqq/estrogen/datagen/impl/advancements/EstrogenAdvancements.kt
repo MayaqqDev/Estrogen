@@ -14,7 +14,6 @@ import net.minecraft.advancements.Advancement
 import net.minecraft.advancements.FrameType
 import net.minecraft.advancements.critereon.*
 import net.minecraft.advancements.critereon.InventoryChangeTrigger.TriggerInstance.hasItems
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.EntityType

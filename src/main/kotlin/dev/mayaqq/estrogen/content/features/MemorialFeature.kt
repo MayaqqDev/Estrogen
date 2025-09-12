@@ -1,13 +1,10 @@
 package dev.mayaqq.estrogen.content.features
 
-import com.mojang.serialization.Codec
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.blocks.MemorialBlock.Companion.PART
 import net.minecraft.core.Direction
-import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.levelgen.feature.Feature
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration
 
 class MemorialFeature() : Feature<NoneFeatureConfiguration>(NoneFeatureConfiguration.CODEC) {

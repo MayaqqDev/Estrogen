@@ -1,20 +1,12 @@
 package dev.mayaqq.estrogen.client.content.screen
 
-import com.google.common.graph.Graphs
-import dev.mayaqq.cynosure.client.utils.pushPop
-import dev.mayaqq.cynosure.client.utils.translate
 import dev.mayaqq.cynosure.helpers.McClient
-import dev.mayaqq.cynosure.helpers.McFont
-import dev.mayaqq.cynosure.text.CommonText
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.text.TextStyle.color
-import dev.mayaqq.cynosure.text.TextUtils.splitLines
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen.Companion.transBlue
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.FittingMultiLineTextWidget
-import net.minecraft.client.gui.components.MultiLineTextWidget
 import net.minecraft.client.gui.screens.Screen
-import net.minecraft.network.chat.Style
 
 class MemorialScreen(previous: Screen? = null) : BaseEstrogenScreen(previous, Text.translatable("estrogen.button.memorial")) {
 

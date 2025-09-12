@@ -1,6 +1,7 @@
 @file:EventSubscriber(env = [Environment.CLIENT])
 package dev.mayaqq.estrogen.client
 
+//import dev.mayaqq.estrogen.config.Instance
 import dev.mayaqq.cynosure.client.entity.registerDefinition
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.events.ParticleRenderTypeRegistrationEvent
@@ -25,13 +26,9 @@ import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorDataLoader
 import dev.mayaqq.estrogen.client.features.dash.DashOverlay
 import dev.mayaqq.estrogen.compat.ears.EarsCompat
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
-//import dev.mayaqq.estrogen.config.Instance
 import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.injection.chestConfig
-import dev.mayaqq.estrogen.network.EstrogenNetwork
-import dev.mayaqq.estrogen.network.messages.c2s.FinishedLoadingPacket
-import dev.mayaqq.estrogen.network.messages.c2s.SetChestConfigPacket
 import net.minecraft.client.Minecraft
 import net.minecraft.world.entity.EntityType
 import uwu.serenity.kittyconfig.loadConfig

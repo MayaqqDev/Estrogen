@@ -1,14 +1,10 @@
 package dev.mayaqq.estrogen
 
-//import dev.mayaqq.estrogen.config.Instance
-//import uwu.serenity.kittyconfig.api.defaults.load
 import dev.mayaqq.cynosure.biome.BiomeModifiers
 import dev.mayaqq.cynosure.core.Loader
 import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.cynosure.data.registerDatapackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
-import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.events.entity.player.PlayerTickEvent
 import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.cynosure.utils.colors.LightBlue
 import dev.mayaqq.cynosure.utils.tag
@@ -25,13 +21,11 @@ import net.minecraft.client.gui.screens.Screen
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.Item
 import net.minecraft.world.level.levelgen.GenerationStep
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import uwu.serenity.kittyconfig.loadConfig
 import uwu.serenity.kritter.RegistryManager
-import uwu.serenity.kritter.get
 
 const val MOD_ID = "estrogen"
 const val MOD_NAME = "Estrogen"

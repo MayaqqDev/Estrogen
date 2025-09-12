@@ -10,11 +10,7 @@ import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.text.TextBuilder.append
 import dev.mayaqq.cynosure.text.TextStyle.color
 import dev.mayaqq.cynosure.text.TextStyle.italic
-import dev.mayaqq.cynosure.utils.colors.LightBlue
-import dev.mayaqq.cynosure.utils.colors.McDarkGray
-import dev.mayaqq.cynosure.utils.colors.McGray
-import dev.mayaqq.cynosure.utils.colors.McGreen
-import dev.mayaqq.cynosure.utils.colors.McRed
+import dev.mayaqq.cynosure.utils.colors.*
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.api.EstrogenFlag
 import dev.mayaqq.estrogen.api.EstrogenModule
@@ -22,9 +18,9 @@ import dev.mayaqq.estrogen.client.content.screen.BaseEstrogenScreen
 import dev.mayaqq.estrogen.client.content.screen.EstrogenButton
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen.Companion.transBlue
 import dev.mayaqq.estrogen.id
+import dev.mayaqq.estrogen.modules.getModules
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
-import dev.mayaqq.estrogen.modules.getModules
 import net.minecraft.client.renderer.texture.DynamicTexture
 import net.minecraft.resources.ResourceLocation
 import java.io.FileNotFoundException
