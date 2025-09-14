@@ -4,6 +4,7 @@ package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
+import dev.mayaqq.estrogen.content.blocks.fluid.BaseEstrogenLiquidBlock
 import dev.mayaqq.estrogen.content.blocks.fluid.EstrogenLiquidBlock
 import dev.mayaqq.estrogen.content.fluids.registry.FluidRegistryProvider
 import dev.mayaqq.estrogen.content.fluids.registry.fluid
@@ -16,10 +17,12 @@ import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem
 import earth.terrarium.botarium.common.registry.fluid.FluidRegistry
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.registries.Registries
+import net.minecraft.tags.FluidTags
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.Rarity
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.material.Fluid
+import net.minecraft.world.level.material.Fluids
 import net.minecraft.world.level.material.MapColor
 import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.stdlib.Always
@@ -43,7 +46,14 @@ object EstrogenFluids : Registrar<Fluid> by Estrogen..Registries.FLUID, FluidReg
                 canHydrate(false)
             }
             renderType(RenderType::translucent)
-            block(::EstrogenLiquidBlock) {
+            block({ data, properties -> EstrogenLiquidBlock(data, properties,
+                arrayOf(BaseEstrogenLiquidBlock.FluidInteraction { pos, state, fluidState ->
+                    if (fluidState.`is`(Fluids.WATER)) {
+                        return@FluidInteraction Blocks.CALCITE.defaultBlockState()
+                    }
+                    return@FluidInteraction null
+                })
+            )}) {
                 copyProperties(Blocks::WATER)
                 properties {
                     mapColor(MapColor.COLOR_CYAN)
@@ -92,7 +102,14 @@ object EstrogenFluids : Registrar<Fluid> by Estrogen..Registries.FLUID, FluidReg
             density(1500)
         }
         renderType(RenderType::translucent)
-        block(::EstrogenLiquidBlock) {
+        block({ data, properties -> EstrogenLiquidBlock(data, properties,
+            arrayOf(BaseEstrogenLiquidBlock.FluidInteraction { pos, state, fluidState ->
+                if (fluidState.`is`(FluidTags.LAVA)) {
+                    return@FluidInteraction Blocks.PRISMARINE.defaultBlockState()
+                }
+                return@FluidInteraction null
+            })
+        )}) {
             copyProperties(Blocks::WATER)
             properties {
                 mapColor(MapColor.COLOR_PURPLE)

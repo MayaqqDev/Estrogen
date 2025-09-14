@@ -1,11 +1,7 @@
 package dev.mayaqq.estrogen.client.content.screen
 
 import com.mojang.blaze3d.systems.RenderSystem
-import com.mojang.blaze3d.vertex.BufferBuilder
-import com.mojang.blaze3d.vertex.BufferUploader
-import com.mojang.blaze3d.vertex.DefaultVertexFormat
-import com.mojang.blaze3d.vertex.Tesselator
-import com.mojang.blaze3d.vertex.VertexFormat
+import com.mojang.blaze3d.vertex.*
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.text.TextStyle.bold
@@ -34,8 +30,8 @@ abstract class BaseEstrogenScreen(val previous: Screen?, title: Component) : Scr
 
     override fun init() {
         if (shouldGenerateNewTexture) {
-            DynamicDreamTexture.prepareIfNeeded()
-            DynamicDreamTexture.changeSeed(0xB00B5)
+            DynamicDreamTexture.prepare()
+            if (McClient.level == null) DynamicDreamTexture.regenerate()
             generatedTexture = true
         }
         baseInit()
@@ -52,17 +48,11 @@ abstract class BaseEstrogenScreen(val previous: Screen?, title: Component) : Scr
 
     abstract fun baseRender(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float)
 
-    fun EstrogenButton.Builder.buildAndAdd() {
-        addRenderableWidget(this.build())
-    }
+    fun EstrogenButton.Builder.buildAndAdd(): EstrogenButton = addRenderableWidget(this.build())
 
-    fun AbstractWidget.add() {
-        addRenderableWidget(this)
-    }
+    fun AbstractWidget.add(): AbstractWidget = addRenderableWidget(this)
 
-    fun AbstractWidget.addRenderable() {
-        addRenderableOnly(this)
-    }
+    fun AbstractWidget.addRenderable(): AbstractWidget = addRenderableOnly(this)
 
     override fun renderBackground(gui: GuiGraphics) {
         renderDream(gui, 0, width, 0, height)

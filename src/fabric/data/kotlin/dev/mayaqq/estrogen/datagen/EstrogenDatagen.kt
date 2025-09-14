@@ -8,7 +8,6 @@ import dev.mayaqq.estrogen.datagen.impl.tags.EstrogenEntityTags
 import dev.mayaqq.estrogen.datagen.impl.tags.EstrogenFluidTags
 import dev.mayaqq.estrogen.datagen.impl.tags.EstrogenItemTags
 import dev.mayaqq.estrogen.datagen.impl.translations.EstrogenTranslations
-import dev.mayaqq.estrogen.datagen.platform.CommonRecipeHelper
 import dev.mayaqq.estrogen.datagen.platform.FabricRecipeHelper
 import dev.mayaqq.estrogen.datagen.platform.ForgeRecipeHelper
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint

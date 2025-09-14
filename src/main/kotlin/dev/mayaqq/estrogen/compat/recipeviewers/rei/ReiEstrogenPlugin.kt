@@ -27,7 +27,7 @@ import me.shedaniel.rei.api.common.entry.EntryStack
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes
 import me.shedaniel.rei.api.common.util.EntryIngredients
 import net.minecraft.network.chat.Component
-import java.util.Optional
+import java.util.*
 
 object ReiEstrogenPlugin : REIClientPlugin {
     override fun getPluginProviderName(): String = id("rei_client").toString()

@@ -4,7 +4,6 @@ import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.cynosure.items.extensions.CustomTooltip
 import dev.mayaqq.cynosure.text.Text.sendToAll
 import dev.mayaqq.cynosure.text.TextUtils.splitLines
-import dev.mayaqq.cynosure.text.TextUtils.splitToWidth
 import dev.mayaqq.estrogen.utils.transfer.TransferHelper
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component

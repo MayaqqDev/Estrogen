@@ -1,7 +1,5 @@
 package dev.mayaqq.estrogen
 
-//import dev.mayaqq.estrogen.config.Instance
-//import uwu.serenity.kittyconfig.api.defaults.load
 import dev.mayaqq.cynosure.biome.BiomeModifiers
 import dev.mayaqq.cynosure.core.Loader
 import dev.mayaqq.cynosure.core.currentLoader
@@ -23,13 +21,11 @@ import net.minecraft.client.gui.screens.Screen
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.Item
 import net.minecraft.world.level.levelgen.GenerationStep
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import uwu.serenity.kittyconfig.loadConfig
 import uwu.serenity.kritter.RegistryManager
-import uwu.serenity.kritter.get
 
 const val MOD_ID = "estrogen"
 const val MOD_NAME = "Estrogen"
@@ -63,9 +59,10 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         EstrogenRecipes.Serializers.register()
         EstrogenPoiTypes.register()
         EstrogenFeatures.register()
+        EstrogenLootFunctions.register()
 
         BiomeModifiers.addFeature({it.`is`(Registries.BIOME.tag(
-            ResourceLocation(if (currentLoader == Loader.FABRIC) "c" else "forge", "is_cold/overworld")
+            ResourceLocation(if (currentLoader == Loader.FABRIC) "c:climate_cold" else "forge:is_cold/overworld")
         ))},
             GenerationStep.Decoration.SURFACE_STRUCTURES,
             ResourceKey.create(

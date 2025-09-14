@@ -3,14 +3,8 @@ package dev.mayaqq.estrogen.client.content
 import com.mojang.blaze3d.pipeline.RenderTarget
 import com.mojang.blaze3d.pipeline.TextureTarget
 import com.mojang.blaze3d.platform.GlStateManager
-import com.mojang.blaze3d.shaders.Uniform
 import com.mojang.blaze3d.systems.RenderSystem
-import com.mojang.blaze3d.vertex.BufferBuilder
-import com.mojang.blaze3d.vertex.BufferUploader
-import com.mojang.blaze3d.vertex.DefaultVertexFormat
-import com.mojang.blaze3d.vertex.VertexConsumer
-import com.mojang.blaze3d.vertex.VertexFormat
-import com.mojang.blaze3d.vertex.VertexMultiConsumer
+import com.mojang.blaze3d.vertex.*
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.events.CoreShaderRegistrationEvent
 import dev.mayaqq.cynosure.client.events.render.GameRenderEvent
@@ -31,7 +25,6 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.PostChain
-import net.minecraft.client.renderer.RenderStateShard
 import net.minecraft.client.renderer.RenderStateShard.OutputStateShard
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.ShaderInstance

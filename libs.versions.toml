@@ -2,14 +2,14 @@
 
 # Stuff
 kotlin = "2.2.10"
-cloche = "0.13.2"
+cloche = "0.13.4"
 
 # Minecraft
 minecraft = "1.20.1"
 fabric = "0.16.9"
 
 # Common Dependencies
-kritter = "0.1.0+1.20.1"
+kritter = "0.1.8+1.20.1"
 kotlinx-serialization="1.8.0"
 kotlinx-coroutines="1.10.1"
 parchment = "2023.09.03"
@@ -35,8 +35,8 @@ cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.5+1.20.1"
 flywheel = "1.0.2"
-cynosure = "0.1.0.182"
-kittyconfig = "1.2.15"
+cynosure = "0.1.0.187"
+kittyconfig = "1.2.16"
 mixin_constrains = "1.0.8"
 
 # Fabric Only Dependencies
@@ -48,7 +48,7 @@ flk = "1.11.0+kotlin.2.0.0"
 lithostitched_fabric = "1.4.11-fabric-1.20"
 
 # Forge Only Dependencies
-forge = "47.3.0"
+forge = "47.4.0"
 curios = "5.4.7+1.20.1"
 create_forge = "0.5.1.f-27"
 jei_file_id_forge = "4712868"

@@ -3,11 +3,7 @@ package dev.mayaqq.estrogen.content
 import dev.mayaqq.cynosure.recipes.codecSerializer
 import dev.mayaqq.cynosure.recipes.recipeType
 import dev.mayaqq.estrogen.Estrogen
-import dev.mayaqq.estrogen.content.recipes.DreamCatcherDyeRecipe
-import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
-import dev.mayaqq.estrogen.content.recipes.LiquidEstrogenCauldronRecipe
-import dev.mayaqq.estrogen.content.recipes.SpongingRecipe
-import dev.mayaqq.estrogen.content.recipes.ThighHighDyeRecipe
+import dev.mayaqq.estrogen.content.recipes.*
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType

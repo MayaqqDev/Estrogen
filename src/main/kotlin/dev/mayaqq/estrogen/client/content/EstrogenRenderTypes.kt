@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.RenderStateShard.TextureStateShard
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderType.CompositeState
 import net.minecraft.resources.ResourceLocation
-import java.util.function.Function
 
 object EstrogenRenderTypes {
 

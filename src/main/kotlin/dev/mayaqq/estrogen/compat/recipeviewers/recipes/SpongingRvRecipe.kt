@@ -7,9 +7,7 @@ import dev.mayaqq.estrogen.compat.recipeviewers.base.Role
 import dev.mayaqq.estrogen.compat.recipeviewers.base.RvRecipeData
 import dev.mayaqq.estrogen.compat.recipeviewers.base.elements.GuiBlockRenderer
 import dev.mayaqq.estrogen.compat.recipeviewers.base.ingredient.RvIngredient
-import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.SpongingRecipe
-import dev.mayaqq.estrogen.content.recipes.inventory.FluidData
 import dev.mayaqq.estrogen.mixin.client.accessor.LiquidBlockAccessor
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.Items

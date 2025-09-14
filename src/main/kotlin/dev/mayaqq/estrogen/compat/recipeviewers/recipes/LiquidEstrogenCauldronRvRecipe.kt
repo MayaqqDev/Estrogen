@@ -1,7 +1,5 @@
 package dev.mayaqq.estrogen.compat.recipeviewers.recipes
 
-import dev.mayaqq.cynosure.client.utils.pushPop
-import dev.mayaqq.cynosure.client.utils.translate
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.McFont
 import dev.mayaqq.cynosure.text.Text
@@ -9,8 +7,6 @@ import dev.mayaqq.cynosure.text.TextStyle.color
 import dev.mayaqq.cynosure.utils.colors.McGray
 import dev.mayaqq.cynosure.utils.colors.McGreen
 import dev.mayaqq.cynosure.utils.colors.McRed
-import dev.mayaqq.cynosure.utils.colors.Red
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.api.EstrogenFlag
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.base.RVRecipe
@@ -20,12 +16,10 @@ import dev.mayaqq.estrogen.compat.recipeviewers.base.elements.GuiBlockRenderer
 import dev.mayaqq.estrogen.compat.recipeviewers.base.ingredient.RvIngredient
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenFluids
-import dev.mayaqq.estrogen.content.EstrogenItems
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.LiquidEstrogenCauldronRecipe
 import dev.mayaqq.estrogen.mixin.client.accessor.LiquidBlockAccessor
 import dev.mayaqq.estrogen.modules.anyModuleHasFlag
-import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.LayeredCauldronBlock

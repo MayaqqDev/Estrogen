@@ -34,6 +34,10 @@ internal object DynamicDreamTexture {
 
     fun changeSeed(seed: Long) {
         this.seed = seed
+        this.regenerate()
+    }
+
+    fun regenerate() {
         this.generateGoobers()
         this.redraw()
     }

@@ -6,7 +6,6 @@ import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.client.utils.translate
 import dev.mayaqq.cynosure.helpers.McFont
 import dev.mayaqq.cynosure.text.Text
-import dev.mayaqq.cynosure.text.TextStyle.color
 import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.cynosure.utils.colors.darker
 import dev.mayaqq.estrogen.content.blockEntities.MemorialBlockEntity

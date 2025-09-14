@@ -9,20 +9,20 @@
     "CraftingMenuMixin",
     "EntityMixin",
     "ItemParserMixin",
-    "PlayerMixin",
-    "PistonMovingBlockEntityMixin"
+    "PistonMovingBlockEntityMixin",
+    "PlayerMixin"
   ],
   "client": [
     "client.AdvancementTabMixin",
     "client.ClientPacketListenerMixin",
-    "client.FontStringRenderOutputMixin",
+    "client.ClientTextTooltipMixin",
     "client.FontMixin",
+    "client.FontStringRenderOutputMixin",
     "client.HumanoidMobRendererMixin",
     "client.ItemPropertiesMixin",
     "client.MinecraftMixin",
     "client.PlayerModelMixin",
     "client.ReceivingLevelScreenMixin",
-    "client.ClientTextTooltipMixin",
     "client.accessor.ItemPropertiesAccessor",
     "client.accessor.LevelRendererAccessor",
     "client.accessor.LiquidBlockAccessor"

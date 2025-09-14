@@ -114,7 +114,6 @@ cloche {
         loaderVersion = libs.versions.fabric
         minecraftVersion = libs.versions.minecraft
 
-        //include(libs.fabric.kittyconfig)
 
         includedClient() // includedClient() is not a run
         runs {
@@ -170,6 +169,12 @@ cloche {
         }
 
         dependencies {
+            include(libs.fabric.baubly) { exclude(group = "me.shedaniel") }
+            include(libs.fabric.kritter)
+            include(libs.fabric.flywheel)
+            include(libs.fabric.botarium)
+            include(libs.fabric.lithostitched)
+
             fabricApi(libs.versions.fapi)
             modApi(libs.fabric.kotlin)
             modApi.bundle(libs.bundles.fabric.cardinalComponents)
@@ -187,12 +192,6 @@ cloche {
             //modApi(libs.fabric.kittyconfig)
             modApi(libs.fabric.botarium)
             modImplementation(libs.fabric.lithostitched)
-
-            include(libs.fabric.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
-            include(libs.fabric.kritter) { isTransitive = false }
-            include(libs.fabric.flywheel) { isTransitive = false }
-            include(libs.fabric.botarium) { isTransitive = false }
-            include(libs.fabric.lithostitched) { isTransitive = false }
 
             when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -251,8 +250,8 @@ cloche {
         datagenDirectory.set(file("build/generated/resources/forge"))
 
         metadata {
-            modLoader = "klf"
-            loaderVersion("1")
+            modLoader = "javafml"
+            loaderVersion("47")
             blurLogo = false
             modProperty("catalogueItemIcon", "estrogen:estrogen_pill")
             modProperty("catalogueBackground", "estrogen_background.png")
@@ -269,9 +268,19 @@ cloche {
             server {
                 runDir("runServer")
             }
+            data() // NEEDED FOR GENERATED DATA TO ATTACH ON FORGE! SCREAM AT ASHLEY FOR THIS
         }
 
+        data()
+
         dependencies {
+            api(libs.forge.kotlin)
+            include(libs.forge.baubly) { exclude(group = "me.shedaniel") }
+            include(libs.forge.mixinExtras)
+            include(libs.forge.kritter)
+            include(libs.forge.botarium)
+            include(libs.forge.lithostitched)
+
             api(libs.forge.kotlin)
             modCompileOnlyApi(libs.forge.flywheel.api)
             modImplementation(libs.forge.flywheel)
@@ -374,4 +383,8 @@ publishing {
             println("Sappho Company credentials not present.")
         }
     }
+}
+
+tasks.named("runForgeData") {
+    enabled = false
 }

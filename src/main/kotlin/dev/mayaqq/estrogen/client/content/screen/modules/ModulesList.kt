@@ -4,16 +4,14 @@ import com.mojang.blaze3d.platform.NativeImage
 import com.mojang.blaze3d.systems.RenderSystem
 import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.helpers.McClient
-import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.utils.colors.Purple
-import dev.mayaqq.cynosure.utils.colors.Red
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.screen.EstrogenButton
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.modules.ModuleContainer
-import net.minecraft.client.gui.components.ContainerObjectSelectionList
 import dev.mayaqq.estrogen.modules.getModules
 import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.components.ContainerObjectSelectionList
 import net.minecraft.client.gui.components.events.GuiEventListener
 import net.minecraft.client.gui.narration.NarratableEntry
 import net.minecraft.client.renderer.texture.DynamicTexture

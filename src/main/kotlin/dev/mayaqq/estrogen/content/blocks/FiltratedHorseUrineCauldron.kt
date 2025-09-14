@@ -7,7 +7,6 @@ import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.modules.anyModuleHasFlag
 import net.minecraft.core.cauldron.CauldronInteraction
-import net.minecraft.server.MinecraftServer
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelAccessor

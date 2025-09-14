@@ -9,7 +9,6 @@ import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.content.items.ThighHighsItem
-import dev.mayaqq.estrogen.content.items.TransferItem
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.cauldron.CauldronInteraction
@@ -82,14 +81,14 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
     val MothWool: Block by block("moth_wool", ::Block) {
         copyProperties(Blocks::ORANGE_WOOL)
         item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS)
+            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
         }
     }
 
     val QuiltedMothWool: Block by block("quilted_moth_wool", ::Block) {
         copyProperties(Blocks::ORANGE_WOOL)
         item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS)
+            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
         }
     }
 
@@ -103,7 +102,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
     val QuiltedMothCarpet: CarpetBlock by block("quilted_moth_wool_carpet", ::CarpetBlock) {
         copyProperties(Blocks::ORANGE_CARPET)
         item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS)
+            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
         }
     }
 
@@ -114,7 +113,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             sound(EstrogenSoundTypes.PILL_BOX)
         }
         item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS)
+            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
         }
     }
 

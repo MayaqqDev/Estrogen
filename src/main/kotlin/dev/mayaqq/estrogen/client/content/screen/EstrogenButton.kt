@@ -1,24 +1,16 @@
 package dev.mayaqq.estrogen.client.content.screen
 
-import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.text.CommonText
-import dev.mayaqq.cynosure.utils.colors.Color
-import dev.mayaqq.cynosure.utils.colors.McGray
-import dev.mayaqq.cynosure.utils.colors.Red
-import dev.mayaqq.cynosure.utils.colors.White
-import dev.mayaqq.cynosure.utils.colors.Yellow
-import dev.mayaqq.cynosure.utils.colors.darker
-import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.cynosure.utils.colors.*
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.sounds.SoundManager
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.util.Mth
 
-class EstrogenButton(
+open class EstrogenButton(
     x: Int,
     y: Int,
     width: Int,
@@ -27,7 +19,8 @@ class EstrogenButton(
     onPress: OnPress,
     createNarration: CreateNarration,
     val color: Color,
-    val disabled: Boolean
+    var disabled: Boolean,
+    val renderOnly: Boolean
 ) : Button(x, y, width, height, CommonText.EMPTY, onPress, createNarration) {
 
     override fun renderWidget(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
@@ -35,7 +28,7 @@ class EstrogenButton(
         if (disabled) {
             graphics.renderOutline(x + 1, y + 1, width - 2, height - 2,  color.darker().toInt())
         } else {
-            graphics.renderOutline(x + 1, y + 1, width - 2, height - 2,  if (isHoveredOrFocused) Yellow.toInt() else color.toInt())
+            graphics.renderOutline(x + 1, y + 1, width - 2, height - 2,  if (isHoveredOrFocused && !renderOnly) Yellow.toInt() else color.toInt())
         }
 
         renderers.forEach {
@@ -46,11 +39,11 @@ class EstrogenButton(
     }
 
     override fun onClick(mouseX: Double, mouseY: Double) {
-        if (!disabled) super.onClick(mouseX, mouseY)
+        if (!disabled && !renderOnly) super.onClick(mouseX, mouseY)
     }
 
     override fun playDownSound(soundManager: SoundManager) {
-        if (!disabled) super.playDownSound(soundManager)
+        if (!disabled && !renderOnly) super.playDownSound(soundManager)
     }
 
     class Builder(vararg renderers: Renderer, private val onPress: OnPress) {
@@ -65,6 +58,7 @@ class EstrogenButton(
         private var createNarration: CreateNarration
         private var color: Color = Red
         private var disabled: Boolean = false
+        private var renderOnly: Boolean = false
 
         init {
             this.createNarration = DEFAULT_NARRATION
@@ -111,6 +105,11 @@ class EstrogenButton(
             return this
         }
 
+        fun renderOnly(renderOnly: Boolean): Builder {
+            this.renderOnly = renderOnly
+            return this
+        }
+
         fun build(): EstrogenButton {
             return EstrogenButton(
                 this.x,
@@ -121,7 +120,8 @@ class EstrogenButton(
                 this.onPress,
                 this.createNarration,
                 this.color,
-                this.disabled
+                this.disabled,
+                this.renderOnly,
             ).apply { this@apply.tooltip = this@Builder.tooltip }
         }
     }
@@ -130,7 +130,7 @@ class EstrogenButton(
         fun EstrogenButton.renderComponents(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float)
     }
 
-    class TextRenderer(val text: Component) : Renderer {
+    open class TextRenderer(val text: Component) : Renderer {
         override fun EstrogenButton.renderComponents(
             graphics: GuiGraphics,
             mouseX: Int,
@@ -143,7 +143,7 @@ class EstrogenButton(
         }
     }
 
-    class IconRenderer(val icon: ResourceLocation) : Renderer {
+    open class IconRenderer(val icon: ResourceLocation) : Renderer {
         override fun EstrogenButton.renderComponents(
             graphics: GuiGraphics,
             mouseX: Int,

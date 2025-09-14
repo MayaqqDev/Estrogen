@@ -7,11 +7,8 @@ import dev.mayaqq.estrogen.datagen.platform.PlatformRecipeHelper
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.advancements.critereon.ImpossibleTrigger
-import net.minecraft.data.recipes.FinishedRecipe
-import net.minecraft.data.recipes.RecipeCategory
-import net.minecraft.data.recipes.ShapedRecipeBuilder
-import net.minecraft.data.recipes.ShapelessRecipeBuilder
-import net.minecraft.data.recipes.SpecialRecipeBuilder
+import net.minecraft.data.recipes.*
+import net.minecraft.data.recipes.RecipeProvider.has
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.item.Items
 import java.util.function.Consumer

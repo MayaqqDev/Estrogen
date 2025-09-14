@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import dev.mayaqq.cynosure.helpers.McClientKt;
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture;
 import net.minecraft.advancements.DisplayInfo;
@@ -29,6 +30,10 @@ public class AdvancementTabMixin {
     )
     private void shaderBG(GuiGraphics instance, ResourceLocation atlasLocation, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight, Operation<Void> original) {
         if (this.display.getBackground() != null && this.display.getBackground().toString().equals("estrogen:textures/block/dream_block/particle.png")) {
+            if (!DynamicDreamTexture.INSTANCE.getInit()) {
+                DynamicDreamTexture.INSTANCE.prepare();
+                if (McClientKt.getMcClient().level == null) DynamicDreamTexture.INSTANCE.regenerate();
+            }
             estrogen$renderDream(instance, x, x + width, y, y + height);
         } else {
             original.call(instance, atlasLocation, x, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
