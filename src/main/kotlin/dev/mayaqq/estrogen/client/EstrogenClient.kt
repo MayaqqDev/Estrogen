@@ -30,11 +30,9 @@ import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.injection.chestConfig
 import net.minecraft.client.Minecraft
-import net.minecraft.client.resources.model.Material
 import net.minecraft.client.resources.model.ModelResourceLocation
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.inventory.InventoryMenu
 import uwu.serenity.kittyconfig.loadConfig
 
 

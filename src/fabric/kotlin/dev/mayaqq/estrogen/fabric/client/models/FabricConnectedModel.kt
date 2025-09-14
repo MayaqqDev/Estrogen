@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.fabric.client.models
 
 import dev.mayaqq.cynosure.helpers.McClient
-import dev.mayaqq.estrogen.client.content.models.ConnectionState
 import dev.mayaqq.estrogen.client.content.block.ClientDreamBlock
 import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedU
 import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedV
@@ -12,7 +11,6 @@ import net.fabricmc.fabric.api.renderer.v1.render.RenderContext
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.resources.model.BakedModel
 import net.minecraft.core.BlockPos
-import net.minecraft.core.Direction
 import net.minecraft.util.RandomSource
 import net.minecraft.world.inventory.InventoryMenu
 import net.minecraft.world.level.BlockAndTintGetter

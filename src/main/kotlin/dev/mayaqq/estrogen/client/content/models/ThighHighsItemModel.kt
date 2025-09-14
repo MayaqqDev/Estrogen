@@ -1,8 +1,6 @@
 package dev.mayaqq.estrogen.client.content.models
 
-import dev.mayaqq.cynosure.utils.Either
 import dev.mayaqq.cynosure.utils.dfu.DFUEither
-import dev.mayaqq.cynosure.utils.dfu.toDFU
 import dev.mayaqq.estrogen.Estrogen
 import net.minecraft.client.renderer.block.model.BlockModel
 import net.minecraft.client.renderer.block.model.ItemModelGenerator

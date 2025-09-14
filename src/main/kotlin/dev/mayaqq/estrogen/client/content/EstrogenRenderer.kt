@@ -16,7 +16,6 @@ import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.helpers.McClient
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.mixin.client.accessor.LevelRendererAccessor
@@ -30,9 +29,6 @@ import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.ShaderInstance
 import net.minecraft.resources.ResourceLocation
 import org.lwjgl.opengl.GL11
-import kotlin.collections.component1
-import kotlin.collections.component2
-import kotlin.collections.forEach
 
 @EventSubscriber(env = [Environment.CLIENT])
 object EstrogenRenderer {

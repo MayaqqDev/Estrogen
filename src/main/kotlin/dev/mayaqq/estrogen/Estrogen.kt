@@ -26,7 +26,6 @@ import net.minecraft.world.level.levelgen.GenerationStep
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import uwu.serenity.kittyconfig.load
-import uwu.serenity.kittyconfig.loadConfig
 import uwu.serenity.kritter.RegistryManager
 
 const val MOD_ID = "estrogen"

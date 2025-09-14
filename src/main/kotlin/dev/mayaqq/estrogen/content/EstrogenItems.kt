@@ -18,8 +18,8 @@ import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.*
 import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.creative.TabPlacement
-import uwu.serenity.kritter.stdlib.item
 import uwu.serenity.kritter.client.stdlib.color
+import uwu.serenity.kritter.stdlib.item
 
 object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
     val EstrogenPill by item("estrogen_pill", ::Item) {
