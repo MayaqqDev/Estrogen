@@ -40,7 +40,7 @@ object ClientDreamBlock {
         if (event.isClientSide && rebuildDreamChunks) {
             rebuildDreamChunks = false
 
-            val iter = DreamBlockEntity.CHUNKS.longIterator()
+            val iter = DreamBlockEntity.SECTIONS.longIterator()
             while (iter.hasNext()) {
                 val pos = iter.nextLong()
                 (Minecraft.getInstance().levelRenderer as LevelRendererAccessor)

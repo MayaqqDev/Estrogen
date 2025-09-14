@@ -60,14 +60,16 @@ import kotlin.reflect.KClass
 class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<DreamBlockEntity> {
 
     init {
-        registerDefaultState(defaultBlockState()
-            .setValue(UP, false)
-            .setValue(DOWN, false)
-            .setValue(EAST, false)
-            .setValue(WEST, false)
-            .setValue(NORTH, false)
-            .setValue(SOUTH, false)
-            .setValue(PERSISTENT, false))
+        registerDefaultState(
+            defaultBlockState()
+                .setValue(UP, false)
+                .setValue(DOWN, false)
+                .setValue(EAST, false)
+                .setValue(WEST, false)
+                .setValue(NORTH, false)
+                .setValue(SOUTH, false)
+                .setValue(PERSISTENT, false)
+        )
     }
 
     override val blockEntityClass: KClass<out DreamBlockEntity> = DreamBlockEntity::class
@@ -232,16 +234,15 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
                 Mth.ceil(playerAABB.maxZ) - 1
             )
             return BlockPos.betweenClosedStream(minPos, maxPos).anyMatch { pos: BlockPos ->
-                player.level().getBlockState(pos).let { it.block is DreamBlock && canEntityUse(it, player) }
+                player.level().getBlockState(pos).let { it of EstrogenBlocks.DreamBlock && canEntityUse(it, player) }
             }
 
             // can't use betweenClosedStream because it also sometimes includes blocks that the player
             // is touching the face of, but not colliding with. >:(
         }
 
-        @JvmStatic
         fun isTouchingDreamBlock(state: BlockState, direction: Direction): Boolean =
-            state.block is DreamBlock && state.getValue(directionProperty(direction))
+            state of EstrogenBlocks.DreamBlock && state.getValue(directionProperty(direction))
 
         @Subscription
         internal fun onPlayerJoin(event: PlayerConnectionEvent.Join) {

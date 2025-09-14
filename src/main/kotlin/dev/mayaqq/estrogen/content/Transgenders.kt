@@ -75,9 +75,6 @@ fun <I> ItemBuilder<I>.textureProperty(id: ResourceLocation, consumer: ClampedIt
     }
 }
 
-@Stub
-expect fun ItemBuilder<*>.color(provider: (stack: ItemStack, tint: Int) -> Int)
-
 // Block entities
 // these need to be inline/crossinline for server-side safety
 inline fun <BE : BlockEntity> BlockEntityBuilder<BE>.visual(crossinline factory: (VisualizationContext, BE, Float) -> BlockEntityVisual<in BE>, noinline predicate: (BE) -> Boolean = { true }) {
@@ -157,7 +154,7 @@ fun <S : BotariumSourceFluid, F : BotariumFlowingFluid> FluidBuilder<S, F>.water
     }
 }
 
-inline fun <S : BotariumSourceFluid, F : BotariumFlowingFluid> FluidBuilder<S, F>.simpleBucket() {
+fun <S : BotariumSourceFluid, F : BotariumFlowingFluid> FluidBuilder<S, F>.simpleBucket() {
     bucket(::FluidBucketItem) {
         properties {
             craftRemainder(Items.BUCKET)
@@ -165,7 +162,3 @@ inline fun <S : BotariumSourceFluid, F : BotariumFlowingFluid> FluidBuilder<S, F
         }
     }
 }
-
-// blocks
-@Stub
-expect fun BlockBuilder<*>.color(provider: (state: BlockState, view: BlockAndTintGetter?, pos: BlockPos?, tint: Int) -> Int)

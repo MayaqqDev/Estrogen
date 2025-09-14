@@ -3,12 +3,13 @@ package dev.mayaqq.estrogen.config
 import dev.mayaqq.estrogen.MOD_ID
 import uwu.serenity.kittyconfig.Comment
 import uwu.serenity.kittyconfig.Config
+import uwu.serenity.kittyconfig.KittyConfig
 import uwu.serenity.kittyconfig.SerialName
 import uwu.serenity.kittyconfig.toml.TomlFormat
 import uwu.serenity.kittyconfig.validation.Range
 
 @Config("$MOD_ID/server", TomlFormat::class)
-object EstrogenServerConfig {
+object EstrogenServerConfig : KittyConfig {
 
     object Patch {
 

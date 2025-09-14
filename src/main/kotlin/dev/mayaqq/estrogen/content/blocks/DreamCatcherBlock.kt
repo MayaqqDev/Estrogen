@@ -2,6 +2,7 @@
 
 package dev.mayaqq.estrogen.content.blocks
 
+import dev.mayaqq.cynosure.utils.allHorizontalDirections
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.blockEntities.DreamCatcherBlockEntity
@@ -35,13 +36,7 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
     override fun getRenderShape(state: BlockState): RenderShape = RenderShape.MODEL
 
     override fun getShape(state: BlockState, level: BlockGetter, pos: BlockPos, context: CollisionContext): VoxelShape {
-        return when (state.getValue(FACING)) {
-            Direction.NORTH -> SHAPE_NORTH
-            Direction.SOUTH -> SHAPE_SOUTH
-            Direction.EAST -> SHAPE_EAST
-            Direction.WEST -> SHAPE_WEST
-            else -> SHAPE_NORTH
-        }
+        return SHAPES[state.getValue(FACING)]!!
     }
 
     override fun updateShape(
@@ -78,33 +73,14 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
     }
 
     companion object {
-        @JvmStatic private val SHAPE_NORTH = Shapes.or(
-            Shapes.box(0.375, -0.0625, 0.4375, 0.6875, 0.875, 0.5625),
-            Shapes.box(0.0625, 0.25, 0.4375, 1.0, 0.5625, 0.5625),
-            Shapes.box(0.25, 0.0, 0.4375, 0.8125, 0.8125, 0.5625),
-            Shapes.box(0.125, 0.125, 0.4375, 0.9375, 0.6875, 0.5625),
-            Shapes.box(0.1875, 0.0625, 0.4375, 0.875, 0.75, 0.5625))
-        @JvmStatic private val SHAPE_EAST = Shapes.or(
-            Shapes.box(0.4375, -0.0625, 0.375, 0.5625, 0.875, 0.6875),
-            Shapes.box(0.4375, 0.25, 0.0625, 0.5625, 0.5625, 1.0),
-            Shapes.box(0.4375, 0.0, 0.25, 0.5625, 0.8125, 0.8125),
-            Shapes.box(0.4375, 0.125, 0.125, 0.5625, 0.6875, 0.9375),
-            Shapes.box(0.4375, 0.0625, 0.1875, 0.5625, 0.75, 0.875)
-        )
-        @JvmStatic private val SHAPE_SOUTH = Shapes.or(
+
+        private val SHAPES = Shapes.or(
             Shapes.box(0.3125, -0.0625, 0.4375, 0.625, 0.875, 0.5625),
             Shapes.box(0.0, 0.25, 0.4375, 0.9375, 0.5625, 0.5625),
             Shapes.box(0.1875, 0.0, 0.4375, 0.75, 0.8125, 0.5625),
             Shapes.box(0.0625, 0.125, 0.4375, 0.875, 0.6875, 0.5625),
             Shapes.box(0.125, 0.0625, 0.4375, 0.8125, 0.75, 0.5625)
-        )
-        @JvmStatic private val SHAPE_WEST = Shapes.or(
-            Shapes.box(0.4375, -0.0625, 0.3125, 0.5625, 0.875, 0.625),
-            Shapes.box(0.4375, 0.25, 0.0, 0.5625, 0.5625, 0.9375),
-            Shapes.box(0.4375, 0.0, 0.1875, 0.5625, 0.8125, 0.75),
-            Shapes.box(0.4375, 0.125, 0.0625, 0.5625, 0.6875, 0.875),
-            Shapes.box(0.4375, 0.0625, 0.125, 0.5625, 0.75, 0.8125)
-        )
+        ).allHorizontalDirections()
 
         fun getBlockColor(state: BlockState, view: BlockAndTintGetter?, pos: BlockPos?, tint: Int): Int {
             if (state.`is`(EstrogenBlocks.DreamCatcher) && view != null && pos != null) {
