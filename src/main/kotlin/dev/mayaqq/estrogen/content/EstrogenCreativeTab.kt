@@ -69,7 +69,7 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Estrogen..Registries.
             accept(ColonThree)
             accept(CookieJar)
             accept(DreamCatcher)
-            accept(DreamBlock)
+            accept(DreamBlock.asItem())
             accept(DreamBottle)
             accept(EstrogenPillBlock)
             accept(MothWool)

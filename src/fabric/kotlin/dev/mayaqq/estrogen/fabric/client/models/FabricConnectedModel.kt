@@ -17,7 +17,7 @@ import net.minecraft.world.level.BlockAndTintGetter
 import net.minecraft.world.level.block.state.BlockState
 import java.util.function.Supplier
 
-class FabricConnectedModel(
+internal class FabricConnectedModel(
     wrapped: BakedModel,
     private val connectedSprite: TextureAtlasSprite
 ) : ForwardingBakedModel() {

@@ -5,6 +5,7 @@ import com.mojang.blaze3d.pipeline.TextureTarget
 import com.mojang.blaze3d.platform.GlStateManager
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.*
+import dev.engine_room.flywheel.lib.model.baked.PartialModel
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.events.CoreShaderRegistrationEvent
 import dev.mayaqq.cynosure.client.events.render.GameRenderEvent
@@ -30,7 +31,7 @@ import net.minecraft.client.renderer.ShaderInstance
 import net.minecraft.resources.ResourceLocation
 import org.lwjgl.opengl.GL11
 
-@EventSubscriber(env = [Environment.CLIENT])
+@EventSubscriber(Environment.CLIENT)
 object EstrogenRenderer {
 
     // Render state shards
@@ -40,7 +41,12 @@ object EstrogenRenderer {
         EstrogenRenderer::endShaderBypass
     )
 
+    // Outline thing
     val OUTLINE: MultiBufferSource by ::celshadeSource
+
+    // Models
+    val THIGH_HIGH: PartialModel = PartialModel.of(id("trinket/thigh_high_base"))
+    val THIGH_HIGH_OVERLAY: PartialModel = PartialModel.of(id("trinket/thigh_high_overlay"))
 
     // Shaders
     lateinit var dreamBlockShader: ShaderInstance

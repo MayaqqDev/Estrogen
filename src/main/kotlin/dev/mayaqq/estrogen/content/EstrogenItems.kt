@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.content
 import dev.mayaqq.cynosure.items.extensions.CustomTooltip
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.baubles.EstrogenPatchesRenderer
+import dev.mayaqq.estrogen.client.content.baubles.ThighHighsRenderer
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.items.*
 import dev.mayaqq.estrogen.id
@@ -125,16 +126,15 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
             stacksTo(1)
         }
         standardTooltip()
-        baubleWithRenderer(::EstrogenPatchesRenderer)
-        onSetup { CauldronInteraction.WATER[it] = ThighHighsItem.CAULDRON_INTERACTION }
+        baubleWithRenderer(::ThighHighsRenderer)
         color(ThighHighsItem::getItemColor)
+        onSetup { CauldronInteraction.WATER[it] = ThighHighsItem.CAULDRON_INTERACTION }
     }
 
     val EstrogenPatches by item("estrogen_patches", ::EstrogenPatchesItem) {
         properties {
             stacksTo(1)
         }
-        bauble()
         baubleWithRenderer(::EstrogenPatchesRenderer)
     }
 

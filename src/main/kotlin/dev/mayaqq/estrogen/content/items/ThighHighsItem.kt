@@ -47,7 +47,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
     }
 
     fun hasCustomColor(stack: ItemStack): Boolean {
-        return stack.tag?.contains(TAG_PRIMARY) == true && stack.tag?.contains(TAG_SECONDARY) == true
+        return stack.tag?.contains(TAG_PRIMARY) == true || stack.tag?.contains(TAG_SECONDARY) == true
     }
 
     fun getColor(stack: ItemStack, tintIndex: Int): Int {

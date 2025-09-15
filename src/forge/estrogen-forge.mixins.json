@@ -7,6 +7,7 @@
     "SpongeBlockMixin"
   ],
   "client": [
+    "client.ModelBakeryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

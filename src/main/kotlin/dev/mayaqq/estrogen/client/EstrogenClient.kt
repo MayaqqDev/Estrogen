@@ -36,6 +36,7 @@ import net.minecraft.world.entity.EntityType
 import uwu.serenity.kittyconfig.loadConfig
 
 
+@JvmField
 val THIGH_HIGH_ITEM_LOCATION: ResourceLocation = ModelResourceLocation(id("thigh_highs"), "inventory")
 
 const val THIGH_HIGH_MODELS_DIRECTORY = "models/thigh_highs"

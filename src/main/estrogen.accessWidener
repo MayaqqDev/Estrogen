@@ -10,3 +10,5 @@ accessible field net/minecraft/client/renderer/RenderStateShard NO_TRANSPARENCY 
 extendable method net/minecraft/data/tags/TagsProvider getName ()Ljava/lang/String;
 accessible method net/minecraft/data/loot/BlockLootSubProvider createSilkTouchOnlyTable (Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
 accessible field net/minecraft/world/level/block/LiquidBlock fluid Lnet/minecraft/world/level/material/FlowingFluid;
+accessible class net/minecraft/client/resources/model/ModelBakery$ModelBakerImpl
+accessible method net/minecraft/client/resources/model/ModelBakery$ModelBakerImpl <init> (Lnet/minecraft/client/resources/model/ModelBakery;Ljava/util/function/BiFunction;Lnet/minecraft/resources/ResourceLocation;)V
