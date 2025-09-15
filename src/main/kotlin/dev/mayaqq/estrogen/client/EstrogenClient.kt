@@ -30,10 +30,18 @@ import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.injection.chestConfig
 import net.minecraft.client.Minecraft
+import net.minecraft.client.resources.model.ModelResourceLocation
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import uwu.serenity.kittyconfig.loadConfig
 
-//import uwu.serenity.kittyconfig.api.defaults.load
+
+@JvmField
+val THIGH_HIGH_ITEM_LOCATION: ResourceLocation = ModelResourceLocation(id("thigh_highs"), "inventory")
+
+const val THIGH_HIGH_MODELS_DIRECTORY = "models/thigh_highs"
+
+const val THIGH_HIGH_ITEM_TEXTURES = "textures/item/thigh_highs"
 
 internal var chestConfigSet = false
 

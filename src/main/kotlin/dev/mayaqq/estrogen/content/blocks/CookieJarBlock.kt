@@ -60,9 +60,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
         )
     }
 
-    override fun getRenderShape(state: BlockState): RenderShape {
-        return RenderShape.MODEL
-    }
+    override fun getRenderShape(state: BlockState): RenderShape = RenderShape.MODEL
 
     override fun getStateForPlacement(blockPlaceContext: BlockPlaceContext): BlockState? {
         val fluidState = blockPlaceContext.level.getFluidState(blockPlaceContext.clickedPos)
@@ -177,9 +175,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
         return if (blockState.getValue(WATERLOGGED)) Fluids.WATER.getSource(false) else super.getFluidState(blockState)
     }
 
-    override fun getSoundType(blockState: BlockState): SoundType {
-        return EstrogenSoundTypes.COOKIE_JAR
-    }
+    override fun getSoundType(blockState: BlockState): SoundType = EstrogenSoundTypes.COOKIE_JAR
 
     override fun onProjectileHit(
         level: Level,
@@ -193,9 +189,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
         }
     }
 
-    override fun hasAnalogOutputSignal(state: BlockState): Boolean {
-        return true
-    }
+    override fun hasAnalogOutputSignal(state: BlockState): Boolean = true
 
     override fun getAnalogOutputSignal(state: BlockState, level: Level, pos: BlockPos): Int {
         return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos))
@@ -206,21 +200,13 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
         level: BlockGetter,
         pos: BlockPos,
         context: CollisionContext
-    ): VoxelShape {
-        return Shapes.empty()
-    }
+    ): VoxelShape = Shapes.empty()
 
-    override fun getShadeBrightness(state: BlockState, level: BlockGetter, pos: BlockPos): Float {
-        return 1.0f
-    }
+    override fun getShadeBrightness(state: BlockState, level: BlockGetter, pos: BlockPos): Float = 1.0f
 
-    override fun useShapeForLightOcclusion(state: BlockState): Boolean {
-        return true
-    }
+    override fun useShapeForLightOcclusion(state: BlockState): Boolean = true
 
-    override fun propagatesSkylightDown(state: BlockState, level: BlockGetter, pos: BlockPos): Boolean {
-        return true
-    }
+    override fun propagatesSkylightDown(state: BlockState, level: BlockGetter, pos: BlockPos): Boolean = true
 
     override val blockEntityClass: KClass<out CookieJarBlockEntity> = CookieJarBlockEntity::class
 

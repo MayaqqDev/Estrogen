@@ -3,13 +3,14 @@ package dev.mayaqq.estrogen.config
 import dev.mayaqq.estrogen.MOD_ID
 import uwu.serenity.kittyconfig.Comment
 import uwu.serenity.kittyconfig.Config
+import uwu.serenity.kittyconfig.KittyConfig
 import uwu.serenity.kittyconfig.minecraft.SyncToClient
 import uwu.serenity.kittyconfig.toml.TomlFormat
 import uwu.serenity.kittyconfig.validation.DecimalRange
 
 @Config("$MOD_ID/common", TomlFormat::class)
 @SyncToClient
-object EstrogenCommonConfig {
+object EstrogenCommonConfig : KittyConfig {
 
     @Comment("Settings for the dash effect")
     object Dash {

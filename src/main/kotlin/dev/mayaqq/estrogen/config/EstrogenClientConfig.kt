@@ -4,6 +4,7 @@ import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.chestConfigSet
 import uwu.serenity.kittyconfig.Comment
 import uwu.serenity.kittyconfig.Config
+import uwu.serenity.kittyconfig.KittyConfig
 import uwu.serenity.kittyconfig.observable.observable
 import uwu.serenity.kittyconfig.toml.TomlFormat
 import uwu.serenity.kittyconfig.validation.DecimalRange
@@ -11,7 +12,7 @@ import uwu.serenity.kittyconfig.validation.Range
 
 
 @Config("$MOD_ID/client", TomlFormat::class)
-object EstrogenClientConfig {
+object EstrogenClientConfig : KittyConfig {
 
     @Comment("Enable entity patting")
     var entityPatting: Boolean = true

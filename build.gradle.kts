@@ -3,6 +3,7 @@
 import dev.mayaqq.multijarfixer.FixMultiRelease
 import net.msrandom.stubs.GenerateStubApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.cloche)
@@ -10,7 +11,7 @@ plugins {
     kotlin("plugin.serialization") version libs.versions.kotlin
     alias(libs.plugins.kittyconfig)
     // Need to explicitly set ksp versions cs cloche loads an old version by default
-    id("com.google.devtools.ksp") version "2.2.0-2.0.2"
+    id("com.google.devtools.ksp") version "2.2.10-2.0.2"
     `maven-publish`
     id("com.dorongold.task-tree") version "4.0.1"
 }
@@ -97,6 +98,7 @@ cloche {
             modCompileOnly(libs.figura)
             modCompileOnly(libs.createNewAge)
             modImplementation(libs.kittyconfig)
+            include(libs.kittyconfig) { isTransitive = false }
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
 
@@ -167,13 +169,6 @@ cloche {
         }
 
         dependencies {
-            include(libs.fabric.baubly) { exclude(group = "me.shedaniel") }
-            include(libs.fabric.kritter)
-            include(libs.fabric.flywheel)
-            include(libs.kittyconfig)
-            include(libs.fabric.botarium)
-            include(libs.fabric.lithostitched)
-
             fabricApi(libs.versions.fapi)
             modApi(libs.fabric.kotlin)
             modApi.bundle(libs.bundles.fabric.cardinalComponents)
@@ -191,6 +186,12 @@ cloche {
             //modApi(libs.fabric.kittyconfig)
             modApi(libs.fabric.botarium)
             modImplementation(libs.fabric.lithostitched)
+
+            include(libs.fabric.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
+            include(libs.fabric.kritter) { isTransitive = false }
+            include(libs.fabric.flywheel) { isTransitive = false }
+            include(libs.fabric.botarium) { isTransitive = false }
+            include(libs.fabric.lithostitched) { isTransitive = false }
 
             when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -273,14 +274,7 @@ cloche {
         data()
 
         dependencies {
-            include(libs.forge.baubly) { exclude(group = "me.shedaniel") }
-            include(libs.forge.mixinExtras)
-            include(libs.forge.kritter)
-            include(libs.forge.botarium)
-            include(libs.forge.lithostitched)
-            include(libs.kittyconfig)
-
-            api(libs.forge.kotlin.lang)
+            api(libs.forge.kotlin)
             modCompileOnlyApi(libs.forge.flywheel.api)
             modImplementation(libs.forge.flywheel)
             modImplementation(libs.forge.baubly) { exclude(group = "me.shedaniel") }
@@ -293,6 +287,12 @@ cloche {
             //modApi(libs.forge.kittyconfig)
             modApi(libs.forge.botarium)
             modImplementation(libs.forge.lithostitched)
+
+            include(libs.forge.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
+            include(libs.forge.mixinExtras) { isTransitive = false }
+            include(libs.forge.kritter) { isTransitive = false }
+            include(libs.forge.botarium) { isTransitive = false }
+            include(libs.forge.lithostitched) { isTransitive = false }
 
             when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)
@@ -329,17 +329,15 @@ configurations.named("forgeRuntimeClasspath") {
 }
 
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
     withSourcesJar()
 }
-kotlin {
+
+tasks.withType<KotlinCompile> {
+//    explicitApiMode = org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode.Warning
     compilerOptions {
         languageVersion = KotlinVersion.KOTLIN_2_0
         freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
     }
-    jvmToolchain(17)
 }
 
 tasks.named("createCommonApiStub", GenerateStubApi::class) {

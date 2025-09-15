@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.content
 import dev.mayaqq.cynosure.items.extensions.CustomTooltip
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.baubles.EstrogenPatchesRenderer
+import dev.mayaqq.estrogen.client.content.baubles.ThighHighsRenderer
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.items.*
 import dev.mayaqq.estrogen.id
@@ -18,6 +19,7 @@ import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.*
 import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.creative.TabPlacement
+import uwu.serenity.kritter.client.stdlib.color
 import uwu.serenity.kritter.stdlib.item
 
 object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
@@ -124,17 +126,15 @@ object EstrogenItems : Registrar<Item> by Estrogen..Registries.ITEM {
             stacksTo(1)
         }
         standardTooltip()
-        bauble()
-        //TODO: baubleWithRenderer {  }
-        onSetup { CauldronInteraction.WATER[it] = ThighHighsItem.CAULDRON_INTERACTION }
+        baubleWithRenderer(::ThighHighsRenderer)
         color(ThighHighsItem::getItemColor)
+        onSetup { CauldronInteraction.WATER[it] = ThighHighsItem.CAULDRON_INTERACTION }
     }
 
     val EstrogenPatches by item("estrogen_patches", ::EstrogenPatchesItem) {
         properties {
             stacksTo(1)
         }
-        bauble()
         baubleWithRenderer(::EstrogenPatchesRenderer)
     }
 

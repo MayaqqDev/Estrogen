@@ -65,7 +65,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
             sendRemovePlayerStatusEffect(
                 entity,
                 EstrogenEffects.Estrogen,
-                *tracking(entity).filterIsInstance<ServerPlayer>().toTypedArray()
+                *tracking(entity).toTypedArray()
             )
         }
 
@@ -88,7 +88,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
             sendPlayerStatusEffect(
                 entity,
                 EstrogenEffects.Estrogen,
-                *tracking(entity).filterIsInstance<ServerPlayer>().toTypedArray()
+                *tracking(entity).toTypedArray()
             )
         }
 

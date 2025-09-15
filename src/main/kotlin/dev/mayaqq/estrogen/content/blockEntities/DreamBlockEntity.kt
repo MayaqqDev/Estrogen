@@ -13,23 +13,22 @@ import net.minecraft.world.level.block.state.BlockState
 class DreamBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockState: BlockState) : BlockEntity(type, blockPos, blockState) {
 
     init {
-        CHUNKS.add(SectionPos.asLong(blockPos))
+        SECTIONS.add(SectionPos.asLong(blockPos))
     }
 
     val isPersistent: Boolean
         get() = blockState.getValue(DreamBlock.PERSISTENT)
 
     fun isTouchingDreamBlock(direction: Direction): Boolean {
-        return blockState.getValue(DreamBlock.directionProperty(direction))
+        return DreamBlock.isTouchingDreamBlock(blockState, direction)
     }
 
     override fun setRemoved() {
         super.setRemoved()
-        CHUNKS.remove(SectionPos.asLong(blockPos))
+        SECTIONS.remove(SectionPos.asLong(blockPos))
     }
 
     companion object {
-        val CHUNKS: LongList = LongArrayList()
-
+        val SECTIONS: LongList = LongArrayList()
     }
 }

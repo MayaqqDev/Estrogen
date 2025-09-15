@@ -22,18 +22,31 @@ internal object DynamicDreamTexture {
     private lateinit var texture: DynamicTexture
     private var seed: Long = 0xB00B5
     private var animationTick = 0
-    var init = false
+    private var init = false
 
-    fun prepare() {
+    @JvmStatic
+    fun prepareIfNeeded() {
         if (init) return
         texture = DynamicTexture(128, 128, false)
         Minecraft.getInstance().textureManager.register(ID, texture)
-        this.draw()
+        this.redraw()
         init = true
+    }
+
+    @JvmStatic
+    fun generateIfNeeded() {
+        if (goobers.isEmpty()) {
+            regenerate()
+        }
     }
 
     fun changeSeed(seed: Long) {
         this.seed = seed
+        this.regenerate()
+    }
+
+    fun resetSeed() {
+        this.seed = 0xB00B5
         this.regenerate()
     }
 
@@ -72,6 +85,7 @@ internal object DynamicDreamTexture {
                 val goober = Goober(posX, posY, color, style, animTick, beginFrame, transparency)
                 goobers.add(goober)
                 count--
+                attempts = 16
             } else {
                 attempts--
                 if (attempts == 0) {

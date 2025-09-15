@@ -29,11 +29,8 @@ abstract class BaseEstrogenScreen(val previous: Screen?, title: Component) : Scr
     abstract fun baseInit()
 
     override fun init() {
-        if (shouldGenerateNewTexture) {
-            DynamicDreamTexture.prepare()
-            if (McClient.level == null) DynamicDreamTexture.regenerate()
-            generatedTexture = true
-        }
+        DynamicDreamTexture.prepareIfNeeded()
+        DynamicDreamTexture.generateIfNeeded()
         baseInit()
         val buttonSize = 25
         val cornerOffset = 10
@@ -83,11 +80,5 @@ abstract class BaseEstrogenScreen(val previous: Screen?, title: Component) : Scr
     override fun shouldCloseOnEsc(): Boolean = true
     override fun onClose() {
         if (hasShiftDown()) McClient.setScreen(null) else previous?.let { McClient.setScreen(it) }?: super.onClose()
-    }
-
-    companion object {
-        private var generatedTexture = false
-        private val shouldGenerateNewTexture
-            get() = !generatedTexture && !DynamicDreamTexture.init
     }
 }

@@ -6,6 +6,7 @@ import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.cynosure.data.registerDatapackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.utils.colors.Color
+import dev.mayaqq.cynosure.utils.colors.ForestGreen
 import dev.mayaqq.cynosure.utils.colors.LightBlue
 import dev.mayaqq.cynosure.utils.tag
 import dev.mayaqq.estrogen.api.EstrogenEntrypoint
@@ -24,7 +25,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.levelgen.GenerationStep
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import uwu.serenity.kittyconfig.loadConfig
+import uwu.serenity.kittyconfig.load
 import uwu.serenity.kritter.RegistryManager
 
 const val MOD_ID = "estrogen"
@@ -38,9 +39,8 @@ inline fun mcid(path: String) = ResourceLocation("minecraft", path)
 object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager by RegistryManager(MOD_ID), EstrogenModule {
 
     fun init() {
-        // TODO: When intellij plugin use the extensions instead of the top-level variants
-        loadConfig(EstrogenCommonConfig)
-        loadConfig(EstrogenServerConfig)
+        EstrogenCommonConfig.load()
+        EstrogenServerConfig.load()
 
         EstrogenAttributes.register()
         EstrogenSounds.register()
@@ -61,6 +61,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         EstrogenFeatures.register()
         EstrogenLootFunctions.register()
 
+        ForestGreen
         BiomeModifiers.addFeature({it.`is`(Registries.BIOME.tag(
             ResourceLocation(if (currentLoader == Loader.FABRIC) "c:climate_cold" else "forge:is_cold/overworld")
         ))},

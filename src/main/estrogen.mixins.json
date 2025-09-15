@@ -25,7 +25,8 @@
     "client.ReceivingLevelScreenMixin",
     "client.accessor.ItemPropertiesAccessor",
     "client.accessor.LevelRendererAccessor",
-    "client.accessor.LiquidBlockAccessor"
+    "client.accessor.LiquidBlockAccessor",
+    "client.accessor.ModelManagerAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -5,6 +5,7 @@ import com.mojang.blaze3d.pipeline.TextureTarget
 import com.mojang.blaze3d.platform.GlStateManager
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.*
+import dev.engine_room.flywheel.lib.model.baked.PartialModel
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.events.CoreShaderRegistrationEvent
 import dev.mayaqq.cynosure.client.events.render.GameRenderEvent
@@ -15,6 +16,7 @@ import dev.mayaqq.cynosure.client.isShaderPackInUse
 import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
+import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.mixin.client.accessor.LevelRendererAccessor
@@ -29,7 +31,7 @@ import net.minecraft.client.renderer.ShaderInstance
 import net.minecraft.resources.ResourceLocation
 import org.lwjgl.opengl.GL11
 
-@EventSubscriber(env = [Environment.CLIENT])
+@EventSubscriber(Environment.CLIENT)
 object EstrogenRenderer {
 
     // Render state shards
@@ -39,7 +41,12 @@ object EstrogenRenderer {
         EstrogenRenderer::endShaderBypass
     )
 
+    // Outline thing
     val OUTLINE: MultiBufferSource by ::celshadeSource
+
+    // Models
+    val THIGH_HIGH: PartialModel = PartialModel.of(id("trinket/thigh_high_base"))
+    val THIGH_HIGH_OVERLAY: PartialModel = PartialModel.of(id("trinket/thigh_high_overlay"))
 
     // Shaders
     lateinit var dreamBlockShader: ShaderInstance
@@ -161,9 +168,10 @@ object EstrogenRenderer {
         RenderSystem.disableBlend()
         RenderSystem.defaultBlendFunc()
 
-        if (Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming) == true)
+        if (Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming) == true) {
             dreamingEffect?.process(event.partialTick)
-
+            McClient.mainRenderTarget.bindWrite(false)
+        }
         celshadeCounter = 0
     }
 

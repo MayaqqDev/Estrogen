@@ -9,7 +9,7 @@ minecraft = "1.20.1"
 fabric = "0.16.9"
 
 # Common Dependencies
-kritter = "0.1.8+1.20.1"
+kritter = "0.1.12+1.20.1"
 kotlinx-serialization="1.8.0"
 kotlinx-coroutines="1.10.1"
 parchment = "2023.09.03"
@@ -101,8 +101,7 @@ fabric-lithostitched = { module = "maven.modrinth:lithostitched", version.ref = 
 
 
 # Forge depencencies
-forge-kotlin = { module = "thedarkcolour:kotlinforforge", version.ref = "kff" }
-forge-kotlin-lang = { module = "dev.nyon:KotlinLangForge", version.ref = "klf" }
+forge-kotlin = { module = "dev.nyon:KotlinLangForge", version.ref = "klf" }
 forge-create = { module = "com.simibubi.create:create-1.20.1", version.ref = "create_forge" }
 forge-baubly = { module = "earth.terrarium.baubly:baubly-forge-1.20.1", version.ref = "baubly" }
 forge-emi = { module = "dev.emi:emi-forge", version.ref = "emi" }
