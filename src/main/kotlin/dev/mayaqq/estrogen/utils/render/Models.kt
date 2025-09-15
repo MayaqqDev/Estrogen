@@ -5,5 +5,5 @@ import net.minecraft.client.resources.model.BakedModel
 import net.minecraft.client.resources.model.ModelManager
 import net.minecraft.resources.ResourceLocation
 
-fun ModelManager.getModel(resourceLocation: ResourceLocation): BakedModel =
-    (this as ModelManagerAccessor).bakedRegistry[resourceLocation] ?: missingModel
+fun ModelManager.getModel(id: ResourceLocation): BakedModel =
+    (this as ModelManagerAccessor).bakedRegistry[id] ?: missingModel
