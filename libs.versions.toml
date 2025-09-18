@@ -13,31 +13,23 @@ kritter = "0.1.12+1.20.1"
 kotlinx-serialization="1.8.0"
 kotlinx-coroutines="1.10.1"
 parchment = "2023.09.03"
-architectury = "9.1.12"
 devauth = "1.2.1"
-create_fabric = "0.5.1-f-build.1224+mc1.20.1"
 trinkets = "3.7.1"
 rei = "12.1.785"
 emi = "1.0.29+1.20.1"
-jei = "15.2.0.27"
 mixin_extras = "0.5.0"
-jukeboxfix = "1.0.1"
 ears = "1.4.5"
 figura = "0.1.4+1.20.1"
 baubly = "1.0.1"
-resourcefullib = "2.1.29"
 botarium = "2.3.4"
 new_age = "1.1.2"
 resourceful_cosmetics = "1.0.4"
-critter = "0.1-beta.14"
-skinlayers = "5edNc5ga"
 cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.5+1.20.1"
 flywheel = "1.0.2"
 cynosure = "0.1.0.187"
 kittyconfig = "1.2.16"
-mixin_constrains = "1.0.8"
 
 # Fabric Only Dependencies
 fapi = "0.92.2"
@@ -49,10 +41,7 @@ lithostitched_fabric = "1.4.11-fabric-1.20"
 
 # Forge Only Dependencies
 forge = "47.4.0"
-curios = "5.4.7+1.20.1"
-create_forge = "0.5.1.f-27"
 jei_file_id_forge = "4712868"
-kff = "4.11.0"
 klf = "2.10.5-k2.2.10-2.0+forge"
 lithostitched_forge = "1.4.11-forge-1.20"
 
@@ -60,30 +49,23 @@ lithostitched_forge = "1.4.11-forge-1.20"
 
 # Common Dependencies
 mixin = { module = "org.spongepowered:mixin", version.ref = "mixin" }
-baubly = { module = "earth.terrarium.baubly:baubly-common-1.20.1", version.ref = "baubly" }
 ears = { module = "com.unascribed:ears-api", version.ref="ears" }
 figura = { module = "org.figuramc:figura-common-mojmap", version.ref="figura"}
 createNewAge = { module = "maven.modrinth:create-new-age", version.ref = "new_age" }
 mixinExtras = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixin_extras" }
-rei-api = { module = "me.shedaniel:RoughlyEnoughItems-api", version.ref = "rei" }
-rei-plugin = { module = "me.shedaniel:RoughlyEnoughItems-default-plugin", version.ref = "rei" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kritter = { module = "uwu.serenity.kritter:kritter-common", version.ref = "kritter" }
 flywheel-api = { module = "dev.engine-room.flywheel:flywheel-common-mojmap-api-1.20.1", version.ref = "flywheel" }
 cynosure = { module = "dev.mayaqq.cynosure:cynosure-common", version.ref = "cynosure" }
 kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-mc", version.ref = "kittyconfig" }
-mixinConstrains = { module = "com.moulberry:mixinconstraints", version.ref = "mixin_constrains" }
 
 # Fabric dependencies
 fabric-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "flk" }
-fabric-api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fapi" }
-fabric-create = { module = "com.simibubi.create:create-fabric-1.20.1", version.ref = "create_fabric"}
 fabric-baubly = { module = "earth.terrarium.baubly:baubly-fabric-1.20.1", version.ref = "baubly" }
 fabric-trinkets = { module = "dev.emi:trinkets", version.ref = "trinkets" }
 fabric-emi = { module = "dev.emi:emi-fabric", version.ref = "emi" }
 fabric-rei = { module = "me.shedaniel:RoughlyEnoughItems-fabric", version.ref = "rei" }
-fabric-jei-api = { module = "mezz.jei:jei-1.20.1-fabric-api", version.ref = "jei" }
 fabric-jei = { module = "curse.maven:jei-238222", version.ref = "jei_file_id_fabric" }
 fabric-modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
 fabric-cardinalComponents-base = { group = "dev.onyxstudios.cardinal-components-api", name = "cardinal-components-base", version.ref = "cardinal" }
@@ -94,31 +76,26 @@ fabric-kritter = { module = "uwu.serenity.kritter:kritter-fabric", version.ref =
 fabric-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-fabric-api-1.20.1", version.ref = "flywheel" }
 fabric-flywheel = { module = "dev.engine-room.flywheel:flywheel-fabric-1.20.1", version.ref = "flywheel" }
 fabric-cynosure = { module = "dev.mayaqq.cynosure:cynosure-fabric", version.ref = "cynosure" }
-fabric-kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-minecraft-fabric", version.ref = "kittyconfig" }
-fabric-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
 fabric-botarium = { module = "earth.terrarium.botarium:botarium-fabric-1.20.1", version.ref = "botarium" }
 fabric-lithostitched = { module = "maven.modrinth:lithostitched", version.ref = "lithostitched_fabric" }
+fabric-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
 
 
 # Forge depencencies
 forge-kotlin = { module = "dev.nyon:KotlinLangForge", version.ref = "klf" }
-forge-create = { module = "com.simibubi.create:create-1.20.1", version.ref = "create_forge" }
 forge-baubly = { module = "earth.terrarium.baubly:baubly-forge-1.20.1", version.ref = "baubly" }
 forge-emi = { module = "dev.emi:emi-forge", version.ref = "emi" }
-forge-jei-api = { module = "mezz.jei:jei-1.20.1-forge-api", version.ref = "jei" }
 forge-jei = { module = "curse.maven:jei-238222", version.ref = "jei_file_id_forge" }
 forge-rei = { module = "me.shedaniel:RoughlyEnoughItems-forge", version.ref = "rei" }
-forge-curios = { module = "top.theillusivec4.curios:curios-forge", version.ref = "curios" }
 forge-mixinExtras = { module = "io.github.llamalad7:mixinextras-forge", version.ref = "mixin_extras" }
 forge-devauth = { module = "me.djtheredstoner:DevAuth-forge-latest", version.ref = "devauth" }
 forge-kritter = { module = "uwu.serenity.kritter:kritter-forge", version.ref = "kritter" }
 forge-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-forge-api-1.20.1", version.ref = "flywheel" }
 forge-flywheel = { module = "dev.engine-room.flywheel:flywheel-forge-1.20.1", version.ref = "flywheel" }
 forge-cynosure = { module = "dev.mayaqq.cynosure:cynosure-forge", version.ref = "cynosure" }
-forge-kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-forge", version.ref = "kittyconfig" }
-forge-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
 forge-botarium = { module = "earth.terrarium.botarium:botarium-forge-1.20.1", version.ref = "botarium" }
 forge-lithostitched = { module = "maven.modrinth:lithostitched", version.ref = "lithostitched_forge" }
+forge-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
 
 [bundles]
 fabric-cardinalComponents = [ "fabric-cardinalComponents-base", "fabric-cardinalComponents-entity" ]

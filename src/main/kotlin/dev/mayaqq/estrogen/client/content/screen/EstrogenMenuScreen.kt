@@ -15,15 +15,12 @@ import dev.mayaqq.cynosure.utils.colors.White
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.screen.config.ConfigCategorySelectionScreen
-import dev.mayaqq.estrogen.client.content.screen.config.KittyConfigScreen
 import dev.mayaqq.estrogen.client.content.screen.cosmetics.CosmeticsLoginScreen
 import dev.mayaqq.estrogen.client.content.screen.modules.ModulesScreen
 import dev.mayaqq.estrogen.id
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.screens.Screen
-import uwu.serenity.kittyconfig.elements.elements
-import uwu.serenity.kittyconfig.minecraft.KittyConfigRegistry
 import kotlin.io.path.exists
 
 class EstrogenMenuScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.translatable("estrogen.screen.menu.title")) {
