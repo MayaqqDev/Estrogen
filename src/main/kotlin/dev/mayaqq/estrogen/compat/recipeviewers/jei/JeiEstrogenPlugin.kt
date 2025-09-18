@@ -29,7 +29,7 @@ import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.level.material.Fluid
 
 @JeiPlugin
-object JeiEstrogenPlugin : IModPlugin {
+class JeiEstrogenPlugin : IModPlugin {
     override fun getPluginUid(): ResourceLocation = id("jei_plugin")
 
     val recipeTypes = buildMap {

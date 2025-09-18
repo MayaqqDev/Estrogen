@@ -14,7 +14,7 @@ import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.GenericRecipeViewerPlugin
 import dev.mayaqq.estrogen.compat.recipeviewers.base.ingredient.RvIngredient
 @EmiEntrypoint
-object EmiEstrogenPlugin : EmiPlugin {
+class EmiEstrogenPlugin : EmiPlugin {
 
 
     override fun register(registry: EmiRegistry) {

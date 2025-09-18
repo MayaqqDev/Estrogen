@@ -29,7 +29,7 @@ import me.shedaniel.rei.api.common.util.EntryIngredients
 import net.minecraft.network.chat.Component
 import java.util.*
 
-object ReiEstrogenPlugin : REIClientPlugin {
+class ReiEstrogenPlugin : REIClientPlugin {
     override fun getPluginProviderName(): String = id("rei_client").toString()
 
     override fun registerCategories(registry: CategoryRegistry) {
