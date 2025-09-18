@@ -10,7 +10,8 @@
     "EntityMixin",
     "ItemParserMixin",
     "PistonMovingBlockEntityMixin",
-    "PlayerMixin"
+    "PlayerMixin",
+    "RecordItemMixin"
   ],
   "client": [
     "client.AdvancementTabMixin",

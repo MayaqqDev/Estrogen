@@ -57,4 +57,10 @@ object EstrogenServerConfig : KittyConfig {
 
     }
 
+    @Comment("Bug fixes and other improvements related to this mod")
+    object Fixes {
+        @Comment("Fix a dupe glitch related to Jukeboxes and stacks")
+        var jukeboxFix: Boolean = true
+    }
+
 }

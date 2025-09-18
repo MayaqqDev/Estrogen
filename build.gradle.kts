@@ -57,7 +57,7 @@ cloche {
     metadata {
         modId = "estrogen"
         name = "Estrogen"
-        description = "Create Addon Based around expressing yourself, fluid handling and expanding your factory. This mod adds a lot of new Items, Blocks, Mechanics and more!"
+        description = "A mod adding Estrogen, Dashing, fluid handling mechanics and much more!"
         license = "LGPL-3.0"
         icon = "icon.png"
         url = "https://github.com/MayaqqDev/Estrogen"
