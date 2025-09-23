@@ -226,6 +226,10 @@ cloche {
                 adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.Estrogen")
             }
+            entrypoint("crv") {
+                adapter.set("kotlin")
+                value.set("dev.mayaqq.estrogen.compat.recipeviewers.EstrogenRecipeViewerPlugin")
+            }
         }
     }
 

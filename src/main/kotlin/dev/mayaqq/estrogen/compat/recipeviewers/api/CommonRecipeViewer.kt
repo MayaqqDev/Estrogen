@@ -1,12 +1,15 @@
 package dev.mayaqq.estrogen.compat.recipeviewers.api
 
-import dev.mayaqq.estrogen.MOD_ID
-import dev.mayaqq.estrogen.compat.recipeviewers.EstrogenRecipeViewerPlugin
-
 object CommonRecipeViewer {
+
+    val collectedPlugins: MutableList<PluginContainer> = mutableListOf()
+
     fun getPlugins(): List<PluginContainer> {
-        return listOf(PluginContainer(EstrogenRecipeViewerPlugin, MOD_ID))
+        if (collectedPlugins.isEmpty()) collectedPlugins.addAll(getCRVPlugins())
+        return collectedPlugins
     }
 }
 
 data class PluginContainer(val plugin: CRVPlugin, val modid: String)
+
+expect fun getCRVPlugins(): List<PluginContainer>
