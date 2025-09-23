@@ -32,7 +32,7 @@ object EstrogenCommonConfig : KittyConfig {
         @Comment("How long does Girl Power from the Crystal Estrogen Pill last in ticks")
         var crystalEstrogenPillDuration: Int = 6000
 
-        @Comment("How long does Girl Power from the Estrogen Pill last in ticks")
+        @Comment("How long does Girl Power from the Estrogen Chip Cookie last in ticks")
         var estrogenChipCookieDuration: Int = 6000
     }
 
