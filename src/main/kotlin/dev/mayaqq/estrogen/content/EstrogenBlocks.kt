@@ -96,7 +96,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
     val MothCarpet: CarpetBlock by block("moth_wool_carpet", ::CarpetBlock) {
         copyProperties(Blocks::ORANGE_CARPET)
         item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS)
+            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
         }
     }
 
