@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.compat.recipeviewers.base.elements
+package dev.mayaqq.estrogen.compat.recipeviewers.api.elements
 
 import com.mojang.blaze3d.platform.GlStateManager
 import com.mojang.blaze3d.platform.Lighting
@@ -7,7 +7,7 @@ import com.mojang.math.Axis
 import dev.engine_room.flywheel.lib.model.baked.SinglePosVirtualBlockGetter
 import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.helpers.McClient
-import dev.mayaqq.estrogen.compat.recipeviewers.base.RvDrawable
+import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVDrawable
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.BlockPos
@@ -27,7 +27,7 @@ class GuiBlockRenderer(
     val z: Int = 0,
     val rotation: Vec3 = Vec3(22.5, 45.0, 0.0),
     val scale: Double = 20.0,
-) : RvDrawable {
+) : CRVDrawable {
     override fun draw(
         graphics: GuiGraphics,
         offsetX: Int,

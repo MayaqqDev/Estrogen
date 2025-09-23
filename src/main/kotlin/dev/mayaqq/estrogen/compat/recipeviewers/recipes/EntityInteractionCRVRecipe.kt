@@ -1,10 +1,10 @@
 package dev.mayaqq.estrogen.compat.recipeviewers.recipes
 
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
-import dev.mayaqq.estrogen.compat.recipeviewers.base.RVRecipe
-import dev.mayaqq.estrogen.compat.recipeviewers.base.Role
-import dev.mayaqq.estrogen.compat.recipeviewers.base.RvRecipeData
-import dev.mayaqq.estrogen.compat.recipeviewers.base.ingredient.RvIngredient
+import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
+import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVRecipe
+import dev.mayaqq.estrogen.compat.recipeviewers.api.Role
+import dev.mayaqq.estrogen.compat.recipeviewers.api.ViewerInfo
 import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
 import dev.mayaqq.estrogen.content.recipes.getSpawnEggs
 import net.minecraft.client.Minecraft
@@ -14,16 +14,16 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.SpawnEggItem
 import net.minecraft.world.item.crafting.Ingredient
 
-class EntityInteractionRvRecipe(recipe: EntityInteractionRecipe) : RVRecipe<EntityInteractionRecipe>(recipe) {
+class EntityInteractionCRVRecipe(recipe: EntityInteractionRecipe) : CRVRecipe<EntityInteractionRecipe>(recipe) {
     override fun init() {
         addTexture(RecipeTextures.JEI_SHADOW, 62, 47)
         addTexture(RecipeTextures.JEI_DOWN_ARROW, 74, 10)
 
         val matchingStacks: Array<ItemStack> = recipe.entity.getSpawnEggs()
-        val eggs = addSlot(RvIngredient.of(Ingredient.of(*matchingStacks)), 27, 38, Role.RENDER_ONLY)
+        val eggs = addSlot(CRVIngredient.of(Ingredient.of(*matchingStacks)), 27, 38, Role.RENDER_ONLY)
 
-        addSlot(inputs()[0], 51, 5, Role.INPUT)
-        addSlot(outputs()[0], 132, 38, Role.OUTPUT)
+        addSlot(inputs[0], 51, 5, Role.INPUT)
+        addSlot(outputs[0], 132, 38, Role.OUTPUT)
 
         addDrawable(0, 0) { matrices, offsetX, offsetY, mouseX, mouseY, delta ->
             val item = (System.currentTimeMillis() / 1000 % eggs.ingredient.size).toInt()
@@ -46,13 +46,13 @@ class EntityInteractionRvRecipe(recipe: EntityInteractionRecipe) : RVRecipe<Enti
         }
     }
 
-    override fun inputs(): List<RvIngredient> = listOf(RvIngredient.of(recipe.ingredient))
-    override fun outputs(): List<RvIngredient> = listOf(RvIngredient.of(recipe.result))
-    override fun catalysts(): List<RvIngredient> = listOf()
+    override val inputs: List<CRVIngredient> = listOf(CRVIngredient.of(recipe.ingredient))
+    override val outputs: List<CRVIngredient> = listOf(CRVIngredient.of(recipe.result))
+    override val catalysts: List<CRVIngredient> = listOf()
 
-    companion object : RvRecipeData<EntityInteractionRecipe, EntityInteractionRvRecipe>(
+    companion object : ViewerInfo<EntityInteractionRecipe, EntityInteractionCRVRecipe>(
         EntityInteractionRecipe,
-        EntityInteractionRvRecipe::class,
-        EntityInteractionRecipe::class)
-
+        { recipe -> EntityInteractionCRVRecipe(recipe as EntityInteractionRecipe) },
+        EntityInteractionRecipe::class
+    )
 }

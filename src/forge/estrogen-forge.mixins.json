@@ -7,9 +7,11 @@
     "SpongeBlockMixin"
   ],
   "client": [
-    "client.ModelBakeryMixin"
+    "client.ModelBakeryMixin",
+    "client.compat.jei.ForgePluginFinderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "plugin": "dev.mayaqq.estrogen.utils.EstrogenMixinPlugin"
 }

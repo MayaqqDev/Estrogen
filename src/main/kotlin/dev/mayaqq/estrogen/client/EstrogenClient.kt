@@ -25,6 +25,7 @@ import dev.mayaqq.estrogen.client.content.particles.DashTrailParticle
 import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorDataLoader
 import dev.mayaqq.estrogen.client.features.dash.DashOverlay
 import dev.mayaqq.estrogen.compat.ears.EarsCompat
+import dev.mayaqq.estrogen.compat.recipeviewers.api.rei.ReiPluginRegister
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.id
@@ -57,6 +58,7 @@ fun estrogenClient() {
     registerResourcepackReloadListener(id("estrogen_armor_data"), BreastArmorDataLoader)
 
     if (isModLoaded("ears")) EarsCompat.boob()
+    if (isModLoaded("roughlyenoughitems")) ReiPluginRegister.register()
 }
 
 @Subscription

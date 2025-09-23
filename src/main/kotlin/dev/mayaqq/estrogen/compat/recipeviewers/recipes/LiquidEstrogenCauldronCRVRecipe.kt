@@ -9,11 +9,11 @@ import dev.mayaqq.cynosure.utils.colors.McGreen
 import dev.mayaqq.cynosure.utils.colors.McRed
 import dev.mayaqq.estrogen.api.EstrogenFlag
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
-import dev.mayaqq.estrogen.compat.recipeviewers.base.RVRecipe
-import dev.mayaqq.estrogen.compat.recipeviewers.base.Role
-import dev.mayaqq.estrogen.compat.recipeviewers.base.RvRecipeData
-import dev.mayaqq.estrogen.compat.recipeviewers.base.elements.GuiBlockRenderer
-import dev.mayaqq.estrogen.compat.recipeviewers.base.ingredient.RvIngredient
+import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
+import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVRecipe
+import dev.mayaqq.estrogen.compat.recipeviewers.api.Role
+import dev.mayaqq.estrogen.compat.recipeviewers.api.ViewerInfo
+import dev.mayaqq.estrogen.compat.recipeviewers.api.elements.GuiBlockRenderer
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenRecipes
@@ -28,7 +28,7 @@ import net.minecraft.world.level.block.piston.PistonHeadBlock
 import net.minecraft.world.level.block.state.properties.PistonType
 import net.minecraft.world.phys.Vec3
 
-class LiquidEstrogenCauldronRvRecipe(recipe: LiquidEstrogenCauldronRecipe) : RVRecipe<LiquidEstrogenCauldronRecipe>(recipe) {
+class LiquidEstrogenCauldronCRVRecipe(recipe: LiquidEstrogenCauldronRecipe) : CRVRecipe<LiquidEstrogenCauldronRecipe>(recipe) {
 
     var extended = false
     var extendCounter = System.currentTimeMillis()
@@ -55,8 +55,8 @@ class LiquidEstrogenCauldronRvRecipe(recipe: LiquidEstrogenCauldronRecipe) : RVR
             }
         } else {
 
-            addSlot(RvIngredient.of(EstrogenFluids.FiltratedHorseUrine.bucket.defaultInstance), 10, 14, Role.INPUT)
-            addSlot(RvIngredient.of(EstrogenFluids.LiquidEstrogen.source), 148, 35, Role.OUTPUT)
+            addSlot(CRVIngredient.of(EstrogenFluids.FiltratedHorseUrine.bucket.defaultInstance), 10, 14, Role.INPUT)
+            addSlot(CRVIngredient.of(EstrogenFluids.LiquidEstrogen.source), 148, 35, Role.OUTPUT)
             addTexture(RecipeTextures.JEI_ARROW, 72, 40)
 
             addTexture(RecipeTextures.JEI_SHADOW, 104, 49)
@@ -93,10 +93,14 @@ class LiquidEstrogenCauldronRvRecipe(recipe: LiquidEstrogenCauldronRecipe) : RVR
         }
     }
 
-    override fun inputs() = listOf(RvIngredient.of((EstrogenFluids.FiltratedHorseUrine.block as LiquidBlockAccessor).fluid()))
-    override fun outputs() = listOf(RvIngredient.of((EstrogenFluids.LiquidEstrogen.block as LiquidBlockAccessor).fluid()))
-    override fun catalysts(): List<RvIngredient> = listOf(RvIngredient.of(Items.CAULDRON.defaultInstance))
+    override val inputs = listOf(CRVIngredient.of((EstrogenFluids.FiltratedHorseUrine.block as LiquidBlockAccessor).fluid()))
+    override val outputs = listOf(CRVIngredient.of((EstrogenFluids.LiquidEstrogen.block as LiquidBlockAccessor).fluid()))
+    override val catalysts = listOf(CRVIngredient.of(Items.CAULDRON.defaultInstance))
 
 
-    companion object : RvRecipeData<LiquidEstrogenCauldronRecipe, LiquidEstrogenCauldronRvRecipe>(LiquidEstrogenCauldronRecipe, LiquidEstrogenCauldronRvRecipe::class, LiquidEstrogenCauldronRecipe::class)
+    companion object : ViewerInfo<LiquidEstrogenCauldronRecipe, LiquidEstrogenCauldronCRVRecipe>(
+        LiquidEstrogenCauldronRecipe,
+        { LiquidEstrogenCauldronCRVRecipe(it as LiquidEstrogenCauldronRecipe) },
+        LiquidEstrogenCauldronRecipe::class
+        )
 }

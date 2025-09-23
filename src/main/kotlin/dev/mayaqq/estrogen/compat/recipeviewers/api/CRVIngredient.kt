@@ -1,11 +1,11 @@
-package dev.mayaqq.estrogen.compat.recipeviewers.base.ingredient
+package dev.mayaqq.estrogen.compat.recipeviewers.api
 
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.level.material.Fluid
 
-class RvIngredient(
+class CRVIngredient(
     val size: Int = -1,
     val ingredient: Ingredient? = null,
     val items: Array<ItemStack> = arrayOf(),
@@ -15,20 +15,20 @@ class RvIngredient(
 ) {
 
     companion object {
-        fun of(ingredient: Ingredient) = RvIngredient(
+        fun of(ingredient: Ingredient) = CRVIngredient(
             size = ingredient.items.size,
             ingredient = ingredient,
             items = ingredient.items
         )
-        fun of(item: ItemStack) = RvIngredient(
+        fun of(item: ItemStack) = CRVIngredient(
             size = 1,
             items = arrayOf(item),
             item = item
         )
-        fun of(fluid: Fluid) = RvIngredient(
+        fun of(fluid: Fluid) = CRVIngredient(
             fluid = fluid
         )
-        fun of(fluidTag: TagKey<Fluid>) = RvIngredient(
+        fun of(fluidTag: TagKey<Fluid>) = CRVIngredient(
             fluidTag = fluidTag
         )
     }

@@ -1,7 +1,6 @@
 @file:EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 package dev.mayaqq.estrogen.forge.client
 
-import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.THIGH_HIGH_ITEM_TEXTURES
 import dev.mayaqq.estrogen.client.THIGH_HIGH_MODELS_DIRECTORY
@@ -10,7 +9,6 @@ import dev.mayaqq.estrogen.client.content.models.ThighHighsItemModel
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
 import dev.mayaqq.estrogen.client.estrogenClient
 import dev.mayaqq.estrogen.content.EstrogenItems
-import dev.mayaqq.estrogen.forge.compat.registerPlugin
 import dev.mayaqq.estrogen.utils.resources.listResourceIds
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.Screen
@@ -36,7 +34,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 @SubscribeEvent
 fun onClientInit(event: FMLClientSetupEvent) {
     event.enqueueWork(::estrogenClient)
-    if (isModLoaded("roughlyenoughitems")) event.enqueueWork(::registerPlugin)
 
     @Suppress("Deprecation", "Removal")
     ModLoadingContext.get().activeContainer.registerExtensionPoint(

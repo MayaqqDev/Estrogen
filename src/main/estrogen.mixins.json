@@ -27,9 +27,11 @@
     "client.accessor.ItemPropertiesAccessor",
     "client.accessor.LevelRendererAccessor",
     "client.accessor.LiquidBlockAccessor",
-    "client.accessor.ModelManagerAccessor"
+    "client.accessor.ModelManagerAccessor",
+    "client.compat.emi.EmiAgnosMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "plugin": "dev.mayaqq.estrogen.utils.EstrogenMixinPlugin"
 }
