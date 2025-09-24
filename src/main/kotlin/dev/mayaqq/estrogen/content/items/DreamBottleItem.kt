@@ -4,6 +4,7 @@ import dev.mayaqq.estrogen.content.EstrogenSounds
 import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemNameBlockItem
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.context.BlockPlaceContext
@@ -27,4 +28,6 @@ class DreamBottleItem(p0: Block, p1: Properties) : ItemNameBlockItem(p0, p1) {
         }
         return actionResult
     }
+
+    override fun registerBlocks(map: Map<Block, Item>, item: Item) {}
 }
