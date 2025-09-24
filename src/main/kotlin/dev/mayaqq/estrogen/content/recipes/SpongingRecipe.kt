@@ -33,12 +33,12 @@ import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.material.Fluids
 
-class SpongingRecipe(val recipeId: ResourceLocation, val input: Either<Block, TagKey<Fluid>>, val output: ResourceLocation) : Recipe<FluidData> {
+class SpongingRecipe(val recipeId: ResourceLocation, val input: Either<Fluid, TagKey<Fluid>>, val output: ResourceLocation) : Recipe<FluidData> {
     override fun matches(data: FluidData, level: Level): Boolean {
         if (data.fluid.`is`(Fluids.EMPTY)) return false
         if (input.isLeft) {
-            val fluidBlock = input.left!!
-            if (data.block.`is`(fluidBlock)) return true
+            val fluid = input.left!!
+            if (data.fluid.type.isSame(fluid)) return true
         } else {
             val tag = input.right!!
             if (data.fluid.`is`(tag)) return true

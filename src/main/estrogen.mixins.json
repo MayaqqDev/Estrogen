@@ -26,7 +26,6 @@
     "client.ReceivingLevelScreenMixin",
     "client.accessor.ItemPropertiesAccessor",
     "client.accessor.LevelRendererAccessor",
-    "client.accessor.LiquidBlockAccessor",
     "client.accessor.ModelManagerAccessor",
     "client.compat.emi.EmiAgnosMixin"
   ],

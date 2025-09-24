@@ -8,7 +8,6 @@ import dev.mayaqq.estrogen.compat.recipeviewers.api.Role
 import dev.mayaqq.estrogen.compat.recipeviewers.api.ViewerInfo
 import dev.mayaqq.estrogen.compat.recipeviewers.api.elements.GuiBlockRenderer
 import dev.mayaqq.estrogen.content.recipes.SpongingRecipe
-import dev.mayaqq.estrogen.mixin.client.accessor.LiquidBlockAccessor
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.Blocks
@@ -33,7 +32,7 @@ class SpongingCRVRecipe(recipe: SpongingRecipe) : CRVRecipe<SpongingRecipe>(reci
     override val inputs: List<CRVIngredient> get() = buildList {
         if (recipe.input.isLeft) {
             val fluidBlock = recipe.input.left!!
-            add(CRVIngredient.of((fluidBlock as LiquidBlockAccessor).fluid()))
+            add(CRVIngredient.of(fluidBlock))
         } else {
             add(CRVIngredient.of(recipe.input.right!!))
         }
