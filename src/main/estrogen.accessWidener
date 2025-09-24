@@ -13,3 +13,6 @@ accessible field net/minecraft/world/level/block/LiquidBlock fluid Lnet/minecraf
 accessible class net/minecraft/client/resources/model/ModelBakery$ModelBakerImpl
 accessible method net/minecraft/client/resources/model/ModelBakery$ModelBakerImpl <init> (Lnet/minecraft/client/resources/model/ModelBakery;Ljava/util/function/BiFunction;Lnet/minecraft/resources/ResourceLocation;)V
 accessible field net/minecraft/client/gui/components/AbstractWidget height I
+accessible field net/minecraft/client/gui/components/AbstractWidget x I
+accessible field net/minecraft/client/gui/components/AbstractWidget y I
+accessible field net/minecraft/client/gui/components/AbstractWidget width I

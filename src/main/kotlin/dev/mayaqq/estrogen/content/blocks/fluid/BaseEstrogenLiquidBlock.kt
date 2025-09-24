@@ -10,25 +10,7 @@ import net.minecraft.world.level.material.FluidState
 
 open class BaseEstrogenLiquidBlock(data: FluidData, properties: Properties, val interactions: Array<FluidInteraction> = emptyArray()) : BotariumLiquidBlock(data, properties) {
 
-    override fun onPlace(state: BlockState, level: Level, pos: BlockPos, old: BlockState, movedByPiston: Boolean) {
-        if (this.fluidInteraction(level, pos, state)) {
-            level.scheduleTick(pos, state.fluidState.type, this.fluid.getTickDelay(level))
-        }
-    }
-
-    override fun neighborChanged(
-        state: BlockState,
-        level: Level,
-        pos: BlockPos,
-        neighborBlock: Block,
-        neighborPos: BlockPos,
-        movedByPiston: Boolean
-    ) {
-        if (this.fluidInteraction(level, pos, state)) {
-            level.scheduleTick(pos, state.fluidState.type, this.fluid.getTickDelay(level))
-        }
-    }
-
+    //TODO
     private fun fluidInteraction(level: Level, pos: BlockPos, state: BlockState): Boolean {
         this.interactions.forEach { interaction ->
             POSSIBLE_FLOW_DIRECTIONS.forEach { flowDir ->

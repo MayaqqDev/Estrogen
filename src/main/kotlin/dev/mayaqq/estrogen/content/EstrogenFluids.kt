@@ -29,7 +29,7 @@ import uwu.serenity.kritter.stdlib.Always
 
 object EstrogenFluids : Registrar<Fluid> by Estrogen..Registries.FLUID, FluidRegistryProvider {
 
-    override val fluidRegistry = FluidRegistry(MOD_ID).apply { initialize() }
+    override val fluidRegistry = FluidRegistry(MOD_ID)
 
     val LiquidEstrogen = fluid("liquid_estrogen", ::BotariumSourceFluid, ::BotariumFlowingFluid) {
             properties {
