@@ -28,12 +28,12 @@ import net.minecraft.world.level.material.Fluid
 
 object JeiPluginRegister {
 
-    val recipeTypes = buildMap {
+    val recipeTypes by lazy { buildMap {
         CommonRecipeViewer.getPlugins().forEach { plugin ->
             plugin.plugin.recipes.forEach { recipe ->
                 put(recipe.info.type, RecipeType(recipe.info.id, recipe.recipeClass.java) as RecipeType<Any>) }
         }
-    }
+    } }
 
     val recipeInstances = mutableMapOf<Recipe<*>, CRVRecipe<*>>()
 
