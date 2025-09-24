@@ -45,7 +45,7 @@ object EstrogenFluids : Registrar<Fluid> by Estrogen..Registries.FLUID, FluidReg
                 density(1500)
                 canHydrate(false)
             }
-            renderType(RenderType::translucent)
+            renderType { RenderType.translucent() }
             block({ data, properties -> EstrogenLiquidBlock(data, properties,
                 arrayOf(BaseEstrogenLiquidBlock.FluidInteraction { pos, state, fluidState ->
                     if (fluidState.`is`(Fluids.WATER)) {
@@ -101,7 +101,7 @@ object EstrogenFluids : Registrar<Fluid> by Estrogen..Registries.FLUID, FluidReg
             viscosity(1500)
             density(1500)
         }
-        renderType(RenderType::translucent)
+        renderType { RenderType.translucent() }
         block({ data, properties -> EstrogenLiquidBlock(data, properties,
             arrayOf(BaseEstrogenLiquidBlock.FluidInteraction { pos, state, fluidState ->
                 if (fluidState.`is`(FluidTags.LAVA)) {
