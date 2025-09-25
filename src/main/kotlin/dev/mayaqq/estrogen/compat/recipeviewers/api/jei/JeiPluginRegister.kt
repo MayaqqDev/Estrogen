@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.compat.recipeviewers.api.jei
 
+import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVRecipe
@@ -96,7 +97,17 @@ object JeiPluginRegister {
                                     texture.coorded.render(graphics, texture.x, texture.y)
                                 }
                                 rvRecipe.drawables.forEach { drawable ->
-                                    drawable.coorded.draw(graphics, drawable.x, drawable.y, mouseX.toInt(), mouseY.toInt(), 0F)
+                                    graphics.pushPop {
+                                        translate(drawable.x.toFloat(), drawable.y.toFloat(), 0.0F)
+                                        drawable.coorded.draw(
+                                            graphics,
+                                            drawable.x,
+                                            drawable.y,
+                                            mouseX.toInt(),
+                                            mouseY.toInt(),
+                                            0F
+                                        )
+                                    }
                                 }
                             }
 
