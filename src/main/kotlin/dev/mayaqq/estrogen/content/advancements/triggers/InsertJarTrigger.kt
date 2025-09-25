@@ -11,7 +11,9 @@ open class InsertJarTrigger : SimpleCriterionTrigger<InsertJarTrigger.TriggerIns
     override fun getId() = ID
 
     fun trigger(player: ServerPlayer) {
-        this.trigger(player)
+        this.trigger(player) { instance: TriggerInstance ->
+            true
+        }
     }
 
     class TriggerInstance(player: ContextAwarePredicate) : AbstractCriterionTriggerInstance(ID, player) {
