@@ -284,6 +284,7 @@ cloche {
 
             include(libs.forge.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
             include(libs.forge.mixinExtras) { isTransitive = false }
+            include(libs.forge.flywheel) { isTransitive = false }
             include(libs.forge.kritter) { isTransitive = false }
             include(libs.forge.botarium) { isTransitive = false }
             include(libs.forge.lithostitched) { isTransitive = false }
