@@ -2,7 +2,7 @@
 
 # Stuff
 kotlin = "2.2.10"
-cloche = "0.13.4"
+cloche = "0.13.6"
 
 # Minecraft
 minecraft = "1.20.1"
@@ -43,6 +43,7 @@ lithostitched_fabric = "1.4.11-fabric-1.20"
 forge = "47.4.0"
 jei_file_id_forge = "7014291"
 klf = "2.10.5-k2.2.10-2.0+forge"
+kff = "4.11.0"
 lithostitched_forge = "1.4.11-forge-1.20"
 
 [libraries]
@@ -82,7 +83,8 @@ fabric-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" 
 
 
 # Forge depencencies
-forge-kotlin = { module = "dev.nyon:KotlinLangForge", version.ref = "klf" }
+#forge-kotlin = { module = "dev.nyon:KotlinLangForge", version.ref = "klf" }
+forge-kotlin = { module = "thedarkcolour:kotlinforforge", version.ref = "kff" }
 forge-baubly = { module = "earth.terrarium.baubly:baubly-forge-1.20.1", version.ref = "baubly" }
 forge-emi = { module = "dev.emi:emi-forge", version.ref = "emi" }
 forge-jei = { module = "curse.maven:jei-238222", version.ref = "jei_file_id_forge" }
