@@ -15,7 +15,6 @@ import dev.mayaqq.estrogen.content.EstrogenAttributes.FallDamageResistance
 import dev.mayaqq.estrogen.content.EstrogenAttributes.ShowBoobs
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.DamageTypeTags
-import net.minecraft.world.damagesource.DamageSources
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.RangedAttribute
@@ -36,7 +35,7 @@ object EstrogenAttributes : Registrar<Attribute> by Estrogen..Registries.ATTRIBU
 }
 
 @Subscription
-fun postInit(event: PostInitEvent) {
+fun PostInitEvent.postInit() {
     EntityAttributes.modify(EntityType.PLAYER) {
         add(DashLevel)
         add(FallDamageResistance)
@@ -47,13 +46,13 @@ fun postInit(event: PostInitEvent) {
 }
 
 @Subscription
-fun onDamage(event: EntityDamageEvent) {
-    if (event.entity is Player && event.source in DamageTypeTags.IS_FALL) {
-        val amount = (event.entity as Player).getAttributeValue(FallDamageResistance).toFloat()
-        if (amount > event.amount) {
-            event.result = 0.0F
+fun EntityDamageEvent.onDamage() {
+    if (entity is Player && source in DamageTypeTags.IS_FALL) {
+        val resistance = (entity as Player).getAttributeValue(FallDamageResistance).toFloat()
+        result = if (resistance > amount) {
+            0.0F
         } else {
-            event.result = event.amount / amount
+            amount / resistance
         }
     }
 }

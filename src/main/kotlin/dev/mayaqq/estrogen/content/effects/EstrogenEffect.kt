@@ -34,15 +34,10 @@ import java.util.*
 
 
 class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(category, color) {
-
-    private val DASH_MODIFIER_UUID: UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4c")
-    private val FALL_DAMAGE_RESISTANCE_UUID: UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4d")
-    private val BOOBS_MODIFIER_UUID: UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4e")
-
     init {
         addAttributeModifier(
             FallDamageResistance,
-            FALL_DAMAGE_RESISTANCE_UUID.toString(),
+            fallDamageResistanceUUID.toString(),
             2.0,
             AttributeModifier.Operation.ADDITION
         )
@@ -74,8 +69,8 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         }
 
         if (entity is Player) {
-            entity.getAttribute(EstrogenAttributes.DashLevel)?.removeModifier(DASH_MODIFIER_UUID)
-            entity.getAttribute(EstrogenAttributes.ShowBoobs)?.removeModifier(BOOBS_MODIFIER_UUID)
+            entity.getAttribute(EstrogenAttributes.DashLevel)?.removeModifier(dashModifierUUID)
+            entity.getAttribute(EstrogenAttributes.ShowBoobs)?.removeModifier(boobModifierUUID)
         }
 
         if (entity is Player && !Boob.shouldShow(entity)) {
@@ -99,18 +94,18 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         super.addAttributeModifiers(entity, attributes, amplifier)
 
         val dashModifier = AttributeModifier(
-            DASH_MODIFIER_UUID,
+            dashModifierUUID,
             "Dash Level",
             (amplifier + 1).toDouble(),
             AttributeModifier.Operation.ADDITION
         )
-        entity.getAttribute(EstrogenAttributes.DashLevel)?.removeModifier(DASH_MODIFIER_UUID)
+        entity.getAttribute(EstrogenAttributes.DashLevel)?.removeModifier(dashModifierUUID)
         entity.getAttribute(EstrogenAttributes.DashLevel)?.addPermanentModifier(dashModifier)
 
-        entity.getAttribute(EstrogenAttributes.ShowBoobs)?.removeModifier(BOOBS_MODIFIER_UUID)
+        entity.getAttribute(EstrogenAttributes.ShowBoobs)?.removeModifier(boobModifierUUID)
         entity.getAttribute(EstrogenAttributes.ShowBoobs)?.addPermanentModifier(
             AttributeModifier(
-                BOOBS_MODIFIER_UUID,
+                boobModifierUUID,
                 "Show Boobs",
                 1.0,
                 AttributeModifier.Operation.ADDITION
@@ -128,6 +123,10 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
     override fun isDurationEffectTick(duration: Int, amplifier: Int): Boolean = true
 
     companion object {
+        private val dashModifierUUID: UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4c")
+        private val fallDamageResistanceUUID: UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4d")
+        private val boobModifierUUID: UUID = UUID.fromString("2a2591c5-009f-4b24-97f2-b15f43415e4e")
+
         fun sendPlayerStatusEffect(player: ServerPlayer, effect: MobEffect, vararg targetPlayers: ServerPlayer) {
             val effectInstance = player.getEffect(effect) ?: return
             sendPacket(ClientboundUpdateMobEffectPacket(player.id, effectInstance), *targetPlayers)
@@ -146,17 +145,17 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
 }
 
 @Subscription
-fun onPlayerTracking(event: EntityTrackingEvent.Start) {
-    if (event.entity is ServerPlayer) EstrogenEffect.sendPlayerStatusEffect(
-        event.entity as ServerPlayer,
+fun EntityTrackingEvent.Start.onPlayerTracking() {
+    if (entity is ServerPlayer) EstrogenEffect.sendPlayerStatusEffect(
+        entity as ServerPlayer,
         EstrogenEffects.Estrogen,
-        event.player,
+        player,
     )
 }
 
 @Subscription
-fun onDamageSource(event: EntityDamageSourceEvent) {
-    if (event.source in DamageTypeTags.IS_FALL && (event.entity as? Player)?.hasEffect(EstrogenEffects.Estrogen) == true) {
-        event.result = EstrogenDamageSources.of(event.entity.level(), EstrogenDamageSources.GIRLPOWER)
+fun EntityDamageSourceEvent.onDamageSource() {
+    if (source in DamageTypeTags.IS_FALL && (entity as? Player)?.hasEffect(EstrogenEffects.Estrogen) == true) {
+        result = EstrogenDamageSources.of(entity.level(), EstrogenDamageSources.GIRLPOWER)
     }
 }
