@@ -5,7 +5,9 @@ import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.cynosure.entities.PlayerLookup.tracking
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
+import dev.mayaqq.cynosure.events.entity.EntityDamageSourceEvent
 import dev.mayaqq.cynosure.events.entity.EntityTrackingEvent
+import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.currentTime
 import dev.mayaqq.estrogen.client.features.boobs.Boob
 import dev.mayaqq.estrogen.client.features.dash.ClientDash
@@ -13,6 +15,7 @@ import dev.mayaqq.estrogen.compat.cobblemon.CobblemonCompat
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.content.EstrogenAttributes.FallDamageResistance
+import dev.mayaqq.estrogen.content.EstrogenDamageSources
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.features.dash.CommonDash.removeDashing
 import net.minecraft.client.player.LocalPlayer
@@ -20,6 +23,7 @@ import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.tags.DamageTypeTags
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectCategory
 import net.minecraft.world.entity.LivingEntity
@@ -148,4 +152,11 @@ fun onPlayerTracking(event: EntityTrackingEvent.Start) {
         EstrogenEffects.Estrogen,
         event.player,
     )
+}
+
+@Subscription
+fun onDamageSource(event: EntityDamageSourceEvent) {
+    if (event.source in DamageTypeTags.IS_FALL && (event.entity as? Player)?.hasEffect(EstrogenEffects.Estrogen) == true) {
+        event.result = EstrogenDamageSources.of(event.entity.level(), EstrogenDamageSources.GIRLPOWER)
+    }
 }
