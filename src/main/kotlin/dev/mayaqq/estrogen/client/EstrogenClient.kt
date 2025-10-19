@@ -44,7 +44,7 @@ const val THIGH_HIGH_MODELS_DIRECTORY = "models/thigh_highs"
 
 const val THIGH_HIGH_ITEM_TEXTURES = "textures/item/thigh_highs"
 
-internal var chestConfigSet = false
+var chestConfigSet = false
 
 fun estrogenClient() {
     loadConfig(EstrogenClientConfig)
