@@ -13,7 +13,6 @@ plugins {
     // Need to explicitly set ksp versions cs cloche loads an old version by default
     id("com.google.devtools.ksp") version "2.2.10-2.0.2"
     `maven-publish`
-    id("com.dorongold.task-tree") version "4.0.1"
 }
 
 repositories {
@@ -67,15 +66,12 @@ cloche {
 
         dependency {
             modId = "cynosure"
-            required = true
         }
         dependency {
             modId = "kittyconfig"
-            required = true
         }
         dependency {
             modId = "lithostitched"
-            required = true
         }
     }
 
@@ -156,15 +152,12 @@ cloche {
 
             dependency {
                 modId = "fabric-api"
-                required = true
             }
             dependency {
                 modId = "fabric-language-kotlin"
-                required = true
             }
             dependency {
                 modId = "trinkets"
-                required = true
             }
         }
 
@@ -252,7 +245,6 @@ cloche {
 
             dependency {
                 modId = "curios"
-                required = true
             }
         }
 
