@@ -60,6 +60,7 @@ kritter = { module = "uwu.serenity.kritter:kritter-common", version.ref = "kritt
 flywheel-api = { module = "dev.engine-room.flywheel:flywheel-common-mojmap-api-1.20.1", version.ref = "flywheel" }
 cynosure = { module = "dev.mayaqq.cynosure:cynosure-common", version.ref = "cynosure" }
 kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-mc", version.ref = "kittyconfig" }
+cosmetics = { module = "com.teamresourceful:resourceful-cosmetics-4j", version.ref = "resourceful_cosmetics" }
 
 # Fabric dependencies
 fabric-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "flk" }
