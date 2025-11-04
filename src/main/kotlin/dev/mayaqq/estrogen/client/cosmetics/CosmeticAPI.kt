@@ -5,7 +5,7 @@ import com.teamresourceful.resourcefulcosmetics.ResourcefulCosmetics
 import com.teamresourceful.resourcefulcosmetics.errors.*
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.estrogen.Estrogen
-import dev.mayaqq.estrogen.MOD_NAME
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Player
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -16,6 +16,8 @@ import java.util.concurrent.CompletableFuture
 object CosmeticAPI : Logger by LoggerFactory.getLogger("Estrogen Cosmetics") {
 
     private val DISABLED: MutableSet<UUID> = mutableSetOf()
+
+    fun id(path: String) = ResourceLocation("estrogencosmetics", path)
 
     internal val API: ResourcefulCosmetics<Cosmetic> = ResourcefulCosmetics.create(
         "https://estrogen-cosmetics.teamresourceful.com/",
@@ -31,7 +33,7 @@ object CosmeticAPI : Logger by LoggerFactory.getLogger("Estrogen Cosmetics") {
     fun getAvailableCosmetics(): List<String> {
         return try {
             API.getCosmetics(McClient.user.profileId, true).available()
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             listOf()
         }
     }
