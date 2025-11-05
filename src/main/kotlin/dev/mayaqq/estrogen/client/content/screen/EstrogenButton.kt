@@ -3,9 +3,14 @@ package dev.mayaqq.estrogen.client.content.screen
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.text.CommonText
 import dev.mayaqq.cynosure.utils.colors.*
+import dev.mayaqq.estrogen.client.cosmetics.Cosmetic
+import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
+import net.minecraft.client.renderer.LightTexture
+import net.minecraft.client.renderer.RenderType
+import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.client.sounds.SoundManager
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -152,5 +157,24 @@ open class EstrogenButton(
         ) {
             graphics.blit(icon, this.x + 6, this.y + 6, 0F, 0F, 8, 8, 8, 8)
         }
+    }
+
+    open class CosmeticRenderer(val id: String) : Renderer {
+        val cosmetic: Cosmetic? = CosmeticAPI.getCosmetic(id)
+        override fun EstrogenButton.renderComponents(
+            graphics: GuiGraphics,
+            mouseX: Int,
+            mouseY: Int,
+            partialTick: Float
+        ) {
+            cosmetic?.render(
+                RenderType::entityCutout,
+                graphics.bufferSource(),
+                graphics.pose(),
+                LightTexture.FULL_BRIGHT,
+                OverlayTexture.NO_OVERLAY
+            )
+        }
+
     }
 }

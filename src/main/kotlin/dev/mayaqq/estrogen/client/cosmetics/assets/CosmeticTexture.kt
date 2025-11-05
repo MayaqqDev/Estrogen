@@ -30,8 +30,6 @@ class CosmeticTexture(
         return location
     }
 
-    fun getTexture(): String = texture
-
     fun checkOrDownload() {
         if (this.img != null) return
 
