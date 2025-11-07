@@ -1,9 +1,11 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
 import dev.mayaqq.multijarfixer.FixMultiRelease
+import net.msrandom.minecraftcodev.core.utils.toPath
 import net.msrandom.stubs.GenerateStubApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import kotlin.io.path.absolutePathString
 
 plugins {
     alias(libs.plugins.cloche)
@@ -100,6 +102,8 @@ cloche {
 
             modCompileOnly(libs.kritter)
             modCompileOnly(libs.cynosure)
+
+            localRuntime("net.minecrell:terminalconsoleappender:1.3.0")
         }
     }
 
@@ -113,14 +117,18 @@ cloche {
 
         includedClient() // includedClient() is not a run
         runs {
-            client()
+            client {
+                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
+            }
             server {
                 runDir("runServer")
+                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
             }
             data {
                 jvmArgs("-Dfabric-api.datagen.output-dir=${file("build/generated/resources/main")}")
                 jvmArgs("-Destrogen.datagen.fabric-output-dir=${file("build/generated/resources/fabric")}")
                 jvmArgs("-Destrogen.datagen.forge-output-dir=${file("build/generated/resources/forge")}")
+                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
             }
         }
 
@@ -249,9 +257,12 @@ cloche {
         }
 
         runs {
-            client()
+            client {
+                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
+            }
             server {
                 runDir("runServer")
+                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
             }
             data() // NEEDED FOR GENERATED DATA TO ATTACH ON FORGE! SCREAM AT ASHLEY FOR THIS
         }
