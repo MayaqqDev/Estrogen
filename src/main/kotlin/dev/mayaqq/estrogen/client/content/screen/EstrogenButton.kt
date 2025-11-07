@@ -1,5 +1,7 @@
 package dev.mayaqq.estrogen.client.content.screen
 
+import dev.mayaqq.cynosure.client.utils.pushPop
+import dev.mayaqq.cynosure.client.utils.translate
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.text.CommonText
 import dev.mayaqq.cynosure.utils.colors.*
@@ -167,13 +169,17 @@ open class EstrogenButton(
             mouseY: Int,
             partialTick: Float
         ) {
-            cosmetic?.render(
-                RenderType::entityCutout,
-                graphics.bufferSource(),
-                graphics.pose(),
-                LightTexture.FULL_BRIGHT,
-                OverlayTexture.NO_OVERLAY
-            )
+            graphics.pushPop {
+                translate(this@renderComponents.x, this@renderComponents.y, 0)
+
+                cosmetic?.render(
+                    RenderType::entityCutout,
+                    graphics.bufferSource(),
+                    graphics.pose(),
+                    LightTexture.FULL_BRIGHT,
+                    OverlayTexture.NO_OVERLAY
+                )
+            }
         }
 
     }

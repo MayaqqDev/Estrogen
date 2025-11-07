@@ -7,6 +7,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.mayaqq.cynosure.core.codecs.fieldOf
 import dev.mayaqq.cynosure.utils.colors.White
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticAnimation
 import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticModel
@@ -52,7 +53,7 @@ data class Cosmetic(
         light: Int,
         overlay: Int
     ) {
-        // animations
+        // TODO: animations
         model.result?.mesh?.render(
             source.getBuffer(renderType.invoke(texture.getResourceLocation())),
             stack,
