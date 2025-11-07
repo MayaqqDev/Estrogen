@@ -26,7 +26,7 @@ abstract class DownloadAsset<T, R>(
     val url: String,
     val hash: String = url.getUrlHash()
 ) {
-    private var downloadState = AtomicReference<TriState>()
+    private var downloadState = AtomicReference(TriState.INTERMEDIATE)
     private var future: CompletableFuture<Void>? = null
 
     @Volatile
@@ -47,7 +47,7 @@ abstract class DownloadAsset<T, R>(
     fun load(file: File?, url: String) {
         if (this.future == null) {
 
-            val type = if (file != null && file.isFile()) read { FileReader(file) } else null
+            val type = if (file != null && file.isFile) read { FileReader(file) } else null
 
             type?.consumeResult() ?: run {
                 future = runDownload(url, file!!) { stream ->

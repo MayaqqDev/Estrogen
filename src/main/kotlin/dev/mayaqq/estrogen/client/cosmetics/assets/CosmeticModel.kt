@@ -39,7 +39,7 @@ class CosmeticModel(url: String) : DownloadAsset<ModelData, CustomBakedModel>(CA
         val CODEC: Codec<CosmeticModel> = Codec.STRING.xmap(::CosmeticModel, CosmeticModel::url)
 
         fun fromLocalFile(file: File): CosmeticModel {
-            require(file.isFile()) { "File is not a file" }
+            require(file.isFile) { "File is not a file" }
             val model = CosmeticModel("")
             model.load(file, "")
             return model

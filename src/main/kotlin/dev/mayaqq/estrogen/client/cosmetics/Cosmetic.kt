@@ -41,8 +41,9 @@ data class Cosmetic(
      * Use this for rendering cosmetics
      * @param renderType Render type function, provides a RenderType for the texture, e.g. RenderType::entityCutout
      * @param source MultiBufferSource to render this cosmetic into
-     * @param matrices PoseStack with transformations
+     * @param stack PoseStack with transformations
      * @param light lighting
+     * @param overlay UV Overlay
      */
     fun render(
         renderType: (ResourceLocation) -> RenderType,
