@@ -23,6 +23,7 @@ import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraL
 import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraModel
 import dev.mayaqq.estrogen.client.content.particles.DashTrailParticle
 import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
+import dev.mayaqq.estrogen.client.cosmetics.CosmeticRenderLayer
 import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorDataLoader
 import dev.mayaqq.estrogen.client.features.dash.DashOverlay
 import dev.mayaqq.estrogen.compat.ears.EarsCompat
@@ -69,6 +70,7 @@ internal fun addRenderLayers(event: RenderLayerRegistrationEvent) {
     DefaultSkin.entries.forEach { skin ->
         event.addLayer(skin) { MothElytraLayer(it, event.models) }
         event.addLayer(skin) { BoobFeatureRenderer(it, Minecraft.getInstance().modelManager) }
+        event.addLayer(skin) { CosmeticRenderLayer(it) }
     }
 }
 

@@ -177,7 +177,7 @@ open class EstrogenButton(
             val scale = min(this.width, this.height) / 32f
 
             val yRot = Mth.wrapDegrees(System.currentTimeMillis().toDouble() / 25.0).toFloat()
-            val rotation = Quaternionf().rotateZYX(Mth.PI, yRot * Mth.DEG_TO_RAD, 0f)
+            val rotation = Quaternionf().rotateZYX(Mth.PI, yRot * Mth.DEG_TO_RAD, 6 * Mth.DEG_TO_RAD)
 
             graphics.pushPop {
                 translate(x, y, 1000)
@@ -186,7 +186,7 @@ open class EstrogenButton(
                 rotateAround(rotation, 0.5f, 0.5f, 0.5f)
 
                 cosmetic?.render(
-                    RenderType::entityCutout,
+                    RenderType::entityCutoutNoCull,
                     graphics.bufferSource(),
                     graphics.pose(),
                     LightTexture.FULL_BRIGHT,

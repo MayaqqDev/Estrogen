@@ -50,8 +50,9 @@ class CosmeticsSelectionScreen(previous: Screen?) : CosmeticsBaseScreen(previous
         cosmetics.forEachIndexed { index, cosmetic ->
             val line = index / perLine
             val currentIndex = index + if (line == 0) 1 else 0
-            EstrogenButton.Builder(EstrogenButton.CosmeticRenderer(cosmetic)){}
-                .bounds(
+            EstrogenButton.Builder(EstrogenButton.CosmeticRenderer(cosmetic)) {
+                CosmeticAPI.setCosmetic(CosmeticAPI.getCosmetic(cosmetic))
+            }.bounds(
                 (currentIndex - (line * perLine)) * (10 + cosmeticHeight) + 20 + fakeThirdWidth,
                 line * (10 + cosmeticHeight) + 45,
                 cosmeticHeight,

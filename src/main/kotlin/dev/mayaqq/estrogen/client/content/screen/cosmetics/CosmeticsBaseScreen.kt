@@ -32,6 +32,8 @@ open class CosmeticsBaseScreen(previous: Screen?, title: Component, val ableToCl
     }
     override fun baseRender(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {}
 
+    override fun isPauseScreen(): Boolean = false
+
     companion object {
         val LOGIN_DESCRIPTION = -"gui.estrogen.cosmetics.login.description"
         val LOGIN_BUTTON = -"gui.estrogen.cosmetics.login.button"
