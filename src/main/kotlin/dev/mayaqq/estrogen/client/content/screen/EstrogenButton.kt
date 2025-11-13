@@ -16,6 +16,9 @@ import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.client.sounds.SoundManager
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.util.Mth
+import org.joml.Quaternionf
+import kotlin.math.min
 
 open class EstrogenButton(
     x: Int,
@@ -169,8 +172,18 @@ open class EstrogenButton(
             mouseY: Int,
             partialTick: Float
         ) {
+            val x = this.x + this.width / 2f
+            val y = this.y + this.height / 2f
+            val scale = min(this.width, this.height) / 32f
+
+            val yRot = Mth.wrapDegrees(System.currentTimeMillis().toDouble() / 25.0).toFloat()
+            val rotation = Quaternionf().rotateZYX(Mth.PI, yRot * Mth.DEG_TO_RAD, 0f)
+
             graphics.pushPop {
-                translate(this@renderComponents.x, this@renderComponents.y, 0)
+                translate(x, y, 1000)
+                scale(16f * scale, 16f * scale, 16f * scale)
+                translate(-0.5f, -0.5f, 0f)
+                rotateAround(rotation, 0.5f, 0.5f, 0.5f)
 
                 cosmetic?.render(
                     RenderType::entityCutout,
