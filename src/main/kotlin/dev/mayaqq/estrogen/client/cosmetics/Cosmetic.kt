@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
+import dev.mayaqq.cynosure.client.models.animations.Animatable
 import dev.mayaqq.cynosure.client.models.animations.animate
 import dev.mayaqq.cynosure.client.models.baked.BakedModelTree
 import dev.mayaqq.cynosure.core.Environment
@@ -24,6 +25,7 @@ import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
+import org.joml.Vector3fc
 import java.nio.file.Path
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
@@ -54,6 +56,10 @@ data class Cosmetic(
         overlay: Int
     ) {
         //TODO: animations
+        animation?.result?.let { anim ->
+            Estrogen.info("Has Animation")
+            (model.result as? Animatable.Provider)?.animate(anim, animationTime)
+        }
         model.result?.mesh?.render(
             source.getBuffer(renderType.invoke(texture.getResourceLocation())),
             stack,

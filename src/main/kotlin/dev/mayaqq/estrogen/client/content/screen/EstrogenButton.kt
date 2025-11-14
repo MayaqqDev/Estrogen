@@ -164,8 +164,7 @@ open class EstrogenButton(
         }
     }
 
-    open class CosmeticRenderer(val id: String) : Renderer {
-        val cosmetic: Cosmetic? = CosmeticAPI.getCosmetic(id)
+    open class CosmeticRenderer(val cosmetic: Cosmetic) : Renderer {
         override fun EstrogenButton.renderComponents(
             graphics: GuiGraphics,
             mouseX: Int,
@@ -185,7 +184,7 @@ open class EstrogenButton(
                 translate(-0.5f, -0.5f, 0f)
                 rotateAround(rotation, 0.5f, 0.5f, 0.5f)
 
-                cosmetic?.render(
+                cosmetic.render(
                     RenderType::entityCutoutNoCull,
                     graphics.bufferSource(),
                     graphics.pose(),

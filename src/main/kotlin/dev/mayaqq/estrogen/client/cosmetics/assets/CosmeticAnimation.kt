@@ -25,11 +25,11 @@ class CosmeticAnimation(url: String) : DownloadAsset<AnimationDefinition, Animat
             reader.invoke().use { reader ->
                 return AnimationDefinition.CODEC.parse(JsonOps.INSTANCE, JsonParser.parseReader(reader))
                     .resultOrPartial{
-                        CosmeticAPI.error("Failed to read cosmetic from url [{}]: {}", url, it)
+                        CosmeticAPI.error("Failed to read animation from url [{}]: {}", url, it)
                     }.getOrNull()
             }
         } catch (e: Exception) {
-            CosmeticAPI.error("Failed to load cosmetic from url [{}]", url, e)
+            CosmeticAPI.error("Failed to load animation from url [{}]", url, e)
             return null
         }
     }
