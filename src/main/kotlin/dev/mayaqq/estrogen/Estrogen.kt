@@ -63,9 +63,14 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         EstrogenLootFunctions.register()
 
         ForestGreen
-        BiomeModifiers.addFeature({it.`is`(Registries.BIOME.tag(
-            ResourceLocation(if (currentLoader == Loader.FABRIC) "c:climate_cold" else "forge:is_cold/overworld")
-        ))},
+        BiomeModifiers.addFeature({
+            it.`is`(Registries.BIOME.tag(ResourceLocation(
+                if (currentLoader == Loader.FABRIC) "c:climate_cold" else "forge:is_cold/overworld"
+            ))) &&
+            it.`is`(Registries.BIOME.tag(ResourceLocation(
+                if (currentLoader == Loader.FABRIC) "c:mountain" else "forge:is_mountain"
+            )))
+          },
             GenerationStep.Decoration.SURFACE_STRUCTURES,
             ResourceKey.create(
                 Registries.PLACED_FEATURE,

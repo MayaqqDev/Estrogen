@@ -37,14 +37,12 @@ modmenu = "7.2.2"
 cardinal = "5.2.3"
 jei_file_id_fabric = "7014290"
 flk = "1.11.0+kotlin.2.0.0"
-lithostitched_fabric = "1.4.11-fabric-1.20"
 
 # Forge Only Dependencies
 forge = "47.4.0"
 jei_file_id_forge = "7014291"
 klf = "2.10.5-k2.2.10-2.0+forge"
 kff = "4.11.0"
-lithostitched_forge = "1.4.11-forge-1.20"
 
 [libraries]
 
@@ -78,7 +76,6 @@ fabric-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-fabric-api-1
 fabric-flywheel = { module = "dev.engine-room.flywheel:flywheel-fabric-1.20.1", version.ref = "flywheel" }
 fabric-cynosure = { module = "dev.mayaqq.cynosure:cynosure-fabric", version.ref = "cynosure" }
 fabric-botarium = { module = "earth.terrarium.botarium:botarium-fabric-1.20.1", version.ref = "botarium" }
-fabric-lithostitched = { module = "maven.modrinth:lithostitched", version.ref = "lithostitched_fabric" }
 fabric-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
 
 
@@ -96,7 +93,6 @@ forge-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-forge-api-1.2
 forge-flywheel = { module = "dev.engine-room.flywheel:flywheel-forge-1.20.1", version.ref = "flywheel" }
 forge-cynosure = { module = "dev.mayaqq.cynosure:cynosure-forge", version.ref = "cynosure" }
 forge-botarium = { module = "earth.terrarium.botarium:botarium-forge-1.20.1", version.ref = "botarium" }
-forge-lithostitched = { module = "maven.modrinth:lithostitched", version.ref = "lithostitched_forge" }
 forge-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
 
 [bundles]

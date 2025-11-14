@@ -2,123 +2,15 @@
   "feature": "estrogen:memorial",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 16
-    },
-    {
       "type": "minecraft:in_square"
     },
     {
       "type": "minecraft:heightmap",
-      "heightmap": "WORLD_SURFACE_WG"
+      "heightmap": "MOTION_BLOCKING_NO_LEAVES"
     },
     {
-      "type": "lithostitched:condition",
-      "condition": {
-        "type": "lithostitched:all_of",
-        "conditions": [
-          {
-            "type": "lithostitched:not",
-            "condition": {
-              "type": "lithostitched:any_of",
-              "conditions": [
-                {
-                  "type": "lithostitched:offset",
-                  "condition": {
-                    "type": "lithostitched:height_filter",
-                    "range_type": "heightmap_relative",
-                    "heightmap": "WORLD_SURFACE_WG",
-                    "permitted_range": [
-                      -320,
-                      1
-                    ]
-                  },
-                  "offset": [
-                    -1,
-                    0,
-                    -1
-                  ]
-                },
-                {
-                  "type": "lithostitched:offset",
-                  "condition": {
-                    "type": "lithostitched:height_filter",
-                    "range_type": "heightmap_relative",
-                    "heightmap": "WORLD_SURFACE_WG",
-                    "permitted_range": [
-                      -320,
-                      1
-                    ]
-                  },
-                  "offset": [
-                    -1,
-                    0,
-                    1
-                  ]
-                },
-                {
-                  "type": "lithostitched:offset",
-                  "condition": {
-                    "type": "lithostitched:height_filter",
-                    "range_type": "heightmap_relative",
-                    "heightmap": "WORLD_SURFACE_WG",
-                    "permitted_range": [
-                      -320,
-                      1
-                    ]
-                  },
-                  "offset": [
-                    1,
-                    0,
-                    -1
-                  ]
-                },
-                {
-                  "type": "lithostitched:offset",
-                  "condition": {
-                    "type": "lithostitched:height_filter",
-                    "range_type": "heightmap_relative",
-                    "heightmap": "WORLD_SURFACE_WG",
-                    "permitted_range": [
-                      -320,
-                      1
-                    ]
-                  },
-                  "offset": [
-                    1,
-                    0,
-                    1
-                  ]
-                }
-              ]
-            }
-          },
-          {
-            "type": "lithostitched:grid",
-            "condition": {
-              "type": "lithostitched:height_filter",
-              "range_type": "heightmap_relative",
-              "heightmap": "WORLD_SURFACE_WG",
-              "permitted_range": [
-                20,
-                320
-              ]
-            },
-            "radius": 8,
-            "distance_between_points": 16,
-            "allowed_count": [
-              1,
-              4
-            ]
-          },
-          {
-            "type": "lithostitched:height_filter",
-            "range_type": "heightmap_relative",
-            "heightmap": "WORLD_SURFACE_WG",
-            "permitted_range": 0
-          }
-        ]
-      }
+      "type": "minecraft:rarity_filter",
+      "chance": 100
     }
   ]
 }

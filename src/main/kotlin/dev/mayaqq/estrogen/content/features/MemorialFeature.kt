@@ -12,8 +12,7 @@ class MemorialFeature() : Feature<NoneFeatureConfiguration>(NoneFeatureConfigura
         val level = ctx.level()
         val pos = ctx.origin()
 
-
-        if (!level.isClientSide) {
+        if (!level.isClientSide && pos.y >= 128) {
             val state = EstrogenBlocks.Memorial.defaultBlockState()
 
             for (y in 0..2) {
@@ -26,6 +25,10 @@ class MemorialFeature() : Feature<NoneFeatureConfiguration>(NoneFeatureConfigura
                         3
                     )
                 }
+            }
+            val floor2 = pos.relative(Direction.DOWN).relative(Direction.WEST)
+            if (level.getBlockState(floor2).isAir) {
+                level.setBlock(floor2, level.getBlockState(pos.relative(Direction.DOWN)), 3)
             }
         }
         return true
