@@ -57,8 +57,11 @@ data class Cosmetic(
     ) {
         //TODO: animations
         animation?.result?.let { anim ->
-            Estrogen.info("Has Animation")
-            (model.result as? Animatable.Provider)?.animate(anim, animationTime)
+            if (model.result is BakedModelTree) {
+                Estrogen.info("Model is an animatable provider")
+                val model = model.result as BakedModelTree
+                model.animate(anim, animationTime)
+            }
         }
         model.result?.mesh?.render(
             source.getBuffer(renderType.invoke(texture.getResourceLocation())),
@@ -81,13 +84,13 @@ data class Cosmetic(
         }}
 
         var animationTicks = 0
-            set(value) = if (field + value == 30000000) field = 0 else field = value
 
         val animationTime: Long get() = (Mth.lerp(Minecraft.getInstance().frameTime, animationTicks.toFloat(), animationTicks + 1F) * 50L).toLong()
     }
 }
 
 @Subscription
-fun onTick(event: ClientTickEvent) {
+fun onTick(event: ClientTickEvent.End) {
     Cosmetic.animationTicks++
+    if (Cosmetic.animationTicks > 30000000) Cosmetic.animationTicks = 0
 }
