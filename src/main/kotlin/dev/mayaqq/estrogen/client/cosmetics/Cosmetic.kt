@@ -56,12 +56,8 @@ data class Cosmetic(
         overlay: Int
     ) {
         //TODO: animations
-        animation?.result?.let { anim ->
-            if (model.result is BakedModelTree) {
-                Estrogen.info("Model is an animatable provider")
-                val model = model.result as BakedModelTree
-                model.animate(anim, animationTime)
-            }
+        animation?.result?.let {
+            (model.result as? Animatable.Provider)?.animate(it, animationTime)
         }
         model.result?.mesh?.render(
             source.getBuffer(renderType.invoke(texture.getResourceLocation())),
