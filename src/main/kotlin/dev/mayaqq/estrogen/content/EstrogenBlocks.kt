@@ -9,6 +9,7 @@ import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.content.items.ThighHighsItem
+import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.cauldron.CauldronInteraction
@@ -170,6 +171,9 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(Items.BARREL))
             color(DreamCatcherItem::getItemColor)
             onSetup { CauldronInteraction.WATER[it] = ThighHighsItem.CAULDRON_INTERACTION }
+            textureProperty(id("colored")) { itemStack, clientLevel, livingEntity, i ->
+                return@textureProperty if ((itemStack.item as? DreamCatcherItem)?.isBlank(itemStack) == true) 0.0F else 1.0F
+            }
         }
     }
 

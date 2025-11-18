@@ -20,7 +20,6 @@
     "client.FontMixin",
     "client.FontStringRenderOutputMixin",
     "client.HumanoidMobRendererMixin",
-    "client.ItemPropertiesMixin",
     "client.MinecraftMixin",
     "client.PlayerModelMixin",
     "client.ReceivingLevelScreenMixin",
