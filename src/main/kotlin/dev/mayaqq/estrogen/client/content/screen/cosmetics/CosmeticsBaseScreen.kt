@@ -7,9 +7,12 @@ import dev.mayaqq.estrogen.client.content.screen.BaseEstrogenScreen
 import dev.mayaqq.estrogen.client.content.screen.EstrogenButton
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
 import dev.mayaqq.estrogen.client.content.screen.cosmetics.widget.CosmeticPreview
+import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
+import dev.mayaqq.estrogen.client.cosmetics.StatusCode
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.MutableComponent
 
 
 open class CosmeticsBaseScreen(previous: Screen?, title: Component, val ableToClaim: Boolean = false) : BaseEstrogenScreen(previous, title) {
@@ -28,4 +31,55 @@ open class CosmeticsBaseScreen(previous: Screen?, title: Component, val ableToCl
         bClaimCosmetics.buildAndAdd()
     }
     override fun baseRender(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {}
+
+    override fun isPauseScreen(): Boolean = false
+
+    companion object {
+        val LOGIN_DESCRIPTION = -"gui.estrogen.cosmetics.login.description"
+        val LOGIN_BUTTON = -"gui.estrogen.cosmetics.login.button"
+        val LOGIN_INIT = -"gui.estrogen.cosmetics.login.init"
+        val LOGIN_UNAUTHORIZED = -"gui.estrogen.cosmetics.login.unauthorized"
+        val LOGIN_SERVER_ERROR = -"gui.estrogen.cosmetics.login.server_error"
+        val LOGIN_FAILED = -"gui.estrogen.cosmetics.login.failed"
+
+        val COSMETICS_INIT = -"gui.estrogen.cosmetics.init"
+        val COSMETICS_UNAUTHORIZED = -"gui.estrogen.cosmetics.unauthorized"
+        val COSMETICS_SERVER_ERROR = -"gui.estrogen.cosmetics.server_error"
+        val COSMETICS_FAILED = -"gui.estrogen.cosmetics.failed"
+
+        val CLAIM_DESCRIPTION = -"gui.estrogen.cosmetics.claim.description"
+        val CLAIM_BUTTON = -"gui.estrogen.cosmetics.claim.button"
+        val CLAIM_INIT = -"gui.estrogen.cosmetics.claim.init"
+        val CLAIM_FORBIDDEN = -"gui.estrogen.cosmetics.claim.forbidden"
+        val CLAIM_NOT_FOUND = -"gui.estrogen.cosmetics.claim.not_found"
+        val CLAIM_FAILED = -"gui.estrogen.cosmetics.claim.failed"
+
+        fun getLoginMessage(code: StatusCode?): Component = when (code) {
+            null -> LOGIN_INIT
+            StatusCode.UNAUTHORIZED -> LOGIN_UNAUTHORIZED
+            StatusCode.INTERNAL_SERVER_ERROR -> LOGIN_SERVER_ERROR
+            StatusCode.UNKNOWN_ERROR -> LOGIN_FAILED
+            else -> Component.literal("Status: $code")
+        }
+
+        fun getCosmeticsMessage(code: StatusCode?): Component = when (code) {
+            null -> COSMETICS_INIT
+            StatusCode.UNAUTHORIZED -> COSMETICS_UNAUTHORIZED
+            StatusCode.INTERNAL_SERVER_ERROR -> COSMETICS_SERVER_ERROR
+            StatusCode.UNKNOWN_ERROR -> COSMETICS_FAILED
+            else -> Component.literal("Status: $code")
+        }
+
+        fun getClaimMessage(code: StatusCode?): Component = when (code) {
+            null -> CLAIM_INIT
+            StatusCode.FORBIDDEN -> CLAIM_FORBIDDEN
+            StatusCode.NOT_FOUND -> CLAIM_NOT_FOUND
+            StatusCode.UNKNOWN_ERROR -> CLAIM_FAILED
+            else -> Component.literal("Status: $code")
+        }
+
+        fun open(previous: Screen?) {
+            McClient.setScreen(CosmeticsLoginScreen(previous))
+        }
+    }
 }

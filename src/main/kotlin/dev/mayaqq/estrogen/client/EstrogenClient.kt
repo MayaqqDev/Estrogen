@@ -22,6 +22,8 @@ import dev.mayaqq.estrogen.client.content.entityRenderers.moth.MothModel
 import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraLayer
 import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraModel
 import dev.mayaqq.estrogen.client.content.particles.DashTrailParticle
+import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
+import dev.mayaqq.estrogen.client.cosmetics.CosmeticRenderLayer
 import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorDataLoader
 import dev.mayaqq.estrogen.client.features.dash.DashOverlay
 import dev.mayaqq.estrogen.compat.ears.EarsCompat
@@ -51,6 +53,7 @@ fun estrogenClient() {
     CynosureSplashLoader.amount += 30
     EstrogenKeybinds
     EstrogenRenderTypes
+    CosmeticAPI
     HudOverlayRegistry.register(VanillaHud.FROSTBITE, id("dash"), DashOverlay)
     MothElytraModel.LAYER_LOCATION.registerDefinition(MothElytraModel.Companion::createBodyLayer)
     MothModel.LAYER_LOCATION.registerDefinition(MothModel::createBodyLayer)
@@ -67,6 +70,7 @@ internal fun addRenderLayers(event: RenderLayerRegistrationEvent) {
     DefaultSkin.entries.forEach { skin ->
         event.addLayer(skin) { MothElytraLayer(it, event.models) }
         event.addLayer(skin) { BoobFeatureRenderer(it, Minecraft.getInstance().modelManager) }
+        event.addLayer(skin) { CosmeticRenderLayer(it) }
     }
 }
 

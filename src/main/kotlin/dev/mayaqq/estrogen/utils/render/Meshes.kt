@@ -45,7 +45,8 @@ val PartialModel.mesh: Mesh
     get() = PARTIAL_MESH_CACHE[this]
 
 fun Mesh.render(
-    buffer: VertexConsumer, matrices: PoseStack,
+    buffer: VertexConsumer,
+    matrices: PoseStack,
     color: Color = White,
     light: Int = LightTexture.FULL_BRIGHT,
     overlay: Int = OverlayTexture.NO_OVERLAY

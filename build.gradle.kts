@@ -96,6 +96,8 @@ cloche {
             include(libs.kittyconfig) { isTransitive = false }
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
+            implementation(libs.cosmetics)
+            include(libs.cosmetics)
 
             modCompileOnly(libs.kritter)
             modCompileOnly(libs.cynosure)

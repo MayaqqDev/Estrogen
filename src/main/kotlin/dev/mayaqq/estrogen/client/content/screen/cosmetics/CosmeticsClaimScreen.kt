@@ -1,22 +1,35 @@
 package dev.mayaqq.estrogen.client.content.screen.cosmetics
 
+import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.McFont
 import dev.mayaqq.cynosure.text.CommonText
 import dev.mayaqq.cynosure.text.TextUtils.splitLines
 import dev.mayaqq.cynosure.text.unaryMinus
 import dev.mayaqq.estrogen.client.content.screen.EstrogenButton
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
+import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
+import dev.mayaqq.estrogen.client.cosmetics.StatusCode
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.EditBox
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
 
+
 class CosmeticsClaimScreen(previous: Screen?) : CosmeticsBaseScreen(previous, -"gui.estrogen.cosmetics.claim") {
 
-    val info: Component? = null
+    var info: Component? = null
 
     val bClaim = EstrogenButton.Builder(EstrogenButton.TextRenderer(-"gui.estrogen.cosmetics.claim.button")) {
-        //TODO: Claim here using codeBox.value
+        CosmeticAPI.claimReward(codeBox.value).thenAcceptAsync { status ->
+                if (status === StatusCode.OK) {
+                    Minecraft.getInstance().tell {
+                        McClient.screen?.onClose()
+                    }
+                } else {
+                    this.info = getClaimMessage(status)
+                }
+            }
     }.color(EstrogenMenuScreen.transWhite)
 
     val codeBox = EditBox(McFont, 0, 0, 0, 21, CommonText.EMPTY)

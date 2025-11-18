@@ -28,7 +28,7 @@ cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.5+1.20.1"
 flywheel = "1.0.2"
-cynosure = "0.1.0.188"
+cynosure = "0.1.0.196"
 kittyconfig = "1.2.16"
 
 # Fabric Only Dependencies
@@ -58,6 +58,7 @@ kritter = { module = "uwu.serenity.kritter:kritter-common", version.ref = "kritt
 flywheel-api = { module = "dev.engine-room.flywheel:flywheel-common-mojmap-api-1.20.1", version.ref = "flywheel" }
 cynosure = { module = "dev.mayaqq.cynosure:cynosure-common", version.ref = "cynosure" }
 kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-mc", version.ref = "kittyconfig" }
+cosmetics = { module = "com.teamresourceful:resourceful-cosmetics-4j", version.ref = "resourceful_cosmetics" }
 
 # Fabric dependencies
 fabric-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "flk" }

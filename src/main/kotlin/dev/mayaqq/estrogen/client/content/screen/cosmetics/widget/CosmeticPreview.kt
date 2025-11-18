@@ -19,16 +19,13 @@ class CosmeticPreview(val player: Player?, x: Int, y: Int, width: Int, height: I
     EstrogenMenuScreen.transBlue,
     false, true
 ) {
-
-    private var rotation = Mth.PI / 4
-
     override fun renderWidget(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         super.renderWidget(graphics, mouseX, mouseY, partialTick)
 
         if (this.message == CommonText.EMPTY) this.message = -"gui.estrogen.cosmetics.no_preview"
         if (player != null) {
 
-            val quaternion = Quaternionf().rotateZ(Mth.PI).rotateY(rotation)
+            val quaternion = Quaternionf().rotateZYX(Mth.PI, yRotation, 0F)
             val yHeadRot: Float = player.yBodyRot
             val yRot: Float = player.yRot
             val xRot: Float = player.xRot
@@ -57,8 +54,12 @@ class CosmeticPreview(val player: Player?, x: Int, y: Int, width: Int, height: I
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean = isMouseOver(mouseX, mouseY) && isValidClickButton(button)
 
 
-    override fun mouseDragged(d: Double, e: Double, i: Int, f: Double, g: Double): Boolean {
-        this.rotation += f.toFloat() * 0.15f
+    override fun mouseDragged(mouseX: Double, mouseY: Double, button: Int, dragX: Double, dragY: Double): Boolean {
+        yRotation += dragX.toFloat() * 0.15f
         return true
+    }
+
+    companion object {
+        private var yRotation = Mth.PI / 4
     }
 }
