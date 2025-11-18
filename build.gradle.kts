@@ -72,9 +72,6 @@ cloche {
         dependency {
             modId = "kittyconfig"
         }
-        dependency {
-            modId = "lithostitched"
-        }
     }
 
     mappings {
@@ -189,13 +186,11 @@ cloche {
             modImplementation(libs.fabric.kritter)
             //modApi(libs.fabric.kittyconfig)
             modApi(libs.fabric.botarium)
-            modImplementation(libs.fabric.lithostitched)
 
             include(libs.fabric.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
             include(libs.fabric.kritter) { isTransitive = false }
             include(libs.fabric.flywheel) { isTransitive = false }
             include(libs.fabric.botarium) { isTransitive = false }
-            include(libs.fabric.lithostitched) { isTransitive = false }
 
             when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -285,14 +280,12 @@ cloche {
             modImplementation(libs.forge.kritter)
             //modApi(libs.forge.kittyconfig)
             modApi(libs.forge.botarium)
-            modImplementation(libs.forge.lithostitched)
 
             include(libs.forge.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
             include(libs.forge.mixinExtras) { isTransitive = false }
             include(libs.forge.flywheel) { isTransitive = false }
             include(libs.forge.kritter) { isTransitive = false }
             include(libs.forge.botarium) { isTransitive = false }
-            include(libs.forge.lithostitched) { isTransitive = false }
 
             when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)
