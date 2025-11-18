@@ -321,6 +321,17 @@ configurations.named("forgeRuntimeClasspath") {
 
 java {
     withSourcesJar()
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+kotlin {
+    compilerOptions {
+        languageVersion = KotlinVersion.KOTLIN_2_0
+        freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
+    }
+    jvmToolchain(17)
 }
 
 tasks.withType<KotlinCompile> {
