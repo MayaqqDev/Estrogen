@@ -58,9 +58,10 @@ data class Cosmetic(
         overlay: Int
     ) {
         animation?.result?.let {
-            //(model.result as? Animatable.Provider)?.animate(it, animationTime)
+            (model.result as? Animatable.Provider)?.animate(it, animationTime)
         }
-        model.result?.render(
+        val model = model.result ?: return
+        model.render(
             source.getBuffer(renderType.invoke(texture.getResourceLocation())),
             stack,
             White,
