@@ -184,12 +184,6 @@ cloche {
             modImplementation(libs.fabric.flywheel)
             modImplementation(libs.fabric.cynosure)
             modImplementation(libs.fabric.kritter)
-            modApi(libs.kittyconfig) {
-                isTransitive = true
-                artifact {
-                        classifier = "fabric-1.20.1"
-                }
-            }
             modApi(libs.fabric.botarium)
 
             include(libs.fabric.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
@@ -283,12 +277,6 @@ cloche {
             //modCompileOnly(libs.forge.cobblemon)
             modImplementation(libs.forge.cynosure)
             modImplementation(libs.forge.kritter)
-            modApi(libs.kittyconfig) {
-                isTransitive = true
-                artifact {
-                    classifier = "forge-1.20.1"
-                }
-            }
             modApi(libs.forge.botarium)
 
             include(libs.forge.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
