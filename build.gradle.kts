@@ -191,6 +191,13 @@ cloche {
             include(libs.fabric.flywheel) { isTransitive = false }
             include(libs.fabric.botarium) { isTransitive = false }
 
+            include(libs.kittyconfig) {
+                isTransitive = false
+                artifact {
+                    classifier = "fabric-1.20.1"
+                }
+            }
+
             when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
                 "EMI" -> modRuntimeOnly(libs.fabric.emi)
@@ -284,6 +291,12 @@ cloche {
             include(libs.forge.flywheel) { isTransitive = false }
             include(libs.forge.kritter) { isTransitive = false }
             include(libs.forge.botarium) { isTransitive = false }
+            include(libs.kittyconfig) {
+                isTransitive = false
+                artifact {
+                    classifier = "forge-1.20.1"
+                }
+            }
 
             when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)
