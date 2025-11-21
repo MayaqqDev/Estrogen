@@ -3,19 +3,7 @@ package dev.mayaqq.estrogen.client.content.models
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 
 
-data class ConnectionState(
-    val up: Boolean,
-    val down: Boolean,
-    val left: Boolean,
-    val right: Boolean,
-    val topLeft: Boolean,
-    val topRight: Boolean,
-    val bottomLeft: Boolean,
-    val bottomRight: Boolean
-)
-
-
-val ConnectionState.textureShift: Int get() {
+fun getTextureShift(up: Boolean, down: Boolean, right: Boolean, left: Boolean, topRight: Boolean, topLeft: Boolean, bottomRight: Boolean, bottomLeft: Boolean): Int {
     var tileX = 0
     var tileY = 0
     val borders =

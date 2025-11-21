@@ -80,7 +80,10 @@ object EstrogenRenderer {
     private lateinit var celshadeSource: OutlineBufferSource
     internal var celshadeCounter: Int = 0
 
-    fun getCelShadedBuffer(texture: ResourceLocation, isTranslucent: Boolean = false): VertexConsumer {
+    fun getCelShadedBuffer(
+        texture: ResourceLocation,
+        isTranslucent: Boolean = false
+    ): VertexConsumer {
         return celshadeSource.getBuffer(
             if (isTranslucent) EstrogenRenderTypes.entityTranslucentNoDiffuse(texture)
             else EstrogenRenderTypes.entityCutoutNoDiffuse(texture)
@@ -230,8 +233,8 @@ object EstrogenRenderer {
                 renderType.clearRenderState()
             }
             Minecraft.getInstance().mainRenderTarget.bindWrite(false)
-        }
 
+        }
 
     }
 }

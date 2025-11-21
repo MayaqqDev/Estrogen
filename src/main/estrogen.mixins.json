@@ -23,6 +23,7 @@
     "client.MinecraftMixin",
     "client.PlayerModelMixin",
     "client.ReceivingLevelScreenMixin",
+    "client.PostPassMixin",
     "client.accessor.ItemPropertiesAccessor",
     "client.accessor.LevelRendererAccessor",
     "client.accessor.ModelManagerAccessor",

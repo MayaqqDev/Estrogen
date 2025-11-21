@@ -4,6 +4,7 @@ uniform sampler2D DiffuseSampler;
 uniform sampler2D DiffuseDepthSampler;
 uniform vec2 InSize;
 uniform vec4 Color;
+uniform float EstrogenFarPlane;
 
 in vec2 texCoord;
 in vec2 oneTexel;
@@ -11,8 +12,8 @@ in vec2 oneTexel;
 out vec4 fragColor;
 
 float linearizeDepth(float d) {
-    float zNear = 0.1;
-    float zFar = 10.0;
+    float zNear = 0.05;
+    float zFar = EstrogenFarPlane;
     float z_n = 2.0 * d - 1.0;
     return 2.0 * zNear * zFar / (zFar + zNear - z_n * (zFar - zNear));
 }
@@ -26,8 +27,8 @@ vec4 testColor(sampler2D colorSampler, sampler2D depthSampler, vec2 coord) {
 }
 
 void make_kernel(inout float n[9], sampler2D color, sampler2D depth, vec2 coord) {
-    float w = 2.0 / InSize.x;
-    float h = 2.0 / InSize.y;
+    float w = 3.0 / InSize.x;
+    float h = 3.0 / InSize.y;
 
     n[0] = linearizeDepth(testColor(color, depth, coord + vec2( -w, -h)).r);
     n[1] = linearizeDepth(testColor(color, depth, coord + vec2(0.0, -h)).r);

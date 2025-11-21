@@ -4,7 +4,7 @@ import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.world.LevelEvent
-import dev.mayaqq.estrogen.client.content.models.ConnectionState
+import dev.mayaqq.estrogen.client.content.models.getTextureShift
 import dev.mayaqq.estrogen.client.features.TextRendererFeatures
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
@@ -49,7 +49,7 @@ object ClientDreamBlock {
         }
     }
 
-    fun getConnectionForFace(view: BlockAndTintGetter, pos: BlockPos, state: BlockState, face: Direction): ConnectionState {
+    fun getConnectionForFace(view: BlockAndTintGetter, pos: BlockPos, state: BlockState, face: Direction): Int {
         val positive = face.axisDirection == Direction.AxisDirection.POSITIVE
         var upDir = face.upAdjusted
         var rightDir = face.rightAdjusted
@@ -64,7 +64,7 @@ object ClientDreamBlock {
         val rightState = view.getBlockState(pos.relative(rightDir))
         val leftState = view.getBlockState(pos.relative(rightDir.opposite))
 
-        return ConnectionState(
+        return getTextureShift(
             up = isTouchingDreamBlock(state, upDir),
             down = isTouchingDreamBlock(state, upDir.opposite),
             right = isTouchingDreamBlock(state, rightDir),

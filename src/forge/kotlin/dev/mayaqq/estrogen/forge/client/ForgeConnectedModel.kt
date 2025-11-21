@@ -5,6 +5,7 @@ import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedU
 import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedV
 import dev.mayaqq.estrogen.client.content.models.textureShift
 import dev.mayaqq.estrogen.utils.render.*
+import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
@@ -39,7 +40,7 @@ class ForgeConnectedModel(
         return ModelData.builder().apply {
             val array = IntArray(6)
             for (face in Direction.entries) {
-                array[face.get3DDataValue()] = ClientDreamBlock.getConnectionForFace(level, pos, state, face).textureShift
+                array[face.get3DDataValue()] = ClientDreamBlock.getConnectionForFace(level, pos, state, face)
             }
             with(CONNECTION, array)
         }.build()
@@ -55,9 +56,9 @@ class ForgeConnectedModel(
         val quads = super.getQuads(state, side, rand, extraData, renderType)
         val data = extraData[CONNECTION] ?: return quads
 
-        return quads.mapIndexed { i, quad ->
+        return quads.map { quad ->
             val index = data[quad.direction.get3DDataValue()]
-            if (index == -1) return@mapIndexed quad
+            if (index == -1) return@map quad
 
             val uOffset = index % 8
             val vOffset = index / 8
