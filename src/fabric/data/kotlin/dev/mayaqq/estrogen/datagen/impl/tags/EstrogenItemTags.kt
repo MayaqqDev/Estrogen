@@ -4,8 +4,8 @@ import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenItems
 import dev.mayaqq.estrogen.content.EstrogenTags
-import dev.mayaqq.estrogen.datagen.platform.PlatformHelper
-import dev.mayaqq.estrogen.datagen.tags.BaseTagProvider
+import dev.mayaqq.estrogen.datagen.api.platform.PlatformHelper
+import dev.mayaqq.estrogen.datagen.api.tags.BaseTagProvider
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.core.HolderLookup
 import net.minecraft.world.item.Items

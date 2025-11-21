@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.datagen.platform
+package dev.mayaqq.estrogen.datagen.api.platform
 
 import com.google.gson.JsonArray
 import net.minecraft.tags.TagKey
