@@ -1,6 +1,6 @@
-package dev.mayaqq.estrogen.datagen
+package dev.mayaqq.estrogen.datagen.api
 
-import dev.mayaqq.estrogen.datagen.platform.PlatformRecipeHelper
+import dev.mayaqq.estrogen.datagen.api.platform.PlatformRecipeHelper
 import dev.mayaqq.estrogen.fabric.mixins.PackInvoker
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
@@ -11,15 +11,14 @@ import net.minecraft.data.DataProvider
 import java.nio.file.Path
 import java.util.concurrent.CompletableFuture
 
-
 class EstrogenPack(
     val pack: FabricDataGenerator.Pack,
     val helper: PlatformRecipeHelper
 ) {
 
     companion object {
-        fun create(fdg: FabricDataGenerator, name: String, output: Path, helper: PlatformRecipeHelper): EstrogenPack {
-            val mod: ModContainer = FabricLoader.getInstance().getModContainer("estrogen").orElseThrow()
+        fun create(fdg: FabricDataGenerator, name: String, output: Path, helper: PlatformRecipeHelper, modid: String): EstrogenPack {
+            val mod: ModContainer = FabricLoader.getInstance().getModContainer(modid).orElseThrow()
             return EstrogenPack(
                 PackInvoker.create(
                     fdg, true,

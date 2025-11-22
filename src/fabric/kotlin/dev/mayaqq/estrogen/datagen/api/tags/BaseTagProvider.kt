@@ -1,8 +1,8 @@
-package dev.mayaqq.estrogen.datagen.tags
+package dev.mayaqq.estrogen.datagen.api.tags
 
 
-import dev.mayaqq.estrogen.datagen.platform.Platform
-import dev.mayaqq.estrogen.datagen.platform.PlatformHelper
+import dev.mayaqq.estrogen.datagen.api.platform.Platform
+import dev.mayaqq.estrogen.datagen.api.platform.PlatformHelper
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
 import net.minecraft.core.HolderLookup

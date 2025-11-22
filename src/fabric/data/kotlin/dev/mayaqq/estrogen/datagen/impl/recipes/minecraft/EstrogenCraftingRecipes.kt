@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.datagen.impl.recipes.minecraft
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenItems
 import dev.mayaqq.estrogen.content.EstrogenRecipes
-import dev.mayaqq.estrogen.datagen.platform.PlatformRecipeHelper
+import dev.mayaqq.estrogen.datagen.api.platform.PlatformRecipeHelper
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.advancements.critereon.ImpossibleTrigger
