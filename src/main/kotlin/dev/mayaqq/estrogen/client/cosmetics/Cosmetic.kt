@@ -20,6 +20,7 @@ import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticAnimation
 import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticModel
 import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticTexture
 import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.LightTexture
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import java.nio.file.Path
@@ -54,13 +55,7 @@ data class Cosmetic(
             (model.result as? Animatable.Provider)?.animate(it, animationTime)
         }
         val model = model.result ?: return
-        model.render(
-            buffer(texture.getResourceLocation()),
-            stack,
-            White,
-            light,
-            overlay
-        )
+        model.render(buffer(texture.getResourceLocation()), stack, White, light, overlay)
     }
 
     companion object {
@@ -76,7 +71,7 @@ data class Cosmetic(
 
         var animationTicks = 0
 
-        val animationTime: Long get() = (Mth.lerp(Minecraft.getInstance().frameTime, animationTicks.toFloat(), animationTicks + 1F) * 50L).toLong()
+        val animationTime: Long get() = (Mth.lerp(Minecraft.getInstance().frameTime.toDouble(), animationTicks.toDouble(), animationTicks + 1.0) * 50L).toLong()
     }
 }
 

@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.fabric.client.models
 
 import dev.mayaqq.cynosure.helpers.McClient
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.block.ClientDreamBlock
 import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedU
 import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedV
@@ -38,6 +39,7 @@ internal class FabricConnectedModel(
         context.pushTransform { quad ->
             val original = spriteFinder.find(quad)
             val index = ClientDreamBlock.getConnectionForFace(blockView, pos, state, quad.lightFace())
+            Estrogen.info(index.toString())
             val uOffset = index % 8
             val vOffset = index / 8
 

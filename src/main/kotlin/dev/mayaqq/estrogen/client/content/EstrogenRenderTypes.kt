@@ -9,6 +9,7 @@ import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.Dyna
 import net.minecraft.Util
 import net.minecraft.client.renderer.RenderStateShard
 import net.minecraft.client.renderer.RenderStateShard.TextureStateShard
+import net.minecraft.client.renderer.RenderStateShard.ShaderStateShard
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderType.CompositeState
 import net.minecraft.resources.ResourceLocation
@@ -23,8 +24,8 @@ object EstrogenRenderTypes {
         false,
         false,
         CompositeState.builder()
-            .setShaderState(RenderStateShard.ShaderStateShard(EstrogenRenderer::dreamBlockShader))
-            .setTextureState(RenderStateShard.TextureStateShard(DynamicDreamTexture.ID, false, false))
+            .setShaderState(ShaderStateShard(EstrogenRenderer::dreamBlockShader))
+            .setTextureState(TextureStateShard(DynamicDreamTexture.ID, false, false))
             .setOutputState(EstrogenRenderer.SHADER_BYPASS)
             .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
             .createCompositeState(false)
@@ -39,7 +40,7 @@ object EstrogenRenderTypes {
             true,
             true,
             CompositeState.builder()
-                .setShaderState(RenderStateShard.ShaderStateShard(EstrogenRenderer::renderTypeEntityTranslucentNoDiffuseShader))
+                .setShaderState(ShaderStateShard(EstrogenRenderer::renderTypeEntityTranslucentNoDiffuseShader))
                 .setTextureState(TextureStateShard(texture, false, false))
                 .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
                 .setCullState(RenderStateShard.NO_CULL)
@@ -58,10 +59,10 @@ object EstrogenRenderTypes {
             true,
             false,
             CompositeState.builder()
-                .setShaderState(RenderStateShard.ShaderStateShard(EstrogenRenderer::renderTypeEntityCutoutNoDiffuseShader))
+                .setShaderState(ShaderStateShard(EstrogenRenderer::renderTypeEntityCutoutNoDiffuseShader))
                 .setTextureState(TextureStateShard(texture, false, false))
                 .setTransparencyState(RenderStateShard.NO_TRANSPARENCY)
-                .setCullState(RenderStateShard.NO_CULL)
+                .setCullState(RenderStateShard.CULL)
                 .setLightmapState(RenderStateShard.LIGHTMAP)
                 .setOverlayState(RenderStateShard.OVERLAY)
                 .createCompositeState(true)
@@ -73,6 +74,6 @@ object EstrogenRenderTypes {
     }
 
     fun entityCutoutNoDiffuse(texture: ResourceLocation): RenderType {
-        return if (isShaderPackInUse) RenderType.entityTranslucent(texture) else ENTITY_CUTOUT_NO_DIFFUSE.apply(texture)
+        return if (isShaderPackInUse) RenderType.entityCutout(texture) else ENTITY_CUTOUT_NO_DIFFUSE.apply(texture)
     }
 }

@@ -3,9 +3,7 @@ package dev.mayaqq.estrogen.forge.client
 import dev.mayaqq.estrogen.client.content.block.ClientDreamBlock
 import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedU
 import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedV
-import dev.mayaqq.estrogen.client.content.models.textureShift
 import dev.mayaqq.estrogen.utils.render.*
-import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite

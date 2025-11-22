@@ -186,6 +186,9 @@ cloche {
             modImplementation(libs.fabric.kritter)
             modApi(libs.fabric.botarium)
 
+            localRuntime("org.anarres:jcpp:1.4.14")
+            localRuntime("io.github.douira:glsl-transformer:2.0.1")
+
             include(libs.fabric.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
             include(libs.fabric.kritter) { isTransitive = false }
             include(libs.fabric.flywheel) { isTransitive = false }
@@ -285,6 +288,7 @@ cloche {
             modImplementation(libs.forge.cynosure)
             modImplementation(libs.forge.kritter)
             modApi(libs.forge.botarium)
+            modCompileOnly(libs.forge.oculus)
 
             include(libs.forge.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
             include(libs.forge.mixinExtras) { isTransitive = false }
