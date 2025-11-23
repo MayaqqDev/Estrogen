@@ -1,10 +1,10 @@
 package dev.mayaqq.estrogen.fabric.client.models
 
 import dev.mayaqq.cynosure.helpers.McClient
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.block.ClientDreamBlock
 import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedU
 import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedV
-import dev.mayaqq.estrogen.client.content.models.textureShift
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel
 import net.fabricmc.fabric.api.renderer.v1.model.SpriteFinder
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext
@@ -38,7 +38,7 @@ internal class FabricConnectedModel(
         val spriteFinder = SpriteFinder.get(McClient.modelManager.getAtlas(InventoryMenu.BLOCK_ATLAS))
         context.pushTransform { quad ->
             val original = spriteFinder.find(quad)
-            val index = ClientDreamBlock.getConnectionForFace(blockView, pos, state, quad.lightFace()).textureShift
+            val index = ClientDreamBlock.getConnectionForFace(blockView, pos, state, quad.lightFace())
             val uOffset = index % 8
             val vOffset = index / 8
 

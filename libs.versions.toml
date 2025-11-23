@@ -26,7 +26,7 @@ new_age = "1.1.2"
 resourceful_cosmetics = "1.0.4"
 cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
-iris = "1.7.5+1.20.1"
+iris = "1.7.6+1.20.1"
 flywheel = "1.0.2"
 cynosure = "0.1.0.201"
 kittyconfig = "1.2.16"
@@ -77,6 +77,8 @@ fabric-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-fabric-api-1
 fabric-flywheel = { module = "dev.engine-room.flywheel:flywheel-fabric-1.20.1", version.ref = "flywheel" }
 fabric-cynosure = { module = "dev.mayaqq.cynosure:cynosure-fabric", version.ref = "cynosure" }
 fabric-botarium = { module = "earth.terrarium.botarium:botarium-fabric-1.20.1", version.ref = "botarium" }
+fabric-sodium = { module = "maven.modrinth:sodium", version = "mc1.20.1-0.5.13-fabric" }
+fabric-indium = { module = "maven.modrinth:indium", version = "1.0.36+mc1.20.1" }
 fabric-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
 
 
@@ -95,6 +97,7 @@ forge-flywheel = { module = "dev.engine-room.flywheel:flywheel-forge-1.20.1", ve
 forge-cynosure = { module = "dev.mayaqq.cynosure:cynosure-forge", version.ref = "cynosure" }
 forge-botarium = { module = "earth.terrarium.botarium:botarium-forge-1.20.1", version.ref = "botarium" }
 forge-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
+forge-oculus = { module = "maven.modrinth:oculus", version = "1.20.1-1.8.0" }
 
 [bundles]
 fabric-cardinalComponents = [ "fabric-cardinalComponents-base", "fabric-cardinalComponents-entity" ]

@@ -41,7 +41,7 @@ object DashOverlay : HudOverlay {
             }
         }
         if (TextRendererFeatures.obfuscate) {
-            renderOverlay(graphics, 0.1f, 0.3f, 0.3f, 0.1f)
+            renderOverlay(graphics, 0.12f, 0.08f, 0.18f, 0.3f)
         }
     }
 

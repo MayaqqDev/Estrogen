@@ -2,32 +2,27 @@
 package dev.mayaqq.estrogen.client.cosmetics
 
 import com.mojang.blaze3d.vertex.PoseStack
+import com.mojang.blaze3d.vertex.VertexConsumer
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.models.animations.Animatable
 import dev.mayaqq.cynosure.client.models.animations.animate
-import dev.mayaqq.cynosure.client.models.baked.BakedModelTree
-import dev.mayaqq.cynosure.client.models.baked.Mesh
 import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.core.codecs.fieldOf
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.helpers.McPlayer
 import dev.mayaqq.cynosure.utils.colors.White
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
+import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticAnimation
 import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticModel
 import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticTexture
-import dev.mayaqq.estrogen.utils.render.render
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.MultiBufferSource
-import net.minecraft.client.renderer.RenderType
+import net.minecraft.client.renderer.LightTexture
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
-import org.joml.Vector3fc
 import java.nio.file.Path
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
@@ -51,8 +46,7 @@ data class Cosmetic(
      * @param overlay UV Overlay
      */
     fun render(
-        renderType: (ResourceLocation) -> RenderType,
-        source: MultiBufferSource,
+        buffer: (ResourceLocation) -> VertexConsumer,
         stack: PoseStack,
         light: Int,
         overlay: Int
@@ -61,13 +55,7 @@ data class Cosmetic(
             (model.result as? Animatable.Provider)?.animate(it, animationTime)
         }
         val model = model.result ?: return
-        model.render(
-            source.getBuffer(renderType.invoke(texture.getResourceLocation())),
-            stack,
-            White,
-            light,
-            overlay
-        )
+        model.render(buffer(texture.getResourceLocation()), stack, White, light, overlay)
     }
 
     companion object {
@@ -83,7 +71,7 @@ data class Cosmetic(
 
         var animationTicks = 0
 
-        val animationTime: Long get() = (Mth.lerp(Minecraft.getInstance().frameTime, animationTicks.toFloat(), animationTicks + 1F) * 50L).toLong()
+        val animationTime: Long get() = (Mth.lerp(Minecraft.getInstance().frameTime.toDouble(), animationTicks.toDouble(), animationTicks + 1.0) * 50L).toLong()
     }
 }
 

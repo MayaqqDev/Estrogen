@@ -185,8 +185,7 @@ open class EstrogenButton(
                 rotateAround(rotation, 0.5f, 0.5f, 0.5f)
 
                 cosmetic.render(
-                    RenderType::entityCutoutNoCull,
-                    graphics.bufferSource(),
+                    { graphics.bufferSource().getBuffer(RenderType.entityCutoutNoCull(it)) },
                     graphics.pose(),
                     LightTexture.FULL_BRIGHT,
                     OverlayTexture.NO_OVERLAY

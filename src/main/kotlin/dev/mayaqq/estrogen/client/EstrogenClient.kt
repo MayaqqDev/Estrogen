@@ -76,7 +76,7 @@ internal fun addRenderLayers(event: RenderLayerRegistrationEvent) {
 
 @Subscription
 internal fun registerParticleRenderTypes(event: ParticleRenderTypeRegistrationEvent) {
-    event.register(DashTrailParticle.RENDER_TYPE)
+    event.register(DashTrailParticle.RenderType)
 }
 
 @Subscription
@@ -84,7 +84,13 @@ internal fun ticking(event: ClientTickEvent) {
     //Meh good enough
     if (!chestConfigSet) {
         val player = Minecraft.getInstance().player ?: return
-        val config = ChestConfig(EstrogenClientConfig.ChestFeature.enabled, EstrogenClientConfig.ChestFeature.armor, EstrogenClientConfig.ChestFeature.physics, EstrogenClientConfig.ChestFeature.bounciness, EstrogenClientConfig.ChestFeature.damping)
+        val config = ChestConfig(
+            EstrogenClientConfig.ChestFeature.enabled,
+            EstrogenClientConfig.ChestFeature.armor,
+            EstrogenClientConfig.ChestFeature.physics,
+            EstrogenClientConfig.ChestFeature.bounciness,
+            EstrogenClientConfig.ChestFeature.damping
+        )
         player.chestConfig = config
         ChestConfig.sync()
         chestConfigSet = true

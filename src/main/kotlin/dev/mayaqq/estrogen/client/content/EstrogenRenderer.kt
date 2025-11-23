@@ -6,6 +6,7 @@ import com.mojang.blaze3d.platform.GlStateManager
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.*
 import dev.engine_room.flywheel.lib.model.baked.PartialModel
+import dev.engine_room.flywheel.lib.util.ShadersModHelper
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.events.CoreShaderRegistrationEvent
 import dev.mayaqq.cynosure.client.events.render.GameRenderEvent
@@ -37,8 +38,8 @@ object EstrogenRenderer {
     // Render state shards
     val SHADER_BYPASS: OutputStateShard = OutputStateShard(
         "shader_bypass",
-        EstrogenRenderer::beginShaderBypass,
-        EstrogenRenderer::endShaderBypass
+        EstrogenRenderer::beginShaderpackBypass,
+        EstrogenRenderer::endShaderpackBypass
     )
 
     // Outline thing
@@ -80,7 +81,11 @@ object EstrogenRenderer {
     private lateinit var celshadeSource: OutlineBufferSource
     internal var celshadeCounter: Int = 0
 
-    fun getCelShadedBuffer(texture: ResourceLocation, isTranslucent: Boolean = false): VertexConsumer {
+
+    fun getCelShadedBuffer(
+        texture: ResourceLocation,
+        isTranslucent: Boolean = false
+    ): VertexConsumer {
         return celshadeSource.getBuffer(
             if (isTranslucent) EstrogenRenderTypes.entityTranslucentNoDiffuse(texture)
             else EstrogenRenderTypes.entityCutoutNoDiffuse(texture)
@@ -94,7 +99,7 @@ object EstrogenRenderer {
         event.register(id("blit_with_depth"), DefaultVertexFormat.BLIT_SCREEN, ::blitWithDepthShader)
         event.register(id("rendertype_entity_cutout_no_diffuse"), DefaultVertexFormat.NEW_ENTITY, ::renderTypeEntityCutoutNoDiffuseShader)
         event.register(id("rendertype_entity_translucent_no_diffuse"), DefaultVertexFormat.NEW_ENTITY, ::renderTypeEntityTranslucentNoDiffuseShader)
-        //event.register(id("dash_trail_particle"), DefaultVertexFormat.PARTICLE, ::dashTrailParticleShader)
+        event.register(id("dash_trail_particle"), DefaultVertexFormat.PARTICLE, ::dashTrailParticleShader)
     }
 
     @Subscription
@@ -136,19 +141,19 @@ object EstrogenRenderer {
     @Subscription
     fun afterEntities(event: LevelRenderEvent.AfterEntities) {
         shaderBypassTarget?.clear(Minecraft.ON_OSX)
-        shaderBypassTarget?.copyDepthFrom(Minecraft.getInstance().mainRenderTarget)
+        shaderBypassTarget?.copyDepthFrom(McClient.mainRenderTarget)
     }
 
     @Subscription
     fun afterParticles(event: LevelRenderEvent.AfterParticles) {
-        if (celshadeCounter > 0) {
+        if (celshadeCounter > 0 && !ShadersModHelper.isRenderingShadowPass()) {
             celshadeTarget.clear(Minecraft.ON_OSX)
-            celshadeTarget.copyDepthFrom(Minecraft.getInstance().mainRenderTarget)
+            celshadeTarget.copyDepthFrom(McClient.mainRenderTarget)
             RenderSystem.depthFunc(GL11.GL_LESS)
             celshadeSource.endOutlineBatch()
             celshadeEffect?.process(event.partialTick)
             RenderSystem.depthFunc(GL11.GL_LEQUAL)
-            Minecraft.getInstance().mainRenderTarget.bindWrite(false)
+            McClient.mainRenderTarget.bindWrite(false)
         }
     }
 
@@ -170,8 +175,8 @@ object EstrogenRenderer {
 
         if (Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming) == true) {
             dreamingEffect?.process(event.partialTick)
-            McClient.mainRenderTarget.bindWrite(false)
         }
+        McClient.mainRenderTarget.bindWrite(false)
         celshadeCounter = 0
     }
 
@@ -199,11 +204,11 @@ object EstrogenRenderer {
         clientTickCounter++
     }
 
-    fun beginShaderBypass() {
+    fun beginShaderpackBypass() {
         if (isShaderPackInUse) shaderBypassTarget?.bindWrite(Minecraft.ON_OSX)
     }
 
-    fun endShaderBypass() {
+    fun endShaderpackBypass() {
         if (isShaderPackInUse) Minecraft.getInstance().mainRenderTarget.bindWrite(false)
     }
 
@@ -214,8 +219,10 @@ object EstrogenRenderer {
         private val outlineBuffers: MutableMap<RenderType, BufferBuilder> = Object2ObjectOpenHashMap()
 
         override fun getBuffer(renderType: RenderType): VertexConsumer {
+            if (ShadersModHelper.isRenderingShadowPass()) return bufferSource.getBuffer(renderType)
+
             celshadeCounter++
-            val outlineBuffer = outlineBuffers.getOrPut(renderType) { BufferBuilder(256) }
+            val outlineBuffer = outlineBuffers.getOrPut(renderType) { BufferBuilder(renderType.bufferSize()) }
             if (!outlineBuffer.building()) outlineBuffer.begin(renderType.mode(), renderType.format())
 
             return VertexMultiConsumer.create(bufferSource.getBuffer(renderType), outlineBuffer)
@@ -230,8 +237,8 @@ object EstrogenRenderer {
                 renderType.clearRenderState()
             }
             Minecraft.getInstance().mainRenderTarget.bindWrite(false)
-        }
 
+        }
 
     }
 }
