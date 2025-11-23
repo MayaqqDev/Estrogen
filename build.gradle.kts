@@ -131,7 +131,14 @@ cloche {
             }
         }
 
-        data()
+        data() {
+            metadata {
+                entrypoint("fabric-datagen") {
+                    adapter.set("kotlin")
+                    value.set("dev.mayaqq.estrogen.datagen.EstrogenDatagen")
+                }
+            }
+        }
 
         metadata {
             metadata {
@@ -217,10 +224,6 @@ cloche {
             entrypoint("client") {
                 adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric::init")
-            }
-            entrypoint("fabric-datagen") {
-                adapter.set("kotlin")
-                value.set("dev.mayaqq.estrogen.datagen.EstrogenDatagen")
             }
             entrypoint("modmenu") {
                 adapter.set("kotlin")
