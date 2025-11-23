@@ -1,6 +1,13 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
 import dev.mayaqq.multijarfixer.FixMultiRelease
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonObjectBuilder
+import kotlinx.serialization.json.buildJsonArray
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.put
 import net.msrandom.minecraftcodev.core.utils.toPath
 import net.msrandom.stubs.GenerateStubApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
@@ -131,7 +138,25 @@ cloche {
             }
         }
 
-        data()
+        data {
+            this.withMetadataJson {
+                 this.withElement {
+                     return@withElement buildJsonObject {
+                         this@withElement.forEach { this.put(it.key,it.value) }
+                         val newEntrypoints = buildJsonObject {
+                             this@withElement["entrypoints"]!!.jsonObject.forEach { this.put(it.key,it.value) }
+                             put("fabric-datagen", buildJsonArray {
+                                 add(buildJsonObject {
+                                     put("adapter","kotlin")
+                                     put("value","dev.mayaqq.estrogen.datagen.EstrogenDatagen")
+                                 })
+                             })
+                         }
+                         put("entrypoints",newEntrypoints)
+                     }
+                 }
+            }
+        }
 
         metadata {
             metadata {
@@ -220,10 +245,6 @@ cloche {
             entrypoint("client") {
                 adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric::init")
-            }
-            entrypoint("fabric-datagen") {
-                adapter.set("kotlin")
-                value.set("dev.mayaqq.estrogen.datagen.EstrogenDatagen")
             }
             entrypoint("modmenu") {
                 adapter.set("kotlin")
