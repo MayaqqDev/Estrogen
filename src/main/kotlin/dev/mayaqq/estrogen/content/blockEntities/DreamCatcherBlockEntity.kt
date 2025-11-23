@@ -33,6 +33,10 @@ class DreamCatcherBlockEntity(be: BlockEntityType<*>, pos: BlockPos, state: Bloc
         return ClientboundBlockEntityDataPacket.create(this)
     }
 
+    override fun getUpdateTag(): CompoundTag {
+        return saveWithoutMetadata()
+    }
+
     fun updateOnClient() {
         VisualizationHelper.queueUpdate(this)
     }
