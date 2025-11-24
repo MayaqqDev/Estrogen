@@ -104,7 +104,6 @@ cloche {
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
             implementation(libs.cosmetics)
-            include(libs.cosmetics)
 
             modCompileOnly(libs.kritter)
             modCompileOnly(libs.cynosure)
@@ -218,7 +217,7 @@ cloche {
             include(libs.fabric.kritter) { isTransitive = false }
             include(libs.fabric.flywheel) { isTransitive = false }
             include(libs.fabric.botarium) { isTransitive = false }
-
+            include(libs.cosmetics)
             include(libs.kittyconfig) {
                 isTransitive = false
                 artifact {
@@ -316,6 +315,7 @@ cloche {
             include(libs.forge.flywheel) { isTransitive = false }
             include(libs.forge.kritter) { isTransitive = false }
             include(libs.forge.botarium) { isTransitive = false }
+            include(libs.cosmetics)
             include(libs.kittyconfig) {
                 isTransitive = false
                 artifact {

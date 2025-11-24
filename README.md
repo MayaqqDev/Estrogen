@@ -17,10 +17,12 @@
 <a href="https://github.com/MayaqqDev/Estrogen/wiki">
     <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/documentation/ghpages_vector.svg&w=100&h=100" alt="Wiki">
 </a>
-<a href="https://ko-fi.com/mayaqq">
-    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/donate/kofi-plural-alt_vector.svg&w=100&h=100" alt="Ko-fi">
+<a href="https://patreon.com/mayaqq">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/donate/patreon-plural_vector.svg&w=100&h=100" alt="Patreon">
 </a>
 </div>
+
+## Previously, this mod contained Create: Estrogen in it, please install it separately [here](https://modrinth.com/mods/create-estrogen) if you wish to maintain create compatibility 
 
 ## `Information`
 
@@ -28,8 +30,14 @@
 > **[EMI](https://modrinth.com/mod/emi)/[JEI](https://modrinth.com/mod/jei)/[REI](https://modrinth.com/mod/rei)** is highly recommended to be installed with this mod to see all the recipes and
 > progression!
 
-Create Addon Based around expressing yourself, fluid handling and expanding your factory. This mod add a lot of new
+A Mod Based around expressing yourself, fluid handling and discovery. This mod add a lot of new
 Items, Blocks, Mechanics and more!
+
+### `Modules`
+
+Estrogen is implemented in a way where you may install modules for compatibility with other mods!
+
+- [Create: Estrogen](https://modrinth.com/mods/create-estrogen) (Official)
 
 ### `Main Features`
 
@@ -37,7 +45,7 @@ The main feature of the mod is the Estrogen Pill (And its effect)! Automated thr
 item processing. This might be pretty tough to get to, but the reward is great! The Estrogen Effect gives you an effect
 allowing you to **Dash** (With some hidden abilities too)!
 
-To Dash, simply have the Estrogen Pill effect (Called Girl Power in game) and click [X], if that does not work, you may
+To Dash, simply have the Girl Power effect from any source (like pills, patches and others) and click [X], if that does not work, you may
 need to rebind the key in the Minecraft control settings or rebind any key that uses the same key. Then it should be
 smooth dashin' from there!
 
@@ -51,9 +59,9 @@ To hear it, make sure you have your music sound category turned up!
 
 This mod adds a lot of other features related to Estrogen and its production. This includes but is not limited to:
 
-- A new block called the Centrifuge, with a new mechanic for fluid processing which is used to make the Estrogen fluid.
+- A new block called the Dream Block, unlocked within your dreams, with some very interesting mechanics
   🌀 <br>
-  <img src="https://i.imgur.com/cqXBcVw.png" alt="centrifuge" width="256"/>
+  <img src="https://cdn.modrinth.com/data/HhIJW8n1/images/4f7c3b2192b811073d25509c06a688cb6efbb579.png" alt="dream block" width="256"/>
 - Estrogen Patches with their own slots, allowing you to have the Estrogen Effect active for long amounts of time. 🩹<br>
   <img src="https://i.imgur.com/QfI4vWJ.png" alt="patches" width="256"/>
 - Some custom mechanics you may discover when dashing around! 💨<br>
@@ -63,7 +71,7 @@ This mod adds a lot of other features related to Estrogen and its production. Th
 - A new type of [(musical?)](https://erora.bandcamp.com/track/g03c) cookie 😋 🍪<br>
   <img src="https://i.imgur.com/lrPWwPT.png" alt="Estrogen Chip Cookie" width="256"/>
 - And many more (including some easter eggs)! 🥚<br>
-  <img src="https://mayaqq.dev/media/colonthree_big.png" alt=":3" width="256"/>
+  <img src="https://cdn.modrinth.com/data/HhIJW8n1/images/bf57e8fb714280ef0243f626fb962d5815739e37.png" alt=":3" width="256"/>
 
 ### `Extra information`
 
