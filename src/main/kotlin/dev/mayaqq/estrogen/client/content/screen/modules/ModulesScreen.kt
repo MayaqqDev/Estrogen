@@ -39,7 +39,7 @@ class ModulesScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.of("e
 
     override fun baseInit() {
 
-        modules.forEachIndexed { index, (module, mod, modid, modname) ->
+        modules.sortedBy { it.modid.length }.forEachIndexed { index, (module, mod, modid, modname) ->
             EstrogenButton.Builder(
                 ModInfoRenderer(mod, module)
             ) {
@@ -124,7 +124,7 @@ class ModulesScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.of("e
                 // Icon
                 if (!iconCache.contains(mod.modid)) {
                     mod.logoFile?.let { string ->
-                        //TODO: Icon wont load in dev env, hopefully will load in prod? someone test pls?
+                        //TODO: The icons don't load :(
                         val stream = Path(string).toFile().inputStream()
                         val image = NativeImage.read(stream)
                         val resized = NativeImage(image.format(), 64, 64, true)

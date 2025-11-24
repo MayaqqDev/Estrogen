@@ -40,6 +40,7 @@ class DreamBlockVisual(
             //if(Minecraft.getInstance().player?.hasEffect(EstrogenEffects.DREAMING) == true || )
         }
 
-        override fun skipVanillaRender(p0: DreamBlockEntity): Boolean = true
+        //TODO: Make it skip it haha, right now just so it renders at all lol
+        override fun skipVanillaRender(p0: DreamBlockEntity): Boolean = false
     }
 }
