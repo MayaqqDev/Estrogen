@@ -1,11 +1,8 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
 import dev.mayaqq.multijarfixer.FixMultiRelease
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonObjectBuilder
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
-import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.put
 import net.msrandom.minecraftcodev.core.utils.toPath
@@ -100,7 +97,6 @@ cloche {
             modCompileOnly(libs.figura)
             modCompileOnly(libs.createNewAge)
             modImplementation(libs.kittyconfig)
-            include(libs.kittyconfig) { isTransitive = false }
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
             implementation(libs.cosmetics)
