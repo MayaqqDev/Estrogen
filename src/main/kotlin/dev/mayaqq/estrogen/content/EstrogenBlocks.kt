@@ -121,6 +121,9 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
 
     val MothBed: ModelBedBlock by block("moth_bed", ::ModelBedBlock) {
         copyProperties(Blocks::ORANGE_BED)
+        properties {
+            noOcclusion()
+        }
         item(::BlockItem, "moth_bed") {
             properties {
                 stacksTo(1)
