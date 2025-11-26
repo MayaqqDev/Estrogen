@@ -11,7 +11,8 @@
     "ItemParserMixin",
     "PistonMovingBlockEntityMixin",
     "PlayerMixin",
-    "RecordItemMixin"
+    "RecordItemMixin",
+    "ServerGamePacketListenerImplMixin"
   ],
   "client": [
     "client.AdvancementTabMixin",
