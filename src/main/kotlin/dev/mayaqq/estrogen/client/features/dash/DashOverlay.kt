@@ -26,6 +26,7 @@ import org.joml.Matrix4f
 
 object DashOverlay : HudOverlay {
     private val DASH_OVERLAY = ResourceLocation("textures/misc/nausea.png")
+    var dreamOverlayCooldown = 0
 
     override fun render(gui: Gui, graphics: GuiGraphics, partialTick: Float) {
         val player = Minecraft.getInstance().player ?: return
@@ -33,12 +34,15 @@ object DashOverlay : HudOverlay {
             val dc: Color = EstrogenColors.getDashColor(getDashLevel(), false)
             renderOverlay(graphics, dc.floatRed, dc.floatGreen, dc.floatBlue)
         }
-        if (DreamBlockEffect.isInDreamBlock) {
-            if (DreamBlockEffect.isEyeInDream) {
-                renderDream(graphics, partialTick)
-            } else {
-                renderOverlay(graphics, 0.2f, 0.0f, 0.2f)
-            }
+
+        if (DreamBlockEffect.isInDreamBlock && DreamBlockEffect.isEyeInDream) {
+            dreamOverlayCooldown = 10
+        } else if (dreamOverlayCooldown > 0) dreamOverlayCooldown--
+
+        if (dreamOverlayCooldown > 0) {
+            renderDream(graphics, partialTick, dreamOverlayCooldown)
+        } else if (DreamBlockEffect.isInDreamBlock) {
+            renderOverlay(graphics, 0.2f, 0.0f, 0.2f)
         }
         if (TextRendererFeatures.obfuscate) {
             renderOverlay(graphics, 0.12f, 0.08f, 0.18f, 0.3f)
@@ -82,7 +86,7 @@ object DashOverlay : HudOverlay {
         }
     }
 
-    private fun renderDream(graphics: GuiGraphics, partialTick: Float) {
+    private fun renderDream(graphics: GuiGraphics, partialTick: Float, cooldown: Int) {
         graphics.pushPop {
             translate(graphics.guiWidth().toFloat() / 2.0f, graphics.guiHeight().toFloat() / 2.0f, 0.0f)
             scale(1.5f, 1.5f, 1.5f)
@@ -94,19 +98,20 @@ object DashOverlay : HudOverlay {
             bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR)
             val width = graphics.guiWidth()
             val height = graphics.guiHeight()
-            vertex(bufferBuilder, lastPose, 0, 0, partialTick)
-            vertex(bufferBuilder, lastPose, 0, height, partialTick)
-            vertex(bufferBuilder, lastPose, width, height, partialTick)
-            vertex(bufferBuilder, lastPose, width, 0, partialTick)
+            vertex(bufferBuilder, lastPose, 0, 0, partialTick, cooldown)
+            vertex(bufferBuilder, lastPose, 0, height, partialTick, cooldown)
+            vertex(bufferBuilder, lastPose, width, height, partialTick, cooldown)
+            vertex(bufferBuilder, lastPose, width, 0, partialTick, cooldown)
             BufferUploader.drawWithShader(bufferBuilder.end())
         }
     }
 }
 
-private fun vertex(bufferBuilder: BufferBuilder, pose: Matrix4f, x: Int, y: Int, partialTick: Float) {
+private fun vertex(bufferBuilder: BufferBuilder, pose: Matrix4f, x: Int, y: Int, partialTick: Float, cooldown: Int) {
     val eyeTime = (DreamBlockEffect.eyeDreamTick.toFloat() + partialTick - 5f).coerceIn(0f, 5f) / 5f
+    val cooldownTime = if (DreamBlockEffect.isEyeInDream) 0f else 1f + (partialTick - cooldown.toFloat()) / 10f
     bufferBuilder
         .vertex(pose, x.toFloat(), y.toFloat(), -90f)
-        .color(eyeTime, 0f, 0f, 0f)
+        .color(eyeTime, cooldownTime, 0f, 0f)
         .endVertex()
 }
