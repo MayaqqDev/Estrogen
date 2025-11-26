@@ -97,7 +97,7 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
         if (isModLoaded("figura") && !FiguraCompat.renderBoobs(player)) return;
         if (this.estrogen$boobs == null) return;
         // Calling this here as well to check if the armor texture is empty in these specific circumstances... GOD I LOVE EDGECASES
-        if (Boob.fuckedUpArmorConfigCheck(player)) {
+        if (Boob.shouldShowArmor(player)) {
             if (estrogen$getArmorTexture(player, false).isEmpty()) return;
         }
 

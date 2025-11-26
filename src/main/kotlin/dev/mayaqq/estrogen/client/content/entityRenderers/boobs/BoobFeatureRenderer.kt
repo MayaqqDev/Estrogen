@@ -7,7 +7,6 @@ import dev.mayaqq.cynosure.utils.currentTime
 import dev.mayaqq.estrogen.client.features.boobs.Boob
 import dev.mayaqq.estrogen.client.features.boobs.Boob.boobSize
 import dev.mayaqq.estrogen.client.features.boobs.BoobPhysicsManager.getPhysicsForPlayer
-import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.content.EstrogenTags
@@ -44,9 +43,6 @@ class BoobFeatureRenderer(
             // Armor that straight up disables Chest Feature and Armor and everything.
             if (entity.getItemBySlot(EquipmentSlot.CHEST) in EstrogenTags.Items.CHEST_FEATURE_DISABLED) return
 
-            // If you have a chestplate that isn't ignored, and you have armor rendering on and the person has chest config enabled, don't render anything.
-            if (Boob.fuckedUpArmorConfigCheck(entity)) return
-
             val vertexConsumer = bufferSource.getBuffer(RenderType.entityCutout(entity.skinTextureLocation))
             val m = LivingEntityRenderer.getOverlayCoords(entity, 0.0f)
             stack.pushPop {
@@ -71,7 +67,7 @@ class BoobFeatureRenderer(
                 parentModel.renderBoobs(stack, vertexConsumer, i, m, entity, size, yOffset)
 
                 // Armor Check
-                if (EstrogenClientConfig.ChestRenderingGlobal.armorRendering && chestConfig.armorEnabled) {
+                if (Boob.shouldShowArmor(entity)) {
                     val itemStack = entity.getItemBySlot(EquipmentSlot.CHEST)
                     if (itemStack.item is ArmorItem) {
                         val item = itemStack.item as ArmorItem

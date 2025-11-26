@@ -33,7 +33,11 @@ object Boob {
     }
 
     @JvmStatic
-    fun fuckedUpArmorConfigCheck(player: Player): Boolean {
-        return !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty && player.getItemBySlot(EquipmentSlot.CHEST) !in EstrogenTags.Items.CHEST_ARMOR_IGNORE && EstrogenClientConfig.ChestRenderingGlobal.armorRendering && player.chestConfig?.armorEnabled == true
+    // If armor should render like at all
+    fun shouldShowArmor(player: Player): Boolean {
+        return !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty &&
+                player.getItemBySlot(EquipmentSlot.CHEST) !in EstrogenTags.Items.CHEST_ARMOR_IGNORE &&
+                EstrogenClientConfig.ChestRenderingGlobal.armorRendering &&
+                player.chestConfig?.armorEnabled == true
     }
 }
