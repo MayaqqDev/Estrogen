@@ -1,5 +1,9 @@
 package dev.mayaqq.estrogen.client.features.dash
 
+import dev.mayaqq.cynosure.client.events.ClientTickEvent
+import dev.mayaqq.cynosure.core.Environment
+import dev.mayaqq.cynosure.events.api.EventSubscriber
+import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
@@ -19,6 +23,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.block.LiquidBlock
 import net.minecraft.world.phys.Vec3
 
+@EventSubscriber(env = [Environment.CLIENT])
 object ClientDash {
 
     private const val DASH_SPEED: Double = 1.0
@@ -51,6 +56,8 @@ object ClientDash {
     private var willUltra: Boolean = false
     private var ultraCooldown: Int = 0
     private var ultraVelocity: Vec3? = null
+
+    private var keyPressed = false
 
     /*
     dashDirection: a unit vector in the direction the dash was started with. used to construct the initial and final dash velocity
@@ -105,7 +112,7 @@ object ClientDash {
         }
 
         // Start Dash
-        if (EstrogenKeybinds.DASH_KEY.consumeClick() && !isOnCooldown()) {
+        if (keyPressed && !isOnCooldown()) {
             // Dash level of current dash (number of dashes at the beginning)
             dashLevel = dashes
             // Decrement the dash counter
@@ -244,5 +251,14 @@ object ClientDash {
 
     fun getDashLevel(): Int {
         return dashLevel
+    }
+
+    @Subscription
+    fun onClientTick(event: ClientTickEvent.End) {
+        var wasPressed = false
+        while (EstrogenKeybinds.DASH_KEY.consumeClick()) {
+            wasPressed = true
+        }
+        keyPressed = wasPressed
     }
 }
