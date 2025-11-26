@@ -77,10 +77,10 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("block.estrogen.dreamcatcher.tooltip", "Place to guard off all the _bad_ dreams away!")
 
         // Advancements
-        tb.add("advancement.estrogen.root.title", "Create: Estrogen")
+        tb.add("advancement.estrogen.root.title", "Estrogen")
         tb.add(
             "advancement.estrogen.root.description",
-            "Create Addon Based around expressing yourself, fluid handling and expanding your factory!"
+            "A Mod Based around expressing yourself, fluid handling and discovery!"
         )
         tb.add("advancement.estrogen.horse_urine.title", "Ewww!")
         tb.add(
