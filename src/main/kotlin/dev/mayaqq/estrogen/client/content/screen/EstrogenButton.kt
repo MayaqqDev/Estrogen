@@ -7,6 +7,8 @@ import dev.mayaqq.cynosure.text.CommonText
 import dev.mayaqq.cynosure.utils.colors.*
 import dev.mayaqq.estrogen.client.cosmetics.Cosmetic
 import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
+import dev.mayaqq.estrogen.client.extensions.widgetHeight
+import dev.mayaqq.estrogen.client.extensions.widgetWidth
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
@@ -171,9 +173,9 @@ open class EstrogenButton(
             mouseY: Int,
             partialTick: Float
         ) {
-            val x = this.x + this.width / 2f
-            val y = this.y + this.height / 2f
-            val scale = min(this.width, this.height) / 32f
+            val x = this.x + this.widgetWidth / 2f
+            val y = this.y + this.widgetHeight / 2f
+            val scale = min(this.widgetWidth, this.widgetHeight) / 32f
 
             val yRot = Mth.wrapDegrees(System.currentTimeMillis().toDouble() / 25.0).toFloat()
             val rotation = Quaternionf().rotateZYX(Mth.PI, yRot * Mth.DEG_TO_RAD, 6 * Mth.DEG_TO_RAD)

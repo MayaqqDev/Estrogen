@@ -2,6 +2,10 @@ package dev.mayaqq.estrogen.client.content.screen.config
 
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.McFont
+import dev.mayaqq.estrogen.client.extensions.posX
+import dev.mayaqq.estrogen.client.extensions.posY
+import dev.mayaqq.estrogen.client.extensions.widgetHeight
+import dev.mayaqq.estrogen.client.extensions.widgetWidth
 import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.*
@@ -43,11 +47,11 @@ class ConfigEntryList(val entries: List<ConfigElement>, x: Int, y: Int, width: I
     ) : ContainerObjectSelectionList.Entry<Entry>() {
 
         override fun render(graphics: GuiGraphics, index: Int, y: Int, x: Int, width: Int, height: Int, mouseX: Int, mouseY: Int, hovering: Boolean, delta: Float) {
-            widget.y = y
-            nameWidget.x = x
-            nameWidget.y = y
-            nameWidget.width = width - 100
-            nameWidget.height = height
+            widget.posY = y
+            nameWidget.posX = x
+            nameWidget.posY = y
+            nameWidget.widgetWidth = width - 100
+            nameWidget.widgetHeight = height
             nameWidget.render(graphics, mouseX, mouseY, delta)
             widget.render(graphics, mouseX, mouseY, delta)
         }
