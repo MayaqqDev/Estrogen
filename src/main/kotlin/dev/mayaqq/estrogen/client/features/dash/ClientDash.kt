@@ -242,7 +242,7 @@ object ClientDash {
     }
 
     private fun canRefresh(player: Player): Boolean {
-        return player.onGround() || player.level().getBlockState(player.blockPosition()).block is LiquidBlock || player.onClimbable()
+        return (player.onGround() || player.level().getBlockState(player.blockPosition()).block is LiquidBlock || player.onClimbable()) && dashCooldown < 5
     }
 
     fun isOnCooldown(): Boolean {
