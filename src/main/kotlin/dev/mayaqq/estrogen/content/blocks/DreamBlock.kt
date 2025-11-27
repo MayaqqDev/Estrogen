@@ -171,7 +171,7 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         if (!canEntityUse(state, entity as? LivingEntity)) return
         entity.resetFallDistance()
         if (entity !is Player) return
-        refresh(entity)
+        if (level.isClientSide) refresh(entity)
         if (lookAngle == null) {
             lookAngle = entity.lookAngle
         }
