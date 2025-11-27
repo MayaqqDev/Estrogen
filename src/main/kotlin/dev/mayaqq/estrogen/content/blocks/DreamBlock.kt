@@ -170,19 +170,18 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
     override fun entityInside(state: BlockState, level: Level, pos: BlockPos, entity: Entity) {
         if (!canEntityUse(state, entity as? LivingEntity)) return
         entity.resetFallDistance()
-        if (entity is Player && level.isClientSide) {
-            refresh(entity)
-            if (lookAngle == null) {
-                lookAngle = entity.lookAngle
-            }
-
-            // if player hits a wall while inside dream blocks, make them bounce
-            // Vec3 movement = player.getDeltaMovement();
-            // if (movement.x() == 0 && lookAngle.x() != 0) lookAngle = lookAngle.multiply(-1, 1, 1);
-            // if (movement.y() == 0 && lookAngle.y() != 0) lookAngle = lookAngle.multiply(1, -1, 1);
-            // if (movement.z() == 0 && lookAngle.z() != 0) lookAngle = lookAngle.multiply(1, 1, -1);
-            entity.deltaMovement = lookAngle!!.scale(2.0)
+        if (entity !is Player) return
+        refresh(entity)
+        if (lookAngle == null) {
+            lookAngle = entity.lookAngle
         }
+
+        // if player hits a wall while inside dream blocks, make them bounce
+        // Vec3 movement = player.getDeltaMovement();
+        // if (movement.x() == 0 && lookAngle.x() != 0) lookAngle = lookAngle.multiply(-1, 1, 1);
+        // if (movement.y() == 0 && lookAngle.y() != 0) lookAngle = lookAngle.multiply(1, -1, 1);
+        // if (movement.z() == 0 && lookAngle.z() != 0) lookAngle = lookAngle.multiply(1, 1, -1);
+        entity.deltaMovement = lookAngle!!.scale(2.0)
     }
 
     override fun propagatesSkylightDown(state: BlockState, level: BlockGetter, pos: BlockPos): Boolean = false
