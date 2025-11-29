@@ -55,6 +55,7 @@ import org.apache.commons.codec.digest.MessageDigestAlgorithms
 import uwu.serenity.kritter.client.stdlib.clientOnly
 import uwu.serenity.kritter.stdlib.BlockEntityBlock
 import java.security.MessageDigest
+import kotlin.ranges.contains
 import kotlin.reflect.KClass
 
 class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<DreamBlockEntity> {
@@ -133,6 +134,7 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
 
     override fun randomTick(state: BlockState, level: ServerLevel, pos: BlockPos, random: RandomSource) {
         if (state.getValue(PERSISTENT)) return
+        if (level.dayTime % 24000L !in 12542..23460) return
 
         EstrogenServerConfig.DreamBlock.dreamingTickChance
             .also { if (it < 100 && random.nextIntBetweenInclusive(0, 100) > it) return }
