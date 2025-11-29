@@ -276,6 +276,12 @@ cloche {
             dependency {
                 modId = "curios"
             }
+            //TODO: make this work
+            /*
+            markConflict {
+                modId = "continuity"
+            }
+             */
         }
 
         runs {
