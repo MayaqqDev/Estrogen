@@ -21,10 +21,13 @@ import earth.terrarium.botarium.common.registry.fluid.BotariumFlowingFluid
 import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock
 import earth.terrarium.botarium.common.registry.fluid.BotariumSourceFluid
 import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem
+import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.entity.BlockEntity
@@ -61,10 +64,17 @@ inline fun <I> ItemBuilder<I>.baubleWithRenderer(crossinline renderer: () -> Bau
     }
 }
 
-fun <I> ItemBuilder<I>.textureProperty(id: ResourceLocation, consumer: ClampedItemPropertyFunction) where I : Item {
+inline fun <I> ItemBuilder<I>.textureProperty(id: ResourceLocation, crossinline consumer: (stack: ItemStack, level: ClientLevel?, entity: LivingEntity?, i: Int) -> Float) where I : Item {
     onRegister {
         clientOnly {
-            ItemPropertiesAccessor.register(it, id, consumer)
+            ItemPropertiesAccessor.register(it, id) { stack, level, entity, i ->
+                consumer.invoke(
+                    stack,
+                    level,
+                    entity,
+                    i
+                )
+            }
         }
     }
 }
