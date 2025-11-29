@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.config.types
 
+import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.c2s.SetChestConfigPacket
@@ -25,7 +26,7 @@ data class ChestConfig(
 
         @JvmStatic
         fun sync() {
-            EstrogenNetwork.sendToServer(SetChestConfigPacket(current))
+            if (McClient.connection != null) EstrogenNetwork.sendToServer(SetChestConfigPacket(current))
         }
     }
 }

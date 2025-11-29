@@ -15,6 +15,8 @@ import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.cynosure.data.registerResourcepackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
+import dev.mayaqq.cynosure.helpers.McClient
+import dev.mayaqq.cynosure.helpers.McPlayer
 import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobFeatureRenderer
@@ -82,8 +84,8 @@ internal fun registerParticleRenderTypes(event: ParticleRenderTypeRegistrationEv
 @Subscription
 internal fun ticking(event: ClientTickEvent) {
     //Meh good enough
-    if (!chestConfigSet) {
-        val player = Minecraft.getInstance().player ?: return
+    if (!chestConfigSet && McClient.connection != null) {
+        val player = McPlayer ?: return
         val config = ChestConfig(
             EstrogenClientConfig.ChestFeature.enabled,
             EstrogenClientConfig.ChestFeature.armor,
