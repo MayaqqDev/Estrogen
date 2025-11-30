@@ -82,30 +82,22 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
 
     val MothWool: Block by block("moth_wool", ::Block) {
         copyProperties(Blocks::ORANGE_WOOL)
-        item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
-        }
+        item(::BlockItem)
     }
 
     val QuiltedMothWool: Block by block("quilted_moth_wool", ::Block) {
         copyProperties(Blocks::ORANGE_WOOL)
-        item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
-        }
+        item(::BlockItem)
     }
 
     val MothCarpet: CarpetBlock by block("moth_wool_carpet", ::CarpetBlock) {
         copyProperties(Blocks::ORANGE_CARPET)
-        item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
-        }
+        item(::BlockItem)
     }
 
     val QuiltedMothCarpet: CarpetBlock by block("quilted_moth_wool_carpet", ::CarpetBlock) {
         copyProperties(Blocks::ORANGE_CARPET)
-        item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
-        }
+        item(::BlockItem)
     }
 
     val EstrogenPillBlock: EstrogenPillBlock by block("estrogen_pill_block", ::EstrogenPillBlock) {
@@ -114,16 +106,11 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             strength(1.0f, 1.0f)
             sound(EstrogenSoundTypes.PILL_BOX)
         }
-        item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
-        }
+        item(::BlockItem)
     }
 
     val MothBed: ModelBedBlock by block("moth_bed", ::ModelBedBlock) {
         copyProperties(Blocks::ORANGE_BED)
-        properties {
-            noOcclusion()
-        }
         item(::BlockItem, "moth_bed") {
             properties {
                 stacksTo(1)
