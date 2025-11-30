@@ -79,12 +79,16 @@ object CosmeticAPI : Logger by LoggerFactory.getLogger("Estrogen Cosmetics") {
     fun setCosmetic(cosmetic: Cosmetic?): CompletableFuture<StatusCode> = call {
         val data = API.setAndGetCosmetic(profileId, cosmetic?.id)
         McClient.connection?.let {
-            EstrogenNetwork.sendToServer(UpdatedCosmeticPacket(data))
+            data?.let {
+                EstrogenNetwork.sendToServer(UpdatedCosmeticPacket(it))
+            }
         }
     }
 
-    fun updateCosmetic(signedData: SignedData) {
+    fun updateCosmetic(signedData: SignedData) = try {
         API.updateCosmetics(signedData)
+    } catch (e: Exception) {
+        Estrogen.error("Error updating cosmetic with error: ", e)
     }
 
     fun claimReward(code: String): CompletableFuture<StatusCode> {
