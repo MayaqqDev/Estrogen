@@ -2,9 +2,16 @@ package dev.mayaqq.estrogen.client.cosmetics
 
 import com.mojang.serialization.JsonOps
 import com.teamresourceful.resourcefulcosmetics.ResourcefulCosmetics
+import com.teamresourceful.resourcefulcosmetics.SignedData
 import com.teamresourceful.resourcefulcosmetics.errors.*
 import dev.mayaqq.cynosure.helpers.McClient
+import dev.mayaqq.cynosure.utils.serialization.buildClassSerializer
+import dev.mayaqq.cynosure.utils.serialization.fieldOf
 import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.estrogen.network.EstrogenNetwork
+import dev.mayaqq.estrogen.network.messages.c2s.UpdatedCosmeticPacket
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.builtins.serializer
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Player
 import org.slf4j.Logger
@@ -21,6 +28,7 @@ object CosmeticAPI : Logger by LoggerFactory.getLogger("Estrogen Cosmetics") {
 
     internal val API: ResourcefulCosmetics<Cosmetic> = ResourcefulCosmetics.create(
         "https://estrogen-cosmetics.teamresourceful.com/",
+        true,
         { id, json ->
             Cosmetic.codec(id).parse(JsonOps.INSTANCE, json).getOrThrow(true, Estrogen::error)
         }
@@ -69,7 +77,14 @@ object CosmeticAPI : Logger by LoggerFactory.getLogger("Estrogen Cosmetics") {
     fun getCosmetics(): CompletableFuture<StatusCode> = call { API.getCosmetics(profileId, false) }
 
     fun setCosmetic(cosmetic: Cosmetic?): CompletableFuture<StatusCode> = call {
-        API.setCosmetic(profileId, cosmetic?.id)
+        val data = API.setAndGetCosmetic(profileId, cosmetic?.id)
+        McClient.connection?.let {
+            EstrogenNetwork.sendToServer(UpdatedCosmeticPacket(data))
+        }
+    }
+
+    fun updateCosmetic(signedData: SignedData) {
+        API.updateCosmetics(signedData)
     }
 
     fun claimReward(code: String): CompletableFuture<StatusCode> {
@@ -102,3 +117,9 @@ enum class StatusCode {
 
     UNKNOWN_ERROR,
 }
+
+object SignedDataSerializer : KSerializer<SignedData> by buildClassSerializer("",
+    String.serializer().fieldOf("data", SignedData::data),
+    String.serializer().fieldOf("signature", SignedData::signature),
+    ::SignedData
+)

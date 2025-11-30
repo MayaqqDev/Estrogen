@@ -5,6 +5,7 @@ import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.network.messages.c2s.*
 import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigPacket
 import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigRequestPacket
+import dev.mayaqq.estrogen.network.messages.s2c.CosmeticUpdatePacket
 import dev.mayaqq.estrogen.network.messages.s2c.DreamBlockSeedPacket
 import dev.mayaqq.estrogen.network.messages.s2c.FlapSyncPacket
 import dev.mayaqq.estrogen.network.messages.s2c.ThighHighStylesPacket
@@ -16,6 +17,7 @@ val EstrogenNetwork = NetworkChannel(id("main"), 1) {
     clientbound<ThighHighStylesPacket>(ThighHighStylesPacket.CODEC)
     clientbound<FlapSyncPacket>()
     clientbound<ChestConfigRequestPacket>()
+    clientbound<CosmeticUpdatePacket>()
 
     // C2S
     serverbound<DashPacket>()
@@ -23,4 +25,5 @@ val EstrogenNetwork = NetworkChannel(id("main"), 1) {
     serverbound<SpawnHeartsPacket>(SpawnHeartsPacket.CODEC)
     serverbound(DreamBlockRipplePacket.CODEC)
     serverbound<FlapPacket>()
+    serverbound<UpdatedCosmeticPacket>()
 }
