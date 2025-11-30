@@ -21,10 +21,12 @@ import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.CreativeModeTabs
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.Rarity
+import net.minecraft.world.level.block.BedBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.CarpetBlock
 import net.minecraft.world.level.block.LayeredCauldronBlock
+import net.minecraft.world.level.block.state.properties.BedPart
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument
 import net.minecraft.world.level.material.MapColor
 import uwu.serenity.kritter.api.Registrar
@@ -117,9 +119,11 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
                 creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER { stack -> stack.`is`(ItemTags.BEDS) })
             }
         }
-        onRegister {
+        onRegister { bed ->
             //TODO: make this work on forge
-            if (currentLoader == Loader.FABRIC) PoiTypes.HOME.add(it)
+            if (currentLoader == Loader.FABRIC) {
+                PoiTypes.HOME.add(bed.stateDefinition.possibleStates.filter { it.getValue(BedBlock.PART) == BedPart.HEAD }.toMutableSet())
+            }
         }
     }
 
@@ -131,9 +135,11 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
                 creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER { stack -> stack.`is`(ItemTags.BEDS) })
             }
         }
-        onRegister {
+        onRegister { bed ->
             //TODO: make this work on forge
-            if (currentLoader == Loader.FABRIC) PoiTypes.HOME.add(it)
+            if (currentLoader == Loader.FABRIC) {
+                PoiTypes.HOME.add(bed.stateDefinition.possibleStates.filter { it.getValue(BedBlock.PART) == BedPart.HEAD }.toMutableSet())
+            }
         }
     }
 
