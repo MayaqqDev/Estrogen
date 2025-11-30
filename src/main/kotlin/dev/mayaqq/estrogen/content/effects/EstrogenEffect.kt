@@ -18,7 +18,6 @@ import dev.mayaqq.estrogen.content.EstrogenAttributes.FallDamageResistance
 import dev.mayaqq.estrogen.content.EstrogenDamageSources
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.features.dash.CommonDash.removeDashing
-import net.minecraft.client.player.LocalPlayer
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket
@@ -53,7 +52,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         if (!EstrogenCommonConfig.Dash.enabled) return
 
         // Only tick on the client and if the entity is a player
-        if (entity is LocalPlayer && entity.level().isClientSide) ClientDash.tick()
+        if (entity is Player && entity.level().isClientSide) ClientDash.tick()
     }
 
     override fun removeAttributeModifiers(entity: LivingEntity, attributes: AttributeMap, amplifier: Int) {
