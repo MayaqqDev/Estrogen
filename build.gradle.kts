@@ -102,7 +102,7 @@ cloche {
             implementation(libs.cosmetics)
 
             modCompileOnly(libs.kritter)
-            modCompileOnly(libs.cynosure)
+            modImplementation(libs.cynosure)
 
             localRuntime("net.minecrell:terminalconsoleappender:1.3.0")
         }
@@ -202,7 +202,7 @@ cloche {
             //modCompileOnly(libs.fabric.cobblemon)
             modCompileOnlyApi(libs.fabric.flywheel.api)
             modImplementation(libs.fabric.flywheel)
-            modImplementation(libs.fabric.cynosure)
+            //modImplementation(libs.fabric.cynosure)
             modImplementation(libs.fabric.kritter)
             modApi(libs.fabric.botarium)
 
@@ -210,7 +210,6 @@ cloche {
             localRuntime("io.github.douira:glsl-transformer:2.0.1")
 
             include(libs.fabric.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
-            include(libs.fabric.kritter) { isTransitive = false }
             include(libs.fabric.flywheel) { isTransitive = false }
             include(libs.fabric.botarium) { isTransitive = false }
             include(libs.cosmetics)
@@ -301,7 +300,7 @@ cloche {
             compileOnlyApi(libs.forge.jei)
             modCompileOnly(libs.forge.emi)
             //modCompileOnly(libs.forge.cobblemon)
-            modImplementation(libs.forge.cynosure)
+            //modImplementation(libs.forge.cynosure)
             modImplementation(libs.forge.kritter)
             modApi(libs.forge.botarium)
             modCompileOnly(libs.forge.oculus)
@@ -309,7 +308,6 @@ cloche {
             include(libs.forge.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
             include(libs.forge.mixinExtras) { isTransitive = false }
             include(libs.forge.flywheel) { isTransitive = false }
-            include(libs.forge.kritter) { isTransitive = false }
             include(libs.forge.botarium) { isTransitive = false }
             include(libs.cosmetics)
             include(libs.kittyconfig) {

@@ -28,7 +28,7 @@ cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.6+1.20.1"
 flywheel = "1.0.2"
-cynosure = "0.1.4"
+cynosure = "0.1.4.1"
 kittyconfig = "1.2.16"
 
 # Fabric Only Dependencies
@@ -56,7 +56,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kritter = { module = "uwu.serenity.kritter:kritter-common", version.ref = "kritter" }
 flywheel-api = { module = "dev.engine-room.flywheel:flywheel-common-mojmap-api-1.20.1", version.ref = "flywheel" }
-cynosure = { module = "dev.mayaqq.cynosure:cynosure-common", version.ref = "cynosure" }
+cynosure = { module = "dev.mayaqq.cynosure:cynosure", version.ref = "cynosure" }
 kittyconfig = { module = "uwu.serenity.kittyconfig:kittyconfig-mc", version.ref = "kittyconfig" }
 cosmetics = { module = "com.teamresourceful:resourceful-cosmetics-4j", version.ref = "resourceful_cosmetics" }
 
@@ -75,7 +75,7 @@ fabric-devauth = { module = "me.djtheredstoner:DevAuth-fabric", version.ref = "d
 fabric-kritter = { module = "uwu.serenity.kritter:kritter-fabric", version.ref = "kritter" }
 fabric-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-fabric-api-1.20.1", version.ref = "flywheel" }
 fabric-flywheel = { module = "dev.engine-room.flywheel:flywheel-fabric-1.20.1", version.ref = "flywheel" }
-fabric-cynosure = { module = "dev.mayaqq.cynosure:cynosure-fabric", version.ref = "cynosure" }
+# fabric-cynosure = { module = "dev.mayaqq.cynosure:cynosure-fabric", version.ref = "cynosure" }
 fabric-botarium = { module = "earth.terrarium.botarium:botarium-fabric-1.20.1", version.ref = "botarium" }
 fabric-sodium = { module = "maven.modrinth:sodium", version = "mc1.20.1-0.5.13-fabric" }
 fabric-indium = { module = "maven.modrinth:indium", version = "1.0.36+mc1.20.1" }
@@ -94,7 +94,7 @@ forge-devauth = { module = "me.djtheredstoner:DevAuth-forge-latest", version.ref
 forge-kritter = { module = "uwu.serenity.kritter:kritter-forge", version.ref = "kritter" }
 forge-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-forge-api-1.20.1", version.ref = "flywheel" }
 forge-flywheel = { module = "dev.engine-room.flywheel:flywheel-forge-1.20.1", version.ref = "flywheel" }
-forge-cynosure = { module = "dev.mayaqq.cynosure:cynosure-forge", version.ref = "cynosure" }
+# forge-cynosure = { module = "dev.mayaqq.cynosure:cynosure-forge", version.ref = "cynosure" }
 forge-botarium = { module = "earth.terrarium.botarium:botarium-forge-1.20.1", version.ref = "botarium" }
 forge-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
 forge-oculus = { module = "maven.modrinth:oculus", version = "1.20.1-1.8.0" }
