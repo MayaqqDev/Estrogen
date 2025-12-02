@@ -18,6 +18,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.NonNullList
 import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.ItemStack
@@ -46,8 +47,8 @@ class SpongingRecipe(val recipeId: ResourceLocation, val input: Either<Fluid, Ta
         return false
     }
 
-    override fun assemble(data: FluidData, registryAccess: RegistryAccess): ItemStack = throw UnsupportedOperationException()
-    override fun getResultItem(access: RegistryAccess): ItemStack = throw UnsupportedOperationException()
+    override fun assemble(data: FluidData, access: RegistryAccess): ItemStack = access.registry(Registries.FLUID).get().get(output)?.bucket?.defaultInstance ?: throw UnsupportedOperationException()
+    override fun getResultItem(access: RegistryAccess): ItemStack = access.registry(Registries.FLUID).get().get(output)?.bucket?.defaultInstance ?: throw UnsupportedOperationException()
     override fun getId(): ResourceLocation = recipeId
     override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.SPONGING
     override fun getType(): RecipeType<*> = EstrogenRecipes.SPONGING
