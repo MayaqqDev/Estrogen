@@ -28,7 +28,7 @@ cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.6+1.20.1"
 flywheel = "1.0.2"
-cynosure = "0.1.4.1"
+cynosure = "0.1.5"
 kittyconfig = "1.2.16"
 
 # Fabric Only Dependencies
@@ -42,7 +42,7 @@ flk = "1.11.0+kotlin.2.0.0"
 forge = "47.4.0"
 jei_file_id_forge = "7014291"
 klf = "2.10.5-k2.2.10-2.0+forge"
-kff = "4.11.0"
+kff = "4.12.0"
 
 [libraries]
 

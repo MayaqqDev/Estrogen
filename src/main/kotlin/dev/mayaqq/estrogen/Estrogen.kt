@@ -39,7 +39,6 @@ inline fun mcid(path: String) = ResourceLocation("minecraft", path)
 object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager by RegistryManager(MOD_ID), EstrogenModule {
 
     fun init() {
-        EstrogenFluids.fluidRegistry.initialize()
         EstrogenCommonConfig.load()
         EstrogenServerConfig.load()
 

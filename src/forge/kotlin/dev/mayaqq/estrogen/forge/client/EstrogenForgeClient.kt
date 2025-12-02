@@ -1,6 +1,6 @@
-@file:EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 package dev.mayaqq.estrogen.forge.client
 
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.THIGH_HIGH_ITEM_TEXTURES
 import dev.mayaqq.estrogen.client.THIGH_HIGH_MODELS_DIRECTORY
@@ -23,6 +23,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.RandomSource
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.client.ConfigScreenHandler
 import net.minecraftforge.client.event.ModelEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -30,41 +31,44 @@ import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 
+@EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = [Dist.CLIENT])
+object EstrogenForgeClient {
+    @SubscribeEvent
+    fun onClientInit(event: FMLClientSetupEvent) {
+        Estrogen.info("initializing estrogen client")
+        event.enqueueWork(::estrogenClient)
 
-@SubscribeEvent
-fun onClientInit(event: FMLClientSetupEvent) {
-    event.enqueueWork(::estrogenClient)
-
-    @Suppress("Deprecation", "Removal")
-    ModLoadingContext.get().activeContainer.registerExtensionPoint(
-        ConfigScreenHandler.ConfigScreenFactory::class.java
-    ) {
-        ConfigScreenHandler.ConfigScreenFactory { minecraft: Minecraft, screen: Screen ->
-            EstrogenMenuScreen(screen)
+        @Suppress("Deprecation", "Removal")
+        ModLoadingContext.get().activeContainer.registerExtensionPoint(
+            ConfigScreenHandler.ConfigScreenFactory::class.java
+        ) {
+            ConfigScreenHandler.ConfigScreenFactory { minecraft: Minecraft, screen: Screen ->
+                EstrogenMenuScreen(screen)
+            }
         }
+
     }
 
-}
-
-@SubscribeEvent
-fun loadAdditionModels(event: ModelEvent.RegisterAdditional) {
-    Minecraft.getInstance().resourceManager.listResourceIds(THIGH_HIGH_MODELS_DIRECTORY, "models", ".json")
-        .first
-        .forEach(event::register)
-}
-
-@SubscribeEvent
-fun modifyBakeResult(event: ModelEvent.ModifyBakingResult) {
-    val replaceIds: List<Pair<ResourceLocation, BakedModel>> = event.models.mapNotNull { (id, model) ->
-        if (model == null) return@mapNotNull null
-        if (id !is ModelResourceLocation) {
-            return@mapNotNull if (id == ClientDreamBlock.DORMANT_MODEL) id to model else null
-        }
-        if (id.namespace == MOD_ID && id.path == "dream_block") id to model else null
+    @SubscribeEvent
+    fun loadAdditionModels(event: ModelEvent.RegisterAdditional) {
+        Minecraft.getInstance().resourceManager.listResourceIds(THIGH_HIGH_MODELS_DIRECTORY, "models", ".json")
+            .first
+            .forEach(event::register)
     }
 
-    replaceIds.forEach { (id , model) ->
-        event.models[id] = ForgeConnectedModel(model, ClientDreamBlock.DORMANT_CONNECTED_TEXTURE)
+    @SubscribeEvent
+    fun modifyBakeResult(event: ModelEvent.ModifyBakingResult) {
+        val replaceIds: List<Pair<ResourceLocation, BakedModel>> = event.models.mapNotNull { (id, model) ->
+            if (model == null) return@mapNotNull null
+            if (id !is ModelResourceLocation) {
+                return@mapNotNull if (id == ClientDreamBlock.DORMANT_MODEL) id to model else null
+            }
+            if (id.namespace == MOD_ID && id.path == "dream_block") id to model else null
+        }
+
+        replaceIds.forEach { (id , model) ->
+            event.models[id] = ForgeConnectedModel(model, ClientDreamBlock.DORMANT_CONNECTED_TEXTURE)
+        }
     }
 }
 

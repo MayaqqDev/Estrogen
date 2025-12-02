@@ -265,8 +265,8 @@ cloche {
         datagenDirectory.set(file("build/generated/resources/forge"))
 
         metadata {
-            modLoader = "javafml"
-            loaderVersion("47")
+            modLoader = "kotlinforforge"
+            loaderVersion("4.0")
             blurLogo = false
             modProperty("catalogueItemIcon", "estrogen:estrogen_pill")
             modProperty("catalogueBackground", "estrogen_background.png")
@@ -304,6 +304,7 @@ cloche {
             modImplementation(libs.forge.kritter)
             modApi(libs.forge.botarium)
             modCompileOnly(libs.forge.oculus)
+            legacyClasspath(libs.cosmetics)
 
             include(libs.forge.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
             include(libs.forge.mixinExtras) { isTransitive = false }

@@ -2,6 +2,7 @@
 package dev.mayaqq.estrogen.fabric
 
 import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.items.MothElytraItem
 import net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents
 import net.minecraft.world.entity.EquipmentSlot
@@ -13,4 +14,5 @@ fun init() {
         val stack = entity.getItemBySlot(EquipmentSlot.CHEST)
         if (stack.item is MothElytraItem) isFlyEnabled(stack) else false
     }
+    EstrogenFluids.fluidRegistry.initialize()
 }
