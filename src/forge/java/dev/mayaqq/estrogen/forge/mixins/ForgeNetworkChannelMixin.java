@@ -5,6 +5,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+/**
+ * Fixes wrong direction specified in kittynetworking
+ * Should be 100% removed once kritter merge happens
+ */
 @Mixin(targets = {"uwu.serenity.kittynetwork.forge.ForgeNetworkChannel$ForgeConfigurationManager"})
 public class ForgeNetworkChannelMixin {
     @ModifyArg(
