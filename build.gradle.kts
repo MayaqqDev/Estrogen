@@ -283,6 +283,7 @@ cloche {
             }
             server {
                 runDir("runServer")
+                jvmArgs("--nogui")
                 jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
             }
             data() // NEEDED FOR GENERATED DATA TO ATTACH ON FORGE! SCREAM AT ASHLEY FOR THIS

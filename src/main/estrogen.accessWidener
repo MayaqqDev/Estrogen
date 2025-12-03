@@ -14,3 +14,4 @@ accessible method net/minecraft/client/resources/model/ModelBakery$ModelBakerImp
 
 # Forge fuckery
 accessible method net/minecraft/client/gui/screens/Screen init (Lnet/minecraft/client/Minecraft;II)V
+accessible field com/mojang/blaze3d/platform/GlStateManager BLEND Lcom/mojang/blaze3d/platform/GlStateManager$BlendState;
