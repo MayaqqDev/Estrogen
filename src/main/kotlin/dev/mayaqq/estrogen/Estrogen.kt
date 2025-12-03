@@ -76,7 +76,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         // Biome Modifiers
         BiomeModifiers.addFeature({
             it in Registries.BIOME.tag(if (isFabric) cid("climate_cold") else forgeid("is_cold/overworld")) &&
-            it in Registries.BIOME.tag(if (isFabric) cid("c:mountain") else forgeid("forge:is_mountain"))
+            it in Registries.BIOME.tag(if (isFabric) cid("mountain") else forgeid("is_mountain"))
           },
             GenerationStep.Decoration.SURFACE_STRUCTURES,
             ResourceKey.create(Registries.PLACED_FEATURE, id("memorial"))
