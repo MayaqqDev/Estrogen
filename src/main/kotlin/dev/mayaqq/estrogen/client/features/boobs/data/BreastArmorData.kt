@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.client.features.boobs.data
 
 import com.google.gson.JsonElement
+import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.TextureData
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.GsonHelper
 
@@ -12,6 +13,19 @@ data class BreastArmorData(
     val rightUV: Pair<Float, Float>,
     val textureSize: Pair<Float, Float>
 ) {
+
+    fun toTextureData(overlay: Boolean): TextureData? {
+        return if (overlay) {
+            this.toTextureData(overlayLocation)
+        } else this.toTextureData(textureLocation)
+    }
+
+    fun toTextureData(textureLocation: ResourceLocation?): TextureData? {
+        return if (textureLocation == null) null else {
+            TextureData(textureLocation, uv.first, uv.second, leftUV.first, leftUV.second, rightUV.first, rightUV.second, textureSize.first, textureSize.second)
+        }
+    }
+
     companion object {
         fun fromJson(jsonElement: JsonElement): BreastArmorData {
             val json = jsonElement.asJsonObject

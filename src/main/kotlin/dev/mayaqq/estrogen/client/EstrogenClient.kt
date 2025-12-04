@@ -19,7 +19,7 @@ import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.McPlayer
 import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
-import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobFeatureRenderer
+import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobFeatureLayer
 import dev.mayaqq.estrogen.client.content.entityRenderers.moth.MothModel
 import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraLayer
 import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraModel
@@ -71,7 +71,7 @@ internal fun addRenderLayers(event: RenderLayerRegistrationEvent) {
     event.addLayer(EntityType.ARMOR_STAND) { MothElytraLayer(it, event.models) }
     DefaultSkin.entries.forEach { skin ->
         event.addLayer(skin) { MothElytraLayer(it, event.models) }
-        event.addLayer(skin) { BoobFeatureRenderer(it, Minecraft.getInstance().modelManager) }
+        event.addLayer(skin) { BoobFeatureLayer(it, Minecraft.getInstance().modelManager) }
         event.addLayer(skin) { CosmeticRenderLayer(it) }
     }
 }
