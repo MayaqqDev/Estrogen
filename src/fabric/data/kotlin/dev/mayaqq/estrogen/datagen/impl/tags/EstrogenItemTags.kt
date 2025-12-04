@@ -8,6 +8,7 @@ import dev.mayaqq.estrogen.datagen.api.platform.PlatformHelper
 import dev.mayaqq.estrogen.datagen.api.tags.BaseTagProvider
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.core.HolderLookup
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Items
 import java.util.concurrent.CompletableFuture
 
@@ -74,5 +75,32 @@ class EstrogenItemTags(
             .add(EstrogenBlocks.DreamBlock.asItem())
         getOrCreateTagBuilder(EstrogenTags.Items.DISABLES_CAPE)
             .add(EstrogenItems.MothElytra)
+            .addOptional(ResourceLocation("mekanism", "hdpe_elytra"))
+            .addOptional(ResourceLocation("deeperdarker", "soul_elytra"))
+            .addOptional(ResourceLocation("mekanism", "jetpack"))
+            .addOptional(ResourceLocation("silentgear", "elytra"))
+            .addOptional(ResourceLocation("gtceu", "liquid_fuel_jetpack"))
+            .addOptional(ResourceLocation("gtceu", "electric_jetpack"))
+            .addOptional(ResourceLocation("gtceu", "advanced_electric_jetpack"))
+            .addOptional(ResourceLocation("endermanoverhaul", "savanna_hood"))
+            .addOptional(ResourceLocation("endermanoverhaul", "snowy_hood"))
+            .addOptional(ResourceLocation("endermanoverhaul", "badlands_hood"))
+            .addOptional(ResourceLocation("ironjetpacks", "jetpack"))
+        getOrCreateTagBuilder(EstrogenTags.Items.CHEST_FEATURE_DISABLED)
+            .addOptional(ResourceLocation("botania", "manasteel_chestplate"))
+            .addOptional(ResourceLocation("botania", "elementium_chestplate"))
+            .addOptional(ResourceLocation("botania", "terrasteel_chestplate"))
+            .addOptional(ResourceLocation("mythicbotany", "alfsteel_chestplate"))
+            .addOptional(ResourceLocation("eidolon", "bonelord_chestplate"))
+            .addOptional(ResourceLocation("silentgear", "chestplate"))
+            .addOptional(ResourceLocation("psi", "psimetal_exosuit_chestplate"))
+            .addOptional(ResourceLocation("tconstruct", "plate_chestplate"))
+            .addOptional(ResourceLocation("mekanism", "jetpack_armored"))
+            .addOptional(ResourceLocation("mekanism", "mekasuit_bodyarmor"))
+            .addOptional(ResourceLocation("advanced_ae", "quantum_chestplate"))
+            .addOptional(ResourceLocation("botania", "manaweave_chestplate"))
+            .addOptional(ResourceLocation("eidolon", "warlock_cloak"))
+            .addOptional(ResourceLocation("tconstruct", "travelers_chestplate"))
+
     }
 }
