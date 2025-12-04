@@ -16,6 +16,7 @@ import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
 import dev.mayaqq.cynosure.utils.*
 import dev.mayaqq.cynosure.utils.dfu.toCynosure
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.data.EntityTypeRecipeCodec
 import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData
@@ -110,8 +111,7 @@ private fun entityToEgg(entity: EntityType<*>): ItemStack? = SpawnEggItem.byId(e
 
 @Subscription
 fun onEntityInteraction(event: InteractionEvent.UseEntity) {
-    if (event.result == null) event.result = InteractionResult.PASS
-    if (event.level is ServerLevel) {
+    if (event.level is ServerLevel && event.phase == InteractionEvent.UseEntity.Phase.SPECIFIC) {
         event.level.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION).forEach { recipe ->
             val data = InteractionData(event.getUsedStack(),  event.entity, event.player as ServerPlayer)
             if (recipe.matches(data, event.level)) {
