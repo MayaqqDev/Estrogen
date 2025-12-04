@@ -159,16 +159,13 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
     @Unique
     private Optional<TextureData> estrogen$getArmorTexture(AbstractClientPlayer player, boolean overlay) {
         ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
-        var item = itemStack.getItem();
+        if (!(itemStack.getItem() instanceof ArmorItem item)) return Optional.empty();
         // Check if the item is not like air or some shit
-        if (!(item instanceof Equipable)) return Optional.empty();
         BreastArmorData data = BreastArmorDataLoader.INSTANCE.getData(BuiltInRegistries.ITEM.getKey(item));
         if (data != null) {
             return Optional.ofNullable(data.toTextureData(overlay));
         } else {
-            if (!(itemStack.getItem() instanceof ArmorItem armor)) return Optional.empty();
-
-            String texture = armor.getMaterial().getName();
+            String texture = item.getMaterial().getName();
             String domain = "minecraft";
             int idx = texture.indexOf(':');
             if (idx != -1) {
