@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.client
 
 //import dev.mayaqq.estrogen.config.Instance
 import dev.mayaqq.cynosure.client.entity.registerDefinition
+import dev.mayaqq.cynosure.client.events.ClientReloadListenerEvent
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.events.ParticleRenderTypeRegistrationEvent
 import dev.mayaqq.cynosure.client.events.entity.RenderLayerRegistrationEvent
@@ -12,12 +13,10 @@ import dev.mayaqq.cynosure.client.splash.data.CynosureSplashLoader
 import dev.mayaqq.cynosure.client.utils.DefaultSkin
 import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.core.isModLoaded
-import dev.mayaqq.cynosure.data.registerResourcepackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.McPlayer
-import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobFeatureLayer
 import dev.mayaqq.estrogen.client.content.entityRenderers.moth.MothModel
@@ -53,17 +52,20 @@ var chestConfigSet = false
 fun estrogenClient() {
     loadConfig(EstrogenClientConfig)
     CynosureSplashLoader.amount += 30
-    EstrogenKeybinds
     EstrogenRenderTypes
     CosmeticAPI
     HudOverlayRegistry.register(VanillaHud.FROSTBITE, id("dash"), DashOverlay)
     MothElytraModel.LAYER_LOCATION.registerDefinition(MothElytraModel.Companion::createBodyLayer)
     MothModel.LAYER_LOCATION.registerDefinition(MothModel::createBodyLayer)
     // registerResourcepackReloadListener(recipeId("dream_texture"), DreamTextureGenerator)
-    registerResourcepackReloadListener(id("estrogen_armor_data"), BreastArmorDataLoader)
 
     if (isModLoaded("ears")) EarsCompat.boob()
     if (isModLoaded("roughlyenoughitems")) ReiPluginRegister.register()
+}
+
+@Subscription
+internal fun onReloadListeners(event: ClientReloadListenerEvent) {
+    event.register(id("estrogen_armor_data"), BreastArmorDataLoader)
 }
 
 @Subscription
