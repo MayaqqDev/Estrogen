@@ -18,3 +18,8 @@ accessible field com/mojang/blaze3d/platform/GlStateManager BLEND Lcom/mojang/bl
 # Fabric fuckery apparently
 accessible field com/mojang/blaze3d/platform/GlStateManager$BooleanState enabled Z
 accessible field com/mojang/blaze3d/platform/GlStateManager DEPTH Lcom/mojang/blaze3d/platform/GlStateManager$DepthState;
+accessible field net/minecraft/client/gui/components/AbstractWidget x I
+accessible field net/minecraft/client/gui/components/AbstractWidget y I
+accessible field net/minecraft/client/gui/components/AbstractWidget width I
+accessible field net/minecraft/client/gui/components/AbstractWidget height I
+accessible field net/minecraft/client/gui/components/AbstractWidget isHovered Z

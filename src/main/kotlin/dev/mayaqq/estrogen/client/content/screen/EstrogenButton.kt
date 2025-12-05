@@ -6,7 +6,6 @@ import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.text.CommonText
 import dev.mayaqq.cynosure.utils.colors.*
 import dev.mayaqq.estrogen.client.cosmetics.Cosmetic
-import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
 import dev.mayaqq.estrogen.client.extensions.widgetHeight
 import dev.mayaqq.estrogen.client.extensions.widgetWidth
 import net.minecraft.client.gui.GuiGraphics
@@ -36,7 +35,7 @@ open class EstrogenButton(
 ) : Button(x, y, width, height, CommonText.EMPTY, onPress, createNarration) {
 
     override fun renderWidget(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        graphics.fill(x, y, x + width, y + height, -0x2FEFEFF0)
+        graphics.fill(this.x, this.y, x + width, y + height, -0x2FEFEFF0)
         if (disabled) {
             graphics.renderOutline(x + 1, y + 1, width - 2, height - 2,  color.darker().toInt())
         } else {
