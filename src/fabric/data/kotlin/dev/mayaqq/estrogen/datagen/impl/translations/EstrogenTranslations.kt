@@ -75,6 +75,7 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
 
         tb.add("block.estrogen.cookie_jar.tooltip", "A jar to _store_ all your _Cookies_!")
         tb.add("block.estrogen.dreamcatcher.tooltip", "Place to guard off all the _bad_ dreams away!")
+        tb.add("block.estrogen.colon_three.tooltip", "_Why?_")
 
         // Advancements
         tb.add("advancement.estrogen.root.title", "Estrogen")

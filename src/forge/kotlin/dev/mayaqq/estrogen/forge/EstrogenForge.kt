@@ -16,12 +16,6 @@ import thedarkcolour.kotlinforforge.forge.MOD_BUS
 object EstrogenForge {
     init {
         if (FMLEnvironment.dist == Dist.CLIENT) EstrogenRenderTypes
-        // TODO: Fix this in kritter to allow using eventBus on delegated interface things
-//        val delegate = Estrogen::class.java.declaredFields
-//            .first { it.type == RegistryManager::class.java }
-//            .apply { isAccessible = true }
-//            .get(Estrogen) as RegistryManager
-//        delegate.eventBus = MOD_BUS
         Estrogen.init()
         try {
             val field = FluidRegistry::class.java.getDeclaredField("registry")

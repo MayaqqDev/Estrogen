@@ -89,9 +89,9 @@ class ConfigEntryList(val entries: List<ConfigElement>, x: Int, y: Int, width: I
                     ElementType.LONG -> Entry(screen, element, ConfigTextWidget(element as ConfigField<Long>, guiWidth))
                     ElementType.SHORT -> Entry(screen, element, ConfigTextWidget(element as ConfigField<Short>, guiWidth))
                     ElementType.STRING ->  Entry(screen, element, ConfigTextWidget(element as ConfigField<String>, guiWidth))
-                    //is ElementType.COLLECTION -> TODO()
-                    //is ElementType.ENUM -> TODO()
-                    //is ElementType.OBJECT -> TODO()
+                    is ElementType.COLLECTION, is ElementType.ENUM, is ElementType.OBJECT -> {
+                        Entry(screen, element, StringWidget(guiWidth / 2 + 20, 5, 100, 20, Component.literal("Please edit in file"), McFont))
+                    }
                     else -> Entry(screen, element, StringWidget(guiWidth / 2 + 20, 5, 100, 20, Component.literal("ERROR"), McFont))
                 }
             }

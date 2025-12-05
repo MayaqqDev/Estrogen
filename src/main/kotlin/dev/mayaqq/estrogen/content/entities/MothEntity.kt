@@ -117,7 +117,6 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
                         getParticleType()
                     )
                 }
-                // TODO: Maybe play a cool sound?
                 this.playSound(EstrogenSounds.MOTH_FUZZ_UP)
                 this.fuzzingUp()
             }
