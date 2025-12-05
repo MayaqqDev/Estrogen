@@ -142,6 +142,7 @@ object EstrogenRenderer {
     fun afterEntities(event: LevelRenderEvent.AfterEntities) {
         shaderBypassTarget?.clear(Minecraft.ON_OSX)
         shaderBypassTarget?.copyDepthFrom(McClient.mainRenderTarget)
+        McClient.mainRenderTarget.bindWrite(false)
     }
 
     @Subscription
