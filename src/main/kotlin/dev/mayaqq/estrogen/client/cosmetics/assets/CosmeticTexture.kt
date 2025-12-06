@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture
 class CosmeticTexture(
     val texture: String,
     val id: String = texture.getUrlHash(),
-    val location: ResourceLocation = CosmeticAPI.id("textures/cosmetics/$id")
+    private val location: ResourceLocation = CosmeticAPI.id("textures/cosmetics/$id")
 ) {
 
     private var img: SimpleTexture? = null

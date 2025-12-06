@@ -2,6 +2,8 @@ package dev.mayaqq.estrogen.client.cosmetics
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
+import dev.mayaqq.cynosure.utils.colors.White
+import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.renderer.MultiBufferSource
@@ -51,7 +53,11 @@ class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player
             stack.translate(-0.5f, -0.5f, -0.5f)
         }
 
-        cosmetic.render(EstrogenRenderer::getCelShadedBuffer, stack, packedLight, OverlayTexture.NO_OVERLAY)
+        cosmetic.render(
+            EstrogenRenderer.getCelShaded(buffer),
+            EstrogenRenderTypes::entityCutoutNoDiffuse,
+            stack, White, packedLight, OverlayTexture.NO_OVERLAY
+        )
         stack.popPose()
     }
 }

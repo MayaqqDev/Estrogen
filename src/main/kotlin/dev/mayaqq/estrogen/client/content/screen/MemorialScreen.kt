@@ -28,7 +28,7 @@ class MemorialScreen(previous: Screen? = null) : BaseEstrogenScreen(previous, Te
         bClose.bounds(this.width / 2 - 100, this.height - 30, 200, 20).color(transBlue).buildAndAdd()
     }
 
-    override fun baseRender(
+    override fun beforeRender(
         graphics: GuiGraphics,
         mouseX: Int,
         mouseY: Int,

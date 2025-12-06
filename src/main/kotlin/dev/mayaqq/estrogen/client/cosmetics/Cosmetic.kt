@@ -12,6 +12,7 @@ import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.core.codecs.fieldOf
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
+import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.cynosure.utils.colors.White
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
 import dev.mayaqq.estrogen.MOD_ID
@@ -21,6 +22,8 @@ import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticModel
 import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticTexture
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.LightTexture
+import net.minecraft.client.renderer.MultiBufferSource
+import net.minecraft.client.renderer.RenderType
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import java.nio.file.Path
@@ -46,8 +49,10 @@ data class Cosmetic(
      * @param overlay UV Overlay
      */
     fun render(
-        buffer: (ResourceLocation) -> VertexConsumer,
+        bufferSource: MultiBufferSource,
+        renderType: (ResourceLocation) -> RenderType,
         stack: PoseStack,
+        color: Color,
         light: Int,
         overlay: Int
     ) {
@@ -55,7 +60,8 @@ data class Cosmetic(
             (model.result as? Animatable.Provider)?.animate(it, animationTime)
         }
         val model = model.result ?: return
-        model.render(buffer(texture.getResourceLocation()), stack, White, light, overlay)
+        val buffer = bufferSource.getBuffer(renderType(texture.getResourceLocation()))
+        model.render(buffer, stack, color, light, overlay)
     }
 
     companion object {

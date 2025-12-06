@@ -30,8 +30,6 @@ open class CosmeticsBaseScreen(previous: Screen?, title: Component, val ableToCl
         if (!ableToClaim) bClaimCosmetics.disabled(true)
         bClaimCosmetics.buildAndAdd()
     }
-    override fun baseRender(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {}
-
     override fun isPauseScreen(): Boolean = false
 
     companion object {

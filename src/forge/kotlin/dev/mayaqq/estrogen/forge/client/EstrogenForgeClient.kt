@@ -39,9 +39,7 @@ fun onClientInit(event: FMLClientSetupEvent) {
     ModLoadingContext.get().activeContainer.registerExtensionPoint(
         ConfigScreenHandler.ConfigScreenFactory::class.java
     ) {
-        ConfigScreenHandler.ConfigScreenFactory { minecraft: Minecraft, screen: Screen ->
-            EstrogenMenuScreen(screen)
-        }
+        ConfigScreenHandler.ConfigScreenFactory { minecraft, screen -> EstrogenMenuScreen(screen) }
     }
 
 }
