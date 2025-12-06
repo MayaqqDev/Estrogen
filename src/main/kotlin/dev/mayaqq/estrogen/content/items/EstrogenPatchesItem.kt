@@ -50,7 +50,7 @@ class EstrogenPatchesItem(properties: Properties) : Item(properties), Bauble, Bo
             MobEffectInstance(
                 EstrogenEffects.Estrogen,
                 EFFECT_DURATION,
-                EstrogenServerConfig.Patch.girlPowerLevel,
+                EstrogenServerConfig.Patch.girlPowerLevel - 1,
                 false,
                 false,
                 false
