@@ -39,7 +39,6 @@ internal class FabricConnectedModel(
         context.pushTransform { quad ->
             val original = spriteFinder.find(quad)
             val index = ClientDreamBlock.getConnectionForFace(blockView, pos, state, quad.lightFace())
-            Estrogen.info(index.toString())
             val uOffset = index % 8
             val vOffset = index / 8
 
