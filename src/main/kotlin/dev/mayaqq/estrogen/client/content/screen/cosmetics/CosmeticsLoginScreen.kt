@@ -43,7 +43,7 @@ class CosmeticsLoginScreen(previous: Screen?) : CosmeticsBaseScreen(previous, -"
         bLogin.bounds(20 + fakeThirdWidth + 80, height - 35, fakeThirdWidth * 2 - 160, 25).buildAndAdd()
     }
 
-    override fun baseRender(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+    override fun beforeRender(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         val fakeThirdWidth = (width - 30) / 3
         val x = (fakeThirdWidth * 2) + 20
         var y = ((height - 90) / 2) - (McFont.lineHeight * 3)

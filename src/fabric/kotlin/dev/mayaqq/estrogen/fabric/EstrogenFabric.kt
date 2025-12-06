@@ -5,6 +5,7 @@ import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.items.MothElytraItem
 import net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents
+import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.item.ElytraItem.isFlyEnabled
 

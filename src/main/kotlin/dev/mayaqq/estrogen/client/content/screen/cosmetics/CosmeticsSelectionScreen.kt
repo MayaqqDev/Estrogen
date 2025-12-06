@@ -4,6 +4,7 @@ import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.openUri
 import dev.mayaqq.cynosure.text.unaryMinus
 import dev.mayaqq.cynosure.text.unaryPlus
+import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import dev.mayaqq.estrogen.client.content.screen.EstrogenButton
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
 import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
@@ -62,5 +63,9 @@ class CosmeticsSelectionScreen(previous: Screen?) : CosmeticsBaseScreen(previous
         if (cosmetics.isEmpty()) {
             bPatreonAd.bounds(80 + fakeThirdWidth, 45 + ((height - 90) / 2), fakeThirdWidth * 2 - 140, 25).buildAndAdd()
         }
+    }
+
+    override fun afterRender(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+        EstrogenRenderer.drawCelOutlineOutsideLevelRender() // Do this here
     }
 }

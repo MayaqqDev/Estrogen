@@ -5,6 +5,8 @@ import dev.mayaqq.cynosure.client.utils.translate
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.text.CommonText
 import dev.mayaqq.cynosure.utils.colors.*
+import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
+import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import dev.mayaqq.estrogen.client.cosmetics.Cosmetic
 import dev.mayaqq.estrogen.client.extensions.widgetHeight
 import dev.mayaqq.estrogen.client.extensions.widgetWidth
@@ -12,6 +14,7 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.renderer.LightTexture
+import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.client.sounds.SoundManager
@@ -186,8 +189,10 @@ open class EstrogenButton(
                 rotateAround(rotation, 0.5f, 0.5f, 0.5f)
 
                 cosmetic.render(
-                    { graphics.bufferSource().getBuffer(RenderType.entityCutoutNoCull(it)) },
+                    EstrogenRenderer.getCelShaded(graphics.bufferSource()),
+                    EstrogenRenderTypes::entityCutoutNoDiffuse,
                     graphics.pose(),
+                    White,
                     LightTexture.FULL_BRIGHT,
                     OverlayTexture.NO_OVERLAY
                 )

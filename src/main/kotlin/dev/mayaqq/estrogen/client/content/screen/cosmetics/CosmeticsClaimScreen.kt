@@ -53,7 +53,7 @@ class CosmeticsClaimScreen(previous: Screen?) : CosmeticsBaseScreen(previous, -"
         codeBox.add()
     }
 
-    override fun baseRender(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+    override fun beforeRender(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         val fakeThirdWidth = (width - 30) / 3
         val x = (fakeThirdWidth * 2) + 20
         var y = ((height - 90) / 2) - (McFont.lineHeight * 3)
