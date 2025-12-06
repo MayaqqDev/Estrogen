@@ -1,6 +1,10 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
 import dev.mayaqq.multijarfixer.FixMultiRelease
+import kotlinx.serialization.json.buildJsonArray
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.put
 import net.msrandom.minecraftcodev.core.utils.toPath
 import net.msrandom.stubs.GenerateStubApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
@@ -93,14 +97,12 @@ cloche {
             modCompileOnly(libs.figura)
             modCompileOnly(libs.createNewAge)
             modImplementation(libs.kittyconfig)
-            include(libs.kittyconfig) { isTransitive = false }
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
             implementation(libs.cosmetics)
-            include(libs.cosmetics)
 
             modCompileOnly(libs.kritter)
-            modCompileOnly(libs.cynosure)
+            modImplementation(libs.cynosure)
 
             localRuntime("net.minecrell:terminalconsoleappender:1.3.0")
         }
@@ -131,7 +133,25 @@ cloche {
             }
         }
 
-        data()
+        data {
+            this.withMetadataJson {
+                 this.withElement {
+                     return@withElement buildJsonObject {
+                         this@withElement.forEach { this.put(it.key,it.value) }
+                         val newEntrypoints = buildJsonObject {
+                             this@withElement["entrypoints"]!!.jsonObject.forEach { this.put(it.key,it.value) }
+                             put("fabric-datagen", buildJsonArray {
+                                 add(buildJsonObject {
+                                     put("adapter","kotlin")
+                                     put("value","dev.mayaqq.estrogen.datagen.EstrogenDatagen")
+                                 })
+                             })
+                         }
+                         put("entrypoints",newEntrypoints)
+                     }
+                 }
+            }
+        }
 
         metadata {
             metadata {
@@ -182,7 +202,7 @@ cloche {
             //modCompileOnly(libs.fabric.cobblemon)
             modCompileOnlyApi(libs.fabric.flywheel.api)
             modImplementation(libs.fabric.flywheel)
-            modImplementation(libs.fabric.cynosure)
+            //modImplementation(libs.fabric.cynosure)
             modImplementation(libs.fabric.kritter)
             modApi(libs.fabric.botarium)
 
@@ -190,10 +210,9 @@ cloche {
             localRuntime("io.github.douira:glsl-transformer:2.0.1")
 
             include(libs.fabric.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
-            include(libs.fabric.kritter) { isTransitive = false }
             include(libs.fabric.flywheel) { isTransitive = false }
             include(libs.fabric.botarium) { isTransitive = false }
-
+            include(libs.cosmetics)
             include(libs.kittyconfig) {
                 isTransitive = false
                 artifact {
@@ -221,10 +240,6 @@ cloche {
                 adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric::init")
             }
-            entrypoint("fabric-datagen") {
-                adapter.set("kotlin")
-                value.set("dev.mayaqq.estrogen.datagen.EstrogenDatagen")
-            }
             entrypoint("modmenu") {
                 adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.fabric.compat.ModMenuIntegration")
@@ -250,8 +265,8 @@ cloche {
         datagenDirectory.set(file("build/generated/resources/forge"))
 
         metadata {
-            modLoader = "javafml"
-            loaderVersion("47")
+            modLoader = "kotlinforforge"
+            loaderVersion("4.0")
             blurLogo = false
             modProperty("catalogueItemIcon", "estrogen:estrogen_pill")
             modProperty("catalogueBackground", "estrogen_background.png")
@@ -268,6 +283,7 @@ cloche {
             }
             server {
                 runDir("runServer")
+                jvmArgs("--nogui")
                 jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
             }
             data() // NEEDED FOR GENERATED DATA TO ATTACH ON FORGE! SCREAM AT ASHLEY FOR THIS
@@ -285,16 +301,17 @@ cloche {
             compileOnlyApi(libs.forge.jei)
             modCompileOnly(libs.forge.emi)
             //modCompileOnly(libs.forge.cobblemon)
-            modImplementation(libs.forge.cynosure)
+            //modImplementation(libs.forge.cynosure)
             modImplementation(libs.forge.kritter)
             modApi(libs.forge.botarium)
             modCompileOnly(libs.forge.oculus)
+            legacyClasspath(libs.cosmetics)
 
             include(libs.forge.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
             include(libs.forge.mixinExtras) { isTransitive = false }
             include(libs.forge.flywheel) { isTransitive = false }
-            include(libs.forge.kritter) { isTransitive = false }
             include(libs.forge.botarium) { isTransitive = false }
+            include(libs.cosmetics)
             include(libs.kittyconfig) {
                 isTransitive = false
                 artifact {

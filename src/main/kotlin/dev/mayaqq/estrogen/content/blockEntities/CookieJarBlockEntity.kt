@@ -33,6 +33,7 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
             }
             val itemStack = jarItemStack.split(1)
             setChanged()
+            sync(false)
             return itemStack
         }
         return ItemStack.EMPTY
@@ -60,6 +61,7 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
             i++
         }
         setChanged()
+        sync(false)
         return itemStackCopy
     }
 
@@ -85,6 +87,7 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
             if (result.count == result.maxStackSize) break
         }
         setChanged()
+        sync(false)
         return result
     }
 
@@ -128,6 +131,10 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
         if(level?.isClientSide == true) updateOnClient() else sync(false)
     }
 
+    fun update() {
+        sync(false)
+    }
+
     fun updateOnClient() {
         VisualizationHelper.queueUpdate(this)
     }
@@ -149,7 +156,10 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
 
     override fun removeItem(slot: Int, count: Int): ItemStack {
         val itemStack = ContainerHelper.removeItem(items, slot, count)
-        if (!itemStack.isEmpty) setChanged()
+        if (!itemStack.isEmpty) {
+            setChanged()
+            sync(false)
+        }
         return itemStack
     }
 
@@ -166,6 +176,7 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
         }
 
         setChanged()
+        sync(false)
     }
 
     override fun stillValid(player: Player): Boolean {
@@ -187,7 +198,10 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
 
     private fun sync(saveAswell: Boolean = true) {
         if(saveAswell) setChanged()
-        if(this.level?.isClientSide == true) return
+        if(this.level?.isClientSide == true) {
+            updateOnClient()
+            return
+        }
         val level = this.level as? ServerLevel ?: return
         for (player in level.server.playerList.players) {
             player.connection.send(updatePacket)

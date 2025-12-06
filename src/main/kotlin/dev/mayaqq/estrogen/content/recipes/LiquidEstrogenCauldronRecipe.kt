@@ -6,6 +6,7 @@ import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
 import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.estrogen.content.EstrogenFluids
+import dev.mayaqq.estrogen.content.EstrogenItems
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
 import dev.mayaqq.estrogen.id
@@ -49,8 +50,8 @@ class LiquidEstrogenCauldronRecipe(val recipeId: ResourceLocation, val enabled: 
 
     }
 
-    override fun matches(container: Container, level: Level): Boolean =  throw UnsupportedOperationException()
-    override fun assemble(container: Container, registry: RegistryAccess): ItemStack = throw UnsupportedOperationException()
-    override fun canCraftInDimensions(x: Int, y: Int): Boolean = throw UnsupportedOperationException()
-    override fun getResultItem(registry: RegistryAccess): ItemStack = throw UnsupportedOperationException()
+    override fun matches(container: Container, level: Level): Boolean = false
+    override fun assemble(container: Container, registry: RegistryAccess): ItemStack = EstrogenFluids.LiquidEstrogen.bucket.defaultInstance
+    override fun canCraftInDimensions(x: Int, y: Int): Boolean = false
+    override fun getResultItem(registry: RegistryAccess): ItemStack = EstrogenFluids.LiquidEstrogen.bucket.defaultInstance
 }

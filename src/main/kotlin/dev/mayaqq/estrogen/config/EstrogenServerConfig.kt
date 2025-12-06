@@ -14,7 +14,7 @@ object EstrogenServerConfig : KittyConfig {
     object Patch {
 
         @Comment("The level of girl power you get from estrogen patches")
-        var girlPowerLevel: @Range(1, 255) Int = 0
+        var girlPowerLevel: @Range(1, 255) Int = 1
 
         @Comment("Enable the estrogen patch to drain")
         var drain: Boolean = true

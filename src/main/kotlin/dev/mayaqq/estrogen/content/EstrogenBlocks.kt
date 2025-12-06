@@ -21,10 +21,12 @@ import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.CreativeModeTabs
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.Rarity
+import net.minecraft.world.level.block.BedBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.CarpetBlock
 import net.minecraft.world.level.block.LayeredCauldronBlock
+import net.minecraft.world.level.block.state.properties.BedPart
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument
 import net.minecraft.world.level.material.MapColor
 import uwu.serenity.kritter.api.Registrar
@@ -82,30 +84,22 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
 
     val MothWool: Block by block("moth_wool", ::Block) {
         copyProperties(Blocks::ORANGE_WOOL)
-        item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
-        }
+        item(::BlockItem)
     }
 
     val QuiltedMothWool: Block by block("quilted_moth_wool", ::Block) {
         copyProperties(Blocks::ORANGE_WOOL)
-        item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
-        }
+        item(::BlockItem)
     }
 
     val MothCarpet: CarpetBlock by block("moth_wool_carpet", ::CarpetBlock) {
         copyProperties(Blocks::ORANGE_CARPET)
-        item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
-        }
+        item(::BlockItem)
     }
 
     val QuiltedMothCarpet: CarpetBlock by block("quilted_moth_wool_carpet", ::CarpetBlock) {
         copyProperties(Blocks::ORANGE_CARPET)
-        item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
-        }
+        item(::BlockItem)
     }
 
     val EstrogenPillBlock: EstrogenPillBlock by block("estrogen_pill_block", ::EstrogenPillBlock) {
@@ -114,9 +108,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             strength(1.0f, 1.0f)
             sound(EstrogenSoundTypes.PILL_BOX)
         }
-        item(::BlockItem) {
-            creativeTab(CreativeModeTabs.BUILDING_BLOCKS, TabPlacement.END)
-        }
+        item(::BlockItem)
     }
 
     val MothBed: ModelBedBlock by block("moth_bed", ::ModelBedBlock) {
@@ -127,9 +119,11 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
                 creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER { stack -> stack.`is`(ItemTags.BEDS) })
             }
         }
-        onRegister {
+        onRegister { bed ->
             //TODO: make this work on forge
-            if (currentLoader == Loader.FABRIC) PoiTypes.HOME.add(it)
+            if (currentLoader == Loader.FABRIC) {
+                PoiTypes.HOME.add(bed.stateDefinition.possibleStates.filter { it.getValue(BedBlock.PART) == BedPart.HEAD }.toMutableSet())
+            }
         }
     }
 
@@ -141,9 +135,11 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
                 creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER { stack -> stack.`is`(ItemTags.BEDS) })
             }
         }
-        onRegister {
+        onRegister { bed ->
             //TODO: make this work on forge
-            if (currentLoader == Loader.FABRIC) PoiTypes.HOME.add(it)
+            if (currentLoader == Loader.FABRIC) {
+                PoiTypes.HOME.add(bed.stateDefinition.possibleStates.filter { it.getValue(BedBlock.PART) == BedPart.HEAD }.toMutableSet())
+            }
         }
     }
 

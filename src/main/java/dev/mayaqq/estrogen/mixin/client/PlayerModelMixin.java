@@ -39,6 +39,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 import org.joml.Quaternionf;
@@ -97,7 +98,7 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
         if (isModLoaded("figura") && !FiguraCompat.renderBoobs(player)) return;
         if (this.estrogen$boobs == null) return;
         // Calling this here as well to check if the armor texture is empty in these specific circumstances... GOD I LOVE EDGECASES
-        if (Boob.fuckedUpArmorConfigCheck(player)) {
+        if (Boob.shouldShowArmor(player)) {
             if (estrogen$getArmorTexture(player, false).isEmpty()) return;
         }
 
@@ -157,18 +158,12 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
 
     @Unique
     private Optional<TextureData> estrogen$getArmorTexture(AbstractClientPlayer player, boolean overlay) {
-        String string;
         ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
         if (!(itemStack.getItem() instanceof ArmorItem item)) return Optional.empty();
-        BreastArmorData data;
-        if ((data = BreastArmorDataLoader.INSTANCE.getData(BuiltInRegistries.ITEM.getKey(item))) != null) {
-            if (overlay) {
-                return data.getOverlayLocation() != null ?
-                        Optional.of(new TextureData(data.getOverlayLocation(), data.getUv().getFirst(), data.getUv().getSecond(), data.getLeftUV().getFirst(), data.getLeftUV().getSecond(), data.getRightUV().getFirst(), data.getRightUV().getSecond(), data.getTextureSize().getFirst(), data.getTextureSize().getSecond())) :
-                        Optional.empty();
-            } else {
-                return Optional.of(new TextureData(data.getTextureLocation(), data.getUv().getFirst(), data.getUv().getSecond(), data.getLeftUV().getFirst(), data.getLeftUV().getSecond(), data.getRightUV().getFirst(), data.getRightUV().getSecond(), data.getTextureSize().getFirst(), data.getTextureSize().getSecond()));
-            }
+        // Check if the item is not like air or some shit
+        BreastArmorData data = BreastArmorDataLoader.INSTANCE.getData(BuiltInRegistries.ITEM.getKey(item));
+        if (data != null) {
+            return Optional.ofNullable(data.toTextureData(overlay));
         } else {
             String texture = item.getMaterial().getName();
             String domain = "minecraft";
@@ -177,11 +172,9 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
                 domain = texture.substring(0, idx);
                 texture = texture.substring(idx + 1);
             }
-            string = String.format(java.util.Locale.ROOT, "%s:textures/models/armor/%s_layer_1%s.png", domain, texture, overlay ? "_overlay" : "");
-            ResourceLocation location;
-            return (location = BoobRendering.getARMOR_TEXTURE_CACHE().computeIfAbsent(string, ResourceLocation::tryParse)) != null ?
-                    Optional.of(new TextureData(location, 20f, 23f, 18f, 23f, 28f, 23f, 64.0F, 32.0F)) :
-                    Optional.empty();
+            String string = String.format(java.util.Locale.ROOT, "%s:textures/models/armor/%s_layer_1%s.png", domain, texture, overlay ? "_overlay" : "");
+            ResourceLocation location = BoobRendering.getARMOR_TEXTURE_CACHE().computeIfAbsent(string, ResourceLocation::tryParse);
+            return location != null ? Optional.of(new TextureData(location, 20f, 23f, 18f, 23f, 28f, 23f, 64.0F, 32.0F)) : Optional.empty();
         }
     }
 

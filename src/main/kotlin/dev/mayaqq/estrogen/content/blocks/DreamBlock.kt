@@ -55,6 +55,7 @@ import org.apache.commons.codec.digest.MessageDigestAlgorithms
 import uwu.serenity.kritter.client.stdlib.clientOnly
 import uwu.serenity.kritter.stdlib.BlockEntityBlock
 import java.security.MessageDigest
+import kotlin.ranges.contains
 import kotlin.reflect.KClass
 
 class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<DreamBlockEntity> {
@@ -133,6 +134,7 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
 
     override fun randomTick(state: BlockState, level: ServerLevel, pos: BlockPos, random: RandomSource) {
         if (state.getValue(PERSISTENT)) return
+        if (level.dayTime % 24000L !in 12542..23460) return
 
         EstrogenServerConfig.DreamBlock.dreamingTickChance
             .also { if (it < 100 && random.nextIntBetweenInclusive(0, 100) > it) return }
@@ -170,19 +172,18 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
     override fun entityInside(state: BlockState, level: Level, pos: BlockPos, entity: Entity) {
         if (!canEntityUse(state, entity as? LivingEntity)) return
         entity.resetFallDistance()
-        if (entity is Player && level.isClientSide) {
-            refresh(entity)
-            if (lookAngle == null) {
-                lookAngle = entity.lookAngle
-            }
-
-            // if player hits a wall while inside dream blocks, make them bounce
-            // Vec3 movement = player.getDeltaMovement();
-            // if (movement.x() == 0 && lookAngle.x() != 0) lookAngle = lookAngle.multiply(-1, 1, 1);
-            // if (movement.y() == 0 && lookAngle.y() != 0) lookAngle = lookAngle.multiply(1, -1, 1);
-            // if (movement.z() == 0 && lookAngle.z() != 0) lookAngle = lookAngle.multiply(1, 1, -1);
-            entity.deltaMovement = lookAngle!!.scale(2.0)
+        if (entity !is Player) return
+        if (level.isClientSide) refresh(entity)
+        if (lookAngle == null) {
+            lookAngle = entity.lookAngle
         }
+
+        // if player hits a wall while inside dream blocks, make them bounce
+        // Vec3 movement = player.getDeltaMovement();
+        // if (movement.x() == 0 && lookAngle.x() != 0) lookAngle = lookAngle.multiply(-1, 1, 1);
+        // if (movement.y() == 0 && lookAngle.y() != 0) lookAngle = lookAngle.multiply(1, -1, 1);
+        // if (movement.z() == 0 && lookAngle.z() != 0) lookAngle = lookAngle.multiply(1, 1, -1);
+        entity.deltaMovement = lookAngle!!.scale(2.0)
     }
 
     override fun propagatesSkylightDown(state: BlockState, level: BlockGetter, pos: BlockPos): Boolean = false

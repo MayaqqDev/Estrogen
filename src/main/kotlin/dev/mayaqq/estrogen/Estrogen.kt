@@ -1,3 +1,4 @@
+@file:Suppress("NOTHING_TO_INLINE")
 package dev.mayaqq.estrogen
 
 import dev.mayaqq.cynosure.biome.BiomeModifiers
@@ -8,6 +9,7 @@ import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.cynosure.utils.colors.ForestGreen
 import dev.mayaqq.cynosure.utils.colors.LightBlue
+import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.tag
 import dev.mayaqq.estrogen.api.EstrogenEntrypoint
 import dev.mayaqq.estrogen.api.EstrogenFlag
@@ -31,18 +33,21 @@ import uwu.serenity.kritter.RegistryManager
 const val MOD_ID = "estrogen"
 const val MOD_NAME = "Estrogen"
 
+// id utility
 inline fun id(path: String) = ResourceLocation(MOD_ID, path)
 inline fun mcid(path: String) = ResourceLocation("minecraft", path)
+inline fun forgeid(path: String) = ResourceLocation("forge", path)
+inline fun cid(path: String) = ResourceLocation("c", path)
 
 @EventSubscriber
 @EstrogenEntrypoint
 object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager by RegistryManager(MOD_ID), EstrogenModule {
 
     fun init() {
-        EstrogenFluids.fluidRegistry.initialize()
+        // Config
         EstrogenCommonConfig.load()
         EstrogenServerConfig.load()
-
+        //Registries
         EstrogenAttributes.register()
         EstrogenSounds.register()
         EstrogenBlocks.register()
@@ -62,29 +67,27 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         EstrogenFeatures.register()
         EstrogenLootFunctions.register()
 
+        // Register Packets
+        EstrogenNetwork
+        // Reload Listeners
+        registerDatapackReloadListener(id("thigh_high_styles"), ThighHighStyleLoader)
+        // Forest Green
         ForestGreen
+        // Biome Modifiers
         BiomeModifiers.addFeature({
-            it.`is`(Registries.BIOME.tag(ResourceLocation(
-                if (currentLoader == Loader.FABRIC) "c:climate_cold" else "forge:is_cold/overworld"
-            ))) &&
-            it.`is`(Registries.BIOME.tag(ResourceLocation(
-                if (currentLoader == Loader.FABRIC) "c:mountain" else "forge:is_mountain"
-            )))
+            it in Registries.BIOME.tag(if (isFabric) cid("climate_cold") else forgeid("is_cold/overworld")) &&
+            it in Registries.BIOME.tag(if (isFabric) cid("mountain") else forgeid("is_mountain"))
           },
             GenerationStep.Decoration.SURFACE_STRUCTURES,
-            ResourceKey.create(
-                Registries.PLACED_FEATURE,
-                id("memorial")
-            )
+            ResourceKey.create(Registries.PLACED_FEATURE, id("memorial"))
         )
 
         info("Injecting Estrogen into your veins!")
-
-        registerDatapackReloadListener(id("thigh_high_styles"), ThighHighStyleLoader)
-
-        EstrogenNetwork
     }
 
+    private inline val isFabric get() = currentLoader == Loader.FABRIC
+
+    // Estrogen Module Info stuff
     override fun createConfigScreen(): (Screen) -> Screen = { EstrogenMenuScreen(it) }
     override val flags: Array<EstrogenFlag> = arrayOf()
     override val color: Color = LightBlue

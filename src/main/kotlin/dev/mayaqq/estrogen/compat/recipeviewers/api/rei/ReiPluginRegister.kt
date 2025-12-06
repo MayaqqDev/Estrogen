@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.compat.recipeviewers.api.rei
 
 import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.text.Text
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVRecipe
@@ -54,7 +55,7 @@ object ReiPluginRegister {
                     override fun registerDisplays(registry: DisplayRegistry) {
                         commonPlugin.plugin.recipes.forEach { data ->
                             registry.registerRecipeFiller(data.recipeClass.java, { type -> type == data.info.type }) { recipe ->
-                                ReiRecipe(data, data.crvrecipe.invoke(recipe))
+                                ReiRecipe(data, data.crvrecipe.invoke(recipe).apply { init() })
                             }
                         }
                     }
@@ -100,13 +101,13 @@ object ReiPluginRegister {
                             display.rvRecipe.drawables.forEach { drawable ->
                                 add(Widgets.createDrawableWidget { graphics, mouseX, mouseY, delta ->
                                     graphics.pushPop {
-                                        translate(bounds.getX().toDouble(), bounds.getY().toDouble() + 4, 0.0)
-                                        drawable.coorded.draw(graphics, drawable.x, drawable.y, mouseX, mouseY, delta)
+                                        translate(bounds.getX().toDouble() + drawable.x, bounds.getY().toDouble() + 4 + drawable.y, 0.0)
+                                        drawable.coorded.draw(graphics, 0, 0, mouseX, mouseY, delta)
                                     }
                                 })
                             }
                             display.rvRecipe.slots.forEach { slot ->
-                                val reiSlot = Widgets.createSlot(Point(bounds.x + slot.x, bounds.y + slot.y)).disableBackground()
+                                val reiSlot = Widgets.createSlot(Point(bounds.x + slot.x, bounds.y + slot.y + 4)).disableBackground()
                                 reiSlot.entries(slot.ingredient.toRei())
                                 when (slot.role) {
                                     Role.INPUT -> reiSlot.markInput()
@@ -114,7 +115,6 @@ object ReiPluginRegister {
                                     Role.CATALYST -> {}
                                     Role.RENDER_ONLY -> {}
                                 }
-                                add(reiSlot)
 
                                 add(Widgets.createDrawableWidget { graphics, mouseX, mouseY, delta ->
                                     graphics.pushPop {
@@ -122,6 +122,7 @@ object ReiPluginRegister {
                                         RecipeTextures.JEI_SLOT.render(graphics, slot.x - 1, slot.y - 1)
                                     }
                                 })
+                                add(reiSlot)
                             }
                         }
                     }

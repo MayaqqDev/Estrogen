@@ -3,6 +3,10 @@ package dev.mayaqq.estrogen.client.content.screen.config
 import dev.mayaqq.cynosure.helpers.McFont
 import dev.mayaqq.cynosure.utils.colors.Teal
 import dev.mayaqq.cynosure.utils.colors.Yellow
+import dev.mayaqq.estrogen.client.extensions.posX
+import dev.mayaqq.estrogen.client.extensions.posY
+import dev.mayaqq.estrogen.client.extensions.widgetHeight
+import dev.mayaqq.estrogen.client.extensions.widgetWidth
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.network.chat.Component
@@ -27,16 +31,16 @@ class ConfigSelectionButton(
 
     override fun render(graphics: GuiGraphics, mouseX: Int, mouseY: Int, delta: Float) {
         if (isHoveredOrFocused && (enlarged == null || !enlarged!!)) {
-            this.x -= 5
-            this.y -= 5
-            this.width += 10
-            this.height += 10
+            this.posX -= 5
+            this.posY -= 5
+            this.widgetWidth += 10
+            this.widgetHeight += 10
             enlarged = true
         } else if (!isHoveredOrFocused && enlarged == true) {
-            this.x += 5
-            this.y += 5
-            this.width -= 10
-            this.height -= 10
+            this.posX += 5
+            this.posY += 5
+            this.widgetWidth -= 10
+            this.widgetHeight -= 10
             enlarged = false
         }
         super.render(graphics, mouseX, mouseY, delta)

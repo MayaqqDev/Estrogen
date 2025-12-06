@@ -10,8 +10,10 @@ in vec2 oneTexel;
 out vec4 fragColor;
 
 void make_kernel(inout float n[9], sampler2D color, vec2 coord) {
-    float w = 3.0 / InSize.x;
-    float h = 3.0 / InSize.y;
+    vec2 AspectRatio = normalize(InSize);
+    // Make it always the same thickness as on 1440p (2560x1440)
+    float w = 1.0 / (853 * AspectRatio.x);
+    float h = 1.0 / (853 * AspectRatio.y);
 
     n[0] = texture(color, coord + vec2( -w, -h)).a;
     n[1] = texture(color, coord + vec2(0.0, -h)).a;

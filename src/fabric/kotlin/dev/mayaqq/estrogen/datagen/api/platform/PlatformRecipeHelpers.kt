@@ -49,9 +49,23 @@ object ForgeRecipeHelper: PlatformRecipeHelper {
 
     override fun name(name: String): String = "$name (Forge)"
 
-    override fun commonTag(name: String): TagKey<Item> = Registries.ITEM.tag(ResourceLocation("forge", name))
+    override fun commonTag(name: String): TagKey<Item> {
+        return Registries.ITEM.tag(ResourceLocation("forge",
+            when (name) {
+                "copper_plates" -> "plates/copper"
+                "zinc_nuggets" -> "nuggets/zinc"
+                else -> name
+            }
+        ))
+    }
 
-    override fun fluidAmount(amount: Long): Long = amount
+    override fun fluidAmount(amount: Long): Long {
+        val fabricBucket = 81000.0
+        val forgeBucket = 1000.0
+        if (amount == 27000L) return 250
+        if (amount == 54000L) return 500
+        return (((amount / fabricBucket) * forgeBucket).toLong())
+    }
 
     override fun isModLoaded(modId: String): PlatformRecipeHelper.EstrogenLoadCondition {
         val conditions = JsonArray()

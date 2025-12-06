@@ -11,7 +11,8 @@
     "ItemParserMixin",
     "PistonMovingBlockEntityMixin",
     "PlayerMixin",
-    "RecordItemMixin"
+    "RecordItemMixin",
+    "ServerGamePacketListenerImplMixin"
   ],
   "client": [
     "client.AdvancementTabMixin",
@@ -27,6 +28,7 @@
     "client.accessor.ItemPropertiesAccessor",
     "client.accessor.LevelRendererAccessor",
     "client.accessor.ModelManagerAccessor",
+    "client.accessor.AbstractWidgetAccessor",
     "client.compat.emi.EmiAgnosMixin"
   ],
   "injectors": {

@@ -38,7 +38,7 @@ class FluidBuilder<S : BotariumSourceFluid, F : BotariumFlowingFluid>(
 ) : Builder<Fluid, S>(name, owner, callback) {
 
     private var fluidData: FluidData? = null
-    private var flowingWrapper: RegistryEntry<F>? = null
+    var flowingWrapper: RegistryEntry<F>? = null
     private var blockEntry: RegistryEntry<BotariumLiquidBlock>? = null
     private var bucketEntry: RegistryEntry<FluidBucketItem>? = null
     private var _properties: ((FluidProperties.Builder) -> Unit)? = null
@@ -53,7 +53,7 @@ class FluidBuilder<S : BotariumSourceFluid, F : BotariumFlowingFluid>(
         flowingWrapper = owner.getCallback<F>().invoke(flowingKey, null, this::createFlowingEntry, this::wrapFlowing)
     }
 
-    fun renderType(renderType: () -> RenderType) {
+    inline fun renderType(crossinline renderType: () -> RenderType) {
         onRegister {
             clientOnly {
                 RenderLayerMap.putFluid(it, renderType.invoke())

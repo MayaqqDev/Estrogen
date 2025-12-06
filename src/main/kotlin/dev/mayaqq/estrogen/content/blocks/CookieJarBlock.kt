@@ -127,7 +127,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
                     EstrogenSounds.JAR_INSERT,
                     SoundSource.BLOCKS,
                     1.0f,
-                    0.7f + 0.5f * (cookieJarBlockEntity.count as Float / 512)
+                    0.7f + 0.5f * (cookieJarBlockEntity.count.toFloat() / 512)
                 )
                 if (level is ServerLevel) {
                     player.inventory.placeItemBackInInventory(jarItemStack)

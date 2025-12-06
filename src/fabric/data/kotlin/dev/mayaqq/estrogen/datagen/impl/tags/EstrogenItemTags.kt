@@ -8,6 +8,7 @@ import dev.mayaqq.estrogen.datagen.api.platform.PlatformHelper
 import dev.mayaqq.estrogen.datagen.api.tags.BaseTagProvider
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.core.HolderLookup
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Items
 import java.util.concurrent.CompletableFuture
 
@@ -63,6 +64,17 @@ class EstrogenItemTags(
         getOrCreateTagBuilder(EstrogenTags.Items.CHEST_ARMOR_IGNORE)
             .add(Items.ELYTRA)
             .add(EstrogenItems.MothElytra)
+            .addOptional(ResourceLocation("mekanism", "hdpe_elytra"))
+            .addOptional(ResourceLocation("deeperdarker", "soul_elytra"))
+            .addOptional(ResourceLocation("mekanism", "jetpack"))
+            .addOptional(ResourceLocation("silentgear", "elytra"))
+            .addOptional(ResourceLocation("gtceu", "liquid_fuel_jetpack"))
+            .addOptional(ResourceLocation("gtceu", "electric_jetpack"))
+            .addOptional(ResourceLocation("gtceu", "advanced_electric_jetpack"))
+            .addOptional(ResourceLocation("endermanoverhaul", "savanna_hood"))
+            .addOptional(ResourceLocation("endermanoverhaul", "snowy_hood"))
+            .addOptional(ResourceLocation("endermanoverhaul", "badlands_hood"))
+            .addOptional(ResourceLocation("ironjetpacks", "jetpack"))
         getOrCreateTagBuilder(EstrogenTags.Items.NON_RECOLORABLE)
             .add(EstrogenBlocks.MothWool.asItem())
             .add(EstrogenBlocks.MothCarpet.asItem())
@@ -74,5 +86,36 @@ class EstrogenItemTags(
             .add(EstrogenBlocks.DreamBlock.asItem())
         getOrCreateTagBuilder(EstrogenTags.Items.DISABLES_CAPE)
             .add(EstrogenItems.MothElytra)
+        getOrCreateTagBuilder(EstrogenTags.Items.CHEST_FEATURE_DISABLED)
+            .addOptional(ResourceLocation("botania", "manasteel_chestplate"))
+            .addOptional(ResourceLocation("botania", "elementium_chestplate"))
+            .addOptional(ResourceLocation("botania", "terrasteel_chestplate"))
+            .addOptional(ResourceLocation("mythicbotany", "alfsteel_chestplate"))
+            .addOptional(ResourceLocation("eidolon", "bonelord_chestplate"))
+            .addOptional(ResourceLocation("silentgear", "chestplate"))
+            .addOptional(ResourceLocation("psi", "psimetal_exosuit_chestplate"))
+            .addOptional(ResourceLocation("tconstruct", "plate_chestplate"))
+            .addOptional(ResourceLocation("mekanism", "jetpack_armored"))
+            .addOptional(ResourceLocation("mekanism", "mekasuit_bodyarmor"))
+            .addOptional(ResourceLocation("advanced_ae", "quantum_chestplate"))
+            .addOptional(ResourceLocation("botania", "manaweave_chestplate"))
+            .addOptional(ResourceLocation("eidolon", "warlock_cloak"))
+            .addOptional(ResourceLocation("tconstruct", "travelers_chestplate"))
+            .addOptional(ResourceLocation("everythingcopper", "copper_chestplate"))
+            //TODO: someone do these so I don't have to disable em pls
+            .addOptional(ResourceLocation("ars_nouveau", "battlemage_robes"))
+            .addOptional(ResourceLocation("ars_nouveau", "arcanist_robes"))
+            .addOptional(ResourceLocation("ars_nouveau", "sorcerer_robes"))
+            .addOptional(ResourceLocation("tconstruct", "slime_chestplate"))
+            .addOptional(ResourceLocation("irons_spellbooks", "pumpkin_chestplate"))
+            .addOptional(ResourceLocation("irons_spellbooks", "electromancer_chestplate"))
+            .addOptional(ResourceLocation("irons_spellbooks", "cultist_chestplate"))
+            .addOptional(ResourceLocation("irons_spellbooks", "cryomancer_chestplate"))
+            .addOptional(ResourceLocation("irons_spellbooks", "shadowwalker_chestplate"))
+            .addOptional(ResourceLocation("irons_spellbooks", "plagued_chestplate"))
+            .addOptional(ResourceLocation("irons_spellbooks", "priest_chestplate"))
+            .addOptional(ResourceLocation("irons_spellbooks", "pyromancer_chestplate"))
+            .addOptional(ResourceLocation("irons_spellbooks", "archevoker_chestplate"))
+
     }
 }

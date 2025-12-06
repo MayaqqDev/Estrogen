@@ -137,7 +137,7 @@ class BoobArmorRenderer {
         if (!this.visible) {
             return
         }
-        if (this.models!!.isEmpty()) {
+        if (this.models?.isEmpty() == true) {
             return
         }
         if (this.u != u || this.v != v || this.leftU != leftU || this.leftV != leftV || this.rightU != rightU || this.rightV != rightV || this.textureWidth != textureWidth || this.textureHeight != textureHeight) {

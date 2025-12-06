@@ -11,7 +11,15 @@ extendable method net/minecraft/data/tags/TagsProvider getName ()Ljava/lang/Stri
 accessible method net/minecraft/data/loot/BlockLootSubProvider createSilkTouchOnlyTable (Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/level/storage/loot/LootTable$Builder;
 accessible class net/minecraft/client/resources/model/ModelBakery$ModelBakerImpl
 accessible method net/minecraft/client/resources/model/ModelBakery$ModelBakerImpl <init> (Lnet/minecraft/client/resources/model/ModelBakery;Ljava/util/function/BiFunction;Lnet/minecraft/resources/ResourceLocation;)V
-accessible field net/minecraft/client/gui/components/AbstractWidget height I
+
+# Forge fuckery
+accessible method net/minecraft/client/gui/screens/Screen init (Lnet/minecraft/client/Minecraft;II)V
+accessible field com/mojang/blaze3d/platform/GlStateManager BLEND Lcom/mojang/blaze3d/platform/GlStateManager$BlendState;
+# Fabric fuckery apparently
+accessible field com/mojang/blaze3d/platform/GlStateManager$BooleanState enabled Z
+accessible field com/mojang/blaze3d/platform/GlStateManager DEPTH Lcom/mojang/blaze3d/platform/GlStateManager$DepthState;
 accessible field net/minecraft/client/gui/components/AbstractWidget x I
 accessible field net/minecraft/client/gui/components/AbstractWidget y I
 accessible field net/minecraft/client/gui/components/AbstractWidget width I
+accessible field net/minecraft/client/gui/components/AbstractWidget height I
+accessible field net/minecraft/client/gui/components/AbstractWidget isHovered Z
