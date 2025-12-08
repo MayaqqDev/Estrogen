@@ -33,7 +33,7 @@ object EstrogenServerConfig : KittyConfig {
     object DreamBlock {
 
         @Comment("Horizontal range from a dream block in which the dreaming effect can be applied to sleeping players")
-        var dreamingEffectRange: Int = 20
+        var dreamingEffectRange: Int = 10
 
         @Comment("Chance for a random tick to cause the dreaming effect to be applied in percent")
         var dreamingTickChance: @Range(0, 100) Int = 25
