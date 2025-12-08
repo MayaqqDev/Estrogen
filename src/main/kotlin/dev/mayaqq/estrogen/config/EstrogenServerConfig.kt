@@ -36,7 +36,7 @@ object EstrogenServerConfig : KittyConfig {
         var dreamingEffectRange: Int = 20
 
         @Comment("Chance for a random tick to cause the dreaming effect to be applied in percent")
-        var dreamingTickChance: @Range(0, 100) Int = 100
+        var dreamingTickChance: @Range(0, 100) Int = 25
 
         @Comment("Range from a dream catcher for a player to be to block the Dreaming Effect")
         var dreamCatcherRange: Int = 10
