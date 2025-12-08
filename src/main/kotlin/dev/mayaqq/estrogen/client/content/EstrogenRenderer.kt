@@ -5,7 +5,10 @@ import com.mojang.blaze3d.pipeline.RenderTarget
 import com.mojang.blaze3d.pipeline.TextureTarget
 import com.mojang.blaze3d.platform.GlStateManager
 import com.mojang.blaze3d.systems.RenderSystem
-import com.mojang.blaze3d.vertex.*
+import com.mojang.blaze3d.vertex.BufferBuilder
+import com.mojang.blaze3d.vertex.BufferUploader
+import com.mojang.blaze3d.vertex.DefaultVertexFormat
+import com.mojang.blaze3d.vertex.VertexMultiConsumer
 import dev.engine_room.flywheel.lib.model.baked.PartialModel
 import dev.engine_room.flywheel.lib.util.ShadersModHelper
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
@@ -23,7 +26,6 @@ import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.render.blitWithDepth
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap
-import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.PostChain
@@ -31,7 +33,6 @@ import net.minecraft.client.renderer.RenderStateShard.OutputStateShard
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.ShaderInstance
 import org.lwjgl.opengl.GL11
-import java.util.WeakHashMap
 
 @EventSubscriber(Environment.CLIENT)
 object EstrogenRenderer {
@@ -104,15 +105,7 @@ object EstrogenRenderer {
         )
         dreamingEffect?.resize(minecraft.window.width, minecraft.window.height)
 
-        val celshade = PostChain(
-            minecraft.textureManager,
-            minecraft.resourceManager,
-            minecraft.mainRenderTarget,
-            id("shaders/post/cel.json")
-        )
-        celshade.resize(minecraft.window.width, minecraft.window.height)
-        celshadeEffect = celshade
-        celshadeTarget = celshade.getTempTarget("input")
+        initCelShade()
 
         if (isShaderPackInUse) {
             if (shaderBypassTarget == null) shaderBypassTarget = TextureTarget(
@@ -122,6 +115,18 @@ object EstrogenRenderer {
             shaderBypassTarget?.destroyBuffers()
             shaderBypassTarget = null
         }
+    }
+
+    private fun initCelShade() {
+        val celshade = PostChain(
+            McClient.textureManager,
+            McClient.resourceManager,
+            McClient.mainRenderTarget,
+            id("shaders/post/cel.json")
+        )
+        celshade.resize(McClient.window.width, McClient.window.height)
+        celshadeEffect = celshade
+        celshadeTarget = celshade.getTempTarget("input")
     }
 
     @Subscription
@@ -192,6 +197,8 @@ object EstrogenRenderer {
     }
 
     fun drawCelOutlineOutsideLevelRender() {
+
+        if(celshadeEffect == null) initCelShade()
 
         RenderSystem.disableDepthTest()
 
