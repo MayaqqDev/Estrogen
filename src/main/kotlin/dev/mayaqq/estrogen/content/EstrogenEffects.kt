@@ -15,5 +15,5 @@ object EstrogenEffects : Registrar<MobEffect> by Estrogen..Registries.MOB_EFFECT
     @JvmStatic
     val Estrogen: EstrogenEffect by entry("estrogen", {EstrogenEffect(MobEffectCategory.BENEFICIAL, 104164161)})
 
-    val Dreaming: DreamingEffect by entry("dreaming", fun() = DreamingEffect(MobEffectCategory.BENEFICIAL, EstrogenColors.DREAM_BLOCK))
+    val Dreaming: DreamingEffect by entry("dreaming", fun() = DreamingEffect(MobEffectCategory.NEUTRAL, EstrogenColors.DREAM_BLOCK))
 }
