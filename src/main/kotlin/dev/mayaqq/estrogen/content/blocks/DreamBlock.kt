@@ -133,7 +133,6 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
     override fun isRandomlyTicking(state: BlockState): Boolean = !state.getValue(PERSISTENT)
 
     override fun randomTick(state: BlockState, level: ServerLevel, pos: BlockPos, random: RandomSource) {
-        if (random.nextInt(4) != 1) return
         if (state.getValue(PERSISTENT)) return
         if (level.dayTime % 24000L !in 12542..23460) return
 
@@ -147,8 +146,7 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         ).move(pos)
 
         val entities = level.getPlayers {
-            it.isSleeping
-                    && aabb.contains(it.position()) && !it.hasEffect(EstrogenEffects.Dreaming)
+            it.isSleeping && aabb.contains(it.position()) && !it.hasEffect(EstrogenEffects.Dreaming)
         }
 
         if (entities.isEmpty()) return

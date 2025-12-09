@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.client.content.screen
 
+import com.mojang.blaze3d.systems.RenderSystem
 import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.client.utils.translate
 import dev.mayaqq.cynosure.helpers.McClient
@@ -14,8 +15,6 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.renderer.LightTexture
-import net.minecraft.client.renderer.MultiBufferSource
-import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.client.sounds.SoundManager
 import net.minecraft.network.chat.Component
@@ -23,6 +22,8 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import org.joml.Quaternionf
 import kotlin.math.min
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.TimeSource
 
 open class EstrogenButton(
     x: Int,
@@ -169,34 +170,52 @@ open class EstrogenButton(
     }
 
     open class CosmeticRenderer(val cosmetic: Cosmetic) : Renderer {
+
+        private var lastHovered = false
+        private var lastHoverTime: TimeSource.Monotonic.ValueTimeMark = TimeSource.Monotonic.markNow() - 0.5.seconds
+
         override fun EstrogenButton.renderComponents(
             graphics: GuiGraphics,
             mouseX: Int,
             mouseY: Int,
             partialTick: Float
         ) {
+
+            if (lastHovered != isHovered) {
+                lastHoverTime = TimeSource.Monotonic.markNow()
+                lastHovered = isHovered
+            }
+
             val x = this.x + this.widgetWidth / 2f
             val y = this.y + this.widgetHeight / 2f
             val scale = min(this.widgetWidth, this.widgetHeight) / 32f
 
             val yRot = Mth.wrapDegrees(System.currentTimeMillis().toDouble() / 25.0).toFloat()
-            val rotation = Quaternionf().rotateZYX(Mth.PI, yRot * Mth.DEG_TO_RAD, 6 * Mth.DEG_TO_RAD)
+            val rotation = Quaternionf().rotateZYX(0f, yRot * Mth.DEG_TO_RAD, 6 * Mth.DEG_TO_RAD)
 
             graphics.pushPop {
                 translate(x, y, 1000)
-                scale(16f * scale, 16f * scale, 16f * scale)
+                scale(16f * scale, -16f * scale, 16f * scale)
                 translate(-0.5f, -0.5f, 0f)
                 rotateAround(rotation, 0.5f, 0.5f, 0.5f)
 
+                val overlayTime = lastHoverTime.elapsedNow()
+                val o = if (overlayTime > 0.3.seconds) 1f else overlayTime.inWholeMilliseconds / 300f
+                val overlay = if (isHovered) o else 1f - o
+
+                RenderSystem.enableDepthTest()
                 cosmetic.render(
                     EstrogenRenderer.getCelShaded(graphics.bufferSource()),
                     EstrogenRenderTypes::entityCutoutNoDiffuse,
                     graphics.pose(),
                     White,
                     LightTexture.FULL_BRIGHT,
-                    OverlayTexture.NO_OVERLAY
+                    OverlayTexture.pack(overlay * 0.5f, false)
                 )
             }
+
+            graphics.flush()
+            RenderSystem.disableDepthTest()
         }
 
     }
