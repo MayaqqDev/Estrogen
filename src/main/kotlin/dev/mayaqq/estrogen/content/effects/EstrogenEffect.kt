@@ -90,8 +90,6 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
             )
         }
 
-        super.addAttributeModifiers(entity, attributes, amplifier)
-
         val dashModifier = AttributeModifier(
             dashModifierUUID,
             "Dash Level",
