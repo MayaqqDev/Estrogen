@@ -59,22 +59,22 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         super.removeAttributeModifiers(entity, attributes, amplifier)
         removeDashing(entity.uuid)
 
-        if (entity is ServerPlayer) {
-            sendRemovePlayerStatusEffect(
-                entity,
-                EstrogenEffects.Estrogen,
-                *tracking(entity).toTypedArray()
-            )
-        }
-
         if (entity is Player) {
+            if (entity is ServerPlayer) {
+                sendRemovePlayerStatusEffect(
+                    entity,
+                    EstrogenEffects.Estrogen,
+                    *tracking(entity).toTypedArray()
+                )
+            }
+
             entity.getAttribute(EstrogenAttributes.DashLevel)?.removeModifier(dashModifierUUID)
             entity.getAttribute(EstrogenAttributes.ShowBoobs)?.removeModifier(boobModifierUUID)
-        }
 
-        if (entity is Player && !Boob.shouldShow(entity)) {
-            entity.getAttribute(EstrogenAttributes.BoobInitialSize)?.baseValue = 0.0
-            entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)?.baseValue = -1.0
+            if (!Boob.shouldShow(entity)) {
+                entity.getAttribute(EstrogenAttributes.BoobInitialSize)?.baseValue = 0.0
+                entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)?.baseValue = -1.0
+            }
         }
     }
 
@@ -96,24 +96,21 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
             (amplifier + 1).toDouble(),
             AttributeModifier.Operation.ADDITION
         )
-        entity.getAttribute(EstrogenAttributes.DashLevel)?.removeModifier(dashModifierUUID)
         entity.getAttribute(EstrogenAttributes.DashLevel)?.addPermanentModifier(dashModifier)
 
-        entity.getAttribute(EstrogenAttributes.ShowBoobs)?.removeModifier(boobModifierUUID)
-        entity.getAttribute(EstrogenAttributes.ShowBoobs)?.addPermanentModifier(
-            AttributeModifier(
-                boobModifierUUID,
-                "Show Boobs",
-                1.0,
-                AttributeModifier.Operation.ADDITION
-            )
+        val boobModifier = AttributeModifier(
+            boobModifierUUID,
+            "Show Boobs",
+            1.0,
+            AttributeModifier.Operation.ADDITION
         )
+        entity.getAttribute(EstrogenAttributes.ShowBoobs)?.addPermanentModifier(boobModifier)
 
         val startTime = entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)
         // should fix crash related to applying effect to entity without given attribute
         if (startTime != null && startTime.baseValue < 0.0) {
             val currentTime = currentTime(entity.level())
-            entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)!!.baseValue = currentTime
+            startTime.baseValue = currentTime
         }
     }
 
