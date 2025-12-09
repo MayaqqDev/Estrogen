@@ -146,8 +146,7 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         ).move(pos)
 
         val entities = level.getPlayers {
-            it.isSleeping
-                    && aabb.contains(it.position()) && !it.hasEffect(EstrogenEffects.Dreaming)
+            it.isSleeping && aabb.contains(it.position()) && !it.hasEffect(EstrogenEffects.Dreaming)
         }
 
         if (entities.isEmpty()) return
