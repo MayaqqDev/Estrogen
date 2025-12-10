@@ -70,7 +70,6 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
 
             entity.getAttribute(EstrogenAttributes.DashLevel)?.removeModifier(dashModifierUUID)
             entity.getAttribute(EstrogenAttributes.ShowBoobs)?.removeModifier(boobModifierUUID)
-
             if (!Boob.shouldShow(entity)) {
                 entity.getAttribute(EstrogenAttributes.BoobInitialSize)?.baseValue = 0.0
                 entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)?.baseValue = -1.0
@@ -106,11 +105,11 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         )
         entity.getAttribute(EstrogenAttributes.ShowBoobs)?.addPermanentModifier(boobModifier)
 
-        val startTime = entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)
-        // should fix crash related to applying effect to entity without given attribute
-        if (startTime != null && startTime.baseValue < 0.0) {
-            val currentTime = currentTime(entity.level())
-            startTime.baseValue = currentTime
+        entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)?.let {
+            if (it.baseValue < 0.0) {
+                val currentTime = currentTime(entity.level())
+                it.baseValue = currentTime
+            }
         }
     }
 
