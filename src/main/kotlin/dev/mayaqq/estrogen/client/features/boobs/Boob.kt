@@ -24,7 +24,9 @@ object Boob {
     }
 
     fun shouldShow(player: Player): Boolean {
-        return player.getAttributeValue(EstrogenAttributes.ShowBoobs) > 0.0 && EstrogenClientConfig.ChestRenderingGlobal.rendering
+        return player.getAttributeValue(EstrogenAttributes.ShowBoobs) > 0.0 &&
+                EstrogenClientConfig.ChestRenderingGlobal.rendering &&
+                player.chestConfig?.enabled == true
     }
 
     @JvmStatic
