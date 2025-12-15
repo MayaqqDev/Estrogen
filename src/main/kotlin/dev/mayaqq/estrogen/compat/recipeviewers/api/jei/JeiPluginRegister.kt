@@ -18,6 +18,7 @@ import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.IRecipeCategory
 import mezz.jei.api.registration.IRecipeCategoryRegistration
 import mezz.jei.api.registration.IRecipeRegistration
+import mezz.jei.api.runtime.IJeiRuntime
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.core.registries.BuiltInRegistries
@@ -101,8 +102,8 @@ object JeiPluginRegister {
                                         translate(drawable.x.toFloat(), drawable.y.toFloat(), 0.0F)
                                         drawable.coorded.draw(
                                             graphics,
-                                            drawable.x,
-                                            drawable.y,
+                                            0,
+                                            0,
                                             mouseX.toInt(),
                                             mouseY.toInt(),
                                             0F
@@ -123,6 +124,23 @@ object JeiPluginRegister {
                     // Hiding
                     commonPlugin.plugin.removedItems.forEach {
                         registry.ingredientManager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, listOf(it))
+                    }
+                }
+
+                override fun onRuntimeAvailable(runtime: IJeiRuntime) {
+                    commonPlugin.plugin.removedRecipes.forEach { recipe ->
+                        runtime.jeiHelpers.allRecipeTypes.forEach { type ->
+                            if (type.uid == ResourceLocation("minecraft", "crafting")) {
+                                runtime.recipeManager.javaClass.getDeclaredMethod("hideRecipes",
+                                    RecipeType::class.java,
+                                    Collection::class.java
+                                ).invoke(
+                                    runtime.recipeManager,
+                                    type,
+                                    runtime.recipeManager.createRecipeLookup(type).get().filter { (it as Recipe<*>).id == recipe }.toList()
+                                )
+                            }
+                        }
                     }
                 }
 
