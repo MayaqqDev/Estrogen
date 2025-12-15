@@ -7,6 +7,7 @@ import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.EntityDamageSourceEvent
 import dev.mayaqq.cynosure.events.entity.EntityTrackingEvent
+import dev.mayaqq.cynosure.events.entity.LivingEntityEvent
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.currentTime
 import dev.mayaqq.estrogen.client.features.boobs.Boob
@@ -70,10 +71,6 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
 
             entity.getAttribute(EstrogenAttributes.DashLevel)?.removeModifier(dashModifierUUID)
             entity.getAttribute(EstrogenAttributes.ShowBoobs)?.removeModifier(boobModifierUUID)
-            if (!Boob.shouldShow(entity)) {
-                entity.getAttribute(EstrogenAttributes.BoobInitialSize)?.baseValue = 0.0
-                entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)?.baseValue = -1.0
-            }
         }
     }
 
@@ -138,7 +135,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
 }
 
 @Subscription
-fun EntityTrackingEvent.Start.onPlayerTracking() {
+internal fun EntityTrackingEvent.Start.onPlayerTracking() {
     if (entity is ServerPlayer) EstrogenEffect.sendPlayerStatusEffect(
         entity as ServerPlayer,
         EstrogenEffects.Estrogen,
@@ -147,8 +144,18 @@ fun EntityTrackingEvent.Start.onPlayerTracking() {
 }
 
 @Subscription
-fun EntityDamageSourceEvent.onDamageSource() {
+internal fun EntityDamageSourceEvent.onDamageSource() {
     if (source in DamageTypeTags.IS_FALL && (entity as? Player)?.hasEffect(EstrogenEffects.Estrogen) == true) {
         result = EstrogenDamageSources.of(entity.level(), EstrogenDamageSources.GIRLPOWER)
+    }
+}
+
+@Subscription
+internal fun LivingEntityEvent.EffectApply.onApplyEffect() {
+    if (this.oldInstance == null && this.effect == EstrogenEffects.Estrogen && entity is Player) {
+        if (!Boob.shouldShow(entity as Player)) {
+            entity.getAttribute(EstrogenAttributes.BoobInitialSize)?.baseValue = 0.0
+            entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)?.baseValue = -1.0
+        }
     }
 }
