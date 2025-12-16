@@ -69,9 +69,9 @@ internal fun EntityDamageEvent.onDamage() {
     }
 }
 
-
 @Subscription
 internal fun PlayerRespawnEvent.onPlayerRespawn() {
+    if (newPlayer.level().isClientSide) return
     val attributes = arrayOf(ShowBoobs, BoobGrowingStartTime, BoobInitialSize)
     attributes.forEach { attribute ->
         oldPlayer.getAttribute(attribute)?.let { instance ->
