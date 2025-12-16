@@ -137,7 +137,7 @@ cloche {
             withElement {
                 buildJsonObject {
                     this@withElement.forEach { put(it.key, it.value) }
-                    put("accessWidener", "estrogen.accesswidener")
+                    put("accessWidener", "estrogen.accessWidener")
                 }
             }
         }
