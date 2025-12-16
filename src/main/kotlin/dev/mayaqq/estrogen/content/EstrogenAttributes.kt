@@ -6,6 +6,7 @@ import dev.mayaqq.cynosure.events.PostInitEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.EntityDamageEvent
+import dev.mayaqq.cynosure.events.entity.player.PlayerRespawnEvent
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenAttributes.BoobGrowingStartTime
@@ -64,6 +65,17 @@ internal fun EntityDamageEvent.onDamage() {
             0.0F
         } else {
             amount / resistance
+        }
+    }
+}
+
+
+@Subscription
+internal fun PlayerRespawnEvent.onPlayerRespawn() {
+    val attributes = arrayOf(ShowBoobs, BoobGrowingStartTime, BoobInitialSize)
+    attributes.forEach { attribute ->
+        oldPlayer.getAttribute(attribute)?.let { instance ->
+            newPlayer.getAttribute(attribute)?.replaceFrom(instance)
         }
     }
 }

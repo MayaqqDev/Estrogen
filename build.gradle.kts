@@ -153,6 +153,17 @@ cloche {
             }
         }
 
+        /* Uncomment on publish or smthing
+        withMetadataJson {
+            withElement {
+                buildJsonObject {
+                    this@withElement.forEach { put(it.key, it.value) }
+                    put("accessWidener", "estrogen.accessWidener")
+                }
+            }
+        }
+         */
+
         metadata {
             metadata {
                 custom("modmenu", mapOf(
