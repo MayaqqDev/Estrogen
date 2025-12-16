@@ -133,6 +133,15 @@ cloche {
             }
         }
 
+        withMetadataJson {
+            withElement {
+                buildJsonObject {
+                    this@withElement.forEach { put(it.key, it.value) }
+                    put("accessWidener", "estrogen.accesswidener")
+                }
+            }
+        }
+
         data {
             this.withMetadataJson {
                  this.withElement {
