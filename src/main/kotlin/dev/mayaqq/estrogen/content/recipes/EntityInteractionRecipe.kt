@@ -5,12 +5,14 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
+import dev.mayaqq.cynosure.core.Loader
 import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.cynosure.core.bytecodecs.item.ItemStackByteCodec
 import dev.mayaqq.cynosure.core.codecs.IngredientCodec
 import dev.mayaqq.cynosure.core.codecs.advancements.PredicateCodecs
 import dev.mayaqq.cynosure.core.codecs.fieldOf
 import dev.mayaqq.cynosure.core.codecs.item.ItemStackCodec
+import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
@@ -111,16 +113,19 @@ private fun entityToEgg(entity: EntityType<*>): ItemStack? = SpawnEggItem.byId(e
 
 @Subscription
 fun onEntityInteraction(event: InteractionEvent.UseEntity) {
-    if (event.level is ServerLevel && event.phase == InteractionEvent.UseEntity.Phase.SPECIFIC) {
-        event.level.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION).forEach { recipe ->
-            val data = InteractionData(event.getUsedStack(),  event.entity, event.player as ServerPlayer)
-            if (recipe.matches(data, event.level)) {
-                val sound: ResourceLocation? = recipe.sound.getOrNull()
-                if (sound != null) BuiltInRegistries.SOUND_EVENT.get(sound)?.let { event.entity.playSound(it) }
+    if (event.level is ServerLevel) {
+        // Crazy fix, please I have to unify the handling lol, might be Create fucking up though
+        if ((currentLoader == Loader.FABRIC && event.phase == InteractionEvent.UseEntity.Phase.SPECIFIC) || (currentLoader == Loader.FORGE && event.phase == InteractionEvent.UseEntity.Phase.GENERAL)) {
+            event.level.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION).forEach { recipe ->
+                val data = InteractionData(event.getUsedStack(),  event.entity, event.player as ServerPlayer)
+                if (recipe.matches(data, event.level)) {
+                    val sound: ResourceLocation? = recipe.sound.getOrNull()
+                    if (sound != null) BuiltInRegistries.SOUND_EVENT.get(sound)?.let { event.entity.playSound(it) }
 
-                if (!event.player.isCreative) event.getUsedStack().shrink(1)
-                event.player.inventory.placeItemBackInInventory(recipe.assemble(data, event.level.registryAccess()))
-                event.result = InteractionResult.SUCCESS
+                    if (!event.player.isCreative) event.getUsedStack().shrink(1)
+                    event.player.inventory.placeItemBackInInventory(recipe.assemble(data, event.level.registryAccess()))
+                    event.result = InteractionResult.SUCCESS
+                }
             }
         }
     }
