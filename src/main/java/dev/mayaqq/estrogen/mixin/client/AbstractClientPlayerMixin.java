@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 public class AbstractClientPlayerMixin extends PlayerMixin {
 
     @Shadow
-    @javax.annotation.Nullable
+    @Nullable
     private PlayerInfo playerInfo;
 
     @Override
