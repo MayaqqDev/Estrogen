@@ -18,7 +18,7 @@ object Minigame {
                 event.player.addEffect(
                     MobEffectInstance(
                         EstrogenEffects.Estrogen,
-                        20,
+                        EFFECT_DURATION,
                         EstrogenServerConfig.Minigame.girlPowerLevel,
                         false,
                         false,
