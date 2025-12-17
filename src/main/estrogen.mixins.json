@@ -15,6 +15,7 @@
     "ServerGamePacketListenerImplMixin"
   ],
   "client": [
+    "client.AbstractClientPlayerMixin",
     "client.AdvancementTabMixin",
     "client.ClientPacketListenerMixin",
     "client.ClientTextTooltipMixin",
@@ -22,6 +23,7 @@
     "client.FontStringRenderOutputMixin",
     "client.HumanoidMobRendererMixin",
     "client.MinecraftMixin",
+    "client.PlayerInfoMixin",
     "client.PlayerModelMixin",
     "client.ReceivingLevelScreenMixin",
     "client.PostPassMixin",
