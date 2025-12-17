@@ -13,15 +13,22 @@ import net.minecraft.world.effect.MobEffectInstance
 object Minigame {
     @Subscribe
     fun onTick(event: PlayerTickEvent.End) {
-        if (EstrogenServerConfig.Minigame.enabled && EstrogenServerConfig.Minigame.permaDash) event.player.addEffect(
-            MobEffectInstance(
-                EstrogenEffects.Estrogen,
-                20,
-                EstrogenServerConfig.Minigame.girlPowerLevel,
-                false,
-                false,
-                false
-            )
-        )
+        if (EstrogenServerConfig.Minigame.enabled && EstrogenServerConfig.Minigame.permaDash) {
+            if (event.player.level().gameTime % TRIGGER_EVERY_X_TICKS == 0L) {
+                event.player.addEffect(
+                    MobEffectInstance(
+                        EstrogenEffects.Estrogen,
+                        20,
+                        EstrogenServerConfig.Minigame.girlPowerLevel,
+                        false,
+                        false,
+                        false
+                    )
+                )
+            }
+        }
     }
+
+    private const val TRIGGER_EVERY_X_TICKS: Int = 300
+    private const val EFFECT_DURATION: Int = TRIGGER_EVERY_X_TICKS + 220
 }
