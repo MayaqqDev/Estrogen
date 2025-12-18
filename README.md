@@ -1,22 +1,22 @@
 <div align="center">
-<img src="https://cdn.modrinth.com/data/HhIJW8n1/images/9d5a0cc83fb3436ef018c2fe4fe4b53e78395030.gif" alt="Banner">
+<img src="https://cdn.modrinth.com/data/HhIJW8n1/images/d49be62ed484cb5b8f150647e9ea87da2e5a3eb1.png" alt="Banner">
 <a href="https://modrinth.com/mod/estrogen/versions">
-    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/modrinth_vector.svg&w=100&h=100" alt="Modrinth">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/modrinth_vector.svg&w=75&h=75" alt="Modrinth">
 </a>
 <a href="https://www.curseforge.com/minecraft/mc-mods/estrogen">
-    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/curseforge_vector.svg&w=100&h=100" alt="Curseforge">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/curseforge_vector.svg&w=75&h=75" alt="Curseforge">
 </a>
 <a href="https://github.com/MayaqqDev/estrogen/">
-    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/github_vector.svg&w=100&h=100" alt="Github">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/github_vector.svg&w=75&h=75" alt="Github">
 </a>
 <a href="https://discord.gg/hue">
-    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-plural_vector.svg&w=100&h=100" alt="Discord">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-plural_vector.svg&w=75&h=75" alt="Discord">
 </a>
 <a href="https://github.com/MayaqqDev/Estrogen/wiki">
-    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/documentation/ghpages_vector.svg&w=100&h=100" alt="Wiki">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/documentation/ghpages_vector.svg&w=75&h=75" alt="Wiki">
 </a>
 <a href="https://patreon.com/mayaqq">
-    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/donate/patreon-plural_vector.svg&w=100&h=100" alt="Patreon">
+    <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/donate/patreon-plural_vector.svg&w=75&h=75" alt="Patreon">
 </a>
 </div>
 
