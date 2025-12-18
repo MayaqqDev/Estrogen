@@ -1,7 +1,5 @@
-
-![banner](https://cdn.modrinth.com/data/HhIJW8n1/images/bfde9c03d8e75f73b469d51b5f41ef31dc8c29de.png)
-
 <div align="center">
+<img src="https://cdn.modrinth.com/data/HhIJW8n1/images/9d5a0cc83fb3436ef018c2fe4fe4b53e78395030.gif" alt="Banner">
 <a href="https://modrinth.com/mod/estrogen/versions">
     <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/modrinth_vector.svg&w=100&h=100" alt="Modrinth">
 </a>
