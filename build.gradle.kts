@@ -12,6 +12,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import kotlin.io.path.absolutePathString
 
 plugins {
+    alias(libs.plugins.modpublish)
     alias(libs.plugins.cloche)
     kotlin("jvm") version libs.versions.kotlin
     kotlin("plugin.serialization") version libs.versions.kotlin
@@ -55,7 +56,8 @@ repositories {
 }
 
 val item_viewer: String by project
-
+val mod_name: String by project
+val modVersion = providers.gradleProperty("version").get()
 val devauth_enabled: String by project
 
 cloche {
@@ -72,6 +74,9 @@ cloche {
 
         dependency {
             modId = "cynosure"
+            version {
+                start = "0.1.9"
+            }
         }
         dependency {
             modId = "kittyconfig"
@@ -428,3 +433,65 @@ publishing {
 tasks.named("runForgeData") {
     enabled = false
 }
+
+
+publishMods {
+    val loaders = arrayOf(
+        PublishMetadata(
+            "Fabric",
+            arrayOf("fabric", "quilt"),
+            arrayOf("cynosure", "trinkets"),
+            cloche.targets["fabric"].finalJar.flatMap(Jar::getArchiveFile),
+            "-fabric"
+        ),
+        PublishMetadata(
+            "Forge",
+            arrayOf("forge"),
+            arrayOf("cynosure", "curios"),
+            cloche.targets["forge"].finalJar.flatMap(Jar::getArchiveFile),
+            "-forge"
+        )
+    )
+    val mcVersion = "1.20.1"
+    changelog = file("CHANGELOG.md").readText().replace("@VERSION@", modVersion)
+    type = ALPHA
+
+    val optionsCurseforge = curseforgeOptions {
+        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+        minecraftVersions.add(mcVersion)
+        projectId = "850410"
+        javaVersions.add(JavaVersion.VERSION_17)
+        clientRequired = true
+        serverRequired = true
+    }
+
+    val optionsModrinth = modrinthOptions {
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        projectId = "HhIJW8n1"
+        minecraftVersions.add(mcVersion)
+    }
+
+    loaders.forEach { loader ->
+        loader.apply {
+            curseforge("curseforge$loaderName") {
+                from(optionsCurseforge)
+                modLoaders.addAll(*modloaders)
+                file = jar
+                displayName = "$mod_name $modVersion $loaderName"
+                version = "$modVersion$suffix"
+                requires(*requires)
+            }
+
+            modrinth("modrinth$loaderName") {
+                from(optionsModrinth)
+                modLoaders.addAll(*modloaders)
+                file = jar
+                displayName = "$mod_name $modVersion $loaderName"
+                version = "$modVersion$suffix"
+                requires(*requires)
+            }
+        }
+    }
+}
+
+class PublishMetadata(val loaderName: String, val modloaders: Array<String>, val requires: Array<String>, val jar: Provider<RegularFile>, val suffix: String)

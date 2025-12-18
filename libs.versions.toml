@@ -105,3 +105,4 @@ fabric-cardinalComponents = [ "fabric-cardinalComponents-base", "fabric-cardinal
 [plugins]
 cloche = { id = "earth.terrarium.cloche", version.ref = "cloche" }
 kittyconfig = { id = "uwu.serenity.kittyconfig", version.ref = "kittyconfig" }
+modpublish = { id = "me.modmuss50.mod-publish-plugin", version = "1.1.0" }
