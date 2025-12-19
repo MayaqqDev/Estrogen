@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.advancements.critereon.ImpossibleTrigger
 import net.minecraft.data.recipes.*
 import net.minecraft.data.recipes.RecipeProvider.has
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.item.Items
 import java.util.function.Consumer
@@ -23,7 +24,7 @@ class EstrogenCraftingRecipes(output: FabricDataOutput, val helper: PlatformReci
             .pattern("CCC")
             .showNotification(false)
             .unlockedBy("never", ImpossibleTrigger.TriggerInstance())
-            .save(writer)
+            .save(writer, ResourceLocation("estrogen", "colon_three_manual_only"))
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, EstrogenBlocks.EstrogenPillBlock)
             .requires(EstrogenItems.EstrogenPill, 9)
             .unlockedBy(getHasName(EstrogenItems.EstrogenPill), has(EstrogenItems.EstrogenPill))

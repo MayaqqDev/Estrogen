@@ -158,7 +158,6 @@ cloche {
             }
         }
 
-        /* Uncomment on publish or smthing
         withMetadataJson {
             withElement {
                 buildJsonObject {
@@ -167,7 +166,6 @@ cloche {
                 }
             }
         }
-         */
 
         metadata {
             metadata {

@@ -27,6 +27,7 @@ import net.minecraft.tags.DamageTypeTags
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectCategory
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.ai.attributes.AttributeInstance
 import net.minecraft.world.entity.ai.attributes.AttributeMap
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.player.Player
@@ -92,7 +93,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
             (amplifier + 1).toDouble(),
             AttributeModifier.Operation.ADDITION
         )
-        entity.getAttribute(EstrogenAttributes.DashLevel)?.addPermanentModifier(dashModifier)
+        entity.getAttribute(EstrogenAttributes.DashLevel)?.replaceModifier(dashModifier)
 
         val boobModifier = AttributeModifier(
             boobModifierUUID,
@@ -100,7 +101,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
             1.0,
             AttributeModifier.Operation.ADDITION
         )
-        entity.getAttribute(EstrogenAttributes.ShowBoobs)?.addPermanentModifier(boobModifier)
+        entity.getAttribute(EstrogenAttributes.ShowBoobs)?.replaceModifier(boobModifier)
 
         entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)?.let {
             if (it.baseValue < 0.0) {
@@ -158,4 +159,10 @@ internal fun LivingEntityEvent.EffectApply.onApplyEffect() {
             entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime)?.baseValue = -1.0
         }
     }
+}
+
+fun AttributeInstance.replaceModifier(modifier: AttributeModifier) {
+    this.getModifier(modifier.id)?.let { this.removeModifier(modifier.id) }
+    this.addPermanentModifier(modifier)
+
 }

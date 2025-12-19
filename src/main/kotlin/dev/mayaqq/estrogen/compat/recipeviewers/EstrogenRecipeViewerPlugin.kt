@@ -16,7 +16,7 @@ object EstrogenRecipeViewerPlugin : CRVPlugin {
     override val removedItems: List<ItemStack>
         get() = listOf(EstrogenBlocks.ColonThreeBlock.asItem().defaultInstance)
     override val removedRecipes: List<ResourceLocation>
-        get() = listOf(id("colon_three"))
+        get() = listOf(id("colon_three_manual_only"))
     override val recipes: List<ViewerInfo<*, *>> = listOf(
         EntityInteractionCRVRecipe,
         LiquidEstrogenCauldronCRVRecipe,
