@@ -35,7 +35,7 @@ Items, Blocks, Mechanics and more!
 
 Estrogen is implemented in a way where you may install modules for compatibility with other mods!
 
-- [Create: Estrogen](https://modrinth.com/mods/create-estrogen) (Official)
+- [Create: Estrogen](https://modrinth.com/mod/create-estrogen) (Official)
 
 ### `Main Features`
 
