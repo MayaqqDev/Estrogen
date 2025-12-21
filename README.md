@@ -20,7 +20,7 @@
 </a>
 </div>
 
-## Previously, this mod contained Create: Estrogen in it, please install it separately [here](https://modrinth.com/mods/create-estrogen) if you wish to maintain create compatibility 
+## Previously, this mod contained Create: Estrogen in it, please install it separately [here](https://modrinth.com/mod/create-estrogen) if you wish to maintain create compatibility 
 
 ## `Information`
 
