@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "PackInvoker",
-    "SpongeBlockMixin"
+    "SpongeBlockMixin",
+    "MobCategoryMixin"
   ],
   "client": [
     "client.compat.jei.FabricPluginFinderMixin"

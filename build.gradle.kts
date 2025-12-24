@@ -91,7 +91,7 @@ cloche {
     common {
         mixins.from(file("src/main/estrogen.mixins.json"))
 
-        accessWideners.from(file("src/main/estrogen.accessWidener"))
+        accessWideners.from(file("src/main/estrogen.accesswidener"))
 
         dependencies {
             compileOnly(libs.mixin)
@@ -115,7 +115,7 @@ cloche {
 
     fabric {
         mixins.from(file("src/main/estrogen.mixins.json"), file("src/fabric/estrogen-fabric.mixins.json"))
-        accessWideners.from(file("src/main/estrogen.accessWidener"))
+        accessWideners.from(file("src/main/estrogen.accesswidener"))
 
         loaderVersion = libs.versions.fabric
         minecraftVersion = libs.versions.minecraft
@@ -155,15 +155,6 @@ cloche {
                          put("entrypoints",newEntrypoints)
                      }
                  }
-            }
-        }
-
-        withMetadataJson {
-            withElement {
-                buildJsonObject {
-                    this@withElement.forEach { put(it.key, it.value) }
-                    put("accessWidener", "estrogen.accessWidener")
-                }
             }
         }
 
@@ -271,7 +262,7 @@ cloche {
 
     forge {
         mixins.from(file("src/main/estrogen.mixins.json"), file("src/forge/estrogen-forge.mixins.json"))
-        accessWideners.from(file("src/main/estrogen.accessWidener"))
+        accessWideners.from(file("src/main/estrogen.accesswidener"))
 
         loaderVersion = libs.versions.forge.get()
         minecraftVersion = libs.versions.minecraft.get()

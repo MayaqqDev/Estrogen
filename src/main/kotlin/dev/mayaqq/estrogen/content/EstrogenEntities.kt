@@ -18,22 +18,24 @@ import uwu.serenity.kritter.stdlib.attributes
 import uwu.serenity.kritter.stdlib.entity
 import uwu.serenity.kritter.stdlib.spawnEgg
 import uwu.serenity.kritter.stdlib.spawnPlacement
+import dev.mayaqq.estrogen.utils.entity.getMothMobCategory
 
 object EstrogenEntities : Registrar<EntityType<*>> by Estrogen..Registries.ENTITY_TYPE {
-    val Moth by entity("moth", MobCategory.CREATURE, ::MothEntity) {
+    val Moth by entity("moth", getMothMobCategory(), ::MothEntity) {
         settings {
             sized(0.6f, 0.6f)
             clientTrackingRange(80)
             fireImmune()
+            canSpawnFarFromPlayer()
         }
         renderer(::MothRenderer)
         attributes(MothEntity::createAttributes)
-        spawnPlacement(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MothEntity::checkMobSpawnRules)
+        spawnPlacement(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.WORLD_SURFACE, MothEntity::checkMobSpawnRules)
         spawnEgg(White.toUInt(), White.toUInt())
         addSpawn(
             { it in EstrogenTags.Biomes.SPAWNS_MOTH },
-            MobCategory.CREATURE,
-            100,
+            getMothMobCategory(),
+            30,
             1 to 3,
         )
     }
