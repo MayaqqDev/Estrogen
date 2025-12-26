@@ -2,3 +2,5 @@
 
 ### Changelog:
 - Fixed Moth Spawning
+- Fixed Clipping into Dreamblocks with camera
+- Fixed Minigame setting
