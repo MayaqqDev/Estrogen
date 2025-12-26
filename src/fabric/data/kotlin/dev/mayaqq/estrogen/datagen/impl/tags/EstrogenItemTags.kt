@@ -116,6 +116,7 @@ class EstrogenItemTags(
             .addOptional(ResourceLocation("irons_spellbooks", "priest_chestplate"))
             .addOptional(ResourceLocation("irons_spellbooks", "pyromancer_chestplate"))
             .addOptional(ResourceLocation("irons_spellbooks", "archevoker_chestplate"))
-
+        getOrCreateTagBuilder(EstrogenTags.Items.TWILIGHT_UNCRAFTING_BLACKLIST)
+            .add(EstrogenBlocks.ColonThreeBlock.asItem())
     }
 }

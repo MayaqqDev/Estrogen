@@ -37,6 +37,7 @@ object EstrogenTags {
         val MAGNET: TagKey<Item> = itemTag(ResourceLocation("create_new_age", "magnet"))
         val UPRIGHT_ON_BELT = itemTag(ResourceLocation("create", "upright_on_belt"))
         val DISABLES_CAPE = itemTag(modId("disables_cape"))
+        val TWILIGHT_UNCRAFTING_BLACKLIST = itemTag(ResourceLocation("twilightforest", "banned_uncrafting_ingredients"))
     }
 
     object Blocks {
