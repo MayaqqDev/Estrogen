@@ -15,10 +15,13 @@ import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.stats.Stats
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.ItemUtils
 import net.minecraft.world.item.Items
+import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.LayeredCauldronBlock
 import net.minecraft.world.level.gameevent.GameEvent
 
@@ -34,7 +37,8 @@ object CauldronInteractions {
     ) }
     private val PRE_ESTROGEN by lazy { createMap(
         Items.BUCKET to bucket { EstrogenFluids.LiquidEstrogen.bucket },
-        Items.COOKIE to cookie()
+        Items.COOKIE to cookie(),
+        EstrogenItems.EstrogenPatches to fillEstrogenPatch()
     ) }
     private val PRE_WATER by lazy { createMap() }
     private val PRE_EMPTY by lazy { createMap(
@@ -53,6 +57,22 @@ object CauldronInteractions {
             block.invoke().defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3),
             SoundEvents.BUCKET_EMPTY
         )
+    }
+
+    private fun fillEstrogenPatch() = CauldronInteraction { state, level, pos, player, hand, stack ->
+        if (state.hasProperty(LayeredCauldronBlock.LEVEL) && state.getValue(LayeredCauldronBlock.LEVEL) != 3)
+            return@CauldronInteraction InteractionResult.PASS
+        if (!level.isClientSide) {
+            val item: Item = stack.item
+            player.setItemInHand(hand, EstrogenItems.EstrogenPatches.getFullStack())
+            player.awardStat(Stats.USE_CAULDRON)
+            player.awardStat(Stats.ITEM_USED.get(item))
+            level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState())
+            level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0f, 1.0f)
+            level.gameEvent(null, GameEvent.FLUID_PICKUP, pos)
+        }
+
+        InteractionResult.sidedSuccess(level.isClientSide)
     }
 
     private fun bucket(bucket: () -> FluidBucketItem): CauldronInteraction = CauldronInteraction { state, level, pos, player, hand, stack ->

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "apa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:paper"
+    },
+    "p": {
+      "item": "estrogen:slime_ball"
+    }
+  },
+  "result": {
+    "item": "estrogen:estrogen_patches",
+    "count": 1
+  },
+  "show_notification": true
+}
