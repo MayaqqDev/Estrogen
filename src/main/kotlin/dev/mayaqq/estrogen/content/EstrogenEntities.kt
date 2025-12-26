@@ -9,7 +9,6 @@ import dev.mayaqq.estrogen.client.content.entityRenderers.moth.MothRenderer
 import dev.mayaqq.estrogen.content.entities.MothEntity
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.entity.SpawnPlacements
 import net.minecraft.world.level.levelgen.Heightmap
 import uwu.serenity.kritter.api.Registrar
@@ -30,7 +29,7 @@ object EstrogenEntities : Registrar<EntityType<*>> by Estrogen..Registries.ENTIT
         }
         renderer(::MothRenderer)
         attributes(MothEntity::createAttributes)
-        spawnPlacement(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.WORLD_SURFACE, MothEntity::checkMobSpawnRules)
+        spawnPlacement(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MothEntity::checkMobSpawnRules)
         spawnEgg(White.toUInt(), White.toUInt())
         addSpawn(
             { it in EstrogenTags.Biomes.SPAWNS_MOTH },

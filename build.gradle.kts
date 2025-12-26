@@ -193,6 +193,15 @@ cloche {
             }
         }
 
+        withMetadataJson {
+            withElement {
+                buildJsonObject {
+                    this@withElement.forEach { put(it.key, it.value) }
+                    put("accessWidener", "estrogen.accessidener")
+                }
+            }
+        }
+
         dependencies {
             fabricApi(libs.versions.fapi)
             modApi(libs.fabric.kotlin)

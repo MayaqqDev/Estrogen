@@ -14,18 +14,17 @@ public class MobCategoryMixin {
     @Mutable
     private static MobCategory[] $VALUES;
 
-
     @Unique
-    private static final MobCategory MOTH = addCategory("MOTH", "moth", 50, true, true, 128);
+    private static final MobCategory MOTH = addCategory("MOTH", "moth", 30, true, true, 128);
 
     @Invoker("<init>")
-    public static MobCategory invokeInit(String internalName, String name, int max, boolean isFriendly, boolean isPersistent, int despawnDistance) {
+    public static MobCategory invokeInit(String internalName, int internalId, String name, int max, boolean isFriendly, boolean isPersistent, int despawnDistance) {
         throw new AssertionError();
     }
 
     private static MobCategory addCategory(String internalName, String name, int max, boolean isFriendly, boolean isPersistent, int despawnDistance) {
         ArrayList<MobCategory> categories = new ArrayList(Arrays.asList($VALUES));
-        MobCategory instrument = invokeInit(internalName, name, max, isFriendly, isPersistent, despawnDistance);
+        MobCategory instrument = invokeInit(internalName, categories.get(categories.size() - 1).ordinal() + 1, name, max, isFriendly, isPersistent, despawnDistance);
         categories.add(instrument);
         $VALUES = categories.toArray(new MobCategory[0]);
         return instrument;
