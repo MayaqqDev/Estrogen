@@ -32,7 +32,8 @@
     "client.accessor.ModelManagerAccessor",
     "client.accessor.AbstractWidgetAccessor",
     "client.compat.emi.EmiAgnosMixin",
-    "client.compat.betteradvancements.BetterAdvancementTabMixin"
+    "client.compat.betteradvancements.BetterAdvancementTabMixin",
+    "client.compat.paginatedadvancements.PaginatedAdvancementTabMixin"
   ],
   "injectors": {
     "defaultRequire": 1
