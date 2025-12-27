@@ -15,6 +15,11 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
             EstrogenEffects.Estrogen.descriptionId + ".description",
             "Allows the player to dash and gives them some additional \"features\""
         )
+        tb.add(EstrogenEffects.Dreaming, "Dreaming")
+        tb.add(
+            EstrogenEffects.Dreaming.descriptionId + ".description",
+            "Triggers when near Dream Blocks without a Dreamcatcher near"
+        )
 
         // Controls
         tb.add("category.estrogen", "Estrogen")
