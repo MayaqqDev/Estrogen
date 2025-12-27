@@ -6,3 +6,4 @@
 - Fixed Minigame setting
 - Compatibility with some Advancement Screen mods
 - Fixed Issues with Connector Extras (RAHH)
+- POI modification now works on forge as well (you can now put villagers in moth beds)

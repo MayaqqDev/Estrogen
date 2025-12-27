@@ -126,10 +126,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             }
         }
         onRegister { bed ->
-            //TODO: make this work on forge
-            if (currentLoader == Loader.FABRIC) {
-                PoiTypes.HOME.add(bed.stateDefinition.possibleStates.filter { it.getValue(BedBlock.PART) == BedPart.HEAD }.toMutableSet())
-            }
+            PoiTypes.HOME.add(bed.stateDefinition.possibleStates.filter { it.getValue(BedBlock.PART) == BedPart.HEAD }.toMutableSet())
         }
     }
 
@@ -142,10 +139,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             }
         }
         onRegister { bed ->
-            //TODO: make this work on forge
-            if (currentLoader == Loader.FABRIC) {
-                PoiTypes.HOME.add(bed.stateDefinition.possibleStates.filter { it.getValue(BedBlock.PART) == BedPart.HEAD }.toMutableSet())
-            }
+            PoiTypes.HOME.add(bed.stateDefinition.possibleStates.filter { it.getValue(BedBlock.PART) == BedPart.HEAD }.toMutableSet())
         }
     }
 
