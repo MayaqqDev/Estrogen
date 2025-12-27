@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(ForgePluginFinder.class)
+@Mixin(value = ForgePluginFinder.class, priority = 900)
 public class ForgePluginFinderMixin {
     @ModifyReturnValue(
             method = "getModPlugins",
