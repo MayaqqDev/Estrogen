@@ -11,7 +11,7 @@ import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.entry
 
 object EstrogenPoiTypes : Registrar<PoiType> by Estrogen..Registries.POINT_OF_INTEREST_TYPE {
-    val DreamCatcher: PoiType by entry("dreamcatcher", {PoiHelpers.poi(EstrogenBlocks.DreamCatcher)}) {
+    val DreamCatcher: PoiType by entry("dreamcatcher", PoiHelpers.poiFactory(EstrogenBlocks.DreamCatcher)) {
         onRegister { registerState(it) }
     }
 }
