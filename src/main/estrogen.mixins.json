@@ -31,7 +31,8 @@
     "client.accessor.LevelRendererAccessor",
     "client.accessor.ModelManagerAccessor",
     "client.accessor.AbstractWidgetAccessor",
-    "client.compat.emi.EmiAgnosMixin"
+    "client.compat.emi.EmiAgnosMixin",
+    "client.compat.betteradvancements.BetterAdvancementTabMixin"
   ],
   "injectors": {
     "defaultRequire": 1
