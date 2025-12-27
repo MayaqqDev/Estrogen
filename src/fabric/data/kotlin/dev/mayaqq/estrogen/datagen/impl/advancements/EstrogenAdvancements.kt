@@ -54,7 +54,7 @@ class EstrogenAdvancements(output: FabricDataOutput) : FabricAdvancementProvider
         val wetSponge: Advancement = Advancement.Builder.advancement()
             .parent(horseUrine)
             .display(
-                Items.WET_SPONGE,
+                EstrogenFluids.FiltratedHorseUrine.bucket,
                 Component.translatable("advancement.estrogen.wet_sponge.title"),
                 Component.translatable("advancement.estrogen.wet_sponge.description"),
                 null,
@@ -62,7 +62,7 @@ class EstrogenAdvancements(output: FabricDataOutput) : FabricAdvancementProvider
                 true,
                 true,
                 false
-            ).addCriterion("wet_sponge", hasItems(Items.WET_SPONGE))
+            ).addCriterion("wet_sponge", hasItems(EstrogenFluids.FiltratedHorseUrine.bucket))
             .build(id("wet_sponge"))
 
         val liquidEstrogen: Advancement = Advancement.Builder.advancement()
