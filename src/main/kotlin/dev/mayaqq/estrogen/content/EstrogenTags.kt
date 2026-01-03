@@ -38,6 +38,7 @@ object EstrogenTags {
         val UPRIGHT_ON_BELT = itemTag(ResourceLocation("create", "upright_on_belt"))
         val DISABLES_CAPE = itemTag(modId("disables_cape"))
         val TWILIGHT_UNCRAFTING_BLACKLIST = itemTag(ResourceLocation("twilightforest", "banned_uncrafting_ingredients"))
+        val TWILIGHT_UNCRAFTING_BLACKLIST_2_WHAT = itemTag(ResourceLocation("twilightforest", "banned_uncraftables"))
     }
 
     object Blocks {

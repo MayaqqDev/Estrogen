@@ -118,5 +118,9 @@ class EstrogenItemTags(
             .addOptional(ResourceLocation("irons_spellbooks", "archevoker_chestplate"))
         getOrCreateTagBuilder(EstrogenTags.Items.TWILIGHT_UNCRAFTING_BLACKLIST)
             .add(EstrogenBlocks.ColonThreeBlock.asItem())
+            .add(EstrogenItems.ColonThree)
+        getOrCreateTagBuilder(EstrogenTags.Items.TWILIGHT_UNCRAFTING_BLACKLIST_2_WHAT)
+            .add(EstrogenBlocks.ColonThreeBlock.asItem())
+            .add(EstrogenItems.ColonThree)
     }
 }
