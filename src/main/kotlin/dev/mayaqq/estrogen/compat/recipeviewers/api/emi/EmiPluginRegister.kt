@@ -11,11 +11,44 @@ import dev.emi.emi.registry.EmiPluginContainer
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CommonRecipeViewer
+import dev.mayaqq.estrogen.content.blocks.RichCauldronInteraction
+import dev.mayaqq.estrogen.id
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.world.item.Items
+import net.minecraft.world.level.block.AbstractCauldronBlock
 
 object EmiPluginRegister {
     fun getPlugins(): List<EmiPluginContainer> {
         return CommonRecipeViewer.getPlugins().map { commonPlugin ->
             EmiPluginContainer({ registry ->
+                val cauldronCategory = EmiRecipeCategory(id("cauldron_interactions")) { graphics, offsetX, offsetY, partialTick ->
+                    graphics.renderItem(Items.CAULDRON.defaultInstance, offsetX, offsetY)
+                }
+
+                registry.addCategory(cauldronCategory)
+
+                BuiltInRegistries.BLOCK.forEach { block ->
+                    if (block is AbstractCauldronBlock) {
+                        block.interactions.forEach { item, interaction ->
+                            (interaction as? RichCauldronInteraction)?.let {
+                                registry.addRecipe(CauldronInteractionRecipe(cauldronCategory, item, it))
+                            }
+                        }
+                    }
+                }
+
+                commonPlugin.plugin.pseudoRecipes.forEach { pseudoRecipe ->
+                    val category = EmiRecipeCategory(pseudoRecipe.id) { graphics, offsetX, offsetY, partialTick ->
+                        pseudoRecipe.render(graphics, offsetX, offsetY, partialTick)
+                    }
+
+                    registry.addCategory(category)
+
+                    pseudoRecipe.dataSupplier.invoke().forEach { data ->
+                        pseudoRecipe.builder.invoke(data)
+                    }
+                }
+
                 commonPlugin.plugin.recipes.forEach { viewerInfo ->
                     val category = EmiRecipeCategory(viewerInfo.info.id) {graphics, offsetX, offsetY, partialTick ->
                         viewerInfo.info.render(graphics, offsetX, offsetY, partialTick)

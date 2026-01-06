@@ -193,6 +193,7 @@ cloche {
             }
         }
 
+        /*
         withMetadataJson {
             withElement {
                 buildJsonObject {
@@ -201,6 +202,7 @@ cloche {
                 }
             }
         }
+         */
 
         dependencies {
             fabricApi(libs.versions.fapi)

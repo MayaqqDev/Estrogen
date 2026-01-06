@@ -7,4 +7,6 @@ interface CRVPlugin {
     val removedItems: List<ItemStack>
     val removedRecipes: List<ResourceLocation>
     val recipes: List<ViewerInfo<*, *>>
+
+    val pseudoRecipes: List<PseudoRecipeHolder<*>>
 }

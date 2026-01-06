@@ -8,12 +8,14 @@ import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenItems
 import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem
+import net.minecraft.core.BlockPos
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.cauldron.CauldronInteraction.emptyBucket
 import net.minecraft.core.cauldron.CauldronInteraction.fillBucket
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.stats.Stats
+import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
@@ -21,8 +23,10 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.ItemUtils
 import net.minecraft.world.item.Items
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.LayeredCauldronBlock
+import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.gameevent.GameEvent
 
 @EventSubscriber
@@ -132,24 +136,36 @@ object CauldronInteractions {
         InteractionResult.sidedSuccess(level.isClientSide)
     }
 
-    private fun cookie(): CauldronInteraction = CauldronInteraction { state, level, pos, player, hand, stack ->
-        if (!level.isClientSide) {
-            val item: Item = stack.item
-            player.setItemInHand(
-                hand,
-                ItemUtils.createFilledResult(
-                    stack,
-                    player,
-                    EstrogenItems.EstrogenPill.defaultInstance
+    private fun cookie(): CauldronInteraction = object : RichCauldronInteraction {
+        override val expectedOutput: ItemStack get() = EstrogenItems.EstrogenPill.defaultInstance
+
+        override fun interact(
+            state: BlockState,
+            level: Level,
+            pos: BlockPos,
+            player: Player,
+            hand: InteractionHand,
+            stack: ItemStack
+        ): InteractionResult {
+            if (!level.isClientSide) {
+                val item: Item = stack.item
+                player.setItemInHand(
+                    hand,
+                    ItemUtils.createFilledResult(
+                        stack,
+                        player,
+                        EstrogenItems.EstrogenPill.defaultInstance
+                    )
                 )
-            )
-            player.awardStat(Stats.USE_CAULDRON)
-            player.awardStat(Stats.ITEM_USED.get(item))
-            LayeredCauldronBlock.lowerFillLevel(state, level, pos)
-            level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0f, 1.0f)
-            level.gameEvent(null, GameEvent.FLUID_PICKUP, pos)
+                player.awardStat(Stats.USE_CAULDRON)
+                player.awardStat(Stats.ITEM_USED.get(item))
+                LayeredCauldronBlock.lowerFillLevel(state, level, pos)
+                level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0f, 1.0f)
+                level.gameEvent(null, GameEvent.FLUID_PICKUP, pos)
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide)
         }
-        InteractionResult.sidedSuccess(level.isClientSide)
+
     }
 
 
@@ -168,5 +184,9 @@ object CauldronInteractions {
         HORSE_URINE.putAll(PRE_HORSE_URINE)
         FILTRATED_HORSE_URINE.putAll(PRE_FILTRATED_HORSE_URINE)
     }
+}
+
+public interface RichCauldronInteraction : CauldronInteraction {
+    val expectedOutput: ItemStack
 }
 
