@@ -415,8 +415,8 @@ publishing {
     }
 
     repositories {
-        val username = "sapphoCompanyUsername".let { System.getenv(it) ?: findProperty(it) }?.toString()
-        val password = "sapphoCompanyPassword".let { System.getenv(it) ?: findProperty(it) }?.toString()
+        val username = onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Sappho Maven/username"]
+        val password = onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Sappho Maven/password"]
         if (username != null && password != null) {
                 maven("https://maven.is-immensely.gay/${properties["maven_category"]}") {
                 name = "sapphoCompany"
