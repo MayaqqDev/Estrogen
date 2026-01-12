@@ -413,9 +413,9 @@ publishing {
     }
 
     repositories {
-        val username = onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Sappho Maven/username"]
-        val password = onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Sappho Maven/password"]
-        if (username.isPresent && password.isPresent) {
+        val username = try { onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Sappho Maven/username"] } catch (_: Exception) { null }
+        val password = try { onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Sappho Maven/password"] } catch (_: Exception) { null }
+        if (username != null && password != null) {
                 maven("https://maven.is-immensely.gay/${properties["maven_category"]}") {
                 name = "sapphoCompany"
                 credentials {
