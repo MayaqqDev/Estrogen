@@ -76,7 +76,7 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             sound(EstrogenSoundTypes.DREAM_BLOCK_DORMANT)
             isValidSpawn(Never.withArgument())
             isSuffocating(Never)
-            isViewBlocking { state, block, pos -> state.getValue(PERSISTENT) }
+            //isViewBlocking { state, block, pos -> state.getValue(PERSISTENT) }
         }
         renderType = RenderType::translucent
         item(::DreamBottleItem, "dream_bottle") {
