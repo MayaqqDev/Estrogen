@@ -415,12 +415,12 @@ publishing {
     repositories {
         val username = onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Sappho Maven/username"]
         val password = onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Sappho Maven/password"]
-        if (username != null && password != null) {
+        if (username.isPresent && password.isPresent) {
                 maven("https://maven.is-immensely.gay/${properties["maven_category"]}") {
                 name = "sapphoCompany"
                 credentials {
-                    this.username = username
-                    this.password = password
+                    this.username = username.get()
+                    this.password = password.get()
                 }
             }
         } else {
