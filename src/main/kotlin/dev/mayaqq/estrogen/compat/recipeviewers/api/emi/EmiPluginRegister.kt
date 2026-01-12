@@ -8,9 +8,13 @@ import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.SlotWidget
 import dev.emi.emi.api.widget.WidgetHolder
 import dev.emi.emi.registry.EmiPluginContainer
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
+import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CommonRecipeViewer
+import dev.mayaqq.estrogen.compat.recipeviewers.api.RecipeData
+import dev.mayaqq.estrogen.compat.recipeviewers.recipes.CIPRData
 import dev.mayaqq.estrogen.content.blocks.RichCauldronInteraction
 import dev.mayaqq.estrogen.id
 import net.minecraft.core.registries.BuiltInRegistries
@@ -21,22 +25,6 @@ object EmiPluginRegister {
     fun getPlugins(): List<EmiPluginContainer> {
         return CommonRecipeViewer.getPlugins().map { commonPlugin ->
             EmiPluginContainer({ registry ->
-                val cauldronCategory = EmiRecipeCategory(id("cauldron_interactions")) { graphics, offsetX, offsetY, partialTick ->
-                    graphics.renderItem(Items.CAULDRON.defaultInstance, offsetX, offsetY)
-                }
-
-                registry.addCategory(cauldronCategory)
-
-                BuiltInRegistries.BLOCK.forEach { block ->
-                    if (block is AbstractCauldronBlock) {
-                        block.interactions.forEach { item, interaction ->
-                            (interaction as? RichCauldronInteraction)?.let {
-                                registry.addRecipe(CauldronInteractionRecipe(cauldronCategory, item, it))
-                            }
-                        }
-                    }
-                }
-
                 commonPlugin.plugin.pseudoRecipes.forEach { pseudoRecipe ->
                     val category = EmiRecipeCategory(pseudoRecipe.id) { graphics, offsetX, offsetY, partialTick ->
                         pseudoRecipe.render(graphics, offsetX, offsetY, partialTick)
@@ -45,7 +33,33 @@ object EmiPluginRegister {
                     registry.addCategory(category)
 
                     pseudoRecipe.dataSupplier.invoke().forEach { data ->
-                        pseudoRecipe.builder.invoke(data)
+                        val method = pseudoRecipe.builder::class.java.getMethod("invoke", Object::class.java)
+                        method.isAccessible = true
+                        method.invoke(pseudoRecipe.builder, data).let { anyPseudoRecipe ->
+                            val crvRecipe = anyPseudoRecipe as CRVPseudoRecipe<*>
+                            registry.addRecipe(object : BasicEmiRecipe(category, pseudoRecipe.id, pseudoRecipe.width, pseudoRecipe.height) {
+                                init {
+                                    crvRecipe.init()
+                                    this.inputs.addAll(crvRecipe.inputs.map { it.toEmi() })
+                                    this.outputs.addAll(crvRecipe.outputs.map { it.toEmiStack() })
+                                    this.catalysts.addAll(crvRecipe.catalysts.map { it.toEmi() })
+                                }
+
+                                override fun addWidgets(widgets: WidgetHolder) {
+                                    crvRecipe.textures.forEach { texture ->
+                                        widgets.addTexture(texture.coorded, texture.x, texture.y)
+                                    }
+                                    crvRecipe.slots.forEach { slot ->
+                                        widgets.addSlot(slot.ingredient.toEmi(), slot.x, slot.y).withBackground(slot.background)
+                                    }
+                                    crvRecipe.drawables.forEach { drawable ->
+                                        widgets.addDrawable(drawable.x, drawable.y, 0, 0) {graphics, mouseX, mouseY, partialTick  ->
+                                            drawable.coorded.draw(graphics, 0, 0, mouseX, mouseY, partialTick)
+                                        }
+                                    }
+                                }
+                            })
+                        }
                     }
                 }
 

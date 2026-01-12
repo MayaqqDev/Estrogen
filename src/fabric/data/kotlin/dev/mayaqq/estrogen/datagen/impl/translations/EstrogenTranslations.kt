@@ -193,6 +193,7 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("estrogen.recipe.entity_interaction", "Entity Interaction")
         tb.add("estrogen.recipe.liquid_estrogen_cauldron", "Cauldron Shaking")
         tb.add("estrogen.recipe.liquid_estrogen_cauldron.tooltip", "Repeat")
+        tb.add("estrogen.recipe.cauldron_interaction", "Cauldron Interaction")
 
         tb.add("estrogen.recipe.common.disabled", "A Module disables this Recipe")
 
