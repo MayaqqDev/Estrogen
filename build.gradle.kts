@@ -19,6 +19,7 @@ plugins {
     alias(libs.plugins.kittyconfig)
     // Need to explicitly set ksp versions cs cloche loads an old version by default
     id("com.google.devtools.ksp") version "2.2.10-2.0.2"
+    id("dev.isxander.secrets") version "0.1.0"
     `maven-publish`
 }
 
@@ -455,7 +456,7 @@ publishMods {
     type = ALPHA
 
     val optionsCurseforge = curseforgeOptions {
-        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+        accessToken = onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Curseforge/Mod Publish Api Token"]
         minecraftVersions.add(mcVersion)
         projectId = "850410"
         javaVersions.add(JavaVersion.VERSION_17)
@@ -464,7 +465,7 @@ publishMods {
     }
 
     val optionsModrinth = modrinthOptions {
-        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        accessToken = onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Modrinth/Mod Publish Api Token"]
         projectId = "HhIJW8n1"
         minecraftVersions.add(mcVersion)
     }
