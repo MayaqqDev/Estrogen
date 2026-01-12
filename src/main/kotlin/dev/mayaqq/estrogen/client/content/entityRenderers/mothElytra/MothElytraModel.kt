@@ -133,7 +133,7 @@ class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>(
 
     companion object {
 
-        val LAYER_LOCATION: ModelLayerLocation = ModelLayerLocation(id("moth_elytra"), "main")
+        val LAYER_LOCATION: ModelLayerLocation by lazy { ModelLayerLocation(id("moth_elytra"), "main") }
 
         fun createBodyLayer(): LayerDefinition {
             val meshdefinition = MeshDefinition()

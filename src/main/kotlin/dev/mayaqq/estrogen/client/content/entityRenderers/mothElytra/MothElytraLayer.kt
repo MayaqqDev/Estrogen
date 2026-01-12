@@ -20,7 +20,7 @@ class MothElytraLayer<T : LivingEntity, M : EntityModel<T>>(
     renderer: RenderLayerParent<T, M>,
     modelSet: EntityModelSet
 ) : RenderLayer<T, M>(renderer) {
-    private val elytraModel: MothElytraModel<T> = MothElytraModel(modelSet.bakeLayer(MothElytraModel.LAYER_LOCATION))
+    private val elytraModel: MothElytraModel<T> by lazy { MothElytraModel(modelSet.bakeLayer(MothElytraModel.LAYER_LOCATION)) }
 
     override fun render(
         poseStack: PoseStack,
