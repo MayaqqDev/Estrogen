@@ -34,9 +34,12 @@ import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.injection.chestConfig
 import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.entity.HumanoidMobRenderer
 import net.minecraft.client.resources.model.ModelResourceLocation
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.Mob
 import uwu.serenity.kittyconfig.loadConfig
 
 
@@ -71,6 +74,9 @@ internal fun onReloadListeners(event: ClientReloadListenerEvent) {
 @Subscription
 internal fun addRenderLayers(event: RenderLayerRegistrationEvent) {
     event.addLayer(EntityType.ARMOR_STAND) { MothElytraLayer(it, event.models) }
+    event.addLayer<Mob, HumanoidMobRenderer<Mob, *>> {
+        MothElytraLayer(it, event.models)
+    }
     DefaultSkin.entries.forEach { skin ->
         event.addLayer(skin) { MothElytraLayer(it, event.models) }
         event.addLayer(skin) { BoobFeatureLayer(it, Minecraft.getInstance().modelManager) }

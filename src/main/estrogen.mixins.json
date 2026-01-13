@@ -21,7 +21,6 @@
     "client.ClientTextTooltipMixin",
     "client.FontMixin",
     "client.FontStringRenderOutputMixin",
-    "client.HumanoidMobRendererMixin",
     "client.MinecraftMixin",
     "client.PlayerInfoMixin",
     "client.PlayerModelMixin",
