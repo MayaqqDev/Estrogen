@@ -2,3 +2,5 @@
 
 ### Changelog:
 - Fixed errors on Forge happening when other mod crashes blaming Estrogen
+- Added Cauldron Interactions to recipe viewers
+- Updated Cynosure
