@@ -66,9 +66,7 @@ object ReiPluginRegister {
                             }
                         }
                         commonPlugin.plugin.pseudoRecipes.forEach { recipe ->
-                            Estrogen.info("Recipe: ${recipe.id}")
                             registry.registerFiller(RecipeData::class.java) { data ->
-                                Estrogen.info("Data: $data")
                                 val data = data as RecipeData
                                 val method = recipe.builder::class.java.getMethod("invoke", Object::class.java)
                                 method.isAccessible = true
@@ -88,7 +86,7 @@ object ReiPluginRegister {
                     inner class ReiPseudoRecipe(val recipeData: PseudoRecipeHolder<*>, val rvRecipe: CRVPseudoRecipe<*>) : BasicDisplay(
                         rvRecipe.inputs.map { it.toRei() },
                         rvRecipe.outputs.map { it.toRei() },
-                        Optional.of(recipeData.id)
+                        Optional.of(rvRecipe.getId())
                     ) {
                         override fun getCategoryIdentifier(): CategoryIdentifier<Display> = CategoryIdentifier.of(recipeData.id)
                     }

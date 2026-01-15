@@ -37,7 +37,7 @@ object EmiPluginRegister {
                         method.isAccessible = true
                         method.invoke(pseudoRecipe.builder, data).let { anyPseudoRecipe ->
                             val crvRecipe = anyPseudoRecipe as CRVPseudoRecipe<*>
-                            registry.addRecipe(object : BasicEmiRecipe(category, pseudoRecipe.id, pseudoRecipe.width, pseudoRecipe.height) {
+                            registry.addRecipe(object : BasicEmiRecipe(category, crvRecipe.getId(), pseudoRecipe.width, pseudoRecipe.height) {
                                 init {
                                     crvRecipe.init()
                                     this.inputs.addAll(crvRecipe.inputs.map { it.toEmi() })

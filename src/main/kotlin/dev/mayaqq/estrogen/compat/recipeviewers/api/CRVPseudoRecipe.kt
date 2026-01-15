@@ -25,6 +25,8 @@ abstract class CRVPseudoRecipe<T : RecipeData>(val data: T) {
     fun addTexture(texture: RecipeTextures, x: Int, y: Int) = textures.add(ObjectWithCoords(texture, x, y))
     fun addSlot(rvIngredient: CRVIngredient, x: Int, y: Int, role: Role): Slot = Slot(rvIngredient, x, y, role).apply { slots.add(this) }
     fun addDrawable(x: Int, y: Int, drawable: CRVDrawable) = drawables.add(ObjectWithCoords(drawable, x, y))
+
+    abstract fun getId(): ResourceLocation
 }
 
 class PseudoRecipeHolder<T : RecipeData>(

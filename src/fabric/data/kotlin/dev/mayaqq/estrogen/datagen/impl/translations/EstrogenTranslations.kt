@@ -205,6 +205,7 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("emi.category.estrogen.liquid_estrogen_cauldron", "Cauldron Shaking")
         tb.add("emi.category.estrogen.entity_interaction", "Entity Interaction")
         tb.add("emi.category.estrogen.sponging", "Sponging")
+        tb.add("emi.category.estrogen.cauldron_interaction", "Cauldron Interaction")
 
         // Tags
         // Items
