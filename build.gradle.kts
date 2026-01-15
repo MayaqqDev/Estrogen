@@ -76,7 +76,7 @@ cloche {
         dependency {
             modId = "cynosure"
             version {
-                start = "0.1.14"
+                start = "0.1.15"
             }
         }
         dependency {
@@ -194,7 +194,6 @@ cloche {
             }
         }
 
-        /*
         withMetadataJson {
             withElement {
                 buildJsonObject {
@@ -203,7 +202,6 @@ cloche {
                 }
             }
         }
-         */
 
         dependencies {
             fabricApi(libs.versions.fapi)
