@@ -56,41 +56,71 @@ object CauldronInteractions {
     val FILTRATED_HORSE_URINE = createMap()
     val ESTROGEN = createMap()
 
-    private fun fill(block: () -> LayeredCauldronBlock): CauldronInteraction = CauldronInteraction { state, level, pos, player, hand, stack ->
-        emptyBucket(level, pos, player, hand, stack,
-            block.invoke().defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3),
-            SoundEvents.BUCKET_EMPTY
-        )
-    }
-
-    private fun fillEstrogenPatch() = CauldronInteraction { state, level, pos, player, hand, stack ->
-        if (state.hasProperty(LayeredCauldronBlock.LEVEL) && state.getValue(LayeredCauldronBlock.LEVEL) != 3)
-            return@CauldronInteraction InteractionResult.PASS
-        if (!level.isClientSide) {
-            val item: Item = stack.item
-            player.setItemInHand(hand, EstrogenItems.EstrogenPatches.getFullStack())
-            player.awardStat(Stats.USE_CAULDRON)
-            player.awardStat(Stats.ITEM_USED.get(item))
-            level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState())
-            level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0f, 1.0f)
-            level.gameEvent(null, GameEvent.FLUID_PICKUP, pos)
+    private fun fill(block: () -> LayeredCauldronBlock): CauldronInteraction = object : RichCauldronInteraction {
+        override val expectedOutput: ItemStack get() = Items.BUCKET.defaultInstance
+        override fun interact(
+            state: BlockState,
+            level: Level,
+            pos: BlockPos,
+            player: Player,
+            hand: InteractionHand,
+            stack: ItemStack
+        ): InteractionResult {
+            return emptyBucket(level, pos, player, hand, stack,
+                block.invoke().defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3),
+                SoundEvents.BUCKET_EMPTY
+            )
         }
-
-        InteractionResult.sidedSuccess(level.isClientSide)
     }
 
-    private fun bucket(bucket: () -> FluidBucketItem): CauldronInteraction = CauldronInteraction { state, level, pos, player, hand, stack ->
-        fillBucket(
-            state,
-            level,
-            pos,
-            player,
-            hand,
-            stack,
-            bucket.invoke().defaultInstance,
-            {it.getValue(LayeredCauldronBlock.LEVEL) == 3},
-            SoundEvents.BUCKET_FILL
-        )
+    private fun fillEstrogenPatch() = object : RichCauldronInteraction {
+        override val expectedOutput: ItemStack get() = EstrogenItems.EstrogenPatches.getFullStack()
+        override fun interact(
+            state: BlockState,
+            level: Level,
+            pos: BlockPos,
+            player: Player,
+            hand: InteractionHand,
+            stack: ItemStack
+        ): InteractionResult {
+            if (state.hasProperty(LayeredCauldronBlock.LEVEL) && state.getValue(LayeredCauldronBlock.LEVEL) != 3)
+                return InteractionResult.PASS
+            if (!level.isClientSide) {
+                val item: Item = stack.item
+                player.setItemInHand(hand, EstrogenItems.EstrogenPatches.getFullStack())
+                player.awardStat(Stats.USE_CAULDRON)
+                player.awardStat(Stats.ITEM_USED.get(item))
+                level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState())
+                level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0f, 1.0f)
+                level.gameEvent(null, GameEvent.FLUID_PICKUP, pos)
+            }
+
+            return InteractionResult.sidedSuccess(level.isClientSide)
+        }
+    }
+
+    private fun bucket(bucket: () -> FluidBucketItem): CauldronInteraction = object : RichCauldronInteraction {
+        override val expectedOutput: ItemStack get() = bucket.invoke().defaultInstance
+        override fun interact(
+            state: BlockState,
+            level: Level,
+            pos: BlockPos,
+            player: Player,
+            hand: InteractionHand,
+            stack: ItemStack
+        ): InteractionResult {
+           return fillBucket(
+                state,
+                level,
+                pos,
+                player,
+                hand,
+                stack,
+                bucket.invoke().defaultInstance,
+                { it.getValue(LayeredCauldronBlock.LEVEL) == 3 },
+                SoundEvents.BUCKET_FILL
+            )
+        }
     }
 
     private fun emptyBottle(cauldron: () -> LayeredCauldronBlock): CauldronInteraction = object : RichCauldronInteraction {
