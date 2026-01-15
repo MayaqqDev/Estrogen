@@ -144,6 +144,9 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add(EstrogenFluids.MoltenAmethyst.block, "Molten Amethyst")
         tb.add(EstrogenFluids.TestosteroneMixture.block, "Testosterone Mixture")
         tb.add(EstrogenFluids.GenderFluid.block, "Gender Fluid")
+        tb.add(EstrogenBlocks.LiquidEstrogenCauldron, "Liquid Estrogen Cauldron")
+        tb.add(EstrogenBlocks.FiltratedHorseUrineCauldron, "Filtrated Horse Urine Cauldron")
+        tb.add(EstrogenBlocks.HorseUrineCauldron, "Horse Urine Cauldron Cauldron")
 
         // Fluids
         tb.add("fluid_type.estrogen.liquid_estrogen", "Liquid Estrogen")

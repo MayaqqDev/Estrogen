@@ -1,5 +1,11 @@
 package dev.mayaqq.estrogen.compat.recipeviewers.recipes
 
+import dev.mayaqq.cynosure.helpers.McFont
+import dev.mayaqq.cynosure.text.Text
+import dev.mayaqq.cynosure.text.TextProperties.width
+import dev.mayaqq.cynosure.text.TextStyle.color
+import dev.mayaqq.cynosure.utils.colors.McGray
+import dev.mayaqq.cynosure.utils.colors.McGreen
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe
@@ -36,6 +42,13 @@ class CauldronInteractionPseudoRecipe(data: CIPRData) : CRVPseudoRecipe<CIPRData
             20.0
         )
         )
+        addDrawable(0, 0) { graphics, offsetX, offsetY, mouseX, mouseY, delta ->
+            val text = Text.translatable(data.cauldron.descriptionId) {
+                color = McGray
+            }
+            graphics.renderTooltip(McFont, text, 10, 10)
+        }
+
     }
 
     override val inputs: List<CRVIngredient>
