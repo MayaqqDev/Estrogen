@@ -93,47 +93,69 @@ object CauldronInteractions {
         )
     }
 
-    private fun emptyBottle(cauldron: () -> LayeredCauldronBlock): CauldronInteraction = CauldronInteraction { state, level, pos, player, hand, stack ->
-        if (state.hasProperty(LayeredCauldronBlock.LEVEL) && state.getValue(LayeredCauldronBlock.LEVEL) == 3)
-            return@CauldronInteraction InteractionResult.PASS
-        if (!level.isClientSide) {
-            val item: Item = stack.item
-            player.setItemInHand(hand, ItemUtils.createFilledResult(
-                stack,
-                player,
-                ItemStack(Items.GLASS_BOTTLE)
-            ))
-            player.awardStat(Stats.USE_CAULDRON)
-            player.awardStat(Stats.ITEM_USED.get(item))
-            level.setBlockAndUpdate(pos,
-                if (state of cauldron.invoke()) state.cycle(LayeredCauldronBlock.LEVEL)
-                else cauldron.invoke().defaultBlockState()
-            )
-            level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0f, 1.0f)
-            level.gameEvent(null, GameEvent.FLUID_PLACE, pos)
-        }
+    private fun emptyBottle(cauldron: () -> LayeredCauldronBlock): CauldronInteraction = object : RichCauldronInteraction {
+        override val expectedOutput: ItemStack get() = Items.GLASS_BOTTLE.defaultInstance
 
-        InteractionResult.sidedSuccess(level.isClientSide)
-    }
-
-    private fun fillBottle(): CauldronInteraction = CauldronInteraction { state, level, pos, player, hand, stack ->
-        if (!level.isClientSide) {
-            val item: Item = stack.item
-            player.setItemInHand(
-                hand,
-                ItemUtils.createFilledResult(
+        override fun interact(
+            state: BlockState,
+            level: Level,
+            pos: BlockPos,
+            player: Player,
+            hand: InteractionHand,
+            stack: ItemStack
+        ): InteractionResult {
+            if (state.hasProperty(LayeredCauldronBlock.LEVEL) && state.getValue(LayeredCauldronBlock.LEVEL) == 3)
+                return InteractionResult.PASS
+            if (!level.isClientSide) {
+                val item: Item = stack.item
+                player.setItemInHand(hand, ItemUtils.createFilledResult(
                     stack,
                     player,
-                    EstrogenItems.HorseUrineBottle.defaultInstance
+                    ItemStack(Items.GLASS_BOTTLE)
+                ))
+                player.awardStat(Stats.USE_CAULDRON)
+                player.awardStat(Stats.ITEM_USED.get(item))
+                level.setBlockAndUpdate(pos,
+                    if (state of cauldron.invoke()) state.cycle(LayeredCauldronBlock.LEVEL)
+                    else cauldron.invoke().defaultBlockState()
                 )
-            )
-            player.awardStat(Stats.USE_CAULDRON)
-            player.awardStat(Stats.ITEM_USED.get(item))
-            LayeredCauldronBlock.lowerFillLevel(state, level, pos)
-            level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0f, 1.0f)
-            level.gameEvent(null, GameEvent.FLUID_PICKUP, pos)
+                level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0f, 1.0f)
+                level.gameEvent(null, GameEvent.FLUID_PLACE, pos)
+            }
+
+            return InteractionResult.sidedSuccess(level.isClientSide)
         }
-        InteractionResult.sidedSuccess(level.isClientSide)
+    }
+
+    private fun fillBottle(): CauldronInteraction = object : RichCauldronInteraction {
+        override val expectedOutput: ItemStack get() = EstrogenItems.HorseUrineBottle.defaultInstance
+
+        override fun interact(
+            state: BlockState,
+            level: Level,
+            pos: BlockPos,
+            player: Player,
+            hand: InteractionHand,
+            stack: ItemStack
+        ): InteractionResult {
+            if (!level.isClientSide) {
+                val item: Item = stack.item
+                player.setItemInHand(
+                    hand,
+                    ItemUtils.createFilledResult(
+                        stack,
+                        player,
+                        EstrogenItems.HorseUrineBottle.defaultInstance
+                    )
+                )
+                player.awardStat(Stats.USE_CAULDRON)
+                player.awardStat(Stats.ITEM_USED.get(item))
+                LayeredCauldronBlock.lowerFillLevel(state, level, pos)
+                level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0f, 1.0f)
+                level.gameEvent(null, GameEvent.FLUID_PICKUP, pos)
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide)
+        }
     }
 
     private fun cookie(): CauldronInteraction = object : RichCauldronInteraction {

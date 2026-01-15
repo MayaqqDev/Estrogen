@@ -5,8 +5,11 @@ import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
+import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVRecipe
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CommonRecipeViewer
+import dev.mayaqq.estrogen.compat.recipeviewers.api.PseudoRecipeHolder
+import dev.mayaqq.estrogen.compat.recipeviewers.api.RecipeData
 import dev.mayaqq.estrogen.compat.recipeviewers.api.Role
 import dev.mayaqq.estrogen.compat.recipeviewers.api.ViewerInfo
 import me.shedaniel.math.Point
@@ -50,6 +53,10 @@ object ReiPluginRegister {
                         commonPlugin.plugin.recipes.forEach { data ->
                             registry.add(ReiCategory(data))
                         }
+
+                        commonPlugin.plugin.pseudoRecipes.forEach { pseudoRecipeHolder ->
+                            registry.add(ReiPseudoCategory(pseudoRecipeHolder))
+                        }
                     }
 
                     override fun registerDisplays(registry: DisplayRegistry) {
@@ -58,12 +65,83 @@ object ReiPluginRegister {
                                 ReiRecipe(data, data.crvrecipe.invoke(recipe).apply { init() })
                             }
                         }
+                        commonPlugin.plugin.pseudoRecipes.forEach { recipe ->
+                            Estrogen.info("Recipe: ${recipe.id}")
+                            registry.registerFiller(RecipeData::class.java) { data ->
+                                Estrogen.info("Data: $data")
+                                val data = data as RecipeData
+                                val method = recipe.builder::class.java.getMethod("invoke", Object::class.java)
+                                method.isAccessible = true
+                                ReiPseudoRecipe(recipe, (method.invoke(recipe.builder, data) as CRVPseudoRecipe<*>).apply { init() })
+                            }
+                            recipe.dataSupplier.invoke().forEach(registry::add)
+                        }
                     }
 
                     @Suppress("UnstableApiUsage")
                     override fun registerBasicEntryFiltering(rule: BasicFilteringRule<*>) {
                         commonPlugin.plugin.removedItems.forEach {
                             rule.hide(EntryStack.of(VanillaEntryTypes.ITEM, it))
+                        }
+                    }
+
+                    inner class ReiPseudoRecipe(val recipeData: PseudoRecipeHolder<*>, val rvRecipe: CRVPseudoRecipe<*>) : BasicDisplay(
+                        rvRecipe.inputs.map { it.toRei() },
+                        rvRecipe.outputs.map { it.toRei() },
+                        Optional.of(recipeData.id)
+                    ) {
+                        override fun getCategoryIdentifier(): CategoryIdentifier<Display> = CategoryIdentifier.of(recipeData.id)
+                    }
+
+                    inner class ReiPseudoCategory(val recipe: PseudoRecipeHolder<*>) : DisplayCategory<Display> {
+                        override fun getCategoryIdentifier(): CategoryIdentifier<out Display> = CategoryIdentifier.of(recipe.id)
+
+                        override fun getTitle(): Component = Text.translatable("${recipe.id.namespace}.recipe.${recipe.id.path}")
+
+                        override fun getIcon(): Renderer = Renderer { graphics, bounds, mouseX, mouseY, partialTick ->
+                            recipe.render(graphics, bounds.centerX - 9, bounds.centerY - 9, partialTick)
+                        }
+
+                        override fun getDisplayHeight(): Int = recipe.height
+                        override fun getDisplayWidth(display: Display): Int = recipe.width
+
+                        override fun setupDisplay(display: Display, bounds: Rectangle): List<Widget> = buildList {
+                            val display = display as ReiPseudoRecipe
+                            add(Widgets.createRecipeBase(bounds))
+                            display.rvRecipe.textures.forEach { texture ->
+                                add(Widgets.createDrawableWidget { graphics, mouseX, mouseY, delta ->
+                                    graphics.pushPop {
+                                        translate(bounds.getX().toDouble(), bounds.getY().toDouble() + 4, 0.0)
+                                        texture.coorded.render(graphics, texture.x, texture.y)
+                                    }
+                                })
+                            }
+                            display.rvRecipe.drawables.forEach { drawable ->
+                                add(Widgets.createDrawableWidget { graphics, mouseX, mouseY, delta ->
+                                    graphics.pushPop {
+                                        translate(bounds.getX().toDouble() + drawable.x, bounds.getY().toDouble() + 4 + drawable.y, 0.0)
+                                        drawable.coorded.draw(graphics, 0, 0, mouseX, mouseY, delta)
+                                    }
+                                })
+                            }
+                            display.rvRecipe.slots.forEach { slot ->
+                                val reiSlot = Widgets.createSlot(Point(bounds.x + slot.x, bounds.y + slot.y + 4)).disableBackground()
+                                reiSlot.entries(slot.ingredient.toRei())
+                                when (slot.role) {
+                                    Role.INPUT -> reiSlot.markInput()
+                                    Role.OUTPUT -> reiSlot.markOutput()
+                                    Role.CATALYST -> {}
+                                    Role.RENDER_ONLY -> {}
+                                }
+
+                                add(Widgets.createDrawableWidget { graphics, mouseX, mouseY, delta ->
+                                    graphics.pushPop {
+                                        translate(bounds.getX().toDouble(), bounds.getY().toDouble() + 4, 0.0)
+                                        RecipeTextures.JEI_SLOT.render(graphics, slot.x - 1, slot.y - 1)
+                                    }
+                                })
+                                add(reiSlot)
+                            }
                         }
                     }
 

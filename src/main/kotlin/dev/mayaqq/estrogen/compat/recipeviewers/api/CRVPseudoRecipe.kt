@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeType
+import kotlin.reflect.KClass
 
 abstract class CRVPseudoRecipe<T : RecipeData>(val data: T) {
     val textures = mutableListOf<ObjectWithCoords<RecipeTextures>>()
