@@ -8,6 +8,7 @@ import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.SlotWidget
 import dev.emi.emi.api.widget.WidgetHolder
 import dev.emi.emi.registry.EmiPluginContainer
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe
@@ -33,6 +34,7 @@ object EmiPluginRegister {
                             registry.addRecipe(object : BasicEmiRecipe(category, crvRecipe.getId(), pseudoRecipe.width, pseudoRecipe.height) {
                                 init {
                                     crvRecipe.init()
+
                                     this.inputs.addAll(crvRecipe.inputs.map { it.toEmi() })
                                     this.outputs.addAll(crvRecipe.outputs.map { it.toEmiStack() })
                                     this.catalysts.addAll(crvRecipe.catalysts.map { it.toEmi() })

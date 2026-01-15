@@ -41,7 +41,7 @@ class CauldronInteractionPseudoRecipe(data: CIPRData) : CRVPseudoRecipe<CIPRData
     override val inputs: List<CRVIngredient>
         get() = listOf(CRVIngredient.of(Ingredient.of(data.item)))
     override val outputs: List<CRVIngredient>
-        get() = listOf(CRVIngredient.of(Ingredient.of(data.interaction.expectedOutput)))
+        get() = listOf(CRVIngredient.of(data.interaction.expectedOutput))
     override val catalysts: List<CRVIngredient> get() = listOf(CRVIngredient.of(Ingredient.of(Items.CAULDRON)))
 
     override fun getId(): ResourceLocation = id("${data.item.descriptionId.split(".").last()}_to_${data.cauldron.descriptionId.split(".").last()}_cauldron_interaction")

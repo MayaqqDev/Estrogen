@@ -69,8 +69,8 @@ object JeiPluginRegister {
                             override fun getWidth(): Int = pseudoRecipe.width
 
                             override fun getIcon(): IDrawable = object : IDrawable {
-                                override fun getWidth(): Int = pseudoRecipe.width
-                                override fun getHeight(): Int = pseudoRecipe.height
+                                override fun getWidth(): Int = 16
+                                override fun getHeight(): Int = 16
                                 override fun draw(
                                     graphics: GuiGraphics,
                                     offsetX: Int,
