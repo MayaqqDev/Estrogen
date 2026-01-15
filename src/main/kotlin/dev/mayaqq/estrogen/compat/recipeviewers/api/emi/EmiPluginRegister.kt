@@ -8,18 +8,11 @@ import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.SlotWidget
 import dev.emi.emi.api.widget.WidgetHolder
 import dev.emi.emi.registry.EmiPluginContainer
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CommonRecipeViewer
-import dev.mayaqq.estrogen.compat.recipeviewers.api.RecipeData
-import dev.mayaqq.estrogen.compat.recipeviewers.recipes.CIPRData
-import dev.mayaqq.estrogen.content.blocks.RichCauldronInteraction
-import dev.mayaqq.estrogen.id
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.world.item.Items
-import net.minecraft.world.level.block.AbstractCauldronBlock
+import net.minecraft.world.item.crafting.Ingredient
 
 object EmiPluginRegister {
     fun getPlugins(): List<EmiPluginContainer> {
@@ -69,6 +62,10 @@ object EmiPluginRegister {
                     }
 
                     registry.addCategory(category)
+
+                    viewerInfo.info.workstation?.let {
+                        registry.addWorkstation(category, EmiIngredient.of(Ingredient.of(viewerInfo.info.workstation)))
+                    }
 
                     registry.recipeManager.recipes.filter { it.type == viewerInfo.info.type }.forEach { recipe ->
                         val recipe = viewerInfo.crvrecipe.invoke(recipe)

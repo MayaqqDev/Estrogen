@@ -15,6 +15,8 @@ interface RecipeViewerInfo {
     val width: Int
     val height: Int
     val type: RecipeType<*>
+    val workstation: ItemStack?
+        get() = null
 
     fun render(graphics: GuiGraphics, offsetX: Int, offsetY: Int, delta: Float) {
 

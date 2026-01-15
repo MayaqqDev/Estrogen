@@ -29,6 +29,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.level.material.FluidState
@@ -93,5 +94,6 @@ class SpongingRecipe(val recipeId: ResourceLocation, val input: Either<Fluid, Ta
         override val height: Int = 70
         override val type: RecipeType<*> get() = EstrogenRecipes.SPONGING
         override val width: Int = 177
+        override val workstation: ItemStack? get() = Items.SPONGE.defaultInstance
     }
 }
