@@ -8,7 +8,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.minecraft.advancements.critereon.ImpossibleTrigger
 import net.minecraft.data.recipes.*
-import net.minecraft.data.recipes.RecipeProvider.has
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.item.Items

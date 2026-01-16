@@ -2,19 +2,14 @@ package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.cynosure.blocks.model.ModelBedBlock
 import dev.mayaqq.cynosure.blocks.poi.add
-import dev.mayaqq.cynosure.core.Loader
-import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.estrogen.Estrogen
-import dev.mayaqq.estrogen.client.features.TextRendererFeatures
 import dev.mayaqq.estrogen.content.blocks.*
-import dev.mayaqq.estrogen.content.blocks.DreamBlock.Companion.PERSISTENT
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.content.items.ThighHighsItem
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import net.minecraft.client.renderer.RenderType
-import net.minecraft.core.BlockPos
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceLocation
@@ -24,13 +19,7 @@ import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.CreativeModeTabs
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.Rarity
-import net.minecraft.world.level.BlockGetter
-import net.minecraft.world.level.block.BedBlock
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.Blocks
-import net.minecraft.world.level.block.CarpetBlock
-import net.minecraft.world.level.block.LayeredCauldronBlock
-import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.state.properties.BedPart
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument
 import net.minecraft.world.level.material.MapColor
@@ -38,7 +27,6 @@ import uwu.serenity.kritter.api.Registrar
 import uwu.serenity.kritter.api.creative.TabPlacement
 import uwu.serenity.kritter.client.stdlib.color
 import uwu.serenity.kritter.client.stdlib.renderType
-import uwu.serenity.kritter.stdlib.Always
 import uwu.serenity.kritter.stdlib.Never
 import uwu.serenity.kritter.stdlib.block
 

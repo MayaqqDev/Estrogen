@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.fabric.client.models
 
 import dev.mayaqq.cynosure.helpers.McClient
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.block.ClientDreamBlock
 import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedU
 import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedV

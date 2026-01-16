@@ -39,7 +39,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 import org.joml.Quaternionf;

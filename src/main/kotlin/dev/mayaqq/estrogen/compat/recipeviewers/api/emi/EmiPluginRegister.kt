@@ -8,7 +8,6 @@ import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.SlotWidget
 import dev.emi.emi.api.widget.WidgetHolder
 import dev.emi.emi.registry.EmiPluginContainer
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe

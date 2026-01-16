@@ -7,12 +7,9 @@ import dev.mayaqq.estrogen.client.content.screen.BaseEstrogenScreen
 import dev.mayaqq.estrogen.client.content.screen.EstrogenButton
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
 import dev.mayaqq.estrogen.client.content.screen.cosmetics.widget.CosmeticPreview
-import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
 import dev.mayaqq.estrogen.client.cosmetics.StatusCode
-import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.MutableComponent
 
 
 open class CosmeticsBaseScreen(previous: Screen?, title: Component, val ableToClaim: Boolean = false) : BaseEstrogenScreen(previous, title) {

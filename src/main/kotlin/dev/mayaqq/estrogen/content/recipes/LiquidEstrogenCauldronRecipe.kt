@@ -6,7 +6,6 @@ import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
 import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.estrogen.content.EstrogenFluids
-import dev.mayaqq.estrogen.content.EstrogenItems
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
 import dev.mayaqq.estrogen.id

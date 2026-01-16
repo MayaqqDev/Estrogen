@@ -4,9 +4,9 @@
   "package": "dev.mayaqq.estrogen.fabric.mixins",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MobCategoryMixin",
     "PackInvoker",
-    "SpongeBlockMixin",
-    "MobCategoryMixin"
+    "SpongeBlockMixin"
   ],
   "client": [
     "client.compat.jei.FabricPluginFinderMixin"

@@ -6,7 +6,6 @@ import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVRecipe
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CommonRecipeViewer
-import dev.mayaqq.estrogen.compat.recipeviewers.api.PseudoRecipeHolder
 import dev.mayaqq.estrogen.compat.recipeviewers.api.Role
 import dev.mayaqq.estrogen.utils.exceptions.EmptyTagException
 import mezz.jei.api.IModPlugin
@@ -18,7 +17,6 @@ import mezz.jei.api.recipe.IFocusGroup
 import mezz.jei.api.recipe.RecipeIngredientRole
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.IRecipeCategory
-import mezz.jei.api.registration.IRecipeCatalystRegistration
 import mezz.jei.api.registration.IRecipeCategoryRegistration
 import mezz.jei.api.registration.IRecipeRegistration
 import mezz.jei.api.runtime.IJeiRuntime

@@ -38,7 +38,6 @@ import net.minecraft.client.renderer.entity.HumanoidMobRenderer
 import net.minecraft.client.resources.model.ModelResourceLocation
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
 import uwu.serenity.kittyconfig.loadConfig
 

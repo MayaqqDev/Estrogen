@@ -4,12 +4,9 @@ import com.mojang.blaze3d.systems.RenderSystem
 import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVRecipe.ObjectWithCoords
-import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.RecipeType
-import kotlin.reflect.KClass
 
 abstract class CRVPseudoRecipe<T : RecipeData>(val data: T) {
     val textures = mutableListOf<ObjectWithCoords<RecipeTextures>>()

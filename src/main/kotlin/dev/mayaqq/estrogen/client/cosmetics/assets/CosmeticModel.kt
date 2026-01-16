@@ -4,13 +4,10 @@ import com.google.gson.JsonParser
 import com.mojang.serialization.Codec
 import com.mojang.serialization.JsonOps
 import dev.mayaqq.cynosure.client.models.ModelData
-import dev.mayaqq.cynosure.client.models.animations.Animatable
 import dev.mayaqq.cynosure.client.models.bake
 import dev.mayaqq.cynosure.client.models.baked.CustomBakedModel
 import dev.mayaqq.estrogen.client.cosmetics.CACHE
 import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
-import org.joml.Vector3fc
-import java.io.File
 import java.io.Reader
 import kotlin.jvm.optionals.getOrNull
 

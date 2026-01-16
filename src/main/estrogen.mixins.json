@@ -24,14 +24,14 @@
     "client.MinecraftMixin",
     "client.PlayerInfoMixin",
     "client.PlayerModelMixin",
-    "client.ReceivingLevelScreenMixin",
     "client.PostPassMixin",
+    "client.ReceivingLevelScreenMixin",
+    "client.accessor.AbstractWidgetAccessor",
     "client.accessor.ItemPropertiesAccessor",
     "client.accessor.LevelRendererAccessor",
     "client.accessor.ModelManagerAccessor",
-    "client.accessor.AbstractWidgetAccessor",
-    "client.compat.emi.EmiAgnosMixin",
     "client.compat.betteradvancements.BetterAdvancementTabMixin",
+    "client.compat.emi.EmiAgnosMixin",
     "client.compat.paginatedadvancements.PaginatedAdvancementTabMixin"
   ],
   "injectors": {

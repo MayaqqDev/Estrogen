@@ -18,7 +18,6 @@ import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
 import dev.mayaqq.cynosure.utils.*
 import dev.mayaqq.cynosure.utils.dfu.toCynosure
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.data.EntityTypeRecipeCodec
 import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData

@@ -2,16 +2,8 @@ package dev.mayaqq.estrogen.compat.recipeviewers.api.rei
 
 import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.text.Text
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
-import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
-import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe
-import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVRecipe
-import dev.mayaqq.estrogen.compat.recipeviewers.api.CommonRecipeViewer
-import dev.mayaqq.estrogen.compat.recipeviewers.api.PseudoRecipeHolder
-import dev.mayaqq.estrogen.compat.recipeviewers.api.RecipeData
-import dev.mayaqq.estrogen.compat.recipeviewers.api.Role
-import dev.mayaqq.estrogen.compat.recipeviewers.api.ViewerInfo
+import dev.mayaqq.estrogen.compat.recipeviewers.api.*
 import me.shedaniel.math.Point
 import me.shedaniel.math.Rectangle
 import me.shedaniel.rei.api.client.entry.filtering.base.BasicFilteringRule
@@ -34,7 +26,7 @@ import me.shedaniel.rei.api.common.util.EntryIngredients
 import me.shedaniel.rei.api.common.util.EntryStacks
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
-import java.util.Optional
+import java.util.*
 
 object ReiPluginRegister {
     fun register() {

@@ -55,7 +55,6 @@ import org.apache.commons.codec.digest.MessageDigestAlgorithms
 import uwu.serenity.kritter.client.stdlib.clientOnly
 import uwu.serenity.kritter.stdlib.BlockEntityBlock
 import java.security.MessageDigest
-import kotlin.ranges.contains
 import kotlin.reflect.KClass
 
 class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<DreamBlockEntity> {

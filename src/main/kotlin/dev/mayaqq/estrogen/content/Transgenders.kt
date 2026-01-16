@@ -23,7 +23,6 @@ import earth.terrarium.botarium.common.registry.fluid.BotariumSourceFluid
 import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.renderer.RenderType
-import net.minecraft.client.renderer.item.ClampedItemPropertyFunction
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.Item

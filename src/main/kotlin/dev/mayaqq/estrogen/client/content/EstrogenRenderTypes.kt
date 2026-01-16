@@ -8,8 +8,8 @@ import dev.mayaqq.cynosure.client.render.fixed
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture
 import net.minecraft.Util
 import net.minecraft.client.renderer.RenderStateShard
-import net.minecraft.client.renderer.RenderStateShard.TextureStateShard
 import net.minecraft.client.renderer.RenderStateShard.ShaderStateShard
+import net.minecraft.client.renderer.RenderStateShard.TextureStateShard
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderType.CompositeState
 import net.minecraft.resources.ResourceLocation

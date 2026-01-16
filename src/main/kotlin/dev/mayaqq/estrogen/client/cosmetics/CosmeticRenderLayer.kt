@@ -7,7 +7,6 @@ import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.renderer.MultiBufferSource
-import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.entity.RenderLayerParent
 import net.minecraft.client.renderer.entity.layers.RenderLayer
 import net.minecraft.client.renderer.texture.OverlayTexture

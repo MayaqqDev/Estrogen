@@ -6,12 +6,7 @@ import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
 import net.minecraft.Util
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.FilenameUtils
-import java.io.File
-import java.io.FileReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.io.Reader
+import java.io.*
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
