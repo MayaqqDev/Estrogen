@@ -347,6 +347,7 @@ cloche {
     }
 }
 
+// Fix Forge attributes (remove when?)
 val fixedAttribute = Attribute.of("fixed-jar", Boolean::class.javaObjectType)
 
 dependencies {
@@ -368,6 +369,7 @@ configurations.named("forgeRuntimeClasspath") {
     }
 }
 
+// Java ags
 java {
     withSourcesJar()
     toolchain {
@@ -375,6 +377,7 @@ java {
     }
 }
 
+// Kotlin args
 kotlin {
     compilerOptions {
         languageVersion = KotlinVersion.KOTLIN_2_0
@@ -383,6 +386,7 @@ kotlin {
     jvmToolchain(17)
 }
 
+// Compiler args
 tasks.withType<KotlinCompile> {
 //    explicitApiMode = org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode.Warning
     compilerOptions {
@@ -391,13 +395,14 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+// Remove Kotlin dependencies from common stub
 tasks.named("createCommonApiStub", GenerateStubApi::class) {
     excludes.add(libs.kritter.get().group)
     excludes.add(libs.cynosure.get().group)
     excludes.add(libs.kittyconfig.get().group)
 }
 
-//Lemme just disable compiling java to fix issues
+// Lemme just disable compiling java to fix issues
 tasks.compileJava {
     enabled = false
 }
@@ -405,6 +410,12 @@ tasks.compileKotlin {
     enabled = false
 }
 
+// Disable Forge Datagen, needed for cloche to take in the paths but don't want it to override the fabric generated files
+tasks.named("runForgeData") {
+    enabled = false
+}
+
+// Publishing
 publishing {
     publications {
         create<MavenPublication>("mod") {
@@ -416,7 +427,7 @@ publishing {
         val username = try { onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Sappho Maven/username"] } catch (_: Exception) { null }
         val password = try { onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Sappho Maven/password"] } catch (_: Exception) { null }
         if (username != null && password != null) {
-                maven("https://maven.is-immensely.gay/${properties["maven_category"]}") {
+            maven("https://maven.is-immensely.gay/${properties["maven_category"]}") {
                 name = "sapphoCompany"
                 credentials {
                     this.username = username.get()
@@ -429,11 +440,7 @@ publishing {
     }
 }
 
-tasks.named("runForgeData") {
-    enabled = false
-}
-
-
+// Platform Publishing
 publishMods {
     val loaders = arrayOf(
         PublishMetadata(
