@@ -195,6 +195,7 @@ cloche {
         }
 
         // comment this out when in dev env
+        /*
         withMetadataJson {
             withElement {
                 buildJsonObject {
@@ -203,6 +204,7 @@ cloche {
                 }
             }
         }
+         */
 
         dependencies {
             fabricApi(libs.versions.fapi)

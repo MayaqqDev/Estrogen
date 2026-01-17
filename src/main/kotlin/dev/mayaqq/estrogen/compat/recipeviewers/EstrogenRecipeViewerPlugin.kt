@@ -29,7 +29,9 @@ object EstrogenRecipeViewerPlugin : CRVPlugin {
                     if (it is AbstractCauldronBlock) {
                         it.interactions.forEach { (item, interaction) ->
                             if (interaction is RichCauldronInteraction) {
-                                add(CIPRData(item, interaction, it))
+                                if (interaction.enabled.invoke()) {
+                                    add(CIPRData(item, interaction, it))
+                                }
                             }
                         }
                     }

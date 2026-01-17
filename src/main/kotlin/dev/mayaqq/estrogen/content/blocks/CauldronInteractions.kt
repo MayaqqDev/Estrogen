@@ -4,6 +4,7 @@ import dev.mayaqq.cynosure.events.PostInitEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.utils.of
+import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenItems
@@ -57,6 +58,8 @@ object CauldronInteractions {
 
     private fun fill(block: () -> LayeredCauldronBlock): CauldronInteraction = object : RichCauldronInteraction {
         override val expectedOutput: ItemStack get() = Items.BUCKET.defaultInstance
+        override val enabled: () -> Boolean = { EstrogenCommonConfig.Recipes.cauldronInteractions }
+
         override fun interact(
             state: BlockState,
             level: Level,
@@ -65,6 +68,7 @@ object CauldronInteractions {
             hand: InteractionHand,
             stack: ItemStack
         ): InteractionResult {
+            if (!enabled.invoke()) return InteractionResult.PASS
             return emptyBucket(level, pos, player, hand, stack,
                 block.invoke().defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3),
                 SoundEvents.BUCKET_EMPTY
@@ -74,6 +78,8 @@ object CauldronInteractions {
 
     private fun fillEstrogenPatch() = object : RichCauldronInteraction {
         override val expectedOutput: ItemStack get() = EstrogenItems.EstrogenPatches.getFullStack()
+        override val enabled: () -> Boolean = { EstrogenCommonConfig.Recipes.cauldronInteractions }
+
         override fun interact(
             state: BlockState,
             level: Level,
@@ -82,6 +88,7 @@ object CauldronInteractions {
             hand: InteractionHand,
             stack: ItemStack
         ): InteractionResult {
+            if (!enabled.invoke()) return InteractionResult.PASS
             if (state.hasProperty(LayeredCauldronBlock.LEVEL) && state.getValue(LayeredCauldronBlock.LEVEL) != 3)
                 return InteractionResult.PASS
             if (!level.isClientSide) {
@@ -100,6 +107,8 @@ object CauldronInteractions {
 
     private fun bucket(bucket: () -> FluidBucketItem): CauldronInteraction = object : RichCauldronInteraction {
         override val expectedOutput: ItemStack get() = bucket.invoke().defaultInstance
+        override val enabled: () -> Boolean = { EstrogenCommonConfig.Recipes.cauldronInteractions }
+
         override fun interact(
             state: BlockState,
             level: Level,
@@ -108,7 +117,8 @@ object CauldronInteractions {
             hand: InteractionHand,
             stack: ItemStack
         ): InteractionResult {
-           return fillBucket(
+            if (!enabled.invoke()) return InteractionResult.PASS
+            return fillBucket(
                 state,
                 level,
                 pos,
@@ -124,6 +134,7 @@ object CauldronInteractions {
 
     private fun emptyBottle(cauldron: () -> LayeredCauldronBlock): CauldronInteraction = object : RichCauldronInteraction {
         override val expectedOutput: ItemStack get() = Items.GLASS_BOTTLE.defaultInstance
+        override val enabled: () -> Boolean = { EstrogenCommonConfig.Recipes.cauldronInteractions }
 
         override fun interact(
             state: BlockState,
@@ -133,6 +144,7 @@ object CauldronInteractions {
             hand: InteractionHand,
             stack: ItemStack
         ): InteractionResult {
+            if (!enabled.invoke()) return InteractionResult.PASS
             if (state.hasProperty(LayeredCauldronBlock.LEVEL) && state.getValue(LayeredCauldronBlock.LEVEL) == 3)
                 return InteractionResult.PASS
             if (!level.isClientSide) {
@@ -158,6 +170,7 @@ object CauldronInteractions {
 
     private fun fillBottle(): CauldronInteraction = object : RichCauldronInteraction {
         override val expectedOutput: ItemStack get() = EstrogenItems.HorseUrineBottle.defaultInstance
+        override val enabled: () -> Boolean = { EstrogenCommonConfig.Recipes.cauldronInteractions }
 
         override fun interact(
             state: BlockState,
@@ -167,6 +180,7 @@ object CauldronInteractions {
             hand: InteractionHand,
             stack: ItemStack
         ): InteractionResult {
+            if (!enabled.invoke()) return InteractionResult.PASS
             if (!level.isClientSide) {
                 val item: Item = stack.item
                 player.setItemInHand(
@@ -189,6 +203,7 @@ object CauldronInteractions {
 
     private fun cookie(): CauldronInteraction = object : RichCauldronInteraction {
         override val expectedOutput: ItemStack get() = EstrogenItems.EstrogenPill.defaultInstance
+        override val enabled: () -> Boolean = { EstrogenCommonConfig.Recipes.cauldronInteractions }
 
         override fun interact(
             state: BlockState,
@@ -198,6 +213,7 @@ object CauldronInteractions {
             hand: InteractionHand,
             stack: ItemStack
         ): InteractionResult {
+            if (!enabled.invoke()) return InteractionResult.PASS
             if (!level.isClientSide) {
                 val item: Item = stack.item
                 player.setItemInHand(
@@ -237,7 +253,8 @@ object CauldronInteractions {
     }
 }
 
-public interface RichCauldronInteraction : CauldronInteraction {
+interface RichCauldronInteraction : CauldronInteraction {
     val expectedOutput: ItemStack
+    val enabled: () -> Boolean
 }
 

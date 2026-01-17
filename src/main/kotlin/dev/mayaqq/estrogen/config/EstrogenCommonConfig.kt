@@ -23,6 +23,12 @@ object EstrogenCommonConfig : KittyConfig {
 
     }
 
+    @Comment("Recipe* Configuration")
+    object Recipes {
+        @Comment("Enable Cauldron Interactions")
+        var cauldronInteractions: Boolean = true
+    }
+
     @Comment("Settings for the durations of effects")
     object Durations {
 
