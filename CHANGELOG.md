@@ -2,4 +2,5 @@
 
 ### Changelog:
 - Cauldron Interaction Config
+- Thigh High Spawn Chance Config
 - Cog Icon in Configs

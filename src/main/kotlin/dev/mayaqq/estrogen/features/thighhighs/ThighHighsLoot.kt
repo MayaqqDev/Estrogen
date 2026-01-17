@@ -8,6 +8,7 @@ import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.world.LoottableEvents
 import dev.mayaqq.cynosure.injection.conditionally
 import dev.mayaqq.cynosure.injection.with
+import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.EstrogenItems
 import dev.mayaqq.estrogen.content.EstrogenLootFunctions
 import dev.mayaqq.estrogen.content.items.ThighHighsItem
@@ -37,8 +38,11 @@ fun LoottableEvents.Modify.onLootModify() {
     if (LOOT_LOCATIONS.contains(id)) {
         val pool = LootPool.lootPool()
             .setRolls(ConstantValue.exactly(1F))
-            .conditionally(LootItemRandomChanceCondition.randomChance(0.1f).build())
-            .with(
+            .conditionally(
+                LootItemRandomChanceCondition.randomChance(
+                    EstrogenServerConfig.ThighHighs.prideThighHighsChance / 100F)
+                    .build()
+            ).with(
                 LootItem.lootTableItem(EstrogenItems.ThighHighs)
                     .apply(ThighHighStyleLootFunction.apply())
                     .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f)))

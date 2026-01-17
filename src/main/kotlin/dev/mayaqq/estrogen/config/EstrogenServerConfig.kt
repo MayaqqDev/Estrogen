@@ -27,6 +27,9 @@ object EstrogenServerConfig : KittyConfig {
     object ThighHighs {
         @Comment("The amount of Fall Damage Reduction Thigh Highs add")
         var fallDamageReduction: @Range(min = 0, max = 1000) Int = 100
+
+        @Comment("The chance for the Pride Thigh Highs to spawn in chests (in % per container)")
+        var prideThighHighsChance: @Range(min = 0, max = 100) Int = 10
     }
 
     @Comment("Settings for the dream block")
