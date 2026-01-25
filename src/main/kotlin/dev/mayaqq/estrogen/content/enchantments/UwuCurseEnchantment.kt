@@ -22,7 +22,6 @@ class UwuCurseEnchantment(rarity: Rarity, category: EnchantmentCategory, vararg 
 
 @Subscription
 fun onChatMessage(event: ServerChatEvent) {
-    Estrogen.info("On Message")
     if (EnchantmentHelper.getEnchantments(event.player.getItemBySlot(EquipmentSlot.HEAD)).containsKey(UwUfyingCurse)) {
         event.message = event.rawText.uwufy().asComponent()
     }
