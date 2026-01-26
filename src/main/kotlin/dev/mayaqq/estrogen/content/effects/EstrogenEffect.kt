@@ -54,7 +54,10 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         if (!EstrogenCommonConfig.Dash.enabled) return
 
         // Only tick on the client and if the entity is a player
-        if (entity is Player && entity.level().isClientSide) ClientDash.tick()
+        if (entity is Player && entity.level().isClientSide) {
+            ClientDash.tick()
+            if (entity.getEffect(this)?.duration == 1) ClientDash.reset()
+        }
     }
 
     override fun removeAttributeModifiers(entity: LivingEntity, attributes: AttributeMap, amplifier: Int) {
