@@ -10,6 +10,7 @@ import dev.mayaqq.cynosure.events.entity.EntityTrackingEvent
 import dev.mayaqq.cynosure.events.entity.LivingEntityEvent
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.currentTime
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.features.boobs.Boob
 import dev.mayaqq.estrogen.client.features.dash.ClientDash
 import dev.mayaqq.estrogen.compat.cobblemon.CobblemonCompat
@@ -54,7 +55,10 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         if (!EstrogenCommonConfig.Dash.enabled) return
 
         // Only tick on the client and if the entity is a player
-        if (entity is Player && entity.level().isClientSide) ClientDash.tick()
+        if (entity is Player && entity.level().isClientSide) {
+            ClientDash.tick()
+            if (entity.getEffect(this)?.duration == 1) ClientDash.reset()
+        }
     }
 
     override fun removeAttributeModifiers(entity: LivingEntity, attributes: AttributeMap, amplifier: Int) {
