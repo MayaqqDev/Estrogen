@@ -10,7 +10,6 @@ import dev.mayaqq.cynosure.events.entity.EntityTrackingEvent
 import dev.mayaqq.cynosure.events.entity.LivingEntityEvent
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.currentTime
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.features.boobs.Boob
 import dev.mayaqq.estrogen.client.features.dash.ClientDash
 import dev.mayaqq.estrogen.compat.cobblemon.CobblemonCompat
