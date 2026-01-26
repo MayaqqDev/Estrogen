@@ -51,7 +51,7 @@ object ReiPluginRegister {
                             }
                         }
 
-                        commonPlugin.plugin.pseudoRecipes.forEach { pseudoRecipeHolder ->
+                        commonPlugin.plugin.pseudoRecipes?.forEach { pseudoRecipeHolder ->
                             registry.add(ReiPseudoCategory(pseudoRecipeHolder))
                         }
                     }
@@ -62,7 +62,7 @@ object ReiPluginRegister {
                                 ReiRecipe(data, data.crvrecipe.invoke(recipe).apply { init() })
                             }
                         }
-                        commonPlugin.plugin.pseudoRecipes.forEach { recipe ->
+                        commonPlugin.plugin.pseudoRecipes?.forEach { recipe ->
                             registry.registerFiller(RecipeData::class.java) { data ->
                                 val data = data as RecipeData
                                 val method = recipe.builder::class.java.getMethod("invoke", Object::class.java)

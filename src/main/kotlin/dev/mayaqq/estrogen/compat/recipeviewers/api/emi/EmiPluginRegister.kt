@@ -18,7 +18,7 @@ object EmiPluginRegister {
     fun getPlugins(): List<EmiPluginContainer> {
         return CommonRecipeViewer.getPlugins().map { commonPlugin ->
             EmiPluginContainer({ registry ->
-                commonPlugin.plugin.pseudoRecipes.forEach { pseudoRecipe ->
+                commonPlugin.plugin.pseudoRecipes?.forEach { pseudoRecipe ->
                     val category = EmiRecipeCategory(pseudoRecipe.id) { graphics, offsetX, offsetY, partialTick ->
                         pseudoRecipe.render(graphics, offsetX, offsetY, partialTick)
                     }

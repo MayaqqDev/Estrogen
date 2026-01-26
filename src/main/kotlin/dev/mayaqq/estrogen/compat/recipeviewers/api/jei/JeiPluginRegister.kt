@@ -41,7 +41,7 @@ object JeiPluginRegister {
 
     val pseudoRecipeTypes by lazy { buildMap {
         crvPlugins.forEach { (plugin, modid) ->
-            plugin.pseudoRecipes.forEach { pseudoRecipe ->
+            plugin.pseudoRecipes?.forEach { pseudoRecipe ->
                 put(pseudoRecipe, RecipeType(pseudoRecipe.id, CRVPseudoRecipe::class.java))
             }
         }
@@ -57,7 +57,7 @@ object JeiPluginRegister {
                 override fun getPluginUid(): ResourceLocation = ResourceLocation(commonPlugin.modid, "jei_plugin")
 
                 override fun registerCategories(registry: IRecipeCategoryRegistration) {
-                    commonPlugin.plugin.pseudoRecipes.forEach { pseudoRecipe ->
+                    commonPlugin.plugin.pseudoRecipes?.forEach { pseudoRecipe ->
                         registry.addRecipeCategories(object : IRecipeCategory<Any> {
                             override fun getRecipeType(): RecipeType<Any> = pseudoRecipeTypes[pseudoRecipe] as RecipeType<Any>
 
