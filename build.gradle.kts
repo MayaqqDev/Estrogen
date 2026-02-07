@@ -194,18 +194,6 @@ cloche {
             }
         }
 
-        // comment this out when in dev env
-        /*
-        withMetadataJson {
-            withElement {
-                buildJsonObject {
-                    this@withElement.forEach { put(it.key, it.value) }
-                    put("accessWidener", "estrogen.accessWidener")
-                }
-            }
-        }
-         */
-
         dependencies {
             fabricApi(libs.versions.fapi)
             modApi(libs.fabric.kotlin)
@@ -387,15 +375,6 @@ kotlin {
         freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
     }
     jvmToolchain(17)
-}
-
-// Compiler args
-tasks.withType<KotlinCompile> {
-//    explicitApiMode = org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode.Warning
-    compilerOptions {
-        languageVersion = KotlinVersion.KOTLIN_2_0
-        freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
-    }
 }
 
 // Remove Kotlin dependencies from common stub
