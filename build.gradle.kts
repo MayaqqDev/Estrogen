@@ -6,9 +6,7 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.put
 import net.msrandom.minecraftcodev.core.utils.toPath
-import net.msrandom.stubs.GenerateStubApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import kotlin.io.path.absolutePathString
 
 plugins {
@@ -16,19 +14,22 @@ plugins {
     alias(libs.plugins.cloche)
     kotlin("jvm") version libs.versions.kotlin
     kotlin("plugin.serialization") version libs.versions.kotlin
-    alias(libs.plugins.kittyconfig)
     // Need to explicitly set ksp versions cs cloche loads an old version by default
     id("com.google.devtools.ksp") version "2.2.10-2.0.2"
-    id("dev.isxander.secrets") version "0.1.0"
     `maven-publish`
 }
 
 repositories {
-    maven(url = "https://maven.parchmentmc.org") { name = "Parchment" }
-    maven(url = "https://maven.fabricmc.net") { name = "FabricMC" }
+    maven(url = "https://libraries.minecraft.net/") // Gotta be on top to download correct libraries on macos :ioa:
+    cloche {
+        mavenNeoforged()
+        mavenForge()
+        mavenFabric()
+        mavenNeoforgedMeta()
+        mavenParchment()
+    }
     maven(url = "https://maven.terraformersmc.com/releases/") { name = "TerraformersMC" }
     maven(url = "https://thedarkcolour.github.io/KotlinForForge/") { name = "KotlinForForge" }
-    maven(url = "https://maven.minecraftforge.net/") { name = "Forge" }
     maven(url = "https://maven.teamresourceful.com/repository/maven-public/") { name = "Team Resourceful" }
     maven(url = "https://maven.shedaniel.me") { name = "Shedaniel" }
     maven(url = "https://maven.blamejared.com/") { name = "Blamejared" }
@@ -75,88 +76,45 @@ cloche {
 
         dependency {
             modId = "cynosure"
-            version {
+            /*version {
                 start = "0.1.15"
-            }
-        }
-        dependency {
-            modId = "kittyconfig"
+            }*/
         }
     }
 
-    mappings {
-        official()
-        parchment(libs.versions.parchment)
-    }
-
-    common {
+    val root = common {
         mixins.from(file("src/main/estrogen.mixins.json"))
-
         accessWideners.from(file("src/main/estrogen.accessWidener"))
 
         dependencies {
             compileOnly(libs.mixin)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.coroutines.core)
-            api(libs.flywheel.api)
             modCompileOnly(libs.ears)
             modCompileOnly(libs.figura)
             modCompileOnly(libs.createNewAge)
-            modImplementation(libs.kittyconfig)
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
             implementation(libs.cosmetics)
 
-            modCompileOnly(libs.kritter)
             modImplementation(libs.cynosure)
 
             localRuntime("net.minecrell:terminalconsoleappender:1.3.0")
         }
     }
 
-    fabric {
-        mixins.from(file("src/main/estrogen.mixins.json"), file("src/fabric/estrogen-fabric.mixins.json"))
-        accessWideners.from(file("src/main/estrogen.accessWidener"))
+    val fabricCommon = common("common:fabric") {
+        dependsOn(root)
+        mixins.from(file("src/common/fabric/main/estrogen.fabric.mixins.json"))
 
-        loaderVersion = libs.versions.fabric
-        minecraftVersion = libs.versions.minecraft
+        dependencies {
+            modApi(libs.fabric.kotlin)
+            modCompileOnly(libs.fabric.emi.get1201())
+            modCompileOnly(libs.fabric.rei.get1201())
+            modCompileOnly(libs.fabric.jei.get1201())
+            modCompileOnly(libs.fabric.iris)
 
-
-        includedClient() // includedClient() is not a run
-        runs {
-            client {
-                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
-            }
-            server {
-                runDir("runServer")
-                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
-            }
-            data {
-                jvmArgs("-Dfabric-api.datagen.output-dir=${file("build/generated/resources/main")}")
-                jvmArgs("-Destrogen.datagen.fabric-output-dir=${file("build/generated/resources/fabric")}")
-                jvmArgs("-Destrogen.datagen.forge-output-dir=${file("build/generated/resources/forge")}")
-                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
-            }
-        }
-
-        data {
-            this.withMetadataJson {
-                 this.withElement {
-                     return@withElement buildJsonObject {
-                         this@withElement.forEach { this.put(it.key,it.value) }
-                         val newEntrypoints = buildJsonObject {
-                             this@withElement["entrypoints"]!!.jsonObject.forEach { this.put(it.key,it.value) }
-                             put("fabric-datagen", buildJsonArray {
-                                 add(buildJsonObject {
-                                     put("adapter","kotlin")
-                                     put("value","dev.mayaqq.estrogen.datagen.EstrogenDatagen")
-                                 })
-                             })
-                         }
-                         put("entrypoints",newEntrypoints)
-                     }
-                 }
-            }
+            include(libs.cosmetics)
         }
 
         metadata {
@@ -193,43 +151,103 @@ cloche {
                 modId = "trinkets"
             }
         }
+    }
+
+    val forgeLike = common("common:forgeLike") {
+        dependsOn(root)
+        mixins.from(file("src/common/forgeLike/main/estrogen.forge.mixins.json"))
+
+        metadata {
+            dependency {
+                modId = "curios"
+            }
+        }
+    }
+
+    val common1201 = common("common:1.20.1") {
+        dependsOn(root)
+        mixins.from(file("src/common/1.20.1/main/estrogen-1.20.1.mixins.json"))
 
         dependencies {
-            fabricApi(libs.versions.fapi)
-            modApi(libs.fabric.kotlin)
-            modApi.bundle(libs.bundles.fabric.cardinalComponents)
-            modImplementation(libs.fabric.baubly) { exclude(group = "me.shedaniel") }
-            modImplementation(libs.fabric.trinkets)
-            modCompileOnly(libs.fabric.emi)
-            modCompileOnly(libs.fabric.rei)
-            modCompileOnly(libs.fabric.jei)
-            modImplementation(libs.fabric.modmenu)
-            modCompileOnly(libs.fabric.iris)
-            //modCompileOnly(libs.fabric.cobblemon)
-            modCompileOnlyApi(libs.fabric.flywheel.api)
-            modImplementation(libs.fabric.flywheel)
+            api(libs.flywheel.api.get1201())
+        }
+    }
+
+    val common1211 = common("common:1.21.1") {
+        dependsOn(root)
+        mixins.from(file("src/common/1.21.1/main/estrogen-1.21.1.mixins.json"))
+
+        dependencies {
+            api(libs.flywheel.api.get1211())
+        }
+    }
+
+    fabric("fabric:1.20.1") {
+        dependsOn(common1201, fabricCommon)
+        mixins.from(file("src/fabric/estrogen-fabric-1.20.1.mixins.json"))
+
+        loaderVersion = libs.versions.fabric
+        minecraftVersion = libs.versions.minecraft.get1201()
+
+        mappings {
+            official()
+            parchment(libs.versions.parchment.get1201())
+        }
+
+
+        includedClient() // includedClient() is not a run
+        runs {
+            client {
+            }
+            server {
+                runDir("runServer")
+            }
+            data {
+                jvmArgs("-Dfabric-api.datagen.output-dir=${file("build/generated/resources/main")}")
+                jvmArgs("-Destrogen.datagen.fabric-output-dir=${file("build/generated/resources/fabric")}")
+                jvmArgs("-Destrogen.datagen.forge-output-dir=${file("build/generated/resources/forge")}")
+            }
+        }
+
+        data {
+            this.withMetadataJson {
+                 this.withElement {
+                     return@withElement buildJsonObject {
+                         this@withElement.forEach { this.put(it.key,it.value) }
+                         val newEntrypoints = buildJsonObject {
+                             this@withElement["entrypoints"]!!.jsonObject.forEach { this.put(it.key,it.value) }
+                             put("fabric-datagen", buildJsonArray {
+                                 add(buildJsonObject {
+                                     put("adapter","kotlin")
+                                     put("value","dev.mayaqq.estrogen.datagen.EstrogenDatagen")
+                                 })
+                             })
+                         }
+                         put("entrypoints", newEntrypoints)
+                     }
+                 }
+            }
+        }
+
+        dependencies {
+            fabricApi(libs.versions.fapi.get1201())
+            modApi.bundle(libs.bundles.fabric.cardinalComponents.get1201())
+            modImplementation(libs.fabric.trinkets.get1201())
+            modImplementation(libs.fabric.modmenu.get1201())
             //modImplementation(libs.fabric.cynosure)
-            modImplementation(libs.fabric.kritter)
-            modApi(libs.fabric.botarium)
+            modImplementation(libs.fabric.kritter.get1201())
+            modCompileOnlyApi(libs.fabric.flywheel.api.get1201())
+            modImplementation(libs.fabric.flywheel.get1201())
 
             localRuntime("org.anarres:jcpp:1.4.14")
             localRuntime("io.github.douira:glsl-transformer:2.0.1")
 
-            include(libs.fabric.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
-            include(libs.fabric.flywheel) { isTransitive = false }
-            include(libs.fabric.botarium) { isTransitive = false }
-            include(libs.cosmetics)
-            include(libs.kittyconfig) {
-                isTransitive = false
-                artifact {
-                    classifier = "fabric-1.20.1"
-                }
-            }
+            include(libs.fabric.flywheel.get1201()) { isTransitive = false }
 
             when(item_viewer) {
-                "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
-                "EMI" -> modRuntimeOnly(libs.fabric.emi)
-                "JEI" -> modRuntimeOnly(libs.fabric.jei)
+                "REI" -> modRuntimeOnly(libs.fabric.rei.get1201()) { exclude(group = "net.fabricmc") }
+                "EMI" -> modRuntimeOnly(libs.fabric.emi.get1201())
+                "JEI" -> modRuntimeOnly(libs.fabric.jei.get1201())
                 "disabled" -> {}
                 else -> error("Invalid item viewer for Fabric: $item_viewer")
             }
@@ -261,14 +279,94 @@ cloche {
         }
     }
 
-    forge {
-        mixins.from(file("src/main/estrogen.mixins.json"), file("src/forge/estrogen-forge.mixins.json"))
-        accessWideners.from(file("src/main/estrogen.accessWidener"))
+    fabric("fabric:1.21.1") {
+        dependsOn(common1211, fabricCommon)
+        mixins.from(file("src/fabric/estrogen-fabric-1.21.1.mixins.json"))
+
+        loaderVersion = libs.versions.fabric
+        minecraftVersion = libs.versions.minecraft.get1211()
+
+        mappings {
+            official()
+            parchment(libs.versions.parchment.get1211())
+        }
+
+
+        includedClient() // includedClient() is not a run
+        runs {
+            client {
+            }
+            server {
+                runDir("runServer")
+            }
+            data()
+        }
+
+        data()
+
+        dependencies {
+            fabricApi(libs.versions.fapi.get1211())
+            modApi.bundle(libs.bundles.fabric.cardinalComponents.get1211())
+            modImplementation(libs.fabric.trinkets.get1211())
+            modImplementation(libs.fabric.modmenu.get1211())
+            //modImplementation(libs.fabric.cynosure)
+            modImplementation(libs.fabric.kritter.get1211())
+            modCompileOnlyApi(libs.fabric.flywheel.api.get1211())
+            modImplementation(libs.fabric.flywheel.get1211())
+
+            localRuntime("org.anarres:jcpp:1.4.14")
+            localRuntime("io.github.douira:glsl-transformer:2.0.1")
+
+            include(libs.fabric.flywheel.get1211()) { isTransitive = false }
+
+            when(item_viewer) {
+                "REI" -> modRuntimeOnly(libs.fabric.rei.get1211()) { exclude(group = "net.fabricmc") }
+                "EMI" -> modRuntimeOnly(libs.fabric.emi.get1211())
+                "JEI" -> modRuntimeOnly(libs.fabric.jei.get1211())
+                "disabled" -> {}
+                else -> error("Invalid item viewer for Fabric: $item_viewer")
+            }
+
+            if (devauth_enabled.toBoolean()) modRuntimeOnly(libs.fabric.devauth)
+        }
+
+        metadata {
+            entrypoint("main") {
+                adapter.set("kotlin")
+                value.set("dev.mayaqq.estrogen.fabric.EstrogenFabric::init")
+            }
+            entrypoint("client") {
+                adapter.set("kotlin")
+                value.set("dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric::init")
+            }
+            entrypoint("modmenu") {
+                adapter.set("kotlin")
+                value.set("dev.mayaqq.estrogen.fabric.compat.ModMenuIntegration")
+            }
+            entrypoint("estrogen") {
+                adapter.set("kotlin")
+                value.set("dev.mayaqq.estrogen.Estrogen")
+            }
+            entrypoint("crv") {
+                adapter.set("kotlin")
+                value.set("dev.mayaqq.estrogen.compat.recipeviewers.EstrogenRecipeViewerPlugin")
+            }
+        }
+    }
+
+    forge("forge:1.20.1") {
+        dependsOn(common1201, forgeLike)
+        mixins.from(file("src/forge/estrogen-forge-1.20.1.mixins.json"))
 
         loaderVersion = libs.versions.forge.get()
-        minecraftVersion = libs.versions.minecraft.get()
+        minecraftVersion = libs.versions.minecraft.get1201().get()
 
         datagenDirectory.set(file("build/generated/resources/forge"))
+
+        mappings {
+            official()
+            parchment(libs.versions.parchment.get1201())
+        }
 
         metadata {
             modLoader = "kotlinforforge"
@@ -277,20 +375,14 @@ cloche {
             modProperty("catalogueItemIcon", "estrogen:estrogen_pill")
             modProperty("catalogueBackground", "estrogen_background.png")
             modProperty("cynosure:datapacks", listOf("vanillamode"))
-
-            dependency {
-                modId = "curios"
-            }
         }
 
         runs {
             client {
-                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
             }
             server {
                 runDir("runServer")
                 jvmArgs("--nogui")
-                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
             }
             data() // NEEDED FOR GENERATED DATA TO ATTACH ON FORGE! SCREAM AT ASHLEY FOR THIS
         }
@@ -298,39 +390,94 @@ cloche {
         data()
 
         dependencies {
-            api(libs.forge.kotlin)
-            modCompileOnlyApi(libs.forge.flywheel.api)
-            modImplementation(libs.forge.flywheel)
-            modImplementation(libs.forge.baubly) { exclude(group = "me.shedaniel") }
-            modCompileOnly(libs.forge.rei)
+            api(libs.forge.kotlin.get1201())
+            modCompileOnlyApi(libs.forge.flywheel.api.get1201())
+            modImplementation(libs.forge.flywheel.get1201())
+            modCompileOnly(libs.forge.rei.get1201())
             implementation(libs.forge.mixinExtras)
-            compileOnlyApi(libs.forge.jei)
-            modCompileOnly(libs.forge.emi)
-            //modCompileOnly(libs.forge.cobblemon)
-            //modImplementation(libs.forge.cynosure)
-            modImplementation(libs.forge.kritter)
-            modApi(libs.forge.botarium)
+            compileOnlyApi(libs.forge.jei.get1201())
+            modCompileOnly(libs.forge.emi.get1201())
+            modImplementation(skipIncludeTransformation(libs.forge.kritter.get1201()))
             modCompileOnly(libs.forge.oculus)
+
             legacyClasspath(libs.cosmetics)
 
-            include(libs.forge.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
             include(libs.forge.mixinExtras) { isTransitive = false }
-            include(libs.forge.flywheel) { isTransitive = false }
-            include(libs.forge.botarium) { isTransitive = false }
+            include(libs.forge.flywheel.get1201()) { isTransitive = false }
+
             include(libs.cosmetics)
-            include(libs.kittyconfig) {
-                isTransitive = false
-                artifact {
-                    classifier = "forge-1.20.1"
-                }
-            }
 
             when(item_viewer) {
-                "EMI" -> modRuntimeOnly(libs.forge.emi)
-                "REI" -> modRuntimeOnly(libs.forge.rei)
-                "JEI" -> modRuntimeOnly(libs.forge.jei)
+                "EMI" -> modRuntimeOnly(libs.forge.emi.get1201())
+                "REI" -> modRuntimeOnly(libs.forge.rei.get1201())
+                "JEI" -> modRuntimeOnly(libs.forge.jei.get1201())
                 "disabled" -> {}
                 else -> error("Invalid item viewer for Forge: $item_viewer")
+            }
+
+            if (devauth_enabled.toBoolean()) modRuntimeOnly(libs.forge.devauth)
+        }
+    }
+
+    neoforge("neoforge:1.21.1") {
+        dependsOn(common1211, forgeLike)
+        mixins.from(file("src/forge/estrogen-neoforge-1.21.1.mixins.json"))
+
+        loaderVersion = libs.versions.neoforge.get()
+        minecraftVersion = libs.versions.minecraft.get1211().get()
+
+        datagenDirectory.set(file("build/generated/resources/neoforge"))
+
+        mappings {
+            official()
+            parchment(libs.versions.parchment.get1211())
+        }
+
+        metadata {
+            modLoader = "kotlinforforge"
+            loaderVersion("5.0")
+            blurLogo = false
+            modProperty("catalogueItemIcon", "estrogen:estrogen_pill")
+            modProperty("catalogueBackground", "estrogen_background.png")
+            modProperty("cynosure:datapacks", listOf("vanillamode"))
+        }
+
+        runs {
+            client()
+            server {
+                runDir("runServer")
+                jvmArgs("--nogui")
+            }
+            data() // NEEDED FOR GENERATED DATA TO ATTACH ON NEOFORGE! SCREAM AT ASHLEY FOR THIS
+        }
+
+        data()
+
+        dependencies {
+            api(libs.forge.kotlin.get1211())
+            modCompileOnlyApi(libs.forge.flywheel.api.get1211())
+            modImplementation(libs.forge.flywheel.get1211())
+            //modImplementation(libs.forge.baubly.get1211() { exclude(group = "me.shedaniel") }
+            modCompileOnly(libs.forge.rei.get1211())
+            implementation(libs.forge.mixinExtras)
+            compileOnlyApi(libs.forge.jei.get1211())
+            modCompileOnly(libs.forge.emi.get1211())
+            modImplementation(skipIncludeTransformation(libs.forge.kritter.get1211()))
+            modCompileOnly(libs.forge.oculus)
+
+            legacyClasspath(libs.cosmetics)
+
+            include(libs.forge.mixinExtras) { isTransitive = false }
+            include(libs.forge.flywheel.get1211()) { isTransitive = false }
+
+            include(libs.cosmetics)
+
+            when(item_viewer) {
+                "EMI" -> modRuntimeOnly(libs.forge.emi.get1211())
+                "REI" -> modRuntimeOnly(libs.forge.rei.get1211())
+                "JEI" -> modRuntimeOnly(libs.forge.jei.get1211())
+                "disabled" -> {}
+                else -> error("Invalid item viewer for NeoForge: $item_viewer")
             }
 
             if (devauth_enabled.toBoolean()) modRuntimeOnly(libs.forge.devauth)
@@ -354,17 +501,19 @@ dependencies {
     }
 }
 
-configurations.named("forgeRuntimeClasspath") {
+/*
+configurations.named("forge1201RuntimeClasspath") {
     attributes {
         attribute(fixedAttribute, true)
     }
 }
+ */
 
 // Java ags
 java {
     withSourcesJar()
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -374,15 +523,16 @@ kotlin {
         languageVersion = KotlinVersion.KOTLIN_2_0
         freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
     }
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 // Remove Kotlin dependencies from common stub
+/* TODO: Commented these out for now, maybe still needed
 tasks.named("createCommonApiStub", GenerateStubApi::class) {
     excludes.add(libs.kritter.get().group)
     excludes.add(libs.cynosure.get().group)
-    excludes.add(libs.kittyconfig.get().group)
 }
+*/
 
 // Lemme just disable compiling java to fix issues
 tasks.compileJava {
@@ -393,8 +543,14 @@ tasks.compileKotlin {
 }
 
 // Disable Forge Datagen, needed for cloche to take in the paths but don't want it to override the fabric generated files
+/*
 tasks.named("runForgeData") {
     enabled = false
+}
+ */
+
+minecraftRuns.configureEach {
+    jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
 }
 
 // Publishing
@@ -406,14 +562,14 @@ publishing {
     }
 
     repositories {
-        val username = try { onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Sappho Maven/username"] } catch (_: Exception) { null }
-        val password = try { onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Sappho Maven/password"] } catch (_: Exception) { null }
+        val username = System.getenv("MAVEN_USERNAME")
+        val password = System.getenv(("MAVEN_PASSWORD"))
         if (username != null && password != null) {
             maven("https://maven.is-immensely.gay/${properties["maven_category"]}") {
                 name = "sapphoCompany"
                 credentials {
-                    this.username = username.get()
-                    this.password = password.get()
+                    this.username = username
+                    this.password = password
                 }
             }
         } else {
@@ -429,24 +585,28 @@ publishMods {
             "Fabric",
             arrayOf("fabric", "quilt"),
             arrayOf("cynosure", "trinkets"),
-            cloche.targets["fabric"].finalJar.flatMap(Jar::getArchiveFile),
-            "-fabric"
-        ),
+            "-fabric",
+            arrayOf(McVersions.MC1201, McVersions.MC1211)
+        ) { cloche.targets["fabric:$it"].finalJar.flatMap(Jar::getArchiveFile) },
         PublishMetadata(
             "Forge",
             arrayOf("forge"),
             arrayOf("cynosure", "curios"),
-            cloche.targets["forge"].finalJar.flatMap(Jar::getArchiveFile),
-            "-forge"
-        )
+            "-forge",
+            arrayOf(McVersions.MC1201)
+        ) { cloche.targets["forge:$it"].finalJar.flatMap(Jar::getArchiveFile) },
+        PublishMetadata(
+            "NeoForge",
+            arrayOf("neoforge"),
+            arrayOf("cynosure", "curios"),
+            "-neoforge",
+            arrayOf(McVersions.MC1211)
+        ) { cloche.targets["neoforge:$it"].finalJar.flatMap(Jar::getArchiveFile) }
     )
-    val mcVersion = "1.20.1"
-    changelog = file("CHANGELOG.md").readText().replace("@VERSION@", modVersion)
     type = ALPHA
 
     val optionsCurseforge = curseforgeOptions {
-        accessToken = onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Curseforge/Mod Publish Api Token"]
-        minecraftVersions.add(mcVersion)
+        accessToken = System.getenv("CURSEFORGE_TOKEN")
         projectId = "850410"
         javaVersions.add(JavaVersion.VERSION_17)
         clientRequired = true
@@ -454,32 +614,53 @@ publishMods {
     }
 
     val optionsModrinth = modrinthOptions {
-        accessToken = onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Modrinth/Mod Publish Api Token"]
+        accessToken = System.getenv("MODRINTH_TOKEN")
         projectId = "HhIJW8n1"
-        minecraftVersions.add(mcVersion)
     }
 
     loaders.forEach { loader ->
         loader.apply {
-            curseforge("curseforge$loaderName") {
-                from(optionsCurseforge)
-                modLoaders.addAll(*modloaders)
-                file = jar
-                displayName = "$mod_name $modVersion $loaderName"
-                version = "$modVersion$suffix"
-                requires(*requires)
-            }
+            McVersions.entries.forEach { mcVersion ->
+                changelog = file("CHANGELOG.md").readText().replace("@VERSION@", modVersion).replace("@MC_VERSION", mcVersion.version)
+                if (mcVersion in this.supports) {
+                    curseforge("curseforge$loaderName") {
+                        minecraftVersions.add(mcVersion.version)
+                        javaVersions.add(mcVersion.javaVersion)
 
-            modrinth("modrinth$loaderName") {
-                from(optionsModrinth)
-                modLoaders.addAll(*modloaders)
-                file = jar
-                displayName = "$mod_name $modVersion $loaderName"
-                version = "$modVersion$suffix"
-                requires(*requires)
+                        from(optionsCurseforge)
+                        modLoaders.addAll(*modloaders)
+                        file = jar.invoke(mcVersion.version)
+                        displayName = "$mod_name $modVersion ${mcVersion.version} $loaderName"
+                        version = "$modVersion-${mcVersion.version}$suffix"
+                        requires(*requires)
+                    }
+
+                    modrinth("modrinth$loaderName") {
+                        minecraftVersions.add(mcVersion.version)
+                        from(optionsModrinth)
+                        modLoaders.addAll(*modloaders)
+                        file = jar.invoke(mcVersion.version)
+                        displayName = "$mod_name $modVersion ${mcVersion.version} $loaderName"
+                        version = "$modVersion-${mcVersion.version}$suffix"
+                        requires(*requires)
+                    }
+                }
             }
         }
     }
 }
 
-class PublishMetadata(val loaderName: String, val modloaders: Array<String>, val requires: Array<String>, val jar: Provider<RegularFile>, val suffix: String)
+class PublishMetadata(
+    val loaderName: String,
+    val modloaders: Array<String>,
+    val requires: Array<String>,
+    val suffix: String,
+    val supports: Array<McVersions>,
+    val jar: (String) -> Provider<RegularFile>
+
+    )
+
+enum class McVersions(val version: String, val javaVersion: JavaVersion) {
+    MC1201("1.20.1", JavaVersion.VERSION_17),
+    MC1211("1.21.1", JavaVersion.VERSION_21)
+}
