@@ -1,4 +1,4 @@
-# Estrogen `@VERSION@` `1.20.1` `Fabric & Forge`
+# Estrogen `@VERSION@` `@MC_VERSION@` `Fabric & Forge`
 
 ### Changelog:
 - Cauldron Interaction Config
