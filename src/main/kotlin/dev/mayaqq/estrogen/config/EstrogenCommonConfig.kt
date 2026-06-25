@@ -1,45 +1,45 @@
 package dev.mayaqq.estrogen.config
 
 import dev.mayaqq.estrogen.MOD_ID
-import uwu.serenity.kittyconfig.Comment
-import uwu.serenity.kittyconfig.Config
-import uwu.serenity.kittyconfig.KittyConfig
-import uwu.serenity.kittyconfig.minecraft.SyncToClient
-import uwu.serenity.kittyconfig.toml.TomlFormat
-import uwu.serenity.kittyconfig.validation.DecimalRange
+import invoke.kitty.kritter.config.api.ConfigCategory
+import invoke.kitty.kritter.config.api.SyncedConfig
+import invoke.kitty.kritter.config.formats.Json5Format
+import invoke.kitty.kritter.config.validation.types.range
 
-@Config("$MOD_ID/common", TomlFormat::class)
-@SyncToClient
-object EstrogenCommonConfig : KittyConfig {
+object EstrogenCommonConfig : SyncedConfig("$MOD_ID/common", Json5Format.Default) {
 
-    @Comment("Settings for the dash effect")
-    object Dash {
+    object Dash : ConfigCategory(comment = "Settings for the dash effect") {
 
-        @Comment("Enable dash from the Effect of Estrogen")
-        var enabled: Boolean = true
+        val enabled by field(true) {
+            comment = "Enable dash from the Effect of Estrogen"
+        }
 
-        @Comment("The multiplier for the dash delta movement")
-        var deltaModifier: @DecimalRange(0.0, 100.0) Double = 2.0
+        val deltaModifier by field(2.0) {
+            comment = "The multiplier for the dash delta movement"
+            range = 0.0..100.0
+        }
 
     }
 
-    @Comment("Recipe* Configuration")
-    object Recipes {
-        @Comment("Enable Cauldron Interactions")
-        var cauldronInteractions: Boolean = true
+    object Recipes : ConfigCategory(comment = "Recipe* Configuration") {
+        val cauldronInteractions by field(true) {
+            comment = "Enable Cauldron Interactions"
+        }
     }
 
-    @Comment("Settings for the durations of effects")
-    object Durations {
+    object Durations : ConfigCategory(comment = "Settings for the durations of effects") {
 
-        @Comment("How long does Girl Power from the Estrogen Pill last in ticks")
-        var estrogenPillDuration: Int = 6000
+        val estrogenPillDuration by field(6000) {
+            comment = "How long does Girl Power from the Estrogen Pill last in ticks"
+        }
 
-        @Comment("How long does Girl Power from the Crystal Estrogen Pill last in ticks")
-        var crystalEstrogenPillDuration: Int = 6000
+        val crystalEstrogenPillDuration by field(6000) {
+            comment = "How long does Girl Power from the Crystal Estrogen Pill last in ticks"
+        }
 
-        @Comment("How long does Girl Power from the Estrogen Chip Cookie last in ticks")
-        var estrogenChipCookieDuration: Int = 6000
+        val estrogenChipCookieDuration by field(6000) {
+            comment = "How long does Girl Power from the Estrogen Chip Cookie last in ticks"
+        }
     }
 
 }

@@ -4,11 +4,9 @@ package dev.mayaqq.estrogen
 import dev.mayaqq.cynosure.biome.BiomeModifiers
 import dev.mayaqq.cynosure.core.Loader
 import dev.mayaqq.cynosure.core.currentLoader
+import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.data.registerDatapackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
-import dev.mayaqq.cynosure.utils.colors.Color
-import dev.mayaqq.cynosure.utils.colors.ForestGreen
-import dev.mayaqq.cynosure.utils.colors.LightBlue
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.tag
 import dev.mayaqq.estrogen.api.EstrogenEntrypoint
@@ -20,6 +18,9 @@ import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLoader
 import dev.mayaqq.estrogen.network.EstrogenNetwork
+import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.color.ForestGreen
+import invoke.kitty.kritter.utils.color.LightBlue
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
@@ -27,26 +28,24 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.levelgen.GenerationStep
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import uwu.serenity.kittyconfig.load
-import uwu.serenity.kritter.RegistryManager
 
 const val MOD_ID = "estrogen"
 const val MOD_NAME = "Estrogen"
 
 // id utility
-inline fun id(path: String) = ResourceLocation(MOD_ID, path)
-inline fun mcid(path: String) = ResourceLocation("minecraft", path)
-inline fun forgeid(path: String) = ResourceLocation("forge", path)
-inline fun cid(path: String) = ResourceLocation("c", path)
+inline fun id(path: String) = identifier(MOD_ID, path)
+inline fun mcid(path: String) = identifier("minecraft", path)
+inline fun forgeid(path: String) = identifier("forge", path)
+inline fun cid(path: String) = identifier("c", path)
 
 @EventSubscriber
 @EstrogenEntrypoint
-object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager by RegistryManager(MOD_ID), EstrogenModule {
+object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
 
     fun init() {
         // Config
-        EstrogenCommonConfig.load()
-        EstrogenServerConfig.load()
+        EstrogenCommonConfig.initialize()
+        EstrogenServerConfig.initialize()
         //Registries
         EstrogenAttributes.register()
         EstrogenSounds.register()
@@ -58,6 +57,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
         AdvancementTriggers.register()
         EstrogenFluids.register()
         EstrogenPotions.register()
+        EstrogenRecordSongs.register()
         EstrogenItems.register()
         EstrogenCreativeTab.register()
         EstrogenEntities.register()

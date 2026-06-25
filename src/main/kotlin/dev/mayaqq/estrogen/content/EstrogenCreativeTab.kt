@@ -1,6 +1,6 @@
 package dev.mayaqq.estrogen.content
 
-import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.content.EstrogenBlocks.CookieJar
 import dev.mayaqq.estrogen.content.EstrogenBlocks.DreamBlock
 import dev.mayaqq.estrogen.content.EstrogenBlocks.DreamCatcher
@@ -33,6 +33,9 @@ import dev.mayaqq.estrogen.content.EstrogenItems.TestosteroneChunk
 import dev.mayaqq.estrogen.content.EstrogenItems.TestosteronePowder
 import dev.mayaqq.estrogen.content.EstrogenItems.ThighHighs
 import dev.mayaqq.estrogen.id
+import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.registry.api.Registrar
+import invoke.kitty.kritter.registry.creativeTab.creativeTab
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
@@ -40,16 +43,13 @@ import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
-import net.minecraft.world.item.alchemy.PotionUtils
-import uwu.serenity.kritter.api.Registrar
-import uwu.serenity.kritter.api.entry.RegistryEntry
-import uwu.serenity.kritter.stdlib.creativeTab
+import net.minecraft.world.item.alchemy.PotionContents
 
 
-object EstrogenCreativeTab : Registrar<CreativeModeTab> by Estrogen..Registries.CREATIVE_MODE_TAB {
+object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Registries.CREATIVE_MODE_TAB) {
 
     // Make it an entry here
-    val Estrogen: RegistryEntry<CreativeModeTab> = creativeTab("estrogen") {
+    val Estrogen = creativeTab("estrogen") {
         title = Component.translatable("itemGroup.estrogen.estrogen")
         icon { EstrogenPill.defaultInstance }
         displayItems { 
@@ -92,4 +92,4 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Estrogen..Registries.
     }
 }
 
-private fun tippedArrow(potion: Potion): ItemStack = Items.TIPPED_ARROW.defaultInstance.also { PotionUtils.setPotion(it, potion) }
+private fun tippedArrow(potion: Potion): ItemStack = PotionContents.createItemStack(Items.TIPPED_ARROW, potion.holder())

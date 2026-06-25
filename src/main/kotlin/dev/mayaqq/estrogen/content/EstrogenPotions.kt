@@ -1,12 +1,13 @@
 package dev.mayaqq.estrogen.content
 
-import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.estrogen.MOD_ID
+import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.registry.api.Registrar
+import invoke.kitty.kritter.registry.api.builder.entry
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.item.alchemy.Potion
-import uwu.serenity.kritter.api.Registrar
-import uwu.serenity.kritter.api.entry
 
-object EstrogenPotions : Registrar<Potion> by Estrogen..Registries.POTION {
-    val EstrogenPotion by entry("estrogen_potion", {Potion("estrogen", MobEffectInstance(EstrogenEffects.Estrogen, 12000))})
+object EstrogenPotions : Registrar<Potion> by Registrar(MOD_ID, Registries.POTION) {
+    val EstrogenPotion by entry("estrogen_potion", {Potion("estrogen", MobEffectInstance(EstrogenEffects.Estrogen.holder(), 12000))}) {}
 }

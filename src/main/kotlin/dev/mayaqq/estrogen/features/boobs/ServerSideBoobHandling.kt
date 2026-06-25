@@ -13,6 +13,7 @@ import dev.mayaqq.estrogen.injection.chestConfig
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigPacket
 import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigRequestPacket
+import dev.mayaqq.estrogen.utils.holder
 import net.minecraft.world.entity.player.Player
 
 // I love handling boobs
@@ -20,24 +21,24 @@ import net.minecraft.world.entity.player.Player
 @Subscription
 fun onDisconnect(event: PlayerConnectionEvent.Leave) {
     if (shouldShow(event.player)) {
-        val startTime: Double = event.player.getAttributeValue(EstrogenAttributes.BoobGrowingStartTime)
+        val startTime: Double = event.player.getAttributeValue(EstrogenAttributes.BoobGrowingStartTime.holder())
         val currentTime: Double = currentTime(event.player.level())
         val size = boobSize(
             startTime, currentTime,
-            event.player.getAttributeValue(EstrogenAttributes.BoobInitialSize).toFloat(), 0.0f
+            event.player.getAttributeValue(EstrogenAttributes.BoobInitialSize.holder()).toFloat(), 0.0f
         )
-        event.player.getAttribute(EstrogenAttributes.BoobInitialSize)?.baseValue = size.toDouble()
+        event.player.getAttribute(EstrogenAttributes.BoobInitialSize.holder())?.baseValue = size.toDouble()
     }
 }
 
 @Subscription
 fun onEntityTracking(event: EntityTrackingEvent.Start) {
     (event.entity as? Player)?.chestConfig?.let {
-        EstrogenNetwork.sendToPlayer(ChestConfigPacket(event.entity.uuid, it), event.player)
-    }?: run { EstrogenNetwork.sendToPlayer(ChestConfigRequestPacket(), event.player) }
+        EstrogenNetwork.sendToPlayer(event.player, ChestConfigPacket(event.entity.uuid, it))
+    }?: run { EstrogenNetwork.sendToPlayer(event.player, ChestConfigRequestPacket()) }
 }
 
 @Subscription
 fun onServerJoin(event: PlayerConnectionEvent.Join) {
-    EstrogenNetwork.sendToPlayer(ChestConfigRequestPacket(), event.player)
+    EstrogenNetwork.sendToPlayer(event.player, ChestConfigRequestPacket())
 }

@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.content.entities
 
 import dev.mayaqq.cynosure.core.Loader
 import dev.mayaqq.cynosure.core.currentLoader
+import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.estrogen.content.*
 import net.minecraft.Util
 import net.minecraft.core.BlockPos
@@ -42,11 +43,9 @@ import net.minecraft.world.level.LevelReader
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.gameevent.GameEvent
 import net.minecraft.world.level.material.Fluid
-import net.minecraft.world.level.pathfinder.BlockPathTypes
+import net.minecraft.world.level.pathfinder.PathType
 import net.minecraft.world.phys.Vec3
-import uwu.serenity.kritter.stdlib.newStack
 import java.util.*
-import java.util.function.Consumer
 
 class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, level), FlyingAnimal, Shearable {
     val flyingAnimationState: AnimationState = AnimationState()
@@ -69,12 +68,17 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
     private var fuzzupCooldown = 0
 
     init {
-        this.entityData.define<Byte?>(ANIMATION_STATES, 1.toByte())
+        //There was a thing for the define here as well
         this.moveControl = FlyingMoveControl(this, 20, true)
-        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0f)
-        this.setPathfindingMalus(BlockPathTypes.WATER, -1.0f)
-        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 16.0f)
-        this.setPathfindingMalus(BlockPathTypes.FENCE, -1.0f)
+        this.setPathfindingMalus(PathType.DANGER_FIRE, -1.0f)
+        this.setPathfindingMalus(PathType.WATER, -1.0f)
+        this.setPathfindingMalus(PathType.WATER_BORDER, 16.0f)
+        this.setPathfindingMalus(PathType.FENCE, -1.0f)
+    }
+
+    override fun defineSynchedData(builder: SynchedEntityData.Builder) {
+        super.defineSynchedData(builder)
+        builder.define(ANIMATION_STATES, 1.toByte())
     }
 
     override fun tick() {
@@ -221,10 +225,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
             if (!this.level().isClientSide && this.readyForShearing()) {
                 this.shear(SoundSource.PLAYERS)
                 this.gameEvent(GameEvent.SHEAR, player2)
-                itemStack.hurtAndBreak<Player?>(
-                    1,
-                    player2,
-                    Consumer { player: Player -> player.broadcastBreakEvent(hand) })
+                itemStack.hurtAndBreak(1, player2, getSlotForHand(hand))
                 return InteractionResult.SUCCESS
             }
             return InteractionResult.CONSUME
@@ -237,7 +238,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         this.setSheared()
         val i = 1 + this.random.nextInt(3)
         for (j in 0..< i) {
-            val itemEntity = this.spawnAtLocation(EstrogenItems.MothFuzz.newStack(), 0.5f)
+            val itemEntity = this.spawnAtLocation(EstrogenItems.MothFuzz.defaultInstance, 0.5f)
             if (itemEntity == null) continue
             itemEntity.deltaMovement = itemEntity.deltaMovement.add(
                 ((this.random.nextFloat() - this.random.nextFloat()) * 0.1f).toDouble(),
@@ -259,11 +260,6 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         super.readAdditionalSaveData(compound)
         this.ticksToFuzzUp = compound.getInt("TicksToFuzzUp")
         this.setFuzzy(compound.getBoolean("Fuzzy"))
-    }
-
-    override fun defineSynchedData() {
-        super.defineSynchedData()
-        this.entityData.define<Boolean?>(DATA_FUZZY, false)
     }
 
     fun isFuzzy(): Boolean = this.entityData.get<Boolean>(DATA_FUZZY)
@@ -333,20 +329,13 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
 
     override fun getBreedOffspring(level: ServerLevel, otherParent: AgeableMob): MothEntity? = EstrogenEntities.Moth.create(level)
 
-    override fun getStandingEyeHeight(pose: Pose, dimensions: EntityDimensions): Float {
-        if (this.isBaby) {
-            return dimensions.height * 0.25f
-        }
-        return dimensions.height * 0.5f
-    }
-
     public override fun isFlapping(): Boolean = this.isFlying && this.tickCount % TICKS_PER_FLAP == 0
 
     override fun checkFallDamage(y: Double, onGround: Boolean, state: BlockState, pos: BlockPos) {
         // Lil fella doesn't take fall damage
     }
 
-    override fun getMobType(): MobType = MobType.ARTHROPOD
+    //TODO: ARTHROPOD TAG!! override fun getMobType(): MobType = MobType.ARTHROPOD
 
     override fun jumpInLiquid(fluidTag: TagKey<Fluid?>) {
         this.deltaMovement = this.deltaMovement.add(0.0, 0.01, 0.0)
@@ -368,7 +357,9 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         private val DATA_FUZZY: EntityDataAccessor<Boolean> = SynchedEntityData.defineId<Boolean>(MothEntity::class.java, EntityDataSerializers.BOOLEAN)
         private val ANIMATION_STATES: EntityDataAccessor<Byte> = SynchedEntityData.defineId<Byte>(MothEntity::class.java, EntityDataSerializers.BYTE)
 
-        val shearsTag: TagKey<Item> = TagKey.create(Registries.ITEM, ResourceLocation(if (currentLoader == Loader.FORGE) "forge" else "c", "shears"))
+        val shearsTag: TagKey<Item> = TagKey.create(Registries.ITEM,
+            identifier(if (currentLoader == Loader.FORGE) "forge" else "c", "shears")
+        )
 
         fun createAttributes(): AttributeSupplier.Builder = createMobAttributes()
             .add(Attributes.MAX_HEALTH, 10.0)

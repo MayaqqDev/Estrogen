@@ -5,6 +5,7 @@ import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.PlayerTickEvent
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.EstrogenEffects
+import dev.mayaqq.estrogen.utils.holder
 import net.minecraft.world.effect.MobEffectInstance
 
 
@@ -17,7 +18,7 @@ object Minigame {
             if (event.player.level().gameTime % TRIGGER_EVERY_X_TICKS == 0L) {
                 event.player.addEffect(
                     MobEffectInstance(
-                        EstrogenEffects.Estrogen,
+                        EstrogenEffects.Estrogen.holder(),
                         EFFECT_DURATION,
                         EstrogenServerConfig.Minigame.girlPowerLevel,
                         false,

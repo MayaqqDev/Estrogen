@@ -7,7 +7,11 @@ import com.mojang.blaze3d.vertex.BufferUploader
 import com.mojang.blaze3d.vertex.DefaultVertexFormat
 import com.mojang.blaze3d.vertex.VertexFormat
 import com.mojang.blaze3d.vertex.VertexSorting
+import dev.mayaqq.cynosure.client.utils.color
+import dev.mayaqq.cynosure.client.utils.uv
+import dev.mayaqq.cynosure.client.utils.vertex
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer
+import invoke.kitty.kritter.utils.color.White
 import net.minecraft.client.Minecraft
 import org.joml.Matrix4f
 
@@ -38,13 +42,13 @@ internal fun RenderTarget.blitWithDepth(width: Int, height: Int) {
     val outwidth = this.viewWidth.toFloat() / this.width.toFloat()
     val outheight = this.viewHeight.toFloat() / this.height.toFloat()
     val tesselator = RenderSystem.renderThreadTesselator()
-    val builder = tesselator.builder
-    builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR)
-    builder.vertex(0.0, height.toDouble(), 0.0).uv(0.0f, 0.0f).color(255, 255, 255, 255).endVertex()
-    builder.vertex(width.toDouble(), height.toDouble(), 0.0).uv(outwidth, 0.0f).color(255, 255, 255, 255).endVertex()
-    builder.vertex(width.toDouble(), 0.0, 0.0).uv(outwidth, outheight).color(255, 255, 255, 255).endVertex()
-    builder.vertex(0.0, 0.0, 0.0).uv(0.0f, outheight).color(255, 255, 255, 255).endVertex()
-    BufferUploader.draw(builder.end())
+    val builder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR).apply {
+        vertex(0.0, height.toDouble(), 0.0).uv(0.0f, 0.0f).color(White.withAlpha(255))
+        vertex(width.toDouble(), height.toDouble(), 0.0).uv(outwidth, 0.0f).color(White.withAlpha(255))
+        vertex(width.toDouble(), 0.0, 0.0).uv(outwidth, outheight).color(White.withAlpha(255))
+        vertex(0.0, 0.0, 0.0).uv(0.0f, outheight).color(White.withAlpha(255))
+    }
+    BufferUploader.draw(builder.build()!!)
     shader.clear()
     GlStateManager._depthMask(true)
     GlStateManager._colorMask(true, true, true, true)

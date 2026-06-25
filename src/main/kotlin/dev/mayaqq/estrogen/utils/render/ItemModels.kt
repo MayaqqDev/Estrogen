@@ -30,9 +30,9 @@ private val FLYWHEEL_ABUSE: RendererReloadCache<Unit, MutableMap<ItemCacheKey, M
 private val THREAD_LOCAL: ThreadLocal<ThreadLocalObjects> = ThreadLocal.withInitial(::ThreadLocalObjects)
 private val GLINT_TYPES: Set<RenderType> = setOf(
     RenderType.glint(),
-    RenderType.armorGlint(),
+    RenderType.armorEntityGlint(),
     RenderType.entityGlint(),
-    RenderType.glintDirect(),
+    RenderType.glint(),
     RenderType.glintTranslucent(),
     RenderType.armorEntityGlint()
 )

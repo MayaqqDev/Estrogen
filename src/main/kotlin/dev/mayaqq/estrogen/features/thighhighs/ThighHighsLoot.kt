@@ -3,6 +3,9 @@ package dev.mayaqq.estrogen.features.thighhighs
 
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonObject
+import com.mojang.serialization.MapCodec
+import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.world.LoottableEvents
@@ -20,6 +23,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction
+import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue
@@ -31,7 +35,7 @@ private val LOOT_LOCATIONS: MutableList<ResourceLocation> = listOf(
     "minecraft:chests/shipwreck_supply",
     "minecraft:chests/end_city",
     "minecraft:chests/ancient_city"
-).map { ResourceLocation(it) }.toMutableList()
+).map { identifier(it) }.toMutableList()
 
 @Subscription
 fun LoottableEvents.Modify.onLootModify() {
@@ -52,26 +56,22 @@ fun LoottableEvents.Modify.onLootModify() {
     }
 }
 
-class ThighHighStyleLootFunction(predicates: Array<LootItemCondition>) : LootItemConditionalFunction(predicates) {
+class ThighHighStyleLootFunction(predicates: List<LootItemCondition>) : LootItemConditionalFunction(predicates) {
+
     override fun run(stack: ItemStack, context: LootContext): ItemStack {
         val item: ThighHighsItem = EstrogenItems.ThighHighs
         item.setRandomStyle(stack, context.random)
         return stack
     }
 
-    override fun getType(): LootItemFunctionType = EstrogenLootFunctions.ThighHighLoot
-
-    class Serializer : LootItemConditionalFunction.Serializer<ThighHighStyleLootFunction?>() {
-        override fun deserialize(
-            jsonObject: JsonObject,
-            deserializationContext: JsonDeserializationContext,
-            conditions: Array<LootItemCondition>
-        ): ThighHighStyleLootFunction {
-            return ThighHighStyleLootFunction(conditions)
-        }
-    }
+    override fun getType(): LootItemFunctionType<out LootItemConditionalFunction> = EstrogenLootFunctions.ThighHighLoot
 
     companion object {
         fun apply(): Builder<*> = simpleBuilder(::ThighHighStyleLootFunction)
+
+        val CODEC: MapCodec<ThighHighStyleLootFunction> = RecordCodecBuilder.mapCodec {
+            commonFields(it).apply(it, ::ThighHighStyleLootFunction)
+        }
+
     }
 }

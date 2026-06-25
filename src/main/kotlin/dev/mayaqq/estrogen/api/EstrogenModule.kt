@@ -2,7 +2,7 @@
 
 package dev.mayaqq.estrogen.api
 
-import dev.mayaqq.cynosure.utils.colors.Color
+import invoke.kitty.kritter.utils.color.Color
 import net.minecraft.client.gui.screens.Screen
 
 public interface EstrogenModule {

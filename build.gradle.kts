@@ -16,19 +16,22 @@ plugins {
     alias(libs.plugins.cloche)
     kotlin("jvm") version libs.versions.kotlin
     kotlin("plugin.serialization") version libs.versions.kotlin
-    alias(libs.plugins.kittyconfig)
     // Need to explicitly set ksp versions cs cloche loads an old version by default
     id("com.google.devtools.ksp") version "2.2.10-2.0.2"
-    id("dev.isxander.secrets") version "0.1.0"
     `maven-publish`
 }
 
 repositories {
-    maven(url = "https://maven.parchmentmc.org") { name = "Parchment" }
-    maven(url = "https://maven.fabricmc.net") { name = "FabricMC" }
+    cloche {
+        librariesMinecraft()
+        mavenNeoforged()
+        mavenForge()
+        mavenFabric()
+        mavenNeoforgedMeta()
+        mavenParchment()
+    }
     maven(url = "https://maven.terraformersmc.com/releases/") { name = "TerraformersMC" }
     maven(url = "https://thedarkcolour.github.io/KotlinForForge/") { name = "KotlinForForge" }
-    maven(url = "https://maven.minecraftforge.net/") { name = "Forge" }
     maven(url = "https://maven.teamresourceful.com/repository/maven-public/") { name = "Team Resourceful" }
     maven(url = "https://maven.shedaniel.me") { name = "Shedaniel" }
     maven(url = "https://maven.blamejared.com/") { name = "Blamejared" }
@@ -76,11 +79,8 @@ cloche {
         dependency {
             modId = "cynosure"
             version {
-                start = "0.1.15"
+                start = "1.0.0"
             }
-        }
-        dependency {
-            modId = "kittyconfig"
         }
     }
 
@@ -92,7 +92,7 @@ cloche {
     common {
         mixins.from(file("src/main/estrogen.mixins.json"))
 
-        accessWideners.from(file("src/main/estrogen.accessWidener"))
+        accessWideners.from(file("src/main/estrogen.accesswidener"))
 
         dependencies {
             compileOnly(libs.mixin)
@@ -102,21 +102,18 @@ cloche {
             modCompileOnly(libs.ears)
             modCompileOnly(libs.figura)
             modCompileOnly(libs.createNewAge)
-            modImplementation(libs.kittyconfig)
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
             implementation(libs.cosmetics)
 
-            modCompileOnly(libs.kritter)
             modImplementation(libs.cynosure)
 
-            localRuntime("net.minecrell:terminalconsoleappender:1.3.0")
+            localRuntime(libs.tca)
         }
     }
 
     fabric {
-        mixins.from(file("src/main/estrogen.mixins.json"), file("src/fabric/estrogen-fabric.mixins.json"))
-        accessWideners.from(file("src/main/estrogen.accessWidener"))
+        mixins.from(file("src/fabric/estrogen-fabric.mixins.json"))
 
         loaderVersion = libs.versions.fabric
         minecraftVersion = libs.versions.minecraft
@@ -124,18 +121,14 @@ cloche {
 
         includedClient() // includedClient() is not a run
         runs {
-            client {
-                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
-            }
+            client()
             server {
                 runDir("runServer")
-                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
             }
             data {
                 jvmArgs("-Dfabric-api.datagen.output-dir=${file("build/generated/resources/main")}")
                 jvmArgs("-Destrogen.datagen.fabric-output-dir=${file("build/generated/resources/fabric")}")
-                jvmArgs("-Destrogen.datagen.forge-output-dir=${file("build/generated/resources/forge")}")
-                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
+                jvmArgs("-Destrogen.datagen.neoforge-output-dir=${file("build/generated/resources/neoforge")}")
             }
         }
 
@@ -198,33 +191,23 @@ cloche {
             fabricApi(libs.versions.fapi)
             modApi(libs.fabric.kotlin)
             modApi.bundle(libs.bundles.fabric.cardinalComponents)
-            modImplementation(libs.fabric.baubly) { exclude(group = "me.shedaniel") }
             modImplementation(libs.fabric.trinkets)
             modCompileOnly(libs.fabric.emi)
             modCompileOnly(libs.fabric.rei)
             modCompileOnly(libs.fabric.jei)
             modImplementation(libs.fabric.modmenu)
             modCompileOnly(libs.fabric.iris)
-            //modCompileOnly(libs.fabric.cobblemon)
             modCompileOnlyApi(libs.fabric.flywheel.api)
             modImplementation(libs.fabric.flywheel)
-            //modImplementation(libs.fabric.cynosure)
             modImplementation(libs.fabric.kritter)
-            modApi(libs.fabric.botarium)
+            modApi(libs.fabric.csr)
 
-            localRuntime("org.anarres:jcpp:1.4.14")
-            localRuntime("io.github.douira:glsl-transformer:2.0.1")
+            localRuntime(libs.jcpp)
+            localRuntime(libs.glsltransformer)
 
-            include(libs.fabric.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
             include(libs.fabric.flywheel) { isTransitive = false }
-            include(libs.fabric.botarium) { isTransitive = false }
+            include(libs.fabric.csr) { isTransitive = false }
             include(libs.cosmetics)
-            include(libs.kittyconfig) {
-                isTransitive = false
-                artifact {
-                    classifier = "fabric-1.20.1"
-                }
-            }
 
             when(item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -261,18 +244,17 @@ cloche {
         }
     }
 
-    forge {
-        mixins.from(file("src/main/estrogen.mixins.json"), file("src/forge/estrogen-forge.mixins.json"))
-        accessWideners.from(file("src/main/estrogen.accessWidener"))
+    neoforge {
+        mixins.from(file("src/forge/estrogen-forge.mixins.json"))
 
-        loaderVersion = libs.versions.forge.get()
+        loaderVersion = libs.versions.neoforge.get()
         minecraftVersion = libs.versions.minecraft.get()
 
-        datagenDirectory.set(file("build/generated/resources/forge"))
+        datagenDirectory.set(file("build/generated/resources/neoforge"))
 
         metadata {
             modLoader = "kotlinforforge"
-            loaderVersion("4.0")
+            loaderVersion("5.0")
             blurLogo = false
             modProperty("catalogueItemIcon", "estrogen:estrogen_pill")
             modProperty("catalogueBackground", "estrogen_background.png")
@@ -285,12 +267,10 @@ cloche {
 
         runs {
             client {
-                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
             }
             server {
                 runDir("runServer")
                 jvmArgs("--nogui")
-                jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
             }
             data() // NEEDED FOR GENERATED DATA TO ATTACH ON FORGE! SCREAM AT ASHLEY FOR THIS
         }
@@ -301,29 +281,19 @@ cloche {
             api(libs.forge.kotlin)
             modCompileOnlyApi(libs.forge.flywheel.api)
             modImplementation(libs.forge.flywheel)
-            modImplementation(libs.forge.baubly) { exclude(group = "me.shedaniel") }
             modCompileOnly(libs.forge.rei)
             implementation(libs.forge.mixinExtras)
             compileOnlyApi(libs.forge.jei)
             modCompileOnly(libs.forge.emi)
-            //modCompileOnly(libs.forge.cobblemon)
-            //modImplementation(libs.forge.cynosure)
             modImplementation(libs.forge.kritter)
-            modApi(libs.forge.botarium)
+            modApi(libs.forge.csr)
             modCompileOnly(libs.forge.oculus)
             legacyClasspath(libs.cosmetics)
 
-            include(libs.forge.baubly) { exclude(group = "me.shedaniel"); isTransitive = false }
             include(libs.forge.mixinExtras) { isTransitive = false }
             include(libs.forge.flywheel) { isTransitive = false }
-            include(libs.forge.botarium) { isTransitive = false }
+            include(libs.forge.csr) { isTransitive = false }
             include(libs.cosmetics)
-            include(libs.kittyconfig) {
-                isTransitive = false
-                artifact {
-                    classifier = "forge-1.20.1"
-                }
-            }
 
             when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)
@@ -339,6 +309,7 @@ cloche {
 }
 
 // Fix Forge attributes (remove when?)
+/* Not needed anymore?
 val fixedAttribute = Attribute.of("fixed-jar", Boolean::class.javaObjectType)
 
 dependencies {
@@ -359,12 +330,13 @@ configurations.named("forgeRuntimeClasspath") {
         attribute(fixedAttribute, true)
     }
 }
+ */
 
 // Java ags
 java {
     withSourcesJar()
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -374,15 +346,16 @@ kotlin {
         languageVersion = KotlinVersion.KOTLIN_2_0
         freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
     }
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 // Remove Kotlin dependencies from common stub
+/*
 tasks.named("createCommonApiStub", GenerateStubApi::class) {
     excludes.add(libs.kritter.get().group)
     excludes.add(libs.cynosure.get().group)
-    excludes.add(libs.kittyconfig.get().group)
 }
+ */
 
 // Lemme just disable compiling java to fix issues
 tasks.compileJava {
@@ -393,8 +366,12 @@ tasks.compileKotlin {
 }
 
 // Disable Forge Datagen, needed for cloche to take in the paths but don't want it to override the fabric generated files
-tasks.named("runForgeData") {
+tasks.named("runNeoforgeData") {
     enabled = false
+}
+
+minecraftRuns.configureEach {
+    jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
 }
 
 // Publishing
@@ -406,14 +383,14 @@ publishing {
     }
 
     repositories {
-        val username = try { onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Sappho Maven/username"] } catch (_: Exception) { null }
-        val password = try { onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Sappho Maven/password"] } catch (_: Exception) { null }
+        val username = System.getenv("MAVEN_USERNAME")
+        val password = System.getenv(("MAVEN_PASSWORD"))
         if (username != null && password != null) {
             maven("https://maven.is-immensely.gay/${properties["maven_category"]}") {
                 name = "sapphoCompany"
                 credentials {
-                    this.username = username.get()
-                    this.password = password.get()
+                    this.username = username
+                    this.password = password
                 }
             }
         } else {
@@ -433,28 +410,28 @@ publishMods {
             "-fabric"
         ),
         PublishMetadata(
-            "Forge",
-            arrayOf("forge"),
+            "Neoforge",
+            arrayOf("neoforge"),
             arrayOf("cynosure", "curios"),
-            cloche.targets["forge"].finalJar.flatMap(Jar::getArchiveFile),
-            "-forge"
+            cloche.targets["neoforge"].finalJar.flatMap(Jar::getArchiveFile),
+            "-neoforge"
         )
     )
-    val mcVersion = "1.20.1"
+    val mcVersion = "1.21.1"
     changelog = file("CHANGELOG.md").readText().replace("@VERSION@", modVersion)
     type = ALPHA
 
     val optionsCurseforge = curseforgeOptions {
-        accessToken = onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Curseforge/Mod Publish Api Token"]
+        accessToken = System.getenv("CURSEFORGE_TOKEN")
         minecraftVersions.add(mcVersion)
         projectId = "850410"
-        javaVersions.add(JavaVersion.VERSION_17)
+        javaVersions.add(JavaVersion.VERSION_21)
         clientRequired = true
         serverRequired = true
     }
 
     val optionsModrinth = modrinthOptions {
-        accessToken = onePassword["op://nmnrp3mc2nkriiiwwk4f7q73jm/Modrinth/Mod Publish Api Token"]
+        accessToken = System.getenv("MODRINTH_TOKEN")
         projectId = "HhIJW8n1"
         minecraftVersions.add(mcVersion)
     }

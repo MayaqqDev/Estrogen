@@ -2,12 +2,17 @@
 
 package dev.mayaqq.estrogen.content.blocks
 
-import dev.mayaqq.cynosure.utils.allHorizontalDirections
+import com.mojang.serialization.MapCodec
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.blockEntities.DreamCatcherBlockEntity
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.utils.TriColor
+import invoke.kitty.kritter.blockEntity.BlockWithEntity
+import invoke.kitty.kritter.platform.common.BlockColorProvider
+import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.color.toColor
+import invoke.kitty.kritter.utils.shapes.allHorizontalDirections
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.entity.LivingEntity
@@ -22,12 +27,12 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
-import uwu.serenity.kritter.stdlib.BlockEntityBlock
 import kotlin.jvm.optionals.getOrNull
 import kotlin.reflect.KClass
 
 
-class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(properties), BlockEntityBlock<DreamCatcherBlockEntity>, EntityBlock {
+class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(properties), BlockWithEntity<DreamCatcherBlockEntity>, EntityBlock {
+    override fun codec(): MapCodec<out HorizontalDirectionalBlock?> = simpleCodec(::DreamCatcherBlock)
 
     override fun canSurvive(state: BlockState, level: LevelReader, pos: BlockPos): Boolean {
         return canSupportCenter(level, pos.relative(Direction.UP), Direction.DOWN)
@@ -53,8 +58,8 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
             super.updateShape(state, direction, neighborState, level, pos, neighborPos)
     }
 
-    override val blockEntityClass: KClass<out DreamCatcherBlockEntity> = DreamCatcherBlockEntity::class
-    override fun getBlockEntityType(): BlockEntityType<out DreamCatcherBlockEntity> = EstrogenBlockEntities.DreamCatcher
+    override val blockEntityClass: Class<out DreamCatcherBlockEntity> = DreamCatcherBlockEntity::class.java
+    override fun blockEntityType(): BlockEntityType<out DreamCatcherBlockEntity> = EstrogenBlockEntities.DreamCatcher
 
     fun triColor(getter: BlockAndTintGetter, pos: BlockPos): TriColor? {
         getter.getBlockEntity(pos, EstrogenBlockEntities.DreamCatcher).getOrNull()?.let {
@@ -63,16 +68,16 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
         return null
     }
 
-    fun getColor(getter: BlockAndTintGetter, pos: BlockPos, tintIndex: Int): Int {
+    fun getColor(getter: BlockAndTintGetter, pos: BlockPos, tintIndex: Int): Color {
         return when (tintIndex) {
-            1 -> triColor(getter, pos)?.left?.toInt()?: -1
-            2 -> triColor(getter, pos)?.middle?.toInt()?: -1
-            3 -> triColor(getter, pos)?.right?.toInt()?: -1
-            else -> -1
+            1 -> triColor(getter, pos)?.left?: (-1).toColor()
+            2 -> triColor(getter, pos)?.middle?: (-1).toColor()
+            3 -> triColor(getter, pos)?.right?: (-1).toColor()
+            else -> (-1).toColor()
         }
     }
 
-    companion object {
+    companion object : BlockColorProvider {
 
         private val SHAPES = Shapes.or(
             Shapes.box(0.3125, -0.0625, 0.4375, 0.625, 0.875, 0.5625),
@@ -82,14 +87,18 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
             Shapes.box(0.125, 0.0625, 0.4375, 0.8125, 0.75, 0.5625)
         ).allHorizontalDirections()
 
-        fun getBlockColor(state: BlockState, view: BlockAndTintGetter?, pos: BlockPos?, tint: Int): Int {
-            if (state.`is`(EstrogenBlocks.DreamCatcher) && view != null && pos != null) {
-                return (state.block as DreamCatcherBlock).getColor(view, pos, tint)
-            }
-            return -1
-        }
-
         val COLORED: BooleanProperty = BooleanProperty.create("colored")
+        override fun getColor(
+            state: BlockState,
+            view: BlockAndTintGetter?,
+            pos: BlockPos?,
+            tintIndex: Int
+        ): Color {
+            if (state.`is`(EstrogenBlocks.DreamCatcher) && view != null && pos != null) {
+                return (state.block as DreamCatcherBlock).getColor(view, pos, tintIndex)
+            }
+            return (-1).toColor()
+        }
     }
     init {
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(COLORED, false))
@@ -127,9 +136,9 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
         }
     }
 
-    override fun getCloneItemStack(block: BlockGetter, pos: BlockPos, state: BlockState): ItemStack {
-        val newStack = super.getCloneItemStack(block, pos, state)
-        block.getBlockEntity(pos)?.let { e ->
+    override fun getCloneItemStack(level: LevelReader, pos: BlockPos, state: BlockState): ItemStack {
+        val newStack = super.getCloneItemStack(level, pos, state)
+        level.getBlockEntity(pos)?.let { e ->
             val be = e as DreamCatcherBlockEntity
             be.triColor?.let { triColor ->
                 val item = newStack.item as DreamCatcherItem

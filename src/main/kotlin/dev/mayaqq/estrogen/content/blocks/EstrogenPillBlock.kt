@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.content.blocks
 
+import com.mojang.serialization.MapCodec
 import net.minecraft.core.Direction
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.block.Block
@@ -20,6 +21,8 @@ class EstrogenPillBlock(properties: Properties) : HorizontalDirectionalBlock(pro
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
         builder.add(FACING)
     }
+
+    override fun codec(): MapCodec<out HorizontalDirectionalBlock> = simpleCodec(::EstrogenPillBlock)
 
     companion object {
         val FACING = HorizontalDirectionalBlock.FACING

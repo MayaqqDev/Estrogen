@@ -13,29 +13,24 @@ import dev.mayaqq.estrogen.content.fluids.registry.FluidBuilder
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.mcid
 import dev.mayaqq.estrogen.mixin.client.accessor.ItemPropertiesAccessor
-import earth.terrarium.baubly.Baubly
-import earth.terrarium.baubly.client.BaubleRenderer
-import earth.terrarium.baubly.client.BaublyClient
-import earth.terrarium.baubly.common.Bauble
-import earth.terrarium.botarium.common.registry.fluid.BotariumFlowingFluid
-import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock
-import earth.terrarium.botarium.common.registry.fluid.BotariumSourceFluid
-import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem
+import invoke.kitty.kritter.registry.blockEntity.BlockEntityBuilder
+import invoke.kitty.kritter.registry.item.ItemBuilder
+import invoke.kitty.kritter.utils.clientOnly
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.renderer.RenderType
+import net.minecraft.core.BlockPos
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
+import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
+import net.minecraft.world.level.block.state.BlockBehaviour
+import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.material.MapColor
-import net.minecraft.world.level.pathfinder.BlockPathTypes
-import uwu.serenity.kritter.client.stdlib.clientOnly
-import uwu.serenity.kritter.stdlib.BlockEntityBuilder
-import uwu.serenity.kritter.stdlib.ItemBuilder
 
 
 // Transgenders is back :>
@@ -49,17 +44,6 @@ inline fun ItemBuilder<*>.tooltip(crossinline tooltip: (Item) -> CustomTooltip) 
 fun ItemBuilder<*>.standardTooltip() {
     onRegister {
         it.registerExtension(DescriptionTooltip(DescriptionTooltip.Theme.Default))
-    }
-}
-
-fun <I> ItemBuilder<I>.bauble() where I : Item, I : Bauble {
-    onRegister { Baubly.registerBauble(it) }
-}
-
-inline fun <I> ItemBuilder<I>.baubleWithRenderer(crossinline renderer: () -> BaubleRenderer) where I : Item, I : Bauble {
-    onRegister {
-        Baubly.registerBauble(it)
-        clientOnly { BaublyClient.registerBaubleRenderer(it, renderer()) }
     }
 }
 
@@ -85,7 +69,7 @@ inline fun <BE : BlockEntity> BlockEntityBuilder<BE>.visual(crossinline factory:
         onSetup {
             val builder = SimpleBlockEntityVisualizer.builder(it)
                 .factory { ctx, be, f -> factory(ctx, be, f) }
-            predicate?.let { builder.skipVanillaRender(it) } ?: builder.neverSkipVanillaRender()
+            predicate.let { builder.skipVanillaRender(it) } ?: builder.neverSkipVanillaRender()
             builder.apply()
         }
     }
@@ -164,4 +148,18 @@ fun <S : BotariumSourceFluid, F : BotariumFlowingFluid> FluidBuilder<S, F>.simpl
             stacksTo(1)
         }
     }
+}
+
+object Never: BlockBehaviour.StatePredicate {
+    override fun test(state: BlockState, block: BlockGetter, pos: BlockPos): Boolean = false
+
+    fun <T> withArgument(): BlockBehaviour.StateArgumentPredicate<T> =
+        BlockBehaviour.StateArgumentPredicate<T> { state, block, pos, arg -> false }
+}
+
+object Always: BlockBehaviour.StatePredicate {
+    override fun test(state: BlockState, block: BlockGetter, pos: BlockPos): Boolean = true
+
+    fun <T> withArgument(): BlockBehaviour.StateArgumentPredicate<T> =
+        BlockBehaviour.StateArgumentPredicate<T> { state, block, pos, arg -> true }
 }

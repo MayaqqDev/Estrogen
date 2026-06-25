@@ -11,6 +11,7 @@ import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.features.boobs.Boob
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.content.items.GenderChangePotionItem
+import dev.mayaqq.estrogen.utils.holder
 import net.minecraft.world.entity.player.Player
 import java.net.URI
 import java.net.http.HttpClient
@@ -31,7 +32,7 @@ fun onPlayerJoin(event: PlayerConnectionEvent.Join) {
         event.player.addTag("estrogen_first_join");
     }
 
-    if (Boob.shouldShow(event.player)) event.player.getAttribute(EstrogenAttributes.BoobGrowingStartTime)?.baseValue = currentTime(event.player.level());
+    if (Boob.shouldShow(event.player)) event.player.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder())?.baseValue = currentTime(event.player.level());
 }
 
 private fun isBoobPerson(player: Player): Boolean {

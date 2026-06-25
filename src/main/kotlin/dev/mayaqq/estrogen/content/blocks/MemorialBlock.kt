@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.content.blocks
 
+import com.mojang.serialization.MapCodec
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.get
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
@@ -9,6 +10,7 @@ import dev.mayaqq.estrogen.client.content.screen.MemorialScreen
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.blockEntities.MemorialBlockEntity
+import invoke.kitty.kritter.blockEntity.BlockWithEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.InteractionHand
@@ -28,25 +30,22 @@ import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
-import uwu.serenity.kritter.stdlib.BlockEntityBlock
 import java.nio.file.Path
 import kotlin.io.path.createFile
 import kotlin.io.path.createParentDirectories
 import kotlin.io.path.notExists
-import kotlin.reflect.KClass
 
-class MemorialBlock(properties: Properties): BaseEntityBlock(properties), BlockEntityBlock<MemorialBlockEntity> {
+class MemorialBlock(properties: Properties): BaseEntityBlock(properties), BlockWithEntity<MemorialBlockEntity> {
 
     init {
         this.registerDefaultState(this.defaultBlockState().setValue(PART, 1))
     }
 
-    override fun use(
+    override fun useWithoutItem(
         state: BlockState,
         level: Level,
         pos: BlockPos,
         player: Player,
-        hand: InteractionHand,
         result: BlockHitResult
     ): InteractionResult = if (level.isClientSide) {
         if (file.notExists()) file.createParentDirectories().createFile()
@@ -57,6 +56,8 @@ class MemorialBlock(properties: Properties): BaseEntityBlock(properties), BlockE
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
         builder.add(PART)
     }
+
+    override fun codec(): MapCodec<out BaseEntityBlock> = simpleCodec(::MemorialBlock)
 
     /* Shape
      * 56
@@ -111,8 +112,8 @@ class MemorialBlock(properties: Properties): BaseEntityBlock(properties), BlockE
         }
     }
 
-    override val blockEntityClass: KClass<out MemorialBlockEntity> = MemorialBlockEntity::class
-    override fun getBlockEntityType(): BlockEntityType<out MemorialBlockEntity> = EstrogenBlockEntities.Memorial
+    override val blockEntityClass: Class<out MemorialBlockEntity> = MemorialBlockEntity::class.java
+    override fun blockEntityType(): BlockEntityType<out MemorialBlockEntity> = EstrogenBlockEntities.Memorial
 
     companion object {
         val PART = IntegerProperty.create("part", 1, 6)

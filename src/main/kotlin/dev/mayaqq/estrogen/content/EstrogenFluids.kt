@@ -11,10 +11,7 @@ import dev.mayaqq.estrogen.content.fluids.registry.fluid
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.mcid
 import dev.mayaqq.estrogen.utils.EstrogenColors
-import earth.terrarium.botarium.common.registry.fluid.BotariumFlowingFluid
-import earth.terrarium.botarium.common.registry.fluid.BotariumSourceFluid
-import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem
-import earth.terrarium.botarium.common.registry.fluid.FluidRegistry
+import invoke.kitty.kritter.registry.api.Registrar
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.FluidTags
@@ -24,10 +21,8 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.level.material.Fluids
 import net.minecraft.world.level.material.MapColor
-import uwu.serenity.kritter.api.Registrar
-import uwu.serenity.kritter.stdlib.Always
 
-object EstrogenFluids : Registrar<Fluid> by Estrogen..Registries.FLUID, FluidRegistryProvider {
+object EstrogenFluids : Registrar<Fluid> by Registrar(MOD_ID, Registries.FLUID), FluidRegistryProvider {
 
     override val fluidRegistry = FluidRegistry(MOD_ID)
 

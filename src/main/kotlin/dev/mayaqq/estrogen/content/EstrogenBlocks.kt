@@ -2,13 +2,24 @@ package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.cynosure.blocks.model.ModelBedBlock
 import dev.mayaqq.cynosure.blocks.poi.add
+import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.content.items.ThighHighsItem
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.EstrogenColors
+import invoke.kitty.kritter.creativeTabs.TabPlacement
+import invoke.kitty.kritter.registry.api.Registrar
+import invoke.kitty.kritter.registry.block.BlockRenderType
+import invoke.kitty.kritter.registry.block.block
+import invoke.kitty.kritter.registry.block.colorProvider
+import invoke.kitty.kritter.registry.block.renderType
+import invoke.kitty.kritter.registry.creativeTab.creativeTab
+import invoke.kitty.kritter.registry.item.creativeTab
+import invoke.kitty.kritter.registry.item.item
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.registries.Registries
@@ -19,27 +30,22 @@ import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.CreativeModeTabs
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.Rarity
+import net.minecraft.world.level.biome.Biome
 import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.state.properties.BedPart
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument
 import net.minecraft.world.level.material.MapColor
-import uwu.serenity.kritter.api.Registrar
-import uwu.serenity.kritter.api.creative.TabPlacement
-import uwu.serenity.kritter.client.stdlib.color
-import uwu.serenity.kritter.client.stdlib.renderType
-import uwu.serenity.kritter.stdlib.Never
-import uwu.serenity.kritter.stdlib.block
 
 @Suppress("unused")
-object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
+object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) {
 
     val CookieJar: CookieJarBlock by block("cookie_jar", ::CookieJarBlock) {
-        copyProperties(Blocks::GLASS)
+        initialPropertiesFrom(Blocks::GLASS)
         properties {
             sound(EstrogenSoundTypes.COOKIE_JAR)
         }
-        renderType = RenderType::cutout
-        item(::BlockItem) {
+        renderType = BlockRenderType.CUTOUT
+        item("cookie_jar", ::BlockItem) {
             standardTooltip()
             creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(Items.BARREL))
         }
@@ -66,48 +72,48 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             isSuffocating(Never)
             //isViewBlocking { state, block, pos -> state.getValue(PERSISTENT) }
         }
-        renderType = RenderType::translucent
-        item(::DreamBottleItem, "dream_bottle") {
+        renderType = BlockRenderType.TRANSLUCENT
+        item("dream_bottle", ::DreamBottleItem) {
             properties {
                 rarity(Rarity.EPIC)
             }
             onRegister { EstrogenItems.DreamBottle = it }
         }
-        item(::BlockItem, "dormant_dream_block")
+        item("dormant_dream_block", ::BlockItem)
     }
 
     val MothWool: Block by block("moth_wool", ::Block) {
-        copyProperties(Blocks::ORANGE_WOOL)
-        item(::BlockItem)
+        initialPropertiesFrom(Blocks::ORANGE_WOOL)
+        item("moth_wool", ::BlockItem)
     }
 
     val QuiltedMothWool: Block by block("quilted_moth_wool", ::Block) {
-        copyProperties(Blocks::ORANGE_WOOL)
-        item(::BlockItem)
+        initialPropertiesFrom(Blocks::ORANGE_WOOL)
+        item("quilted_moth_wool", ::BlockItem)
     }
 
     val MothCarpet: CarpetBlock by block("moth_wool_carpet", ::CarpetBlock) {
-        copyProperties(Blocks::ORANGE_CARPET)
-        item(::BlockItem)
+        initialPropertiesFrom(Blocks::ORANGE_CARPET)
+        item("moth_wool_carpet", ::BlockItem)
     }
 
     val QuiltedMothCarpet: CarpetBlock by block("quilted_moth_wool_carpet", ::CarpetBlock) {
-        copyProperties(Blocks::ORANGE_CARPET)
-        item(::BlockItem)
+        initialPropertiesFrom(Blocks::ORANGE_CARPET)
+        item("quilted_moth_wool_carpet", ::BlockItem)
     }
 
     val EstrogenPillBlock: EstrogenPillBlock by block("estrogen_pill_block", ::EstrogenPillBlock) {
-        copyProperties(Blocks::OAK_PLANKS)
+        initialPropertiesFrom(Blocks::OAK_PLANKS)
         properties {
             strength(1.0f, 1.0f)
             sound(EstrogenSoundTypes.PILL_BOX)
         }
-        item(::BlockItem)
+        item("estrogen_pill_block", ::BlockItem)
     }
 
     val MothBed: ModelBedBlock by block("moth_bed", ::ModelBedBlock) {
-        copyProperties(Blocks::ORANGE_BED)
-        item(::BlockItem, "moth_bed") {
+        initialPropertiesFrom(Blocks::ORANGE_BED)
+        item("moth_bed", ::BlockItem) {
             properties {
                 stacksTo(1)
                 creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER { stack -> stack.`is`(ItemTags.BEDS) })
@@ -119,8 +125,8 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
     }
 
     val QuiltedMothBed: ModelBedBlock by block("quilted_moth_bed", ::ModelBedBlock) {
-        copyProperties(Blocks::ORANGE_BED)
-        item(::BlockItem, "quilted_moth_bed") {
+        initialPropertiesFrom(Blocks::ORANGE_BED)
+        item("quilted_moth_bed", ::BlockItem) {
             properties {
                 stacksTo(1)
                 creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER { stack -> stack.`is`(ItemTags.BEDS) })
@@ -132,11 +138,11 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
     }
 
     val ColonThreeBlock: ColonThreeBlock by block("colon_three", ::ColonThreeBlock) {
-        copyProperties(Blocks::NETHERITE_BLOCK)
+        initialPropertiesFrom(Blocks::NETHERITE_BLOCK)
         properties {
             randomTicks()
         }
-        item(::BlockItem, "colon_three")
+        item("colon_three", ::BlockItem)
     }
 
     val DreamCatcher: DreamCatcherBlock by block("dreamcatcher", ::DreamCatcherBlock) {
@@ -148,13 +154,13 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             strength(1.0F)
             ignitedByLava()
         }
-        renderType = RenderType::cutout
-        color(DreamCatcherBlock::getBlockColor)
-        item(::DreamCatcherItem) {
+        renderType = BlockRenderType.CUTOUT
+        colorProvider = DreamCatcherBlock
+        item("dreamcatcher", ::DreamCatcherItem) {
             standardTooltip()
             creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(Items.BARREL))
-            color(DreamCatcherItem::getItemColor)
-            onSetup { CauldronInteraction.WATER[it] = ThighHighsItem.CAULDRON_INTERACTION }
+            //TODO: color(DreamCatcherItem::getItemColor)
+            onSetup { CauldronInteraction.WATER.map()[it] = ThighHighsItem.CAULDRON_INTERACTION }
             textureProperty(id("colored")) { itemStack, clientLevel, livingEntity, i ->
                 return@textureProperty if ((itemStack.item as? DreamCatcherItem)?.isBlank(itemStack) == true) 0.0F else 1.0F
             }
@@ -163,13 +169,13 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
 
     val HorseUrineCauldron: LayeredCauldronBlock by block(
         "horse_urine_cauldron", { properties -> LayeredCauldronBlock(
-            properties,
-            {false},
-            CauldronInteractions.HORSE_URINE
+            Biome.Precipitation.NONE,
+            CauldronInteractions.HORSE_URINE,
+            properties
         ) }) {
-        copyProperties(Blocks::CAULDRON)
-        renderType = RenderType::cutout
-        color { _, _, _, tint -> return@color if (tint == 0) EstrogenColors.HORSE_URINE.toInt() else -1 }
+        initialPropertiesFrom(Blocks::CAULDRON)
+        renderType = BlockRenderType.CUTOUT
+        colorProvider { _, _, _, tint -> return@colorProvider if (tint == 0) EstrogenColors.HORSE_URINE.toInt() else -1 }
     }
 
     val FiltratedHorseUrineCauldron: FiltratedHorseUrineCauldron by block(
@@ -177,9 +183,9 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             properties,
             CauldronInteractions.FILTRATED_HORSE_URINE
         ) }) {
-        copyProperties(Blocks::CAULDRON)
-        renderType = RenderType::cutout
-        color { _, _, _, tint -> return@color if (tint == 0) EstrogenColors.FILTRATED_HORSE_URINE.toInt() else -1 }
+        initialPropertiesFrom(Blocks::CAULDRON)
+        renderType = BlockRenderType.CUTOUT
+        colorProvider { _, _, _, tint -> return@color if (tint == 0) EstrogenColors.FILTRATED_HORSE_URINE.toInt() else -1 }
     }
 
     val LiquidEstrogenCauldron: LayeredCauldronBlock by block(
@@ -188,18 +194,18 @@ object EstrogenBlocks : Registrar<Block> by Estrogen..Registries.BLOCK {
             {false},
             CauldronInteractions.ESTROGEN
         ) }) {
-        copyProperties(Blocks::CAULDRON)
-        renderType = RenderType::cutout
+        initialPropertiesFrom(Blocks::CAULDRON)
+        renderType = BlockRenderType.CUTOUT
     }
 
     val Memorial: MemorialBlock by block("memorial", ::MemorialBlock) {
-        copyProperties(Blocks::REINFORCED_DEEPSLATE)
+        initialPropertiesFrom(Blocks::REINFORCED_DEEPSLATE)
         properties {}
     }
 
     // Convert to Create: Estrogen
     val Centrifuge: TransferBlock by block("centrifuge", {p -> TransferBlock(
         p,
-        ResourceLocation("createestrogen", "centrifuge")
+        identifier("createestrogen", "centrifuge")
     )})
 }

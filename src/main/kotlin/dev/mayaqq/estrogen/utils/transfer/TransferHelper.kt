@@ -6,8 +6,7 @@ import dev.mayaqq.cynosure.text.TextBuilder.append
 import dev.mayaqq.cynosure.text.TextStyle.color
 import dev.mayaqq.cynosure.text.TextStyle.underlined
 import dev.mayaqq.cynosure.text.TextStyle.url
-import dev.mayaqq.cynosure.utils.colors.McBlue
-import dev.mayaqq.cynosure.utils.colors.McRed
+import invoke.kitty.kritter.utils.color.MinecraftColors
 
 object TransferHelper {
     val message = Text.of {
@@ -15,7 +14,7 @@ object TransferHelper {
         append(CommonText.NEWLINE)
         append("[Estrogen]") {
             url = "https://modrinth.com/mod/estrogen"
-            color = McBlue
+            color = MinecraftColors.Blue
             underlined = true
         }
         append(CommonText.SPACE)
@@ -23,7 +22,7 @@ object TransferHelper {
         append(CommonText.SPACE)
         append("[Create: Estrogen]") {
             url = "https://modrinth.com/mod/create-estrogen"
-            color = McBlue
+            color = MinecraftColors.Blue
             underlined = true
         }
         append(".")
@@ -32,11 +31,11 @@ object TransferHelper {
         append(CommonText.SPACE)
         append("Create: Estrogen") {
             url = "https://modrinth.com/mod/create-estrogen"
-            color = McBlue
+            color = MinecraftColors.Blue
             underlined = true
         }
         append(CommonText.SPACE)
         append("to fix.")
-        color = McRed
+        color = MinecraftColors.Red
     }
 }

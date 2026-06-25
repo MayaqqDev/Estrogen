@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.block.model.BakedQuad
 
 
 private val FORMAT: VertexFormat = DefaultVertexFormat.BLOCK
-private val VERTEX_STRIDE: Int = FORMAT.integerSize
+private val VERTEX_STRIDE: Int = FORMAT.vertexSize
 
 private const val X_OFFSET = 0
 private const val Y_OFFSET = 1
