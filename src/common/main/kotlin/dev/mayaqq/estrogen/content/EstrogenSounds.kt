@@ -2,70 +2,70 @@
 
 package dev.mayaqq.estrogen.content
 
-import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.estrogen.MOD_ID
+import invoke.kitty.kritter.registry.api.Registrar
+import invoke.kitty.kritter.registry.misc.soundEvent
+import invoke.kitty.kritter.utils.ExperimentalRegistryApi
+import invoke.kitty.kritter.utils.sounds.LazySoundType
 import net.minecraft.core.registries.Registries
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.world.level.block.SoundType
-import uwu.serenity.kritter.api.Registrar
-import uwu.serenity.kritter.internal.ExperimentalKritterAPI
-import uwu.serenity.kritter.stdlib.sound
-import uwu.serenity.kritter.utils.LazySoundType
 
-@OptIn(ExperimentalKritterAPI::class)
-object EstrogenSounds : Registrar<SoundEvent> by Estrogen..Registries.SOUND_EVENT {
+@OptIn(ExperimentalRegistryApi::class)
+object EstrogenSounds : Registrar<SoundEvent> by Registrar(MOD_ID, Registries.SOUND_EVENT) {
 
     // Dash
-    val DASH: SoundEvent by sound
+    val DASH: SoundEvent by soundEvent
 
     // Music disc
-    val G03C: SoundEvent by sound
+    val G03C: SoundEvent by soundEvent
 
     // Ambient music
-    val TRUST_YOURSELF: SoundEvent by sound
-    val AMPHITRITE: SoundEvent by sound
-    val AURUM_BERRY: SoundEvent by sound
-    val ESTROGEN_AMBIENT: SoundEvent by sound
-    val INFERRED_DREAMS: SoundEvent by sound
-    val SLEEPING: SoundEvent by sound
-    val INNER_SELF_REALIZATION: SoundEvent by sound
+    val TRUST_YOURSELF: SoundEvent by soundEvent
+    val AMPHITRITE: SoundEvent by soundEvent
+    val AURUM_BERRY: SoundEvent by soundEvent
+    val ESTROGEN_AMBIENT: SoundEvent by soundEvent
+    val INFERRED_DREAMS: SoundEvent by soundEvent
+    val SLEEPING: SoundEvent by soundEvent
+    val INNER_SELF_REALIZATION: SoundEvent by soundEvent
 
     // Dream block
-    val DREAM_BLOCK_ENTER: SoundEvent by sound
-    val DREAM_BLOCK_EXIT: SoundEvent by sound
-    val DREAM_BLOCK_LOOP: SoundEvent by sound
-    val DREAM_BLOCK_PLACE: SoundEvent by sound
-    val DREAM_BLOCK_BREAK: SoundEvent by sound
-    val DREAM_BLOCK_STEP: SoundEvent by sound
-    val DREAM_BLOCK_HIT: SoundEvent by sound
-    val DREAM_BLOCK_FALL: SoundEvent by sound
+    val DREAM_BLOCK_ENTER: SoundEvent by soundEvent
+    val DREAM_BLOCK_EXIT: SoundEvent by soundEvent
+    val DREAM_BLOCK_LOOP: SoundEvent by soundEvent
+    val DREAM_BLOCK_PLACE: SoundEvent by soundEvent
+    val DREAM_BLOCK_BREAK: SoundEvent by soundEvent
+    val DREAM_BLOCK_STEP: SoundEvent by soundEvent
+    val DREAM_BLOCK_HIT: SoundEvent by soundEvent
+    val DREAM_BLOCK_FALL: SoundEvent by soundEvent
 
     // Dormant dream block
-    val DREAM_BLOCK_DORMANT_PLACE: SoundEvent by sound
-    val DREAM_BLOCK_DORMANT_BREAK: SoundEvent by sound
-    val DREAM_BLOCK_DORMANT_STEP: SoundEvent by sound
-    val DREAM_BLOCK_DORMANT_HIT: SoundEvent by sound
-    val DREAM_BLOCK_DORMANT_FALL: SoundEvent by sound
+    val DREAM_BLOCK_DORMANT_PLACE: SoundEvent by soundEvent
+    val DREAM_BLOCK_DORMANT_BREAK: SoundEvent by soundEvent
+    val DREAM_BLOCK_DORMANT_STEP: SoundEvent by soundEvent
+    val DREAM_BLOCK_DORMANT_HIT: SoundEvent by soundEvent
+    val DREAM_BLOCK_DORMANT_FALL: SoundEvent by soundEvent
 
     // Cookie jar
-    val JAR_FULL: SoundEvent by sound
-    val JAR_INSERT: SoundEvent by sound
-    val JAR_PLACE: SoundEvent by sound
-    val JAR_BREAK: SoundEvent by sound
-    val JAR_STEP: SoundEvent by sound
-    val JAR_HIT: SoundEvent by sound
-    val JAR_FALL: SoundEvent by sound
+    val JAR_FULL: SoundEvent by soundEvent
+    val JAR_INSERT: SoundEvent by soundEvent
+    val JAR_PLACE: SoundEvent by soundEvent
+    val JAR_BREAK: SoundEvent by soundEvent
+    val JAR_STEP: SoundEvent by soundEvent
+    val JAR_HIT: SoundEvent by soundEvent
+    val JAR_FALL: SoundEvent by soundEvent
 
     // Estrogen Pill Box
-    val PILL_BOX_PLACE: SoundEvent by sound
-    val PILL_BOX_STEP: SoundEvent by sound
-    val PILL_BOX_BREAK: SoundEvent by sound
-    val PILL_BOX_HIT: SoundEvent by sound
-    val PILL_BOX_FALL: SoundEvent by sound
+    val PILL_BOX_PLACE: SoundEvent by soundEvent
+    val PILL_BOX_STEP: SoundEvent by soundEvent
+    val PILL_BOX_BREAK: SoundEvent by soundEvent
+    val PILL_BOX_HIT: SoundEvent by soundEvent
+    val PILL_BOX_FALL: SoundEvent by soundEvent
 
-    val MOTH_DEATH: SoundEvent by sound
-    val MOTH_HURT: SoundEvent by sound
-    val MOTH_LOOP: SoundEvent by sound
-    val MOTH_FUZZ_UP: SoundEvent by sound
+    val MOTH_DEATH: SoundEvent by soundEvent
+    val MOTH_HURT: SoundEvent by soundEvent
+    val MOTH_LOOP: SoundEvent by soundEvent
+    val MOTH_FUZZ_UP: SoundEvent by soundEvent
 }
 
 object EstrogenSoundTypes {

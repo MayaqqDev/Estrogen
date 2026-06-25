@@ -32,7 +32,7 @@ cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.6+1.20.1"
 flywheel = "1.0.2"
-cynosure = "1.0.0-local.1"
+cynosure = "1.0.0-local.7"
 
 # Fabric Only Dependencies
 fapi-1201 = "0.92.9"

@@ -6,6 +6,7 @@ import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.EntityTrackingEvent
 import dev.mayaqq.cynosure.events.entity.player.PlayerConnectionEvent
 import dev.mayaqq.cynosure.utils.currentTime
+import dev.mayaqq.cynosure.utils.getAttribute
 import dev.mayaqq.estrogen.client.features.boobs.Boob.boobSize
 import dev.mayaqq.estrogen.client.features.boobs.Boob.shouldShow
 import dev.mayaqq.estrogen.content.EstrogenAttributes

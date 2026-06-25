@@ -8,6 +8,10 @@ import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.blockEntities.DreamCatcherBlockEntity
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.utils.TriColor
+import invoke.kitty.kritter.platform.common.BlockColorProvider
+import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.color.toColor
+import invoke.kitty.kritter.utils.shapes.allHorizontalDirections
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.entity.LivingEntity
@@ -72,7 +76,7 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
         }
     }
 
-    companion object {
+    companion object : BlockColorProvider {
 
         private val SHAPES = Shapes.or(
             Shapes.box(0.3125, -0.0625, 0.4375, 0.625, 0.875, 0.5625),
@@ -82,14 +86,19 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
             Shapes.box(0.125, 0.0625, 0.4375, 0.8125, 0.75, 0.5625)
         ).allHorizontalDirections()
 
-        fun getBlockColor(state: BlockState, view: BlockAndTintGetter?, pos: BlockPos?, tint: Int): Int {
-            if (state.`is`(EstrogenBlocks.DreamCatcher) && view != null && pos != null) {
-                return (state.block as DreamCatcherBlock).getColor(view, pos, tint)
-            }
-            return -1
-        }
-
         val COLORED: BooleanProperty = BooleanProperty.create("colored")
+
+        override fun getColor(
+            state: BlockState,
+            view: BlockAndTintGetter?,
+            pos: BlockPos?,
+            tintIndex: Int
+        ): Color {
+            if (state.`is`(EstrogenBlocks.DreamCatcher) && view != null && pos != null) {
+                return (state.block as DreamCatcherBlock).getColor(view, pos, tintIndex).toColor()
+            }
+            return (-1).toColor()
+        }
     }
     init {
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(COLORED, false))

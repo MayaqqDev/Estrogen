@@ -83,8 +83,8 @@ cloche {
     }
 
     val root = common {
-        mixins.from(file("src/main/estrogen.mixins.json"))
-        accessWideners.from(file("src/main/estrogen.accessWidener"))
+        mixins.from(file("src/main/common/estrogen.mixins.json"))
+        accessWideners.from(file("src/common/main/estrogen.accesswidener"))
 
         dependencies {
             compileOnly(libs.mixin)
@@ -105,7 +105,7 @@ cloche {
 
     val fabricCommon = common("common:fabric") {
         dependsOn(root)
-        mixins.from(file("src/common/fabric/main/estrogen.fabric.mixins.json"))
+        mixins.from(file("src/common/fabric/main/estrogen-fabric.mixins.json"))
 
         dependencies {
             modApi(libs.fabric.kotlin)
@@ -155,7 +155,7 @@ cloche {
 
     val forgeLike = common("common:forgeLike") {
         dependsOn(root)
-        mixins.from(file("src/common/forgeLike/main/estrogen.forge.mixins.json"))
+        mixins.from(file("src/common/forgeLike/main/estrogen-forge.mixins.json"))
 
         metadata {
             dependency {
@@ -184,7 +184,7 @@ cloche {
 
     fabric("fabric:1.20.1") {
         dependsOn(common1201, fabricCommon)
-        mixins.from(file("src/fabric/estrogen-fabric-1.20.1.mixins.json"))
+        mixins.from(file("src/fabric/1.20.1/main/estrogen-fabric-1.20.1.mixins.json"))
 
         loaderVersion = libs.versions.fabric
         minecraftVersion = libs.versions.minecraft.get1201()
@@ -281,7 +281,7 @@ cloche {
 
     fabric("fabric:1.21.1") {
         dependsOn(common1211, fabricCommon)
-        mixins.from(file("src/fabric/estrogen-fabric-1.21.1.mixins.json"))
+        mixins.from(file("src/fabric/1.21.1/main/estrogen-fabric-1.21.1.mixins.json"))
 
         loaderVersion = libs.versions.fabric
         minecraftVersion = libs.versions.minecraft.get1211()
@@ -356,7 +356,7 @@ cloche {
 
     forge("forge:1.20.1") {
         dependsOn(common1201, forgeLike)
-        mixins.from(file("src/forge/estrogen-forge-1.20.1.mixins.json"))
+        mixins.from(file("src/forge/1.20.1/main/estrogen-forge-1.20.1.mixins.json"))
 
         loaderVersion = libs.versions.forge.get()
         minecraftVersion = libs.versions.minecraft.get1201().get()
@@ -421,7 +421,7 @@ cloche {
 
     neoforge("neoforge:1.21.1") {
         dependsOn(common1211, forgeLike)
-        mixins.from(file("src/forge/estrogen-neoforge-1.21.1.mixins.json"))
+        mixins.from(file("src/neoforge/1.21.1/main/estrogen-neoforge-1.21.1.mixins.json"))
 
         loaderVersion = libs.versions.neoforge.get()
         minecraftVersion = libs.versions.minecraft.get1211().get()

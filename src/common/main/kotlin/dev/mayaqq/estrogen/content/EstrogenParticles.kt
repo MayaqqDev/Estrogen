@@ -1,24 +1,23 @@
 package dev.mayaqq.estrogen.content
 
-import dev.mayaqq.cynosure.client.particles.provider
-import dev.mayaqq.cynosure.particles.CynosureParticleType
-import dev.mayaqq.cynosure.particles.particleType
 import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.particles.DashTrailParticle
 import dev.mayaqq.estrogen.client.content.particles.MothFuzzParticle
 import dev.mayaqq.estrogen.content.particles.DashTrailParticleOptions
+import invoke.kitty.kritter.registry.api.Registrar
+import invoke.kitty.kritter.registry.misc.particleType
 import net.minecraft.client.particle.ParticleProvider
 import net.minecraft.core.particles.ParticleType
 import net.minecraft.core.particles.SimpleParticleType
 import net.minecraft.core.registries.Registries
-import uwu.serenity.kritter.api.Registrar
 
 //@EventSubscriber(env = [Environment.CLIENT])
-object EstrogenParticles : Registrar<ParticleType<*>> by Estrogen..Registries.PARTICLE_TYPE {
+object EstrogenParticles : Registrar<ParticleType<*>> by Registrar(MOD_ID, Registries.PARTICLE_TYPE) {
 
     val MothFuzz: SimpleParticleType by particleType("moth_fuzz") {
-        provider { sprites -> ParticleProvider { _, clientLevel, x, y, z, _, _, _ -> MothFuzzParticle(clientLevel, x, y, z, sprites) } }
-    }
+        provider { sprites -> ParticleProvider { _, cilientLevel, x, y, z, _, _, _ -> MothFuzzParticle(clientLevel, x, y, z, sprites) } }
+    }i
 
     val DashTrail: CynosureParticleType<DashTrailParticleOptions> by particleType(
         "dash_trail",

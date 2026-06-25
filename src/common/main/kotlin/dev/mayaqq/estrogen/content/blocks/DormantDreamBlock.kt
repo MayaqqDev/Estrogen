@@ -2,6 +2,7 @@
 
 package dev.mayaqq.estrogen.content.blocks
 
+import dev.mayaqq.cynosure.blocks.GlassLikeBlock
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
@@ -9,12 +10,11 @@ import net.minecraft.util.RandomSource
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.AbstractGlassBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
 
 @Deprecated("Becoming part of DreamBlock")
-class DormantDreamBlock(properties: Properties) : AbstractGlassBlock(properties) {
+class DormantDreamBlock(properties: Properties) : GlassLikeBlock(properties) {
 
     override fun getStateForPlacement(context: BlockPlaceContext): BlockState = EstrogenBlocks.DreamBlock.defaultBlockState()
 

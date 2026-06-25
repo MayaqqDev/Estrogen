@@ -1,8 +1,10 @@
 package dev.mayaqq.estrogen.utils
 
-import dev.mayaqq.cynosure.utils.colors.Color
-import dev.mayaqq.cynosure.utils.colors.minecraft.diffuseColor
+import dev.mayaqq.cynosure.utils.diffuseColor
+import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.color.rgb
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.world.item.DyeColor
 import net.minecraft.world.item.DyeItem
 import net.minecraft.world.item.ItemStack
 
@@ -44,9 +46,9 @@ fun CompoundTag.getTriColor(): TriColor? {
     if (this.contains("colors")) {
         val colors = this.getCompound("colors")
         return TriColor(
-            Color(colors.getInt("left")),
-            Color(colors.getInt("middle")),
-            Color(colors.getInt("right"))
+            rgb(colors.getInt("left")),
+            rgb(colors.getInt("middle")),
+            rgb(colors.getInt("right"))
         )
     } else return null
 }

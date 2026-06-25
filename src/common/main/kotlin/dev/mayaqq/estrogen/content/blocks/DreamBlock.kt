@@ -2,9 +2,10 @@
 
 package dev.mayaqq.estrogen.content.blocks
 
+import dev.mayaqq.cynosure.blocks.GlassLikeBlock
 import dev.mayaqq.cynosure.blocks.poi.anyInRange
-import dev.mayaqq.cynosure.core.Environment
-import dev.mayaqq.cynosure.core.currentEnvironment
+import dev.mayaqq.cynosure.effects.hasEffect
+import dev.mayaqq.cynosure.effects.newMobEffectInstance
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.PlayerConnectionEvent
@@ -19,6 +20,10 @@ import dev.mayaqq.estrogen.features.dash.CommonDash
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.c2s.DreamBlockRipplePacket
 import dev.mayaqq.estrogen.network.messages.s2c.DreamBlockSeedPacket
+import invoke.kitty.kritter.blockEntity.BlockWithEntity
+import invoke.kitty.kritter.platform.ENVIRONMENT
+import invoke.kitty.kritter.platform.Side
+import invoke.kitty.kritter.utils.clientOnly
 import net.minecraft.client.Minecraft
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.core.BlockPos
@@ -34,7 +39,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelAccessor
-import net.minecraft.world.level.block.AbstractGlassBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.SoundType
@@ -52,12 +56,9 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 import org.apache.commons.codec.digest.MessageDigestAlgorithms
-import uwu.serenity.kritter.client.stdlib.clientOnly
-import uwu.serenity.kritter.stdlib.BlockEntityBlock
 import java.security.MessageDigest
-import kotlin.reflect.KClass
 
-class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<DreamBlockEntity> {
+class DreamBlock(properties: Properties) : GlassLikeBlock(properties), BlockWithEntity<DreamBlockEntity> {
 
     init {
         registerDefaultState(
@@ -72,19 +73,11 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         )
     }
 
-    override val blockEntityClass: KClass<out DreamBlockEntity> = DreamBlockEntity::class
-
-    override fun getBlockEntityType(): BlockEntityType<out DreamBlockEntity> = EstrogenBlockEntities.DreamBlock
+    override val blockEntityClass: Class<out DreamBlockEntity> get() = DreamBlockEntity::class.java
+    override fun blockEntityType(): BlockEntityType<out DreamBlockEntity> = EstrogenBlockEntities.DreamBlock
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
         builder.add(PERSISTENT, UP, DOWN, EAST, WEST, NORTH, SOUTH)
-    }
-
-    override fun getSoundType(state: BlockState): SoundType {
-        clientOnly {
-            if(TextRendererFeatures.obfuscate) return EstrogenSoundTypes.DREAM_BLOCK_ACTIVE
-        }
-        return if (state.getValue(PERSISTENT)) EstrogenSoundTypes.DREAM_BLOCK_ACTIVE else EstrogenSoundTypes.DREAM_BLOCK_DORMANT
     }
 
     override fun canBeReplaced(state: BlockState, fluid: Fluid): Boolean {
@@ -92,7 +85,7 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
     }
 
     override fun getRenderShape(p0: BlockState): RenderShape =
-        if ((currentEnvironment == Environment.CLIENT && TextRendererFeatures.obfuscate) || p0.getValue(PERSISTENT)) RenderShape.ENTITYBLOCK_ANIMATED else RenderShape.MODEL
+        if ((ENVIRONMENT == Side.CLIENT && TextRendererFeatures.obfuscate) || p0.getValue(PERSISTENT)) RenderShape.ENTITYBLOCK_ANIMATED else RenderShape.MODEL
 
     override fun getCollisionShape(
         state: BlockState,
@@ -129,7 +122,8 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         else state.setValue(directionProperty(direction), false)
     }
 
-    override fun isRandomlyTicking(state: BlockState): Boolean = !state.getValue(PERSISTENT)
+    //TODO: check if this compiles correctly
+    fun isRandomlyTicking(state: BlockState): Boolean = !state.getValue(PERSISTENT)
 
     override fun randomTick(state: BlockState, level: ServerLevel, pos: BlockPos, random: RandomSource) {
         if (state.getValue(PERSISTENT)) return
@@ -158,11 +152,13 @@ class DreamBlock(p0: Properties) : AbstractGlassBlock(p0), BlockEntityBlock<Drea
         )) return
 
         player.stopSleeping()
-        player.addEffect(MobEffectInstance(
-            EstrogenEffects.Dreaming,
-            MobEffectInstance.INFINITE_DURATION,
-            0, true, false
-        ))
+        player.addEffect(
+            newMobEffectInstance(
+                EstrogenEffects.Dreaming,
+                MobEffectInstance.INFINITE_DURATION,
+                0, ambient = true, visible = false
+            )
+        )
     }
 
     override fun entityInside(state: BlockState, level: Level, pos: BlockPos, entity: Entity) {
