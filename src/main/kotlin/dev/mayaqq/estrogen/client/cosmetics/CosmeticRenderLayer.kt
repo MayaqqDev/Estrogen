@@ -2,9 +2,9 @@ package dev.mayaqq.estrogen.client.cosmetics
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
-import dev.mayaqq.cynosure.utils.colors.White
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer
+import invoke.kitty.kritter.utils.color.White
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.entity.RenderLayerParent

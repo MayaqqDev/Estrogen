@@ -4,12 +4,12 @@ import com.mojang.blaze3d.platform.NativeImage
 import com.mojang.blaze3d.systems.RenderSystem
 import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.helpers.McClient
-import dev.mayaqq.cynosure.utils.colors.Purple
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.screen.EstrogenButton
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.modules.ModuleContainer
 import dev.mayaqq.estrogen.modules.getModules
+import invoke.kitty.kritter.utils.color.Purple
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.ContainerObjectSelectionList
 import net.minecraft.client.gui.components.events.GuiEventListener
@@ -23,7 +23,7 @@ class ModulesList(val screen: ModulesScreen) : ContainerObjectSelectionList<Modu
     screen.width,
     screen.height,
     32,
-    screen.height - 32,
+    //TODO: removed screen.height - 32
     150
 ) {
 

@@ -1,4 +1,4 @@
-@file:EventSubscriber(env = [Environment.CLIENT])
+@file:EventSubscriber(Side.CLIENT)
 package dev.mayaqq.estrogen.client
 
 //import dev.mayaqq.estrogen.config.Instance
@@ -11,7 +11,6 @@ import dev.mayaqq.cynosure.client.render.gui.HudOverlayRegistry
 import dev.mayaqq.cynosure.client.render.gui.VanillaHud
 import dev.mayaqq.cynosure.client.splash.data.CynosureSplashLoader
 import dev.mayaqq.cynosure.client.utils.DefaultSkin
-import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
@@ -39,11 +38,11 @@ import net.minecraft.client.resources.model.ModelResourceLocation
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.Mob
-import uwu.serenity.kittyconfig.loadConfig
+import invoke.kitty.kritter.platform.Side
 
 
 @JvmField
-val THIGH_HIGH_ITEM_LOCATION: ResourceLocation = ModelResourceLocation(id("thigh_highs"), "inventory")
+val THIGH_HIGH_ITEM_LOCATION: ModelResourceLocation = ModelResourceLocation(id("thigh_highs"), "inventory")
 
 const val THIGH_HIGH_MODELS_DIRECTORY = "models/thigh_highs"
 
@@ -52,7 +51,7 @@ const val THIGH_HIGH_ITEM_TEXTURES = "textures/item/thigh_highs"
 var chestConfigSet = false
 
 fun estrogenClient() {
-    loadConfig(EstrogenClientConfig)
+    EstrogenClientConfig.initialize()
     CynosureSplashLoader.amount += 30
     EstrogenRenderTypes
     CosmeticAPI

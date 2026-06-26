@@ -4,6 +4,7 @@ import com.mojang.serialization.JsonOps
 import com.teamresourceful.resourcefulcosmetics.ResourcefulCosmetics
 import com.teamresourceful.resourcefulcosmetics.SignedData
 import com.teamresourceful.resourcefulcosmetics.errors.*
+import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.utils.serialization.buildClassSerializer
 import dev.mayaqq.cynosure.utils.serialization.fieldOf
@@ -24,13 +25,13 @@ object CosmeticAPI : Logger by LoggerFactory.getLogger("Estrogen Cosmetics") {
 
     private val DISABLED: MutableSet<UUID> = mutableSetOf()
 
-    fun id(path: String) = ResourceLocation("estrogencosmetics", path)
+    fun id(path: String) = identifier("estrogencosmetics", path)
 
     internal val API: ResourcefulCosmetics<Cosmetic> = ResourcefulCosmetics.create(
         "https://estrogen-cosmetics.teamresourceful.com/",
         true,
         { id, json ->
-            Cosmetic.codec(id).parse(JsonOps.INSTANCE, json).getOrThrow(true, Estrogen::error)
+            Cosmetic.codec(id).parse(JsonOps.INSTANCE, json).orThrow
         }
     ) { error -> Estrogen.error("Failed to load cosmetics", error) }
 
@@ -69,7 +70,7 @@ object CosmeticAPI : Logger by LoggerFactory.getLogger("Estrogen Cosmetics") {
         return call {
             val user = McClient.user
             val serverId = UUID.randomUUID().toString()
-            McClient.minecraftSessionService.joinServer(user.gameProfile, user.accessToken, serverId)
+            McClient.minecraftSessionService.joinServer(user.profileId, user.accessToken, serverId)
             API.login(user.profileId, user.name, serverId)
         }
     }

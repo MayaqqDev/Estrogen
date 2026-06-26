@@ -95,17 +95,8 @@ class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>(
         ForeWingL.zRot = WingL.zRot * 0.5f
     }
 
-    override fun renderToBuffer(
-        poseStack: PoseStack,
-        vertexConsumer: VertexConsumer,
-        packedLight: Int,
-        packedOverlay: Int,
-        red: Float,
-        green: Float,
-        blue: Float,
-        alpha: Float
-    ) {
-        root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha)
+    override fun renderToBuffer(poseStack: PoseStack, consumer: VertexConsumer, packedLight: Int, packedOverlay: Int, color: Int) {
+        root.render(poseStack, consumer, packedLight, packedOverlay, color)
     }
 
     // I have n o idea what im doing

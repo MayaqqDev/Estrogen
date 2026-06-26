@@ -6,10 +6,7 @@ import com.mojang.blaze3d.vertex.*
 import dev.mayaqq.cynosure.client.render.gui.HudOverlay
 import dev.mayaqq.cynosure.client.utils.lastPose
 import dev.mayaqq.cynosure.client.utils.pushPop
-import dev.mayaqq.cynosure.utils.colors.Color
-import dev.mayaqq.cynosure.utils.colors.floatBlue
-import dev.mayaqq.cynosure.utils.colors.floatGreen
-import dev.mayaqq.cynosure.utils.colors.floatRed
+import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture
 import dev.mayaqq.estrogen.client.features.TextRendererFeatures
@@ -18,19 +15,23 @@ import dev.mayaqq.estrogen.client.features.dash.ClientDash.isOnCooldown
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.utils.EstrogenColors
+import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.color.floatBlue
+import invoke.kitty.kritter.utils.color.floatGreen
+import invoke.kitty.kritter.utils.color.floatRed
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.gui.GuiGraphics
-import net.minecraft.resources.ResourceLocation
 import org.joml.Matrix4f
 
 object DashOverlay : HudOverlay {
-    private val DASH_OVERLAY = ResourceLocation("textures/misc/nausea.png")
+    private val DASH_OVERLAY = identifier("textures/misc/nausea.png")
     var dreamOverlayCooldown = 0
 
     override fun render(gui: Gui, graphics: GuiGraphics, partialTick: Float) {
         val player = Minecraft.getInstance().player ?: return
-        if (player.hasEffect(EstrogenEffects.Estrogen) && isOnCooldown() && EstrogenClientConfig.UI.dashOverlay) {
+        if (player.hasEffect(EstrogenEffects.Estrogen.holder()) && isOnCooldown() && EstrogenClientConfig.UI.dashOverlay) {
             val dc: Color = EstrogenColors.getDashColor(getDashLevel(), false)
             renderOverlay(graphics, dc.floatRed, dc.floatGreen, dc.floatBlue)
         }
@@ -94,15 +95,14 @@ object DashOverlay : HudOverlay {
 
             RenderSystem.setShaderTexture(0, DynamicDreamTexture.ID)
             RenderSystem.setShader { EstrogenRenderer.dreamBlockOverlayShader }
-            val bufferBuilder = Tesselator.getInstance().builder
-            bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR)
+            val bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR)
             val width = graphics.guiWidth()
             val height = graphics.guiHeight()
             vertex(bufferBuilder, lastPose, 0, 0, partialTick, cooldown)
             vertex(bufferBuilder, lastPose, 0, height, partialTick, cooldown)
             vertex(bufferBuilder, lastPose, width, height, partialTick, cooldown)
             vertex(bufferBuilder, lastPose, width, 0, partialTick, cooldown)
-            BufferUploader.drawWithShader(bufferBuilder.end())
+            BufferUploader.drawWithShader(bufferBuilder.build())
         }
     }
 }
@@ -111,7 +111,6 @@ private fun vertex(bufferBuilder: BufferBuilder, pose: Matrix4f, x: Int, y: Int,
     val eyeTime = (DreamBlockEffect.eyeDreamTick.toFloat() + partialTick - 5f).coerceIn(0f, 5f) / 5f
     val cooldownTime = if (DreamBlockEffect.isEyeInDream) 0f else 1f + (partialTick - cooldown.toFloat()) / 10f
     bufferBuilder
-        .vertex(pose, x.toFloat(), y.toFloat(), -90f)
-        .color(eyeTime, cooldownTime, 0f, 0f)
-        .endVertex()
+        .addVertex(pose, x.toFloat(), y.toFloat(), -90f)
+        .setColor(eyeTime, cooldownTime, 0f, 0f)
 }

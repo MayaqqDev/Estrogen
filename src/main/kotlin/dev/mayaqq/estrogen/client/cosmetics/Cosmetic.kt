@@ -1,4 +1,4 @@
-@file:EventSubscriber(env = [Environment.CLIENT])
+@file:EventSubscriber(Side.CLIENT)
 package dev.mayaqq.estrogen.client.cosmetics
 
 import com.mojang.blaze3d.vertex.PoseStack
@@ -7,16 +7,16 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.models.animations.Animatable
 import dev.mayaqq.cynosure.client.models.animations.animate
-import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.core.codecs.fieldOf
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticAnimation
 import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticModel
 import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticTexture
+import invoke.kitty.kritter.platform.Side
+import invoke.kitty.kritter.utils.color.Color
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
@@ -73,7 +73,8 @@ data class Cosmetic(
 
         var animationTicks = 0
 
-        val animationTime: Long get() = (Mth.lerp(Minecraft.getInstance().frameTime.toDouble(), animationTicks.toDouble(), animationTicks + 1.0) * 50L).toLong()
+        // TODO: check if frameTimeNs is same as previously just frameTime
+        val animationTime: Long get() = (Mth.lerp(Minecraft.getInstance().frameTimeNs.toDouble(), animationTicks.toDouble(), animationTicks + 1.0) * 50L).toLong()
     }
 }
 

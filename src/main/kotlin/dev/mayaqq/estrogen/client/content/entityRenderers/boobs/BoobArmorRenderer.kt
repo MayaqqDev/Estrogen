@@ -2,6 +2,8 @@ package dev.mayaqq.estrogen.client.content.entityRenderers.boobs
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
+import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.color.rgba
 import net.minecraft.client.model.geom.ModelPart
 import net.minecraft.client.model.geom.PartPose
 import net.minecraft.core.Direction
@@ -245,7 +247,7 @@ class BoobArmorRenderer {
                     val j = vertex.pos.y() / 16.0f
                     val k = vertex.pos.z() / 16.0f
                     val vector4f = matrix4f.transform(Vector4f(i, j, k, 1.0f))
-                    vertexConsumer.vertex(vector4f.x(), vector4f.y(), vector4f.z(), red, green, blue, alpha, vertex.u, vertex.v, overlay, light, f, g, h)
+                    vertexConsumer.addVertex(vector4f.x(), vector4f.y(), vector4f.z(), rgba(red, green, blue, alpha).toInt(), vertex.u, vertex.v, overlay, light, f, g, h)
                 }
             }
         }

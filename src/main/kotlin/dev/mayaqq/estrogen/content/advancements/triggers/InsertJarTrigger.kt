@@ -1,14 +1,14 @@
 package dev.mayaqq.estrogen.content.advancements.triggers
 
-import com.google.gson.JsonObject
-import dev.mayaqq.estrogen.id
+import com.mojang.serialization.Codec
+import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.mayaqq.estrogen.content.advancements.triggers.InsertJarTrigger.TriggerInstance
 import net.minecraft.advancements.critereon.*
 import net.minecraft.server.level.ServerPlayer
+import java.util.Optional
 
-open class InsertJarTrigger : SimpleCriterionTrigger<InsertJarTrigger.TriggerInstance>() {
-    protected override fun createInstance(json: JsonObject, predicate: ContextAwarePredicate, deserializationContext: DeserializationContext) : TriggerInstance = TriggerInstance(predicate)
-
-    override fun getId() = ID
+class InsertJarTrigger : SimpleCriterionTrigger<TriggerInstance>() {
+    override fun codec(): Codec<TriggerInstance> = TriggerInstance.CODEC
 
     fun trigger(player: ServerPlayer) {
         this.trigger(player) { instance: TriggerInstance ->
@@ -16,17 +16,19 @@ open class InsertJarTrigger : SimpleCriterionTrigger<InsertJarTrigger.TriggerIns
         }
     }
 
-    class TriggerInstance(player: ContextAwarePredicate) : AbstractCriterionTriggerInstance(ID, player) {
-        override fun serializeToJson(context: SerializationContext): JsonObject = super.serializeToJson(context)
+    @JvmRecord
+    data class TriggerInstance(val player: ContextAwarePredicate) : SimpleInstance {
+        override fun player(): Optional<ContextAwarePredicate> = Optional.of(player)
 
         companion object {
+            val CODEC: Codec<TriggerInstance> = RecordCodecBuilder.create { instance -> instance.group(
+                    EntityPredicate.ADVANCEMENT_CODEC.fieldOf("player").forGetter(TriggerInstance::player)
+                ).apply(instance, ::TriggerInstance)
+            }
+
             fun insertJar() : TriggerInstance {
-                return TriggerInstance(ContextAwarePredicate.ANY)
+                return TriggerInstance(ContextAwarePredicate.create())
             }
         }
-    }
-
-    companion object {
-        protected val ID = id("insert_jar")
     }
 }

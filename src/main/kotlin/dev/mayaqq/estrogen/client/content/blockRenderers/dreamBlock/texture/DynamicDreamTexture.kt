@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture
 
 import com.mojang.blaze3d.systems.RenderSystem
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
+import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.config.EstrogenClientConfig.DreamBlock.animateTexture
@@ -16,7 +17,8 @@ import kotlin.jvm.optionals.getOrNull
 @EventSubscriber
 internal object DynamicDreamTexture {
 
-    val ID: ResourceLocation = ResourceLocation("dream_texture")
+    // why was this in the vanilla mc id?
+    val ID: ResourceLocation = identifier("dream_texture")
 
     private val goobers: MutableList<Goober> = ObjectArrayList() //:
     private lateinit var texture: DynamicTexture
@@ -80,7 +82,7 @@ internal object DynamicDreamTexture {
                 val color: Goober.Colors = Goober.Colors.entries[random.nextIntBetweenInclusive(0, 5)]
                 val animTick = if (style.hasAnimation()) random.nextIntBetweenInclusive(0, 10) else 0
                 val beginFrame = random.nextInt(0, style.frameCount())
-                val transparency: Int = Goober.TRANSPARENCY.getRandom(random).getOrNull()?.data ?: 0
+                val transparency: Int = Goober.TRANSPARENCY.getRandom(random).getOrNull()?.data() ?: 0
 
                 val goober = Goober(posX, posY, color, style, animTick, beginFrame, transparency)
                 goobers.add(goober)

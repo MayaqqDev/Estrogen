@@ -262,10 +262,10 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         this.setFuzzy(compound.getBoolean("Fuzzy"))
     }
 
-    fun isFuzzy(): Boolean = this.entityData.get<Boolean>(DATA_FUZZY)
+    fun isFuzzy(): Boolean = this.entityData.get(DATA_FUZZY)
 
     fun setFuzzy(fuzzy: Boolean) {
-        this.entityData.set<Boolean>(DATA_FUZZY, fuzzy)
+        this.entityData.set(DATA_FUZZY, fuzzy)
     }
 
     fun setFuzzy() {

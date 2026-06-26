@@ -2,14 +2,17 @@ package dev.mayaqq.estrogen.client.content.screen
 
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.*
+import dev.mayaqq.cynosure.client.utils.light
+import dev.mayaqq.cynosure.client.utils.normal
+import dev.mayaqq.cynosure.client.utils.uv
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.text.TextStyle.bold
 import dev.mayaqq.cynosure.text.TextStyle.color
-import dev.mayaqq.cynosure.utils.colors.Red
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture.ID
+import invoke.kitty.kritter.utils.color.Red
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.screens.Screen
@@ -38,7 +41,7 @@ abstract class BaseEstrogenScreen(val previous: Screen?, title: Component) : Scr
     }
 
     override fun render(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        renderBackground(graphics)
+        renderBackground(graphics, mouseX, mouseY, partialTick)
         beforeRender(graphics, mouseX, mouseY, partialTick)
         super.render(graphics, mouseX, mouseY, partialTick)
         afterRender(graphics, mouseX, mouseY, partialTick)
@@ -54,30 +57,28 @@ abstract class BaseEstrogenScreen(val previous: Screen?, title: Component) : Scr
 
     fun AbstractWidget.addRenderable(): AbstractWidget = addRenderableOnly(this)
 
-    override fun renderBackground(gui: GuiGraphics) {
-        renderDream(gui, 0, width, 0, height)
-        gui.fillGradient(0, 0, this.width, this.height, -1072689136, -804253680)
+    override fun renderBackground(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+        renderDream(graphics, 0, width, 0, height)
+        graphics.fillGradient(0, 0, this.width, this.height, -1072689136, -804253680)
     }
 
     private fun renderDream(graphics: GuiGraphics, minX: Int, maxX: Int, minY: Int, maxY: Int) {
         RenderSystem.setShaderTexture(0, ID)
         RenderSystem.setShader(EstrogenRenderer::dreamBlockShader)
-        val bufferBuilder = Tesselator.getInstance().builder
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK)
+        val bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK)
         dreamVertex(bufferBuilder, graphics.pose().last().pose(), minX, minY)
         dreamVertex(bufferBuilder, graphics.pose().last().pose(), minX, maxY)
         dreamVertex(bufferBuilder, graphics.pose().last().pose(), maxX, maxY)
         dreamVertex(bufferBuilder, graphics.pose().last().pose(), maxX, minY)
-        BufferUploader.drawWithShader(bufferBuilder.end())
+        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow())
     }
 
     private fun dreamVertex(bufferBuilder: BufferBuilder, pose: Matrix4f, x: Int, y: Int) {
-        bufferBuilder.vertex(pose, x.toFloat(), y.toFloat(), 0f)
-            .color(0, 0, 0, 0)
+        bufferBuilder.addVertex(pose, x.toFloat(), y.toFloat(), 0f)
+            .setColor(0, 0, 0, 0)
             .uv(x.toFloat(), y.toFloat())
-            .uv2(LightTexture.FULL_BRIGHT)
+            .light(LightTexture.FULL_BRIGHT)
             .normal(0f, 0f, 0f)
-            .endVertex()
     }
 
     override fun shouldCloseOnEsc(): Boolean = true

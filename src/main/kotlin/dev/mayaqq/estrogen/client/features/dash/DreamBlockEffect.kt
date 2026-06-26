@@ -3,19 +3,19 @@
 package dev.mayaqq.estrogen.client.features.dash
 
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
-import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.client.content.sounds.DreamBlockSoundInstance
 import dev.mayaqq.estrogen.content.EstrogenSounds
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.content.blocks.DreamBlock
+import invoke.kitty.kritter.platform.Side
 import net.minecraft.client.Minecraft
 import net.minecraft.core.BlockPos
 import net.minecraft.world.phys.Vec3
 import kotlin.math.floor
 
-@EventSubscriber(env = [Environment.CLIENT])
+@EventSubscriber(Side.CLIENT)
 object DreamBlockEffect {
     private var sound: DreamBlockSoundInstance? = null
     var isInDreamBlock = false

@@ -2,118 +2,132 @@ package dev.mayaqq.estrogen.config
 
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.chestConfigSet
-import uwu.serenity.kittyconfig.Comment
-import uwu.serenity.kittyconfig.Config
-import uwu.serenity.kittyconfig.KittyConfig
-import uwu.serenity.kittyconfig.observable.observable
-import uwu.serenity.kittyconfig.toml.TomlFormat
-import uwu.serenity.kittyconfig.validation.DecimalRange
-import uwu.serenity.kittyconfig.validation.Range
+import invoke.kitty.kritter.config.api.Config
+import invoke.kitty.kritter.config.api.ConfigCategory
+import invoke.kitty.kritter.config.formats.Json5Format
+import invoke.kitty.kritter.config.validation.types.range
 
 
-@Config("$MOD_ID/client", TomlFormat::class)
-object EstrogenClientConfig : KittyConfig {
+object EstrogenClientConfig : Config("$MOD_ID/client", Json5Format.Default) {
 
-    @Comment("Enable entity patting")
-    var entityPatting: Boolean = true
+    object Music : ConfigCategory(comment = "Estrogen ambient music settings") {
+        val enabled: Boolean by field(true) {
+            comment = "Enable Estrogen Ambient Music"
+        }
 
-    @Comment("Estrogen ambient music settings")
-    object Music {
-        @Comment("Enable Estrogen Ambient Music")
-        var enabled: Boolean = true
+        val minDelayBetweenSongs: Int by field(0) {
+            comment = "Minimum Delay between songs in ticks"
+            range = 0..100000
+        }
 
-        @Comment("Minimum Delay between songs in ticks")
-        var minDelayBetweenSongs: @Range(0, 100000) Int = 0
+        val maxDelayBetweenSongs: Int by field(0) {
+            comment = "Maxim Delay between songs in ticks"
+            range = 0..100000
+        }
 
-        @Comment("Maxim Delay between songs in ticks")
-        var maxDelayBetweenSongs: @Range(0, 100000) Int = 0
-
-        @Comment("If shall the Music wait for the current one to finish")
-        var replacesCurrentMusic: Boolean = true
-    }
-
-    @Comment("Global settings for chest feature rendering")
-    object ChestRenderingGlobal {
-
-        @Comment("Enable chest feature rendering")
-        var rendering: Boolean = true
-
-        @Comment("Enable chest feature armor rendering")
-        var armorRendering: Boolean = true
-
-        @Comment("Enable chest feature physics rendering")
-        var physicsRendering: Boolean = true
-    }
-
-    @Comment("Settings for the chest feature (for local player)")
-    object ChestFeature {
-
-        @Comment("Enable chest feature")
-        var enabled: Boolean by observable(true) { chestConfigSet = false }
-
-        @Comment("Enable chest feature armor")
-        var armor: Boolean by observable(true) { chestConfigSet = false }
-
-        @Comment("Enable chest feature physics")
-        var physics: Boolean by observable(true) { chestConfigSet = false }
-
-        @Comment("Chest feature bounciness")
-        var bounciness: @DecimalRange(0.0, 1.0) Double by observable(0.27) { chestConfigSet = false }
-
-        @Comment("Chest feature physics damping")
-        var damping: @DecimalRange(0.0, 1.0)  Float  by observable(0.375f) { chestConfigSet = false }
-    }
-
-    @Comment("Settings for the dreamn block")
-    object DreamBlock {
-
-        @Comment("Animate dream block texture")
-        var animateTexture: Boolean = true
-    }
-
-    @Comment("Settings for Equippable Items")
-    object Accessories {
-
-        var renderEstrogenPatches: Boolean = true
-    }
-
-    @Comment("UI element Configuration")
-    object UI {
-
-        @Comment("Enable dash overlay")
-        var dashOverlay: Boolean = true
-
-        @Comment("Settings for the estrogen button in the create screen")
-        object EstrogenButton {
-
-            @Comment("Enable the estrogen button in the create screen")
-            var enabled: Boolean = true
-
-            @Comment("""
-                X offset the estrogen button in the create screen
-                Offset is calculated off of the center of the Configure Button
-            """)
-            var xOffset: Int = -23
-
-            @Comment("""
-                X offset the estrogen button in the create screen
-                Offset is calculated off of the center of the Configure Button
-            """)
-            var yOffset: Int = 0
-
-            @Comment("Custom Splashes on the main menu! Requires resource reload")
-            var splashText: Boolean = true
+        val replacesCurrentMusic: Boolean by field(true) {
+            comment = "If shall the Music wait for the current one to finish"
         }
     }
 
-    @Comment("Compatibility between other mods settings")
-    object Compat {
+    object ChestRenderingGlobal : ConfigCategory(comment = "Global settings for chest feature rendering") {
 
-        @Comment("Enable ears compat")
-        var ears: Boolean = true
+        val rendering: Boolean by field(true) {
+            comment = "Enable chest feature rendering"
+        }
 
-        @Comment("Enable figura compat")
-        var figura: Boolean = true
+        val armorRendering: Boolean by field(true) {
+            comment = "Enable chest feature armor rendering"
+        }
+
+        val physicsRendering: Boolean by field(true) {
+            comment = "Enable chest feature physics rendering"
+        }
+    }
+
+    object ChestFeature : ConfigCategory(comment = "Settings for the chest feature (for local player)") {
+
+        val enabled: Boolean by field(true) {
+            comment = "Enable chest feature"
+            onChanged { chestConfigSet = false }
+        }
+
+        val armor: Boolean by field(true) {
+            comment = "Enable chest feature armor"
+            onChanged { chestConfigSet = false }
+        }
+
+        val physics: Boolean by field(true) {
+            comment = "Enable chest feature physics"
+            onChanged { chestConfigSet = false }
+        }
+
+        val bounciness: Double by field(0.27) {
+            comment = "Chest feature bounciness"
+            range = 0.0..1.0
+            onChanged { chestConfigSet = false }
+        }
+
+        val damping: Float by field(0.375f) {
+            comment = "Chest feature physics damping"
+            range = 0.0F..1.0F
+            onChanged {chestConfigSet = false }
+        }
+    }
+
+    object DreamBlock : ConfigCategory(comment = "Settings for the dream block") {
+
+        val animateTexture: Boolean by field(true) {
+            comment = "Animate dream block texture"
+        }
+    }
+
+    object Accessories : ConfigCategory(comment = "Settings for Equippable Items") {
+
+        val renderEstrogenPatches: Boolean by field(true)
+    }
+
+    object UI : ConfigCategory(comment = "UI element Configuration") {
+
+        val dashOverlay: Boolean by field(true) {
+            comment = "Enable dash overlay"
+        }
+
+        object EstrogenButton : ConfigCategory(comment = "Settings for the estrogen button in the create screen") {
+
+            val enabled: Boolean by field(true) {
+                comment = "Enable the estrogen button in the create screen"
+            }
+
+            val xOffset: Int by field(-23) {
+                comment = """
+                    X offset the estrogen button in the create screen
+                    Offset is calculated off of the center of the Configure Button
+                """
+            }
+
+            val yOffset: Int by field(0) {
+                comment = """
+                X offset the estrogen button in the create screen
+                Offset is calculated off of the center of the Configure Button
+            """
+            }
+
+            val splashText: Boolean by field(true) {
+                comment = "Custom Splashes on the main menu! Requires resource reload"
+            }
+        }
+    }
+
+    object Compat : ConfigCategory(comment = "Compatibility between other mods settings") {
+
+        val ears: Boolean by field(true) {
+            comment = "Enable ears compat"
+        }
+
+        val figura: Boolean by field(true) {
+            comment = "Enable figura compat"
+        }
 
     }
 

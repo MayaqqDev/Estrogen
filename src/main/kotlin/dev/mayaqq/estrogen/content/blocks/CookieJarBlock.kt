@@ -1,10 +1,12 @@
 package dev.mayaqq.estrogen.content.blocks
 
+import com.mojang.serialization.MapCodec
 import dev.mayaqq.estrogen.content.AdvancementTriggers
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.EstrogenSoundTypes
 import dev.mayaqq.estrogen.content.EstrogenSounds
 import dev.mayaqq.estrogen.content.blockEntities.CookieJarBlockEntity
+import invoke.kitty.kritter.blockEntity.BlockWithEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.server.level.ServerLevel
@@ -14,6 +16,7 @@ import net.minecraft.stats.Stats
 import net.minecraft.world.Containers
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.ItemInteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.Projectile
 import net.minecraft.world.inventory.AbstractContainerMenu
@@ -35,10 +38,12 @@ import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
-import uwu.serenity.kritter.stdlib.BlockEntityBlock
+import kotlin.jvm.optionals.getOrNull
 import kotlin.reflect.KClass
 
-class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), BlockEntityBlock<CookieJarBlockEntity>, SimpleWaterloggedBlock {
+class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), BlockWithEntity<CookieJarBlockEntity>, SimpleWaterloggedBlock {
+    override fun codec(): MapCodec<out BaseEntityBlock?> = simpleCodec(::CookieJarBlock)
+
     companion object {
         private val WATERLOGGED: BooleanProperty = BlockStateProperties.WATERLOGGED
         private val BOUNDING_BOX = listOf(
@@ -67,17 +72,18 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
         return defaultBlockState().setValue(WATERLOGGED, fluidState.type === Fluids.WATER)
     }
 
-    override fun use(
+    override fun useItemOn(
+        stack: ItemStack,
         state: BlockState,
         level: Level,
         pos: BlockPos,
         player: Player,
         hand: InteractionHand,
-        hit: BlockHitResult
-    ): InteractionResult {
-        val cookieJarBlockEntity = level.getBlockEntityOfType(pos) ?: return InteractionResult.FAIL
+        result: BlockHitResult
+    ): ItemInteractionResult {
+        val cookieJarBlockEntity = level.getBlockEntity(pos, EstrogenBlockEntities.CookieJar).getOrNull() ?: return ItemInteractionResult.FAIL
         if (level.isClientSide) {
-            return InteractionResult.CONSUME
+            return ItemInteractionResult.CONSUME
         }
 
         val handItem = player.getItemInHand(hand)
@@ -138,16 +144,11 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
         }
 
         level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos)
-        return InteractionResult.SUCCESS
+        return ItemInteractionResult.SUCCESS
     }
 
-    override fun isPathfindable(
-        state: BlockState,
-        level: BlockGetter,
-        pos: BlockPos,
-        type: PathComputationType
-    ): Boolean {
-        return false
+    override fun isPathfindable(state: BlockState, type: PathComputationType): Boolean {
+        return super.isPathfindable(state, type)
     }
 
     override fun getShape(
@@ -164,7 +165,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
     }
 
     override fun onRemove(state: BlockState, level: Level, blockPos: BlockPos, newState: BlockState, bl: Boolean) {
-        val be: CookieJarBlockEntity? = level.getBlockEntityOfType(blockPos)
+        val be: CookieJarBlockEntity? = level.getBlockEntity(blockPos, EstrogenBlockEntities.CookieJar).getOrNull()
         if (!state.`is`(newState.block) && be != null) {
             Containers.dropContents(level, blockPos, be)
         }
@@ -208,9 +209,8 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
 
     override fun propagatesSkylightDown(state: BlockState, level: BlockGetter, pos: BlockPos): Boolean = true
 
-    override val blockEntityClass: KClass<out CookieJarBlockEntity> = CookieJarBlockEntity::class
-
-    override fun getBlockEntityType(): BlockEntityType<out CookieJarBlockEntity> = EstrogenBlockEntities.CookieJar
+    override val blockEntityClass: Class<out CookieJarBlockEntity> = CookieJarBlockEntity::class.java
+    override fun blockEntityType(): BlockEntityType<out CookieJarBlockEntity> = EstrogenBlockEntities.CookieJar
 
 
 }

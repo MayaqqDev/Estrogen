@@ -5,12 +5,12 @@ import com.mojang.blaze3d.vertex.*
 import com.mojang.math.Axis
 import dev.mayaqq.cynosure.client.utils.lastPose
 import dev.mayaqq.cynosure.client.utils.pushPop
-import dev.mayaqq.cynosure.utils.colors.floatBlue
-import dev.mayaqq.cynosure.utils.colors.floatGreen
-import dev.mayaqq.cynosure.utils.colors.floatRed
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import dev.mayaqq.estrogen.content.particles.DashTrailParticleOptions
+import invoke.kitty.kritter.utils.color.floatBlue
+import invoke.kitty.kritter.utils.color.floatGreen
+import invoke.kitty.kritter.utils.color.floatRed
 import net.minecraft.client.Camera
 import net.minecraft.client.Minecraft
 import net.minecraft.client.multiplayer.ClientLevel
@@ -25,6 +25,8 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.LivingEntity
 import kotlin.math.max
+
+//TODO: Fix the particle mess
 
 class DashTrailParticle(
     level: ClientLevel,

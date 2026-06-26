@@ -18,13 +18,14 @@ import dev.mayaqq.cynosure.client.events.render.LevelRenderEvent
 import dev.mayaqq.cynosure.client.events.render.ReloadLevelRendererEvent
 import dev.mayaqq.cynosure.client.events.render.ResizeRendererEvent
 import dev.mayaqq.cynosure.client.isShaderPackInUse
-import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.id
+import dev.mayaqq.estrogen.utils.holder
 import dev.mayaqq.estrogen.utils.render.blitWithDepth
+import invoke.kitty.kritter.platform.Side
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.MultiBufferSource
@@ -34,7 +35,7 @@ import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.ShaderInstance
 import org.lwjgl.opengl.GL11
 
-@EventSubscriber(Environment.CLIENT)
+@EventSubscriber(Side.CLIENT)
 object EstrogenRenderer {
 
     // Render state shards
@@ -165,7 +166,7 @@ object EstrogenRenderer {
         RenderSystem.disableBlend()
         RenderSystem.defaultBlendFunc()
 
-        if (Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming) == true) {
+        if (Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming.holder()) == true) {
             dreamingEffect?.process(event.partialTick)
         }
         McClient.mainRenderTarget.bindWrite(false)
@@ -230,6 +231,7 @@ object EstrogenRenderer {
 
     private object OutlineBufferSource {
 
+        //TODO: yeah this..
         private val bufferSources: MutableMap<MultiBufferSource, MultiBufferSource> = MapMaker().weakKeys().makeMap()
         private val outlineBuffers: MutableMap<RenderType, BufferBuilder> = Object2ObjectOpenHashMap()
 

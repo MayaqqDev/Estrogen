@@ -8,16 +8,16 @@ import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.text.TextBuilder.append
 import dev.mayaqq.cynosure.text.TextStyle.bold
 import dev.mayaqq.cynosure.text.TextStyle.color
-import dev.mayaqq.cynosure.utils.colors.Color
-import dev.mayaqq.cynosure.utils.colors.LightBlue
-import dev.mayaqq.cynosure.utils.colors.Red
-import dev.mayaqq.cynosure.utils.colors.White
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.screen.config.ConfigCategorySelectionScreen
 import dev.mayaqq.estrogen.client.content.screen.cosmetics.CosmeticsBaseScreen
 import dev.mayaqq.estrogen.client.content.screen.modules.ModulesScreen
 import dev.mayaqq.estrogen.id
+import invoke.kitty.kritter.utils.color.LightBlue
+import invoke.kitty.kritter.utils.color.Red
+import invoke.kitty.kritter.utils.color.White
+import invoke.kitty.kritter.utils.color.toColor
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.screens.Screen
@@ -117,8 +117,8 @@ class EstrogenMenuScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.
     }
 
     companion object {
-        val transWhite = Color(0xFFFFFFFFu)
-        val transPink = Color(0xFFF5A9B8u)
-        val transBlue = Color(0xFF5BCEFAu)
+        val transWhite = 0xFFFFFFFFu.toColor()
+        val transPink = 0xFFF5A9B8u.toColor()
+        val transBlue = 0xFF5BCEFAu.toColor()
     }
 }

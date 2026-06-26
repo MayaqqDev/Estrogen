@@ -161,14 +161,4 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
 
     lateinit var DreamBottle: DreamBottleItem
         internal set
-
-    // Transfer Items
-    val Centrifuge by item("centrifuge", {p -> TransferItem(p, identifier("createestrogen", "centrifuge"))})
-    val UsedFilter by item("used_filter", {p -> TransferItem(p, identifier("createestrogen", "used_filter"))})
-    val IncompleteEstrogenPatches by item("incomplete_estrogen_patches", {p -> TransferItem(p, identifier("createestrogen", "incomplete_estrogen_patches"))}) {
-        properties { stacksTo(1) }
-    }
-    val IncompleteUwu by item("incomplete_uwu", {p -> TransferItem(p, identifier("createestrogen", "incomplete_uwu"))}) {
-        properties { stacksTo(1) }
-    }
 }

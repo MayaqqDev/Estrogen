@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Player
 import org.joml.Quaternionf
+import org.joml.Vector3f
 
 class CosmeticPreview(val player: Player?, x: Int, y: Int, width: Int, height: Int) : EstrogenButton(
     x, y, width, height,
@@ -38,8 +39,13 @@ class CosmeticPreview(val player: Player?, x: Int, y: Int, width: Int, height: I
             player.yHeadRotO = player.yRot
             InventoryScreen.renderEntityInInventory(
                 graphics,
-                (x + getWidth() / 2f).toInt(), y + getHeight() - 20,
-                (getHeight() / 2.5f).toInt(), quaternion, null, player
+                (x + getWidth() / 2f),
+                y + getHeight() - 20f,
+                getHeight() / 2.5f,
+                Vector3f(),
+                quaternion,
+                null,
+                player
             )
             player.yBodyRot = yHeadRot
             player.yRot = yRot

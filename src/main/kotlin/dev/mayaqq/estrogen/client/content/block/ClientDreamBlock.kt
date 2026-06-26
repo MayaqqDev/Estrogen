@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.client.content.block
 
-import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.world.LevelEvent
@@ -11,6 +10,8 @@ import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.content.blocks.DreamBlock.Companion.isTouchingDreamBlock
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.mixin.client.accessor.LevelRendererAccessor
+import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.platform.Side
 import net.minecraft.client.Minecraft
 import net.minecraft.client.resources.model.Material
 import net.minecraft.core.BlockPos
@@ -21,7 +22,7 @@ import net.minecraft.world.inventory.InventoryMenu
 import net.minecraft.world.level.BlockAndTintGetter
 import net.minecraft.world.level.block.state.BlockState
 
-@EventSubscriber(env = [Environment.CLIENT])
+@EventSubscriber(Side.CLIENT)
 object ClientDreamBlock {
 
     val DORMANT_MODEL: ResourceLocation = id("block/dream_block/dormant_dream_block")
@@ -33,7 +34,7 @@ object ClientDreamBlock {
     @Subscription
     fun tick(event: LevelEvent.EndTick) {
 
-        if (TextRendererFeatures.obfuscate != Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming)) {
+        if (TextRendererFeatures.obfuscate != Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming.holder())) {
             rebuildDreamChunks = true
         }
 

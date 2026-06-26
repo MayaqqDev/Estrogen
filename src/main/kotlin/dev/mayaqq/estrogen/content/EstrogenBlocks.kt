@@ -51,13 +51,6 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         }
     }
 
-    @Deprecated("Becoming part of DreamBlock")
-    val DormantDreamBlock: DormantDreamBlock by block("dormant_dream_block", ::DormantDreamBlock) {
-        properties {
-            randomTicks()
-        }
-    }
-
     val DreamBlock: DreamBlock by block("dream_block", ::DreamBlock) {
         properties {
             mapColor(MapColor.DIAMOND)
@@ -202,10 +195,4 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         initialPropertiesFrom(Blocks::REINFORCED_DEEPSLATE)
         properties {}
     }
-
-    // Convert to Create: Estrogen
-    val Centrifuge: TransferBlock by block("centrifuge", {p -> TransferBlock(
-        p,
-        identifier("createestrogen", "centrifuge")
-    )})
 }

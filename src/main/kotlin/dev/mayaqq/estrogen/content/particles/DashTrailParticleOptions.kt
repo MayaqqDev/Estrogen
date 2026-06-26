@@ -9,6 +9,7 @@ import dev.mayaqq.cynosure.particles.CynosureParticleOptions
 import dev.mayaqq.cynosure.particles.CynosureParticleType
 import dev.mayaqq.cynosure.utils.colors.Color
 import dev.mayaqq.estrogen.content.EstrogenParticles
+import invoke.kitty.kritter.utils.color.Color
 import net.minecraft.core.UUIDUtil
 import uwu.serenity.kritter.api.entry.getEntryOrThrow
 import java.util.*

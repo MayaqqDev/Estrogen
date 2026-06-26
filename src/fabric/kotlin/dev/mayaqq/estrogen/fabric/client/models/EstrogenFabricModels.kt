@@ -37,12 +37,12 @@ object EstrogenFabricModels : PreparableModelLoadingPlugin<Preparations>, Prepar
         val (models, textures) = preparations
         context.addModels(models)
         context.modifyModelOnLoad().register(ModelModifier.WRAP_LAST_PHASE) { model, ctx ->
-            if (ctx.id() == THIGH_HIGH_ITEM_LOCATION) ThighHighsItemModel(model, textures, ::FabricThighHighsModel)
+            if (ctx.topLevelId() == THIGH_HIGH_ITEM_LOCATION) ThighHighsItemModel(model, textures, ::FabricThighHighsModel)
             else model
         }
 
         context.modifyModelAfterBake().register { model, ctx ->
-            if (ctx.id() == ClientDreamBlock.DORMANT_MODEL)
+            if (ctx.resourceId() == ClientDreamBlock.DORMANT_MODEL)
                 FabricConnectedModel(model!!, ctx.textureGetter().apply(ClientDreamBlock.DORMANT_CONNECTED_TEXTURE))
             else model
         }

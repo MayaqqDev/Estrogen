@@ -1,30 +1,21 @@
 @file:EventSubscriber
 package dev.mayaqq.estrogen.content.advancements.triggers
 
-import com.google.gson.JsonObject
+import com.mojang.serialization.Codec
+import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.LivingEntityEvent
 import dev.mayaqq.estrogen.content.AdvancementTriggers
-import dev.mayaqq.estrogen.id
 import net.minecraft.advancements.critereon.*
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.core.Holder
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.entity.Entity
+import java.util.Optional
 
 class KilledWithEffectTrigger : SimpleCriterionTrigger<KilledWithEffectTrigger.TriggerInstance>() {
-    override fun createInstance(json: JsonObject, predicate: ContextAwarePredicate, context: DeserializationContext): TriggerInstance {
-        return TriggerInstance(
-            EntityPredicate.fromJson(json, "entity", context),
-            BuiltInRegistries.MOB_EFFECT.get(ResourceLocation(json.get("mob_effect").asString))?:
-            throw NullPointerException(json.get("mob_effect").asString)
-            , predicate)
-    }
-
-    override fun getId(): ResourceLocation = ID
-
+    override fun codec(): Codec<TriggerInstance> = TriggerInstance.CODEC
 
     fun trigger(player: ServerPlayer, entityType: Entity) {
         this.trigger(
@@ -37,7 +28,8 @@ class KilledWithEffectTrigger : SimpleCriterionTrigger<KilledWithEffectTrigger.T
         }
     }
 
-    class TriggerInstance(val entity: ContextAwarePredicate, val mobEffect: MobEffect, player: ContextAwarePredicate) : AbstractCriterionTriggerInstance(ID, player) {
+    @JvmRecord
+    data class TriggerInstance(val entity: ContextAwarePredicate, val mobEffect: Holder<MobEffect>, val player: ContextAwarePredicate) : SimpleInstance {
         fun matches(player: ServerPlayer, entity: Entity): Boolean {
             if (this.entity.matches(EntityPredicate.createContext(player, entity))) {
                 if (player.hasEffect(mobEffect)) {
@@ -47,22 +39,21 @@ class KilledWithEffectTrigger : SimpleCriterionTrigger<KilledWithEffectTrigger.T
             return false
         }
 
-        override fun serializeToJson(context: SerializationContext): JsonObject {
-            val json = super.serializeToJson(context)
-            json.add("entity", entity.toJson(context))
-            json.addProperty("mob_effect", BuiltInRegistries.MOB_EFFECT.getResourceKey(mobEffect).get().location().toString())
-            return json
-        }
+        override fun player(): Optional<ContextAwarePredicate> = Optional.of(player)
+
 
         companion object {
-            fun killedWithEffect(entity: ContextAwarePredicate, effect: MobEffect, player: ContextAwarePredicate) : TriggerInstance {
+            val CODEC: Codec<TriggerInstance> = RecordCodecBuilder.create { instance -> instance.group(
+                    ContextAwarePredicate.CODEC.fieldOf("entity").forGetter(TriggerInstance::entity),
+                    MobEffect.CODEC.fieldOf("mobEffect").forGetter(TriggerInstance::mobEffect),
+                    EntityPredicate.ADVANCEMENT_CODEC.fieldOf("player").forGetter(TriggerInstance::player)
+                ).apply(instance, ::TriggerInstance)
+            }
+
+            fun killedWithEffect(entity: ContextAwarePredicate, effect: Holder<MobEffect>, player: ContextAwarePredicate) : TriggerInstance {
                 return TriggerInstance(entity, effect, player)
             }
         }
-    }
-
-    companion object {
-        val ID = id("killed_with_effect")
     }
 }
 

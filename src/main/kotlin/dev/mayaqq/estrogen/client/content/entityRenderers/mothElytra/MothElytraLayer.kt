@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack
 import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.estrogen.content.items.MothElytraItem
 import dev.mayaqq.estrogen.id
+import invoke.kitty.kritter.utils.color.White
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.model.geom.EntityModelSet
 import net.minecraft.client.renderer.MultiBufferSource
@@ -51,17 +52,14 @@ class MothElytraLayer<T : LivingEntity, M : EntityModel<T>>(
             val vertexConsumer = ItemRenderer.getArmorFoilBuffer(
                 buffer, RenderType.armorCutoutNoCull(
                     WINGS_LOCATION
-                ), false, itemStack.hasFoil()
+                ), itemStack.hasFoil()
             )
             elytraModel.renderToBuffer(
                 poseStack,
                 vertexConsumer,
                 packedLight,
                 OverlayTexture.NO_OVERLAY,
-                1.0f,
-                1.0f,
-                1.0f,
-                1.0f
+                White.toInt()
             )
         }
     }

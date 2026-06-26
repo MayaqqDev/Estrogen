@@ -1,8 +1,8 @@
 package dev.mayaqq.estrogen.client.content.textures
 
+import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.estrogen.MOD_ID
 import net.minecraft.client.gui.GuiGraphics
-import net.minecraft.resources.ResourceLocation
 
 enum class RecipeTextures(namespace: String = MOD_ID, location: String, val startX: Int = 0, val startY: Int = 0, val width: Int, val height: Int) {
     JEI_SLOT("recipe/widgets", 18, 18),
@@ -18,7 +18,7 @@ enum class RecipeTextures(namespace: String = MOD_ID, location: String, val star
     JEI_HEAT_BAR("recipe/widgets", 0, 201, 169, 19),
     JEI_NO_HEAT_BAR("recipe/widgets", 0, 221, 169, 19);
 
-    val textureLocation = ResourceLocation(namespace, "textures/gui/$location.png")
+    val textureLocation = identifier(namespace, "textures/gui/$location.png")
 
     constructor(location: String, startX: Int, startY: Int, width: Int, height: Int) : this(MOD_ID, location, startX, startY, width, height)
     constructor(location: String, width: Int, height: Int) : this(location, 0, 0, width, height)

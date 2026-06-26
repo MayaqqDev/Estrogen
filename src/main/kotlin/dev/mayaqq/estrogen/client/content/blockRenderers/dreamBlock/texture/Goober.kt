@@ -1,9 +1,10 @@
 package dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture
 
 import com.mojang.blaze3d.platform.NativeImage
-import dev.mayaqq.cynosure.utils.colors.Color
-import dev.mayaqq.cynosure.utils.colors.ColorFormat
-import dev.mayaqq.cynosure.utils.colors.Yellow
+import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.color.Yellow
+import invoke.kitty.kritter.utils.color.rgb
+import invoke.kitty.kritter.utils.color.toColor
 import net.minecraft.util.FastColor
 import net.minecraft.util.RandomSource
 import net.minecraft.util.random.SimpleWeightedRandomList
@@ -32,17 +33,17 @@ class Goober(
         var col = color.color
         when (transparencyLevel) {
             1 -> {
-                col *= Color(0xFEFFFFFFu)
-                col *= Color(0xFEFFFFFFu)
-                col *= Color(0xFEFFFFFFu)
-                col *= Color(0xFEFFFFFFu)
-                col *= Color(0xFEFFFFFFu)
+                col *= 0xFEFFFFFFu.toColor()
+                col *= 0xFEFFFFFFu.toColor()
+                col *= 0xFEFFFFFFu.toColor()
+                col *= 0xFEFFFFFFu.toColor()
+                col *= 0xFEFFFFFFu.toColor()
             }
 
             2 -> {
-                col *= Color(0xFEFFFFFFu)
-                col *= Color(0xFEFFFFFFu)
-                col *= Color(0xFEFFFFFFu)
+                col *= 0xFEFFFFFFu.toColor()
+                col *= 0xFEFFFFFFu.toColor()
+                col *= 0xFEFFFFFFu.toColor()
             }
         }
         style.draw(pixels, x, y, col, currentFrame)
@@ -61,11 +62,11 @@ class Goober(
 
     enum class Colors(val color: Color) {
         YELLOW(Yellow),
-        CYAN(Color(0, 241, 254)),
-        PURPLE(Color(126, 126, 218)),
-        MAGENTA(Color(255, 71, 231)),
-        GREEN1(Color(60, 145, 97)),
-        GREEN2(Color(40, 198, 53));
+        CYAN(rgb(0, 241, 254)),
+        PURPLE(rgb(126, 126, 218)),
+        MAGENTA(rgb(255, 71, 231)),
+        GREEN1(rgb(60, 145, 97)),
+        GREEN2(rgb(40, 198, 53));
     }
 
     enum class Style(weight: Int, val frames: List<DrawFunction>) : WeightedEntry {
@@ -129,7 +130,8 @@ class Goober(
         val weight: Weight = Weight.of(weight)
 
         fun draw(image: NativeImage, x: Int, y: Int, color: Color, frame: Int) {
-            frames[frame].draw(image, x, y, color.toInt(ColorFormat.ABGR))
+            // Format: ARGB
+            frames[frame].draw(image, x, y, color.toInt())
         }
 
         fun frameCount(): Int {

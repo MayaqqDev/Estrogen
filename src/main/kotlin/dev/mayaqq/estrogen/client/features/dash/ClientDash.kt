@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.client.features.dash
 
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
-import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
@@ -13,6 +12,8 @@ import dev.mayaqq.estrogen.features.dash.CommonDash.removeDashing
 import dev.mayaqq.estrogen.features.dash.CommonDash.setDashing
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.c2s.DashPacket
+import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.platform.Side
 import net.minecraft.client.Minecraft
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.core.BlockPos
@@ -23,7 +24,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.block.LiquidBlock
 import net.minecraft.world.phys.Vec3
 
-@EventSubscriber(env = [Environment.CLIENT])
+@EventSubscriber(Side.CLIENT)
 object ClientDash {
 
     private const val DASH_SPEED: Double = 1.0
@@ -68,7 +69,7 @@ object ClientDash {
 
     fun tick() {
         val player = Minecraft.getInstance().player ?: return
-        if (!player.hasEffect(EstrogenEffects.Estrogen)) {
+        if (!player.hasEffect(EstrogenEffects.Estrogen.holder())) {
             reset()
             return
         }
@@ -238,7 +239,7 @@ object ClientDash {
     }
 
     fun refresh(player: Player) {
-        dashes = player.getAttributeValue(EstrogenAttributes.DashLevel).toInt().toShort().toInt()
+        dashes = player.getAttributeValue(EstrogenAttributes.DashLevel.holder()).toInt().toShort().toInt()
     }
 
     private fun canRefresh(player: Player): Boolean {

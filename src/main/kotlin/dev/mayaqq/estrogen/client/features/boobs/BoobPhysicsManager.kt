@@ -1,16 +1,16 @@
 package dev.mayaqq.estrogen.client.features.boobs
 
-import dev.mayaqq.cynosure.core.Environment
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.world.LevelEvent
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
+import invoke.kitty.kritter.platform.Side
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.world.entity.player.Player
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
-@EventSubscriber(env = [Environment.CLIENT])
+@EventSubscriber(Side.CLIENT)
 object BoobPhysicsManager {
     private val players = ConcurrentHashMap<UUID, Physics>()
 

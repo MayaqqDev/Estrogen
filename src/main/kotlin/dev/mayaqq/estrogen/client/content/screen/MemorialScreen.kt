@@ -79,9 +79,9 @@ class MemorialScreen(previous: Screen? = null) : BaseEstrogenScreen(previous, Te
 
     override fun isPauseScreen(): Boolean = true
 
-    override fun renderBackground(gui: GuiGraphics) {
+    override fun renderBackground(gui: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         if (McClient.level == null) {
-            super.renderBackground(gui)
+            super.renderBackground(gui, mouseX, mouseY, partialTick)
         } else {
             gui.fillGradient(0, 0, this.width, this.height, -1072689136, -804253680)
         }

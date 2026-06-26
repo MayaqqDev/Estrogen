@@ -5,12 +5,17 @@ import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.client.utils.translate
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.text.CommonText
-import dev.mayaqq.cynosure.utils.colors.*
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import dev.mayaqq.estrogen.client.cosmetics.Cosmetic
 import dev.mayaqq.estrogen.client.extensions.widgetHeight
 import dev.mayaqq.estrogen.client.extensions.widgetWidth
+import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.color.MinecraftColors
+import invoke.kitty.kritter.utils.color.Red
+import invoke.kitty.kritter.utils.color.White
+import invoke.kitty.kritter.utils.color.Yellow
+import invoke.kitty.kritter.utils.color.darker
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip
@@ -153,7 +158,7 @@ open class EstrogenButton(
             partialTick: Float
         ) {
             if (this.message == CommonText.EMPTY) this.message = text
-            val textColor = if (this.disabled) McGray.toInt() else 0xFFFFFF
+            val textColor = if (this.disabled) MinecraftColors.Gray.toInt() else 0xFFFFFF
             this.renderString(graphics, McClient.font, textColor)
         }
     }

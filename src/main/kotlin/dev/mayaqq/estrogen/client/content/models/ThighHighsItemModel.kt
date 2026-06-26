@@ -1,7 +1,8 @@
 package dev.mayaqq.estrogen.client.content.models
 
-import dev.mayaqq.cynosure.utils.dfu.DFUEither
+import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.estrogen.Estrogen
+import invoke.kitty.kritter.utils.dfu.DFUEither
 import net.minecraft.client.renderer.block.model.BlockModel
 import net.minecraft.client.renderer.block.model.ItemModelGenerator
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
@@ -21,7 +22,7 @@ class ThighHighsItemModel(
         private val MODEL_GENERATOR: ItemModelGenerator = ItemModelGenerator()
 
         private fun textureToStyleLocation(original: ResourceLocation): ResourceLocation {
-            return ResourceLocation(original.namespace, original.path.substring("item/thigh_highs/".length))
+            return identifier(original.namespace, original.path.substring("item/thigh_highs/".length))
         }
     }
 
@@ -33,14 +34,13 @@ class ThighHighsItemModel(
 
     override fun bake(
         baker: ModelBaker,
-        spriteGetter: Function<Material, TextureAtlasSprite>,
-        state: ModelState,
-        id: ResourceLocation
+        spriteGetter: Function<Material?, TextureAtlasSprite?>,
+        state: ModelState
     ): BakedModel? {
         Estrogen.info("Baking {} thigh high models", styleTextures.size + 1)
         val defaultBaked = if (default is BlockModel && default.rootModel == ModelBakery.GENERATION_MARKER)
-            MODEL_GENERATOR.generateBlockModel(spriteGetter, default).bake(baker, spriteGetter, state, id) ?: baker.bake(ModelBakery.MISSING_MODEL_LOCATION, state)!!
-        else default.bake(baker, spriteGetter, state, id) ?: baker.bake(ModelBakery.MISSING_MODEL_LOCATION, state)!!
+            MODEL_GENERATOR.generateBlockModel(spriteGetter, default).bake(baker, spriteGetter, state) ?: baker.bake(ModelBakery.MISSING_MODEL_LOCATION, state)!!
+        else default.bake(baker, spriteGetter, state) ?: baker.bake(ModelBakery.MISSING_MODEL_LOCATION, state)!!
 
         val styleModels = styleTextures.associate {
             val material = Material(InventoryMenu.BLOCK_ATLAS, it)
@@ -48,7 +48,7 @@ class ThighHighsItemModel(
                 null,
                 emptyList(),
                 mapOf(
-                  "layer0" to DFUEither.left(material)
+                    "layer0" to DFUEither.left(material)
                 ),
                 false,
                 BlockModel.GuiLight.FRONT,
@@ -57,10 +57,9 @@ class ThighHighsItemModel(
             )
 
             val generated: BlockModel = MODEL_GENERATOR.generateBlockModel(spriteGetter, model)
-            textureToStyleLocation(it) to generated.bake(baker, generated, spriteGetter, state, id, false)
+            textureToStyleLocation(it) to generated.bake(baker, generated, spriteGetter, state, false)
         }
 
         return platformModelFactory(defaultBaked, styleModels)
     }
-
 }

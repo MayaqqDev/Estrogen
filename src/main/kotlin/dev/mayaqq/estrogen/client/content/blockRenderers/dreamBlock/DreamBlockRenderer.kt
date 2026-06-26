@@ -3,12 +3,15 @@ package dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import dev.mayaqq.cynosure.client.utils.lastPose
+import dev.mayaqq.cynosure.client.utils.normal
+import dev.mayaqq.cynosure.client.utils.uv
 import dev.mayaqq.cynosure.utils.toVector3f
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture
 import dev.mayaqq.estrogen.client.features.dash.DreamBlockEffect
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
+import dev.mayaqq.estrogen.utils.holder
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.LightTexture
 import net.minecraft.client.renderer.MultiBufferSource
@@ -120,12 +123,11 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
     ) {
         val borderChannel = if (isBorder) 255 else 0
         val seeThroughChannel = if (DreamBlockEffect.isEyeInDream) 255 else 0
-        consumer.vertex(pose, position.x, position.y, position.z)
-            .color(borderChannel, seeThroughChannel, 0, 0)
+        consumer.addVertex(pose, position.x, position.y, position.z)
+            .setColor(borderChannel, seeThroughChannel, 0, 0)
             .uv(uv.first.toFloat(), uv.second.toFloat())
-            .uv2(LightTexture.FULL_BRIGHT)
+            .setLight(LightTexture.FULL_BRIGHT)
             .normal(0f, 0f, 0f)
-            .endVertex()
     }
 
     override fun getViewDistance(): Int {
@@ -134,7 +136,7 @@ class DreamBlockRenderer(val ctx: BlockEntityRendererProvider.Context) : BlockEn
 
     companion object {
         fun DreamBlockEntity.shouldRender(): Boolean = isPersistent
-                || Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming) == true
+                || Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming.holder()) == true
 
         val vertexUVs = listOf(
             0 to 0,

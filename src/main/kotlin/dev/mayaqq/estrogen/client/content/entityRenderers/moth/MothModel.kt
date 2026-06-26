@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.client.content.entityRenderers.moth
 
 import dev.mayaqq.estrogen.content.entities.MothEntity
+import dev.mayaqq.estrogen.id
 import net.minecraft.client.model.AgeableHierarchicalModel
 import net.minecraft.client.model.geom.ModelLayerLocation
 import net.minecraft.client.model.geom.ModelPart
@@ -47,7 +48,7 @@ class MothModel(
     }
 
     companion object {
-        val LAYER_LOCATION: ModelLayerLocation = ModelLayerLocation(ResourceLocation("estrogen", "mothmodel"), "main")
+        val LAYER_LOCATION: ModelLayerLocation = ModelLayerLocation(id("mothmodel"), "main")
 
         fun createBodyLayer(): LayerDefinition {
             val meshdefinition = MeshDefinition()
