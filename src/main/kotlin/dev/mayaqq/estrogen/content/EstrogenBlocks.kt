@@ -152,7 +152,6 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         item("dreamcatcher", ::DreamCatcherItem) {
             standardTooltip()
             creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(Items.BARREL))
-            //TODO: color(DreamCatcherItem::getItemColor)
             onSetup { CauldronInteraction.WATER.map()[it] = ThighHighsItem.CAULDRON_INTERACTION }
             textureProperty(id("colored")) { itemStack, clientLevel, livingEntity, i ->
                 return@textureProperty if ((itemStack.item as? DreamCatcherItem)?.isBlank(itemStack) == true) 0.0F else 1.0F

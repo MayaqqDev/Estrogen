@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.forge.client
+package dev.mayaqq.estrogen.neoforge.client
 
 import dev.mayaqq.estrogen.client.content.block.ClientDreamBlock
 import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedU
@@ -14,9 +14,9 @@ import net.minecraft.core.Direction
 import net.minecraft.util.RandomSource
 import net.minecraft.world.level.BlockAndTintGetter
 import net.minecraft.world.level.block.state.BlockState
-import net.minecraftforge.client.model.BakedModelWrapper
-import net.minecraftforge.client.model.data.ModelData
-import net.minecraftforge.client.model.data.ModelProperty
+import net.neoforged.neoforge.client.model.BakedModelWrapper
+import net.neoforged.neoforge.client.model.data.ModelData
+import net.neoforged.neoforge.client.model.data.ModelProperty
 
 class ForgeConnectedModel(
     originalModel: BakedModel,
@@ -65,8 +65,8 @@ class ForgeConnectedModel(
             for (vertex in 0..3) {
                 val u = getUnInterpolatedU(quad.sprite, quad.getU(vertex))
                 val v = getUnInterpolatedV(quad.sprite, quad.getV(vertex))
-                newQuad.setU(vertex, connectedSprite.getU((u + (uOffset * 16)) / 8.0))
-                newQuad.setV(vertex, connectedSprite.getV((v + (vOffset * 16)) / 8.0))
+                newQuad.setU(vertex, connectedSprite.getU(((u + (uOffset * 16)) / 8.0).toFloat()))
+                newQuad.setV(vertex, connectedSprite.getV(((v + (vOffset * 16)) / 8.0).toFloat()))
             }
 
             newQuad

@@ -1,5 +1,7 @@
 package dev.mayaqq.estrogen.utils
 
+import com.mojang.serialization.Codec
+import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.mayaqq.cynosure.utils.diffuseColor
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.toColor
@@ -7,7 +9,7 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.item.DyeItem
 import net.minecraft.world.item.ItemStack
 
-class TriColor(val left: Color, val middle: Color, val right: Color) {
+data class TriColor(val left: Color, val middle: Color, val right: Color) {
 
     fun mix(triColor: TriColor): TriColor {
         return TriColor(
@@ -17,6 +19,13 @@ class TriColor(val left: Color, val middle: Color, val right: Color) {
     }
 
     companion object {
+        val CODEC: Codec<TriColor> = RecordCodecBuilder.create { builder -> builder.group(
+            Color.CODEC.fieldOf("left").forGetter(TriColor::left),
+            Color.CODEC.fieldOf("middle").forGetter(TriColor::middle),
+            Color.CODEC.fieldOf("right").forGetter(TriColor::right)
+            ).apply(builder, ::TriColor)
+        }
+
         fun fromDyes(dyes: List<ItemStack>): TriColor {
             return TriColor(colorFromDye(dyes[0]), colorFromDye(dyes[1]), colorFromDye(dyes[2]))
         }

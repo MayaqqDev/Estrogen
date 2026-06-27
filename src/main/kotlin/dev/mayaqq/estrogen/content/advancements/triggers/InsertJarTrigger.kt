@@ -2,7 +2,9 @@ package dev.mayaqq.estrogen.content.advancements.triggers
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.mayaqq.estrogen.content.AdvancementTriggers
 import dev.mayaqq.estrogen.content.advancements.triggers.InsertJarTrigger.TriggerInstance
+import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.critereon.*
 import net.minecraft.server.level.ServerPlayer
 import java.util.Optional
@@ -26,8 +28,8 @@ class InsertJarTrigger : SimpleCriterionTrigger<TriggerInstance>() {
                 ).apply(instance, ::TriggerInstance)
             }
 
-            fun insertJar() : TriggerInstance {
-                return TriggerInstance(ContextAwarePredicate.create())
+            fun insertJar() : Criterion<TriggerInstance> {
+                return AdvancementTriggers.InsertJar.createCriterion(TriggerInstance(ContextAwarePredicate.create()))
             }
         }
     }

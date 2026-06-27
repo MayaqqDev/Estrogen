@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.forge.mixins;
+package dev.mayaqq.estrogen.neoforge.mixins;
 
 import net.minecraftforge.network.NetworkDirection;
 import org.spongepowered.asm.mixin.Mixin;

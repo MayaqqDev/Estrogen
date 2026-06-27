@@ -1,21 +1,22 @@
 package dev.mayaqq.estrogen.content.recipes
 
-import dev.mayaqq.cynosure.utils.colors.Color
+import dev.mayaqq.cynosure.utils.diffuseColor
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.items.ThighHighsItem
-import net.minecraft.core.RegistryAccess
-import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.inventory.CraftingContainer
+import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.color.toColor
+import net.minecraft.core.HolderLookup
 import net.minecraft.world.item.DyeItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.CraftingBookCategory
+import net.minecraft.world.item.crafting.CraftingInput
 import net.minecraft.world.item.crafting.CustomRecipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 
-class ThighHighDyeRecipe(id: ResourceLocation, category: CraftingBookCategory) : CustomRecipe(id, category) {
-    override fun matches(inv: CraftingContainer, level: Level): Boolean {
+class ThighHighDyeRecipe(category: CraftingBookCategory) : CustomRecipe(category) {
+    override fun matches(inv: CraftingInput, level: Level): Boolean {
         for (i in 0..2) {
             val leftSlot = i * 3
             val middleSlot = leftSlot + 1
@@ -45,7 +46,7 @@ class ThighHighDyeRecipe(id: ResourceLocation, category: CraftingBookCategory) :
         return false
     }
 
-    override fun assemble(inv: CraftingContainer, registryAccess: RegistryAccess): ItemStack {
+    override fun assemble(inv: CraftingInput, lookup: HolderLookup.Provider): ItemStack {
         for (i in 0..2) {
             val leftSlot = i * 3
             val middleSlot = leftSlot + 1
@@ -60,8 +61,8 @@ class ThighHighDyeRecipe(id: ResourceLocation, category: CraftingBookCategory) :
                 val newSecondary: Color
 
                 if (item.hasCustomColor(stack)) {
-                    val oldPrimary = Color(item.getColor(stack, 0))
-                    val oldSecondary = Color(item.getColor(stack, 1))
+                    val oldPrimary = (item.getColor(stack, 0)).toColor()
+                    val oldSecondary = (item.getColor(stack, 1)).toColor()
                     newPrimary = mixColorWithDye(oldPrimary, leftToItem)
                     newSecondary = mixColorWithDye(oldSecondary, rightToItem)
                 } else {
@@ -84,8 +85,7 @@ class ThighHighDyeRecipe(id: ResourceLocation, category: CraftingBookCategory) :
     }
 
     private fun colorFromDye(dyeStack: ItemStack): Color {
-        val dyeColors = (dyeStack.item as DyeItem).dyeColor.textureDiffuseColors
-        return Color(dyeColors[0], dyeColors[1], dyeColors[2], 1f)
+        return (dyeStack.item as DyeItem).dyeColor.diffuseColor
     }
 
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = width * height == 9

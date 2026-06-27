@@ -1,8 +1,9 @@
 package dev.mayaqq.estrogen.compat.recipeviewers.api
 
 import dev.mayaqq.estrogen.Estrogen
-import net.minecraftforge.fml.ModList
+import net.neoforged.fml.ModList
 import org.objectweb.asm.Type
+import kotlin.collections.get
 
 actual fun getCRVPlugins(): List<PluginContainer> = buildList {
     val type = Type.getType(CRVPluginEntrypoint::class.java)

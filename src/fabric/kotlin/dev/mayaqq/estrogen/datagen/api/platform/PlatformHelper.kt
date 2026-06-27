@@ -19,6 +19,6 @@ interface PlatformRecipeHelper : PlatformHelper {
 
 enum class Platform {
     FABRIC,
-    FORGE,
+    NEOFORGE,
     COMMON
 }

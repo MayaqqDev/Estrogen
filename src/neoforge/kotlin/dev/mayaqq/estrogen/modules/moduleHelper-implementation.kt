@@ -4,7 +4,7 @@ import dev.mayaqq.cynosure.core.mod.Mod
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.api.EstrogenEntrypoint
 import dev.mayaqq.estrogen.api.EstrogenModule
-import net.minecraftforge.fml.ModList
+import net.neoforged.fml.ModList
 import org.objectweb.asm.Type
 import kotlin.jvm.optionals.getOrNull
 

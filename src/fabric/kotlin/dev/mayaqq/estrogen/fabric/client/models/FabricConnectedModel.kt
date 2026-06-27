@@ -46,8 +46,8 @@ internal class FabricConnectedModel(
                 val v = getUnInterpolatedV(original, quad.v(vertex))
                 quad.uv(
                     vertex,
-                    connectedSprite.getU((u + (uOffset * 16)) / 8.0),
-                    connectedSprite.getV((v + (vOffset * 16)) / 8.0)
+                    connectedSprite.getU(((u + (uOffset * 16)) / 8.0).toFloat()),
+                    connectedSprite.getV(((v + (vOffset * 16)) / 8.0).toFloat())
                 )
             }
 

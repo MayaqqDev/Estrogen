@@ -3,8 +3,8 @@ package dev.mayaqq.estrogen.datagen.api.platform
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import dev.mayaqq.cynosure.utils.tag
+import dev.mayaqq.estrogen.cid
 import net.minecraft.core.registries.Registries
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 
@@ -28,7 +28,7 @@ object FabricRecipeHelper: PlatformRecipeHelper {
 
     override fun name(name: String): String = "$name (Fabric)"
 
-    override fun commonTag(name: String): TagKey<Item> = Registries.ITEM.tag(ResourceLocation("c", name))
+    override fun commonTag(name: String): TagKey<Item> = Registries.ITEM.tag(cid(name))
 
     override fun fluidAmount(amount: Long): Long = amount
 
@@ -45,19 +45,11 @@ object FabricRecipeHelper: PlatformRecipeHelper {
 }
 
 object ForgeRecipeHelper: PlatformRecipeHelper {
-    override val platform: Platform = Platform.FORGE
+    override val platform: Platform = Platform.NEOFORGE
 
     override fun name(name: String): String = "$name (Forge)"
 
-    override fun commonTag(name: String): TagKey<Item> {
-        return Registries.ITEM.tag(ResourceLocation("forge",
-            when (name) {
-                "copper_plates" -> "plates/copper"
-                "zinc_nuggets" -> "nuggets/zinc"
-                else -> name
-            }
-        ))
-    }
+    override fun commonTag(name: String): TagKey<Item> = Registries.ITEM.tag(cid(name))
 
     override fun fluidAmount(amount: Long): Long {
         val fabricBucket = 81000.0
@@ -70,9 +62,9 @@ object ForgeRecipeHelper: PlatformRecipeHelper {
     override fun isModLoaded(modId: String): PlatformRecipeHelper.EstrogenLoadCondition {
         val conditions = JsonArray()
         val jsonObject = JsonObject()
-        jsonObject.addProperty("type", "forge:mod_loaded")
+        jsonObject.addProperty("type", "neoforge:mod_loaded")
         jsonObject.addProperty("modid", modId)
         conditions.add(jsonObject)
-        return PlatformRecipeHelper.EstrogenLoadCondition("conditions", conditions)
+        return PlatformRecipeHelper.EstrogenLoadCondition("neoforge:conditions", conditions)
     }
 }

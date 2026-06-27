@@ -20,7 +20,7 @@ abstract class EstrogenDatagenEntrypoint(val modid: String) : DataGeneratorEntry
         forgePath.deleteIfExists()
 
         setupFabricInternal(EstrogenPack.create(fdg, "$modid (Fabric)", fabricPath, FabricRecipeHelper, modid))
-        setupForgeInternal(EstrogenPack.create(fdg, "$modid (Forge)", forgePath, ForgeRecipeHelper, modid))
+        setupForgeInternal(EstrogenPack.create(fdg, "$modid (Neoforge)", forgePath, ForgeRecipeHelper, modid))
     }
 
     private fun setupFabricInternal(pack: EstrogenPack) {
@@ -39,7 +39,7 @@ abstract class EstrogenDatagenEntrypoint(val modid: String) : DataGeneratorEntry
     companion object {
         private val COMMON_OUTPUT_DIR = required("fabric-api.datagen.output-dir")
         private val FABRIC_OUTPUT_DIR = required("estrogen.datagen.fabric-output-dir")
-        private val FORGE_OUTPUT_DIR = required("estrogen.datagen.forge-output-dir")
+        private val FORGE_OUTPUT_DIR = required("estrogen.datagen.neoforge-output-dir")
 
         protected inline fun required(property: String) = System.getProperty(property)?:
         throw IllegalArgumentException("No output dir provided with the '$property' property")

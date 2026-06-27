@@ -3,13 +3,18 @@ package dev.mayaqq.estrogen.datagen.impl.loottables
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
+import net.minecraft.core.HolderLookup
+import net.minecraft.core.component.DataComponents
 import net.minecraft.world.level.block.BedBlock
 import net.minecraft.world.level.block.state.properties.BedPart
-import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction
+import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider
+import java.util.concurrent.CompletableFuture
 
 
-class EstrogenLoottables(output: FabricDataOutput) : FabricBlockLootTableProvider(output) {
+class EstrogenLoottables(output: FabricDataOutput, lookup: CompletableFuture<HolderLookup.Provider>) :
+    FabricBlockLootTableProvider(output, lookup)
+{
 
     override fun generate() {
         add(EstrogenBlocks.CookieJar, createSilkTouchOnlyTable(EstrogenBlocks.CookieJar))
@@ -27,11 +32,10 @@ class EstrogenLoottables(output: FabricDataOutput) : FabricBlockLootTableProvide
             EstrogenBlocks.QuiltedMothBed,
             createSinglePropConditionTable(EstrogenBlocks.QuiltedMothBed, BedBlock.PART, BedPart.HEAD)
         )
+        //TODO: check on this
         add(EstrogenBlocks.DreamCatcher, createSingleItemTable(EstrogenBlocks.DreamCatcher).apply(
-            CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
-                .copy(
-                "colors",
-                "colors"
+            CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY).include(
+                DataComponents.BLOCK_ENTITY_DATA
             )
         ))
     }

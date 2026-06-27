@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.forge.mixins;
+package dev.mayaqq.estrogen.neoforge.mixins;
 
 import dev.mayaqq.estrogen.content.EstrogenTags;
 import dev.mayaqq.estrogen.content.recipes.SpongingRecipe;

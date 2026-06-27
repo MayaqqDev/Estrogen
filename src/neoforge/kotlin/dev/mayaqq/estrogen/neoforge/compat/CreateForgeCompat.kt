@@ -1,5 +1,5 @@
 @file:EventSubscriber
-package dev.mayaqq.estrogen.forge.compat
+package dev.mayaqq.estrogen.neoforge.compat
 
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription

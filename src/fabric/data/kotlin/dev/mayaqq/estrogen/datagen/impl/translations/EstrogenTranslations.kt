@@ -2,13 +2,16 @@ package dev.mayaqq.estrogen.datagen.impl.translations
 
 import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.id
+import dev.mayaqq.estrogen.utils.holder
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
+import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.BuiltInRegistries
+import java.util.concurrent.CompletableFuture
 
-class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(output, "en_us") {
+class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<HolderLookup.Provider>) : FabricLanguageProvider(output, "en_us", lookup) {
 
-    override fun generateTranslations(tb: TranslationBuilder) {
+    override fun generateTranslations(provider: HolderLookup.Provider, tb: TranslationBuilder) {
         // Status Effects
         tb.add(EstrogenEffects.Estrogen, "Girl Power")
         tb.add(
@@ -202,7 +205,7 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("estrogen.recipe.common.disabled", "A Module disables this Recipe")
 
         // Enchantments
-        tb.add(EstrogenEnchantments.UwUfyingCurse, "Curse of Uwufying")
+        tb.add("enchantment.estrogen.uwufy_curse", "Curse of Uwufying")
         tb.add("enchantment.estrogen.uwufy_curse.desc", "UwUfies your chat messages >///<")
 
         // EMI
@@ -237,10 +240,10 @@ class EstrogenTranslations(output: FabricDataOutput) : FabricLanguageProvider(ou
         tb.add("estrogen.ponder.basic.text_3", "And output fluids from the top")
 
         // Attributes
-        tb.add(EstrogenAttributes.DashLevel, "Dash Level")
-        tb.add(EstrogenAttributes.BoobGrowingStartTime, "Upper Body Start Time")
-        tb.add(EstrogenAttributes.BoobInitialSize, "Upper Body initial size")
-        tb.add(EstrogenAttributes.FallDamageResistance, "Fall Damage Resistance")
+        tb.add(EstrogenAttributes.DashLevel.holder(), "Dash Level")
+        tb.add(EstrogenAttributes.BoobGrowingStartTime.holder(), "Upper Body Start Time")
+        tb.add(EstrogenAttributes.BoobInitialSize.holder(), "Upper Body initial size")
+        tb.add(EstrogenAttributes.FallDamageResistance.holder(), "Fall Damage Resistance")
 
         // Display Sources
         tb.add("estrogen.display_source.entity_name", "Entity Name")

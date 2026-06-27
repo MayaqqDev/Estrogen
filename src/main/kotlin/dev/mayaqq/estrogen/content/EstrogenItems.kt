@@ -123,7 +123,6 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         }
         standardTooltip()
         //TODO: baubleWithRenderer(::ThighHighsRenderer)
-        //TODO: color(ThighHighsItem::getItemColor)
         onSetup { CauldronInteraction.WATER.map()[it] = ThighHighsItem.CAULDRON_INTERACTION }
     }
 

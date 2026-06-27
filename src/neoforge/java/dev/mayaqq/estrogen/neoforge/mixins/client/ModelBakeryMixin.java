@@ -1,9 +1,9 @@
-package dev.mayaqq.estrogen.forge.mixins.client;
+package dev.mayaqq.estrogen.neoforge.mixins.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.mayaqq.estrogen.client.EstrogenClientKt;
-import dev.mayaqq.estrogen.forge.client.EstrogenForgeClientKt;
+import dev.mayaqq.estrogen.neoforge.client.EstrogenForgeClientKt;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.client.resources.model.UnbakedModel;

@@ -5,6 +5,8 @@ import dev.mayaqq.estrogen.utils.TriColor
 import dev.mayaqq.estrogen.utils.getTriColor
 import dev.mayaqq.estrogen.utils.putTriColor
 import net.minecraft.core.BlockPos
+import net.minecraft.core.HolderLookup
+import net.minecraft.core.component.DataComponentMap
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientGamePacketListener
@@ -17,12 +19,12 @@ import net.minecraft.world.level.block.state.BlockState
 class DreamCatcherBlockEntity(be: BlockEntityType<*>, pos: BlockPos, state: BlockState) : BlockEntity(be, pos, state) {
     var triColor: TriColor? = null
 
-    override fun saveAdditional(tag: CompoundTag) {
+    override fun saveAdditional(tag: CompoundTag, lookup: HolderLookup.Provider) {
         if (triColor != null) tag.putTriColor(triColor!!)
     }
 
-    override fun load(tag: CompoundTag) {
-        super.load(tag)
+    override fun loadAdditional(tag: CompoundTag, lookup: HolderLookup.Provider) {
+        super.loadAdditional(tag, lookup)
         if (tag.contains("colors")) {
             triColor = tag.getTriColor()
         }
@@ -33,8 +35,12 @@ class DreamCatcherBlockEntity(be: BlockEntityType<*>, pos: BlockPos, state: Bloc
         return ClientboundBlockEntityDataPacket.create(this)
     }
 
-    override fun getUpdateTag(): CompoundTag {
-        return saveWithoutMetadata()
+    override fun getUpdateTag(lookup: HolderLookup.Provider): CompoundTag {
+        return saveWithoutMetadata(lookup)
+    }
+
+    override fun collectImplicitComponents(builder: DataComponentMap.Builder) {
+        super.collectImplicitComponents(builder)
     }
 
     fun updateOnClient() {
