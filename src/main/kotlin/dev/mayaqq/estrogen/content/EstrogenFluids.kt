@@ -2,7 +2,11 @@
 
 package dev.mayaqq.estrogen.content
 
-import dev.mayaqq.estrogen.Estrogen
+import com.teamresourceful.resourcefullib.common.fluid.ResourcefulBucketItem
+import com.teamresourceful.resourcefullib.common.fluid.ResourcefulFlowingFluid
+import com.teamresourceful.resourcefullib.common.fluid.registry.ResourcefulFluidRegistry
+import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries
+import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistryType
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.content.blocks.fluid.BaseEstrogenLiquidBlock
 import dev.mayaqq.estrogen.content.blocks.fluid.EstrogenLiquidBlock
@@ -22,11 +26,12 @@ import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.level.material.Fluids
 import net.minecraft.world.level.material.MapColor
 
+@Suppress("UnstableApiUsage")
 object EstrogenFluids : Registrar<Fluid> by Registrar(MOD_ID, Registries.FLUID), FluidRegistryProvider {
 
-    override val fluidRegistry = FluidRegistry(MOD_ID)
+    override val fluidRegistry: ResourcefulFluidRegistry = ResourcefulRegistries.create(ResourcefulRegistryType.FLUID, MOD_ID)
 
-    val LiquidEstrogen = fluid("liquid_estrogen", ::BotariumSourceFluid, ::BotariumFlowingFluid) {
+    val LiquidEstrogen = fluid("liquid_estrogen", ResourcefulFlowingFluid::Still, ResourcefulFlowingFluid::Flowing) {
             properties {
                 still(id("block/liquid_estrogen/liquid_estrogen_still"))
                 flowing(id("block/liquid_estrogen/liquid_estrogen_flow"))
@@ -49,12 +54,12 @@ object EstrogenFluids : Registrar<Fluid> by Registrar(MOD_ID, Registries.FLUID),
                     return@FluidInteraction null
                 })
             )}) {
-                copyProperties(Blocks::WATER)
+                initialPropertiesFrom(Blocks::WATER)
                 properties {
                     mapColor(MapColor.COLOR_CYAN)
                 }
             }
-            bucket(::FluidBucketItem) {
+            bucket(::ResourcefulBucketItem) {
                 properties {
                     craftRemainder(Items.BUCKET)
                     stacksTo(1)
@@ -62,27 +67,27 @@ object EstrogenFluids : Registrar<Fluid> by Registrar(MOD_ID, Registries.FLUID),
                 }
             }
         }
-    val MoltenSlime = fluid("molten_slime", ::BotariumSourceFluid, ::BotariumFlowingFluid) {
+    val MoltenSlime = fluid("molten_slime", ResourcefulFlowingFluid::Still, ResourcefulFlowingFluid::Flowing) {
         lavaLike(MapColor.COLOR_LIGHT_GREEN, EstrogenColors.MOLTEN_SLIME.toInt())
         simpleBucket()
     }
-    val MoltenAmethyst = fluid("molten_amethyst", ::BotariumSourceFluid, ::BotariumFlowingFluid) {
+    val MoltenAmethyst = fluid("molten_amethyst", ResourcefulFlowingFluid::Still, ResourcefulFlowingFluid::Flowing) {
         lavaLike(MapColor.COLOR_PURPLE, EstrogenColors.MOLTEN_AMETHYST.toInt())
         simpleBucket()
     }
-    val TestosteroneMixture = fluid("testosterone_mixture", ::BotariumSourceFluid, ::BotariumFlowingFluid) {
+    val TestosteroneMixture = fluid("testosterone_mixture", ResourcefulFlowingFluid::Still, ResourcefulFlowingFluid::Flowing) {
         waterLike(MapColor.TERRACOTTA_YELLOW, EstrogenColors.TESTOSTERONE_MIXTURE.toInt())
         simpleBucket()
     }
-    val FiltratedHorseUrine = fluid("filtrated_horse_urine", ::BotariumSourceFluid, ::BotariumFlowingFluid) {
+    val FiltratedHorseUrine = fluid("filtrated_horse_urine", ResourcefulFlowingFluid::Still, ResourcefulFlowingFluid::Flowing) {
         waterLike(MapColor.TERRACOTTA_YELLOW, EstrogenColors.FILTRATED_HORSE_URINE.toInt())
         simpleBucket()
     }
-    val HorseUrine = fluid("horse_urine", ::BotariumSourceFluid, ::BotariumFlowingFluid) {
+    val HorseUrine = fluid("horse_urine", ResourcefulFlowingFluid::Still, ResourcefulFlowingFluid::Flowing) {
         waterLike(MapColor.COLOR_YELLOW, EstrogenColors.HORSE_URINE.toInt())
         simpleBucket()
     }
-    val GenderFluid = fluid("gender_fluid", ::BotariumSourceFluid, ::BotariumFlowingFluid) {
+    val GenderFluid = fluid("gender_fluid", ResourcefulFlowingFluid::Still, ResourcefulFlowingFluid::Flowing) {
         properties {
             still(id("block/gender_fluid/gender_fluid_still"))
             flowing(id("block/gender_fluid/gender_fluid_flow"))
@@ -105,13 +110,13 @@ object EstrogenFluids : Registrar<Fluid> by Registrar(MOD_ID, Registries.FLUID),
                 return@FluidInteraction null
             })
         )}) {
-            copyProperties(Blocks::WATER)
+            initialPropertiesFrom(Blocks::WATER)
             properties {
                 mapColor(MapColor.COLOR_PURPLE)
                 emissiveRendering(Always)
             }
         }
-        bucket(::FluidBucketItem) {
+        bucket(::ResourcefulBucketItem) {
             properties {
                 craftRemainder(Items.BUCKET)
                 stacksTo(1)

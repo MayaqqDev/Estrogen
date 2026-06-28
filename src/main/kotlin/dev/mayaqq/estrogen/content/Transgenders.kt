@@ -1,5 +1,12 @@
+@file:Suppress("UnstableApiUsage")
+
 package dev.mayaqq.estrogen.content
 
+import com.ibm.icu.text.AlphabeticIndex.Bucket
+import com.teamresourceful.resourcefullib.common.fluid.ResourcefulBucketItem
+import com.teamresourceful.resourcefullib.common.fluid.ResourcefulFlowingFluid
+import com.teamresourceful.resourcefullib.common.fluid.ResourcefulLiquidBlock
+import com.teamresourceful.resourcefullib.common.fluid.registry.ResourcefulFluidRegistry
 import dev.engine_room.flywheel.api.visual.BlockEntityVisual
 import dev.engine_room.flywheel.api.visualization.BlockEntityVisualizer
 import dev.engine_room.flywheel.api.visualization.VisualizationContext
@@ -31,6 +38,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.material.MapColor
+import net.minecraft.world.level.pathfinder.PathType
 
 
 // Transgenders is back :>
@@ -87,7 +95,7 @@ inline fun <BE : BlockEntity> BlockEntityBuilder<BE>.visualizaer(crossinline fac
 
 // Fluids
 
-fun <S : BotariumSourceFluid, F : BotariumFlowingFluid> FluidBuilder<S, F>.lavaLike(mapColor: MapColor, tint: Int) {
+fun <S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing> FluidBuilder<S, F>.lavaLike(mapColor: MapColor, tint: Int) {
     properties {
         still(id("block/blank_lava/blank_lava_still"))
         flowing(id("block/blank_lava/blank_lava_flow"))
@@ -103,20 +111,20 @@ fun <S : BotariumSourceFluid, F : BotariumFlowingFluid> FluidBuilder<S, F>.lavaL
         canSwim(false)
         lightLevel(15)
         motionScale(0.004)
-        pathType(BlockPathTypes.LAVA)
+        pathType(PathType.LAVA)
         tickRate(10)
         viscosity(1500)
         density(1500)
     }
     block(::LavaLikeLiquidBlock) {
-        copyProperties(Blocks::LAVA)
+        initialPropertiesFrom(Blocks::LAVA)
         properties {
             mapColor(mapColor)
         }
     }
 }
 
-fun <S : BotariumSourceFluid, F : BotariumFlowingFluid> FluidBuilder<S, F>.waterLike(mapColor: MapColor, tint: Int) {
+fun <S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing> FluidBuilder<S, F>.waterLike(mapColor: MapColor, tint: Int) {
     properties {
         still(mcid("block/water_still"))
         flowing(mcid("block/water_flow"))
@@ -133,16 +141,16 @@ fun <S : BotariumSourceFluid, F : BotariumFlowingFluid> FluidBuilder<S, F>.water
         density(1500)
     }
     renderType(RenderType::translucent)
-    block(::BotariumLiquidBlock) {
-        copyProperties(Blocks::WATER)
+    block(::ResourcefulLiquidBlock) {
+        initialPropertiesFrom(Blocks::WATER)
         properties {
             mapColor(mapColor)
         }
     }
 }
 
-fun <S : BotariumSourceFluid, F : BotariumFlowingFluid> FluidBuilder<S, F>.simpleBucket() {
-    bucket(::FluidBucketItem) {
+fun <S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing> FluidBuilder<S, F>.simpleBucket() {
+    bucket(::ResourcefulBucketItem) {
         properties {
             craftRemainder(Items.BUCKET)
             stacksTo(1)

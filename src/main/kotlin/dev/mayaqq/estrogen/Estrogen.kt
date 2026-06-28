@@ -53,6 +53,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
         EstrogenEnchantments.register()
         AdvancementTriggers.register()
         EstrogenFluids.register()
+        EstrogenFluids.fluidRegistry.init()
         EstrogenPotions.register()
         EstrogenRecordSongs.register()
         EstrogenItems.register()

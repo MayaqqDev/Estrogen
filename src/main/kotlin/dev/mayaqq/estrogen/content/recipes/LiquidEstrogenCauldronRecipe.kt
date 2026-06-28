@@ -9,18 +9,19 @@ import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
 import dev.mayaqq.estrogen.id
+import net.minecraft.core.HolderLookup
 import net.minecraft.core.RegistryAccess
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.Container
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.Recipe
+import net.minecraft.world.item.crafting.RecipeInput
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 
-class LiquidEstrogenCauldronRecipe(val recipeId: ResourceLocation, val enabled: Boolean) : Recipe<Container> {
-    override fun getId(): ResourceLocation = recipeId
+class LiquidEstrogenCauldronRecipe(val enabled: Boolean) : Recipe<RecipeInput> {
 
     override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.LIQUID_ESTROGEN_CAULDRON_SERIALIZER
 
@@ -29,13 +30,11 @@ class LiquidEstrogenCauldronRecipe(val recipeId: ResourceLocation, val enabled: 
     companion object : RecipeViewerInfo {
         fun codec(id: ResourceLocation): Codec<LiquidEstrogenCauldronRecipe> = RecordCodecBuilder.create { instance ->
             instance.group(
-                RecordCodecBuilder.point(id),
                 Codec.BOOL.fieldOf("enabled").forGetter(LiquidEstrogenCauldronRecipe::enabled)
             ).apply(instance, ::LiquidEstrogenCauldronRecipe)
         }
 
         fun netcodec(id: ResourceLocation): ByteCodec<LiquidEstrogenCauldronRecipe> = ObjectByteCodec.create(
-            ByteCodecs.constantFieldOf(id),
             ByteCodec.BOOLEAN.fieldOf(LiquidEstrogenCauldronRecipe::enabled),
             ::LiquidEstrogenCauldronRecipe
         )
@@ -49,8 +48,8 @@ class LiquidEstrogenCauldronRecipe(val recipeId: ResourceLocation, val enabled: 
 
     }
 
-    override fun matches(container: Container, level: Level): Boolean = false
-    override fun assemble(container: Container, registry: RegistryAccess): ItemStack = EstrogenFluids.LiquidEstrogen.bucket.defaultInstance
+    override fun matches(container: RecipeInput, level: Level): Boolean = false
+    override fun assemble(container: RecipeInput, registry: HolderLookup.Provider): ItemStack = EstrogenFluids.LiquidEstrogen.bucket.defaultInstance
     override fun canCraftInDimensions(x: Int, y: Int): Boolean = false
-    override fun getResultItem(registry: RegistryAccess): ItemStack = EstrogenFluids.LiquidEstrogen.bucket.defaultInstance
+    override fun getResultItem(registry: HolderLookup.Provider): ItemStack = EstrogenFluids.LiquidEstrogen.bucket.defaultInstance
 }

@@ -1,7 +1,7 @@
 package dev.mayaqq.estrogen.content.fluids.registry
 
-import earth.terrarium.botarium.common.registry.fluid.FluidRegistry
+import com.teamresourceful.resourcefullib.common.fluid.registry.ResourcefulFluidRegistry
 
 interface FluidRegistryProvider {
-    val fluidRegistry: FluidRegistry
+    val fluidRegistry: ResourcefulFluidRegistry
 }

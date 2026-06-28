@@ -1,3 +1,5 @@
+@file:Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+
 package dev.mayaqq.estrogen.content.blocks
 
 import dev.mayaqq.cynosure.events.PostInitEvent
@@ -8,7 +10,6 @@ import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenItems
-import earth.terrarium.botarium.common.registry.fluid.FluidBucketItem
 import net.minecraft.core.BlockPos
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.cauldron.CauldronInteraction.emptyBucket
@@ -18,7 +19,9 @@ import net.minecraft.sounds.SoundSource
 import net.minecraft.stats.Stats
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.ItemInteractionResult
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.BucketItem
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.ItemUtils
@@ -52,9 +55,9 @@ object CauldronInteractions {
         EstrogenItems.HorseUrineBottle to emptyBottle { EstrogenBlocks.HorseUrineCauldron }
     ) }
 
-    val HORSE_URINE = createMap()
-    val FILTRATED_HORSE_URINE = createMap()
-    val ESTROGEN = createMap()
+    val HORSE_URINE: CauldronInteraction.InteractionMap = CauldronInteraction.newInteractionMap("horse_urine")
+    val FILTRATED_HORSE_URINE: CauldronInteraction.InteractionMap = CauldronInteraction.newInteractionMap("filtrated_horse_urine")
+    val ESTROGEN: CauldronInteraction.InteractionMap = CauldronInteraction.newInteractionMap("estrogen")
 
     private fun fill(block: () -> LayeredCauldronBlock): CauldronInteraction = object : RichCauldronInteraction {
         override val expectedOutput: ItemStack get() = Items.BUCKET.defaultInstance
@@ -67,8 +70,8 @@ object CauldronInteractions {
             player: Player,
             hand: InteractionHand,
             stack: ItemStack
-        ): InteractionResult {
-            if (!enabled.invoke()) return InteractionResult.PASS
+        ): ItemInteractionResult {
+            if (!enabled.invoke()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
             return emptyBucket(level, pos, player, hand, stack,
                 block.invoke().defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3),
                 SoundEvents.BUCKET_EMPTY
@@ -87,10 +90,10 @@ object CauldronInteractions {
             player: Player,
             hand: InteractionHand,
             stack: ItemStack
-        ): InteractionResult {
-            if (!enabled.invoke()) return InteractionResult.PASS
+        ): ItemInteractionResult {
+            if (!enabled.invoke()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
             if (state.hasProperty(LayeredCauldronBlock.LEVEL) && state.getValue(LayeredCauldronBlock.LEVEL) != 3)
-                return InteractionResult.PASS
+                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
             if (!level.isClientSide) {
                 val item: Item = stack.item
                 player.setItemInHand(hand, EstrogenItems.EstrogenPatches.getFullStack())
@@ -101,11 +104,11 @@ object CauldronInteractions {
                 level.gameEvent(null, GameEvent.FLUID_PICKUP, pos)
             }
 
-            return InteractionResult.sidedSuccess(level.isClientSide)
+            return ItemInteractionResult.sidedSuccess(level.isClientSide)
         }
     }
 
-    private fun bucket(bucket: () -> FluidBucketItem): CauldronInteraction = object : RichCauldronInteraction {
+    private fun bucket(bucket: () -> BucketItem): CauldronInteraction = object : RichCauldronInteraction {
         override val expectedOutput: ItemStack get() = bucket.invoke().defaultInstance
         override val enabled: () -> Boolean = { EstrogenCommonConfig.Recipes.cauldronInteractions }
 
@@ -116,8 +119,8 @@ object CauldronInteractions {
             player: Player,
             hand: InteractionHand,
             stack: ItemStack
-        ): InteractionResult {
-            if (!enabled.invoke()) return InteractionResult.PASS
+        ): ItemInteractionResult {
+            if (!enabled.invoke()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
             return fillBucket(
                 state,
                 level,
@@ -143,10 +146,10 @@ object CauldronInteractions {
             player: Player,
             hand: InteractionHand,
             stack: ItemStack
-        ): InteractionResult {
-            if (!enabled.invoke()) return InteractionResult.PASS
+        ): ItemInteractionResult {
+            if (!enabled.invoke()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
             if (state.hasProperty(LayeredCauldronBlock.LEVEL) && state.getValue(LayeredCauldronBlock.LEVEL) == 3)
-                return InteractionResult.PASS
+                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
             if (!level.isClientSide) {
                 val item: Item = stack.item
                 player.setItemInHand(hand, ItemUtils.createFilledResult(
@@ -164,7 +167,7 @@ object CauldronInteractions {
                 level.gameEvent(null, GameEvent.FLUID_PLACE, pos)
             }
 
-            return InteractionResult.sidedSuccess(level.isClientSide)
+            return ItemInteractionResult.sidedSuccess(level.isClientSide)
         }
     }
 
@@ -179,8 +182,8 @@ object CauldronInteractions {
             player: Player,
             hand: InteractionHand,
             stack: ItemStack
-        ): InteractionResult {
-            if (!enabled.invoke()) return InteractionResult.PASS
+        ): ItemInteractionResult {
+            if (!enabled.invoke()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
             if (!level.isClientSide) {
                 val item: Item = stack.item
                 player.setItemInHand(
@@ -197,7 +200,7 @@ object CauldronInteractions {
                 level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0f, 1.0f)
                 level.gameEvent(null, GameEvent.FLUID_PICKUP, pos)
             }
-            return InteractionResult.sidedSuccess(level.isClientSide)
+            return ItemInteractionResult.sidedSuccess(level.isClientSide)
         }
     }
 
@@ -212,8 +215,8 @@ object CauldronInteractions {
             player: Player,
             hand: InteractionHand,
             stack: ItemStack
-        ): InteractionResult {
-            if (!enabled.invoke()) return InteractionResult.PASS
+        ): ItemInteractionResult {
+            if (!enabled.invoke()) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
             if (!level.isClientSide) {
                 val item: Item = stack.item
                 player.setItemInHand(
@@ -230,26 +233,27 @@ object CauldronInteractions {
                 level.playSound(null, pos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0f, 1.0f)
                 level.gameEvent(null, GameEvent.FLUID_PICKUP, pos)
             }
-            return InteractionResult.sidedSuccess(level.isClientSide)
+            return ItemInteractionResult.sidedSuccess(level.isClientSide)
         }
 
     }
 
 
-    private fun createMap(vararg pairs: Pair<Item, CauldronInteraction>): MutableMap<Item, CauldronInteraction> =
-        object : LinkedHashMap<Item, CauldronInteraction>() {
+    private fun createMap(vararg pairs: Pair<Item, CauldronInteraction>): MutableMap<Item, CauldronInteraction> {
+        return object : LinkedHashMap<Item, CauldronInteraction>() {
             override fun get(key: Item): CauldronInteraction? {
-                return super.get(key) ?: return CauldronInteraction { _, _, _, _, _, _ -> InteractionResult.PASS }
+                return super.get(key) ?: return CauldronInteraction { _, _, _, _, _, _ -> ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION }
             }
         }.apply { this.putAll(pairs) }
+    }
 
     @Subscription
     fun registerAll(event: PostInitEvent) {
-        CauldronInteraction.WATER.putAll(PRE_WATER)
-        CauldronInteraction.EMPTY.putAll(PRE_EMPTY)
-        ESTROGEN.putAll(PRE_ESTROGEN)
-        HORSE_URINE.putAll(PRE_HORSE_URINE)
-        FILTRATED_HORSE_URINE.putAll(PRE_FILTRATED_HORSE_URINE)
+        CauldronInteraction.WATER.map().putAll(PRE_WATER)
+        CauldronInteraction.EMPTY.map().putAll(PRE_EMPTY)
+        ESTROGEN.map().putAll(PRE_ESTROGEN)
+        HORSE_URINE.map().putAll(PRE_HORSE_URINE)
+        FILTRATED_HORSE_URINE.map().putAll(PRE_FILTRATED_HORSE_URINE)
     }
 }
 

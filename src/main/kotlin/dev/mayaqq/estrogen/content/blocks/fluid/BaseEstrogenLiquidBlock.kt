@@ -1,13 +1,14 @@
 package dev.mayaqq.estrogen.content.blocks.fluid
 
-import earth.terrarium.botarium.common.registry.fluid.BotariumLiquidBlock
-import earth.terrarium.botarium.common.registry.fluid.FluidData
+import com.teamresourceful.resourcefullib.common.fluid.ResourcefulLiquidBlock
+import com.teamresourceful.resourcefullib.common.fluid.data.FluidData
 import net.minecraft.core.BlockPos
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.material.FluidState
 
-open class BaseEstrogenLiquidBlock(data: FluidData, properties: Properties, val interactions: Array<FluidInteraction> = emptyArray()) : BotariumLiquidBlock(data, properties) {
+@Suppress("UnstableApiUsage")
+open class BaseEstrogenLiquidBlock(data: FluidData, properties: Properties, val interactions: Array<FluidInteraction> = emptyArray()) : ResourcefulLiquidBlock(data, properties) {
 
     //TODO
     private fun fluidInteraction(level: Level, pos: BlockPos, state: BlockState): Boolean {

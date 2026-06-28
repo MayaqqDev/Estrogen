@@ -200,11 +200,13 @@ cloche {
             modCompileOnlyApi(libs.fabric.flywheel.api)
             modImplementation(libs.fabric.flywheel)
             modImplementation(libs.fabric.kritter)
+            modImplementation(libs.fabric.rlib)
             modApi(libs.fabric.csr)
 
             localRuntime(libs.jcpp)
             localRuntime(libs.glsltransformer)
 
+            include(libs.fabric.rlib) { exclude(group = "com.teamresourceful", module = "bytecodecs") }
             include(libs.fabric.flywheel) { isTransitive = false }
             include(libs.fabric.csr) { isTransitive = false }
             include(libs.cosmetics)
@@ -289,7 +291,9 @@ cloche {
             modApi(libs.forge.csr)
             modCompileOnly(libs.forge.oculus)
             legacyClasspath(libs.cosmetics)
+            modImplementation(libs.forge.rlib)
 
+            include(libs.forge.rlib) { exclude(group = "com.teamresourceful", module = "bytecodecs") }
             include(libs.forge.mixinExtras) { isTransitive = false }
             include(libs.forge.flywheel) { isTransitive = false }
             include(libs.forge.csr) { isTransitive = false }

@@ -12,18 +12,17 @@ import dev.mayaqq.estrogen.content.items.ThighHighsItem
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import invoke.kitty.kritter.creativeTabs.TabPlacement
+import invoke.kitty.kritter.platform.common.BlockColorProvider
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.block.BlockRenderType
 import invoke.kitty.kritter.registry.block.block
 import invoke.kitty.kritter.registry.block.colorProvider
 import invoke.kitty.kritter.registry.block.renderType
-import invoke.kitty.kritter.registry.creativeTab.creativeTab
 import invoke.kitty.kritter.registry.item.creativeTab
 import invoke.kitty.kritter.registry.item.item
-import net.minecraft.client.renderer.RenderType
+import invoke.kitty.kritter.utils.color.White
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.registries.Registries
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.entity.ai.village.poi.PoiTypes
 import net.minecraft.world.item.BlockItem
@@ -167,7 +166,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         ) }) {
         initialPropertiesFrom(Blocks::CAULDRON)
         renderType = BlockRenderType.CUTOUT
-        colorProvider { _, _, _, tint -> return@colorProvider if (tint == 0) EstrogenColors.HORSE_URINE.toInt() else -1 }
+        colorProvider = BlockColorProvider { _, _, _, tint -> return@BlockColorProvider if (tint == 0) EstrogenColors.HORSE_URINE else White }
     }
 
     val FiltratedHorseUrineCauldron: FiltratedHorseUrineCauldron by block(
@@ -177,14 +176,14 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         ) }) {
         initialPropertiesFrom(Blocks::CAULDRON)
         renderType = BlockRenderType.CUTOUT
-        colorProvider { _, _, _, tint -> return@color if (tint == 0) EstrogenColors.FILTRATED_HORSE_URINE.toInt() else -1 }
+        colorProvider = BlockColorProvider { _, _, _, tint -> return@BlockColorProvider if (tint == 0) EstrogenColors.FILTRATED_HORSE_URINE else White }
     }
 
     val LiquidEstrogenCauldron: LayeredCauldronBlock by block(
         "liquid_estrogen_cauldron", { properties -> LayeredCauldronBlock(
-            properties,
-            {false},
-            CauldronInteractions.ESTROGEN
+            Biome.Precipitation.NONE,
+            CauldronInteractions.ESTROGEN,
+            properties
         ) }) {
         initialPropertiesFrom(Blocks::CAULDRON)
         renderType = BlockRenderType.CUTOUT

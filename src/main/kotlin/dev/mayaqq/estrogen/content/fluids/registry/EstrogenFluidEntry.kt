@@ -1,25 +1,27 @@
 package dev.mayaqq.estrogen.content.fluids.registry
 
-import earth.terrarium.botarium.common.registry.fluid.*
+import com.teamresourceful.resourcefullib.common.fluid.ResourcefulBucketItem
+import com.teamresourceful.resourcefullib.common.fluid.ResourcefulFlowingFluid
+import com.teamresourceful.resourcefullib.common.fluid.ResourcefulLiquidBlock
+import dev.mayaqq.estrogen.content.recipes.inventory.FluidData
+import invoke.kitty.kritter.registry.api.entry.RegistryEntry
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.level.material.Fluid
-import uwu.serenity.kritter.api.entry.Delegate
-import uwu.serenity.kritter.api.entry.RegistryEntry
 
-class EstrogenFluidEntry<S : BotariumSourceFluid, F : BotariumFlowingFluid>(
+@Suppress("UnstableApiUsage")
+class EstrogenFluidEntry<S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing>(
     key: ResourceKey<in Fluid>,
-    holder: Delegate<S>,
     val properties: FluidData,
     val flowingEntry: RegistryEntry<F>,
-    val blockEntry: RegistryEntry<BotariumLiquidBlock>,
-    val bucketEntry: RegistryEntry<FluidBucketItem>
-) : RegistryEntry<S>(key, holder, mutableSetOf()) {
-    val source: BotariumSourceFluid
-        get() = this.value
-    val flowing: BotariumFlowingFluid
-        get() = flowingEntry.value
-    val block: BotariumLiquidBlock
-        get() = blockEntry.value
-    val bucket: FluidBucketItem
-        get() = bucketEntry.value
+    val blockEntry: RegistryEntry<ResourcefulLiquidBlock>,
+    val bucketEntry: RegistryEntry<ResourcefulBucketItem>
+) : RegistryEntry<S>(key) {
+    val source: ResourcefulFlowingFluid.Still
+        get() = this.value as ResourcefulFlowingFluid.Still
+    val flowing: ResourcefulFlowingFluid.Flowing
+        get() = flowingEntry.value as ResourcefulFlowingFluid.Flowing
+    val block: ResourcefulLiquidBlock
+        get() = blockEntry.value!!
+    val bucket: ResourcefulBucketItem
+        get() = bucketEntry.value!!
 }

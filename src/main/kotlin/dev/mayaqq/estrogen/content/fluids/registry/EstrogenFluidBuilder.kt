@@ -1,46 +1,48 @@
+@file:Suppress("UnstableApiUsage")
+
 package dev.mayaqq.estrogen.content.fluids.registry
 
+import com.teamresourceful.resourcefullib.common.fluid.ResourcefulBucketItem
+import com.teamresourceful.resourcefullib.common.fluid.ResourcefulFlowingFluid
+import com.teamresourceful.resourcefullib.common.fluid.ResourcefulLiquidBlock
+import com.teamresourceful.resourcefullib.common.fluid.data.FluidData
+import com.teamresourceful.resourcefullib.common.fluid.data.FluidProperties
 import dev.mayaqq.cynosure.client.render.RenderLayerMap
-import earth.terrarium.botarium.common.registry.fluid.*
+import invoke.kitty.kritter.registry.api.Registrar
+import invoke.kitty.kritter.registry.api.builder.Builder
+import invoke.kitty.kritter.registry.api.entry.RegistryEntry
+import invoke.kitty.kritter.registry.block.BlockBuilder
+import invoke.kitty.kritter.registry.item.ItemBuilder
+import invoke.kitty.kritter.utils.clientOnly
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.material.Fluid
-import uwu.serenity.kritter.api.Registrar
-import uwu.serenity.kritter.api.builders.Builder
-import uwu.serenity.kritter.api.builders.BuilderCallback
-import uwu.serenity.kritter.api.entry.Delegate
-import uwu.serenity.kritter.api.entry.RegistryEntry
-import uwu.serenity.kritter.client.stdlib.clientOnly
-import uwu.serenity.kritter.internal.NotUsableInBuilder
-import uwu.serenity.kritter.stdlib.BlockBuilder
-import uwu.serenity.kritter.stdlib.ItemBuilder
-import uwu.serenity.kritter.stdlib.location
 
 
 @Suppress("UNCHECKED_CAST")
-inline fun <S : BotariumSourceFluid, F : BotariumFlowingFluid> Registrar<Fluid>.fluid(
+inline fun <S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing> Registrar<Fluid>.fluid(
     name: String,
     noinline sourceFactory: (FluidData) -> S,
     noinline flowingFactory: (FluidData) -> F,
     builder: FluidBuilder<S, F>.() -> Unit = {}
-): EstrogenFluidEntry<S, F> = FluidBuilder(name, this, this.getCallback(), sourceFactory, flowingFactory).apply(builder).register() as EstrogenFluidEntry<S, F>
+): EstrogenFluidEntry<S, F> = FluidBuilder(name, this, this.createBuilderCallback(name), sourceFactory, flowingFactory).apply(builder).register() as EstrogenFluidEntry<S, F>
 
-class FluidBuilder<S : BotariumSourceFluid, F : BotariumFlowingFluid>(
+class FluidBuilder<S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing>(
     name: String,
     owner: Registrar<Fluid>,
-    callback: BuilderCallback<Fluid, S>,
+    callback: Registrar.BuilderCallback<Fluid, S>,
     private val sourceFactory: (FluidData) -> S,
     private val flowingFactory: (FluidData) -> F,
-    private val flowingKey: ResourceKey<Fluid> = owner.createResourceKey("flowing_$name")
-) : Builder<Fluid, S>(name, owner, callback) {
+    private val flowingName: String = "flowing_$name"
+) : Builder<Fluid, S>(owner, callback) {
 
-    private var fluidData: FluidData? = null
+    private var fluidData: com.teamresourceful.resourcefullib.common.registry.RegistryEntry<FluidData>? = null
     var flowingWrapper: RegistryEntry<F>? = null
-    private var blockEntry: RegistryEntry<BotariumLiquidBlock>? = null
-    private var bucketEntry: RegistryEntry<FluidBucketItem>? = null
+    private var blockEntry: RegistryEntry<ResourcefulLiquidBlock>? = null
+    private var bucketEntry: RegistryEntry<ResourcefulBucketItem>? = null
     private var _properties: ((FluidProperties.Builder) -> Unit)? = null
 
     /**
@@ -50,70 +52,60 @@ class FluidBuilder<S : BotariumSourceFluid, F : BotariumFlowingFluid>(
     fun properties(props: FluidProperties.Builder.() -> Unit) {
         this._properties = props
         buildProperties()
-        flowingWrapper = owner.getCallback<F>().invoke(flowingKey, null, this::createFlowingEntry, this::wrapFlowing)
+        owner.createBuilderCallback<F>(flowingName).apply { acceptEntry(this@FluidBuilder::createFlowingEntry, this@FluidBuilder.wrapFlowing(this.key) as RegistryEntry<F>) }
     }
 
     inline fun renderType(crossinline renderType: () -> RenderType) {
         onRegister {
             clientOnly {
                 RenderLayerMap.putFluid(it, renderType.invoke())
-                RenderLayerMap.putFluid(flowingWrapper!!.value, renderType.invoke())
+                RenderLayerMap.putFluid(flowingWrapper!!.value as Fluid, renderType.invoke())
             }
         }
     }
 
-    @OptIn(NotUsableInBuilder::class)
-    fun <B : BotariumLiquidBlock> block(
+    //@OptIn(NotUsableInBuilder::class)
+    fun <B : ResourcefulLiquidBlock> block(
         factory: (FluidData, BlockBehaviour.Properties) -> B,
         name: String = this.name,
-        builder: BlockBuilder<BotariumLiquidBlock>.() -> Unit = {}
+        builder: BlockBuilder<ResourcefulLiquidBlock>.() -> Unit = {}
     ) {
         val blocks = owner.sibling(Registries.BLOCK)
         this.blockEntry = BlockBuilder(
-            name,
             blocks,
-            blocks.getCallback()
-        ) { factory(this.result!!.value.data, it) as BotariumLiquidBlock }.apply(builder).register()
+            blocks.createBuilderCallback(name)
+        ) { factory(this.result!!.value!!.data, it) as ResourcefulLiquidBlock }.apply(builder).register()
     }
 
-    @OptIn(NotUsableInBuilder::class)
-    fun <I : FluidBucketItem> bucket(
+    //@OptIn(NotUsableInBuilder::class)
+    fun <I : ResourcefulBucketItem> bucket(
         factory: (FluidData, Item.Properties) -> I,
         name: String = this.name,
-        builder: ItemBuilder<FluidBucketItem>.() -> Unit = {}
+        builder: ItemBuilder<ResourcefulBucketItem>.() -> Unit = {}
     ) {
         val items = owner.sibling(Registries.ITEM)
         this.bucketEntry = ItemBuilder(
-            name + "_bucket",
             items,
-            items.getCallback()
-        ) { factory(this.result!!.value.data, it) as FluidBucketItem }.apply(builder).register()
+            items.createBuilderCallback("${name}_bucket")
+        ) { factory(this.result!!.value!!.data, it) as ResourcefulBucketItem }.apply(builder).register()
     }
 
 
 
     private fun buildProperties() {
-        val builder = FluidProperties.create()
+        val builder = FluidProperties.builder()
         if (_properties != null)  _properties!!.invoke(builder)
         if (owner is FluidRegistryProvider) {
-            fluidData = (owner as FluidRegistryProvider).fluidRegistry.register(builder.build(key.location))
+            fluidData = (owner as FluidRegistryProvider).fluidRegistry.register(key.location().path, builder.build())
         } else {
             throw Exception("Your Fluid Registrar must implement FluidRegistryProvider")
         }
     }
 
-    private fun createFlowingEntry() : F = flowingFactory.invoke(fluidData!!)
-    private fun wrapFlowing(delegate: Delegate<F>) = RegistryEntry(flowingKey, delegate, mutableSetOf())
+    private fun createFlowingEntry() : F = flowingFactory.invoke(fluidData!!.get())
+    private fun wrapFlowing(key: ResourceKey<Fluid>) = RegistryEntry(key)
 
     override fun createEntry(): S {
-        return sourceFactory.invoke(fluidData!!)
+        return sourceFactory.invoke(fluidData!!.get())
     }
-    override fun wrapEntry(delegate: Delegate<S>): EstrogenFluidEntry<S, F> = EstrogenFluidEntry(
-        key,
-        delegate,
-        fluidData!!,
-        flowingWrapper!!,
-        blockEntry!!,
-        bucketEntry!!
-    )
 }

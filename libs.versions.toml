@@ -28,6 +28,7 @@ mixin = "0.8.3"
 iris = "1.7.6+1.20.1"
 flywheel = "1.0.2"
 cynosure = "1.0.0-local.7"
+rlib = "3.0.12"
 
 # Fabric Only Dependencies
 fapi = "0.116.12"
@@ -73,6 +74,7 @@ fabric-kritter = { module = "invoke.kitty.kritter:kritter-1.21.1-fabric", versio
 fabric-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-fabric-api-1.21.1", version.ref = "flywheel" }
 fabric-flywheel = { module = "dev.engine-room.flywheel:flywheel-fabric-1.21.1", version.ref = "flywheel" }
 fabric-csr = { module = "earth.terrarium.common_storage_lib:common-storage-lib-resources-fabric-1.21.1", version.ref = "csr" }
+fabric-rlib = { module = "com.teamresourceful.resourcefullib:resourcefullib-fabric-1.21", version.ref = "rlib" }
 fabric-sodium = { module = "maven.modrinth:sodium", version = "mc1.20.1-0.5.13-fabric" }
 fabric-indium = { module = "maven.modrinth:indium", version = "1.0.36+mc1.20.1" }
 fabric-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
@@ -89,6 +91,7 @@ forge-kritter = { module = "invoke.kitty.kritter:kritter-1.21.1-neoforge", versi
 forge-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-neoforge-api-1.21.1", version.ref = "flywheel" }
 forge-flywheel = { module = "dev.engine-room.flywheel:flywheel-neoforge-1.21.1", version.ref = "flywheel" }
 forge-csr = { module = "earth.terrarium.common_storage_lib:common-storage-lib-resources-neoforge-1.21.1", version.ref = "csr" }
+forge-rlib = { module = "com.teamresourceful.resourcefullib:resourcefullib-neoforge-1.21", version.ref = "rlib" }
 forge-oculus = { module = "maven.modrinth:oculus", version = "1.20.1-1.8.0" }
 
 # Extra dependencies
