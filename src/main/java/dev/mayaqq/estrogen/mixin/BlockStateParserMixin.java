@@ -17,6 +17,6 @@ public class BlockStateParserMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/core/HolderLookup;listElementIds()Ljava/util/stream/Stream;")
     )
     private Stream<ResourceKey<Item>> suggestItem(Stream<ResourceKey<Item>> original) {
-        return original.filter(item -> !item.location().equals(new ResourceLocation("estrogen", "colon_three")));
+        return original.filter(item -> !item.location().equals(ResourceLocation.fromNamespaceAndPath("estrogen", "colon_three")));
     }
 }

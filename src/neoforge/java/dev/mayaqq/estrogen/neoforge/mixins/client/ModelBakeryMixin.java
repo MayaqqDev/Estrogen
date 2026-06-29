@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(ModelBakery.class)
 public class ModelBakeryMixin {
 
+    /* TODO: Yeah uh idk uh
     @ModifyExpressionValue(
         method = "loadTopLevel",
         at = @At(
@@ -27,5 +28,5 @@ public class ModelBakeryMixin {
             return original;
         }
     }
-
+     */
 }

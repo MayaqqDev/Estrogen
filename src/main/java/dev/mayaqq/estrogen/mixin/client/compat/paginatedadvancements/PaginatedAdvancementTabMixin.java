@@ -46,22 +46,20 @@ abstract class PaginatedAdvancementTabMixin extends AdvancementTab {
         // probably jank; i wouldnt know, im not a renderologist
         RenderSystem.setShaderTexture(0, DynamicDreamTexture.INSTANCE.getID());
         RenderSystem.setShader(EstrogenRenderer.INSTANCE::getDreamBlockShader);
-        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK);
+        BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK);
         estrogen$vertex(bufferBuilder, graphics.pose().last().pose(), minX, minY);
         estrogen$vertex(bufferBuilder, graphics.pose().last().pose(), minX, maxY);
         estrogen$vertex(bufferBuilder, graphics.pose().last().pose(), maxX, maxY);
         estrogen$vertex(bufferBuilder, graphics.pose().last().pose(), maxX, minY);
-        BufferUploader.drawWithShader(bufferBuilder.end());
+        BufferUploader.drawWithShader(bufferBuilder.build());
     }
 
     @Unique
     private void estrogen$vertex(BufferBuilder bufferBuilder, Matrix4f pose, int x, int y) {
-        bufferBuilder.vertex(pose, (float) x, (float) y, 0f)
-                .color(0, 0, 0, 0)
-                .uv((float) x, (float) y)
-                .uv2(LightTexture.FULL_BRIGHT)
-                .normal(0f, 0f, 0f)
-                .endVertex();
+        bufferBuilder.addVertex(pose, (float) x, (float) y, 0f)
+                .setColor(0, 0, 0, 0)
+                .setUv((float) x, (float) y)
+                .setLight(LightTexture.FULL_BRIGHT)
+                .setNormal(0f, 0f, 0f);
     }
 }

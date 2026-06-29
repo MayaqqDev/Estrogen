@@ -71,11 +71,4 @@ object EstrogenServerConfig : Config("$MOD_ID/server", Json5Format.Default) {
         }
 
     }
-
-    object Fixes : ConfigCategory(comment = "Bug fixes and other improvements related to this mod") {
-        val jukeboxFix: Boolean by field(true) {
-            comment = "Fix a dupe glitch related to Jukeboxes and stacks"
-        }
-    }
-
 }

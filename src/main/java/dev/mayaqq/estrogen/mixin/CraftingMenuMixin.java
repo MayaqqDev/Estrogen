@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -18,9 +19,9 @@ public class CraftingMenuMixin {
             method = "slotChangedCraftingGrid",
             at = @At(value = "INVOKE", target = "Ljava/util/Optional;isPresent()Z")
     )
-    private static boolean creativelessCheck(Optional<CraftingRecipe> instance, Operation<Boolean> original, @Local(argsOnly = true) Player player) {
+    private static boolean creativelessCheck(Optional<RecipeHolder<CraftingRecipe>> instance, Operation<Boolean> original, @Local(argsOnly = true) Player player) {
         if (instance.isPresent()) {
-            if (player.isCreative() && instance.get().getId().equals(new ResourceLocation("estrogen", "colon_three_manual_only"))) return false;
+            if (player.isCreative() && instance.get().id().equals(ResourceLocation.fromNamespaceAndPath("estrogen", "colon_three_manual_only"))) return false;
         }
         return original.call(instance);
     }

@@ -14,6 +14,7 @@ import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorDataLoader;
 import dev.mayaqq.estrogen.compat.figura.FiguraCompat;
 import dev.mayaqq.estrogen.content.EstrogenEffects;
 import dev.mayaqq.estrogen.injection.IPlayerModel;
+import dev.mayaqq.estrogen.utils.StupidUtilsKt;
 import net.minecraft.Optionull;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
@@ -134,10 +135,10 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
         }
         // Rendering
         TextureData textureData = opt.get();
-        VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(textureData.getLocation()), false, glint);
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorFoilBuffer(vertexConsumers, RenderType.armorCutoutNoCull(textureData.getLocation()), false);
         this.estrogen$boobArmor.copyTransform(this.body);
         this.estrogen$boobArmor.setPitch(this.body.xRot);
-        float amplifier = Optionull.mapOrDefault(player.getEffect(EstrogenEffects.getEstrogen()), MobEffectInstance::getAmplifier, 2);
+        float amplifier = Optionull.mapOrDefault(player.getEffect(StupidUtilsKt.holder(EstrogenEffects.getEstrogen())), MobEffectInstance::getAmplifier, 2);
         Quaternionf bodyRotation = (new Quaternionf()).rotationZYX(this.body.zRot, this.body.yRot, this.body.xRot);
         this.estrogen$boobArmor.translate((new Vector3f(0.0F, 4.0F + size * 0.864F * boobFunc(1 + amplifier) + yOffset, -4.0F + size * (-1.944F - 0.24F*3.0F) * boobFunc(1 + amplifier))).rotate(bodyRotation));
         this.estrogen$boobArmor.setScaleY((1 + size * 2.0F * boobFunc(1 + amplifier)) / 2.0F);
@@ -165,7 +166,7 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
         if (data != null) {
             return Optional.ofNullable(data.toTextureData(overlay));
         } else {
-            String texture = item.getMaterial().getName();
+            String texture = item.getMaterial().getRegisteredName();
             String domain = "minecraft";
             int idx = texture.indexOf(':');
             if (idx != -1) {

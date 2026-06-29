@@ -28,7 +28,7 @@ public class AdvancementTabMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIFFIIII)V")
     )
     private void shaderBG(GuiGraphics instance, ResourceLocation atlasLocation, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight, Operation<Void> original) {
-        if (this.display.getBackground() != null && this.display.getBackground().toString().equals("estrogen:textures/block/dream_block/particle.png")) {
+        if (this.display.getBackground().isPresent() && this.display.getBackground().toString().equals("estrogen:textures/block/dream_block/particle.png")) {
             DynamicDreamTexture.prepareIfNeeded();
             DynamicDreamTexture.generateIfNeeded();
             estrogen$renderDream(instance, x, x + width, y, y + height);
@@ -42,22 +42,20 @@ public class AdvancementTabMixin {
         // probably jank; i wouldnt know, im not a renderologist
         RenderSystem.setShaderTexture(0, DynamicDreamTexture.INSTANCE.getID());
         RenderSystem.setShader(EstrogenRenderer.INSTANCE::getDreamBlockShader);
-        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK);
+        BufferBuilder bufferBuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.BLOCK);
         estrogen$vertex(bufferBuilder, graphics.pose().last().pose(), minX, minY);
         estrogen$vertex(bufferBuilder, graphics.pose().last().pose(), minX, maxY);
         estrogen$vertex(bufferBuilder, graphics.pose().last().pose(), maxX, maxY);
         estrogen$vertex(bufferBuilder, graphics.pose().last().pose(), maxX, minY);
-        BufferUploader.drawWithShader(bufferBuilder.end());
+        BufferUploader.drawWithShader(bufferBuilder.build());
     }
 
     @Unique
     private void estrogen$vertex(BufferBuilder bufferBuilder, Matrix4f pose, int x, int y) {
-        bufferBuilder.vertex(pose, (float) x, (float) y, 0f)
-                .color(0, 0, 0, 0)
-                .uv((float) x, (float) y)
-                .uv2(LightTexture.FULL_BRIGHT)
-                .normal(0f, 0f, 0f)
-                .endVertex();
+        bufferBuilder.addVertex(pose, (float) x, (float) y, 0f)
+                .setColor(0, 0, 0, 0)
+                .setUv((float) x, (float) y)
+                .setLight(LightTexture.FULL_BRIGHT)
+                .setNormal(0f, 0f, 0f);
     }
 }

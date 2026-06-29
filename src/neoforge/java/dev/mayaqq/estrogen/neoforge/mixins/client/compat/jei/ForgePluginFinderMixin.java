@@ -3,7 +3,7 @@ package dev.mayaqq.estrogen.neoforge.mixins.client.compat.jei;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.mayaqq.estrogen.compat.recipeviewers.api.jei.JeiPluginRegister;
 import mezz.jei.api.IModPlugin;
-import mezz.jei.forge.startup.ForgePluginFinder;
+import mezz.jei.neoforge.startup.ForgePluginFinder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 

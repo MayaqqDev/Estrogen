@@ -21,7 +21,6 @@ public class ClientTextTooltipMixin {
             at = @At("RETURN")
     )
     private int modifyWidth(int original, @Local(argsOnly = true) Font font) {
-
         if (TextRendererFeatures.getUwufy()) return font.width(UwUOrderedText.orderedToUwUText(text));
         return original;
     }
