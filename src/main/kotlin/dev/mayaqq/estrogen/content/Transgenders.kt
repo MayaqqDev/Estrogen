@@ -2,11 +2,9 @@
 
 package dev.mayaqq.estrogen.content
 
-import com.ibm.icu.text.AlphabeticIndex.Bucket
 import com.teamresourceful.resourcefullib.common.fluid.ResourcefulBucketItem
 import com.teamresourceful.resourcefullib.common.fluid.ResourcefulFlowingFluid
 import com.teamresourceful.resourcefullib.common.fluid.ResourcefulLiquidBlock
-import com.teamresourceful.resourcefullib.common.fluid.registry.ResourcefulFluidRegistry
 import dev.engine_room.flywheel.api.visual.BlockEntityVisual
 import dev.engine_room.flywheel.api.visualization.BlockEntityVisualizer
 import dev.engine_room.flywheel.api.visualization.VisualizationContext
@@ -17,6 +15,10 @@ import dev.mayaqq.cynosure.items.extensions.registerExtension
 import dev.mayaqq.cynosure.tooltips.DescriptionTooltip
 import dev.mayaqq.estrogen.content.blocks.fluid.LavaLikeLiquidBlock
 import dev.mayaqq.estrogen.content.fluids.registry.FluidBuilder
+import dev.mayaqq.estrogen.api.item.equip.Equip
+import dev.mayaqq.estrogen.api.item.equip.client.EquipRenderer
+import dev.mayaqq.estrogen.api.item.equip.registerEquip
+import dev.mayaqq.estrogen.api.item.equip.registerEquipRenderer
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.mcid
 import dev.mayaqq.estrogen.mixin.client.accessor.ItemPropertiesAccessor
@@ -66,6 +68,21 @@ inline fun <I> ItemBuilder<I>.textureProperty(id: ResourceLocation, crossinline 
                     i
                 )
             }
+        }
+    }
+}
+
+inline fun <I> ItemBuilder<I>.equip() where I : Item, I : Equip {
+    onRegister {
+        it.registerEquip()
+    }
+}
+
+inline fun <I> ItemBuilder<I>.equipWithRenderer(crossinline renderer: () -> EquipRenderer) where I : Item, I : Equip {
+    onRegister {
+        it.registerEquip()
+        clientOnly {
+            it.registerEquipRenderer(renderer.invoke())
         }
     }
 }

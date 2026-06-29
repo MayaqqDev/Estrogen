@@ -41,6 +41,7 @@ flk = "1.11.0+kotlin.2.0.0"
 neoforge = "21.1.233"
 jei-forge = "19.27.0.343-neoforge"
 kff = "5.11.0"
+curios = "9.5.1+1.21.1"
 
 # Extra Dependencies
 
@@ -73,7 +74,7 @@ fabric-devauth = { module = "me.djtheredstoner:DevAuth-fabric", version.ref = "d
 fabric-kritter = { module = "invoke.kitty.kritter:kritter-1.21.1-fabric", version.ref = "kritter" }
 fabric-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-fabric-api-1.21.1", version.ref = "flywheel" }
 fabric-flywheel = { module = "dev.engine-room.flywheel:flywheel-fabric-1.21.1", version.ref = "flywheel" }
-fabric-csr = { module = "earth.terrarium.common_storage_lib:common-storage-lib-resources-fabric-1.21.1", version.ref = "csr" }
+fabric-csr = { module = "earth.terrarium.common_storage_lib:common-storage-lib-fabric-1.21.1", version.ref = "csr" }
 fabric-rlib = { module = "com.teamresourceful.resourcefullib:resourcefullib-fabric-1.21", version.ref = "rlib" }
 fabric-sodium = { module = "maven.modrinth:sodium", version = "mc1.20.1-0.5.13-fabric" }
 fabric-indium = { module = "maven.modrinth:indium", version = "1.0.36+mc1.20.1" }
@@ -90,8 +91,9 @@ forge-devauth = { module = "me.djtheredstoner:DevAuth-neoforge", version.ref = "
 forge-kritter = { module = "invoke.kitty.kritter:kritter-1.21.1-neoforge", version.ref = "kritter" }
 forge-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-neoforge-api-1.21.1", version.ref = "flywheel" }
 forge-flywheel = { module = "dev.engine-room.flywheel:flywheel-neoforge-1.21.1", version.ref = "flywheel" }
-forge-csr = { module = "earth.terrarium.common_storage_lib:common-storage-lib-resources-neoforge-1.21.1", version.ref = "csr" }
+forge-csr = { module = "earth.terrarium.common_storage_lib:common-storage-lib-neoforge-1.21.1", version.ref = "csr" }
 forge-rlib = { module = "com.teamresourceful.resourcefullib:resourcefullib-neoforge-1.21", version.ref = "rlib" }
+forge-curios = { module = "top.theillusivec4.curios:curios-neoforge", version.ref = "curios" }
 forge-oculus = { module = "maven.modrinth:oculus", version = "1.20.1-1.8.0" }
 
 # Extra dependencies

@@ -1,14 +1,13 @@
 package dev.mayaqq.estrogen.content.items
 
+import dev.mayaqq.estrogen.content.EstrogenComponents
 import dev.mayaqq.estrogen.utils.TriColor
-import dev.mayaqq.estrogen.utils.getTriColor
-import dev.mayaqq.estrogen.utils.putTriColor
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.stats.Stats
-import net.minecraft.world.InteractionResult
+import net.minecraft.world.ItemInteractionResult
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.Block
@@ -16,12 +15,12 @@ import net.minecraft.world.level.block.LayeredCauldronBlock
 
 class DreamCatcherItem(block: Block, properties: Properties) : BlockItem(block, properties) {
     fun setDyes(stack: ItemStack, triColor: TriColor) {
-        stack.orCreateTag.putTriColor(triColor)
+        stack.set(EstrogenComponents.TriColorComponent, triColor)
     }
-    fun isBlank(stack: ItemStack): Boolean = !stack.orCreateTag.contains("colors")
+    fun isBlank(stack: ItemStack): Boolean = stack.get(EstrogenComponents.TriColorComponent) == null
 
     fun triColor(stack: ItemStack): TriColor? {
-        return if (stack.orCreateTag.contains("colors")) stack.orCreateTag.getTriColor() else null
+        return stack.get(EstrogenComponents.TriColorComponent)
     }
 
     fun getColor(stack: ItemStack, tintIndex: Int): Int {
@@ -34,7 +33,7 @@ class DreamCatcherItem(block: Block, properties: Properties) : BlockItem(block, 
     }
 
     fun clear(stack: ItemStack) {
-        stack.removeTagKey("colors")
+        stack.remove(EstrogenComponents.TriColorComponent)
     }
 
     companion object {
@@ -45,8 +44,9 @@ class DreamCatcherItem(block: Block, properties: Properties) : BlockItem(block, 
 
         val CAULDRON_INTERACTION: CauldronInteraction = CauldronInteraction { blockState, level, blockPos, player, _, itemStack ->
             val item = itemStack.item
-            if (item !is DreamCatcherItem || item.isBlank(itemStack))
-                return@CauldronInteraction InteractionResult.PASS
+            if (item !is DreamCatcherItem || item.isBlank(itemStack)) {
+                return@CauldronInteraction ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
+            }
 
             if (!level.isClientSide) {
                 item.clear(itemStack)
@@ -71,7 +71,7 @@ class DreamCatcherItem(block: Block, properties: Properties) : BlockItem(block, 
                 }
             }
 
-            InteractionResult.sidedSuccess(level.isClientSide)
+            ItemInteractionResult.sidedSuccess(level.isClientSide)
         }
     }
 }

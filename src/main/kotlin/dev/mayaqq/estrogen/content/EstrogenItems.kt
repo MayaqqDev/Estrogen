@@ -7,6 +7,7 @@ import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.baubles.EstrogenPatchesRenderer
 import dev.mayaqq.estrogen.client.content.baubles.ThighHighsRenderer
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
+import dev.mayaqq.estrogen.content.equipWithRenderer
 import dev.mayaqq.estrogen.content.items.*
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.holder
@@ -25,6 +26,7 @@ import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.food.FoodProperties
 import net.minecraft.world.item.*
+import net.minecraft.world.item.component.ItemAttributeModifiers
 
 object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
     val EstrogenPill by item("estrogen_pill", ::Item) {
@@ -121,8 +123,8 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         properties {
             stacksTo(1)
         }
+        equipWithRenderer(::ThighHighsRenderer)
         standardTooltip()
-        //TODO: baubleWithRenderer(::ThighHighsRenderer)
         onSetup { CauldronInteraction.WATER.map()[it] = ThighHighsItem.CAULDRON_INTERACTION }
     }
 
@@ -130,7 +132,7 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         properties {
             stacksTo(1)
         }
-        //TODO: baubleWithRenderer(::EstrogenPatchesRenderer)
+        equipWithRenderer(::EstrogenPatchesRenderer)
     }
 
     val MothElytra by item("moth_elytra", ::MothElytraItem) {

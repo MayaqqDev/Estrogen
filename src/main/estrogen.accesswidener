@@ -12,7 +12,8 @@ accessible method net/minecraft/data/loot/BlockLootSubProvider createSilkTouchOn
 accessible class net/minecraft/client/resources/model/ModelBakery$ModelBakerImpl
 accessible method net/minecraft/client/resources/model/ModelBakery$ModelBakerImpl <init> (Lnet/minecraft/client/resources/model/ModelBakery;Ljava/util/function/BiFunction;Lnet/minecraft/resources/ResourceLocation;)V
 accessible class net/minecraft/client/gui/screens/advancements/AdvancementTabType
-# accessible field net/minecraft/world/level/block/AbstractCauldronBlock interactions Ljava/util/Map;
+accessible field net/minecraft/world/level/block/AbstractCauldronBlock interactions Lnet/minecraft/core/cauldron/CauldronInteraction$InteractionMap;
+accessible method net/minecraft/world/entity/LivingEntity breakItem (Lnet/minecraft/world/item/ItemStack;)V
 
 # Forge fuckery
 accessible method net/minecraft/client/gui/screens/Screen init (Lnet/minecraft/client/Minecraft;II)V
@@ -25,3 +26,6 @@ accessible field net/minecraft/client/gui/components/AbstractWidget y I
 accessible field net/minecraft/client/gui/components/AbstractWidget width I
 accessible field net/minecraft/client/gui/components/AbstractWidget height I
 accessible field net/minecraft/client/gui/components/AbstractWidget isHovered Z
+# Thank Adrian
+accessible field earth/terrarium/common_storage_lib/fluid/impl/SimpleFluidStorage update Ljava/lang/Runnable;
+accessible field earth/terrarium/common_storage_lib/fluid/impl/SimpleFluidStorage save Ljava/lang/Runnable;

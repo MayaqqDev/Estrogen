@@ -10,11 +10,11 @@ import com.teamresourceful.bytecodecs.base.ByteCodec
 import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.cynosure.core.bytecodecs.FriendlyByteCodec
 import dev.mayaqq.cynosure.core.codecs.Codecs
-import dev.mayaqq.cynosure.utils.Either
+import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.utils.entityTypeTag
+import invoke.kitty.kritter.utils.Either
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.FriendlyByteBuf
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
 import net.minecraft.world.entity.EntityType
 
@@ -49,7 +49,7 @@ object EntityTypeRecipeCodec : Codec<Either<EntityType<*>, TagKey<EntityType<*>>
         val json = dynamic.convert(JsonOps.INSTANCE).value
         return if (json is JsonObject) {
             if (json.has("entity")) {
-                DataResult.success(BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation(json["entity"].asString)))
+                DataResult.success(BuiltInRegistries.ENTITY_TYPE.get(identifier(json["entity"].asString)))
             } else {
                 DataResult.error { "Invalid JSON: Expected 'entity' or 'tag'" }
             }
@@ -62,7 +62,7 @@ object EntityTypeRecipeCodec : Codec<Either<EntityType<*>, TagKey<EntityType<*>>
         val json = dynamic.convert(JsonOps.INSTANCE).value
         return if (json is JsonObject) {
             if (json.has("tag")) {
-                DataResult.success(entityTypeTag(ResourceLocation(json["tag"].asString)))
+                DataResult.success(entityTypeTag(identifier(json["tag"].asString)))
             } else {
                 DataResult.error { "Invalid JSON: Expected 'entity' or 'tag'" }
             }

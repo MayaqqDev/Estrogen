@@ -17,15 +17,19 @@ import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
 import dev.mayaqq.cynosure.utils.*
-import dev.mayaqq.cynosure.utils.dfu.toCynosure
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.data.EntityTypeRecipeCodec
 import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
 import dev.mayaqq.estrogen.id
+import invoke.kitty.kritter.utils.Either
+import invoke.kitty.kritter.utils.dfu.toKritter
+import invoke.kitty.kritter.utils.fold
+import invoke.kitty.kritter.utils.foldToRight
+import invoke.kitty.kritter.utils.isRight
 import net.minecraft.advancements.critereon.EntityPredicate
+import net.minecraft.core.HolderLookup
 import net.minecraft.core.NonNullList
-import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
@@ -44,7 +48,7 @@ import net.minecraft.world.level.Level
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
-class EntityInteractionRecipe(val recipeId: ResourceLocation, val ingredient: Ingredient, val result: ItemStack, val entity: Either<EntityType<*>, TagKey<EntityType<*>>>, val sound: Optional<ResourceLocation>, val predicate: Optional<EntityPredicate>) : Recipe<InteractionData> {
+class EntityInteractionRecipe(val ingredient: Ingredient, val result: ItemStack, val entity: Either<EntityType<*>, TagKey<EntityType<*>>>, val sound: Optional<ResourceLocation>, val predicate: Optional<EntityPredicate>) : Recipe<InteractionData> {
     override fun matches(data: InteractionData, level: Level): Boolean {
         if (!ingredient.test(data.item)) return false
         return if (entity.isRight && entity.right != null) {
@@ -54,30 +58,27 @@ class EntityInteractionRecipe(val recipeId: ResourceLocation, val ingredient: In
         }
     }
 
-    override fun assemble(data: InteractionData, registryAccess: RegistryAccess): ItemStack = result.copy()
-
-    override fun getResultItem(access: RegistryAccess): ItemStack = result.copy()
-    override fun getId(): ResourceLocation = recipeId
+    override fun assemble(data: InteractionData, lookup: HolderLookup.Provider): ItemStack = result.copy()
     override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.ENTITY_INTERACTION_SERIALIZER
     override fun getType(): RecipeType<*> = EstrogenRecipes.ENTITY_INTERACTION
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = true
+    override fun getResultItem(lookup: HolderLookup.Provider): ItemStack = result.copy()
+
     override fun getIngredients(): NonNullList<Ingredient> = NonNullList.of(Ingredient.EMPTY, ingredient)
 
     companion object : RecipeViewerInfo {
 
-        fun codec(id: ResourceLocation): Codec<EntityInteractionRecipe> = RecordCodecBuilder.create { instance ->
+        val CODEC: Codec<EntityInteractionRecipe> = RecordCodecBuilder.create { instance ->
             instance.group(
-                RecordCodecBuilder.point(id),
                 IngredientCodec.fieldOf("ingredient").forGetter(EntityInteractionRecipe::ingredient),
                 ItemStackCodec.fieldOf("result").forGetter(EntityInteractionRecipe::result),
                 EntityTypeRecipeCodec.fieldOf("entity").forGetter(EntityInteractionRecipe::entity),
                 ResourceLocation.CODEC.optionalFieldOf("sound").forGetter(EntityInteractionRecipe::sound),
-                PredicateCodecs.ENTITY.optionalFieldOf("predicate").forGetter(EntityInteractionRecipe::predicate),
+                PredicateCodecs.ENTITY_CODEC.optionalFieldOf("predicate").forGetter(EntityInteractionRecipe::predicate),
             ).apply(instance, ::EntityInteractionRecipe)
         }
 
-        fun netcodec(id: ResourceLocation): ByteCodec<EntityInteractionRecipe> = ObjectByteCodec.create(
-            ByteCodecs.constantFieldOf(id),
+        val NET_CODEC: ByteCodec<EntityInteractionRecipe> = ObjectByteCodec.create(
             IngredientCodec.NETWORK fieldOf EntityInteractionRecipe::ingredient,
             ItemStackByteCodec fieldOf EntityInteractionRecipe::result,
             EntityTypeRecipeCodec.NETWORK fieldOf EntityInteractionRecipe::entity,
@@ -101,7 +102,7 @@ fun Either<EntityType<*>, TagKey<EntityType<*>>>.getSpawnEggs(): Array<ItemStack
         BuiltInRegistries.ENTITY_TYPE.getTagOrEmpty(it).mapNotNull { holder ->
             entityToEgg(
                 holder.unwrap()
-                    .toCynosure()
+                    .toKritter()
                     .foldToRight { key -> BuiltInRegistries.ENTITY_TYPE[key] ?: return@mapNotNull null }
             )
         }.toTypedArray()
@@ -117,12 +118,12 @@ fun onEntityInteraction(event: InteractionEvent.UseEntity) {
         if ((currentLoader == Loader.FABRIC && event.phase == InteractionEvent.UseEntity.Phase.SPECIFIC) || (currentLoader == Loader.FORGE && event.phase == InteractionEvent.UseEntity.Phase.GENERAL)) {
             event.level.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION).forEach { recipe ->
                 val data = InteractionData(event.getUsedStack(),  event.entity, event.player as ServerPlayer)
-                if (recipe.matches(data, event.level)) {
-                    val sound: ResourceLocation? = recipe.sound.getOrNull()
+                if (recipe.value().matches(data, event.level)) {
+                    val sound: ResourceLocation? = recipe.value().sound.getOrNull()
                     if (sound != null) BuiltInRegistries.SOUND_EVENT.get(sound)?.let { event.entity.playSound(it) }
 
                     if (!event.player.isCreative) event.getUsedStack().shrink(1)
-                    event.player.inventory.placeItemBackInInventory(recipe.assemble(data, event.level.registryAccess()))
+                    event.player.inventory.placeItemBackInInventory(recipe.value().assemble(data, event.level.registryAccess()))
                     event.result = InteractionResult.SUCCESS
                 }
             }

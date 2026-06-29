@@ -2,8 +2,6 @@ package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.cynosure.blocks.model.ModelBedBlock
 import dev.mayaqq.cynosure.blocks.poi.add
-import dev.mayaqq.cynosure.core.identifier
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
@@ -11,6 +9,7 @@ import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.content.items.ThighHighsItem
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.EstrogenColors
+import dev.mayaqq.estrogen.utils.TriColor
 import invoke.kitty.kritter.creativeTabs.TabPlacement
 import invoke.kitty.kritter.platform.common.BlockColorProvider
 import invoke.kitty.kritter.registry.api.Registrar
@@ -137,7 +136,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         item("colon_three", ::BlockItem)
     }
 
-    val DreamCatcher: DreamCatcherBlock by block("dreamcatcher", ::DreamCatcherBlock) {
+    val DreamCatcher: DreamCatchwerBlock by block("dreamcatcher", ::DreamCatcherBlock) {
         properties {
             mapColor(Blocks.OAK_PLANKS.defaultMapColor())
             forceSolidOn()

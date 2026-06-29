@@ -71,7 +71,7 @@ class ThighHighDyeRecipe(category: CraftingBookCategory) : CustomRecipe(category
                 }
 
                 val newThighHighsItem = stack.copy()
-                item.setColor(newThighHighsItem, newPrimary.toInt(), newSecondary.toInt())
+                item.setColor(newThighHighsItem, newPrimary, newSecondary)
                 return newThighHighsItem
             }
         }

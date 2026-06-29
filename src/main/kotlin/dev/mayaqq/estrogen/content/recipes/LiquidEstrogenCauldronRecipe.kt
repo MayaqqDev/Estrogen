@@ -28,13 +28,13 @@ class LiquidEstrogenCauldronRecipe(val enabled: Boolean) : Recipe<RecipeInput> {
     override fun getType(): RecipeType<*> = EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON
 
     companion object : RecipeViewerInfo {
-        fun codec(id: ResourceLocation): Codec<LiquidEstrogenCauldronRecipe> = RecordCodecBuilder.create { instance ->
+        val CODEC: Codec<LiquidEstrogenCauldronRecipe> = RecordCodecBuilder.create { instance ->
             instance.group(
                 Codec.BOOL.fieldOf("enabled").forGetter(LiquidEstrogenCauldronRecipe::enabled)
             ).apply(instance, ::LiquidEstrogenCauldronRecipe)
         }
 
-        fun netcodec(id: ResourceLocation): ByteCodec<LiquidEstrogenCauldronRecipe> = ObjectByteCodec.create(
+        val NET_CODEC: ByteCodec<LiquidEstrogenCauldronRecipe> = ObjectByteCodec.create(
             ByteCodec.BOOLEAN.fieldOf(LiquidEstrogenCauldronRecipe::enabled),
             ::LiquidEstrogenCauldronRecipe
         )

@@ -13,6 +13,8 @@ import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CommonRecipeViewer
 import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.item.crafting.Recipe
+import net.minecraft.world.item.crafting.RecipeHolder
 
 object EmiPluginRegister {
     fun getPlugins(): List<EmiPluginContainer> {
@@ -68,8 +70,8 @@ object EmiPluginRegister {
                         registry.addWorkstation(category, EmiIngredient.of(Ingredient.of(viewerInfo.info.workstation)))
                     }
 
-                    registry.recipeManager.recipes.filter { it.type == viewerInfo.info.type }.forEach { recipe ->
-                        val recipe = viewerInfo.crvrecipe.invoke(recipe)
+                    registry.recipeManager.recipes.filter { it.value().type == viewerInfo.info.type }.forEach { recipe ->
+                        val recipe = viewerInfo.crvrecipe.invoke(recipe as RecipeHolder<Recipe<*>>)
                         registry.addRecipe(object : BasicEmiRecipe(category, viewerInfo.info.id, viewerInfo.info.width, viewerInfo.info.height) {
                             init {
                                 recipe.init()

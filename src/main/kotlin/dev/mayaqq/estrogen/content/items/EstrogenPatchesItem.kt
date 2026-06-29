@@ -1,19 +1,22 @@
 package dev.mayaqq.estrogen.content.items
 
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
+import dev.mayaqq.estrogen.content.EstrogenComponents
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenFluids
+import dev.mayaqq.estrogen.content.fluids.item.EstrogenItemFluidStorage
+import dev.mayaqq.estrogen.api.item.equip.Equip
+import dev.mayaqq.estrogen.api.item.equip.SlotInfo
 import dev.mayaqq.estrogen.utils.EstrogenColors
-import earth.terrarium.baubly.common.Bauble
-import earth.terrarium.baubly.common.SlotInfo
-import earth.terrarium.botarium.common.fluid.FluidConstants
-import earth.terrarium.botarium.common.fluid.base.BotariumFluidItem
-import earth.terrarium.botarium.common.fluid.base.FluidContainer
-import earth.terrarium.botarium.common.fluid.base.FluidHolder
-import earth.terrarium.botarium.common.fluid.base.ItemFluidContainer
-import earth.terrarium.botarium.common.fluid.impl.SimpleFluidContainer
-import earth.terrarium.botarium.common.fluid.impl.WrappedItemFluidContainer
-import earth.terrarium.botarium.common.item.ItemStackHolder
+import dev.mayaqq.estrogen.utils.holder
+import earth.terrarium.common_storage_lib.context.ItemContext
+import earth.terrarium.common_storage_lib.context.impl.IsolatedSlotContext
+import earth.terrarium.common_storage_lib.context.impl.ModifyOnlyContext
+import earth.terrarium.common_storage_lib.fluid.FluidApi
+import earth.terrarium.common_storage_lib.fluid.util.FluidProvider
+import earth.terrarium.common_storage_lib.resources.fluid.FluidResource
+import earth.terrarium.common_storage_lib.resources.fluid.util.FluidAmounts
+import earth.terrarium.common_storage_lib.storage.base.CommonStorage
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.Style
@@ -24,9 +27,8 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-
-class EstrogenPatchesItem(properties: Properties) : Item(properties), Bauble, BotariumFluidItem<WrappedItemFluidContainer> {
-    override fun tick(stack: ItemStack, slot: SlotInfo) {
+class EstrogenPatchesItem(properties: Properties) : Item(properties), FluidProvider.Item, Equip {
+    fun tick(stack: ItemStack, slot: SlotInfo) {
         val itemFluidManager: ItemFluidContainer = getFluidContainer(stack)
         val level: Level = slot.wearer().level()
         if (!level.isClientSide && slot.wearer() is Player && itemFluidManager.fluids[0].fluidAmount > 0) {
@@ -48,7 +50,7 @@ class EstrogenPatchesItem(properties: Properties) : Item(properties), Bauble, Bo
     fun addEffect(player: Player, level: Level?) {
         player.addEffect(
             MobEffectInstance(
-                EstrogenEffects.Estrogen,
+                EstrogenEffects.Estrogen.holder(),
                 EFFECT_DURATION,
                 EstrogenServerConfig.Patch.girlPowerLevel - 1,
                 false,
@@ -65,11 +67,11 @@ class EstrogenPatchesItem(properties: Properties) : Item(properties), Bauble, Bo
 
     override fun appendHoverText(
         stack: ItemStack,
-        level: Level?,
+        context: TooltipContext,
         tooltipComponents: MutableList<Component>,
         isAdvanced: TooltipFlag
     ) {
-        super.appendHoverText(stack, level, tooltipComponents, isAdvanced)
+        super.appendHoverText(stack, context, tooltipComponents, isAdvanced)
         val holder = ItemStackHolder(stack)
         val itemFluidManager = FluidContainer.of(holder)
         if (itemFluidManager != null) {
@@ -102,27 +104,23 @@ class EstrogenPatchesItem(properties: Properties) : Item(properties), Bauble, Bo
 
     fun getFullStack(): ItemStack {
         val stack = this.defaultInstance
-        val itemFluidManager: ItemFluidContainer = getFluidContainer(stack)
-        itemFluidManager.insertFluid(
-            FluidHolder.of(
-                EstrogenFluids.LiquidEstrogen.source,
-                FluidConstants.getBucketAmount()
-            ), false
-        )
-        itemFluidManager.serialize(stack.getOrCreateTag())
-        return stack
+        val context = IsolatedSlotContext(stack)
+        FluidApi.ITEM.find(stack, context).let { storage ->
+            storage?.insert(
+                FluidResource.of(EstrogenFluids.LiquidEstrogen.source),
+                FluidAmounts.BUCKET,
+                false
+            )
+        }
+        return context.resource.toStack()
     }
 
-    fun getAmount(stack: ItemStack?): Long = FluidContainer.of(ItemStackHolder(stack)).fluids[0].fluidAmount
+    override fun getFluids(stack: ItemStack, context: ItemContext): CommonStorage<FluidResource> {
+        return EstrogenItemFluidStorage(context, EstrogenComponents.FluidComponent)
+    }
 
-    override fun getFluidContainer(stack: ItemStack): WrappedItemFluidContainer {
-        return WrappedItemFluidContainer(
-            stack,
-            SimpleFluidContainer(
-                getMaxCapacity(stack),
-                1
-            ) { amount: Int, fluid: FluidHolder? -> fluid?.`is`(EstrogenFluids.LiquidEstrogen.source) == true }
-        )
+    fun getAmount(stack: ItemStack): Long {
+        return FluidApi.ITEM.find(stack, ModifyOnlyContext(stack))?.getAmount(0) ?: 0
     }
 
     override fun isBarVisible(stack: ItemStack): Boolean {

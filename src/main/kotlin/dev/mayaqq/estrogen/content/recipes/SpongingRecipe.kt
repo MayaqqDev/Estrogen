@@ -7,18 +7,20 @@ import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
 import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.cynosure.events.api.EventSubscriber
-import dev.mayaqq.cynosure.utils.Either
-import dev.mayaqq.cynosure.utils.isLeft
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.data.FluidRecipeCodec
 import dev.mayaqq.estrogen.content.recipes.inventory.FluidData
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
 import dev.mayaqq.estrogen.id
+import invoke.kitty.kritter.utils.Either
+import invoke.kitty.kritter.utils.isLeft
 import net.minecraft.core.BlockPos
+import net.minecraft.core.HolderLookup
 import net.minecraft.core.NonNullList
 import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.ItemStack
@@ -32,8 +34,9 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.material.Fluid
 import net.minecraft.world.level.material.FluidState
 import net.minecraft.world.level.material.Fluids
+import kotlin.jvm.optionals.getOrNull
 
-class SpongingRecipe(val recipeId: ResourceLocation, val input: Either<Fluid, TagKey<Fluid>>, val output: ResourceLocation) : Recipe<FluidData> {
+class SpongingRecipe(val input: Either<Fluid, TagKey<Fluid>>, val output: ResourceLocation) : Recipe<FluidData> {
     override fun matches(data: FluidData, level: Level): Boolean {
         if (data.fluid.`is`(Fluids.EMPTY)) return false
         if (input.isLeft) {
@@ -46,9 +49,8 @@ class SpongingRecipe(val recipeId: ResourceLocation, val input: Either<Fluid, Ta
         return false
     }
 
-    override fun assemble(data: FluidData, access: RegistryAccess): ItemStack = access.registry(Registries.FLUID).get().get(output)?.bucket?.defaultInstance ?: throw UnsupportedOperationException()
-    override fun getResultItem(access: RegistryAccess): ItemStack = access.registry(Registries.FLUID).get().get(output)?.bucket?.defaultInstance ?: throw UnsupportedOperationException()
-    override fun getId(): ResourceLocation = recipeId
+    override fun assemble(data: FluidData, access: HolderLookup.Provider): ItemStack = getBucket(access)
+    override fun getResultItem(access: HolderLookup.Provider): ItemStack = getBucket(access)
     override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.SPONGING
     override fun getType(): RecipeType<*> = EstrogenRecipes.SPONGING
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = true
@@ -64,23 +66,21 @@ class SpongingRecipe(val recipeId: ResourceLocation, val input: Either<Fluid, Ta
             pos: BlockPos,
         ): BlockState? {
             level.recipeManager.getAllRecipesFor(EstrogenRecipes.SPONGING).forEach { recipe ->
-                if (recipe.matches(FluidData(fluidState, blockState), level) && !level.isClientSide) {
-                    return BuiltInRegistries.BLOCK.get(recipe.output).withPropertiesOf(blockState)
+                if (recipe.value().matches(FluidData(fluidState, blockState), level) && !level.isClientSide) {
+                    return BuiltInRegistries.BLOCK.get(recipe.value().output).withPropertiesOf(blockState)
                 }
             }
             return null
         }
 
-        fun codec(id: ResourceLocation): Codec<SpongingRecipe> = RecordCodecBuilder.create { instance ->
+        val CODEC: Codec<SpongingRecipe> = RecordCodecBuilder.create { instance ->
             instance.group(
-                RecordCodecBuilder.point(id),
                 FluidRecipeCodec.fieldOf("input").forGetter(SpongingRecipe::input),
                 ResourceLocation.CODEC.fieldOf("output").forGetter(SpongingRecipe::output)
             ).apply(instance, ::SpongingRecipe)
         }
 
-        fun netcodec(id: ResourceLocation): ByteCodec<SpongingRecipe> = ObjectByteCodec.create(
-            ByteCodecs.constantFieldOf(id),
+        val NETCODEC: ByteCodec<SpongingRecipe> = ObjectByteCodec.create(
             FluidRecipeCodec.NETWORK.fieldOf( SpongingRecipe::input),
             ByteCodecs.RESOURCE_LOCATION.fieldOf(SpongingRecipe::output),
             ::SpongingRecipe
@@ -94,4 +94,6 @@ class SpongingRecipe(val recipeId: ResourceLocation, val input: Either<Fluid, Ta
         override val width: Int = 177
         override val workstation: ItemStack? get() = Items.SPONGE.defaultInstance
     }
+
+    private fun getBucket(access: HolderLookup.Provider) = (access.lookup(Registries.FLUID).get().get(ResourceKey.create(Registries.FLUID, output)).getOrNull()?.value())?.bucket?.defaultInstance ?: throw UnsupportedOperationException()
 }

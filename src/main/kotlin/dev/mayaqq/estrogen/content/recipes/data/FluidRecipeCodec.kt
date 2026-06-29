@@ -10,8 +10,9 @@ import com.teamresourceful.bytecodecs.base.ByteCodec
 import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.cynosure.core.bytecodecs.FriendlyByteCodec
 import dev.mayaqq.cynosure.core.codecs.Codecs
-import dev.mayaqq.cynosure.utils.Either
+import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.utils.fluidTag
+import invoke.kitty.kritter.utils.Either
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
@@ -49,7 +50,7 @@ object FluidRecipeCodec : Codec<Either<Fluid, TagKey<Fluid>>> by Codecs.either(
         val json = dynamic.convert(JsonOps.INSTANCE).value
         return if (json is JsonObject) {
             if (json.has("fluid")) {
-                DataResult.success(BuiltInRegistries.FLUID.get(ResourceLocation(json["fluid"].asString)))
+                DataResult.success(BuiltInRegistries.FLUID.get(identifier(json["fluid"].asString)))
             } else {
                 DataResult.error { "Invalid JSON: Expected 'fluid' or 'tag'" }
             }
@@ -62,7 +63,7 @@ object FluidRecipeCodec : Codec<Either<Fluid, TagKey<Fluid>>> by Codecs.either(
         val json = dynamic.convert(JsonOps.INSTANCE).value
         return if (json is JsonObject) {
             if (json.has("tag")) {
-                DataResult.success(fluidTag(ResourceLocation(json["tag"].asString)))
+                DataResult.success(fluidTag(identifier(json["tag"].asString)))
             } else {
                 DataResult.error { "Invalid JSON: Expected 'fluid' or 'tag'" }
             }

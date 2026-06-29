@@ -4,13 +4,12 @@ import com.google.common.collect.Multimap
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.text.TextStyle.color
 import dev.mayaqq.cynosure.text.TextStyle.italic
-import dev.mayaqq.cynosure.utils.colors.McGray
+import dev.mayaqq.estrogen.api.item.equip.Equip
+import dev.mayaqq.estrogen.api.item.equip.SlotInfo
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ThighHighStylesPacket
-import earth.terrarium.baubly.common.Bauble
-import earth.terrarium.baubly.common.SlotInfo
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.network.chat.Component
@@ -20,17 +19,24 @@ import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.stats.Stats
 import net.minecraft.util.RandomSource
-import net.minecraft.world.InteractionResult
-import net.minecraft.world.entity.ai.attributes.Attribute
-import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
-import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.LayeredCauldronBlock
-import java.util.*
 
-class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondaryColor: Int) : Item(properties), Bauble {
+import dev.mayaqq.estrogen.content.EstrogenComponents.ThighHighStyleComponent
+import dev.mayaqq.estrogen.content.EstrogenComponents.ThighHighColorComponent
+import dev.mayaqq.estrogen.content.components.ThighHighColor
+import dev.mayaqq.estrogen.content.components.ThighHighStyle
+import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.color.MinecraftColors
+import net.minecraft.core.Holder
+import net.minecraft.world.ItemInteractionResult
+import net.minecraft.world.entity.ai.attributes.Attribute
+import net.minecraft.world.entity.ai.attributes.AttributeModifier
+
+class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondaryColor: Int) : Item(properties), Equip {
     private val styles = mutableListOf<ResourceLocation>()
 
     fun loadStyles(styles: List<ResourceLocation>) {
@@ -39,7 +45,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
     }
 
     fun syncStyles(player: ServerPlayer) {
-        EstrogenNetwork.sendToPlayer(ThighHighStylesPacket(styles), player)
+        EstrogenNetwork.sendToPlayer(player, ThighHighStylesPacket(styles))
     }
 
     fun getDefaultColor(tintIndex: Int): Int {
@@ -47,33 +53,29 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
     }
 
     fun hasCustomColor(stack: ItemStack): Boolean {
-        return stack.tag?.contains(TAG_PRIMARY) == true || stack.tag?.contains(TAG_SECONDARY) == true
+        return stack.get(ThighHighColorComponent) != null
     }
 
     fun getColor(stack: ItemStack, tintIndex: Int): Int {
-        stack.tag?.let {
-            if (tintIndex == 0 && it.contains(TAG_PRIMARY)) return it.getInt(TAG_PRIMARY)
-            if (tintIndex == 1 && it.contains(TAG_SECONDARY)) return it.getInt(TAG_SECONDARY)
+        stack.get(ThighHighColorComponent)?.let { color ->
+            when(tintIndex) {
+                0 -> return color.primary.toInt()
+                1 -> return color.secondary.toInt()
+            }
         }
         return getDefaultColor(tintIndex)
     }
 
     fun clearColor(stack: ItemStack) {
-        stack.tag?.let {
-            it.remove(TAG_PRIMARY)
-            it.remove(TAG_SECONDARY)
-        }
+        stack.remove(ThighHighColorComponent)
     }
 
-    fun setColor(stack: ItemStack, primaryColor: Int, secondaryColor: Int) {
-        stack.orCreateTag.let {
-            it.putInt(TAG_PRIMARY, primaryColor)
-            it.putInt(TAG_SECONDARY, secondaryColor)
-        }
+    fun setColor(stack: ItemStack, primary: Color, secondary: Color) {
+        stack.set(ThighHighColorComponent, ThighHighColor(primary, secondary))
     }
 
     fun setStyle(stack: ItemStack, style: ResourceLocation) {
-        stack.orCreateTag.putString(SPECIAL_STYLE, style.toString())
+        stack.set(ThighHighStyleComponent, ThighHighStyle(style))
     }
 
     fun setRandomStyle(stack: ItemStack, randomSource: RandomSource) {
@@ -89,45 +91,36 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
 
     fun getStyle(stack: ItemStack): ResourceLocation? {
         if (styles.isEmpty()) return null
-        stack.tag?.let { it ->
-            if (it.contains(SPECIAL_STYLE)) {
-                ResourceLocation(it.getString(SPECIAL_STYLE)).let {
-                    if (styles.contains(it)) return it
-                }
-            }
-        }
-        return null
+        return stack.get(ThighHighStyleComponent)?.style
     }
 
     fun clearStyle(stack: ItemStack) {
-        stack.tag?.remove(SPECIAL_STYLE)
+        stack.remove(ThighHighStyleComponent)
     }
 
-    override fun appendHoverText(stack: ItemStack, level: Level?, list: MutableList<Component>, flags: TooltipFlag) {
+    override fun appendHoverText(stack: ItemStack, context: TooltipContext, list: MutableList<Component>, flags: TooltipFlag) {
         getStyle(stack)?.let { style ->
             list.add(1,
                 Component.translatable(style.toLanguageKey("tooltip.thigh_highs"))
-            )} ?:
+            )} ?: {
             list.add(1,
-            Text.translatable(if (hasCustomColor(stack)) "item.dyed" else "estrogen.item.dyeable") {
-                color = McGray;
-                italic = true
-            })
+                Text.translatable(if (hasCustomColor(stack)) "item.dyed" else "estrogen.item.dyeable") {
+                    color = MinecraftColors.Gray;
+                    italic = true
+                }
+            )
+        }
     }
 
-    override fun getModifiers(defaultModifiers: Multimap<Attribute, AttributeModifier>, stack: ItemStack, slot: SlotInfo, uuid: UUID): Multimap<Attribute, AttributeModifier> {
-        defaultModifiers.put(
-            EstrogenAttributes.FallDamageResistance,
-            AttributeModifier(uuid, "ThighHighsFallDamageResistance", EstrogenServerConfig.ThighHighs.fallDamageReduction.toDouble(), AttributeModifier.Operation.ADDITION)
+     override fun getAttributeModifiers(default: Multimap<Holder<Attribute>, AttributeModifier>, stack: ItemStack, slot: SlotInfo, id: ResourceLocation): Multimap<Holder<Attribute>, AttributeModifier> {
+        default.put(
+            EstrogenAttributes.FallDamageResistance.holder(),
+            AttributeModifier(id, EstrogenServerConfig.ThighHighs.fallDamageReduction.toDouble(), AttributeModifier.Operation.ADD_VALUE)
         )
-        return defaultModifiers
+        return default
     }
 
     companion object {
-        const val TAG_PRIMARY = "primaryColor"
-        const val TAG_SECONDARY = "secondaryColor"
-        const val SPECIAL_STYLE = "specialStyle"
-
         fun getItemColor(stack: ItemStack, tintIndex: Int): Int {
             val item = stack.item as ThighHighsItem
             if (item.getStyle(stack) != null) return -1
@@ -137,7 +130,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
         val CAULDRON_INTERACTION: CauldronInteraction = CauldronInteraction { blockState, level, blockPos, player, _, itemStack ->
                 val item = itemStack.item
                 if (item !is ThighHighsItem || !item.hasCustomColor(itemStack))
-                    return@CauldronInteraction InteractionResult.PASS
+                    return@CauldronInteraction ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
 
                 if (!level.isClientSide) {
                     item.clearColor(itemStack)
@@ -161,8 +154,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
                         )
                     }
                 }
-
-                InteractionResult.sidedSuccess(level.isClientSide)
+            ItemInteractionResult.sidedSuccess(level.isClientSide)
             }
     }
 }

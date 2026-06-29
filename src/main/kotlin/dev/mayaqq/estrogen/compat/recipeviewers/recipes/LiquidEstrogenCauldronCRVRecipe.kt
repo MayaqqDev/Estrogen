@@ -4,9 +4,6 @@ import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.McFont
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.text.TextStyle.color
-import dev.mayaqq.cynosure.utils.colors.McGray
-import dev.mayaqq.cynosure.utils.colors.McGreen
-import dev.mayaqq.cynosure.utils.colors.McRed
 import dev.mayaqq.estrogen.api.EstrogenFlag
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
@@ -19,7 +16,9 @@ import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.LiquidEstrogenCauldronRecipe
 import dev.mayaqq.estrogen.modules.anyModuleHasFlag
+import invoke.kitty.kritter.utils.color.MinecraftColors
 import net.minecraft.world.item.Items
+import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.LayeredCauldronBlock
 import net.minecraft.world.level.block.piston.PistonBaseBlock
@@ -27,13 +26,13 @@ import net.minecraft.world.level.block.piston.PistonHeadBlock
 import net.minecraft.world.level.block.state.properties.PistonType
 import net.minecraft.world.phys.Vec3
 
-class LiquidEstrogenCauldronCRVRecipe(recipe: LiquidEstrogenCauldronRecipe) : CRVRecipe<LiquidEstrogenCauldronRecipe>(recipe) {
+class LiquidEstrogenCauldronCRVRecipe(recipe: RecipeHolder<LiquidEstrogenCauldronRecipe>) : CRVRecipe<LiquidEstrogenCauldronRecipe>(recipe) {
 
     var extended = false
     var extendCounter = System.currentTimeMillis()
 
     fun recipeDisabled(): Boolean {
-        return McClient.level?.recipeManager?.getAllRecipesFor(EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON)?.any { !it.enabled } == true || anyModuleHasFlag(EstrogenFlag.DISABLES_CAULDRON_ESTROGEN)
+        return McClient.level?.recipeManager?.getAllRecipesFor(EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON)?.any { !it.value().enabled } == true || anyModuleHasFlag(EstrogenFlag.DISABLES_CAULDRON_ESTROGEN)
     }
 
     override fun init() {
@@ -41,7 +40,7 @@ class LiquidEstrogenCauldronCRVRecipe(recipe: LiquidEstrogenCauldronRecipe) : CR
             addDrawable(0, 0) { graphics, offsetX, offsetY, mouseX, mouseY, delta ->
                 graphics.fill(0, 0, info.width, info.height, -0x2FEFEFF0)
                 val text = Text.translatable("estrogen.recipe.common.disabled") {
-                    color = McRed
+                    color = MinecraftColors.Red
                 }
                 graphics.drawString(
                     McFont,
@@ -65,9 +64,9 @@ class LiquidEstrogenCauldronCRVRecipe(recipe: LiquidEstrogenCauldronRecipe) : CR
 
             addDrawable(0, 0) { graphics, offsetX, offsetY, mouseX, mouseY, delta ->
                 graphics.renderTooltip(McFont, Text.of("\uD83D\uDD04 ") {
-                    color = McGreen
+                    color = MinecraftColors.Green
                     append(Text.translatable("estrogen.recipe.liquid_estrogen_cauldron.tooltip") {
-                        color = McGray
+                        color = MinecraftColors.Gray
                     })
                 }, 97, 20)
                 if (System.currentTimeMillis() - extendCounter > 700) {
@@ -99,7 +98,7 @@ class LiquidEstrogenCauldronCRVRecipe(recipe: LiquidEstrogenCauldronRecipe) : CR
 
     companion object : ViewerInfo<LiquidEstrogenCauldronRecipe, LiquidEstrogenCauldronCRVRecipe>(
         LiquidEstrogenCauldronRecipe,
-        { LiquidEstrogenCauldronCRVRecipe(it as LiquidEstrogenCauldronRecipe) },
+        { LiquidEstrogenCauldronCRVRecipe(it as RecipeHolder<LiquidEstrogenCauldronRecipe>) },
         LiquidEstrogenCauldronRecipe::class
         )
 }

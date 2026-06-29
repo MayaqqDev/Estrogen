@@ -7,9 +7,10 @@ import dev.engine_room.flywheel.lib.model.baked.PartialModel
 import dev.engine_room.flywheel.lib.util.RendererReloadCache
 import dev.mayaqq.cynosure.client.models.baked.Mesh
 import dev.mayaqq.cynosure.helpers.McClient
-import dev.mayaqq.cynosure.utils.colors.*
-import dev.mayaqq.cynosure.utils.getValue
 import dev.mayaqq.cynosure.utils.normalized
+import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.color.White
+import invoke.kitty.kritter.utils.getValue
 import net.minecraft.client.renderer.LightTexture
 import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.client.resources.model.BakedModel
@@ -19,7 +20,7 @@ import net.minecraft.world.level.block.Blocks
 import org.joml.Vector3f
 import org.joml.Vector4f
 
-private val LOCAL_RANDOM: RandomSource by ThreadLocal.withInitial { RandomSource.create(42L) }
+private val LOCAL_RANDOM: RandomSource? by ThreadLocal.withInitial { RandomSource.create(42L) }
 
 private val PARTIAL_MESH_CACHE: RendererReloadCache<PartialModel, Mesh> = RendererReloadCache { it.get().buildMesh() }
 
@@ -34,7 +35,7 @@ fun BakedModel.buildMesh(): Mesh {
         poseStack,
         meshBuilder,
         false,
-        LOCAL_RANDOM,
+        LOCAL_RANDOM!!,
         42L,
         OverlayTexture.NO_OVERLAY
     )
@@ -60,9 +61,9 @@ fun Mesh.render(
         normalVec.set(normalX(i), normalY(i), normalZ(i))
             .mul(matrices.last().normal())
 
-        buffer.vertex(
+        buffer.addVertex(
             posVec.x, posVec.y, posVec.z,
-            color.floatRed, color.floatGreen, color.floatBlue, color.floatAlpha,
+            color.toInt(),
             u(i), v(i),
             overlay, light,
             normalVec.x, normalVec.y, normalVec.z
@@ -77,30 +78,31 @@ class MeshBuilder : VertexConsumer {
         private set
     private var capacity = 32
 
-    override fun vertex(x: Double, y: Double, z: Double): VertexConsumer {
-        data[position] = x.toFloat().toBits()
-        data[position + 1] = y.toFloat().toBits()
-        data[position + 2] = z.toFloat().toBits()
+    override fun addVertex(x: Float, y: Float, z: Float): VertexConsumer {
+        data[position] = x.toBits()
+        data[position + 1] = y.toBits()
+        data[position + 2] = z.toBits()
         return this
     }
 
-    override fun color(red: Int, green: Int, blue: Int, alpha: Int): VertexConsumer = this
+    override fun setColor(red: Int, green: Int, blue: Int, alpha: Int): VertexConsumer = this
 
-    override fun uv(u: Float, v: Float): VertexConsumer {
+    override fun setUv(u: Float, v: Float): VertexConsumer {
         data[position + 3] = u.toBits()
         data[position + 4] = v.toBits()
         return this
     }
 
-    override fun overlayCoords(u: Int, v: Int): VertexConsumer = this
+    override fun setUv1(u: Int, v: Int): VertexConsumer = this
 
-    override fun uv2(u: Int, v: Int): VertexConsumer = this
+    override fun setUv2(u: Int, v: Int): VertexConsumer = this
 
-    override fun normal(x: Float, y: Float, z: Float): VertexConsumer {
+    override fun setNormal(x: Float, y: Float, z: Float): VertexConsumer {
         data[position + 5] = packNormal(x, y, z)
         return this
     }
 
+    /* TODO: This shit was removed now what
     override fun endVertex() {
         position += STRIDE
         vertexCount++
@@ -112,12 +114,27 @@ class MeshBuilder : VertexConsumer {
             Mesh
         }
     }
+     */
 
-    override fun defaultColor(defaultR: Int, defaultG: Int, defaultB: Int, defaultA: Int) {}
+    // override fun setColor(defaultR: Float, defaultG: Float, defaultB: Float, defaultA: Float) {}
 
-    override fun unsetDefaultColor() {}
+    // override fun unsetDefaultColor() {}
 
-    fun build(): Mesh = Mesh(data.sliceArray(0..<(vertexCount * STRIDE)))
+    fun build(): Mesh {
+        //TODO: just moved it here ig???
+        /*
+        position += STRIDE
+        vertexCount++
+        if (vertexCount >= capacity) {
+            capacity += 6
+            val newData = IntArray(capacity * STRIDE)
+            System.arraycopy(data, 0, newData, 0, data.size)
+            data = newData
+            Mesh
+        }
+         */
+        return Mesh(data.sliceArray(0..<(vertexCount * STRIDE)))
+    }
 
     companion object {
         const val STRIDE: Int = 6

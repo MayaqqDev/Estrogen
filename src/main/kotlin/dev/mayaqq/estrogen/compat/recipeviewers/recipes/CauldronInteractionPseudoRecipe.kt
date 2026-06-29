@@ -4,7 +4,6 @@ import dev.mayaqq.cynosure.helpers.McFont
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.text.TextProperties.width
 import dev.mayaqq.cynosure.text.TextStyle.color
-import dev.mayaqq.cynosure.utils.colors.McGray
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe
@@ -13,6 +12,7 @@ import dev.mayaqq.estrogen.compat.recipeviewers.api.Role
 import dev.mayaqq.estrogen.compat.recipeviewers.api.elements.GuiBlockRenderer
 import dev.mayaqq.estrogen.content.blocks.RichCauldronInteraction
 import dev.mayaqq.estrogen.id
+import invoke.kitty.kritter.utils.color.MinecraftColors
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
@@ -42,7 +42,7 @@ class CauldronInteractionPseudoRecipe(data: CIPRData) : CRVPseudoRecipe<CIPRData
         ))
         addDrawable(0, 0) { graphics, offsetX, offsetY, mouseX, mouseY, delta ->
             val text = Text.translatable(data.cauldron.descriptionId) {
-                color = McGray
+                color = MinecraftColors.Gray
             }
             graphics.renderTooltip(McFont, text, ((177 / 2) - (text.width / 2)) - 10, 15)
         }

@@ -33,7 +33,7 @@ class HorseUrineBottleItem(properties: Properties) : Item(properties) {
         return stack
     }
 
-    override fun getUseDuration(stack: ItemStack): Int = 40
+    override fun getUseDuration(stack: ItemStack, entity: LivingEntity): Int = 40
     override fun getUseAnimation(stack: ItemStack): UseAnim = UseAnim.DRINK
     override fun getDrinkingSound(): SoundEvent = SoundEvents.HONEY_DRINK
     override fun getEatingSound(): SoundEvent = SoundEvents.HONEY_DRINK

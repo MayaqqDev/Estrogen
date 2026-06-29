@@ -201,7 +201,7 @@ cloche {
             modImplementation(libs.fabric.flywheel)
             modImplementation(libs.fabric.kritter)
             modImplementation(libs.fabric.rlib)
-            modApi(libs.fabric.csr)
+            modImplementation(libs.fabric.csr)
 
             localRuntime(libs.jcpp)
             localRuntime(libs.glsltransformer)
@@ -288,16 +288,19 @@ cloche {
             compileOnlyApi(libs.forge.jei)
             modCompileOnly(libs.forge.emi)
             modImplementation(libs.forge.kritter)
-            modApi(libs.forge.csr)
             modCompileOnly(libs.forge.oculus)
             legacyClasspath(libs.cosmetics)
             modImplementation(libs.forge.rlib)
+            modImplementation(libs.forge.csr)
+            modCompileOnlyApi(libs.forge.curios.api())
 
             include(libs.forge.rlib) { exclude(group = "com.teamresourceful", module = "bytecodecs") }
             include(libs.forge.mixinExtras) { isTransitive = false }
             include(libs.forge.flywheel) { isTransitive = false }
             include(libs.forge.csr) { isTransitive = false }
             include(libs.cosmetics)
+
+            modRuntimeOnly(libs.forge.curios)
 
             when(item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)
@@ -376,6 +379,10 @@ tasks.named("runNeoforgeData") {
 
 minecraftRuns.configureEach {
     jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
+}
+
+fun Provider<MinimalExternalModuleDependency>.api(): String {
+    return "${this.get().module}:${this.get().version}:api"
 }
 
 // Publishing

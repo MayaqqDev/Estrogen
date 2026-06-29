@@ -1,6 +1,8 @@
 package dev.mayaqq.estrogen.compat.recipeviewers.api.jei
 
 import dev.mayaqq.cynosure.client.utils.pushPop
+import dev.mayaqq.cynosure.core.identifier
+import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe
@@ -23,10 +25,12 @@ import mezz.jei.api.runtime.IJeiRuntime
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.crafting.Recipe
+import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.level.material.Fluid
 
 object JeiPluginRegister {
@@ -54,7 +58,7 @@ object JeiPluginRegister {
     fun getPlugins(): List<IModPlugin> {
         return CommonRecipeViewer.getPlugins().map { commonPlugin ->
             object : IModPlugin {
-                override fun getPluginUid(): ResourceLocation = ResourceLocation(commonPlugin.modid, "jei_plugin")
+                override fun getPluginUid(): ResourceLocation = identifier(commonPlugin.modid, "jei_plugin")
 
                 override fun registerCategories(registry: IRecipeCategoryRegistration) {
                     commonPlugin.plugin.pseudoRecipes?.forEach { pseudoRecipe ->
@@ -142,7 +146,9 @@ object JeiPluginRegister {
                             override fun setRecipe(layout: IRecipeLayoutBuilder, recipe: Any, group: IFocusGroup) {
                                 val actualRecipe = recipe as Recipe<*>
                                 if (!recipeInstances.contains(actualRecipe)) {
-                                    recipeInstances[actualRecipe] = info.crvrecipe.invoke(actualRecipe)
+                                    val access = McClient.connection?.registryAccess() ?: return
+                                    val recipeHolder = access.registry(Registries.RECIPE).get().getHolder(access.registry(Registries.RECIPE).get().getResourceKey(recipe).get()).get()
+                                    recipeInstances[actualRecipe] = info.crvrecipe.invoke(RecipeHolder(recipeHolder.key().location(), recipeHolder.value()))
                                     recipeInstances[actualRecipe]!!.init()
                                 }
                                 val rvRecipe = recipeInstances[actualRecipe]!!
@@ -160,7 +166,9 @@ object JeiPluginRegister {
                             override fun draw(recipe: Any, slotView: IRecipeSlotsView, graphics: GuiGraphics, mouseX: Double, mouseY: Double) {
                                 val actualRecipe = recipe as Recipe<*>
                                 if (!recipeInstances.contains(actualRecipe)) {
-                                    recipeInstances[actualRecipe] = info.crvrecipe.invoke(actualRecipe)
+                                    val access = McClient.connection?.registryAccess() ?: return
+                                    val recipeHolder = access.registry(Registries.RECIPE).get().getHolder(access.registry(Registries.RECIPE).get().getResourceKey(actualRecipe).get()).get()
+                                    recipeInstances[actualRecipe] = info.crvrecipe.invoke(RecipeHolder(recipeHolder.key().location(), recipeHolder.value()))
                                     recipeInstances[actualRecipe]!!.init()
                                 }
                                 val rvRecipe = recipeInstances[actualRecipe]
@@ -188,7 +196,7 @@ object JeiPluginRegister {
 
                 override fun registerRecipes(registry: IRecipeRegistration) {
                     recipeTypes.forEach { (type, jeiType) ->
-                        registry.addRecipes(jeiType, Minecraft.getInstance().level?.recipeManager?.recipes?.filter { it.type == type }?: return@forEach)
+                        registry.addRecipes(jeiType, Minecraft.getInstance().level?.recipeManager?.recipes?.filter { it.value().type == type }?: return@forEach)
                     }
 
                         pseudoRecipeTypes.forEach { (recipe, type) ->
@@ -211,14 +219,17 @@ object JeiPluginRegister {
                 override fun onRuntimeAvailable(runtime: IJeiRuntime) {
                     commonPlugin.plugin.removedRecipes.forEach { recipe ->
                         runtime.jeiHelpers.allRecipeTypes.forEach { type ->
-                            if (type.uid == ResourceLocation("minecraft", "crafting")) {
+                            if (type.uid == identifier("minecraft", "crafting")) {
                                 runtime.recipeManager.javaClass.getDeclaredMethod("hideRecipes",
                                     RecipeType::class.java,
                                     Collection::class.java
                                 ).invoke(
                                     runtime.recipeManager,
                                     type,
-                                    runtime.recipeManager.createRecipeLookup(type).get().filter { (it as Recipe<*>).id == recipe }.toList()
+                                    runtime.recipeManager.createRecipeLookup(type).get().filter {
+                                        val access = McClient.connection?.registryAccess() ?: return@filter false
+                                        access.registry(Registries.RECIPE).get().getKey(it as Recipe<*>) == recipe
+                                    }.toList()
                                 )
                             }
                         }

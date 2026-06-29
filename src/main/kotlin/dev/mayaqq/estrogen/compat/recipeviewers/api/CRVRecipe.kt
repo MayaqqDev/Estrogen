@@ -2,10 +2,12 @@ package dev.mayaqq.estrogen.compat.recipeviewers.api
 
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
+import net.minecraft.core.Holder
 import net.minecraft.world.item.crafting.Recipe
+import net.minecraft.world.item.crafting.RecipeHolder
 import kotlin.reflect.KClass
 
-abstract class CRVRecipe<T : Recipe<*>>(val recipe: T) {
+abstract class CRVRecipe<T : Recipe<*>>(val recipe: RecipeHolder<T>) {
     val textures = mutableListOf<ObjectWithCoords<RecipeTextures>>()
     val slots = mutableListOf<Slot>()
     val drawables = mutableListOf<ObjectWithCoords<CRVDrawable>>()
@@ -25,7 +27,7 @@ abstract class CRVRecipe<T : Recipe<*>>(val recipe: T) {
 
 open class ViewerInfo<T : Recipe<*>, C : CRVRecipe<T>>(
     val info: RecipeViewerInfo,
-    val crvrecipe: (Recipe<*>) -> C,
+    val crvrecipe: (RecipeHolder<Recipe<*>>) -> C,
     val recipeClass: KClass<T>
 )
 

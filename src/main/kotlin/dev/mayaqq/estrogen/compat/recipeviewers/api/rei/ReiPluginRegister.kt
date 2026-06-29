@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.compat.recipeviewers.api.rei
 
 import dev.mayaqq.cynosure.client.utils.pushPop
+import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.*
@@ -24,8 +25,11 @@ import me.shedaniel.rei.api.common.plugins.PluginView
 import me.shedaniel.rei.api.common.plugins.REIPluginProvider
 import me.shedaniel.rei.api.common.util.EntryIngredients
 import me.shedaniel.rei.api.common.util.EntryStacks
+import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.item.crafting.Recipe
+import net.minecraft.world.item.crafting.RecipeHolder
 import java.util.*
 
 object ReiPluginRegister {
@@ -40,7 +44,7 @@ object ReiPluginRegister {
             object : REIPluginProvider<REIClientPlugin> {
 
                 val plugin = object : REIClientPlugin {
-                    override fun getPluginProviderName(): String = ResourceLocation(commonPlugin.modid, "rei_client").toString()
+                    override fun getPluginProviderName(): String = identifier(commonPlugin.modid, "rei_client").toString()
 
                     override fun registerCategories(registry: CategoryRegistry) {
                         commonPlugin.plugin.recipes.forEach { data ->
@@ -59,7 +63,7 @@ object ReiPluginRegister {
                     override fun registerDisplays(registry: DisplayRegistry) {
                         commonPlugin.plugin.recipes.forEach { data ->
                             registry.registerRecipeFiller(data.recipeClass.java, { type -> type == data.info.type }) { recipe ->
-                                ReiRecipe(data, data.crvrecipe.invoke(recipe).apply { init() })
+                                ReiRecipe(data, data.crvrecipe.invoke(recipe as RecipeHolder<Recipe<*>>).apply { init() })
                             }
                         }
                         commonPlugin.plugin.pseudoRecipes?.forEach { recipe ->
@@ -143,7 +147,7 @@ object ReiPluginRegister {
                     inner class ReiRecipe(val recipeData: ViewerInfo<*, *>, val rvRecipe: CRVRecipe<*>) : BasicDisplay(
                         rvRecipe.inputs.map { it.toRei() },
                         rvRecipe.outputs.map { it.toRei() },
-                        Optional.of(rvRecipe.recipe.id)
+                        Optional.of(rvRecipe.recipe.id())
                     ) {
                         override fun getCategoryIdentifier(): CategoryIdentifier<Display> = CategoryIdentifier.of(recipeData.info.id)
                     }

@@ -3,9 +3,9 @@ package dev.mayaqq.estrogen.client.content.baubles
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
 import dev.mayaqq.cynosure.client.utils.pushPop
+import dev.mayaqq.estrogen.api.item.equip.SlotInfo
+import dev.mayaqq.estrogen.api.item.equip.client.EquipRenderer
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
-import earth.terrarium.baubly.client.BaubleRenderer
-import earth.terrarium.baubly.common.SlotInfo
 import net.minecraft.client.Minecraft
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.model.PlayerModel
@@ -14,11 +14,11 @@ import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemDisplayContext
 import net.minecraft.world.item.ItemStack
-class EstrogenPatchesRenderer : BaubleRenderer {
+class EstrogenPatchesRenderer : EquipRenderer {
     override fun render(
         stack: ItemStack,
-        slotInfo: SlotInfo,
-        pose: PoseStack,
+        slot: SlotInfo,
+        poseStack: PoseStack,
         model: EntityModel<out LivingEntity>,
         buffer: MultiBufferSource,
         light: Int,
@@ -32,7 +32,7 @@ class EstrogenPatchesRenderer : BaubleRenderer {
         if (model is PlayerModel<out LivingEntity?>) {
             if (!EstrogenClientConfig.Accessories.renderEstrogenPatches) return
             val player = Minecraft.getInstance().player ?: return
-            pose.pushPop {
+            poseStack.pushPop {
                 val leg: ModelPart = model.leftLeg
 
                 // Sync with the player's animation
@@ -59,7 +59,7 @@ class EstrogenPatchesRenderer : BaubleRenderer {
                     ItemDisplayContext.FIXED,
                     light,
                     light,
-                    pose,
+                    poseStack,
                     buffer,
                     player.level(),
                     0
