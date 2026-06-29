@@ -10,6 +10,6 @@ actual fun registerEquip(item: Item, equip: Equip) {
     TrinketsApi.registerTrinket(item, TrinketsWrapper(equip))
 }
 
-actual fun registerEquipRenderer(item: Item, equipRenderer: EquipRenderer) {
-    TrinketRendererRegistry.registerRenderer(item, RendererTrinketWrapper(equipRenderer))
+actual fun registerEquipRenderer(item: Item, renderer: EquipRenderer) {
+    TrinketRendererRegistry.registerRenderer(item, RendererTrinketWrapper(renderer))
 }

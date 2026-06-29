@@ -10,7 +10,6 @@ import dev.mayaqq.cynosure.text.TextStyle.bold
 import dev.mayaqq.cynosure.text.TextStyle.color
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
 import dev.mayaqq.estrogen.MOD_ID
-import dev.mayaqq.estrogen.client.content.screen.config.ConfigCategorySelectionScreen
 import dev.mayaqq.estrogen.client.content.screen.cosmetics.CosmeticsBaseScreen
 import dev.mayaqq.estrogen.client.content.screen.modules.ModulesScreen
 import dev.mayaqq.estrogen.id
@@ -33,7 +32,7 @@ class EstrogenMenuScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.
     }
 
     val bConfig = EstrogenButton.Builder(EstrogenButton.TextRenderer(Text.translatable("estrogen.button.config"))) {
-        McClient.setScreen(ConfigCategorySelectionScreen(this, listOf("estrogen/client", "estrogen/common", "estrogen/server")))
+        //McClient.setScreen(ConfigCategorySelectionScreen(this, listOf("estrogen/client", "estrogen/common", "estrogen/server")))
     }
     val bModuleConfigs = EstrogenButton.Builder(EstrogenButton.TextRenderer(Text.translatable("estrogen.button.module_configs"))) {
         McClient.setScreen(ModulesScreen(this))

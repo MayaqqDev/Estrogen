@@ -14,5 +14,4 @@ fun init() {
         val stack = entity.getItemBySlot(EquipmentSlot.CHEST)
         if (stack.item is MothElytraItem) isFlyEnabled(stack) else false
     }
-    EstrogenFluids.fluidRegistry.initialize()
 }

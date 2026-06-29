@@ -136,7 +136,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         item("colon_three", ::BlockItem)
     }
 
-    val DreamCatcher: DreamCatchwerBlock by block("dreamcatcher", ::DreamCatcherBlock) {
+    val DreamCatcher: DreamCatcherBlock by block("dreamcatcher", ::DreamCatcherBlock) {
         properties {
             mapColor(Blocks.OAK_PLANKS.defaultMapColor())
             forceSolidOn()

@@ -242,19 +242,18 @@ object EstrogenRenderer {
                 if (ShadersModHelper.isRenderingShadowPass()) return@MultiBufferSource bufferSource.getBuffer(renderType)
 
                 celshadeCounter++
-                val outlineBuffer = outlineBuffers.getOrPut(renderType) { BufferBuilder(renderType.bufferSize()) }
-                if (!outlineBuffer.building()) outlineBuffer.begin(renderType.mode(), renderType.format())
-
+                val outlineBuffer = outlineBuffers.get(renderType) /*TODO: .getOrPut(renderType) { BufferBuilder(renderType.bufferSize()) } */
+                //TODO: if (!outlineBuffer.building()) outlineBuffer.begin(renderType.mode(), renderType.format())
                 return@MultiBufferSource VertexMultiConsumer.create(bufferSource.getBuffer(renderType), outlineBuffer)
             }.also { bufferSources[bufferSource] = it }
         }
 
         fun endOutlineBatch() {
             outlineBuffers.forEach { (renderType, buffer) ->
-                if (!buffer.building()) return@forEach
+                //TODO: if (!buffer.building()) return@forEach
                 renderType.setupRenderState()
                 celshadeTarget.bindWrite(Minecraft.ON_OSX)
-                BufferUploader.drawWithShader(buffer.end())
+                //TODO: BufferUploader.drawWithShader(buffer.end())
                 renderType.clearRenderState()
             }
             Minecraft.getInstance().mainRenderTarget.bindWrite(false)
