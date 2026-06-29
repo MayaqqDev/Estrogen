@@ -1,14 +1,11 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
-import dev.mayaqq.multijarfixer.FixMultiRelease
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.put
 import net.msrandom.minecraftcodev.core.utils.toPath
-import net.msrandom.stubs.GenerateStubApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import kotlin.io.path.absolutePathString
 
 plugins {
@@ -78,9 +75,10 @@ cloche {
 
         dependency {
             modId = "cynosure"
-            version {
+            /*version {
                 start = "1.0.0"
             }
+             */
         }
     }
 

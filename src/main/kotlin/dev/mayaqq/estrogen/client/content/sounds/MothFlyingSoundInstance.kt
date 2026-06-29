@@ -4,4 +4,4 @@ import dev.mayaqq.estrogen.content.EstrogenSounds
 import dev.mayaqq.estrogen.content.entities.MothEntity
 import net.minecraft.sounds.SoundSource
 
-class MothFlyingSoundInstance(moth: MothEntity) : MothSoundInstance(moth, EstrogenSounds.MOTH_LOOP, SoundSource.NEUTRAL)
+class MothFlyingSoundInstance(moth: MothEntity) : MothSoundInstance(moth, EstrogenSounds.MOTH_LOOP.value!!, SoundSource.NEUTRAL)

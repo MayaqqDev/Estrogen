@@ -13,7 +13,6 @@ import dev.mayaqq.estrogen.content.blockEntities.MemorialBlockEntity
 import invoke.kitty.kritter.blockEntity.BlockWithEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.BlockGetter
@@ -74,7 +73,7 @@ class MemorialBlock(properties: Properties): BaseEntityBlock(properties), BlockW
         super.onRemove(state, level, pos, newState, byPiston)
         if (!level.isClientSide) {
             Direction.entries.forEach { dir ->
-                if (level[pos.relative(dir)] of EstrogenBlocks.Memorial) {
+                if (level[pos.relative(dir)] of EstrogenBlocks.Memorial.value!!) {
                     level.removeBlock(pos.relative(dir), true)
                 }
             }
@@ -113,7 +112,7 @@ class MemorialBlock(properties: Properties): BaseEntityBlock(properties), BlockW
     }
 
     override val blockEntityClass: Class<out MemorialBlockEntity> = MemorialBlockEntity::class.java
-    override fun blockEntityType(): BlockEntityType<out MemorialBlockEntity> = EstrogenBlockEntities.Memorial
+    override fun blockEntityType(): BlockEntityType<out MemorialBlockEntity> = EstrogenBlockEntities.Memorial.value!!
 
     companion object {
         val PART = IntegerProperty.create("part", 1, 6)

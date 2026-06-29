@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState
 
 class DreamBottleItem(p0: Block, p1: Properties) : ItemNameBlockItem(p0, p1) {
 
-    public override fun getPlaceSound(state: BlockState): SoundEvent = EstrogenSounds.DREAM_BLOCK_PLACE
+    public override fun getPlaceSound(state: BlockState): SoundEvent = EstrogenSounds.DREAM_BLOCK_PLACE.value!!
 
     override fun getPlacementState(context: BlockPlaceContext): BlockState? {
         return super.getPlacementState(context)?.setValue(DreamBlock.PERSISTENT, true)

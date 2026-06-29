@@ -1,8 +1,6 @@
 @file:EventSubscriber
 package dev.mayaqq.estrogen.features.thighhighs
 
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonObject
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.mayaqq.cynosure.core.identifier
@@ -23,7 +21,6 @@ import net.minecraft.world.level.storage.loot.entries.LootItem
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction
-import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue
@@ -59,7 +56,7 @@ fun LoottableEvents.Modify.onLootModify() {
 class ThighHighStyleLootFunction(predicates: List<LootItemCondition>) : LootItemConditionalFunction(predicates) {
 
     override fun run(stack: ItemStack, context: LootContext): ItemStack {
-        val item: ThighHighsItem = EstrogenItems.ThighHighs
+        val item: ThighHighsItem = EstrogenItems.ThighHighs.value!!
         item.setRandomStyle(stack, context.random)
         return stack
     }

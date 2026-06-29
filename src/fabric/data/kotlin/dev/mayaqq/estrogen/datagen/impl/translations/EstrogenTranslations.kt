@@ -13,14 +13,14 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
 
     override fun generateTranslations(provider: HolderLookup.Provider, tb: TranslationBuilder) {
         // Status Effects
-        tb.add(EstrogenEffects.Estrogen, "Girl Power")
+        tb.add(EstrogenEffects.Estrogen.value, "Girl Power")
         tb.add(
-            EstrogenEffects.Estrogen.descriptionId + ".description",
+            EstrogenEffects.Estrogen.value?.descriptionId + ".description",
             "Allows the player to dash and gives them some additional \"features\""
         )
-        tb.add(EstrogenEffects.Dreaming, "Dreaming")
+        tb.add(EstrogenEffects.Dreaming.value, "Dreaming")
         tb.add(
-            EstrogenEffects.Dreaming.descriptionId + ".description",
+            EstrogenEffects.Dreaming.value?.descriptionId + ".description",
             "Triggers when near Dream Blocks without a Dreamcatcher near"
         )
 
@@ -30,24 +30,24 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
 
         // Items
         tb.add("itemGroup.estrogen.estrogen", "Estrogen")
-        tb.add(EstrogenItems.EstrogenPill, "Estrogen Pill")
-        tb.add(EstrogenItems.EstrogenPatches, "Estrogen Patch")
-        tb.add(EstrogenItems.CrystalEstrogenPill, "Crystal Estrogen Pill")
-        tb.add(EstrogenItems.EstrogenChipCookie, "Estrogen Chip Cookie")
+        tb.add(EstrogenItems.EstrogenPill.value, "Estrogen Pill")
+        tb.add(EstrogenItems.EstrogenPatches.value, "Estrogen Patch")
+        tb.add(EstrogenItems.CrystalEstrogenPill.value, "Crystal Estrogen Pill")
+        tb.add(EstrogenItems.EstrogenChipCookie.value, "Estrogen Chip Cookie")
         tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C")
-        tb.add(EstrogenItems.Balls, "Balls")
-        tb.add(EstrogenItems.HorseUrineBottle, "Horse Urine Bottle")
-        tb.add(EstrogenItems.TestosteroneChunk, "Testosterone Chunk")
-        tb.add(EstrogenItems.TestosteronePowder, "Testosterone Powder")
-        tb.add(EstrogenItems.ColonThree, ":3")
+        tb.add(EstrogenItems.Balls.value, "Balls")
+        tb.add(EstrogenItems.HorseUrineBottle.value, "Horse Urine Bottle")
+        tb.add(EstrogenItems.TestosteroneChunk.value, "Testosterone Chunk")
+        tb.add(EstrogenItems.TestosteronePowder.value, "Testosterone Powder")
+        tb.add(EstrogenItems.ColonThree.value, ":3")
         tb.add("item.estrogen.uwu.tooltip", "§r§dUwU")
         tb.add(EstrogenItems.DreamBottle, "Bottle of Dreams")
-        tb.add(EstrogenItems.MothFuzz, "Moth Fuzz")
+        tb.add(EstrogenItems.MothFuzz.value, "Moth Fuzz")
         tb.add(BuiltInRegistries.ITEM.get(id("moth_spawn_egg")), "Rosy Maple Moth Spawn Egg")
-        tb.add(EstrogenItems.ThighHighs, "Thigh Highs")
+        tb.add(EstrogenItems.ThighHighs.value, "Thigh Highs")
         tb.add("estrogen.item.dyeable", "Dyeable")
-        tb.add(EstrogenItems.MothElytra, "Rosy Maple Elytra")
-        tb.add(EstrogenItems.GenderChangePotion, "Gender Change Potion")
+        tb.add(EstrogenItems.MothElytra.value, "Rosy Maple Elytra")
+        tb.add(EstrogenItems.GenderChangePotion.value, "Gender Change Potion")
         tb.add("estrogen.item.transfer_dummy", "Create: Estrogen item")
         // Potion
         tb.add("item.minecraft.tipped_arrow.effect.estrogen", "Arrow of Girl Power")
@@ -64,7 +64,7 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         tb.add(EstrogenFluids.GenderFluid.bucket, "Bucket of Gender Fluid")
 
         // Entities
-        tb.add(EstrogenEntities.Moth, "Rosy Maple Moth")
+        tb.add(EstrogenEntities.Moth.value, "Rosy Maple Moth")
 
         // Tooltip
         tb.add("item.estrogen.estrogen_pill.tooltip", "Temporary Source of _Girl Power_.")
@@ -125,18 +125,18 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         tb.add("advancement.estrogen.estrogen_dealer.description", "I am the one who knocks")
 
         // Blocks
-        tb.add(EstrogenBlocks.DreamCatcher, "Dreamcatcher")
-        tb.add(EstrogenBlocks.ColonThreeBlock, "Block of :3")
-        tb.add(EstrogenBlocks.CookieJar, "Cookie Jar")
-        tb.add(EstrogenBlocks.DreamBlock, "Dream Block")
-        tb.add(EstrogenBlocks.EstrogenPillBlock, "Estrogen Pill Box")
-        tb.add(EstrogenBlocks.MothWool, "Rosy Maple Wool")
-        tb.add(EstrogenBlocks.QuiltedMothWool, "Quilted Rosy Maple Wool")
-        tb.add(EstrogenBlocks.MothCarpet, "Rosy Maple Wool Carpet")
-        tb.add(EstrogenBlocks.QuiltedMothCarpet, "Quilted Rosy Maple Wool Carpet")
-        tb.add(EstrogenBlocks.MothBed, "Rosy Maple Bed")
-        tb.add(EstrogenBlocks.QuiltedMothBed, "Quilted Rosy Maple Bed")
-        tb.add(EstrogenBlocks.Memorial, "Memorial")
+        tb.add(EstrogenBlocks.DreamCatcher.value!!, "Dreamcatcher")
+        tb.add(EstrogenBlocks.ColonThreeBlock.value!!, "Block of :3")
+        tb.add(EstrogenBlocks.CookieJar.value!!, "Cookie Jar")
+        tb.add(EstrogenBlocks.DreamBlock.value!!, "Dream Block")
+        tb.add(EstrogenBlocks.EstrogenPillBlock.value!!, "Estrogen Pill Box")
+        tb.add(EstrogenBlocks.MothWool.value!!, "Rosy Maple Wool")
+        tb.add(EstrogenBlocks.QuiltedMothWool.value!!, "Quilted Rosy Maple Wool")
+        tb.add(EstrogenBlocks.MothCarpet.value!!, "Rosy Maple Wool Carpet")
+        tb.add(EstrogenBlocks.QuiltedMothCarpet.value!!, "Quilted Rosy Maple Wool Carpet")
+        tb.add(EstrogenBlocks.MothBed.value!!, "Rosy Maple Bed")
+        tb.add(EstrogenBlocks.QuiltedMothBed.value!!, "Quilted Rosy Maple Bed")
+        tb.add(EstrogenBlocks.Memorial.value!!, "Memorial")
         tb.add("block.estrogen.memorial.line1", "-- Estrogen Mod --")
         tb.add("block.estrogen.memorial.line2", "This memorial dedicated to those")
         tb.add("block.estrogen.memorial.line3", "Who perished on the climb")
@@ -147,9 +147,9 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         tb.add(EstrogenFluids.MoltenAmethyst.block, "Molten Amethyst")
         tb.add(EstrogenFluids.TestosteroneMixture.block, "Testosterone Mixture")
         tb.add(EstrogenFluids.GenderFluid.block, "Gender Fluid")
-        tb.add(EstrogenBlocks.LiquidEstrogenCauldron, "Liquid Estrogen Cauldron")
-        tb.add(EstrogenBlocks.FiltratedHorseUrineCauldron, "Filtrated Horse Urine Cauldron")
-        tb.add(EstrogenBlocks.HorseUrineCauldron, "Horse Urine Cauldron Cauldron")
+        tb.add(EstrogenBlocks.LiquidEstrogenCauldron.value!!, "Liquid Estrogen Cauldron")
+        tb.add(EstrogenBlocks.FiltratedHorseUrineCauldron.value!!, "Filtrated Horse Urine Cauldron")
+        tb.add(EstrogenBlocks.HorseUrineCauldron.value!!, "Horse Urine Cauldron Cauldron")
 
         // Fluids
         tb.add("fluid_type.estrogen.liquid_estrogen", "Liquid Estrogen")

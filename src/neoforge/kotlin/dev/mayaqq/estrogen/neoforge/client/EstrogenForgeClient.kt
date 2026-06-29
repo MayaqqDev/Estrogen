@@ -6,7 +6,6 @@ import dev.mayaqq.estrogen.client.THIGH_HIGH_ITEM_TEXTURES
 import dev.mayaqq.estrogen.client.THIGH_HIGH_MODELS_DIRECTORY
 import dev.mayaqq.estrogen.client.content.block.ClientDreamBlock
 import dev.mayaqq.estrogen.client.content.models.ThighHighsItemModel
-import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
 import dev.mayaqq.estrogen.client.estrogenClient
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenItems
@@ -14,7 +13,6 @@ import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.content.items.ThighHighsItem
 import dev.mayaqq.estrogen.utils.resources.listResourceIds
 import net.minecraft.client.Minecraft
-import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.block.model.ItemOverrides
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
@@ -22,13 +20,11 @@ import net.minecraft.client.resources.model.BakedModel
 import net.minecraft.client.resources.model.ModelResourceLocation
 import net.minecraft.client.resources.model.UnbakedModel
 import net.minecraft.core.Direction
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.RandomSource
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.ModLoadingContext
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.client.event.ModelEvent
@@ -57,7 +53,7 @@ object EstrogenForgeClient {
     @SubscribeEvent
     fun registerCustomItemTinters(event: RegisterColorHandlersEvent.Item) {
         event.register(ThighHighsItem::getItemColor, EstrogenItems.ThighHighs)
-        event.register(DreamCatcherItem::getItemColor, EstrogenBlocks.DreamCatcher.asItem())
+        event.register(DreamCatcherItem::getItemColor, EstrogenBlocks.DreamCatcher.value!!.asItem())
     }
 
     @SubscribeEvent
@@ -87,7 +83,7 @@ fun modifyThighHighModel(default: UnbakedModel): UnbakedModel {
     return ThighHighsItemModel(default, textures) { default, styles ->
         object : BakedModel {
             override fun getRenderPasses(itemStack: ItemStack, fabulous: Boolean): List<BakedModel> {
-                return EstrogenItems.ThighHighs.getStyle(itemStack)?.let(styles::get)
+                return EstrogenItems.ThighHighs.value!!.getStyle(itemStack)?.let(styles::get)
                     ?.let(::listOf)
                     ?: default.getRenderPasses(itemStack, fabulous)
             }

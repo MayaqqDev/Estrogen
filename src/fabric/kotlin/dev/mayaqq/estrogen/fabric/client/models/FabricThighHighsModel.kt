@@ -23,7 +23,7 @@ internal class FabricThighHighsModel(default: BakedModel, val styleModels: Map<R
         randomSupplier: Supplier<RandomSource>,
         context: RenderContext
     ) {
-        val model = EstrogenItems.ThighHighs.getStyle(stack)?.let(styleModels::get) ?: wrapped
+        val model = EstrogenItems.ThighHighs.value!!.getStyle(stack)?.let(styleModels::get) ?: wrapped
         (model as FabricBakedModel).emitItemQuads(stack, randomSupplier, context)
     }
 }

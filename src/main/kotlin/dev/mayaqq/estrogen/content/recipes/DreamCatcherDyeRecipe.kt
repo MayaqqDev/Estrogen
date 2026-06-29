@@ -4,9 +4,6 @@ import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.utils.TriColor
 import net.minecraft.core.HolderLookup
-import net.minecraft.core.RegistryAccess
-import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.inventory.CraftingContainer
 import net.minecraft.world.item.DyeItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.CraftingBookCategory
@@ -50,6 +47,6 @@ class DreamCatcherDyeRecipe(category: CraftingBookCategory) : CustomRecipe(categ
     }
 
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = width * height >= 4
-    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.DREAMCATCHER_DYE_SERIALIZER
+    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.DREAMCATCHER_DYE_SERIALIZER.value!!
 
 }

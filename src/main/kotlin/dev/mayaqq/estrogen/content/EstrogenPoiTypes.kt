@@ -9,7 +9,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.world.entity.ai.village.poi.PoiType
 
 object EstrogenPoiTypes : Registrar<PoiType> by Registrar(MOD_ID, Registries.POINT_OF_INTEREST_TYPE) {
-    val DreamCatcher: PoiType by entry("dreamcatcher", {PoiHelpers.poi(EstrogenBlocks.DreamCatcher)}) {
+    val DreamCatcher: PoiType by entry("dreamcatcher", {PoiHelpers.poi(EstrogenBlocks.DreamCatcher.value!!)}) {
         onRegister { registerState(it) }
     }
 }

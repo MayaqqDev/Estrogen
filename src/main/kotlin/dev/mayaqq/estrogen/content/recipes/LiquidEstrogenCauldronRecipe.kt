@@ -4,15 +4,12 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
-import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
 import dev.mayaqq.estrogen.id
 import net.minecraft.core.HolderLookup
-import net.minecraft.core.RegistryAccess
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.Container
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.Recipe
@@ -23,9 +20,9 @@ import net.minecraft.world.level.Level
 
 class LiquidEstrogenCauldronRecipe(val enabled: Boolean) : Recipe<RecipeInput> {
 
-    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.LIQUID_ESTROGEN_CAULDRON_SERIALIZER
+    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.LIQUID_ESTROGEN_CAULDRON_SERIALIZER.value!!
 
-    override fun getType(): RecipeType<*> = EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON
+    override fun getType(): RecipeType<*> = EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON.value!!
 
     companion object : RecipeViewerInfo {
         val CODEC: Codec<LiquidEstrogenCauldronRecipe> = RecordCodecBuilder.create { instance ->
@@ -44,7 +41,7 @@ class LiquidEstrogenCauldronRecipe(val enabled: Boolean) : Recipe<RecipeInput> {
         override val id: ResourceLocation = id("liquid_estrogen_cauldron")
         override val height: Int = 70
         override val width: Int = 177
-        override val type: RecipeType<*> get() = EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON
+        override val type: RecipeType<*> get() = EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON.value!!
 
     }
 

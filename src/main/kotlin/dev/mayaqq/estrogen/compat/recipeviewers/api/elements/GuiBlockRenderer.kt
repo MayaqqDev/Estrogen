@@ -48,7 +48,7 @@ class GuiBlockRenderer(
             val rotationOffset = Vec3(0.5, 0.5, 0.5)
             translate(x.toDouble(), y.toDouble(), z.toDouble())
             scale(scale.toFloat(), scale.toFloat(), scale.toFloat())
-            mulPoseMatrix(Matrix4f().scaling(1f, -1f, 1f))
+            mulPose(Matrix4f().scaling(1f, -1f, 1f))
             translate(rotationOffset.x, rotationOffset.y, rotationOffset.z)
             mulPose(Axis.ZP.rotationDegrees(rotation.z.toFloat()))
             mulPose(Axis.XP.rotationDegrees(rotation.x.toFloat()))

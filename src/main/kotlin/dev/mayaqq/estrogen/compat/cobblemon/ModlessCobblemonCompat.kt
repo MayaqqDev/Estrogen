@@ -19,7 +19,7 @@ fun onEntityInteract(event: InteractionEvent.UseEntity) {
     if (!isModLoaded("cobblemon")) return
 
     if (event.entity.javaClass.packageName.contains("cobblemon")) {
-        if (event.getUsedStack().`is`(EstrogenItems.GenderChangePotion)) {
+        if (event.getUsedStack().`is`(EstrogenItems.GenderChangePotion.value)) {
             if (changeGender(event.entity)) {
                 event.getUsedStack().shrink(1)
                 val itemStack = ItemStack(Items.GLASS_BOTTLE)

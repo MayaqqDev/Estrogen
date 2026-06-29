@@ -15,7 +15,6 @@ import net.minecraft.sounds.SoundSource
 import net.minecraft.stats.Stats
 import net.minecraft.world.Containers
 import net.minecraft.world.InteractionHand
-import net.minecraft.world.InteractionResult
 import net.minecraft.world.ItemInteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.Projectile
@@ -39,7 +38,6 @@ import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 import kotlin.jvm.optionals.getOrNull
-import kotlin.reflect.KClass
 
 class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), BlockWithEntity<CookieJarBlockEntity>, SimpleWaterloggedBlock {
     override fun codec(): MapCodec<out BaseEntityBlock?> = simpleCodec(::CookieJarBlock)
@@ -81,7 +79,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
         hand: InteractionHand,
         result: BlockHitResult
     ): ItemInteractionResult {
-        val cookieJarBlockEntity = level.getBlockEntity(pos, EstrogenBlockEntities.CookieJar).getOrNull() ?: return ItemInteractionResult.FAIL
+        val cookieJarBlockEntity = level.getBlockEntity(pos, EstrogenBlockEntities.CookieJar.value!!).getOrNull() ?: return ItemInteractionResult.FAIL
         if (level.isClientSide) {
             return ItemInteractionResult.CONSUME
         }
@@ -92,7 +90,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
             val remainder: ItemStack = cookieJarBlockEntity.addItemStack(handItem)
             if (ItemStack.matches(handItem, remainder)) {
                 // jar was full, couldn't add item to jar
-                level.playSound(null, pos, EstrogenSounds.JAR_FULL, SoundSource.BLOCKS, 1.0f, 1.0f)
+                level.playSound(null, pos, EstrogenSounds.JAR_FULL.value, SoundSource.BLOCKS, 1.0f, 1.0f)
             } else {
                 if (!player.isCreative) handItem.count = remainder.count
 
@@ -100,7 +98,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
                 level.playSound(
                     null,
                     pos,
-                    EstrogenSounds.JAR_INSERT,
+                    EstrogenSounds.JAR_INSERT.value,
                     SoundSource.BLOCKS,
                     1.0f,
                     0.7f + 0.5f * (cookieJarBlockEntity.count.toFloat() / 512)
@@ -130,7 +128,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
                 level.playSound(
                     null,
                     pos,
-                    EstrogenSounds.JAR_INSERT,
+                    EstrogenSounds.JAR_INSERT.value,
                     SoundSource.BLOCKS,
                     1.0f,
                     0.7f + 0.5f * (cookieJarBlockEntity.count.toFloat() / 512)
@@ -165,7 +163,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
     }
 
     override fun onRemove(state: BlockState, level: Level, blockPos: BlockPos, newState: BlockState, bl: Boolean) {
-        val be: CookieJarBlockEntity? = level.getBlockEntity(blockPos, EstrogenBlockEntities.CookieJar).getOrNull()
+        val be: CookieJarBlockEntity? = level.getBlockEntity(blockPos, EstrogenBlockEntities.CookieJar.value!!).getOrNull()
         if (!state.`is`(newState.block) && be != null) {
             Containers.dropContents(level, blockPos, be)
         }
@@ -210,7 +208,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
     override fun propagatesSkylightDown(state: BlockState, level: BlockGetter, pos: BlockPos): Boolean = true
 
     override val blockEntityClass: Class<out CookieJarBlockEntity> = CookieJarBlockEntity::class.java
-    override fun blockEntityType(): BlockEntityType<out CookieJarBlockEntity> = EstrogenBlockEntities.CookieJar
+    override fun blockEntityType(): BlockEntityType<out CookieJarBlockEntity> = EstrogenBlockEntities.CookieJar.value!!
 
 
 }

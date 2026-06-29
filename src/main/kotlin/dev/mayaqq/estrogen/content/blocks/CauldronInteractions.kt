@@ -10,6 +10,7 @@ import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenItems
+import dev.mayaqq.estrogen.utils.defaultInstance
 import net.minecraft.core.BlockPos
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.cauldron.CauldronInteraction.emptyBucket
@@ -18,14 +19,9 @@ import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.stats.Stats
 import net.minecraft.world.InteractionHand
-import net.minecraft.world.InteractionResult
 import net.minecraft.world.ItemInteractionResult
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.BucketItem
-import net.minecraft.world.item.Item
-import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.ItemUtils
-import net.minecraft.world.item.Items
+import net.minecraft.world.item.*
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.LayeredCauldronBlock
@@ -37,7 +33,7 @@ object CauldronInteractions {
     private val PRE_HORSE_URINE by lazy { createMap(
         Items.BUCKET to bucket { EstrogenFluids.HorseUrine.bucket },
         Items.GLASS_BOTTLE to fillBottle(),
-        EstrogenItems.HorseUrineBottle to emptyBottle { EstrogenBlocks.HorseUrineCauldron }
+        EstrogenItems.HorseUrineBottle.value!! to emptyBottle { EstrogenBlocks.HorseUrineCauldron.value!! }
     ) }
     private val PRE_FILTRATED_HORSE_URINE by lazy { createMap(
         Items.BUCKET to bucket { EstrogenFluids.FiltratedHorseUrine.bucket }
@@ -45,14 +41,14 @@ object CauldronInteractions {
     private val PRE_ESTROGEN by lazy { createMap(
         Items.BUCKET to bucket { EstrogenFluids.LiquidEstrogen.bucket },
         Items.COOKIE to cookie(),
-        EstrogenItems.EstrogenPatches to fillEstrogenPatch()
+        EstrogenItems.EstrogenPatches.value!! to fillEstrogenPatch()
     ) }
     private val PRE_WATER by lazy { createMap() }
     private val PRE_EMPTY by lazy { createMap(
-        EstrogenFluids.HorseUrine.bucket to fill { EstrogenBlocks.HorseUrineCauldron },
-        EstrogenFluids.FiltratedHorseUrine.bucket to fill { EstrogenBlocks.FiltratedHorseUrineCauldron },
-        EstrogenFluids.LiquidEstrogen.bucket to fill { EstrogenBlocks.LiquidEstrogenCauldron },
-        EstrogenItems.HorseUrineBottle to emptyBottle { EstrogenBlocks.HorseUrineCauldron }
+        EstrogenFluids.HorseUrine.bucket to fill { EstrogenBlocks.HorseUrineCauldron.value!! },
+        EstrogenFluids.FiltratedHorseUrine.bucket to fill { EstrogenBlocks.FiltratedHorseUrineCauldron.value!! },
+        EstrogenFluids.LiquidEstrogen.bucket to fill { EstrogenBlocks.LiquidEstrogenCauldron.value!! },
+        EstrogenItems.HorseUrineBottle.value!! to emptyBottle { EstrogenBlocks.HorseUrineCauldron.value!! }
     ) }
 
     val HORSE_URINE: CauldronInteraction.InteractionMap = CauldronInteraction.newInteractionMap("horse_urine")
@@ -80,7 +76,7 @@ object CauldronInteractions {
     }
 
     private fun fillEstrogenPatch() = object : RichCauldronInteraction {
-        override val expectedOutput: ItemStack get() = EstrogenItems.EstrogenPatches.getFullStack()
+        override val expectedOutput: ItemStack get() = EstrogenItems.EstrogenPatches.value!!.getFullStack()
         override val enabled: () -> Boolean = { EstrogenCommonConfig.Recipes.cauldronInteractions }
 
         override fun interact(
@@ -96,7 +92,7 @@ object CauldronInteractions {
                 return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
             if (!level.isClientSide) {
                 val item: Item = stack.item
-                player.setItemInHand(hand, EstrogenItems.EstrogenPatches.getFullStack())
+                player.setItemInHand(hand, EstrogenItems.EstrogenPatches.value!!.getFullStack())
                 player.awardStat(Stats.USE_CAULDRON)
                 player.awardStat(Stats.ITEM_USED.get(item))
                 level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState())
@@ -172,7 +168,7 @@ object CauldronInteractions {
     }
 
     private fun fillBottle(): CauldronInteraction = object : RichCauldronInteraction {
-        override val expectedOutput: ItemStack get() = EstrogenItems.HorseUrineBottle.defaultInstance
+        override val expectedOutput: ItemStack get() = EstrogenItems.HorseUrineBottle.defaultInstance()
         override val enabled: () -> Boolean = { EstrogenCommonConfig.Recipes.cauldronInteractions }
 
         override fun interact(
@@ -191,7 +187,7 @@ object CauldronInteractions {
                     ItemUtils.createFilledResult(
                         stack,
                         player,
-                        EstrogenItems.HorseUrineBottle.defaultInstance
+                        EstrogenItems.HorseUrineBottle.defaultInstance()
                     )
                 )
                 player.awardStat(Stats.USE_CAULDRON)
@@ -205,7 +201,7 @@ object CauldronInteractions {
     }
 
     private fun cookie(): CauldronInteraction = object : RichCauldronInteraction {
-        override val expectedOutput: ItemStack get() = EstrogenItems.EstrogenPill.defaultInstance
+        override val expectedOutput: ItemStack get() = EstrogenItems.EstrogenPill.defaultInstance()
         override val enabled: () -> Boolean = { EstrogenCommonConfig.Recipes.cauldronInteractions }
 
         override fun interact(
@@ -224,7 +220,7 @@ object CauldronInteractions {
                     ItemUtils.createFilledResult(
                         stack,
                         player,
-                        EstrogenItems.EstrogenPill.defaultInstance
+                        EstrogenItems.EstrogenPill.defaultInstance()
                     )
                 )
                 player.awardStat(Stats.USE_CAULDRON)

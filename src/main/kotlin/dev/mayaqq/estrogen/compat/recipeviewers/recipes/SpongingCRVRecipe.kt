@@ -8,7 +8,6 @@ import dev.mayaqq.estrogen.compat.recipeviewers.api.ViewerInfo
 import dev.mayaqq.estrogen.compat.recipeviewers.api.elements.GuiBlockRenderer
 import dev.mayaqq.estrogen.content.recipes.SpongingRecipe
 import invoke.kitty.kritter.utils.isLeft
-import net.minecraft.core.Holder
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.RecipeHolder

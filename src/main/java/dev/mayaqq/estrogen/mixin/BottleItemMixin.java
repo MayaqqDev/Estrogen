@@ -35,9 +35,9 @@ public class BottleItemMixin {
     public void onUse(Level level, Player player, InteractionHand usedHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir, @Local ItemStack itemStack, @Local BlockPos blockPos) {
         BlockState blockState = level.getBlockState(blockPos);
 
-        if (blockState.is(EstrogenBlocks.INSTANCE.getDreamBlock()) && DreamBlock.canEntityUse(blockState, player)) {
+        if (blockState.is(EstrogenBlocks.INSTANCE.getDreamBlock().getValue()) && DreamBlock.canEntityUse(blockState, player)) {
             level.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
-            level.playSound(null, blockPos, EstrogenSounds.INSTANCE.getDREAM_BLOCK_BREAK(), SoundSource.BLOCKS, 1.0F, 0.5F);
+            level.playSound(null, blockPos, EstrogenSounds.INSTANCE.getDREAM_BLOCK_BREAK().getValue(), SoundSource.BLOCKS, 1.0F, 0.5F);
             cir.setReturnValue(InteractionResultHolder.sidedSuccess(this.turnBottleIntoItem(itemStack, player, EstrogenItems.INSTANCE.getDreamBottle().getDefaultInstance()), level.isClientSide()));
         }
     }

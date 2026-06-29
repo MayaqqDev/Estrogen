@@ -1,17 +1,16 @@
 package dev.mayaqq.estrogen.network.messages.s2c
 
-import dev.mayaqq.cynosure.network.ClientNetworkContext
-import dev.mayaqq.cynosure.network.Packet
-import dev.mayaqq.cynosure.network.SerializablePacket
 import dev.mayaqq.estrogen.injection.flap
 import net.minecraft.client.Minecraft
-import java.util.*
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
+import kotlin.uuid.toJavaUuid
 
-@SerializablePacket("flap_sync")
-data class FlapSyncPacket(val flaps: Int, val player: String) : Packet.Clientbound {
-    override fun ClientNetworkContext.handle() = execute {
+@OptIn(ExperimentalUuidApi::class)
+data class FlapSyncPacket(val flaps: Int, val player: Uuid) {
+    fun handle() {
         val level = Minecraft.getInstance().level
-        val player = level?.getPlayerByUUID(UUID.fromString(player)) ?: return@execute
+        val player = level?.getPlayerByUUID(player.toJavaUuid()) ?: return
 
         player.flap()
     }

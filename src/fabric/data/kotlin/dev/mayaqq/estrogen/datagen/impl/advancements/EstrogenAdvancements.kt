@@ -1,11 +1,7 @@
 package dev.mayaqq.estrogen.datagen.impl.advancements
 
 import dev.mayaqq.estrogen.MOD_ID
-import dev.mayaqq.estrogen.content.AdvancementTriggers
-import dev.mayaqq.estrogen.content.EstrogenBlocks
-import dev.mayaqq.estrogen.content.EstrogenEffects
-import dev.mayaqq.estrogen.content.EstrogenFluids
-import dev.mayaqq.estrogen.content.EstrogenItems
+import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.content.advancements.triggers.InsertJarTrigger
 import dev.mayaqq.estrogen.content.advancements.triggers.KilledWithEffectTrigger
 import dev.mayaqq.estrogen.id
@@ -24,7 +20,7 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Items
-import java.util.Optional
+import java.util.*
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -146,7 +142,7 @@ class EstrogenAdvancements(output: FabricDataOutput, lookup: CompletableFuture<H
         val cookie_jar: AdvancementHolder = Advancement.Builder.advancement()
             .parent(estrogenPill)
             .display(
-                EstrogenBlocks.CookieJar,
+                EstrogenBlocks.CookieJar.value!!,
                 Component.translatable("advancement.estrogen.cookie_jar.title"),
                 Component.translatable("advancement.estrogen.cookie_jar.description"),
                 null,

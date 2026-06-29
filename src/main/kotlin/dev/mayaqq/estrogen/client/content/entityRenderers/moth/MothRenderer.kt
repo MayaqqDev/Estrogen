@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.client.content.entityRenderers.moth
 
-import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.estrogen.content.entities.MothEntity
 import dev.mayaqq.estrogen.id
 import net.minecraft.client.renderer.entity.EntityRendererProvider

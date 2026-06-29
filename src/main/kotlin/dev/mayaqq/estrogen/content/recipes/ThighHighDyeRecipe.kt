@@ -89,5 +89,5 @@ class ThighHighDyeRecipe(category: CraftingBookCategory) : CustomRecipe(category
     }
 
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = width * height == 9
-    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.THIGH_HIGH_DYE_SERIALIZER
+    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.THIGH_HIGH_DYE_SERIALIZER.value!!
 }

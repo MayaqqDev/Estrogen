@@ -1,13 +1,10 @@
 package dev.mayaqq.estrogen.content
 
-import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.items.extensions.CustomTooltip
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.baubles.EstrogenPatchesRenderer
 import dev.mayaqq.estrogen.client.content.baubles.ThighHighsRenderer
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
-import dev.mayaqq.estrogen.content.equipWithRenderer
 import dev.mayaqq.estrogen.content.items.*
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.holder
@@ -20,16 +17,16 @@ import net.minecraft.ChatFormatting
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
-import net.minecraft.world.entity.player.Player
 import net.minecraft.world.food.FoodProperties
-import net.minecraft.world.item.*
-import net.minecraft.world.item.component.ItemAttributeModifiers
+import net.minecraft.world.item.CreativeModeTabs
+import net.minecraft.world.item.Item
+import net.minecraft.world.item.Items
+import net.minecraft.world.item.Rarity
 
 object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
-    val EstrogenPill by item("estrogen_pill", ::Item) {
+    val EstrogenPill = item("estrogen_pill", ::Item) {
         properties {
             stacksTo(16)
             food(FoodProperties.Builder().effect(
@@ -48,7 +45,7 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         standardTooltip()
     }
 
-    val CrystalEstrogenPill by item("crystal_estrogen_pill", ::Item) {
+    val CrystalEstrogenPill = item("crystal_estrogen_pill", ::Item) {
         properties {
             stacksTo(16)
             food(FoodProperties.Builder().effect(
@@ -67,15 +64,15 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         standardTooltip()
     }
 
-    val Balls by item("balls", ::Item)
+    val Balls = item("balls", ::Item)
 
-    val TestosteroneChunk by item("testosterone_chunk", ::Item)
-    val TestosteronePowder by item("testosterone_powder", ::Item)
-    val MothFuzz by item("moth_fuzz", ::Item) {
+    val TestosteroneChunk = item("testosterone_chunk", ::Item)
+    val TestosteronePowder = item("testosterone_powder", ::Item)
+    val MothFuzz = item("moth_fuzz", ::Item) {
         creativeTab(CreativeModeTabs.INGREDIENTS, TabPlacement.AFTER(Items.INK_SAC))
     }
 
-    val EstrogenChipCookie by item("estrogen_chip_cookie", ::Item) {
+    val EstrogenChipCookie = item("estrogen_chip_cookie", ::Item) {
         properties {
             rarity(Rarity.RARE)
             jukeboxPlayable(EstrogenRecordSongs.G03C.key)
@@ -94,7 +91,7 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.AFTER(Items.COOKIE))
     }
 
-    val HorseUrineBottle by item("horse_urine_bottle", ::HorseUrineBottleItem) {
+    val HorseUrineBottle = item("horse_urine_bottle", ::HorseUrineBottleItem) {
         properties {
             stacksTo(16)
             food(
@@ -110,7 +107,7 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         }
     }
 
-    val ColonThree by item("uwu", ::Item) {
+    val ColonThree = item("uwu", ::Item) {
         properties {
             stacksTo(1)
         }
@@ -119,7 +116,7 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         }
     }
 
-    val ThighHighs by item("thigh_highs", { p -> ThighHighsItem(p, 0xf1d85a, 0xff4ea5)}) {
+    val ThighHighs = item("thigh_highs", { p -> ThighHighsItem(p, 0xf1d85a, 0xff4ea5)}) {
         properties {
             stacksTo(1)
         }
@@ -128,14 +125,14 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         onSetup { CauldronInteraction.WATER.map()[it] = ThighHighsItem.CAULDRON_INTERACTION }
     }
 
-    val EstrogenPatches by item("estrogen_patches", ::EstrogenPatchesItem) {
+    val EstrogenPatches = item("estrogen_patches", ::EstrogenPatchesItem) {
         properties {
             stacksTo(1)
         }
         equipWithRenderer(::EstrogenPatchesRenderer)
     }
 
-    val MothElytra by item("moth_elytra", ::MothElytraItem) {
+    val MothElytra = item("moth_elytra", ::MothElytraItem) {
         properties {
             stacksTo(1)
             durability(626)
@@ -145,7 +142,7 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
 
     }
 
-    val GenderChangePotion by item("gender_change_potion", ::GenderChangePotionItem) {
+    val GenderChangePotion = item("gender_change_potion", ::GenderChangePotionItem) {
         properties {
             stacksTo(1)
             rarity(Rarity.RARE)

@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.*;
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementNode;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -17,13 +18,15 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
+@Pseudo
 @Mixin(targets = "de.dafuqs.paginatedadvancements.client.PaginatedAdvancementTab")
 abstract class PaginatedAdvancementTabMixin extends AdvancementTab {
 
-    public PaginatedAdvancementTabMixin(Minecraft minecraft, AdvancementsScreen advancementsScreen, AdvancementTabType advancementTabType, int i, Advancement advancement, DisplayInfo displayInfo) {
+    public PaginatedAdvancementTabMixin(Minecraft minecraft, AdvancementsScreen advancementsScreen, AdvancementTabType advancementTabType, int i, AdvancementNode advancement, DisplayInfo displayInfo) {
         super(minecraft, advancementsScreen, advancementTabType, i, advancement, displayInfo);
     }
 

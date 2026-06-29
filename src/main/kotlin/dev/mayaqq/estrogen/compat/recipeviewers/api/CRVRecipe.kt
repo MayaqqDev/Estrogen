@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.compat.recipeviewers.api
 
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
-import net.minecraft.core.Holder
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeHolder
 import kotlin.reflect.KClass

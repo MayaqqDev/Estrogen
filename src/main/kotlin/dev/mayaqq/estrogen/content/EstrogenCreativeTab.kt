@@ -33,9 +33,12 @@ import dev.mayaqq.estrogen.content.EstrogenItems.TestosteroneChunk
 import dev.mayaqq.estrogen.content.EstrogenItems.TestosteronePowder
 import dev.mayaqq.estrogen.content.EstrogenItems.ThighHighs
 import dev.mayaqq.estrogen.id
+import dev.mayaqq.estrogen.utils.defaultInstance
 import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.Registrar
+import invoke.kitty.kritter.registry.api.entry.RegistryEntry
 import invoke.kitty.kritter.registry.creativeTab.creativeTab
+import net.minecraft.core.Holder
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
@@ -44,6 +47,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.PotionContents
+import net.minecraft.world.level.block.Block
 
 
 object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Registries.CREATIVE_MODE_TAB) {
@@ -51,7 +55,7 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Reg
     // Make it an entry here
     val Estrogen = creativeTab("estrogen") {
         title = Component.translatable("itemGroup.estrogen.estrogen")
-        icon { EstrogenPill.defaultInstance }
+        icon { EstrogenPill.defaultInstance() }
         displayItems { 
             accept(EstrogenPill)
             accept(CrystalEstrogenPill)
@@ -62,14 +66,14 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Reg
             accept(TestosteronePowder)
             accept(EstrogenChipCookie)
             accept(HorseUrineBottle)
-            accept(EstrogenPatches.getFullStack())
+            accept(EstrogenPatches.value!!.getFullStack())
             accept(EstrogenPatches)
             accept(ThighHighs)
             accept(MothElytra)
             accept(ColonThree)
             accept(CookieJar)
             accept(DreamCatcher)
-            accept(DreamBlock.asItem())
+            accept(DreamBlock.value!!.asItem())
             accept(DreamBottle)
             accept(EstrogenPillBlock)
             accept(MothWool)
@@ -78,7 +82,7 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Reg
             accept(QuiltedMothCarpet)
             accept(MothBed)
             accept(QuiltedMothBed)
-            accept(tippedArrow(EstrogenPotions.EstrogenPotion))
+            accept(tippedArrow(EstrogenPotions.EstrogenPotion.holder()))
             accept(MoltenSlime.bucket)
             accept(TestosteroneMixture.bucket)
             accept(LiquidEstrogen.bucket)
@@ -87,9 +91,11 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Reg
             accept(MoltenAmethyst.bucket)
             accept(GenderFluid.bucket)
             accept(BuiltInRegistries.ITEM.get(id("moth_spawn_egg")))
-            ThighHighs.styleItems.forEach(::accept)
+            ThighHighs.value!!.styleItems.forEach(::accept)
         }
     }
 }
 
-private fun tippedArrow(potion: Potion): ItemStack = PotionContents.createItemStack(Items.TIPPED_ARROW, potion.holder())
+private fun <T : Block> CreativeModeTab.Output.accept(holder: RegistryEntry<T>) = this.accept(holder.value!!)
+
+private fun tippedArrow(potion: Holder<Potion>): ItemStack = PotionContents.createItemStack(Items.TIPPED_ARROW, potion)

@@ -16,7 +16,7 @@ import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
-import dev.mayaqq.cynosure.utils.*
+import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.data.EntityTypeRecipeCodec
 import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData
@@ -59,8 +59,8 @@ class EntityInteractionRecipe(val ingredient: Ingredient, val result: ItemStack,
     }
 
     override fun assemble(data: InteractionData, lookup: HolderLookup.Provider): ItemStack = result.copy()
-    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.ENTITY_INTERACTION_SERIALIZER
-    override fun getType(): RecipeType<*> = EstrogenRecipes.ENTITY_INTERACTION
+    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.ENTITY_INTERACTION_SERIALIZER.value!!
+    override fun getType(): RecipeType<*> = EstrogenRecipes.ENTITY_INTERACTION.value!!
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = true
     override fun getResultItem(lookup: HolderLookup.Provider): ItemStack = result.copy()
 
@@ -92,7 +92,7 @@ class EntityInteractionRecipe(val ingredient: Ingredient, val result: ItemStack,
         override val id: ResourceLocation = id("entity_interaction")
         override val height: Int = 70
         override val width: Int = 177
-        override val type: RecipeType<*> get() = EstrogenRecipes.ENTITY_INTERACTION
+        override val type: RecipeType<*> get() = EstrogenRecipes.ENTITY_INTERACTION.value!!
     }
 }
 
@@ -116,7 +116,7 @@ fun onEntityInteraction(event: InteractionEvent.UseEntity) {
     if (event.level is ServerLevel) {
         // Crazy fix, please I have to unify the handling lol, might be Create fucking up though
         if ((currentLoader == Loader.FABRIC && event.phase == InteractionEvent.UseEntity.Phase.SPECIFIC) || (currentLoader == Loader.FORGE && event.phase == InteractionEvent.UseEntity.Phase.GENERAL)) {
-            event.level.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION).forEach { recipe ->
+            event.level.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION.value!!).forEach { recipe ->
                 val data = InteractionData(event.getUsedStack(),  event.entity, event.player as ServerPlayer)
                 if (recipe.value().matches(data, event.level)) {
                     val sound: ResourceLocation? = recipe.value().sound.getOrNull()

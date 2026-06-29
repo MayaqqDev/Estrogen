@@ -15,6 +15,8 @@ import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigPacket
 import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigRequestPacket
 import dev.mayaqq.estrogen.utils.holder
 import net.minecraft.world.entity.player.Player
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.toKotlinUuid
 
 // I love handling boobs
 
@@ -32,9 +34,10 @@ fun onDisconnect(event: PlayerConnectionEvent.Leave) {
 }
 
 @Subscription
+@OptIn(ExperimentalUuidApi::class)
 fun onEntityTracking(event: EntityTrackingEvent.Start) {
     (event.entity as? Player)?.chestConfig?.let {
-        EstrogenNetwork.sendToPlayer(event.player, ChestConfigPacket(event.entity.uuid, it))
+        EstrogenNetwork.sendToPlayer(event.player, ChestConfigPacket(event.entity.uuid.toKotlinUuid(), it))
     }?: run { EstrogenNetwork.sendToPlayer(event.player, ChestConfigRequestPacket()) }
 }
 

@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import dev.mayaqq.estrogen.content.EstrogenEffects;
+import dev.mayaqq.estrogen.utils.StupidUtilsKt;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +22,7 @@ public class ServerGamePacketListenerImplMixin {
             )
     )
     private boolean disableWhenOnEstrogen(boolean original) {
-        if (player.hasEffect(EstrogenEffects.getEstrogen())) return true;
+        if (player.hasEffect(StupidUtilsKt.holder(EstrogenEffects.getEstrogen()))) return true;
         return original;
     }
 }

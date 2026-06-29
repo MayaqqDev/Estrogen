@@ -1,25 +1,29 @@
 package dev.mayaqq.estrogen.network.messages.c2s
 
 import dev.mayaqq.cynosure.entities.PlayerLookup
-import dev.mayaqq.cynosure.network.Packet
-import dev.mayaqq.cynosure.network.SerializablePacket
-import dev.mayaqq.cynosure.network.ServerNetworkContext
 import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.effects.EstrogenEffect
 import dev.mayaqq.estrogen.injection.chestConfig
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigPacket
+import dev.mayaqq.estrogen.utils.holder
+import kotlinx.serialization.Serializable
+import net.minecraft.server.MinecraftServer
+import net.minecraft.server.level.ServerPlayer
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.toKotlinUuid
 
-@SerializablePacket("set_chest_config")
-data class SetChestConfigPacket(val config: ChestConfig) : Packet.Serverbound {
-    override fun ServerNetworkContext.handle() = execute {
+@Serializable
+@OptIn(ExperimentalUuidApi::class)
+data class SetChestConfigPacket(val config: ChestConfig) {
+    fun handle(server: MinecraftServer, sender: ServerPlayer) {
         sender.chestConfig = config
 
         for (player in PlayerLookup.tracking(sender)) {
-            EstrogenEffect.sendPlayerStatusEffect(player, EstrogenEffects.Estrogen, sender)
+            EstrogenEffect.sendPlayerStatusEffect(player, EstrogenEffects.Estrogen.holder(), sender)
             player.chestConfig?.let {
-                EstrogenNetwork.sendToPlayer(ChestConfigPacket(player.uuid, it), sender)
+                EstrogenNetwork.sendToPlayer(sender, ChestConfigPacket(player.uuid.toKotlinUuid(), it))
             }
         }
     }

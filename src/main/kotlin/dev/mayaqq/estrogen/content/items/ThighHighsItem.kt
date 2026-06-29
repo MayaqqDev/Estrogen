@@ -8,8 +8,16 @@ import dev.mayaqq.estrogen.api.item.equip.Equip
 import dev.mayaqq.estrogen.api.item.equip.SlotInfo
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
+import dev.mayaqq.estrogen.content.EstrogenComponents.ThighHighColorComponent
+import dev.mayaqq.estrogen.content.EstrogenComponents.ThighHighStyleComponent
+import dev.mayaqq.estrogen.content.components.ThighHighColor
+import dev.mayaqq.estrogen.content.components.ThighHighStyle
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ThighHighStylesPacket
+import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.color.MinecraftColors
+import net.minecraft.core.Holder
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.network.chat.Component
@@ -19,22 +27,13 @@ import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.stats.Stats
 import net.minecraft.util.RandomSource
+import net.minecraft.world.ItemInteractionResult
+import net.minecraft.world.entity.ai.attributes.Attribute
+import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.block.LayeredCauldronBlock
-
-import dev.mayaqq.estrogen.content.EstrogenComponents.ThighHighStyleComponent
-import dev.mayaqq.estrogen.content.EstrogenComponents.ThighHighColorComponent
-import dev.mayaqq.estrogen.content.components.ThighHighColor
-import dev.mayaqq.estrogen.content.components.ThighHighStyle
-import dev.mayaqq.estrogen.utils.holder
-import invoke.kitty.kritter.utils.color.Color
-import invoke.kitty.kritter.utils.color.MinecraftColors
-import net.minecraft.core.Holder
-import net.minecraft.world.ItemInteractionResult
-import net.minecraft.world.entity.ai.attributes.Attribute
-import net.minecraft.world.entity.ai.attributes.AttributeModifier
 
 class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondaryColor: Int) : Item(properties), Equip {
     private val styles = mutableListOf<ResourceLocation>()

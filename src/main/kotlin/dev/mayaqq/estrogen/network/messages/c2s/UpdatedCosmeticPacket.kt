@@ -1,18 +1,18 @@
 package dev.mayaqq.estrogen.network.messages.c2s
 
 import com.teamresourceful.resourcefulcosmetics.SignedData
-import dev.mayaqq.cynosure.network.Packet
-import dev.mayaqq.cynosure.network.SerializablePacket
-import dev.mayaqq.cynosure.network.ServerNetworkContext
 import dev.mayaqq.estrogen.client.cosmetics.SignedDataSerializer
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.CosmeticUpdatePacket
+import invoke.kitty.kritter.network.api.PlayerLookup
 import kotlinx.serialization.Serializable
+import net.minecraft.server.MinecraftServer
+import net.minecraft.server.level.ServerPlayer
 
-@SerializablePacket("updated_cosmetic")
-class UpdatedCosmeticPacket(val data: @Serializable(SignedDataSerializer::class) SignedData) : Packet.Serverbound {
+@Serializable
+class UpdatedCosmeticPacket(val data: @Serializable(SignedDataSerializer::class) SignedData) {
 
-    override fun ServerNetworkContext.handle() {
-        EstrogenNetwork.broadcast(CosmeticUpdatePacket(data), server)
+    fun handle(server: MinecraftServer, sender: ServerPlayer) {
+        EstrogenNetwork.broadcast(PlayerLookup.all(server), CosmeticUpdatePacket(data))
     }
 }

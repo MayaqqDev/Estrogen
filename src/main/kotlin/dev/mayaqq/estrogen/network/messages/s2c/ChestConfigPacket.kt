@@ -1,29 +1,18 @@
 package dev.mayaqq.estrogen.network.messages.s2c
 
-import com.teamresourceful.bytecodecs.base.ByteCodec
-import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
-import dev.mayaqq.cynosure.core.codecs.fieldOf
-import dev.mayaqq.cynosure.network.ClientNetworkContext
-import dev.mayaqq.cynosure.network.Packet
-import dev.mayaqq.cynosure.network.serialization.KByteCodec
 import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.injection.chestConfig
+import kotlinx.serialization.Serializable
 import net.minecraft.client.Minecraft
-import java.util.*
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
+import kotlin.uuid.toJavaUuid
 
-@Packet("player_chest_config")
-data class ChestConfigPacket(val uuid: UUID, val config: ChestConfig) : Packet.Clientbound {
+@Serializable
+@OptIn(ExperimentalUuidApi::class)
+data class ChestConfigPacket(val uuid: Uuid, val config: ChestConfig) {
 
-    companion object {
-        val CODEC: ByteCodec<ChestConfigPacket> = ObjectByteCodec.create(
-            ByteCodec.STRING.map(UUID::fromString, UUID::toString) fieldOf ChestConfigPacket::uuid,
-            KByteCodec(ChestConfig.serializer()) fieldOf ChestConfigPacket::config,
-            ::ChestConfigPacket
-        )
-    }
-
-    override fun ClientNetworkContext.handle() = execute {
-        // Probably smart to move to client code idk
-        Minecraft.getInstance().level?.getPlayerByUUID(uuid)?.chestConfig = config
+    fun handle() {
+        Minecraft.getInstance().level?.getPlayerByUUID(uuid.toJavaUuid())?.chestConfig = config
     }
 }

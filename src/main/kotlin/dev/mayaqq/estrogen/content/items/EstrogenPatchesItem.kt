@@ -1,12 +1,12 @@
 package dev.mayaqq.estrogen.content.items
 
+import dev.mayaqq.estrogen.api.item.equip.Equip
+import dev.mayaqq.estrogen.api.item.equip.SlotInfo
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.EstrogenComponents
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.fluids.item.EstrogenItemFluidStorage
-import dev.mayaqq.estrogen.api.item.equip.Equip
-import dev.mayaqq.estrogen.api.item.equip.SlotInfo
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import dev.mayaqq.estrogen.utils.holder
 import earth.terrarium.common_storage_lib.context.ItemContext
@@ -28,21 +28,19 @@ import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
 class EstrogenPatchesItem(properties: Properties) : Item(properties), FluidProvider.Item, Equip {
-    fun tick(stack: ItemStack, slot: SlotInfo) {
-        val itemFluidManager: ItemFluidContainer = getFluidContainer(stack)
-        val level: Level = slot.wearer().level()
-        if (!level.isClientSide && slot.wearer() is Player && itemFluidManager.fluids[0].fluidAmount > 0) {
-            val player = slot.wearer() as Player
+    override fun tick(stack: ItemStack, slot: SlotInfo) {
+        val context = slot.slotContext(stack)
+        val level: Level = slot.wearer.level()
+        if (!level.isClientSide && slot.wearer is Player && getAmount(stack) > 0) {
             if (level.gameTime % TRIGGER_EVERY_X_TICKS == 0L) {
-                addEffect(player, level)
+                addEffect(slot.wearer, level)
             }
-            if (EstrogenServerConfig.Patch.drain && level.gameTime % EstrogenServerConfig.Patch.drainSpeed == 0L && !player.isCreative) {
-                itemFluidManager.extractFromSlot(
-                    0,
-                    FluidHolder.of(EstrogenFluids.LiquidEstrogen.source, FluidConstants.getBucketAmount() / 1000),
+            if (EstrogenServerConfig.Patch.drain && level.gameTime % EstrogenServerConfig.Patch.drainSpeed == 0L && !slot.wearer.isCreative) {
+                FluidApi.ITEM.find(stack, context)?.get(0)?.extract(
+                    FluidResource.of(EstrogenFluids.LiquidEstrogen.source),
+                    FluidAmounts.BUCKET / 1000,
                     false
                 )
-                itemFluidManager.serialize(stack.getOrCreateTag())
             }
         }
     }
@@ -60,11 +58,6 @@ class EstrogenPatchesItem(properties: Properties) : Item(properties), FluidProvi
         )
     }
 
-    //TODO: Create Capacity (it is broken anyway but well..)
-    fun getMaxCapacity(stack: ItemStack): Long = FluidConstants.getBucketAmount() /* + ((FluidConstants.getBucketAmount() / 2) * EnchantmentHelper.getEnchantments(
-            stack
-        ).getOrDefault(AllEnchantments.CAPACITY.get(), 0)) */
-
     override fun appendHoverText(
         stack: ItemStack,
         context: TooltipContext,
@@ -72,11 +65,11 @@ class EstrogenPatchesItem(properties: Properties) : Item(properties), FluidProvi
         isAdvanced: TooltipFlag
     ) {
         super.appendHoverText(stack, context, tooltipComponents, isAdvanced)
-        val holder = ItemStackHolder(stack)
-        val itemFluidManager = FluidContainer.of(holder)
-        if (itemFluidManager != null) {
-            val amount = FluidConstants.toMillibuckets(itemFluidManager.fluids[0].fluidAmount)
-            val amountCapacity = FluidConstants.toMillibuckets(itemFluidManager.getTankCapacity(0))
+        val context = ModifyOnlyContext(stack)
+        val fluidStorage = FluidApi.ITEM.find(stack, context)?.get(0)
+        if (fluidStorage != null) {
+            val amount = FluidAmounts.toMillibuckets(fluidStorage.amount)
+            val amountCapacity = fluidStorage.getLimit(fluidStorage.contents.resource())
             val fluidString: String? = Component.translatable("fluid_type.estrogen.liquid_estrogen").string
             tooltipComponents.add(Component.literal(" "))
             tooltipComponents.add(
@@ -94,11 +87,10 @@ class EstrogenPatchesItem(properties: Properties) : Item(properties), FluidProvi
     }
 
 
-    public override fun onEquip(stack: ItemStack, slot: SlotInfo) {
-        val level: Level = slot.wearer().level()
-        val itemFluidManager: ItemFluidContainer = getFluidContainer(stack)
-        if (!level.isClientSide && slot.wearer() is Player && itemFluidManager.fluids[0].fluidAmount > 0) {
-            addEffect(slot.wearer() as Player, level)
+    override fun onEquip(stack: ItemStack, slot: SlotInfo) {
+        val level: Level = slot.wearer.level()
+        if (!level.isClientSide && slot.wearer is Player && getAmount(stack) > 0) {
+            addEffect(slot.wearer, level)
         }
     }
 
@@ -129,6 +121,12 @@ class EstrogenPatchesItem(properties: Properties) : Item(properties), FluidProvi
 
     override fun getBarWidth(stack: ItemStack): Int {
         return (getAmount(stack).toDouble() / getMaxCapacity(stack) * 13).toInt()
+    }
+
+    fun getMaxCapacity(stack: ItemStack): Long {
+        return ModifyOnlyContext(stack).find(FluidApi.ITEM).let {
+            it.getLimit(0, it.get(0).resource)
+        }
     }
 
     override fun getBarColor(stack: ItemStack): Int = EstrogenColors.ESTROGEN_PATCHES_BAR.toInt()

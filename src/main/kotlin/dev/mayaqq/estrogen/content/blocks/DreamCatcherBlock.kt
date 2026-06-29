@@ -28,7 +28,6 @@ import net.minecraft.world.phys.shapes.CollisionContext
 import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 import kotlin.jvm.optionals.getOrNull
-import kotlin.reflect.KClass
 
 
 class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(properties), BlockWithEntity<DreamCatcherBlockEntity>, EntityBlock {
@@ -59,10 +58,10 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
     }
 
     override val blockEntityClass: Class<out DreamCatcherBlockEntity> = DreamCatcherBlockEntity::class.java
-    override fun blockEntityType(): BlockEntityType<out DreamCatcherBlockEntity> = EstrogenBlockEntities.DreamCatcher
+    override fun blockEntityType(): BlockEntityType<out DreamCatcherBlockEntity> = EstrogenBlockEntities.DreamCatcher.value!!
 
     fun triColor(getter: BlockAndTintGetter, pos: BlockPos): TriColor? {
-        getter.getBlockEntity(pos, EstrogenBlockEntities.DreamCatcher).getOrNull()?.let {
+        getter.getBlockEntity(pos, EstrogenBlockEntities.DreamCatcher.value!!).getOrNull()?.let {
             return it.triColor
         }
         return null
@@ -94,7 +93,7 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
             pos: BlockPos?,
             tintIndex: Int
         ): Color {
-            if (state.`is`(EstrogenBlocks.DreamCatcher) && view != null && pos != null) {
+            if (state.`is`(EstrogenBlocks.DreamCatcher.value!!) && view != null && pos != null) {
                 return (state.block as DreamCatcherBlock).getColor(view, pos, tintIndex)
             }
             return (-1).toColor()

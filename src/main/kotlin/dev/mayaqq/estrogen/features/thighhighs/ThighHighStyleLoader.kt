@@ -47,11 +47,11 @@ object ThighHighStyleLoader : ResourceManagerReloadListener {
                     Estrogen.error("Invalid thigh high styles:", e)
                 }
             })
-        EstrogenItems.ThighHighs.loadStyles(styles)
+        EstrogenItems.ThighHighs.value!!.loadStyles(styles)
     }
 }
 
 @Subscription
 fun onDataSync(event: DataPackSyncEvent) {
-    if (event.player is ServerPlayer) EstrogenItems.ThighHighs.syncStyles(event.player as ServerPlayer)
+    if (event.player is ServerPlayer) EstrogenItems.ThighHighs.value!!.syncStyles(event.player as ServerPlayer)
 }

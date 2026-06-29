@@ -5,9 +5,11 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.mayaqq.estrogen.content.AdvancementTriggers
 import dev.mayaqq.estrogen.content.advancements.triggers.InsertJarTrigger.TriggerInstance
 import net.minecraft.advancements.Criterion
-import net.minecraft.advancements.critereon.*
+import net.minecraft.advancements.critereon.ContextAwarePredicate
+import net.minecraft.advancements.critereon.EntityPredicate
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger
 import net.minecraft.server.level.ServerPlayer
-import java.util.Optional
+import java.util.*
 
 class InsertJarTrigger : SimpleCriterionTrigger<TriggerInstance>() {
     override fun codec(): Codec<TriggerInstance> = TriggerInstance.CODEC

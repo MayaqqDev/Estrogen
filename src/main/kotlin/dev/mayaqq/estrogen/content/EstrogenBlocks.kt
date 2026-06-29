@@ -9,10 +9,10 @@ import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.content.items.ThighHighsItem
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.EstrogenColors
-import dev.mayaqq.estrogen.utils.TriColor
 import invoke.kitty.kritter.creativeTabs.TabPlacement
 import invoke.kitty.kritter.platform.common.BlockColorProvider
 import invoke.kitty.kritter.registry.api.Registrar
+import invoke.kitty.kritter.registry.api.entry.RegistryEntry
 import invoke.kitty.kritter.registry.block.BlockRenderType
 import invoke.kitty.kritter.registry.block.block
 import invoke.kitty.kritter.registry.block.colorProvider
@@ -37,7 +37,7 @@ import net.minecraft.world.level.material.MapColor
 @Suppress("unused")
 object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) {
 
-    val CookieJar: CookieJarBlock by block("cookie_jar", ::CookieJarBlock) {
+    val CookieJar: RegistryEntry<CookieJarBlock> = block("cookie_jar", ::CookieJarBlock) {
         initialPropertiesFrom(Blocks::GLASS)
         properties {
             sound(EstrogenSoundTypes.COOKIE_JAR)
@@ -49,7 +49,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         }
     }
 
-    val DreamBlock: DreamBlock by block("dream_block", ::DreamBlock) {
+    val DreamBlock: RegistryEntry<DreamBlock> = block("dream_block", ::DreamBlock) {
         properties {
             mapColor(MapColor.DIAMOND)
             instrument(NoteBlockInstrument.HAT)
@@ -73,27 +73,27 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         item("dormant_dream_block", ::BlockItem)
     }
 
-    val MothWool: Block by block("moth_wool", ::Block) {
+    val MothWool: RegistryEntry<Block> = block("moth_wool", ::Block) {
         initialPropertiesFrom(Blocks::ORANGE_WOOL)
         item("moth_wool", ::BlockItem)
     }
 
-    val QuiltedMothWool: Block by block("quilted_moth_wool", ::Block) {
+    val QuiltedMothWool: RegistryEntry<Block> = block("quilted_moth_wool", ::Block) {
         initialPropertiesFrom(Blocks::ORANGE_WOOL)
         item("quilted_moth_wool", ::BlockItem)
     }
 
-    val MothCarpet: CarpetBlock by block("moth_wool_carpet", ::CarpetBlock) {
+    val MothCarpet: RegistryEntry<CarpetBlock> = block("moth_wool_carpet", ::CarpetBlock) {
         initialPropertiesFrom(Blocks::ORANGE_CARPET)
         item("moth_wool_carpet", ::BlockItem)
     }
 
-    val QuiltedMothCarpet: CarpetBlock by block("quilted_moth_wool_carpet", ::CarpetBlock) {
+    val QuiltedMothCarpet: RegistryEntry<CarpetBlock> = block("quilted_moth_wool_carpet", ::CarpetBlock) {
         initialPropertiesFrom(Blocks::ORANGE_CARPET)
         item("quilted_moth_wool_carpet", ::BlockItem)
     }
 
-    val EstrogenPillBlock: EstrogenPillBlock by block("estrogen_pill_block", ::EstrogenPillBlock) {
+    val EstrogenPillBlock: RegistryEntry<EstrogenPillBlock> = block("estrogen_pill_block", ::EstrogenPillBlock) {
         initialPropertiesFrom(Blocks::OAK_PLANKS)
         properties {
             strength(1.0f, 1.0f)
@@ -102,7 +102,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         item("estrogen_pill_block", ::BlockItem)
     }
 
-    val MothBed: ModelBedBlock by block("moth_bed", ::ModelBedBlock) {
+    val MothBed: RegistryEntry<ModelBedBlock> = block("moth_bed", ::ModelBedBlock) {
         initialPropertiesFrom(Blocks::ORANGE_BED)
         item("moth_bed", ::BlockItem) {
             properties {
@@ -115,7 +115,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         }
     }
 
-    val QuiltedMothBed: ModelBedBlock by block("quilted_moth_bed", ::ModelBedBlock) {
+    val QuiltedMothBed: RegistryEntry<ModelBedBlock> = block("quilted_moth_bed", ::ModelBedBlock) {
         initialPropertiesFrom(Blocks::ORANGE_BED)
         item("quilted_moth_bed", ::BlockItem) {
             properties {
@@ -128,7 +128,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         }
     }
 
-    val ColonThreeBlock: ColonThreeBlock by block("colon_three", ::ColonThreeBlock) {
+    val ColonThreeBlock: RegistryEntry<ColonThreeBlock> = block("colon_three", ::ColonThreeBlock) {
         initialPropertiesFrom(Blocks::NETHERITE_BLOCK)
         properties {
             randomTicks()
@@ -136,7 +136,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         item("colon_three", ::BlockItem)
     }
 
-    val DreamCatcher: DreamCatcherBlock by block("dreamcatcher", ::DreamCatcherBlock) {
+    val DreamCatcher: RegistryEntry<DreamCatcherBlock> = block("dreamcatcher", ::DreamCatcherBlock) {
         properties {
             mapColor(Blocks.OAK_PLANKS.defaultMapColor())
             forceSolidOn()
@@ -157,7 +157,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         }
     }
 
-    val HorseUrineCauldron: LayeredCauldronBlock by block(
+    val HorseUrineCauldron: RegistryEntry<LayeredCauldronBlock> = block(
         "horse_urine_cauldron", { properties -> LayeredCauldronBlock(
             Biome.Precipitation.NONE,
             CauldronInteractions.HORSE_URINE,
@@ -168,7 +168,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         colorProvider = BlockColorProvider { _, _, _, tint -> return@BlockColorProvider if (tint == 0) EstrogenColors.HORSE_URINE else White }
     }
 
-    val FiltratedHorseUrineCauldron: FiltratedHorseUrineCauldron by block(
+    val FiltratedHorseUrineCauldron: RegistryEntry<FiltratedHorseUrineCauldron> = block(
         "filtrated_horse_urine_cauldron", { properties -> FiltratedHorseUrineCauldron(
             properties,
             CauldronInteractions.FILTRATED_HORSE_URINE
@@ -178,7 +178,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         colorProvider = BlockColorProvider { _, _, _, tint -> return@BlockColorProvider if (tint == 0) EstrogenColors.FILTRATED_HORSE_URINE else White }
     }
 
-    val LiquidEstrogenCauldron: LayeredCauldronBlock by block(
+    val LiquidEstrogenCauldron: RegistryEntry<LayeredCauldronBlock> = block(
         "liquid_estrogen_cauldron", { properties -> LayeredCauldronBlock(
             Biome.Precipitation.NONE,
             CauldronInteractions.ESTROGEN,
@@ -188,7 +188,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         renderType = BlockRenderType.CUTOUT
     }
 
-    val Memorial: MemorialBlock by block("memorial", ::MemorialBlock) {
+    val Memorial: RegistryEntry<MemorialBlock> = block("memorial", ::MemorialBlock) {
         initialPropertiesFrom(Blocks::REINFORCED_DEEPSLATE)
         properties {}
     }

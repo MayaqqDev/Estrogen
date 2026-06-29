@@ -14,6 +14,6 @@ fun init() {
     estrogenClient()
     PreparableModelLoadingPlugin.register(EstrogenFabricModels, EstrogenFabricModels)
 
-    ColorProviderRegistry.ITEM.register(ThighHighsItem::getItemColor, EstrogenItems.ThighHighs)
-    ColorProviderRegistry.ITEM.register(DreamCatcherItem::getItemColor, EstrogenBlocks.DreamCatcher.asItem())
+    ColorProviderRegistry.ITEM.register(ThighHighsItem::getItemColor, EstrogenItems.ThighHighs.value!!)
+    ColorProviderRegistry.ITEM.register(DreamCatcherItem::getItemColor, EstrogenBlocks.DreamCatcher.value!!.asItem())
 }

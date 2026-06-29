@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.content.blockEntities
 import dev.engine_room.flywheel.lib.visualization.VisualizationHelper
 import dev.mayaqq.estrogen.content.EstrogenTags
 import net.minecraft.core.BlockPos
+import net.minecraft.core.HolderLookup
 import net.minecraft.core.NonNullList
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.protocol.Packet
@@ -50,7 +51,7 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
         val itemStackCopy = itemStack.copy()
         var i = 0
         for (jarItemStack in items) {
-            if (!jarItemStack.isEmpty && !ItemStack.isSameItemSameTags(jarItemStack, itemStackCopy)) continue
+            if (!jarItemStack.isEmpty && !ItemStack.isSameItemSameComponents(jarItemStack, itemStackCopy)) continue
 
             val addToJar = itemStackCopy.split(itemStackCopy.maxStackSize - jarItemStack.count)
             addToJar.grow(jarItemStack.count)
@@ -81,7 +82,7 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
                 continue
             }
 
-            if (!ItemStack.isSameItemSameTags(jarItemStack, result)) break
+            if (!ItemStack.isSameItemSameComponents(jarItemStack, result)) break
             val fromJarStack = jarItemStack.split(result.maxStackSize - result.count)
             result.grow(fromJarStack.count)
             if (result.count == result.maxStackSize) break
@@ -114,20 +115,20 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
             if (jarItemStack.isEmpty) {
                 continue
             }
-            return ItemStack.isSameItemSameTags(jarItemStack, itemStack)
+            return ItemStack.isSameItemSameComponents(jarItemStack, itemStack)
         }
         return true
     }
 
-    override fun saveAdditional(compoundTag: CompoundTag) {
-        super.saveAdditional(compoundTag)
-        ContainerHelper.saveAllItems(compoundTag, items)
+    override fun saveAdditional(compoundTag: CompoundTag, holder: HolderLookup.Provider) {
+        super.saveAdditional(compoundTag, holder)
+        ContainerHelper.saveAllItems(compoundTag, items, holder)
     }
 
-    override fun load(compoundTag: CompoundTag) {
-        super.load(compoundTag)
+    override fun loadAdditional(compoundTag: CompoundTag, holder: HolderLookup.Provider) {
+        super.loadAdditional(compoundTag, holder)
         items.clear()
-        ContainerHelper.loadAllItems(compoundTag, items)
+        ContainerHelper.loadAllItems(compoundTag, items, holder)
         if(level?.isClientSide == true) updateOnClient() else sync(false)
     }
 
@@ -194,7 +195,7 @@ class CookieJarBlockEntity(type: BlockEntityType<*>, blockPos: BlockPos, blockSt
         return ClientboundBlockEntityDataPacket.create(this)
     }
 
-    override fun getUpdateTag(): CompoundTag = saveWithFullMetadata()
+    override fun getUpdateTag(holder: HolderLookup.Provider): CompoundTag = saveWithFullMetadata(holder)
 
     private fun sync(saveAswell: Boolean = true) {
         if(saveAswell) setChanged()

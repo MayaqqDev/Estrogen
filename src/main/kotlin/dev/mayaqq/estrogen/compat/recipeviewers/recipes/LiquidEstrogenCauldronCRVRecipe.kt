@@ -32,7 +32,7 @@ class LiquidEstrogenCauldronCRVRecipe(recipe: RecipeHolder<LiquidEstrogenCauldro
     var extendCounter = System.currentTimeMillis()
 
     fun recipeDisabled(): Boolean {
-        return McClient.level?.recipeManager?.getAllRecipesFor(EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON)?.any { !it.value().enabled } == true || anyModuleHasFlag(EstrogenFlag.DISABLES_CAULDRON_ESTROGEN)
+        return McClient.level?.recipeManager?.getAllRecipesFor(EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON.value)?.any { !it.value().enabled } == true || anyModuleHasFlag(EstrogenFlag.DISABLES_CAULDRON_ESTROGEN)
     }
 
     override fun init() {
@@ -59,7 +59,7 @@ class LiquidEstrogenCauldronCRVRecipe(recipe: RecipeHolder<LiquidEstrogenCauldro
 
             addTexture(RecipeTextures.JEI_SHADOW, 104, 49)
 
-            addDrawable(120, 54, GuiBlockRenderer(EstrogenBlocks.LiquidEstrogenCauldron.defaultBlockState()
+            addDrawable(120, 54, GuiBlockRenderer(EstrogenBlocks.LiquidEstrogenCauldron.value!!.defaultBlockState()
                 .setValue(LayeredCauldronBlock.LEVEL, 3)))
 
             addDrawable(0, 0) { graphics, offsetX, offsetY, mouseX, mouseY, delta ->
@@ -75,7 +75,7 @@ class LiquidEstrogenCauldronCRVRecipe(recipe: RecipeHolder<LiquidEstrogenCauldro
                 }
                 RecipeTextures.JEI_DOWN_ARROW.render(graphics, 27 + if (extended) 20 else 0, 18)
                 GuiBlockRenderer(
-                    EstrogenBlocks.FiltratedHorseUrineCauldron.defaultBlockState(),
+                    EstrogenBlocks.FiltratedHorseUrineCauldron.value!!.defaultBlockState(),
                     x = 30 + if (extended) 20 else 0, y = 55, rotation = Vec3.ZERO
                 ).draw(graphics, offsetX, offsetY, mouseX, mouseY, delta)
                 if (extended) {

@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.content.effects
 
+import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.utils.color.Color
 import net.minecraft.world.effect.MobEffect
@@ -10,7 +11,7 @@ class DreamingEffect(category: MobEffectCategory, color: Color) : MobEffect(cate
 
     override fun applyEffectTick(entity: LivingEntity, p1: Int): Boolean {
         if (entity.level().dayTime % 24000L !in 12542..23460) {
-            entity.removeEffect(this.holder())
+            entity.removeEffect(EstrogenEffects.Dreaming.holder())
             return true
         }
         return false

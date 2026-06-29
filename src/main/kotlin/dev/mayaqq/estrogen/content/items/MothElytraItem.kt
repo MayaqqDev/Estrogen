@@ -56,5 +56,5 @@ class MothElytraItem(properties: Properties) : ElytraItem(properties), DisablesC
 
     //This is still borked in cynosure, but at least the tag works.
     override fun disablesCape(itemStack: ItemStack, player: AbstractClientPlayer): Boolean = true
-    override fun isValidRepairItem(stack: ItemStack, repair: ItemStack): Boolean = repair.item == EstrogenItems.MothFuzz
+    override fun isValidRepairItem(stack: ItemStack, repair: ItemStack): Boolean = repair.item == EstrogenItems.MothFuzz.value!!
 }

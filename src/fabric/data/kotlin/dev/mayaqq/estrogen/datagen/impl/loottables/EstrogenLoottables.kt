@@ -8,7 +8,6 @@ import net.minecraft.core.component.DataComponents
 import net.minecraft.world.level.block.BedBlock
 import net.minecraft.world.level.block.state.properties.BedPart
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction
-import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider
 import java.util.concurrent.CompletableFuture
 
 
@@ -17,23 +16,23 @@ class EstrogenLoottables(output: FabricDataOutput, lookup: CompletableFuture<Hol
 {
 
     override fun generate() {
-        add(EstrogenBlocks.CookieJar, createSilkTouchOnlyTable(EstrogenBlocks.CookieJar))
-        add(EstrogenBlocks.DreamBlock, createSingleItemTable(EstrogenBlocks.DreamBlock))
-        add(EstrogenBlocks.EstrogenPillBlock, createSingleItemTable(EstrogenBlocks.EstrogenPillBlock))
-        add(EstrogenBlocks.MothWool, createSingleItemTable(EstrogenBlocks.MothWool))
-        add(EstrogenBlocks.QuiltedMothWool, createSingleItemTable(EstrogenBlocks.QuiltedMothWool))
-        add(EstrogenBlocks.QuiltedMothCarpet, createSingleItemTable(EstrogenBlocks.QuiltedMothCarpet))
-        add(EstrogenBlocks.MothCarpet, createSingleItemTable(EstrogenBlocks.MothCarpet))
+        add(EstrogenBlocks.CookieJar.value!!, createSilkTouchOnlyTable(EstrogenBlocks.CookieJar.value!!))
+        add(EstrogenBlocks.DreamBlock.value!!, createSingleItemTable(EstrogenBlocks.DreamBlock.value!!))
+        add(EstrogenBlocks.EstrogenPillBlock.value!!, createSingleItemTable(EstrogenBlocks.EstrogenPillBlock.value!!))
+        add(EstrogenBlocks.MothWool.value!!, createSingleItemTable(EstrogenBlocks.MothWool.value!!))
+        add(EstrogenBlocks.QuiltedMothWool.value!!, createSingleItemTable(EstrogenBlocks.QuiltedMothWool.value!!))
+        add(EstrogenBlocks.QuiltedMothCarpet.value!!, createSingleItemTable(EstrogenBlocks.QuiltedMothCarpet.value!!))
+        add(EstrogenBlocks.MothCarpet.value!!, createSingleItemTable(EstrogenBlocks.MothCarpet.value!!))
         add(
-            EstrogenBlocks.MothBed,
-            createSinglePropConditionTable(EstrogenBlocks.MothBed, BedBlock.PART, BedPart.HEAD)
+            EstrogenBlocks.MothBed.value!!,
+            createSinglePropConditionTable(EstrogenBlocks.MothBed.value!!, BedBlock.PART, BedPart.HEAD)
         )
         add(
-            EstrogenBlocks.QuiltedMothBed,
-            createSinglePropConditionTable(EstrogenBlocks.QuiltedMothBed, BedBlock.PART, BedPart.HEAD)
+            EstrogenBlocks.QuiltedMothBed.value!!,
+            createSinglePropConditionTable(EstrogenBlocks.QuiltedMothBed.value!!, BedBlock.PART, BedPart.HEAD)
         )
         //TODO: check on this
-        add(EstrogenBlocks.DreamCatcher, createSingleItemTable(EstrogenBlocks.DreamCatcher).apply(
+        add(EstrogenBlocks.DreamCatcher.value!!, createSingleItemTable(EstrogenBlocks.DreamCatcher.value!!).apply(
             CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY).include(
                 DataComponents.BLOCK_ENTITY_DATA
             )

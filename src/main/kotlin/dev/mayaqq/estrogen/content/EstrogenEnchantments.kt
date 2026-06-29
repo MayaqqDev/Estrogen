@@ -11,7 +11,7 @@ import net.minecraft.world.item.enchantment.Enchantment
 
 object EstrogenEnchantments : Registrar<Enchantment> by Registrar(MOD_ID, Registries.ENCHANTMENT) {
 
-    val UwUfyingCurse: Enchantment by entry("uwufy_curse", {
+    val UwUfyingCurse = entry("uwufy_curse", {
         Enchantment.enchantment(
             Enchantment.definition(
                 BuiltInRegistries.ITEM.getOrCreateTag(EstrogenTags.Items.HEAD_ENCHANTABLE),

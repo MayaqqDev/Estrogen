@@ -10,12 +10,7 @@ import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import dev.mayaqq.estrogen.client.cosmetics.Cosmetic
 import dev.mayaqq.estrogen.client.extensions.widgetHeight
 import dev.mayaqq.estrogen.client.extensions.widgetWidth
-import invoke.kitty.kritter.utils.color.Color
-import invoke.kitty.kritter.utils.color.MinecraftColors
-import invoke.kitty.kritter.utils.color.Red
-import invoke.kitty.kritter.utils.color.White
-import invoke.kitty.kritter.utils.color.Yellow
-import invoke.kitty.kritter.utils.color.darker
+import invoke.kitty.kritter.utils.color.*
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
 import net.minecraft.client.gui.components.Tooltip

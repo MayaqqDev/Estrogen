@@ -17,7 +17,6 @@ import invoke.kitty.kritter.utils.isLeft
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.NonNullList
-import net.minecraft.core.RegistryAccess
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
@@ -51,8 +50,8 @@ class SpongingRecipe(val input: Either<Fluid, TagKey<Fluid>>, val output: Resour
 
     override fun assemble(data: FluidData, access: HolderLookup.Provider): ItemStack = getBucket(access)
     override fun getResultItem(access: HolderLookup.Provider): ItemStack = getBucket(access)
-    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.SPONGING
-    override fun getType(): RecipeType<*> = EstrogenRecipes.SPONGING
+    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.SPONGING.value!!
+    override fun getType(): RecipeType<*> = EstrogenRecipes.SPONGING.value!!
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = true
     override fun getIngredients(): NonNullList<Ingredient> = NonNullList.of(Ingredient.EMPTY)
 
@@ -65,7 +64,7 @@ class SpongingRecipe(val input: Either<Fluid, TagKey<Fluid>>, val output: Resour
             level: Level,
             pos: BlockPos,
         ): BlockState? {
-            level.recipeManager.getAllRecipesFor(EstrogenRecipes.SPONGING).forEach { recipe ->
+            level.recipeManager.getAllRecipesFor(EstrogenRecipes.SPONGING.value).forEach { recipe ->
                 if (recipe.value().matches(FluidData(fluidState, blockState), level) && !level.isClientSide) {
                     return BuiltInRegistries.BLOCK.get(recipe.value().output).withPropertiesOf(blockState)
                 }
@@ -90,7 +89,7 @@ class SpongingRecipe(val input: Either<Fluid, TagKey<Fluid>>, val output: Resour
         override val catalyst: ItemStack = Items.BUCKET.defaultInstance
         override val id: ResourceLocation = id("sponging")
         override val height: Int = 70
-        override val type: RecipeType<*> get() = EstrogenRecipes.SPONGING
+        override val type: RecipeType<*> get() = EstrogenRecipes.SPONGING.value!!
         override val width: Int = 177
         override val workstation: ItemStack? get() = Items.SPONGE.defaultInstance
     }

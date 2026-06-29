@@ -13,12 +13,12 @@ import dev.engine_room.flywheel.lib.visualization.SimpleBlockEntityVisualizer
 import dev.mayaqq.cynosure.items.extensions.CustomTooltip
 import dev.mayaqq.cynosure.items.extensions.registerExtension
 import dev.mayaqq.cynosure.tooltips.DescriptionTooltip
-import dev.mayaqq.estrogen.content.blocks.fluid.LavaLikeLiquidBlock
-import dev.mayaqq.estrogen.content.fluids.registry.FluidBuilder
 import dev.mayaqq.estrogen.api.item.equip.Equip
 import dev.mayaqq.estrogen.api.item.equip.client.EquipRenderer
 import dev.mayaqq.estrogen.api.item.equip.registerEquip
 import dev.mayaqq.estrogen.api.item.equip.registerEquipRenderer
+import dev.mayaqq.estrogen.content.blocks.fluid.LavaLikeLiquidBlock
+import dev.mayaqq.estrogen.content.fluids.registry.FluidBuilder
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.mcid
 import dev.mayaqq.estrogen.mixin.client.accessor.ItemPropertiesAccessor

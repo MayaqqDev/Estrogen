@@ -76,7 +76,7 @@ class DreamBlock(p0: Properties) : GlassLikeBlock(p0), BlockWithEntity<DreamBloc
     }
 
     override val blockEntityClass: Class<out DreamBlockEntity> = DreamBlockEntity::class.java
-    override fun blockEntityType(): BlockEntityType<out DreamBlockEntity> = EstrogenBlockEntities.DreamBlock
+    override fun blockEntityType(): BlockEntityType<out DreamBlockEntity> = EstrogenBlockEntities.DreamBlock.value!!
 
 
     override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
@@ -234,7 +234,7 @@ class DreamBlock(p0: Properties) : GlassLikeBlock(p0), BlockWithEntity<DreamBloc
                 Mth.ceil(playerAABB.maxZ) - 1
             )
             return BlockPos.betweenClosedStream(minPos, maxPos).anyMatch { pos: BlockPos ->
-                player.level().getBlockState(pos).let { it of EstrogenBlocks.DreamBlock && canEntityUse(it, player) }
+                player.level().getBlockState(pos).let { it of EstrogenBlocks.DreamBlock.value!! && canEntityUse(it, player) }
             }
 
             // can't use betweenClosedStream because it also sometimes includes blocks that the player
@@ -242,7 +242,7 @@ class DreamBlock(p0: Properties) : GlassLikeBlock(p0), BlockWithEntity<DreamBloc
         }
 
         fun isTouchingDreamBlock(state: BlockState, direction: Direction): Boolean =
-            state of EstrogenBlocks.DreamBlock && state.getValue(directionProperty(direction))
+            state of EstrogenBlocks.DreamBlock.value!! && state.getValue(directionProperty(direction))
 
         @Subscription
         internal fun onPlayerJoin(event: PlayerConnectionEvent.Join) {
@@ -256,7 +256,7 @@ class DreamBlock(p0: Properties) : GlassLikeBlock(p0), BlockWithEntity<DreamBloc
         internal fun onAttackBlock(event: InteractionEvent.AttackBlock) {
             if (event.player.abilities.instabuild) return
             val state = event.level.getBlockState(event.pos)
-            if (state.`is`(EstrogenBlocks.DreamBlock)) {
+            if (state.`is`(EstrogenBlocks.DreamBlock.value!!)) {
                 clientOnly {
                     if (event.level.isClientSide && TextRendererFeatures.obfuscate || state.getValue(PERSISTENT)) {
                         event.result = InteractionResult.FAIL

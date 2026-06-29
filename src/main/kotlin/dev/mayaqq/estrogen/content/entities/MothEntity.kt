@@ -3,16 +3,20 @@ package dev.mayaqq.estrogen.content.entities
 import dev.mayaqq.cynosure.core.Loader
 import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.cynosure.core.identifier
-import dev.mayaqq.estrogen.content.*
+import dev.mayaqq.estrogen.content.EstrogenEntities
+import dev.mayaqq.estrogen.content.EstrogenItems
+import dev.mayaqq.estrogen.content.EstrogenSounds
+import dev.mayaqq.estrogen.content.EstrogenTags
+import dev.mayaqq.estrogen.utils.defaultInstance
 import net.minecraft.Util
 import net.minecraft.core.BlockPos
 import net.minecraft.core.particles.ParticleOptions
+import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents
@@ -121,7 +125,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
                         getParticleType()
                     )
                 }
-                this.playSound(EstrogenSounds.MOTH_FUZZ_UP)
+                this.playSound(EstrogenSounds.MOTH_FUZZ_UP.value)
                 this.fuzzingUp()
             }
         }
@@ -156,7 +160,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         }
     }
 
-    private fun getParticleType(): ParticleOptions = EstrogenParticles.MothFuzz
+    private fun getParticleType(): ParticleOptions = /* TODO: EstrogenParticles.MothFuzz */ ParticleTypes.CHERRY_LEAVES
 
     // Stolen from bee code :3
     private fun spawnFuzzyParticle(
@@ -238,7 +242,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         this.setSheared()
         val i = 1 + this.random.nextInt(3)
         for (j in 0..< i) {
-            val itemEntity = this.spawnAtLocation(EstrogenItems.MothFuzz.defaultInstance, 0.5f)
+            val itemEntity = this.spawnAtLocation(EstrogenItems.MothFuzz.defaultInstance(), 0.5f)
             if (itemEntity == null) continue
             itemEntity.deltaMovement = itemEntity.deltaMovement.add(
                 ((this.random.nextFloat() - this.random.nextFloat()) * 0.1f).toDouble(),
@@ -321,13 +325,13 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         return null
     }
 
-    override fun getHurtSound(damageSource: DamageSource): SoundEvent = EstrogenSounds.MOTH_HURT
+    override fun getHurtSound(damageSource: DamageSource): SoundEvent = EstrogenSounds.MOTH_HURT.value!!
 
-    override fun getDeathSound(): SoundEvent = EstrogenSounds.MOTH_DEATH
+    override fun getDeathSound(): SoundEvent = EstrogenSounds.MOTH_DEATH.value!!
 
     override fun getSoundVolume(): Float = 0.4f
 
-    override fun getBreedOffspring(level: ServerLevel, otherParent: AgeableMob): MothEntity? = EstrogenEntities.Moth.create(level)
+    override fun getBreedOffspring(level: ServerLevel, otherParent: AgeableMob): MothEntity? = EstrogenEntities.Moth.value!!.create(level)
 
     public override fun isFlapping(): Boolean = this.isFlying && this.tickCount % TICKS_PER_FLAP == 0
 

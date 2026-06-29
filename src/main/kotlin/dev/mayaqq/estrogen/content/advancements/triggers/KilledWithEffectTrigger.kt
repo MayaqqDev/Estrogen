@@ -7,12 +7,14 @@ import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.LivingEntityEvent
 import dev.mayaqq.estrogen.content.AdvancementTriggers
-import net.minecraft.advancements.critereon.*
+import net.minecraft.advancements.critereon.ContextAwarePredicate
+import net.minecraft.advancements.critereon.EntityPredicate
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger
 import net.minecraft.core.Holder
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.entity.Entity
-import java.util.Optional
+import java.util.*
 
 class KilledWithEffectTrigger : SimpleCriterionTrigger<KilledWithEffectTrigger.TriggerInstance>() {
     override fun codec(): Codec<TriggerInstance> = TriggerInstance.CODEC

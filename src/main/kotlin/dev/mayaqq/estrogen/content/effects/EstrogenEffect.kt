@@ -21,6 +21,7 @@ import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.features.dash.CommonDash.removeDashing
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.holder
+import net.minecraft.core.Holder
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket
@@ -56,7 +57,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         // Only tick on the client and if the entity is a player
         if (entity is Player && entity.level().isClientSide) {
             ClientDash.tick()
-            if (entity.getEffect(this.holder())?.duration == 1) ClientDash.reset()
+            if (entity.getEffect(EstrogenEffects.Estrogen.holder())?.duration == 1) ClientDash.reset()
         }
         return true
     }
@@ -68,14 +69,14 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         private val fallDamageResistanceID = id("fall_damage_resistance")
         private val boobModifierID = id("boob_modifier")
 
-        fun sendPlayerStatusEffect(player: ServerPlayer, effect: MobEffect, vararg targetPlayers: ServerPlayer) {
-            val effectInstance = player.getEffect(effect.holder()) ?: return
+        fun sendPlayerStatusEffect(player: ServerPlayer, effect: Holder<MobEffect>, vararg targetPlayers: ServerPlayer) {
+            val effectInstance = player.getEffect(effect) ?: return
             //TODO: WHAT THE FUCK IS A BLEND
             sendPacket(ClientboundUpdateMobEffectPacket(player.id, effectInstance, false), *targetPlayers)
         }
 
-        fun sendRemovePlayerStatusEffect(player: ServerPlayer, effect: MobEffect, vararg targetPlayers: ServerPlayer) {
-            sendPacket(ClientboundRemoveMobEffectPacket(player.id, effect.holder()), *targetPlayers)
+        fun sendRemovePlayerStatusEffect(player: ServerPlayer, effect: Holder<MobEffect>, vararg targetPlayers: ServerPlayer) {
+            sendPacket(ClientboundRemoveMobEffectPacket(player.id, effect), *targetPlayers)
         }
 
         private fun sendPacket(packet: Packet<*>, vararg players: ServerPlayer) {
@@ -91,7 +92,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
                 if (entity is ServerPlayer) {
                     sendRemovePlayerStatusEffect(
                         entity,
-                        EstrogenEffects.Estrogen,
+                        EstrogenEffects.Estrogen.holder(),
                         *tracking(entity).toTypedArray()
                     )
                 }
@@ -107,7 +108,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
             if (entity is ServerPlayer) {
                 sendPlayerStatusEffect(
                     entity,
-                    EstrogenEffects.Estrogen,
+                    EstrogenEffects.Estrogen.holder(),
                     *tracking(entity).toTypedArray()
                 )
             }
@@ -140,7 +141,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
 internal fun EntityTrackingEvent.Start.onPlayerTracking() {
     if (entity is ServerPlayer) EstrogenEffect.sendPlayerStatusEffect(
         entity as ServerPlayer,
-        EstrogenEffects.Estrogen,
+        EstrogenEffects.Estrogen.holder(),
         player,
     )
 }
@@ -162,6 +163,7 @@ internal fun LivingEntityEvent.EffectApply.onApplyEffect() {
     }
 
     if (effect == EstrogenEffects.Estrogen) {
+        EstrogenEffect.handleEffectAddition(entity, newInstance.amplifier)
     }
 }
 

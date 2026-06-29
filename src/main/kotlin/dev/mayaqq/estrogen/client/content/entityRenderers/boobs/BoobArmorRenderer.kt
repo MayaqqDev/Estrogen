@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.client.content.entityRenderers.boobs
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
-import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.rgba
 import net.minecraft.client.model.geom.ModelPart
 import net.minecraft.client.model.geom.PartPose

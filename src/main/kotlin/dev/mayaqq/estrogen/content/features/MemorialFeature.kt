@@ -13,7 +13,7 @@ class MemorialFeature() : Feature<NoneFeatureConfiguration>(NoneFeatureConfigura
         val pos = ctx.origin()
 
         if (!level.isClientSide && pos.y >= 128) {
-            val state = EstrogenBlocks.Memorial.defaultBlockState()
+            val state = EstrogenBlocks.Memorial.value!!.defaultBlockState()
 
             for (y in 0..2) {
                 for (x in 0..1) {

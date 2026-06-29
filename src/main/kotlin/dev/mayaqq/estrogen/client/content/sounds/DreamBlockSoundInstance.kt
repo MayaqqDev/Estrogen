@@ -8,7 +8,7 @@ import net.minecraft.client.resources.sounds.SoundInstance
 import net.minecraft.sounds.SoundSource
 
 class DreamBlockSoundInstance(val player: LocalPlayer) : AbstractTickableSoundInstance(
-    EstrogenSounds.DREAM_BLOCK_LOOP,
+    EstrogenSounds.DREAM_BLOCK_LOOP.value,
     SoundSource.BLOCKS,
     SoundInstance.createUnseededRandom()
 ) {

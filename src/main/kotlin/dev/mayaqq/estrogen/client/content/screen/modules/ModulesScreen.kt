@@ -10,7 +10,6 @@ import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.text.TextBuilder.append
 import dev.mayaqq.cynosure.text.TextStyle.color
 import dev.mayaqq.cynosure.text.TextStyle.italic
-import dev.mayaqq.cynosure.utils.colors.*
 import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.api.EstrogenFlag
 import dev.mayaqq.estrogen.api.EstrogenModule
@@ -19,6 +18,8 @@ import dev.mayaqq.estrogen.client.content.screen.EstrogenButton
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen.Companion.transBlue
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.modules.getModules
+import invoke.kitty.kritter.utils.color.LightBlue
+import invoke.kitty.kritter.utils.color.MinecraftColors
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.renderer.texture.DynamicTexture
@@ -69,12 +70,12 @@ class ModulesScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.of("e
 
     override fun isPauseScreen(): Boolean = true
 
-    override fun mouseScrolled(mouseX: Double, mouseY: Double, delta: Double): Boolean {
-        if (scrollProgress + delta > 0.0 && scrollProgress + delta < (modules.size * (10 + buttonWidth) - width + 30)) {
-            scrollProgress += delta
+    override fun mouseScrolled(mouseX: Double, mouseY: Double, scrollX: Double, scrollY: Double): Boolean {
+        if (scrollProgress + scrollY > 0.0 && scrollProgress + scrollY < (modules.size * (10 + buttonWidth) - width + 30)) {
+            scrollProgress += scrollY
             rebuildWidgets()
         }
-        return super.mouseScrolled(mouseX, mouseY, delta)
+        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY)
     }
 
     private val modules
@@ -99,12 +100,12 @@ class ModulesScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.of("e
             // Description
             graphics.drawString(McClient.font, Text.of {
                 append("(${mod.modid})") {
-                    color = McDarkGray
+                    color = MinecraftColors.DarkGray
                 }
             }, x + 4, y + 4 + (16 - (McFont.lineHeight / 2)) + McFont.lineHeight, 0xFFFFFF, false)
             graphics.drawWordWrap(McFont, Text.of {
                 append(module.description) {
-                    color = McGray
+                    color = MinecraftColors.Gray
                     italic = true
                 }
             }, x + 4, y + 40, width - 8,0xFFFFFF)
@@ -115,7 +116,7 @@ class ModulesScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.of("e
                 }
                 val modifies = module.hasFlag(EstrogenFlag.MODIFIES_BASE_ESTROGEN)
                 append(if (modifies) "✔" else "❌") {
-                    color = if (modifies) McGreen else McRed
+                    color = if (modifies) MinecraftColors.Green else MinecraftColors.Red
                 }
             }, x + 4, y + height - McFont.lineHeight - 4, 0xFFFFFF, false)
 

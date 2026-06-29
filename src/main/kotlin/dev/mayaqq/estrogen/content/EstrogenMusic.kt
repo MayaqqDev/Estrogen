@@ -4,14 +4,13 @@ import dev.mayaqq.cynosure.music.register
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.content.EstrogenEffects.Estrogen
 import dev.mayaqq.estrogen.utils.holder
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.sounds.Music
 import net.minecraft.sounds.Musics
 
 object EstrogenMusic : Musics() {
     @JvmField
     val EstrogenAmbient: Music = Music(
-        BuiltInRegistries.SOUND_EVENT.wrapAsHolder(EstrogenSounds.ESTROGEN_AMBIENT),
+        EstrogenSounds.ESTROGEN_AMBIENT.holder(),
         EstrogenClientConfig.Music.minDelayBetweenSongs,
         EstrogenClientConfig.Music.maxDelayBetweenSongs,
         EstrogenClientConfig.Music.replacesCurrentMusic
