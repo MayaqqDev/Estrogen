@@ -78,8 +78,10 @@ data class Cosmetic(
     }
 }
 
-@Subscription
-fun onTick(event: ClientTickEvent.End) {
-    Cosmetic.animationTicks++
-    if (Cosmetic.animationTicks > 30000000) Cosmetic.animationTicks = 0
+object CosmeticEvents {
+    @Subscription
+    fun onTick(event: ClientTickEvent.End) {
+        Cosmetic.animationTicks++
+        if (Cosmetic.animationTicks > 30000000) Cosmetic.animationTicks = 0
+    }
 }

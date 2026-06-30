@@ -59,7 +59,9 @@ class KilledWithEffectTrigger : SimpleCriterionTrigger<KilledWithEffectTrigger.T
     }
 }
 
-@Subscription
-fun onEntityDeath(event: LivingEntityEvent.Death) {
-    if (event.source.entity is ServerPlayer) AdvancementTriggers.KilledWithEffect.trigger(event.source.entity as ServerPlayer, event.entity)
+object KilledWithEffectEvents {
+    @Subscription
+    fun onEntityDeath(event: LivingEntityEvent.Death) {
+        if (event.source.entity is ServerPlayer) AdvancementTriggers.KilledWithEffect.trigger(event.source.entity as ServerPlayer, event.entity)
+    }
 }

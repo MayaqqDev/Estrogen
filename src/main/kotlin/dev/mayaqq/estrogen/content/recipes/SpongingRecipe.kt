@@ -1,4 +1,3 @@
-@file:EventSubscriber
 package dev.mayaqq.estrogen.content.recipes
 
 import com.mojang.serialization.Codec
@@ -6,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
 import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.estrogen.content.EstrogenRecipeSerializers
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.data.FluidRecipeCodec

@@ -23,16 +23,19 @@ import java.util.*
 const val url = "https://mayaqq.dev/files/boob_people.json"
 val boobPeople = ArrayList<UUID>()
 
-@Subscription
-fun onPlayerJoin(event: PlayerConnectionEvent.Join) {
-    if (!event.player.tags.contains("estrogen_first_join")) {
-        if (isBoobPerson(event.player)) {
-            GenderChangePotionItem.changeGender(event.player.level(), event.player, 1)
+object BoobPeople {
+    @Subscription
+    fun onPlayerJoin(event: PlayerConnectionEvent.Join) {
+        if (!event.player.tags.contains("estrogen_first_join")) {
+            if (isBoobPerson(event.player)) {
+                GenderChangePotionItem.changeGender(event.player.level(), event.player, 1)
+            }
+            event.player.addTag("estrogen_first_join")
         }
-        event.player.addTag("estrogen_first_join")
+
+        if (Boob.shouldShow(event.player)) event.player.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder())?.baseValue = currentTime(event.player.level());
     }
 
-    if (Boob.shouldShow(event.player)) event.player.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder())?.baseValue = currentTime(event.player.level());
 }
 
 private fun isBoobPerson(player: Player): Boolean {

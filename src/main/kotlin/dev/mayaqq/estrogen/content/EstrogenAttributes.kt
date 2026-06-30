@@ -47,36 +47,38 @@ object EstrogenAttributes : Registrar<Attribute> by Registrar(MOD_ID, Registries
     }) {}
 }
 
-@Subscription
-fun PostInitEvent.postInit() {
-    EntityAttributes.modify(EntityType.PLAYER) {
-        add(DashLevel.value!!)
-        add(FallDamageResistance.value!!)
-        add(ShowBoobs.value!!)
-        add(BoobInitialSize.value!!)
-        add(BoobGrowingStartTime.value!!)
-    }
-}
-
-@Subscription
-internal fun EntityDamageEvent.onDamage() {
-    if (entity is Player && source in DamageTypeTags.IS_FALL) {
-        val resistance = (entity as Player).getAttributeValue(FallDamageResistance.holder()).toFloat()
-        result = if (resistance > amount) {
-            0.0F
-        } else {
-            amount / resistance
+object EstrogenAttributeEvents {
+    @Subscription
+    fun PostInitEvent.postInit() {
+        EntityAttributes.modify(EntityType.PLAYER) {
+            add(DashLevel.value!!)
+            add(FallDamageResistance.value!!)
+            add(ShowBoobs.value!!)
+            add(BoobInitialSize.value!!)
+            add(BoobGrowingStartTime.value!!)
         }
     }
-}
 
-@Subscription
-internal fun PlayerRespawnEvent.onPlayerRespawn() {
-    if (newPlayer.level().isClientSide) return
-    val attributes = arrayOf(ShowBoobs, BoobGrowingStartTime, BoobInitialSize)
-    attributes.forEach { attribute ->
-        oldPlayer.getAttribute(attribute.holder())?.let { instance ->
-            newPlayer.getAttribute(attribute.holder())?.replaceFrom(instance)
+    @Subscription
+    internal fun EntityDamageEvent.onDamage() {
+        if (entity is Player && source in DamageTypeTags.IS_FALL) {
+            val resistance = (entity as Player).getAttributeValue(FallDamageResistance.holder()).toFloat()
+            result = if (resistance > amount) {
+                0.0F
+            } else {
+                amount / resistance
+            }
+        }
+    }
+
+    @Subscription
+    internal fun PlayerRespawnEvent.onPlayerRespawn() {
+        if (newPlayer.level().isClientSide) return
+        val attributes = arrayOf(ShowBoobs, BoobGrowingStartTime, BoobInitialSize)
+        attributes.forEach { attribute ->
+            oldPlayer.getAttribute(attribute.holder())?.let { instance ->
+                newPlayer.getAttribute(attribute.holder())?.replaceFrom(instance)
+            }
         }
     }
 }

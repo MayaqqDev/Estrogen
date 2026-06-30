@@ -1,7 +1,5 @@
-@file:EventSubscriber
 package dev.mayaqq.estrogen.content.blocks
 
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.estrogen.api.EstrogenFlag
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenRecipes

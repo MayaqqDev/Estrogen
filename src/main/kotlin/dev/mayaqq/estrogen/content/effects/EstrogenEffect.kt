@@ -134,53 +134,54 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
                 }
             }
         }
-    }
-}
 
-@Subscription
-internal fun EntityTrackingEvent.Start.onPlayerTracking() {
-    if (entity is ServerPlayer) EstrogenEffect.sendPlayerStatusEffect(
-        entity as ServerPlayer,
-        EstrogenEffects.Estrogen.holder(),
-        player,
-    )
-}
-
-@Subscription
-internal fun EntityDamageSourceEvent.onDamageSource() {
-    if (source in DamageTypeTags.IS_FALL && (entity as? Player)?.hasEffect(EstrogenEffects.Estrogen.holder()) == true) {
-        result = EstrogenDamageSources.of(entity.level(), EstrogenDamageSources.GIRLPOWER)
-    }
-}
-
-@Subscription
-internal fun LivingEntityEvent.EffectApply.onApplyEffect() {
-    if (this.oldInstance == null && this.effect == EstrogenEffects.Estrogen && entity is Player) {
-        if (!Boob.shouldShow(entity as Player)) {
-            entity.getAttribute(EstrogenAttributes.BoobInitialSize.holder())?.baseValue = 0.0
-            entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder())?.baseValue = -1.0
+        @Subscription
+        internal fun EntityTrackingEvent.Start.onPlayerTracking() {
+            if (entity is ServerPlayer) EstrogenEffect.sendPlayerStatusEffect(
+                entity as ServerPlayer,
+                EstrogenEffects.Estrogen.holder(),
+                player,
+            )
         }
+
+        @Subscription
+        internal fun EntityDamageSourceEvent.onDamageSource() {
+            if (source in DamageTypeTags.IS_FALL && (entity as? Player)?.hasEffect(EstrogenEffects.Estrogen.holder()) == true) {
+                result = EstrogenDamageSources.of(entity.level(), EstrogenDamageSources.GIRLPOWER)
+            }
+        }
+
+        @Subscription
+        internal fun LivingEntityEvent.EffectApply.onApplyEffect() {
+            if (this.oldInstance == null && this.effect == EstrogenEffects.Estrogen && entity is Player) {
+                if (!Boob.shouldShow(entity as Player)) {
+                    entity.getAttribute(EstrogenAttributes.BoobInitialSize.holder())?.baseValue = 0.0
+                    entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder())?.baseValue = -1.0
+                }
+            }
+
+            if (effect == EstrogenEffects.Estrogen) {
+                EstrogenEffect.handleEffectAddition(entity, newInstance.amplifier)
+            }
+        }
+
+        @Subscription
+        internal fun LivingEntityEvent.EffectRemove.onEffectRemoved() {
+            if (effect == EstrogenEffects.Estrogen)
+                EstrogenEffect.handleEffectRemoval(this.entity)
+        }
+
+        @Subscription
+        internal fun LivingEntityEvent.EffectExpire.onEffectExpired() {
+            if (effect == EstrogenEffects.Estrogen)
+                EstrogenEffect.handleEffectRemoval(this.entity)
+        }
+
+        fun AttributeInstance.replaceModifier(modifier: AttributeModifier) {
+            this.getModifier(modifier.id())?.let { this.removeModifier(modifier.id()) }
+            this.addPermanentModifier(modifier)
+
+        }
+
     }
-
-    if (effect == EstrogenEffects.Estrogen) {
-        EstrogenEffect.handleEffectAddition(entity, newInstance.amplifier)
-    }
-}
-
-@Subscription
-internal fun LivingEntityEvent.EffectRemove.onEffectRemoved() {
-    if (effect == EstrogenEffects.Estrogen)
-    EstrogenEffect.handleEffectRemoval(this.entity)
-}
-
-@Subscription
-internal fun LivingEntityEvent.EffectExpire.onEffectExpired() {
-    if (effect == EstrogenEffects.Estrogen)
-    EstrogenEffect.handleEffectRemoval(this.entity)
-}
-
-fun AttributeInstance.replaceModifier(modifier: AttributeModifier) {
-    this.getModifier(modifier.id())?.let { this.removeModifier(modifier.id()) }
-    this.addPermanentModifier(modifier)
-
 }

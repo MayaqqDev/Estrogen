@@ -49,9 +49,9 @@ object ThighHighStyleLoader : ResourceManagerReloadListener {
             })
         EstrogenItems.ThighHighs.value!!.loadStyles(styles)
     }
-}
 
-@Subscription
-fun onDataSync(event: DataPackSyncEvent) {
-    if (event.player is ServerPlayer) EstrogenItems.ThighHighs.value!!.syncStyles(event.player as ServerPlayer)
+    @Subscription
+    fun onDataSync(event: DataPackSyncEvent) {
+        if (event.player is ServerPlayer) EstrogenItems.ThighHighs.value!!.syncStyles(event.player as ServerPlayer)
+    }
 }

@@ -13,21 +13,22 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 
+object ModlessCobblemonCompat {
+    @Subscription
+    fun onEntityInteract(event: InteractionEvent.UseEntity) {
+        if (!isModLoaded("cobblemon")) return
 
-@Subscription
-fun onEntityInteract(event: InteractionEvent.UseEntity) {
-    if (!isModLoaded("cobblemon")) return
-
-    if (event.entity.javaClass.packageName.contains("cobblemon")) {
-        if (event.getUsedStack().`is`(EstrogenItems.GenderChangePotion.value)) {
-            if (changeGender(event.entity)) {
-                event.getUsedStack().shrink(1)
-                val itemStack = ItemStack(Items.GLASS_BOTTLE)
-                if (!event.player.inventory.add(itemStack)) {
-                    event.player.drop(itemStack, false)
+        if (event.entity.javaClass.packageName.contains("cobblemon")) {
+            if (event.getUsedStack().`is`(EstrogenItems.GenderChangePotion.value)) {
+                if (changeGender(event.entity)) {
+                    event.getUsedStack().shrink(1)
+                    val itemStack = ItemStack(Items.GLASS_BOTTLE)
+                    if (!event.player.inventory.add(itemStack)) {
+                        event.player.drop(itemStack, false)
+                    }
+                    GenderChangePotionItem.playParticles(event.level, event.entity as LivingEntity)
+                    event.result = InteractionResult.SUCCESS
                 }
-                GenderChangePotionItem.playParticles(event.level, event.entity as LivingEntity)
-                event.result = InteractionResult.SUCCESS
             }
         }
     }

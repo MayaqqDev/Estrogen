@@ -34,25 +34,6 @@ private val LOOT_LOCATIONS: MutableList<ResourceLocation> = listOf(
     "minecraft:chests/ancient_city"
 ).map { identifier(it) }.toMutableList()
 
-@Subscription
-fun LoottableEvents.Modify.onLootModify() {
-    if (LOOT_LOCATIONS.contains(id)) {
-        val pool = LootPool.lootPool()
-            .setRolls(ConstantValue.exactly(1F))
-            .conditionally(
-                LootItemRandomChanceCondition.randomChance(
-                    EstrogenServerConfig.ThighHighs.prideThighHighsChance / 100F)
-                    .build()
-            ).with(
-                LootItem.lootTableItem(EstrogenItems.ThighHighs)
-                    .apply(ThighHighStyleLootFunction.apply())
-                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f)))
-                    .build()
-            )
-        this.builder.withPool(pool)
-    }
-}
-
 class ThighHighStyleLootFunction(predicates: List<LootItemCondition>) : LootItemConditionalFunction(predicates) {
 
     override fun run(stack: ItemStack, context: LootContext): ItemStack {
@@ -70,5 +51,23 @@ class ThighHighStyleLootFunction(predicates: List<LootItemCondition>) : LootItem
             commonFields(it).apply(it, ::ThighHighStyleLootFunction)
         }
 
+        @Subscription
+        fun LoottableEvents.Modify.onLootModify() {
+            if (LOOT_LOCATIONS.contains(id)) {
+                val pool = LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1F))
+                    .conditionally(
+                        LootItemRandomChanceCondition.randomChance(
+                            EstrogenServerConfig.ThighHighs.prideThighHighsChance / 100F)
+                            .build()
+                    ).with(
+                        LootItem.lootTableItem(EstrogenItems.ThighHighs)
+                            .apply(ThighHighStyleLootFunction.apply())
+                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f)))
+                            .build()
+                    )
+                this.builder.withPool(pool)
+            }
+        }
     }
 }

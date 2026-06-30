@@ -5,16 +5,27 @@ import dev.mayaqq.cynosure.biome.BiomeModifiers
 import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.data.registerDatapackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
+import dev.mayaqq.cynosure.events.api.MainBus
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.tag
 import dev.mayaqq.estrogen.api.EstrogenEntrypoint
 import dev.mayaqq.estrogen.api.EstrogenFlag
 import dev.mayaqq.estrogen.api.EstrogenModule
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
+import dev.mayaqq.estrogen.compat.cobblemon.ModlessCobblemonCompat
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.*
+import dev.mayaqq.estrogen.content.advancements.triggers.KilledWithEffectEvents
+import dev.mayaqq.estrogen.content.blocks.CauldronInteractions
+import dev.mayaqq.estrogen.content.blocks.DreamBlock
+import dev.mayaqq.estrogen.content.effects.EstrogenEffect
+import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
+import dev.mayaqq.estrogen.features.boobs.ServerSideBoobHandling
+import dev.mayaqq.estrogen.features.extra.BoobPeople
+import dev.mayaqq.estrogen.features.minigame.Minigame
 import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLoader
+import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLootFunction
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.ForestGreen
@@ -64,7 +75,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
         EstrogenLootFunctions.register()
 
         // Register Packets
-        EstrogenNetwork
+        EstrogenNetwork.initialize()
         // Reload Listeners
         registerDatapackReloadListener(id("thigh_high_styles"), ThighHighStyleLoader)
         // Forest Green
@@ -85,4 +96,22 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
     override val flags: Array<EstrogenFlag> = arrayOf()
     override val color: Color = LightBlue
     override val description: String = "Base Estrogen, contains some recipes + a build-in datapack for vanilla integration."
+
+    fun hookEventBus() {
+        listOf(
+            Estrogen,
+            ModlessCobblemonCompat,
+            EstrogenAttributeEvents,
+            KilledWithEffectEvents,
+            CauldronInteractions,
+            DreamBlock,
+            EstrogenEffect,
+            EntityInteractionRecipe,
+            ServerSideBoobHandling,
+            BoobPeople,
+            Minigame,
+            ThighHighStyleLootFunction,
+            ThighHighStyleLoader
+        ).forEach(MainBus::subscribe)
+    }
 }
