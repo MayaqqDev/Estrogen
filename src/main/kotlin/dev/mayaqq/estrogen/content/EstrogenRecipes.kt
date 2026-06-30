@@ -18,7 +18,7 @@ object EstrogenRecipes : Registrar<RecipeType<*>> by Registrar(MOD_ID, Registrie
     val LIQUID_ESTROGEN_CAULDRON = recipeType<LiquidEstrogenCauldronRecipe>("liquid_estrogen_cauldron")
 }
 
-object EstrogenRecipeSerializers : Registrar<RecipeSerializer<*>> by sibling(Registries.RECIPE_SERIALIZER) {
+object EstrogenRecipeSerializers : Registrar<RecipeSerializer<*>> by Registrar(MOD_ID, Registries.RECIPE_SERIALIZER) {
     val ENTITY_INTERACTION_SERIALIZER = codecSerializer("entity_interaction", {EntityInteractionRecipe.CODEC}, {EntityInteractionRecipe.NET_CODEC}) {}
     val SPONGING = codecSerializer("sponging", {SpongingRecipe.CODEC}, {SpongingRecipe.NETCODEC}) {}
     val THIGH_HIGH_DYE_SERIALIZER = entry("thigh_high_dye", { SimpleCraftingRecipeSerializer(::ThighHighDyeRecipe) }) {}
