@@ -6,7 +6,7 @@ cloche = "0.18.14"
 
 # Minecraft
 minecraft = "1.21.1"
-fabric = "0.16.9"
+fabric = "0.18.5"
 
 # Common Dependencies
 kritter = "2.0.0-alpha.4"

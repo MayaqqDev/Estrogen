@@ -7,6 +7,7 @@ import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
 import dev.mayaqq.cynosure.core.bytecodecs.ByteCodecs
 import dev.mayaqq.cynosure.events.api.EventSubscriber
+import dev.mayaqq.estrogen.content.EstrogenRecipeSerializers
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.data.FluidRecipeCodec
 import dev.mayaqq.estrogen.content.recipes.inventory.FluidData
@@ -50,7 +51,7 @@ class SpongingRecipe(val input: Either<Fluid, TagKey<Fluid>>, val output: Resour
 
     override fun assemble(data: FluidData, access: HolderLookup.Provider): ItemStack = getBucket(access)
     override fun getResultItem(access: HolderLookup.Provider): ItemStack = getBucket(access)
-    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.SPONGING.value!!
+    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipeSerializers.SPONGING.value!!
     override fun getType(): RecipeType<*> = EstrogenRecipes.SPONGING.value!!
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = true
     override fun getIngredients(): NonNullList<Ingredient> = NonNullList.of(Ingredient.EMPTY)

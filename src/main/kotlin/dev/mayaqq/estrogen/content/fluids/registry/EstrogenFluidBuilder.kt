@@ -52,7 +52,10 @@ class FluidBuilder<S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFlui
     fun properties(props: FluidProperties.Builder.() -> Unit) {
         this._properties = props
         buildProperties()
-        owner.createBuilderCallback<F>(flowingName).apply { acceptEntry(this@FluidBuilder::createFlowingEntry, this@FluidBuilder.wrapFlowing(this.key) as RegistryEntry<F>) }
+        owner.createBuilderCallback<F>(flowingName).apply {
+            flowingWrapper = this@FluidBuilder.wrapFlowing(this.key) as RegistryEntry<F>
+            acceptEntry(this@FluidBuilder::createFlowingEntry, flowingWrapper!!)
+        }
     }
 
     inline fun renderType(crossinline renderType: () -> RenderType) {
@@ -107,5 +110,12 @@ class FluidBuilder<S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFlui
 
     override fun createEntry(): S {
         return sourceFactory.invoke(fluidData!!.get())
+    }
+
+    override fun register(): RegistryEntry<S> {
+        val entry = EstrogenFluidEntry<S, F>(key, {fluidData!!.get()}, flowingWrapper!!, blockEntry!!, bucketEntry!!)
+        handler.acceptEntry(this::createEntry, entry)
+        return entry
+
     }
 }

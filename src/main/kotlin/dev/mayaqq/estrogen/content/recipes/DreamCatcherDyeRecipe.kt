@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.content.recipes
 
+import dev.mayaqq.estrogen.content.EstrogenRecipeSerializers
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.utils.TriColor
@@ -47,6 +48,6 @@ class DreamCatcherDyeRecipe(category: CraftingBookCategory) : CustomRecipe(categ
     }
 
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = width * height >= 4
-    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.DREAMCATCHER_DYE_SERIALIZER.value!!
+    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipeSerializers.DREAMCATCHER_DYE_SERIALIZER.value!!
 
 }

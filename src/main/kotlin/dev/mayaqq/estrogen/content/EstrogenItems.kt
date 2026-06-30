@@ -75,7 +75,7 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
     val EstrogenChipCookie = item("estrogen_chip_cookie", ::Item) {
         properties {
             rarity(Rarity.RARE)
-            jukeboxPlayable(EstrogenRecordSongs.G03C.key)
+            jukeboxPlayable(EstrogenRecordSongs.G03C)
             food(
                 FoodProperties.Builder().effect(MobEffectInstance(
                     EstrogenEffects.Estrogen.holder(),

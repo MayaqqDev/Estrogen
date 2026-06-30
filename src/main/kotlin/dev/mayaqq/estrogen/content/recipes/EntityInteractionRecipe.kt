@@ -17,6 +17,7 @@ import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
 import dev.mayaqq.cynosure.utils.contains
+import dev.mayaqq.estrogen.content.EstrogenRecipeSerializers
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.data.EntityTypeRecipeCodec
 import dev.mayaqq.estrogen.content.recipes.inventory.InteractionData
@@ -59,7 +60,7 @@ class EntityInteractionRecipe(val ingredient: Ingredient, val result: ItemStack,
     }
 
     override fun assemble(data: InteractionData, lookup: HolderLookup.Provider): ItemStack = result.copy()
-    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.ENTITY_INTERACTION_SERIALIZER.value!!
+    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipeSerializers.ENTITY_INTERACTION_SERIALIZER.value!!
     override fun getType(): RecipeType<*> = EstrogenRecipes.ENTITY_INTERACTION.value!!
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = true
     override fun getResultItem(lookup: HolderLookup.Provider): ItemStack = result.copy()

@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.content.recipes
 
 import dev.mayaqq.cynosure.utils.diffuseColor
+import dev.mayaqq.estrogen.content.EstrogenRecipeSerializers
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.items.ThighHighsItem
 import invoke.kitty.kritter.utils.color.Color
@@ -89,5 +90,5 @@ class ThighHighDyeRecipe(category: CraftingBookCategory) : CustomRecipe(category
     }
 
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = width * height == 9
-    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.THIGH_HIGH_DYE_SERIALIZER.value!!
+    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipeSerializers.THIGH_HIGH_DYE_SERIALIZER.value!!
 }

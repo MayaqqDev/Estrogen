@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
 import dev.mayaqq.estrogen.content.EstrogenFluids
+import dev.mayaqq.estrogen.content.EstrogenRecipeSerializers
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.recipes.viewers.RecipeViewerInfo
 import dev.mayaqq.estrogen.id
@@ -20,7 +21,7 @@ import net.minecraft.world.level.Level
 
 class LiquidEstrogenCauldronRecipe(val enabled: Boolean) : Recipe<RecipeInput> {
 
-    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipes.Serializers.LIQUID_ESTROGEN_CAULDRON_SERIALIZER.value!!
+    override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipeSerializers.LIQUID_ESTROGEN_CAULDRON_SERIALIZER.value!!
 
     override fun getType(): RecipeType<*> = EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON.value!!
 

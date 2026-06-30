@@ -14,15 +14,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPacketListener.class)
 public class ClientPacketListenerMixin {
-    @Shadow @Final private Minecraft minecraft;
-
     /**
      * This mixin adds a MothFlyingSoundInstance to the sound manager when a moth entity is added.
      */
     @Inject(method = "postAddEntitySoundInstance", at = @At("HEAD"))
     private void postAddEntitySoundInstanceMixin(Entity entity, CallbackInfo ci) {
         if (entity instanceof MothEntity moth) {
-            minecraft.getSoundManager().queueTickingSound(new MothFlyingSoundInstance(moth));
+            Minecraft.getInstance().getSoundManager().queueTickingSound(new MothFlyingSoundInstance(moth));
         }
     }
 }
