@@ -114,10 +114,6 @@ inline fun <BE : BlockEntity> BlockEntityBuilder<BE>.visualizaer(crossinline fac
 
 fun <S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing> FluidBuilder<S, F>.lavaLike(mapColor: MapColor, tint: Int) {
     properties {
-        still(id("block/blank_lava/blank_lava_still"))
-        flowing(id("block/blank_lava/blank_lava_flow"))
-        overlay(id("block/blank_lava/blank_lava_flow"))
-        screenOverlay(id("textures/misc/underwater.png"))
         tintColor(tint)
         temperature(10000)
         canConvertToSource(false)
@@ -133,6 +129,12 @@ fun <S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing> Flu
         viscosity(1500)
         density(1500)
     }
+    clientProperties {
+        still(id("block/blank_lava/blank_lava_still"))
+        flowing(id("block/blank_lava/blank_lava_flow"))
+        overlay(id("block/blank_lava/blank_lava_flow"))
+        screenOverlay(id("textures/misc/underwater.png"))
+    }
     block(::LavaLikeLiquidBlock) {
         initialPropertiesFrom(Blocks::LAVA)
         properties {
@@ -143,10 +145,6 @@ fun <S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing> Flu
 
 fun <S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing> FluidBuilder<S, F>.waterLike(mapColor: MapColor, tint: Int) {
     properties {
-        still(mcid("block/water_still"))
-        flowing(mcid("block/water_flow"))
-        overlay(mcid("block/water_flow"))
-        screenOverlay(mcid("textures/misc/underwater.png"))
         tintColor(tint)
         canConvertToSource(false)
         canDrown(true)
@@ -156,6 +154,12 @@ fun <S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing> Flu
         canSwim(true)
         viscosity(1500)
         density(1500)
+    }
+    clientProperties {
+        still(mcid("block/water_still"))
+        flowing(mcid("block/water_flow"))
+        overlay(mcid("block/water_flow"))
+        screenOverlay(mcid("textures/misc/underwater.png"))
     }
     renderType(RenderType::translucent)
     block(::ResourcefulLiquidBlock) {

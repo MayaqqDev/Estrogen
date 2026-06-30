@@ -35,9 +35,6 @@ object EstrogenFluids : Registrar<Fluid> by Registrar(MOD_ID, Registries.FLUID),
 
     val LiquidEstrogen = fluid("liquid_estrogen", ResourcefulFlowingFluid::Still, ResourcefulFlowingFluid::Flowing) {
             properties {
-                still(id("block/liquid_estrogen/liquid_estrogen_still"))
-                flowing(id("block/liquid_estrogen/liquid_estrogen_flow"))
-                screenOverlay(mcid("textures/misc/underwater.png"))
                 canConvertToSource(false)
                 canDrown(true)
                 canExtinguish(true)
@@ -46,6 +43,11 @@ object EstrogenFluids : Registrar<Fluid> by Registrar(MOD_ID, Registries.FLUID),
                 viscosity(1500)
                 density(1500)
                 canHydrate(false)
+            }
+            clientProperties {
+                still(id("block/liquid_estrogen/liquid_estrogen_still"))
+                flowing(id("block/liquid_estrogen/liquid_estrogen_flow"))
+                screenOverlay(mcid("textures/misc/underwater.png"))
             }
             renderType { RenderType.translucent() }
             block({ data, properties -> EstrogenLiquidBlock(data, properties,
@@ -91,10 +93,6 @@ object EstrogenFluids : Registrar<Fluid> by Registrar(MOD_ID, Registries.FLUID),
     }
     val GenderFluid = fluid("gender_fluid", ResourcefulFlowingFluid::Still, ResourcefulFlowingFluid::Flowing) {
         properties {
-            still(id("block/gender_fluid/gender_fluid_still"))
-            flowing(id("block/gender_fluid/gender_fluid_flow"))
-            overlay(id("block/gender_fluid/gender_fluid_flow"))
-            screenOverlay(mcid("textures/misc/underwater.png"))
             canConvertToSource(false)
             canDrown(true)
             canExtinguish(true)
@@ -102,6 +100,12 @@ object EstrogenFluids : Registrar<Fluid> by Registrar(MOD_ID, Registries.FLUID),
             canSwim(true)
             viscosity(1500)
             density(1500)
+        }
+        clientProperties {
+            still(id("block/gender_fluid/gender_fluid_still"))
+            flowing(id("block/gender_fluid/gender_fluid_flow"))
+            overlay(id("block/gender_fluid/gender_fluid_flow"))
+            screenOverlay(mcid("textures/misc/underwater.png"))
         }
         renderType { RenderType.translucent() }
         block({ data, properties -> EstrogenLiquidBlock(data, properties,

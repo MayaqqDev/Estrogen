@@ -21,6 +21,7 @@ import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.material.Fluid
+import kotlin.invoke
 
 
 @Suppress("UNCHECKED_CAST")
@@ -45,9 +46,10 @@ class FluidBuilder<S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFlui
     private var blockEntry: RegistryEntry<ResourcefulLiquidBlock>? = null
     private var bucketEntry: RegistryEntry<ResourcefulBucketItem>? = null
     private var _properties: ((FluidProperties.Builder) -> Unit)? = null
+    private var clientProperties: ClientFluidProperties? = null
 
     /**
-     * Set the properties of this block
+     * Set the properties of this fluid
      * @param props property builder function
      */
     fun properties(props: FluidProperties.Builder.() -> Unit) {
@@ -59,16 +61,24 @@ class FluidBuilder<S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFlui
         }
     }
 
+    /**
+     * Set the client properties of this fluid
+     * @param props property builder function
+     */
+    fun clientProperties(props: ClientFluidProperties.Builder.() -> Unit) {
+        val builder = ClientFluidProperties.builder()
+        props.invoke(builder)
+        clientProperties = builder.build()
+        clientOnly {
+            if (clientProperties != null) {
+                (owner as FluidRegistryProvider).clientFluidRegistry.register(name) { clientProperties }
+            }
+        }
+    }
+
     fun renderType(renderType: () -> RenderType) {
         onRegister {
             clientOnly {
-                (owner as FluidRegistryProvider).clientFluidRegistry.register(
-                    name, ClientFluidProperties.builder()
-                        .still(it.data.properties().still())
-                        .flowing(it.data.properties().flowing())
-                        .overlay(it.data.properties().overlay())
-                        .screenOverlay(it.data.properties().screenOverlay())
-                )
                 RenderLayerMap.putFluids(renderType.invoke(), it.source, it.flowing)
             }
         }
