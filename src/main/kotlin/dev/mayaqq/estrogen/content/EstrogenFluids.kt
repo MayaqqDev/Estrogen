@@ -2,6 +2,7 @@
 
 package dev.mayaqq.estrogen.content
 
+import com.teamresourceful.resourcefullib.client.fluid.registry.ResourcefulClientFluidRegistry
 import com.teamresourceful.resourcefullib.common.fluid.ResourcefulBucketItem
 import com.teamresourceful.resourcefullib.common.fluid.ResourcefulFlowingFluid
 import com.teamresourceful.resourcefullib.common.fluid.registry.ResourcefulFluidRegistry
@@ -30,6 +31,7 @@ import net.minecraft.world.level.material.MapColor
 object EstrogenFluids : Registrar<Fluid> by Registrar(MOD_ID, Registries.FLUID), FluidRegistryProvider {
 
     override val fluidRegistry: ResourcefulFluidRegistry = ResourcefulRegistries.create(ResourcefulRegistryType.FLUID, MOD_ID)
+    override val clientFluidRegistry: ResourcefulClientFluidRegistry = ResourcefulClientFluidRegistry(MOD_ID)
 
     val LiquidEstrogen = fluid("liquid_estrogen", ResourcefulFlowingFluid::Still, ResourcefulFlowingFluid::Flowing) {
             properties {

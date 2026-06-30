@@ -13,6 +13,7 @@ import earth.terrarium.common_storage_lib.context.ItemContext
 import earth.terrarium.common_storage_lib.context.impl.IsolatedSlotContext
 import earth.terrarium.common_storage_lib.context.impl.ModifyOnlyContext
 import earth.terrarium.common_storage_lib.fluid.FluidApi
+import earth.terrarium.common_storage_lib.fluid.impl.SimpleFluidStorage
 import earth.terrarium.common_storage_lib.fluid.util.FluidProvider
 import earth.terrarium.common_storage_lib.resources.fluid.FluidResource
 import earth.terrarium.common_storage_lib.resources.fluid.util.FluidAmounts
@@ -108,7 +109,7 @@ class EstrogenPatchesItem(properties: Properties) : Item(properties), FluidProvi
     }
 
     override fun getFluids(stack: ItemStack, context: ItemContext): CommonStorage<FluidResource> {
-        return EstrogenItemFluidStorage(context, EstrogenComponents.FluidComponent)
+        return SimpleFluidStorage(context, EstrogenComponents.FluidComponent, 1, FluidAmounts.BUCKET)
     }
 
     fun getAmount(stack: ItemStack): Long {

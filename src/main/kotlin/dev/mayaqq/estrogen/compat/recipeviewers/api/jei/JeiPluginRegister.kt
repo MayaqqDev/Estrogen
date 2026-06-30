@@ -52,7 +52,7 @@ object JeiPluginRegister {
     }
     }
 
-    val recipeInstances = mutableMapOf<Recipe<*>, CRVRecipe<*>>()
+    val recipeInstances = mutableMapOf<RecipeHolder<*>, CRVRecipe<*>>()
     val pseudoRecipeInstances = mutableListOf<CRVPseudoRecipe<*>>()
 
     fun getPlugins(): List<IModPlugin> {
@@ -144,11 +144,9 @@ object JeiPluginRegister {
                             }
 
                             override fun setRecipe(layout: IRecipeLayoutBuilder, recipe: Any, group: IFocusGroup) {
-                                val actualRecipe = recipe as Recipe<*>
+                                val actualRecipe = recipe as RecipeHolder<Recipe<*>>
                                 if (!recipeInstances.contains(actualRecipe)) {
-                                    val access = McClient.connection?.registryAccess() ?: return
-                                    val recipeHolder = access.registry(Registries.RECIPE).get().getHolder(access.registry(Registries.RECIPE).get().getResourceKey(recipe).get()).get()
-                                    recipeInstances[actualRecipe] = info.crvrecipe.invoke(RecipeHolder(recipeHolder.key().location(), recipeHolder.value()))
+                                    recipeInstances[actualRecipe] = info.crvrecipe.invoke(actualRecipe)
                                     recipeInstances[actualRecipe]!!.init()
                                 }
                                 val rvRecipe = recipeInstances[actualRecipe]!!
@@ -164,11 +162,9 @@ object JeiPluginRegister {
                             }
 
                             override fun draw(recipe: Any, slotView: IRecipeSlotsView, graphics: GuiGraphics, mouseX: Double, mouseY: Double) {
-                                val actualRecipe = recipe as Recipe<*>
+                                val actualRecipe = recipe as RecipeHolder<Recipe<*>>
                                 if (!recipeInstances.contains(actualRecipe)) {
-                                    val access = McClient.connection?.registryAccess() ?: return
-                                    val recipeHolder = access.registry(Registries.RECIPE).get().getHolder(access.registry(Registries.RECIPE).get().getResourceKey(actualRecipe).get()).get()
-                                    recipeInstances[actualRecipe] = info.crvrecipe.invoke(RecipeHolder(recipeHolder.key().location(), recipeHolder.value()))
+                                    recipeInstances[actualRecipe] = info.crvrecipe.invoke(actualRecipe)
                                     recipeInstances[actualRecipe]!!.init()
                                 }
                                 val rvRecipe = recipeInstances[actualRecipe]
@@ -227,8 +223,7 @@ object JeiPluginRegister {
                                     runtime.recipeManager,
                                     type,
                                     runtime.recipeManager.createRecipeLookup(type).get().filter {
-                                        val access = McClient.connection?.registryAccess() ?: return@filter false
-                                        access.registry(Registries.RECIPE).get().getKey(it as Recipe<*>) == recipe
+                                        it as RecipeHolder<*> == recipe
                                     }.toList()
                                 )
                             }

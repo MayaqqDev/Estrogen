@@ -66,7 +66,7 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Reg
             accept(TestosteronePowder)
             accept(EstrogenChipCookie)
             accept(HorseUrineBottle)
-            accept(EstrogenPatches.value!!.getFullStack())
+            acceptWithCount(EstrogenPatches.value!!.getFullStack())
             accept(EstrogenPatches)
             accept(ThighHighs)
             accept(MothElytra)
@@ -82,7 +82,7 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Reg
             accept(QuiltedMothCarpet)
             accept(MothBed)
             accept(QuiltedMothBed)
-            accept(tippedArrow(EstrogenPotions.EstrogenPotion.holder()))
+            acceptWithCount(tippedArrow(EstrogenPotions.EstrogenPotion.holder()))
             accept(MoltenSlime.bucket)
             accept(TestosteroneMixture.bucket)
             accept(LiquidEstrogen.bucket)
@@ -90,12 +90,14 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Reg
             accept(HorseUrine.bucket)
             accept(MoltenAmethyst.bucket)
             accept(GenderFluid.bucket)
-            accept(BuiltInRegistries.ITEM.get(id("moth_spawn_egg")))
-            ThighHighs.value!!.styleItems.forEach(::accept)
+            //accept()
+            ThighHighs.value!!.styleItems.forEach(::acceptWithCount)
         }
     }
 }
 
 private fun <T : Block> CreativeModeTab.Output.accept(holder: RegistryEntry<T>) = this.accept(holder.value!!)
 
-private fun tippedArrow(potion: Holder<Potion>): ItemStack = PotionContents.createItemStack(Items.TIPPED_ARROW, potion)
+private fun CreativeModeTab.Output.acceptWithCount(stack: ItemStack) = accept(stack.apply { count = 1 })
+
+private fun tippedArrow(potion: Holder<Potion>): ItemStack = PotionContents.createItemStack(Items.TIPPED_ARROW, potion).apply { count = 1 }

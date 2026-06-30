@@ -2,6 +2,7 @@
 
 package dev.mayaqq.estrogen.content.fluids.registry
 
+import com.teamresourceful.resourcefullib.client.fluid.data.ClientFluidProperties
 import com.teamresourceful.resourcefullib.common.fluid.ResourcefulBucketItem
 import com.teamresourceful.resourcefullib.common.fluid.ResourcefulFlowingFluid
 import com.teamresourceful.resourcefullib.common.fluid.ResourcefulLiquidBlock
@@ -58,11 +59,17 @@ class FluidBuilder<S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFlui
         }
     }
 
-    inline fun renderType(crossinline renderType: () -> RenderType) {
+    fun renderType(renderType: () -> RenderType) {
         onRegister {
             clientOnly {
-                RenderLayerMap.putFluid(it, renderType.invoke())
-                RenderLayerMap.putFluid(flowingWrapper!!.value as Fluid, renderType.invoke())
+                (owner as FluidRegistryProvider).clientFluidRegistry.register(
+                    name, ClientFluidProperties.builder()
+                        .still(it.data.properties().still())
+                        .flowing(it.data.properties().flowing())
+                        .overlay(it.data.properties().overlay())
+                        .screenOverlay(it.data.properties().screenOverlay())
+                )
+                RenderLayerMap.putFluids(renderType.invoke(), it.source, it.flowing)
             }
         }
     }

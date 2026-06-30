@@ -30,6 +30,7 @@ import dev.mayaqq.estrogen.compat.ears.EarsCompat
 import dev.mayaqq.estrogen.compat.recipeviewers.api.rei.ReiPluginRegister
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.config.types.ChestConfig
+import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.injection.chestConfig
 import invoke.kitty.kritter.platform.Side
@@ -57,6 +58,7 @@ fun estrogenClient() {
     HudOverlayRegistry.register(VanillaHud.FROSTBITE, id("dash"), DashOverlay)
     MothElytraModel.LAYER_LOCATION.registerDefinition(MothElytraModel.Companion::createBodyLayer)
     MothModel.LAYER_LOCATION.registerDefinition(MothModel::createBodyLayer)
+    EstrogenFluids.clientFluidRegistry.init()
     // registerResourcepackReloadListener(recipeId("dream_texture"), DreamTextureGenerator)
 
     if (isModLoaded("ears")) EarsCompat.boob()

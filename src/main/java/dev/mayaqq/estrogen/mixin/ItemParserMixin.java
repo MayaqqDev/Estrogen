@@ -10,11 +10,14 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.stream.Stream;
 
-@Mixin(ItemParser.class)
+@Mixin(targets = "net.minecraft.commands.arguments.item.ItemParser$State")
 public class ItemParserMixin {
     @ModifyExpressionValue(
             method = "Lnet/minecraft/commands/arguments/item/ItemParser$State;suggestItem(Lcom/mojang/brigadier/suggestion/SuggestionsBuilder;)Ljava/util/concurrent/CompletableFuture;",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/core/HolderLookup$RegistryLookup;listElementIds()Ljava/util/stream/Stream;")
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/core/HolderLookup$RegistryLookup;listElementIds()Ljava/util/stream/Stream;"
+            )
     )
     private Stream<ResourceKey<Item>> suggestItem(Stream<ResourceKey<Item>> original) {
         return original.filter(item -> !item.location().equals(ResourceLocation.fromNamespaceAndPath("estrogen", "colon_three")));
