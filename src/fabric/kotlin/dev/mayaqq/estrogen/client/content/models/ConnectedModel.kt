@@ -1,9 +1,7 @@
-package dev.mayaqq.estrogen.fabric.client.models
+package dev.mayaqq.estrogen.client.content.models
 
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.estrogen.client.content.block.ClientDreamBlock
-import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedU
-import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedV
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel
 import net.fabricmc.fabric.api.renderer.v1.model.SpriteFinder
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext
@@ -16,13 +14,12 @@ import net.minecraft.world.level.BlockAndTintGetter
 import net.minecraft.world.level.block.state.BlockState
 import java.util.function.Supplier
 
-internal class FabricConnectedModel(
-    wrapped: BakedModel,
-    private val connectedSprite: TextureAtlasSprite
-) : ForwardingBakedModel() {
-
+actual class ConnectedModel actual constructor(
+    original: BakedModel,
+    val connectedSprite: TextureAtlasSprite
+) : BakedModel, ForwardingBakedModel() {
     init {
-        this.wrapped = wrapped
+        wrapped = original
     }
 
     override fun isVanillaAdapter(): Boolean = false

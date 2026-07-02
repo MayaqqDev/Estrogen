@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.fabric.client.models
+package dev.mayaqq.estrogen.client.content.models
 
 import dev.mayaqq.estrogen.content.EstrogenItems
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel
@@ -10,7 +10,7 @@ import net.minecraft.util.RandomSource
 import net.minecraft.world.item.ItemStack
 import java.util.function.Supplier
 
-internal class FabricThighHighsModel(default: BakedModel, val styleModels: Map<ResourceLocation, BakedModel>) : ForwardingBakedModel() {
+actual class BakedThighHighsModel actual constructor(default: BakedModel, val styleModels: Map<ResourceLocation, BakedModel>) : BakedModel, ForwardingBakedModel() {
 
     init {
         wrapped = default
