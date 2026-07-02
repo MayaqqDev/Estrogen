@@ -107,9 +107,15 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         }
     }
 
-    val ColonThree = item("uwu", ::Item) {
+    val ColonThree = item("uwu", ::ColonThreeItem) {
         properties {
             stacksTo(1)
+            food(FoodProperties.Builder()
+                .nutrition(0)
+                .saturationModifier(0F)
+                .alwaysEdible()
+                .build()
+            )
         }
         tooltip {
             CustomTooltip { stack, player, flags -> add(Component.literal("UwU").withStyle(ChatFormatting.LIGHT_PURPLE)) }

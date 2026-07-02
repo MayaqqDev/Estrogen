@@ -189,6 +189,9 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         tb.add("death.attack.girlpower", "%s Girlbossed too hard")
         tb.add("death.attack.girlpower.player", "%s Girlbossed too hard")
 
+        tb.add("death.attack.colon_three", "%s is not worthy.")
+        tb.add("death.attack.colon_three.player", "%s is not worthy.")
+
         // Trinkets
         tb.add("trinkets.slot.legs.thighs", "Thighs")
         // Curios
