@@ -14,7 +14,7 @@ plugins {
     kotlin("jvm") version libs.versions.kotlin
     kotlin("plugin.serialization") version libs.versions.kotlin
     // Need to explicitly set ksp versions cs cloche loads an old version by default
-    id("com.google.devtools.ksp") version "2.2.10-2.0.2"
+    //id("com.google.devtools.ksp") version "2.2.10-2.0.2"
     `maven-publish`
 }
 
@@ -253,8 +253,11 @@ cloche {
         datagenDirectory.set(file("build/generated/resources/neoforge"))
 
         metadata {
-            modLoader = "kotlinforforge"
-            loaderVersion("5.0")
+            modLoader = "kritter"
+            loaderVersion {
+                start = "1"
+                end = "999"
+            }
             blurLogo = false
             modProperty("catalogueItemIcon", "estrogen:estrogen_pill")
             modProperty("catalogueBackground", "estrogen_background.png")

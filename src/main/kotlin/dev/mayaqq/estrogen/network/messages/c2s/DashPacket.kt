@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.network.messages.c2s
 
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenSounds
+import dev.mayaqq.estrogen.content.particles.DashTrailParticleOptions
 import dev.mayaqq.estrogen.features.dash.CommonDash
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import dev.mayaqq.estrogen.utils.holder
@@ -11,8 +12,9 @@ import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundSource
+import kotlin.uuid.toKotlinUuid
 
-@Serializable
+@Serializable @JvmRecord
 data class DashPacket(val isInitial: Boolean, val dashLevel: Int) {
     fun handle(server: MinecraftServer, sender: ServerPlayer) {
         if (sender.hasEffect(EstrogenEffects.Estrogen.holder())) {
@@ -28,13 +30,11 @@ data class DashPacket(val isInitial: Boolean, val dashLevel: Int) {
             } else {
                 // Otherwise spawn trail
                 val dashColor = EstrogenColors.getDashColor(dashLevel, true)
-                /* TODO: Particles
                 level.sendParticles(
-                    DashTrailParticleOptions(sender.uuid, dashColor),
+                    DashTrailParticleOptions(sender.uuid.toKotlinUuid(), dashColor),
                     sender.xOld, sender.yOld, sender.zOld,
                     0, 0.0, 0.0, 0.0, 0.0
                 )
-                 */
             }
         }
     }

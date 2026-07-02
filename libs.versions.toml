@@ -1,15 +1,15 @@
 [versions]
 
 # Stuff
-kotlin = "2.2.21"
-cloche = "0.18.14"
+kotlin = "2.4.0"
+cloche = "0.19.4"
 
 # Minecraft
 minecraft = "1.21.1"
 fabric = "0.18.5"
 
 # Common Dependencies
-kritter = "2.0.0-alpha.4"
+kritter = "2.0.0-alpha.8"
 kotlinx-serialization="1.8.0"
 kotlinx-coroutines="1.10.1"
 parchment = "2024.11.17"
@@ -27,7 +27,7 @@ cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.6+1.20.1"
 flywheel = "1.0.2"
-cynosure = "1.0.0-local.8"
+cynosure = "1.0.0.1"
 rlib = "3.0.12"
 
 # Fabric Only Dependencies

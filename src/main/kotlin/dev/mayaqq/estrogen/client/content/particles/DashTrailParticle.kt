@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalUuidApi::class)
+
 package dev.mayaqq.estrogen.client.content.particles
 
 import com.mojang.blaze3d.systems.RenderSystem
@@ -17,6 +19,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.particle.Particle
 import net.minecraft.client.particle.ParticleRenderType
+import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.client.renderer.LightTexture
 import net.minecraft.client.renderer.entity.LivingEntityRenderer
 import net.minecraft.client.renderer.texture.OverlayTexture
@@ -25,6 +28,8 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.LivingEntity
 import kotlin.math.max
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.toJavaUuid
 
 //TODO: Fix the particle mess
 
@@ -48,7 +53,7 @@ class DashTrailParticle(
 
     constructor(options: DashTrailParticleOptions, level: ClientLevel, x: Double, y: Double, z: Double, xSpeed: Double, ySpeed: Double, zSpeed: Double) : this(
         level, x, y, z,
-        level.getPlayerByUUID(options.player)!!,
+        level.getPlayerByUUID(options.player.toJavaUuid())!!,
         options.color.floatRed,
         options.color.floatGreen,
         options.color.floatBlue
@@ -70,7 +75,7 @@ class DashTrailParticle(
             val consumer = ModelConsumer()
             matrices.pushPop {
                 renderer.model.young = entity.isBaby // Unbaby the player model
-                renderer.model.renderToBuffer(matrices, consumer, 0, OverlayTexture.NO_OVERLAY, (White withAlpha 255).toInt())
+                renderer.model.renderToBuffer(matrices, consumer, 0, OverlayTexture.NO_OVERLAY, White.toInt())
             }
             vertices = consumer.data
             vertexCount = consumer.vertexCount
@@ -110,6 +115,12 @@ class DashTrailParticle(
                     .setLight(LightTexture.FULL_BRIGHT)
             }
         }
+
+        EstrogenRenderer.beginShaderpackBypass()
+        RenderSystem.setShader(EstrogenRenderer::dashTrailParticleShader)
+        BufferUploader.drawWithShader(buffer.buildOrThrow())
+        RenderSystem.setShader(GameRenderer::getParticleShader)
+        EstrogenRenderer.endShaderpackBypass()
 
     }
 
@@ -163,19 +174,8 @@ class DashTrailParticle(
             RenderSystem.enableCull()
             RenderSystem.enableBlend()
             RenderSystem.defaultBlendFunc()
-            RenderSystem.setShader(EstrogenRenderer::dashTrailParticleShader)
-            EstrogenRenderer.beginShaderpackBypass()
-
-            //TODO: idfk which vertex format they remove those like in the next version
-            return builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.NEW_ENTITY)
+            return builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE)
         }
-
-        /* TODO:
-        override fun end(tesselator: Tesselator) {
-            RenderSystem.setShader(GameRenderer::getParticleShader)
-            EstrogenRenderer.endShaderpackBypass()
-        }
-         */
 
         override fun toString(): String = "DashPlayerParticle"
     }

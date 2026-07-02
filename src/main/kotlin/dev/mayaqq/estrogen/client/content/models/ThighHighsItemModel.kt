@@ -14,8 +14,7 @@ import java.util.function.Function
 
 class ThighHighsItemModel(
     private val default: UnbakedModel,
-    private val styleTextures: Collection<ResourceLocation>,
-    private val platformModelFactory: (BakedModel, Map<ResourceLocation, BakedModel>) -> BakedModel
+    private val styleTextures: Collection<ResourceLocation>
 ) : UnbakedModel {
 
     private companion object {
@@ -60,6 +59,8 @@ class ThighHighsItemModel(
             textureToStyleLocation(it) to generated.bake(baker, generated, spriteGetter, state, false)
         }
 
-        return platformModelFactory(defaultBaked, styleModels)
+        return BakedThighHighsModel(defaultBaked, styleModels)
     }
 }
+
+expect class BakedThighHighsModel(default: BakedModel, styleModels: Map<ResourceLocation, BakedModel>) : BakedModel

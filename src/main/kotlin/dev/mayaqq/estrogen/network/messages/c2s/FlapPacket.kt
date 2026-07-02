@@ -11,8 +11,7 @@ import net.minecraft.sounds.SoundSource
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.toKotlinUuid
 
-@OptIn(ExperimentalUuidApi::class)
-@Serializable
+@Serializable @JvmRecord
 data class FlapPacket(val flap: Int) {
     fun handle(server: MinecraftServer, sender: ServerPlayer) {
         sender.flap()

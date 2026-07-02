@@ -8,10 +8,8 @@ import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 import kotlin.uuid.toJavaUuid
 
-@Serializable
-@OptIn(ExperimentalUuidApi::class)
+@Serializable @JvmRecord
 data class ChestConfigPacket(val uuid: Uuid, val config: ChestConfig) {
-
     fun handle() {
         Minecraft.getInstance().level?.getPlayerByUUID(uuid.toJavaUuid())?.chestConfig = config
     }

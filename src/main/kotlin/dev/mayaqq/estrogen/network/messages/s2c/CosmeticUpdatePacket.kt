@@ -5,8 +5,8 @@ import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
 import dev.mayaqq.estrogen.client.cosmetics.SignedDataSerializer
 import kotlinx.serialization.Serializable
 
-@Serializable
-class CosmeticUpdatePacket(val data: @Serializable(SignedDataSerializer::class) SignedData) {
+@Serializable @JvmRecord
+data class CosmeticUpdatePacket(val data: @Serializable(SignedDataSerializer::class) SignedData) {
     fun handle() {
         CosmeticAPI.updateCosmetic(data)
     }

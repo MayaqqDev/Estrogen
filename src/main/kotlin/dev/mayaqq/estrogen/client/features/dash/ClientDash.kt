@@ -162,9 +162,8 @@ object ClientDash {
         }
 
         // Dash particles
-        if (player.blockPosition() !== lastPos) {
-            EstrogenNetwork.sendToServer(DashPacket(false, dashLevel))
-        }
+        if (player.blockPosition() != lastPos) EstrogenNetwork.sendToServer(DashPacket(false, dashLevel))
+
         lastPos = player.blockPosition()
     }
 
@@ -239,7 +238,7 @@ object ClientDash {
     }
 
     fun refresh(player: Player) {
-        dashes = player.getAttributeValue(EstrogenAttributes.DashLevel.holder()).toInt().toShort().toInt()
+        dashes = player.getAttributeValue(EstrogenAttributes.DashLevel).toInt().toShort().toInt()
     }
 
     private fun canRefresh(player: Player): Boolean {

@@ -9,8 +9,8 @@ import kotlinx.serialization.Serializable
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ServerPlayer
 
-@Serializable
-class UpdatedCosmeticPacket(val data: @Serializable(SignedDataSerializer::class) SignedData) {
+@Serializable @JvmRecord
+data class UpdatedCosmeticPacket(val data: @Serializable(SignedDataSerializer::class) SignedData) {
 
     fun handle(server: MinecraftServer, sender: ServerPlayer) {
         EstrogenNetwork.broadcast(PlayerLookup.all(server), CosmeticUpdatePacket(data))

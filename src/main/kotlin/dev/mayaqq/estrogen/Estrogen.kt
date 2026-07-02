@@ -27,6 +27,7 @@ import dev.mayaqq.estrogen.features.minigame.Minigame
 import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLoader
 import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLootFunction
 import dev.mayaqq.estrogen.network.EstrogenNetwork
+import invoke.kitty.kritter.platform.forge.EntrypointHandler
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.ForestGreen
 import invoke.kitty.kritter.utils.color.LightBlue
@@ -49,6 +50,7 @@ inline fun cid(path: String) = identifier("c", path)
 @EstrogenEntrypoint
 object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
 
+    @EntrypointHandler("init")
     fun init() {
         // Config
         EstrogenCommonConfig.initialize()

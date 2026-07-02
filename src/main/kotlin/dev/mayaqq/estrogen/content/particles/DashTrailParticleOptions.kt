@@ -1,26 +1,18 @@
+@file:OptIn(ExperimentalUuidApi::class)
+
 package dev.mayaqq.estrogen.content.particles
 
+import dev.mayaqq.estrogen.content.EstrogenParticles
 import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.particles.SerializableParticleOptions
+import kotlinx.serialization.Serializable
+import net.minecraft.core.particles.ParticleType
 import java.util.*
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
-data class DashTrailParticleOptions(val player: UUID, val color: Color) /*: CynosureParticleOptions<DashTrailParticleOptions> {
 
-    override fun getType(): CynosureParticleType<DashTrailParticleOptions> = EstrogenParticles.DashTrail
-
-    override fun writeToString(): String = "${EstrogenParticles::DashTrail.getEntryOrThrow().key.location()} ($player, $color)"
-
-    companion object {
-
-        val CODEC: Codec<DashTrailParticleOptions> = RecordCodecBuilder.create { it.group(
-            UUIDUtil.STRING_CODEC fieldOf DashTrailParticleOptions::player,
-            Color.CODEC fieldOf DashTrailParticleOptions::color
-        ).apply(it, ::DashTrailParticleOptions) }
-
-        val NETWORK_CODEC: ByteCodec<DashTrailParticleOptions> = ObjectByteCodec.create(
-            ByteCodec.UUID fieldOf DashTrailParticleOptions::player,
-            Color.NETWORK_CODEC fieldOf DashTrailParticleOptions::color,
-            ::DashTrailParticleOptions
-        )
-    }
+@Serializable
+data class DashTrailParticleOptions(val player: Uuid, val color: Color) : SerializableParticleOptions<DashTrailParticleOptions> {
+    override fun getType(): ParticleType<DashTrailParticleOptions> = EstrogenParticles.DashTrail
 }
-*/

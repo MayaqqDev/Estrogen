@@ -8,7 +8,7 @@ import kotlin.uuid.Uuid
 import kotlin.uuid.toJavaUuid
 
 @OptIn(ExperimentalUuidApi::class)
-@Serializable
+@Serializable @JvmRecord
 data class FlapSyncPacket(val flaps: Int, val player: Uuid) {
     fun handle() {
         val level = Minecraft.getInstance().level

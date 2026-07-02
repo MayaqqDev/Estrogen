@@ -38,11 +38,11 @@ object ServerSideBoobHandling {
     fun onEntityTracking(event: EntityTrackingEvent.Start) {
         (event.entity as? Player)?.chestConfig?.let {
             EstrogenNetwork.sendToPlayer(event.player, ChestConfigPacket(event.entity.uuid.toKotlinUuid(), it))
-        }?: run { EstrogenNetwork.sendToPlayer(event.player, ChestConfigRequestPacket()) }
+        }?: run { EstrogenNetwork.sendToPlayer(event.player, ChestConfigRequestPacket) }
     }
 
     @Subscription
     fun onServerJoin(event: PlayerConnectionEvent.Join) {
-        EstrogenNetwork.sendToPlayer(event.player, ChestConfigRequestPacket())
+        EstrogenNetwork.sendToPlayer(event.player, ChestConfigRequestPacket)
     }
 }

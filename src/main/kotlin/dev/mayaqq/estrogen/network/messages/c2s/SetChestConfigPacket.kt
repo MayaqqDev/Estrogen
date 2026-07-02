@@ -14,8 +14,7 @@ import net.minecraft.server.level.ServerPlayer
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.toKotlinUuid
 
-@Serializable
-@OptIn(ExperimentalUuidApi::class)
+@Serializable @JvmRecord
 data class SetChestConfigPacket(val config: ChestConfig) {
     fun handle(server: MinecraftServer, sender: ServerPlayer) {
         sender.chestConfig = config

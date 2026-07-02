@@ -12,7 +12,7 @@ val EstrogenNetwork = NetworkChannel(id("main"), 1, serializers = MinecraftSeria
     playS2C<DreamBlockSeedPacket>(handler = DreamBlockSeedPacket::handle)
     playS2C<ThighHighStylesPacket>(handler = ThighHighStylesPacket::handle)
     playS2C<FlapSyncPacket>(handler = FlapSyncPacket::handle)
-    playS2C<ChestConfigRequestPacket>(handler = ChestConfigRequestPacket::handle)
+    playS2C<ChestConfigRequestPacket> { ChestConfigRequestPacket.handle() }
     playS2C<CosmeticUpdatePacket>(handler = CosmeticUpdatePacket::handle)
 
     // C2S

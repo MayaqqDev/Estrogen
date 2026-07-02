@@ -5,6 +5,7 @@ import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.estrogen.content.EstrogenEntities
 import dev.mayaqq.estrogen.content.EstrogenItems
+import dev.mayaqq.estrogen.content.EstrogenParticles
 import dev.mayaqq.estrogen.content.EstrogenSounds
 import dev.mayaqq.estrogen.content.EstrogenTags
 import dev.mayaqq.estrogen.utils.defaultInstance
@@ -160,7 +161,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         }
     }
 
-    private fun getParticleType(): ParticleOptions = /* TODO: EstrogenParticles.MothFuzz */ ParticleTypes.CHERRY_LEAVES
+    private fun getParticleType(): ParticleOptions = EstrogenParticles.MothFuzz
 
     // Stolen from bee code :3
     private fun spawnFuzzyParticle(
