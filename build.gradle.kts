@@ -392,8 +392,8 @@ publishing {
     }
 
     repositories {
-        val username = System.getenv("MAVEN_USERNAME")
-        val password = System.getenv(("MAVEN_PASSWORD"))
+        val username = properties["maven_username"]?.toString()
+        val password = properties["maven_password"]?.toString()
         if (username != null && password != null) {
             maven("https://maven.is-immensely.gay/${properties["maven_category"]}") {
                 name = "sapphoCompany"
@@ -431,7 +431,7 @@ publishMods {
     type = ALPHA
 
     val optionsCurseforge = curseforgeOptions {
-        accessToken = System.getenv("CURSEFORGE_TOKEN")
+        accessToken = properties["curseforge_token"]?.toString()
         minecraftVersions.add(mcVersion)
         projectId = "850410"
         javaVersions.add(JavaVersion.VERSION_21)
@@ -440,7 +440,7 @@ publishMods {
     }
 
     val optionsModrinth = modrinthOptions {
-        accessToken = System.getenv("MODRINTH_TOKEN")
+        accessToken = properties["modrinth_token"]?.toString()
         projectId = "HhIJW8n1"
         minecraftVersions.add(mcVersion)
     }
