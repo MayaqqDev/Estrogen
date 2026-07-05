@@ -8,6 +8,12 @@ import net.msrandom.minecraftcodev.core.utils.toPath
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import kotlin.io.path.absolutePathString
 
+buildscript {
+    dependencies {
+        classpath(kotlin("metadata-jvm"))
+    }
+}
+
 plugins {
     alias(libs.plugins.modpublish)
     alias(libs.plugins.cloche)
@@ -119,36 +125,38 @@ cloche {
 
         includedClient() // includedClient() is not a run
         runs {
-            client()
+            client {
+                jvmArgs("-Dfabric.log.level=debug")
+            }
             server {
                 runDir("runServer")
             }
-            data {
-                jvmArgs("-Dfabric-api.datagen.output-dir=${file("build/generated/resources/main")}")
-                jvmArgs("-Destrogen.datagen.fabric-output-dir=${file("build/generated/resources/fabric")}")
-                jvmArgs("-Destrogen.datagen.neoforge-output-dir=${file("build/generated/resources/neoforge")}")
-            }
+//            data {
+//                jvmArgs("-Dfabric-api.datagen.output-dir=${file("build/generated/resources/main")}")
+//                jvmArgs("-Destrogen.datagen.fabric-output-dir=${file("build/generated/resources/fabric")}")
+//                jvmArgs("-Destrogen.datagen.neoforge-output-dir=${file("build/generated/resources/neoforge")}")
+//            }
         }
 
-        data {
-            this.withMetadataJson {
-                 this.withElement {
-                     return@withElement buildJsonObject {
-                         this@withElement.forEach { this.put(it.key,it.value) }
-                         val newEntrypoints = buildJsonObject {
-                             this@withElement["entrypoints"]!!.jsonObject.forEach { this.put(it.key,it.value) }
-                             put("fabric-datagen", buildJsonArray {
-                                 add(buildJsonObject {
-                                     put("adapter","kotlin")
-                                     put("value","dev.mayaqq.estrogen.datagen.EstrogenDatagen")
-                                 })
-                             })
-                         }
-                         put("entrypoints",newEntrypoints)
-                     }
-                 }
-            }
-        }
+//        data {
+//            this.withMetadataJson {
+//                 this.withElement {
+//                     return@withElement buildJsonObject {
+//                         this@withElement.forEach { this.put(it.key,it.value) }
+//                         val newEntrypoints = buildJsonObject {
+//                             this@withElement["entrypoints"]!!.jsonObject.forEach { this.put(it.key,it.value) }
+////                             put("fabric-datagen", buildJsonArray {
+////                                 add(buildJsonObject {
+////                                   //  put("adapter","kotlin")
+////                                   //  put("value","dev.mayaqq.estrogen.datagen.EstrogenDatagen")
+////                                 })
+////                             })
+//                         }
+//                         put("entrypoints",newEntrypoints)
+//                     }
+//                 }
+//            }
+//        }
 
         metadata {
             metadata {
@@ -221,12 +229,10 @@ cloche {
         }
 
         metadata {
-            entrypoint("main") {
-                adapter.set("kotlin")
-                value.set("dev.mayaqq.estrogen.fabric.EstrogenFabric::init")
-            }
-            entrypoint("client") {
-                adapter.set("kotlin")
+            entrypoint("kritter:init", "dev.mayaqq.estrogen.fabric.EstrogenFabric::init")
+            entrypoint("kritter:init", "dev.mayaqq.estrogen.Estrogen::init")
+            entrypoint("kritter:client") {
+                //adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric::init")
             }
             entrypoint("modmenu") {
@@ -351,7 +357,7 @@ java {
 // Kotlin args
 kotlin {
     compilerOptions {
-        languageVersion = KotlinVersion.KOTLIN_2_0
+        languageVersion = KotlinVersion.KOTLIN_2_4
         freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
     }
     jvmToolchain(21)

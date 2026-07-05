@@ -43,10 +43,10 @@ internal fun RenderTarget.blitWithDepth(width: Int, height: Int) {
     val outheight = this.viewHeight.toFloat() / this.height.toFloat()
     val tesselator = RenderSystem.renderThreadTesselator()
     val builder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR).apply {
-        vertex(0.0, height.toDouble(), 0.0).uv(0.0f, 0.0f).color(White.withAlpha(255))
-        vertex(width.toDouble(), height.toDouble(), 0.0).uv(outwidth, 0.0f).color(White.withAlpha(255))
-        vertex(width.toDouble(), 0.0, 0.0).uv(outwidth, outheight).color(White.withAlpha(255))
-        vertex(0.0, 0.0, 0.0).uv(0.0f, outheight).color(White.withAlpha(255))
+        vertex(0.0, height.toDouble(), 0.0).uv(0.0f, 0.0f).color(White)
+        vertex(width.toDouble(), height.toDouble(), 0.0).uv(outwidth, 0.0f).color(White)
+        vertex(width.toDouble(), 0.0, 0.0).uv(outwidth, outheight).color(White)
+        vertex(0.0, 0.0, 0.0).uv(0.0f, outheight).color(White)
     }
     BufferUploader.draw(builder.build()!!)
     shader.clear()

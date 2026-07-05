@@ -35,7 +35,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.block.LayeredCauldronBlock
 
-class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondaryColor: Int) : Item(properties), Equip {
+class ThighHighsItem(properties: Properties, val primaryColor: Color, val secondaryColor: Color) : Item(properties), Equip {
     private val styles = mutableListOf<ResourceLocation>()
 
     fun loadStyles(styles: List<ResourceLocation>) {
@@ -47,7 +47,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
         EstrogenNetwork.sendToPlayer(player, ThighHighStylesPacket(styles))
     }
 
-    fun getDefaultColor(tintIndex: Int): Int {
+    fun getDefaultColor(tintIndex: Int): Color {
         return if (tintIndex == 0) primaryColor else secondaryColor
     }
 
@@ -55,11 +55,11 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
         return stack.get(ThighHighColorComponent) != null
     }
 
-    fun getColor(stack: ItemStack, tintIndex: Int): Int {
+    fun getColor(stack: ItemStack, tintIndex: Int): Color {
         stack.get(ThighHighColorComponent)?.let { color ->
             when(tintIndex) {
-                0 -> return color.primary.toInt()
-                1 -> return color.secondary.toInt()
+                0 -> return color.primary
+                1 -> return color.secondary
             }
         }
         return getDefaultColor(tintIndex)
@@ -123,7 +123,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Int, val secondar
         fun getItemColor(stack: ItemStack, tintIndex: Int): Int {
             val item = stack.item as ThighHighsItem
             if (item.getStyle(stack) != null) return -1
-            return item.getColor(stack, tintIndex)
+            return item.getColor(stack, tintIndex).toInt()
         }
 
         val CAULDRON_INTERACTION: CauldronInteraction = CauldronInteraction { blockState, level, blockPos, player, _, itemStack ->

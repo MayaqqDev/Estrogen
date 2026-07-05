@@ -17,8 +17,6 @@ import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.phys.Vec3
-import org.joml.Vector3f
-import org.joml.Vector3fc
 
 @Serializable @JvmRecord
 data class SpawnHeartsPacket(val pos: Vec3, val ambientSound: ResourceLocation) {

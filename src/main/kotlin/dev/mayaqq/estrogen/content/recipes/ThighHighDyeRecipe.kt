@@ -5,6 +5,7 @@ import dev.mayaqq.estrogen.content.EstrogenRecipeSerializers
 import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.items.ThighHighsItem
 import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.color.asColor
 import invoke.kitty.kritter.utils.color.toColor
 import net.minecraft.core.HolderLookup
 import net.minecraft.world.item.DyeItem
@@ -62,8 +63,8 @@ class ThighHighDyeRecipe(category: CraftingBookCategory) : CustomRecipe(category
                 val newSecondary: Color
 
                 if (item.hasCustomColor(stack)) {
-                    val oldPrimary = (item.getColor(stack, 0)).toColor()
-                    val oldSecondary = (item.getColor(stack, 1)).toColor()
+                    val oldPrimary = item.getColor(stack, 0)
+                    val oldSecondary = item.getColor(stack, 1)
                     newPrimary = mixColorWithDye(oldPrimary, leftToItem)
                     newSecondary = mixColorWithDye(oldSecondary, rightToItem)
                 } else {
@@ -86,7 +87,7 @@ class ThighHighDyeRecipe(category: CraftingBookCategory) : CustomRecipe(category
     }
 
     private fun colorFromDye(dyeStack: ItemStack): Color {
-        return (dyeStack.item as DyeItem).dyeColor.diffuseColor
+        return (dyeStack.item as DyeItem).dyeColor.asColor()
     }
 
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = width * height == 9

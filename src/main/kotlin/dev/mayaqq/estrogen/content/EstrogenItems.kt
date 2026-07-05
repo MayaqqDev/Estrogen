@@ -13,6 +13,7 @@ import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.entry.key
 import invoke.kitty.kritter.registry.item.creativeTab
 import invoke.kitty.kritter.registry.item.item
+import invoke.kitty.kritter.utils.color.rgb
 import net.minecraft.ChatFormatting
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.registries.Registries
@@ -122,7 +123,7 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         }
     }
 
-    val ThighHighs = item("thigh_highs", { p -> ThighHighsItem(p, 0xf1d85a, 0xff4ea5)}) {
+    val ThighHighs = item("thigh_highs", { p -> ThighHighsItem(p, 0xf1d85a.rgb, 0xff4ea5.rgb)}) {
         properties {
             stacksTo(1)
         }

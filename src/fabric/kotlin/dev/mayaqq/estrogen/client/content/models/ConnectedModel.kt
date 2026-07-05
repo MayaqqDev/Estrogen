@@ -14,6 +14,7 @@ import net.minecraft.world.level.BlockAndTintGetter
 import net.minecraft.world.level.block.state.BlockState
 import java.util.function.Supplier
 
+@Suppress("ACTUAL_WITHOUT_EXPECT")
 actual class ConnectedModel actual constructor(
     original: BakedModel,
     val connectedSprite: TextureAtlasSprite

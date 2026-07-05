@@ -27,7 +27,7 @@ object ClientDreamBlock {
 
     val DORMANT_MODEL: ResourceLocation = id("block/dream_block/dormant_dream_block")
 
-    val DORMANT_CONNECTED_TEXTURE: Material = Material(InventoryMenu.BLOCK_ATLAS, id("block/dormant_dream_block/dormant_dream_block_connected"))
+    val DORMANT_CONNECTED_TEXTURE: ResourceLocation = id("block/dormant_dream_block/dormant_dream_block_connected")
 
     private var rebuildDreamChunks = false
 

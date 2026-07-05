@@ -27,6 +27,7 @@ import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobFeatureLayer
 import dev.mayaqq.estrogen.client.content.entityRenderers.moth.MothModel
 import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraLayer
 import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraModel
+import dev.mayaqq.estrogen.client.content.models.EstrogenModels
 import dev.mayaqq.estrogen.client.content.particles.DashTrailParticle
 import dev.mayaqq.estrogen.client.cosmetics.Cosmetic
 import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
@@ -50,6 +51,7 @@ import dev.mayaqq.estrogen.content.advancements.triggers.KilledWithEffectTrigger
 import dev.mayaqq.estrogen.content.blocks.CauldronInteractions
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.injection.chestConfig
+import invoke.kitty.kritter.client.model.PreparableModelLoadingPlugin
 import invoke.kitty.kritter.platform.Side
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer
@@ -77,10 +79,14 @@ fun estrogenClient() {
     MothElytraModel.LAYER_LOCATION.registerDefinition(MothElytraModel.Companion::createBodyLayer)
     MothModel.LAYER_LOCATION.registerDefinition(MothModel::createBodyLayer)
     EstrogenFluids.clientFluidRegistry.init()
+    PreparableModelLoadingPlugin.register(EstrogenModels)
+
     // registerResourcepackReloadListener(recipeId("dream_texture"), DreamTextureGenerator)
 
     if (isModLoaded("ears")) EarsCompat.boob()
     if (isModLoaded("roughlyenoughitems")) ReiPluginRegister.register()
+
+    EstrogenModels.registerConnected(ClientDreamBlock.DORMANT_MODEL, ClientDreamBlock.DORMANT_CONNECTED_TEXTURE)
 }
 
 fun hookEventBus() {
