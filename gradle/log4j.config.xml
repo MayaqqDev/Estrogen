@@ -6,12 +6,14 @@
 
         <!--	System out	-->
         <Console name="SysOut" target="SYSTEM_OUT">
-            <!-- Filter out the authentication errors when starting in development -->
             <Filters>
+                <!-- Filter out the authentication errors when starting in development -->
                 <RegexFilter regex="^Failed to verify authentication$" onMatch="DENY" onMismatch="NEUTRAL"/>
                 <RegexFilter regex="^Failed to fetch user properties$" onMatch="DENY" onMismatch="NEUTRAL"/>
                 <RegexFilter regex="^Couldn't connect to realms$" onMatch="DENY" onMismatch="NEUTRAL"/>
                 <RegexFilter regex="^Failed to fetch Realms feature flags$" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <!-- Filter out data fixer errors for entities -->
+                <RegexFilter regex="^No data fixer registered for .*$" onMatch="DENY" onMismatch="NEUTRAL"/>
             </Filters>
             <PatternLayout>
                 <LoggerNamePatternSelector

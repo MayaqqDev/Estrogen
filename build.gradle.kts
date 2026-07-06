@@ -385,7 +385,8 @@ tasks.named("runNeoforgeData") {
 }
 
 minecraftRuns.configureEach {
-    jvmArgs("-Dlog4j.configurationFile=\"${project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().absolutePathString()}\"")
+    jvmArgs("--enable-native-access=ALL-UNNAMED", "--sun-misc-unsafe-memory-access=allow")
+    property("log4j.configurationFile", project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().toAbsolutePath().toString())
 }
 
 fun Provider<MinimalExternalModuleDependency>.api(): String {
