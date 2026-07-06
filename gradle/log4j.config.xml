@@ -14,6 +14,8 @@
                 <RegexFilter regex="^Failed to fetch Realms feature flags$" onMatch="DENY" onMismatch="NEUTRAL"/>
                 <!-- Filter out data fixer errors for entities -->
                 <RegexFilter regex="^No data fixer registered for .*$" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <!-- Quickly filter out bake models so the log is actually navigable, Changed onMatch="NEUTRAL" to onMatch="DENY" -->
+                <RegexFilter regex="^Unable to bake model: .*: java.util.NoSuchElementException$" onMatch="NEUTRAL" onMismatch="NEUTRAL"/>
             </Filters>
             <PatternLayout>
                 <LoggerNamePatternSelector
