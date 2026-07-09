@@ -23,6 +23,7 @@ import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.blockEntity.BlockWithEntity
 import invoke.kitty.kritter.platform.ENVIRONMENT
 import invoke.kitty.kritter.platform.Side
+import invoke.kitty.kritter.registry.api.entry.holder
 import invoke.kitty.kritter.utils.clientOnly
 import net.minecraft.client.Minecraft
 import net.minecraft.client.multiplayer.ClientLevel
@@ -162,7 +163,7 @@ class DreamBlock(p0: Properties) : GlassLikeBlock(p0), BlockWithEntity<DreamBloc
 
         player.stopSleeping()
         player.addEffect(MobEffectInstance(
-            EstrogenEffects.Dreaming.holder(),
+            EstrogenEffects.Dreaming.holder,
             MobEffectInstance.INFINITE_DURATION,
             0, true, false
         ))
@@ -220,7 +221,7 @@ class DreamBlock(p0: Properties) : GlassLikeBlock(p0), BlockWithEntity<DreamBloc
 
         @JvmStatic
         fun canEntityUse(state: BlockState, entity: LivingEntity?): Boolean =
-            state.getValue(PERSISTENT) || entity?.hasEffect(EstrogenEffects.Dreaming.holder()) == true
+            state.getValue(PERSISTENT) || entity?.hasEffect(EstrogenEffects.Dreaming.holder) == true
 
         @JvmStatic
         fun isInDreamBlock(player: Player): Boolean {

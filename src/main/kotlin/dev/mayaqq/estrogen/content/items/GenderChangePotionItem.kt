@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.content.items
 import dev.mayaqq.cynosure.utils.currentTime
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.advancements.CriteriaTriggers
 import net.minecraft.core.particles.DustParticleOptions
 import net.minecraft.server.level.ServerPlayer
@@ -79,9 +80,9 @@ class GenderChangePotionItem(properties: Properties) : Item(properties) {
 
         fun changeGender(level: Level, livingEntity: LivingEntity?) {
             if (!level.isClientSide && livingEntity is Player) {
-                val showBoobs = livingEntity.getAttribute(EstrogenAttributes.ShowBoobs.holder())
-                val startTime = livingEntity.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder())
-                val initialSize = livingEntity.getAttribute(EstrogenAttributes.BoobInitialSize.holder())
+                val showBoobs = livingEntity.getAttribute(EstrogenAttributes.ShowBoobs.holder)
+                val startTime = livingEntity.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder)
+                val initialSize = livingEntity.getAttribute(EstrogenAttributes.BoobInitialSize.holder)
                 if (showBoobs != null && startTime != null && initialSize != null) {
                     if (showBoobs.baseValue > 0.0) {
                         showBoobs.baseValue = 0.0
@@ -100,9 +101,9 @@ class GenderChangePotionItem(properties: Properties) : Item(properties) {
 
         fun changeGender(level: Level, livingEntity: LivingEntity?, gender: Int) {
             if (!level.isClientSide && livingEntity is Player) {
-                val showBoobs = livingEntity.getAttribute(EstrogenAttributes.ShowBoobs.holder())
-                val startTime = livingEntity.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder())
-                val initialSize = livingEntity.getAttribute(EstrogenAttributes.BoobInitialSize.holder())
+                val showBoobs = livingEntity.getAttribute(EstrogenAttributes.ShowBoobs.holder)
+                val startTime = livingEntity.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder)
+                val initialSize = livingEntity.getAttribute(EstrogenAttributes.BoobInitialSize.holder)
                 if (showBoobs != null && startTime != null && initialSize != null) {
                     if (gender == 0) {
                         showBoobs.baseValue = 0.0

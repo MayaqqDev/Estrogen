@@ -18,6 +18,7 @@ import dev.mayaqq.estrogen.content.EstrogenAttributes.ShowBoobs
 import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.builder.entry
+import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.DamageTypeTags
 import net.minecraft.world.entity.EntityType
@@ -30,21 +31,21 @@ object EstrogenAttributes : Registrar<Attribute> by Registrar(MOD_ID, Registries
     // Dash Level
     val DashLevel = entry("dash_level", {
         RangedAttribute("attribute.name.estrogen.dash_level", 0.0, 0.0, 10.0).setSyncable(true)
-    }) {}
+    })
     // Boob growing Sync
     val ShowBoobs = entry("show_boobs", {
         RangedAttribute("attribute.name.estrogen.show_boobs", 0.0, 0.0, 1.0).setSyncable(true)
-    }) {}
+    })
     val BoobGrowingStartTime = entry("boob_growing_start_time", {
         RangedAttribute("attribute.name.estrogen.boob_growing_start_time", -1.0, -1.0, 2.0.pow(53)).setSyncable(true)
-    }) {}
+    })
     val BoobInitialSize = entry("boob_initial_size", {
         RangedAttribute("attribute.name.estrogen.boob_initial_size", 0.0, 0.0, 1.0).setSyncable(true)
-    }) {}
+    })
     // Fall Damage Resistance
     val FallDamageResistance = entry("fall_damage_resistance", {
         RangedAttribute("attribute.name.estrogen.fall_damage_resistance", 1.0, 1.0, 1000.0).setSyncable(true)
-    }) {}
+    })
 }
 
 object EstrogenAttributeEvents {
@@ -62,7 +63,7 @@ object EstrogenAttributeEvents {
     @Subscription
     internal fun EntityDamageEvent.onDamage() {
         if (entity is Player && source in DamageTypeTags.IS_FALL) {
-            val resistance = (entity as Player).getAttributeValue(FallDamageResistance.holder()).toFloat()
+            val resistance = (entity as Player).getAttributeValue(FallDamageResistance.holder).toFloat()
             result = if (resistance > amount) {
                 0.0F
             } else {
@@ -76,8 +77,8 @@ object EstrogenAttributeEvents {
         if (newPlayer.level().isClientSide) return
         val attributes = arrayOf(ShowBoobs, BoobGrowingStartTime, BoobInitialSize)
         attributes.forEach { attribute ->
-            oldPlayer.getAttribute(attribute.holder())?.let { instance ->
-                newPlayer.getAttribute(attribute.holder())?.replaceFrom(instance)
+            oldPlayer.getAttribute(attribute.holder)?.let { instance ->
+                newPlayer.getAttribute(attribute.holder)?.replaceFrom(instance)
             }
         }
     }

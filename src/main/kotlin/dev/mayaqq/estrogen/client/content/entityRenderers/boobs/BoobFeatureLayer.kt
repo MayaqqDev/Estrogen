@@ -15,6 +15,7 @@ import dev.mayaqq.estrogen.injection.renderBoobArmor
 import dev.mayaqq.estrogen.injection.renderBoobArmorTrim
 import dev.mayaqq.estrogen.injection.renderBoobs
 import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.client.renderer.MultiBufferSource
@@ -47,10 +48,10 @@ class BoobFeatureLayer(
             val m = LivingEntityRenderer.getOverlayCoords(entity, 0.0f)
             stack.pushPop {
                 var size: Float
-                val startTime: Double = entity.getAttributeValue(EstrogenAttributes.BoobGrowingStartTime.holder())
+                val startTime: Double = entity.getAttributeValue(EstrogenAttributes.BoobGrowingStartTime.holder)
                 val currentTime: Double = currentTime(entity.level())
                 if (startTime >= 0.0) {
-                    val initialSize = entity.getAttributeValue(EstrogenAttributes.BoobInitialSize.holder()).toFloat()
+                    val initialSize = entity.getAttributeValue(EstrogenAttributes.BoobInitialSize.holder).toFloat()
                     size = boobSize(startTime, currentTime, initialSize, h)
                 } else {
                     size = 0.0f

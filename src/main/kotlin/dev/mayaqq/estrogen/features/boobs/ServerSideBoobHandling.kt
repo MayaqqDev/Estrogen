@@ -14,6 +14,7 @@ import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigPacket
 import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigRequestPacket
 import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.world.entity.player.Player
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.toKotlinUuid
@@ -23,13 +24,13 @@ object ServerSideBoobHandling {
     @Subscription
     fun onDisconnect(event: PlayerConnectionEvent.Leave) {
         if (shouldShow(event.player)) {
-            val startTime: Double = event.player.getAttributeValue(EstrogenAttributes.BoobGrowingStartTime.holder())
+            val startTime: Double = event.player.getAttributeValue(EstrogenAttributes.BoobGrowingStartTime.holder)
             val currentTime: Double = currentTime(event.player.level())
             val size = boobSize(
                 startTime, currentTime,
-                event.player.getAttributeValue(EstrogenAttributes.BoobInitialSize.holder()).toFloat(), 0.0f
+                event.player.getAttributeValue(EstrogenAttributes.BoobInitialSize.holder).toFloat(), 0.0f
             )
-            event.player.getAttribute(EstrogenAttributes.BoobInitialSize.holder())?.baseValue = size.toDouble()
+            event.player.getAttribute(EstrogenAttributes.BoobInitialSize.holder)?.baseValue = size.toDouble()
         }
     }
 

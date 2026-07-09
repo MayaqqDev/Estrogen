@@ -14,7 +14,7 @@ import net.minecraft.world.effect.MobEffectCategory
 @Suppress("unused")
 object EstrogenEffects : Registrar<MobEffect> by Registrar(MOD_ID, Registries.MOB_EFFECT) {
     @JvmStatic
-    val Estrogen: RegistryEntry<EstrogenEffect> = entry("estrogen", {EstrogenEffect(MobEffectCategory.BENEFICIAL, 104164161)}) {}
+    val Estrogen: RegistryEntry<MobEffect> = entry("estrogen", {EstrogenEffect(MobEffectCategory.BENEFICIAL, 104164161)}) {}
 
-    val Dreaming: RegistryEntry<DreamingEffect> = entry("dreaming", fun() = DreamingEffect(MobEffectCategory.NEUTRAL, EstrogenColors.DREAM_BLOCK)) {}
+    val Dreaming: RegistryEntry<MobEffect> = entry("dreaming", fun() = DreamingEffect(MobEffectCategory.NEUTRAL, EstrogenColors.DREAM_BLOCK)) {}
 }

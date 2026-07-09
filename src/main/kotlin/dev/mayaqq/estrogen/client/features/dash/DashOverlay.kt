@@ -16,6 +16,7 @@ import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.registry.api.entry.holder
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.floatBlue
 import invoke.kitty.kritter.utils.color.floatGreen
@@ -31,7 +32,7 @@ object DashOverlay : HudOverlay {
 
     override fun render(gui: Gui, graphics: GuiGraphics, partialTick: Float) {
         val player = Minecraft.getInstance().player ?: return
-        if (player.hasEffect(EstrogenEffects.Estrogen.holder()) && isOnCooldown() && EstrogenClientConfig.UI.dashOverlay) {
+        if (player.hasEffect(EstrogenEffects.Estrogen.holder) && isOnCooldown() && EstrogenClientConfig.UI.dashOverlay) {
             val dc: Color = EstrogenColors.getDashColor(getDashLevel(), false)
             renderOverlay(graphics, dc.floatRed, dc.floatGreen, dc.floatBlue)
         }

@@ -13,7 +13,6 @@ import dev.engine_room.flywheel.lib.util.ShadersModHelper
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.events.CoreShaderRegistrationEvent
 import dev.mayaqq.cynosure.client.events.render.GameRenderEvent
-import dev.mayaqq.cynosure.client.events.render.LevelRenderEvent
 import dev.mayaqq.cynosure.client.events.render.ReloadLevelRendererEvent
 import dev.mayaqq.cynosure.client.events.render.ResizeRendererEvent
 import dev.mayaqq.cynosure.client.isShaderPackInUse
@@ -24,6 +23,10 @@ import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.holder
 import dev.mayaqq.estrogen.utils.render.blitWithDepth
+import invoke.kitty.kritter.client.events.render.LevelRenderContext
+import invoke.kitty.kritter.client.events.render.LevelRenderEvent
+import invoke.kitty.kritter.client.events.render.ReloadLevelRendererEvent
+import invoke.kitty.kritter.client.events.render.ResizeLevelRendererEvent
 import invoke.kitty.kritter.platform.Side
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap
 import net.minecraft.client.Minecraft
@@ -79,6 +82,14 @@ object EstrogenRenderer {
     // Misc
     internal var celshadeCounter: Int = 0
 
+    fun initialize() {
+        LevelRenderEvent.AfterEntities calls ::afterEntities
+        LevelRenderEvent.AfterParticles calls ::afterParticles
+        LevelRenderEvent.End calls ::onEndRender
+        ReloadLevelRendererEvent calls ::onReloadRenderer
+        ResizeLevelRendererEvent calls ::onResizeRenderer
+    }
+
     fun getCelShaded(bufferSource: MultiBufferSource): MultiBufferSource =
         OutlineBufferSource.getCelShadeWrapper(bufferSource)
 
@@ -92,8 +103,7 @@ object EstrogenRenderer {
         event.register(id("dash_trail_particle"), DefaultVertexFormat.PARTICLE, ::dashTrailParticleShader)
     }
 
-    @Subscription
-    internal fun onReloadRenderer(event: ReloadLevelRendererEvent) {
+    internal fun onReloadRenderer() {
         val minecraft = Minecraft.getInstance()
         dreamingEffect?.close()
         celshadeEffect?.close()
@@ -129,28 +139,25 @@ object EstrogenRenderer {
         celshadeTarget = celshade.getTempTarget("input")
     }
 
-    @Subscription
-    internal fun afterEntities(event: LevelRenderEvent.AfterEntities) {
+    internal fun afterEntities(context: LevelRenderContext) {
         shaderBypassTarget?.clear(Minecraft.ON_OSX)
         shaderBypassTarget?.copyDepthFrom(McClient.mainRenderTarget)
         McClient.mainRenderTarget.bindWrite(false)
     }
 
-    @Subscription
-    internal fun afterParticles(event: LevelRenderEvent.AfterParticles) {
+    internal fun afterParticles(context: LevelRenderContext) {
         if (celshadeCounter > 0 && !ShadersModHelper.isRenderingShadowPass()) {
             celshadeTarget.clear(Minecraft.ON_OSX)
             celshadeTarget.copyDepthFrom(McClient.mainRenderTarget)
             RenderSystem.depthFunc(GL11.GL_LESS)
             OutlineBufferSource.endOutlineBatch()
-            celshadeEffect?.process(event.partialTick)
+            celshadeEffect?.process(context.partialTick)
             RenderSystem.depthFunc(GL11.GL_LEQUAL)
             McClient.mainRenderTarget.bindWrite(false)
         }
     }
 
-    @Subscription
-    internal fun onEndRender(event: LevelRenderEvent.End) {
+    internal fun onEndRender(context: LevelRenderContext) {
         val window = Minecraft.getInstance().window
 
         RenderSystem.enableBlend()
@@ -166,20 +173,20 @@ object EstrogenRenderer {
         RenderSystem.defaultBlendFunc()
 
         if (Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming.holder()) == true) {
-            dreamingEffect?.process(event.partialTick)
+            dreamingEffect?.process(context.partialTick)
         }
         McClient.mainRenderTarget.bindWrite(false)
         celshadeCounter = 0
     }
 
     @Subscription
-    internal fun onResizeRenderer(event: ResizeRendererEvent) {
-        dreamingEffect?.resize(event.width, event.height)
+    internal fun onResizeRenderer(width: Int, height: Int) {
+        dreamingEffect?.resize(width, height)
         celshadeEffect?.apply {
-            resize(event.width, event.height)
-            celshadeTarget.resize(event.width, event.height, Minecraft.ON_OSX)
+            resize(width, height)
+            celshadeTarget.resize(width, height, Minecraft.ON_OSX)
         }
-        shaderBypassTarget?.resize(event.width, event.height, Minecraft.ON_OSX)
+        shaderBypassTarget?.resize(width, height, Minecraft.ON_OSX)
     }
 
     var clientTickCounter = 0

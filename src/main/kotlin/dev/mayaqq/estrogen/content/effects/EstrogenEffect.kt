@@ -21,6 +21,7 @@ import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.features.dash.CommonDash.removeDashing
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.core.Holder
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket
@@ -38,12 +39,14 @@ import net.minecraft.world.entity.player.Player
 class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(category, color) {
     init {
         addAttributeModifier(
-            FallDamageResistance.holder(),
+            FallDamageResistance.holder,
             fallDamageResistanceID,
             2.0,
             AttributeModifier.Operation.ADD_VALUE
         )
     }
+
+    override fun shouldApplyEffectTickThisTick(p0: Int, p1: Int): Boolean = EstrogenCommonConfig.Dash.enabled
 
     override fun applyEffectTick(entity: LivingEntity, amplifier: Int): Boolean {
         if (isModLoaded("cobblemon")) {
@@ -57,7 +60,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         // Only tick on the client and if the entity is a player
         if (entity is Player && entity.level().isClientSide) {
             ClientDash.tick()
-            if (entity.getEffect(EstrogenEffects.Estrogen.holder())?.duration == 1) ClientDash.reset()
+            if (entity.getEffect(EstrogenEffects.Estrogen.holder)?.duration == 1) ClientDash.reset()
         }
         return true
     }
@@ -92,13 +95,13 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
                 if (entity is ServerPlayer) {
                     sendRemovePlayerStatusEffect(
                         entity,
-                        EstrogenEffects.Estrogen.holder(),
+                        EstrogenEffects.Estrogen.holder,
                         *tracking(entity).toTypedArray()
                     )
                 }
 
-                entity.getAttribute(EstrogenAttributes.DashLevel.holder())?.removeModifier(dashModifierID)
-                entity.getAttribute(EstrogenAttributes.ShowBoobs.holder())?.removeModifier(boobModifierID)
+                entity.getAttribute(EstrogenAttributes.DashLevel.holder)?.removeModifier(dashModifierID)
+                entity.getAttribute(EstrogenAttributes.ShowBoobs.holder)?.removeModifier(boobModifierID)
             }
         }
 
@@ -108,7 +111,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
             if (entity is ServerPlayer) {
                 sendPlayerStatusEffect(
                     entity,
-                    EstrogenEffects.Estrogen.holder(),
+                    EstrogenEffects.Estrogen.holder,
                     *tracking(entity).toTypedArray()
                 )
             }
@@ -118,16 +121,16 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
                 (amplifier + 1).toDouble(),
                 AttributeModifier.Operation.ADD_VALUE
             )
-            entity.getAttribute(EstrogenAttributes.DashLevel.holder())?.replaceModifier(dashModifier)
+            entity.getAttribute(EstrogenAttributes.DashLevel.holder)?.replaceModifier(dashModifier)
 
             val boobModifier = AttributeModifier(
                 boobModifierID,
                 1.0,
                 AttributeModifier.Operation.ADD_VALUE
             )
-            entity.getAttribute(EstrogenAttributes.ShowBoobs.holder())?.replaceModifier(boobModifier)
+            entity.getAttribute(EstrogenAttributes.ShowBoobs.holder)?.replaceModifier(boobModifier)
 
-            entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder())?.let {
+            entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder)?.let {
                 if (it.baseValue < 0.0) {
                     val currentTime = currentTime(entity.level())
                     it.baseValue = currentTime
@@ -139,14 +142,14 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         internal fun EntityTrackingEvent.Start.onPlayerTracking() {
             if (entity is ServerPlayer) EstrogenEffect.sendPlayerStatusEffect(
                 entity as ServerPlayer,
-                EstrogenEffects.Estrogen.holder(),
+                EstrogenEffects.Estrogen.holder,
                 player,
             )
         }
 
         @Subscription
         internal fun EntityDamageSourceEvent.onDamageSource() {
-            if (source in DamageTypeTags.IS_FALL && (entity as? Player)?.hasEffect(EstrogenEffects.Estrogen.holder()) == true) {
+            if (source in DamageTypeTags.IS_FALL && (entity as? Player)?.hasEffect(EstrogenEffects.Estrogen.holder) == true) {
                 result = EstrogenDamageSources.of(entity.level(), EstrogenDamageSources.GIRLPOWER)
             }
         }
@@ -155,8 +158,8 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         internal fun LivingEntityEvent.EffectApply.onApplyEffect() {
             if (this.oldInstance == null && this.effect == EstrogenEffects.Estrogen && entity is Player) {
                 if (!Boob.shouldShow(entity as Player)) {
-                    entity.getAttribute(EstrogenAttributes.BoobInitialSize.holder())?.baseValue = 0.0
-                    entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder())?.baseValue = -1.0
+                    entity.getAttribute(EstrogenAttributes.BoobInitialSize.holder)?.baseValue = 0.0
+                    entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder)?.baseValue = -1.0
                 }
             }
 

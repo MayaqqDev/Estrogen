@@ -8,6 +8,7 @@ import dev.mayaqq.estrogen.injection.chestConfig
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigPacket
 import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.registry.api.entry.holder
 import kotlinx.serialization.Serializable
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ServerPlayer
@@ -20,7 +21,7 @@ data class SetChestConfigPacket(val config: ChestConfig) {
         sender.chestConfig = config
 
         for (player in PlayerLookup.tracking(sender)) {
-            EstrogenEffect.sendPlayerStatusEffect(player, EstrogenEffects.Estrogen.holder(), sender)
+            EstrogenEffect.sendPlayerStatusEffect(player, EstrogenEffects.Estrogen.holder, sender)
             player.chestConfig?.let {
                 EstrogenNetwork.sendToPlayer(sender, ChestConfigPacket(player.uuid.toKotlinUuid(), it))
             }

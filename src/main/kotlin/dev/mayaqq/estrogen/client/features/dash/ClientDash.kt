@@ -14,6 +14,7 @@ import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.c2s.DashPacket
 import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.platform.Side
+import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.client.Minecraft
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.core.BlockPos
@@ -238,7 +239,7 @@ object ClientDash {
     }
 
     fun refresh(player: Player) {
-        dashes = player.getAttributeValue(EstrogenAttributes.DashLevel).toInt().toShort().toInt()
+        dashes = player.getAttributeValue(EstrogenAttributes.DashLevel.holder).toInt().toShort().toInt()
     }
 
     private fun canRefresh(player: Player): Boolean {
@@ -253,8 +254,7 @@ object ClientDash {
         return dashLevel
     }
 
-    @Subscription
-    fun onClientTick(event: ClientTickEvent.End) {
+    fun onClientTick() {
         var wasPressed = false
         while (EstrogenKeybinds.DASH_KEY.consumeClick()) {
             wasPressed = true

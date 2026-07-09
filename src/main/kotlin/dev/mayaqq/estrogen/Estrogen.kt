@@ -12,6 +12,7 @@ import dev.mayaqq.estrogen.api.EstrogenEntrypoint
 import dev.mayaqq.estrogen.api.EstrogenFlag
 import dev.mayaqq.estrogen.api.EstrogenModule
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
+import dev.mayaqq.estrogen.client.hookClientEventBus
 import dev.mayaqq.estrogen.compat.cobblemon.ModlessCobblemonCompat
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
@@ -28,6 +29,7 @@ import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLoader
 import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLootFunction
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import invoke.kitty.kritter.platform.forge.EntrypointHandler
+import invoke.kitty.kritter.utils.clientOnly
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.ForestGreen
 import invoke.kitty.kritter.utils.color.LightBlue
@@ -52,6 +54,8 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
 
     @EntrypointHandler("init")
     fun init() {
+        hookEventBus()
+        clientOnly { hookClientEventBus() }
         // Config
         EstrogenCommonConfig.initialize()
         EstrogenServerConfig.initialize()
@@ -91,6 +95,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
         )
 
         info("Injecting Estrogen into your veins!")
+
     }
 
     // Estrogen Module Info stuff

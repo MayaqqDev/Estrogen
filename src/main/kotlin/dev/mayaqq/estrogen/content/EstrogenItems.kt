@@ -10,6 +10,7 @@ import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.creativeTabs.TabPlacement
 import invoke.kitty.kritter.registry.api.Registrar
+import invoke.kitty.kritter.registry.api.entry.holder
 import invoke.kitty.kritter.registry.api.entry.key
 import invoke.kitty.kritter.registry.item.creativeTab
 import invoke.kitty.kritter.registry.item.item
@@ -51,7 +52,7 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
             stacksTo(16)
             food(FoodProperties.Builder().effect(
                 MobEffectInstance(
-                    EstrogenEffects.Estrogen.holder(),
+                    EstrogenEffects.Estrogen.holder,
                     EstrogenCommonConfig.Durations.crystalEstrogenPillDuration,
                     1,
                     false,
@@ -79,7 +80,7 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
             jukeboxPlayable(EstrogenRecordSongs.G03C)
             food(
                 FoodProperties.Builder().effect(MobEffectInstance(
-                    EstrogenEffects.Estrogen.holder(),
+                    EstrogenEffects.Estrogen.holder,
                     EstrogenCommonConfig.Durations.estrogenChipCookieDuration,
                     0,
                     false,
@@ -157,8 +158,8 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         textureProperty(id("gender")) { _, _, entity, _ ->
             return@textureProperty if(
                     entity != null &&
-                    entity.attributes.hasAttribute(EstrogenAttributes.ShowBoobs.holder()) &&
-                    entity.getAttributeValue(EstrogenAttributes.ShowBoobs.holder()) != 0.0
+                    entity.attributes.hasAttribute(EstrogenAttributes.ShowBoobs.holder) &&
+                    entity.getAttributeValue(EstrogenAttributes.ShowBoobs.holder) != 0.0
                 ) 1.0f else 0.0f
         }
         creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.AFTER(Items.HONEY_BOTTLE))

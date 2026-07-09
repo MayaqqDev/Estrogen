@@ -16,90 +16,90 @@ import net.minecraft.world.level.block.SoundType
 object EstrogenSounds : Registrar<SoundEvent> by Registrar(MOD_ID, Registries.SOUND_EVENT) {
 
     // Dash
-    val DASH: RegistryEntry<SoundEvent> = soundEvent.doBuild("dash")
+    val DASH: RegistryEntry<SoundEvent> = soundEvent("dash")
 
     // Music disc
-    val G03C: RegistryEntry<SoundEvent> = soundEvent.doBuild("g03c")
+    val G03C: RegistryEntry<SoundEvent> = soundEvent("g03c")
 
     // Ambient music
-    val TRUST_YOURSELF: RegistryEntry<SoundEvent> = soundEvent.doBuild("trust_yourself")
-    val AMPHITRITE: RegistryEntry<SoundEvent> = soundEvent.doBuild("amphitrite")
-    val AURUM_BERRY: RegistryEntry<SoundEvent> = soundEvent.doBuild("aurum_berry")
-    val ESTROGEN_AMBIENT: RegistryEntry<SoundEvent> = soundEvent.doBuild("estrogen_ambient")
-    val INFERRED_DREAMS: RegistryEntry<SoundEvent> = soundEvent.doBuild("inferred_dream")
-    val SLEEPING: RegistryEntry<SoundEvent> = soundEvent.doBuild("sleeping")
-    val INNER_SELF_REALIZATION: RegistryEntry<SoundEvent> = soundEvent.doBuild("inner_self_realization")
+    val TRUST_YOURSELF: RegistryEntry<SoundEvent> = soundEvent("trust_yourself")
+    val AMPHITRITE: RegistryEntry<SoundEvent> = soundEvent("amphitrite")
+    val AURUM_BERRY: RegistryEntry<SoundEvent> = soundEvent("aurum_berry")
+    val ESTROGEN_AMBIENT: RegistryEntry<SoundEvent> = soundEvent("estrogen_ambient")
+    val INFERRED_DREAMS: RegistryEntry<SoundEvent> = soundEvent("inferred_dream")
+    val SLEEPING: RegistryEntry<SoundEvent> = soundEvent("sleeping")
+    val INNER_SELF_REALIZATION: RegistryEntry<SoundEvent> = soundEvent("inner_self_realization")
 
     // Dream block
-    val DREAM_BLOCK_ENTER: RegistryEntry<SoundEvent> = soundEvent.doBuild("dream_block_enter")
-    val DREAM_BLOCK_EXIT: RegistryEntry<SoundEvent> = soundEvent.doBuild("dream_block_exit")
-    val DREAM_BLOCK_LOOP: RegistryEntry<SoundEvent> = soundEvent.doBuild("dream_block_loop")
-    val DREAM_BLOCK_PLACE: RegistryEntry<SoundEvent> = soundEvent.doBuild("dream_block_place")
-    val DREAM_BLOCK_BREAK: RegistryEntry<SoundEvent> = soundEvent.doBuild("dream_block_break")
-    val DREAM_BLOCK_STEP: RegistryEntry<SoundEvent> = soundEvent.doBuild("dream_block_step")
-    val DREAM_BLOCK_HIT: RegistryEntry<SoundEvent> = soundEvent.doBuild("dream_block_hit")
-    val DREAM_BLOCK_FALL: RegistryEntry<SoundEvent> = soundEvent.doBuild("dream_block_fall")
+    val DREAM_BLOCK_ENTER: RegistryEntry<SoundEvent> = soundEvent("dream_block_enter")
+    val DREAM_BLOCK_EXIT: RegistryEntry<SoundEvent> = soundEvent("dream_block_exit")
+    val DREAM_BLOCK_LOOP: RegistryEntry<SoundEvent> = soundEvent("dream_block_loop")
+    val DREAM_BLOCK_PLACE: RegistryEntry<SoundEvent> = soundEvent("dream_block_place")
+    val DREAM_BLOCK_BREAK: RegistryEntry<SoundEvent> = soundEvent("dream_block_break")
+    val DREAM_BLOCK_STEP: RegistryEntry<SoundEvent> = soundEvent("dream_block_step")
+    val DREAM_BLOCK_HIT: RegistryEntry<SoundEvent> = soundEvent("dream_block_hit")
+    val DREAM_BLOCK_FALL: RegistryEntry<SoundEvent> = soundEvent("dream_block_fall")
 
     // Dormant dream block
-    val DREAM_BLOCK_DORMANT_PLACE: RegistryEntry<SoundEvent> = soundEvent.doBuild("dream_block_dormant_place")
-    val DREAM_BLOCK_DORMANT_BREAK: RegistryEntry<SoundEvent> = soundEvent.doBuild("dream_block_dormant_break")
-    val DREAM_BLOCK_DORMANT_STEP: RegistryEntry<SoundEvent> = soundEvent.doBuild("dream_block_dormant_step")
-    val DREAM_BLOCK_DORMANT_HIT: RegistryEntry<SoundEvent> = soundEvent.doBuild("dream_block_dormant_hit")
-    val DREAM_BLOCK_DORMANT_FALL: RegistryEntry<SoundEvent> = soundEvent.doBuild("dream_block_dormant_fall")
+    val DREAM_BLOCK_DORMANT_PLACE: RegistryEntry<SoundEvent> = soundEvent("dream_block_dormant_place")
+    val DREAM_BLOCK_DORMANT_BREAK: RegistryEntry<SoundEvent> = soundEvent("dream_block_dormant_break")
+    val DREAM_BLOCK_DORMANT_STEP: RegistryEntry<SoundEvent> = soundEvent("dream_block_dormant_step")
+    val DREAM_BLOCK_DORMANT_HIT: RegistryEntry<SoundEvent> = soundEvent("dream_block_dormant_hit")
+    val DREAM_BLOCK_DORMANT_FALL: RegistryEntry<SoundEvent> = soundEvent("dream_block_dormant_fall")
 
     // Cookie jar
-    val JAR_FULL: RegistryEntry<SoundEvent> = soundEvent.doBuild("jar_full")
-    val JAR_INSERT: RegistryEntry<SoundEvent> = soundEvent.doBuild("jar_insert")
-    val JAR_PLACE: RegistryEntry<SoundEvent> = soundEvent.doBuild("jar_place")
-    val JAR_BREAK: RegistryEntry<SoundEvent> = soundEvent.doBuild("jar_break")
-    val JAR_STEP: RegistryEntry<SoundEvent> = soundEvent.doBuild("jar_step")
-    val JAR_HIT: RegistryEntry<SoundEvent> = soundEvent.doBuild("jar_hit")
-    val JAR_FALL: RegistryEntry<SoundEvent> = soundEvent.doBuild("jar_fall")
+    val JAR_FULL: RegistryEntry<SoundEvent> = soundEvent("jar_full")
+    val JAR_INSERT: RegistryEntry<SoundEvent> = soundEvent("jar_insert")
+    val JAR_PLACE: RegistryEntry<SoundEvent> = soundEvent("jar_place")
+    val JAR_BREAK: RegistryEntry<SoundEvent> = soundEvent("jar_break")
+    val JAR_STEP: RegistryEntry<SoundEvent> = soundEvent("jar_step")
+    val JAR_HIT: RegistryEntry<SoundEvent> = soundEvent("jar_hit")
+    val JAR_FALL: RegistryEntry<SoundEvent> = soundEvent("jar_fall")
 
     // Estrogen Pill Box
-    val PILL_BOX_PLACE: RegistryEntry<SoundEvent> = soundEvent.doBuild("pill_box_place")
-    val PILL_BOX_STEP: RegistryEntry<SoundEvent> = soundEvent.doBuild("pill_box_step")
-    val PILL_BOX_BREAK: RegistryEntry<SoundEvent> = soundEvent.doBuild("pill_box_break")
-    val PILL_BOX_HIT: RegistryEntry<SoundEvent> = soundEvent.doBuild("pill_box_hit")
-    val PILL_BOX_FALL: RegistryEntry<SoundEvent> = soundEvent.doBuild("pill_box_fall")
+    val PILL_BOX_PLACE: RegistryEntry<SoundEvent> = soundEvent("pill_box_place")
+    val PILL_BOX_STEP: RegistryEntry<SoundEvent> = soundEvent("pill_box_step")
+    val PILL_BOX_BREAK: RegistryEntry<SoundEvent> = soundEvent("pill_box_break")
+    val PILL_BOX_HIT: RegistryEntry<SoundEvent> = soundEvent("pill_box_hit")
+    val PILL_BOX_FALL: RegistryEntry<SoundEvent> = soundEvent("pill_box_fall")
 
-    val MOTH_DEATH: RegistryEntry<SoundEvent> = soundEvent.doBuild("moth_death")
-    val MOTH_HURT: RegistryEntry<SoundEvent> = soundEvent.doBuild("moth_hurt")
-    val MOTH_LOOP: RegistryEntry<SoundEvent> = soundEvent.doBuild("moth_loop")
-    val MOTH_FUZZ_UP: RegistryEntry<SoundEvent> = soundEvent.doBuild("moth_fuzz_up")
+    val MOTH_DEATH: RegistryEntry<SoundEvent> = soundEvent("moth_death")
+    val MOTH_HURT: RegistryEntry<SoundEvent> = soundEvent("moth_hurt")
+    val MOTH_LOOP: RegistryEntry<SoundEvent> = soundEvent("moth_loop")
+    val MOTH_FUZZ_UP: RegistryEntry<SoundEvent> = soundEvent("moth_fuzz_up")
 }
 
 object EstrogenSoundTypes {
 
     val DREAM_BLOCK_ACTIVE: SoundType = LazySoundType(1.0f, 1.0f,
-        breakSound = { EstrogenSounds.DREAM_BLOCK_BREAK.value!! },
-        stepSound = { EstrogenSounds.DREAM_BLOCK_STEP.value!! },
-        placeSound = { EstrogenSounds.DREAM_BLOCK_PLACE.value!! },
-        hitSound = { EstrogenSounds.DREAM_BLOCK_HIT.value!! },
-        fallSound = { EstrogenSounds.DREAM_BLOCK_FALL.value!! }
+        breakSound = EstrogenSounds.DREAM_BLOCK_BREAK,
+        stepSound = EstrogenSounds.DREAM_BLOCK_STEP,
+        placeSound = EstrogenSounds.DREAM_BLOCK_PLACE,
+        hitSound = EstrogenSounds.DREAM_BLOCK_HIT,
+        fallSound = EstrogenSounds.DREAM_BLOCK_FALL
     )
 
     val DREAM_BLOCK_DORMANT: SoundType = LazySoundType(1.0f, 1.0f,
-        breakSound = { EstrogenSounds.DREAM_BLOCK_DORMANT_BREAK.value!! },
-        stepSound = { EstrogenSounds.DREAM_BLOCK_DORMANT_STEP.value!! },
-        placeSound = { EstrogenSounds.DREAM_BLOCK_DORMANT_PLACE.value!! },
-        hitSound = { EstrogenSounds.DREAM_BLOCK_DORMANT_HIT.value!! },
-        fallSound = { EstrogenSounds.DREAM_BLOCK_DORMANT_FALL.value!! }
+        breakSound = EstrogenSounds.DREAM_BLOCK_BREAK,
+        stepSound = EstrogenSounds.DREAM_BLOCK_STEP,
+        placeSound = EstrogenSounds.DREAM_BLOCK_PLACE,
+        hitSound = EstrogenSounds.DREAM_BLOCK_DORMANT_HIT,
+        fallSound = EstrogenSounds.DREAM_BLOCK_DORMANT_FALL
     )
 
     val COOKIE_JAR: SoundType = LazySoundType(1.0f, 1.0f,
-        breakSound = { EstrogenSounds.JAR_BREAK.value!! },
-        stepSound = { EstrogenSounds.JAR_STEP.value!! },
-        placeSound = { EstrogenSounds.JAR_PLACE.value!! },
-        hitSound = { EstrogenSounds.JAR_HIT.value!! },
-        fallSound = { EstrogenSounds.JAR_FALL.value!! }
+        breakSound = EstrogenSounds.JAR_BREAK,
+        stepSound = EstrogenSounds.JAR_STEP,
+        placeSound = EstrogenSounds.JAR_PLACE,
+        hitSound = EstrogenSounds.JAR_HIT,
+        fallSound = EstrogenSounds.JAR_FALL
     )
 
     val PILL_BOX: SoundType = LazySoundType(1.0f, 1.0f,
-        breakSound = { EstrogenSounds.PILL_BOX_BREAK.value!! },
-        stepSound = { EstrogenSounds.PILL_BOX_STEP.value!! },
-        placeSound = { EstrogenSounds.PILL_BOX_PLACE.value!! },
-        hitSound = { EstrogenSounds.PILL_BOX_HIT.value!! },
-        fallSound = { EstrogenSounds.PILL_BOX_FALL.value!! }
+        breakSound = EstrogenSounds.PILL_BOX_BREAK,
+        stepSound = EstrogenSounds.PILL_BOX_STEP,
+        placeSound = EstrogenSounds.PILL_BOX_PLACE,
+        hitSound = EstrogenSounds.PILL_BOX_HIT,
+        fallSound = EstrogenSounds.PILL_BOX_FALL
     )
 }

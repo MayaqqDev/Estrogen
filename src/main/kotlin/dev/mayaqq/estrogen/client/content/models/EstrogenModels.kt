@@ -45,7 +45,7 @@ object EstrogenModels : PreparableModelLoadingPlugin<Preparations> {
             if (it != null && id is Either.Right && id.right in CT_MODELS)
                 ConnectedModel(it, spriteGetter.apply(Material(TextureAtlas.LOCATION_BLOCKS, CT_MODELS[id.right]!!)))
             else
-                null
+                it
         }
     }
 

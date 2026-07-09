@@ -6,6 +6,7 @@ import dev.mayaqq.estrogen.content.particles.DashTrailParticleOptions
 import dev.mayaqq.estrogen.features.dash.CommonDash
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.registry.api.entry.holder
 import kotlinx.serialization.Serializable
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.server.MinecraftServer
@@ -17,7 +18,7 @@ import kotlin.uuid.toKotlinUuid
 @Serializable @JvmRecord
 data class DashPacket(val isInitial: Boolean, val dashLevel: Int) {
     fun handle(server: MinecraftServer, sender: ServerPlayer) {
-        if (sender.hasEffect(EstrogenEffects.Estrogen.holder())) {
+        if (sender.hasEffect(EstrogenEffects.Estrogen.holder)) {
             val level = sender.level() as ServerLevel
 
             // Spawn particles around the player

@@ -12,6 +12,7 @@ import dev.mayaqq.estrogen.content.blockEntities.DreamCatcherBlockEntity
 import dev.mayaqq.estrogen.content.blockEntities.MemorialBlockEntity
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.entry.RegistryEntry
+import invoke.kitty.kritter.registry.blockEntity.BlockEntityEntry
 import invoke.kitty.kritter.registry.blockEntity.blockEntity
 import invoke.kitty.kritter.registry.blockEntity.renderer
 import net.minecraft.core.registries.Registries
@@ -19,24 +20,24 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 
 object EstrogenBlockEntities : Registrar<BlockEntityType<*>> by Registrar(MOD_ID, Registries.BLOCK_ENTITY_TYPE) {
 
-    val DreamBlock: RegistryEntry<BlockEntityType<DreamBlockEntity>> = blockEntity("dream_block", ::DreamBlockEntity) {
-        validBlock { EstrogenBlocks.DreamBlock.value!! }
+    val DreamBlock: BlockEntityEntry<DreamBlockEntity> = blockEntity("dream_block", ::DreamBlockEntity) {
+        validBlock(EstrogenBlocks.DreamBlock)
         renderer(::DreamBlockRenderer)
         visual(::DreamBlockVisual) { false }
     }
 
-    val CookieJar: RegistryEntry<BlockEntityType<CookieJarBlockEntity>> = blockEntity("cookie_jar", ::CookieJarBlockEntity) {
-        validBlock { EstrogenBlocks.CookieJar.value!! }
+    val CookieJar: BlockEntityEntry<CookieJarBlockEntity> = blockEntity("cookie_jar", ::CookieJarBlockEntity) {
+        validBlock(EstrogenBlocks.CookieJar)
         renderer(::CookieJarRenderer)
         visual(::CookieJarVisual) { false }
     }
 
-    val DreamCatcher: RegistryEntry<BlockEntityType<DreamCatcherBlockEntity>> = blockEntity("dreamcatcher", ::DreamCatcherBlockEntity) {
-        validBlock { EstrogenBlocks.DreamCatcher.value!! }
+    val DreamCatcher: BlockEntityEntry<DreamCatcherBlockEntity> = blockEntity("dreamcatcher", ::DreamCatcherBlockEntity) {
+        validBlock(EstrogenBlocks.DreamCatcher)
     }
 
-    val Memorial: RegistryEntry<BlockEntityType<MemorialBlockEntity>> = blockEntity("memorial", ::MemorialBlockEntity) {
-        validBlock { EstrogenBlocks.Memorial.value!! }
+    val Memorial: BlockEntityEntry<MemorialBlockEntity> = blockEntity("memorial", ::MemorialBlockEntity) {
+        validBlock(EstrogenBlocks.Memorial)
         renderer(::MemorialRenderer)
     }
 }

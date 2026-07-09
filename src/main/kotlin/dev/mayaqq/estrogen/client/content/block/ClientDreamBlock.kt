@@ -12,6 +12,7 @@ import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.mixin.client.accessor.LevelRendererAccessor
 import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.platform.Side
+import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.client.Minecraft
 import net.minecraft.client.resources.model.Material
 import net.minecraft.core.BlockPos
@@ -34,7 +35,7 @@ object ClientDreamBlock {
     @Subscription
     fun tick(event: LevelEvent.EndTick) {
 
-        if (TextRendererFeatures.obfuscate != Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming.holder())) {
+        if (TextRendererFeatures.obfuscate != Minecraft.getInstance().player?.hasEffect(EstrogenEffects.Dreaming.holder)) {
             rebuildDreamChunks = true
         }
 

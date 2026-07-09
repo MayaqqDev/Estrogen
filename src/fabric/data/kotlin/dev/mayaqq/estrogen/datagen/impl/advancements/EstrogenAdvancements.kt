@@ -173,7 +173,7 @@ class EstrogenAdvancements(output: FabricDataOutput, lookup: CompletableFuture<H
                                 .entityType(EntityTypePredicate.of(EntityType.PHANTOM))
                                 .build()
                         ),
-                        EstrogenEffects.Estrogen.holder(), ContextAwarePredicate.create()
+                        EstrogenEffects.Estrogen, ContextAwarePredicate.create()
                     )
                 )
             )

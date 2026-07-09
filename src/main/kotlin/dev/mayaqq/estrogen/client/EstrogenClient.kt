@@ -7,6 +7,7 @@ import dev.mayaqq.cynosure.client.events.ClientReloadListenerEvent
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.events.ParticleRenderTypeRegistrationEvent
 import dev.mayaqq.cynosure.client.events.entity.RenderLayerRegistrationEvent
+import dev.mayaqq.cynosure.client.keymapping.KeyMappingRegistry
 import dev.mayaqq.cynosure.client.render.gui.HudOverlayRegistry
 import dev.mayaqq.cynosure.client.render.gui.VanillaHud
 import dev.mayaqq.cynosure.client.splash.data.CynosureSplashLoader
@@ -17,7 +18,6 @@ import dev.mayaqq.cynosure.events.api.MainBus
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.McPlayer
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer
@@ -29,7 +29,6 @@ import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraL
 import dev.mayaqq.estrogen.client.content.entityRenderers.mothElytra.MothElytraModel
 import dev.mayaqq.estrogen.client.content.models.EstrogenModels
 import dev.mayaqq.estrogen.client.content.particles.DashTrailParticle
-import dev.mayaqq.estrogen.client.cosmetics.Cosmetic
 import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
 import dev.mayaqq.estrogen.client.cosmetics.CosmeticEvents
 import dev.mayaqq.estrogen.client.cosmetics.CosmeticRenderLayer
@@ -39,18 +38,15 @@ import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorDataLoader
 import dev.mayaqq.estrogen.client.features.dash.ClientDash
 import dev.mayaqq.estrogen.client.features.dash.DashOverlay
 import dev.mayaqq.estrogen.client.features.dash.DreamBlockEffect
-import dev.mayaqq.estrogen.compat.cobblemon.ModlessCobblemonCompat
 import dev.mayaqq.estrogen.compat.ears.EarsCompat
 import dev.mayaqq.estrogen.compat.recipeviewers.api.rei.ReiPluginRegister
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.config.types.ChestConfig
-import dev.mayaqq.estrogen.content.EstrogenAttributeEvents
 import dev.mayaqq.estrogen.content.EstrogenFluids
-import dev.mayaqq.estrogen.content.advancements.triggers.KilledWithEffectEvents
-import dev.mayaqq.estrogen.content.advancements.triggers.KilledWithEffectTrigger
-import dev.mayaqq.estrogen.content.blocks.CauldronInteractions
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.injection.chestConfig
+import invoke.kitty.kritter.client.events.ClientTickEvents
+import invoke.kitty.kritter.client.events.render.LevelRenderEvent
 import invoke.kitty.kritter.client.model.PreparableModelLoadingPlugin
 import invoke.kitty.kritter.platform.Side
 import net.minecraft.client.Minecraft
@@ -70,16 +66,20 @@ const val THIGH_HIGH_ITEM_TEXTURES = "textures/item/thigh_highs"
 var chestConfigSet = false
 
 fun estrogenClient() {
-    hookEventBus()
     EstrogenClientConfig.initialize()
     CynosureSplashLoader.amount += 30
     EstrogenRenderTypes
     CosmeticAPI
+    EstrogenRenderer.initialize()
     HudOverlayRegistry.register(VanillaHud.FROSTBITE, id("dash"), DashOverlay)
     MothElytraModel.LAYER_LOCATION.registerDefinition(MothElytraModel.Companion::createBodyLayer)
     MothModel.LAYER_LOCATION.registerDefinition(MothModel::createBodyLayer)
     EstrogenFluids.clientFluidRegistry.init()
     PreparableModelLoadingPlugin.register(EstrogenModels)
+
+    ClientTickEvents.StartTick.calls(ClientDash::onClientTick)
+    KeyMappingRegistry.register(EstrogenKeybinds.DASH_KEY)
+
 
     // registerResourcepackReloadListener(recipeId("dream_texture"), DreamTextureGenerator)
 
@@ -89,7 +89,7 @@ fun estrogenClient() {
     EstrogenModels.registerConnected(ClientDreamBlock.DORMANT_MODEL, ClientDreamBlock.DORMANT_CONNECTED_TEXTURE)
 }
 
-fun hookEventBus() {
+fun hookClientEventBus() {
     listOf(
         EstrogenClientEvents,
         EstrogenKeybinds,

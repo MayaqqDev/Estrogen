@@ -8,5 +8,5 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.world.level.levelgen.feature.Feature
 
 object EstrogenFeatures : Registrar<Feature<*>> by Registrar(MOD_ID, Registries.FEATURE) {
-    val Memorial: MemorialFeature by entry("memorial", ::MemorialFeature) {}
+    val Memorial: MemorialFeature by entry("memorial", ::MemorialFeature)
 }

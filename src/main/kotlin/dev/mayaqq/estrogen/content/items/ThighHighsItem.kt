@@ -15,6 +15,7 @@ import dev.mayaqq.estrogen.content.components.ThighHighStyle
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ThighHighStylesPacket
 import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.registry.api.entry.holder
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.MinecraftColors
 import net.minecraft.core.Holder
@@ -113,7 +114,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Color, val second
 
      override fun getAttributeModifiers(default: Multimap<Holder<Attribute>, AttributeModifier>, stack: ItemStack, slot: SlotInfo, id: ResourceLocation): Multimap<Holder<Attribute>, AttributeModifier> {
         default.put(
-            EstrogenAttributes.FallDamageResistance.holder(),
+            EstrogenAttributes.FallDamageResistance.holder,
             AttributeModifier(id, EstrogenServerConfig.ThighHighs.fallDamageReduction.toDouble(), AttributeModifier.Operation.ADD_VALUE)
         )
         return default

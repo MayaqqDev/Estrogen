@@ -6,6 +6,7 @@ import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.content.EstrogenTags
 import dev.mayaqq.estrogen.injection.chestConfig
 import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.player.Player
@@ -25,7 +26,7 @@ object Boob {
     }
 
     fun shouldShow(player: Player): Boolean {
-        return player.getAttributeValue(EstrogenAttributes.ShowBoobs.holder()) > 0.0 &&
+        return player.getAttributeValue(EstrogenAttributes.ShowBoobs.holder) > 0.0 &&
                 EstrogenClientConfig.ChestRenderingGlobal.rendering &&
                 player.chestConfig?.enabled == true
     }

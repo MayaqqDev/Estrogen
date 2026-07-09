@@ -18,6 +18,7 @@ import earth.terrarium.common_storage_lib.fluid.util.FluidProvider
 import earth.terrarium.common_storage_lib.resources.fluid.FluidResource
 import earth.terrarium.common_storage_lib.resources.fluid.util.FluidAmounts
 import earth.terrarium.common_storage_lib.storage.base.CommonStorage
+import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.Style
@@ -49,7 +50,7 @@ class EstrogenPatchesItem(properties: Properties) : Item(properties), FluidProvi
     fun addEffect(player: Player, level: Level?) {
         player.addEffect(
             MobEffectInstance(
-                EstrogenEffects.Estrogen.holder(),
+                EstrogenEffects.Estrogen.holder,
                 EFFECT_DURATION,
                 EstrogenServerConfig.Patch.girlPowerLevel - 1,
                 false,

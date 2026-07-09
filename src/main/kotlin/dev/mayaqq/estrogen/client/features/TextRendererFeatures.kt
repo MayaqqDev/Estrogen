@@ -7,6 +7,7 @@ import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenTags
 import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.platform.Side
+import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.client.Minecraft
 
 @EventSubscriber(Side.CLIENT)
@@ -35,7 +36,7 @@ object TextRendererFeatures {
             disconnect()
         } else {
             uwufy = client.player!!.inventory.contains(EstrogenTags.Items.UWUFYING)
-            obfuscate = client.player!!.hasEffect(EstrogenEffects.Dreaming.holder())
+            obfuscate = client.player!!.hasEffect(EstrogenEffects.Dreaming.holder)
         }
         if (dirty) {
             dirty = false

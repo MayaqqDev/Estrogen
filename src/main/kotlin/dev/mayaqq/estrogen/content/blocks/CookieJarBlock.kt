@@ -39,7 +39,7 @@ import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 import kotlin.jvm.optionals.getOrNull
 
-class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), BlockWithEntity<CookieJarBlockEntity>, SimpleWaterloggedBlock {
+class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), BlockWithEntity<CookieJarBlockEntity> by BlockWithEntity(EstrogenBlockEntities.CookieJar), SimpleWaterloggedBlock {
     override fun codec(): MapCodec<out BaseEntityBlock?> = simpleCodec(::CookieJarBlock)
 
     companion object {
@@ -206,9 +206,5 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
     override fun useShapeForLightOcclusion(state: BlockState): Boolean = true
 
     override fun propagatesSkylightDown(state: BlockState, level: BlockGetter, pos: BlockPos): Boolean = true
-
-    override val blockEntityClass: Class<out CookieJarBlockEntity> = CookieJarBlockEntity::class.java
-    override fun blockEntityType(): BlockEntityType<out CookieJarBlockEntity> = EstrogenBlockEntities.CookieJar.value!!
-
 
 }
