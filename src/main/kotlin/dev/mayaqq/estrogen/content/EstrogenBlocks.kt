@@ -2,6 +2,14 @@ package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.cynosure.blocks.model.ModelBedBlock
 import dev.mayaqq.cynosure.blocks.poi.add
+import dev.mayaqq.cynosure.items.extensions.CustomTooltip
+import dev.mayaqq.cynosure.text.CynosureFonts
+import dev.mayaqq.cynosure.text.Text
+import dev.mayaqq.cynosure.text.TextStyle.color
+import dev.mayaqq.cynosure.text.TextStyle.font
+import dev.mayaqq.cynosure.text.TextStyle.underlined
+import dev.mayaqq.cynosure.tooltips.CompositeTooltip
+import dev.mayaqq.cynosure.tooltips.DescriptionTooltip
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
@@ -19,6 +27,7 @@ import invoke.kitty.kritter.registry.block.colorProvider
 import invoke.kitty.kritter.registry.block.renderType
 import invoke.kitty.kritter.registry.item.creativeTab
 import invoke.kitty.kritter.registry.item.item
+import invoke.kitty.kritter.utils.color.DeepSkyblue
 import invoke.kitty.kritter.utils.color.White
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.registries.Registries
@@ -148,7 +157,18 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         renderType = BlockRenderType.CUTOUT
         colorProvider = DreamCatcherBlock
         item("dreamcatcher", ::DreamCatcherItem) {
-            standardTooltip()
+            tooltip {
+                CompositeTooltip(
+                    DescriptionTooltip(DescriptionTooltip.Theme.Default),
+                    CustomTooltip { stack, player, flag ->
+                        add(Text.of("TheIndigenousFoundation.org/articles/dreamcatchers") {
+                            color = DeepSkyblue
+                            underlined = true
+                            font = CynosureFonts.TinyFont
+                        })
+                    }
+                )
+            }
             creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(Items.BARREL))
             onSetup { CauldronInteraction.WATER.map()[it] = ThighHighsItem.CAULDRON_INTERACTION }
             textureProperty(id("colored")) { itemStack, clientLevel, livingEntity, i ->
