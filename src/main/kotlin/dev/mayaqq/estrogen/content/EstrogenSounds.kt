@@ -80,9 +80,9 @@ object EstrogenSoundTypes {
     )
 
     val DREAM_BLOCK_DORMANT: SoundType = LazySoundType(1.0f, 1.0f,
-        breakSound = EstrogenSounds.DREAM_BLOCK_BREAK,
-        stepSound = EstrogenSounds.DREAM_BLOCK_STEP,
-        placeSound = EstrogenSounds.DREAM_BLOCK_PLACE,
+        breakSound = EstrogenSounds.DREAM_BLOCK_DORMANT_BREAK,
+        stepSound = EstrogenSounds.DREAM_BLOCK_DORMANT_STEP,
+        placeSound = EstrogenSounds.DREAM_BLOCK_DORMANT_PLACE,
         hitSound = EstrogenSounds.DREAM_BLOCK_DORMANT_HIT,
         fallSound = EstrogenSounds.DREAM_BLOCK_DORMANT_FALL
     )

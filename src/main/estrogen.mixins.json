@@ -11,7 +11,8 @@
     "ItemParserMixin",
     "PistonMovingBlockEntityMixin",
     "PlayerMixin",
-    "ServerGamePacketListenerImplMixin"
+    "ServerGamePacketListenerImplMixin",
+    "ThrownEnderpearlMixin"
   ],
   "client": [
     "client.AbstractClientPlayerMixin",
