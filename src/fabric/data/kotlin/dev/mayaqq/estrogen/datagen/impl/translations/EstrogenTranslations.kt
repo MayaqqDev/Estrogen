@@ -21,7 +21,7 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         tb.add(EstrogenEffects.Dreaming.value, "Dreaming")
         tb.add(
             EstrogenEffects.Dreaming.value?.descriptionId + ".description",
-            "Triggers when near Dream Blocks without a Dreamcatcher near"
+            "Triggers when sleeping near Dormant Dream Blocks without a Dreamcatcher nearby"
         )
 
         // Controls
