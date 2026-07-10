@@ -3,8 +3,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [128, 128],
 	"textures": {
-		"1": "estrogen:block/memorial",
-		"particle": "estrogen:block/memorial"
+		"1": "estrogen:block/memorial/memorial",
+		"particle": "estrogen:block/memorial/particle"
 	},
 	"elements": [
 		{
