@@ -37,7 +37,7 @@ class EstrogenCraftingRecipes(output: FabricDataOutput, lookup: CompletableFutur
             .save(output)
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, EstrogenBlocks.CookieJar.value!!, 1)
             .define('G', helper.commonTag("glass_panes"))
-            .define('Z', helper.commonTag("iron_nuggets"))
+            .define('Z', helper.commonTag("nuggets/iron"))
             .pattern("GZG")
             .pattern("G G")
             .pattern("GGG")
