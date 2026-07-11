@@ -21,6 +21,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.Direction.Axis
 import net.minecraft.util.Mth
+import net.minecraft.world.entity.EntityAttachment
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.block.LiquidBlock
 import net.minecraft.world.phys.Vec3
@@ -239,7 +240,7 @@ object ClientDash {
     }
 
     fun refresh(player: Player) {
-        dashes = player.getAttributeValue(EstrogenAttributes.DashLevel.holder).toInt().toShort().toInt()
+        dashes = player.getAttributeValue(EstrogenAttributes.DashLevel.holder).toInt()
     }
 
     private fun canRefresh(player: Player): Boolean {

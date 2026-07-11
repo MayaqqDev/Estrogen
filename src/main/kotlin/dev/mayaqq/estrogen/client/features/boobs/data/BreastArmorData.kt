@@ -11,9 +11,9 @@ import net.minecraft.resources.ResourceLocation
 
 @Serializable
 data class BreastArmorData(
-    val texture: ResourceLocation?,
+    val texture: ResourceLocation,
     @SerialName("texture_overlay")
-    val overlayLocation: ResourceLocation?,
+    val overlayLocation: ResourceLocation? = null,
     val uv: Pair<Float, Float>,
     @SerialName("left_uv")
     val leftUV: Pair<Float, Float>,

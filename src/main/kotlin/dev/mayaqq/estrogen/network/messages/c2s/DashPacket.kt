@@ -7,12 +7,18 @@ import dev.mayaqq.estrogen.features.dash.CommonDash
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.entry.holder
+import invoke.kitty.kritter.utils.color.floatBlue
+import invoke.kitty.kritter.utils.color.floatGreen
+import invoke.kitty.kritter.utils.color.floatRed
 import kotlinx.serialization.Serializable
+import net.minecraft.core.particles.BlockParticleOption
+import net.minecraft.core.particles.DustParticleOptions
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundSource
+import org.joml.Vector3f
 import kotlin.uuid.toKotlinUuid
 
 @Serializable @JvmRecord
@@ -27,7 +33,7 @@ data class DashPacket(val isInitial: Boolean, val dashLevel: Int) {
             if (isInitial) {
                 // Set dashing and play dash sound if this is the initial packet
                 CommonDash.setDashing(sender.uuid)
-                level.playSound(null, sender, EstrogenSounds.DASH.value!!, SoundSource.PLAYERS, 1.0f, 1.0f)
+                level.playSound(null, sender, EstrogenSounds.DASH.get(), SoundSource.PLAYERS, 1.0f, 1.0f)
             } else {
                 // Otherwise spawn trail
                 val dashColor = EstrogenColors.getDashColor(dashLevel, true)

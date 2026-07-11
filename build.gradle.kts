@@ -39,13 +39,12 @@ repositories {
     maven(url = "https://maven.shedaniel.me") { name = "Shedaniel" }
     maven(url = "https://maven.blamejared.com/") { name = "Blamejared" }
     maven(url = "https://maven.createmod.net/") { name = "Create" }
-    maven(url = "https://maven.is-immensely.gay/nightly") { name = "Sappho Company"; description = "Critter, Cynosure" }
-    maven(url = "https://maven.is-immensely.gay/releases") { name = "Sappho Company"; description = "Kittyconfig" }
-    maven(url = "https://maven.tterrag.com") { name = "Tterrag" }
     maven(url = "https://repo.nyon.dev/releases") { name = "KotlinLangForge" }
     maven(url = "https://maven.theillusivec4.top/") { name = "TheIllusivec4" }
     maven(url = "https://mvn.devos.one/snapshots/") { name = "Devos Maven"; description = "Create Fabric, Porting Lib, Forge Tags, Milk Lib & Fabric Registrate" }
     maven(url = "https://cursemaven.com") { name = "Curseforge Maven"; description = "Forge Config API Port" }
+    maven(url = "https://maven.is-immensely.gay/nightly") { name = "Sappho Company"; description = "Critter, Cynosure" }
+    maven(url = "https://maven.is-immensely.gay/releases") { name = "Sappho Company"; description = "Kittyconfig" }
     maven(url = "https://maven.cafeteria.dev/releases") { name = "Cafeteria Maven"; description = "Fake Player API" }
     maven(url = "https://maven.jamieswhiteshirt.com/libs-release") { name = "JamiesWhiteShirt Maven"; description = "Reach Entity Attributes" }
     maven(url = "https://maven.ladysnake.org/releases") { name = "Ladysnake Maven"; description = "Trinkets" }
@@ -57,6 +56,7 @@ repositories {
     maven(url = "https://maven.squiddev.cc") { name = "Squid Maven"; description = "Create needs CC: Tweaked for some reason" }
     maven(url = "https://maven.msrandom.net/repository/root") { name = "Ashley"}
     maven(url = "https://maven.figuramc.org/releases") { name = "Figura Maven"; description = "Figura" } // Second last cs figura misconfigured their maven
+    //maven(url = "https://maven.tterrag.com") { name = "Tterrag" }
     maven(url = "https://jitpack.io/") { name = "Jitpack maven"; description = "Mixin Extras & Fabric ASM" } //NOTE: LEAVE THIS AS LAST
     mavenCentral()
     mavenLocal()
@@ -109,6 +109,7 @@ cloche {
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
             implementation(libs.cosmetics)
+            implementation("uwu.serenity:nullbus:1.7.4")
 
             modImplementation(libs.cynosure)
 

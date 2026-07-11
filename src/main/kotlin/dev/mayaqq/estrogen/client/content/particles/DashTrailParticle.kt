@@ -16,6 +16,7 @@ import invoke.kitty.kritter.utils.color.floatGreen
 import invoke.kitty.kritter.utils.color.floatRed
 import net.minecraft.client.Camera
 import net.minecraft.client.Minecraft
+import net.minecraft.client.model.PlayerModel
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.particle.Particle
 import net.minecraft.client.particle.ParticleRenderType
@@ -63,7 +64,7 @@ class DashTrailParticle(
         try {
             this.hasPhysics = false
             this.boundingBox = entity.boundingBox
-            this.setLifetime(15)
+            this.setLifetime(8)
             this.yRot = entity.yBodyRot + 180.0f
             this.isLocalPlayer = entity === Minecraft.getInstance().getCameraEntity()
 
@@ -97,8 +98,6 @@ class DashTrailParticle(
         val y = (this.y - pos.y()).toFloat()
         val z = (this.z - pos.z()).toFloat()
 
-        RenderSystem.setShaderTexture(0, texture)
-
         val buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE)
 
         matrices.pushPop {
@@ -106,7 +105,7 @@ class DashTrailParticle(
             scale(-1.0f, -1.0f, 1.0f)
             mulPose(Axis.YP.rotationDegrees(yRot))
 
-            val alpha = 1f - Mth.lerp(partialTicks, max((age - 1).toDouble(), 0.0).toFloat(), age.toFloat()) / lifetime
+            val alpha = 1f - Mth.lerp(partialTicks.toDouble(), max((age - 1).toDouble(), 0.0), age.toDouble()).toFloat() / lifetime
             for (i in 0..<vertexCount) {
                 val v = i * ModelConsumer.STRIDE
                 buffer.addVertex(lastPose, vertices[v], vertices[v + 1], vertices[v + 2])
@@ -118,6 +117,7 @@ class DashTrailParticle(
 
         EstrogenRenderer.beginShaderpackBypass()
         RenderSystem.setShader(EstrogenRenderer::dashTrailParticleShader)
+        RenderSystem.setShaderTexture(0, texture)
         BufferUploader.drawWithShader(buffer.buildOrThrow())
         RenderSystem.setShader(GameRenderer::getParticleShader)
         EstrogenRenderer.endShaderpackBypass()
@@ -128,15 +128,11 @@ class DashTrailParticle(
 
     private class ModelConsumer : VertexConsumer {
         var data: FloatArray = FloatArray(4 * STRIDE)
-        private var position = 0
+        private var position = -STRIDE
         var vertexCount: Int = 0
         private var capacity = 4
 
         override fun addVertex(x: Float, y: Float, z: Float): VertexConsumer {
-            data[position] = x
-            data[position + 1] = y
-            data[position + 2] = z
-
             position += STRIDE
             vertexCount++
             if (vertexCount >= capacity) {
@@ -146,6 +142,9 @@ class DashTrailParticle(
                 data = newData
             }
 
+            data[position] = x
+            data[position + 1] = y
+            data[position + 2] = z
             return this
         }
 

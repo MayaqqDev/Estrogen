@@ -48,10 +48,13 @@ import dev.mayaqq.estrogen.injection.chestConfig
 import invoke.kitty.kritter.client.events.ClientTickEvents
 import invoke.kitty.kritter.client.events.render.LevelRenderEvent
 import invoke.kitty.kritter.client.model.PreparableModelLoadingPlugin
+import invoke.kitty.kritter.events.LateInitEvent
 import invoke.kitty.kritter.platform.Side
+import invoke.kitty.kritter.resources.registerResourceReloadListener
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer
 import net.minecraft.client.resources.model.ModelResourceLocation
+import net.minecraft.server.packs.PackType
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.Mob
 
@@ -78,10 +81,8 @@ fun estrogenClient() {
     PreparableModelLoadingPlugin.register(EstrogenModels)
 
     ClientTickEvents.StartTick.calls(ClientDash::onClientTick)
-    KeyMappingRegistry.register(EstrogenKeybinds.DASH_KEY)
 
-
-    // registerResourcepackReloadListener(recipeId("dream_texture"), DreamTextureGenerator)
+    registerResourceReloadListener(PackType.CLIENT_RESOURCES, id("estrogen_armor_data"), BreastArmorDataLoader)
 
     if (isModLoaded("ears")) EarsCompat.boob()
     if (isModLoaded("roughlyenoughitems")) ReiPluginRegister.register()
@@ -92,7 +93,6 @@ fun estrogenClient() {
 fun hookClientEventBus() {
     listOf(
         EstrogenClientEvents,
-        EstrogenKeybinds,
         EstrogenRenderer,
         ClientDreamBlock,
         DynamicDreamTexture,
@@ -105,10 +105,6 @@ fun hookClientEventBus() {
 }
 
 object EstrogenClientEvents {
-    @Subscription
-    internal fun onReloadListeners(event: ClientReloadListenerEvent) {
-        event.register(id("estrogen_armor_data"), BreastArmorDataLoader)
-    }
 
     @Subscription
     internal fun addRenderLayers(event: RenderLayerRegistrationEvent) {

@@ -6,6 +6,8 @@ import dev.mayaqq.cynosure.client.isShaderPackInUse
 import dev.mayaqq.cynosure.client.render.BufferOutputStage
 import dev.mayaqq.cynosure.client.render.fixed
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture
+import invoke.kitty.kritter.client.events.render.LevelRenderEvent
+import invoke.kitty.kritter.client.render.batchedAt
 import net.minecraft.Util
 import net.minecraft.client.renderer.RenderStateShard
 import net.minecraft.client.renderer.RenderStateShard.ShaderStateShard
@@ -29,7 +31,7 @@ object EstrogenRenderTypes {
             .setOutputState(EstrogenRenderer.SHADER_BYPASS)
             .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
             .createCompositeState(false)
-    ).fixed(BufferOutputStage.BLOCK_ENTITY)
+    ) //.batchedAt(LevelRenderEvent.AfterBlockEntities) TODO: Fix in kritter
 
     private val ENTITY_TRANSLUCENT_NO_DIFFUSE = Util.memoize<ResourceLocation, RenderType> { texture ->
         RenderType.create(

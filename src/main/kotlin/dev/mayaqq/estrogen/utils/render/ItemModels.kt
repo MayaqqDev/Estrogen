@@ -22,10 +22,6 @@ import net.minecraft.world.item.ItemStack
  * This will probably be moved to cynosure
  */
 
-private val ITEM_GLINT: Material = SimpleMaterial.builderOf(Materials.GLINT)
-    .light(EstrogenFlywheelShaders.FULL_BRIGHT)
-    .build()
-
 private val FLYWHEEL_ABUSE: RendererReloadCache<Unit, MutableMap<ItemCacheKey, Model>> = RendererReloadCache { mutableMapOf() }
 private val THREAD_LOCAL: ThreadLocal<ThreadLocalObjects> = ThreadLocal.withInitial(::ThreadLocalObjects)
 private val GLINT_TYPES: Set<RenderType> = setOf(
@@ -85,7 +81,7 @@ private class ThreadLocalObjects {
         val itemRenderType = ItemBlockRenderTypes.getRenderType(stack, false)
         val itemMaterial = if (itemRenderType == RenderType.translucent()) Materials.TRANSLUCENT_BLOCK else Materials.CUTOUT_BLOCK
 
-        return SimpleModel(listOf(Model.ConfiguredMesh(itemMaterial, modelMesh), Model.ConfiguredMesh(ITEM_GLINT, glintMesh)))
+        return SimpleModel(listOf(Model.ConfiguredMesh(itemMaterial, modelMesh), Model.ConfiguredMesh(EstrogenMaterials.ITEM_GLINT, glintMesh)))
     }
 
 }

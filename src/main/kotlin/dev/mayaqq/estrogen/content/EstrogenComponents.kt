@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.content
 
+import com.mojang.serialization.Codec
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.content.components.ThighHighColor
 import dev.mayaqq.estrogen.content.components.ThighHighStyle
@@ -9,6 +10,8 @@ import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.builder.entry
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.Registries
+import net.minecraft.network.codec.ByteBufCodecs
+import net.minecraft.network.codec.StreamCodec
 
 object EstrogenComponents : Registrar<DataComponentType<*>> by Registrar(MOD_ID, Registries.DATA_COMPONENT_TYPE) {
     val TriColorComponent: DataComponentType<TriColor> by entry("colors",
@@ -22,5 +25,9 @@ object EstrogenComponents : Registrar<DataComponentType<*>> by Registrar(MOD_ID,
     )
     val FluidComponent: DataComponentType<FluidStorageData> by entry("fluid",
         DataComponentType.builder<FluidStorageData>().persistent(FluidStorageData.CODEC)::build
+    )
+
+    val DashLevel: DataComponentType<Int> by entry("dash_level",
+        DataComponentType.builder<Int>().persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT)::build
     )
 }

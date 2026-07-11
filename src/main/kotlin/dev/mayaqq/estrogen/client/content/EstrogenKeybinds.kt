@@ -12,9 +12,9 @@ import org.lwjgl.glfw.GLFW
 object EstrogenKeybinds {
     val DASH_KEY = KeyMapping("key.estrogen.dash", GLFW.GLFW_KEY_X, "category.estrogen")
 
-    @Subscription
-    fun onKeybindsEvent(event: KeybindRegistrationEvent) {
-        Estrogen.info("Registering Keybinds")
-        event.register(DASH_KEY)
-    }
+//    @Subscription
+//    fun onKeybindsEvent(event: KeybindRegistrationEvent) {
+//        Estrogen.info("Registering Keybinds")
+//        event.register(DASH_KEY)
+//    }
 }

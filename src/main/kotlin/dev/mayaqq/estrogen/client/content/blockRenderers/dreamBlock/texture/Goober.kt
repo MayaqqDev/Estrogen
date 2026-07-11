@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture
 import com.mojang.blaze3d.platform.NativeImage
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.Yellow
+import invoke.kitty.kritter.utils.color.abgr
 import invoke.kitty.kritter.utils.color.rgb
 import invoke.kitty.kritter.utils.color.toColor
 import net.minecraft.util.FastColor
@@ -131,7 +132,7 @@ class Goober(
 
         fun draw(image: NativeImage, x: Int, y: Int, color: Color, frame: Int) {
             // Format: ARGB
-            frames[frame].draw(image, x, y, color.toInt())
+            frames[frame].draw(image, x, y, color.abgr.toInt())
         }
 
         fun frameCount(): Int {

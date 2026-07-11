@@ -59,10 +59,10 @@ fun getTextureShift(up: Boolean, down: Boolean, right: Boolean, left: Boolean, t
 
 fun getUnInterpolatedU(sprite: TextureAtlasSprite, u: Float): Float {
     val f = sprite.u1 - sprite.u0
-    return (u - sprite.u0) / f * 16.0f
+    return (u - sprite.u0) / f
 }
 
 fun getUnInterpolatedV(sprite: TextureAtlasSprite, v: Float): Float {
     val f = sprite.v1 - sprite.v0
-    return (v - sprite.v0) / f * 16.0f
+    return (v - sprite.v0) / f
 }

@@ -9,6 +9,7 @@ import dev.mayaqq.cynosure.events.entity.EntityDamageEvent
 import dev.mayaqq.cynosure.events.entity.player.PlayerRespawnEvent
 import dev.mayaqq.cynosure.utils.add
 import dev.mayaqq.cynosure.utils.contains
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.content.EstrogenAttributes.BoobGrowingStartTime
 import dev.mayaqq.estrogen.content.EstrogenAttributes.BoobInitialSize
@@ -16,6 +17,7 @@ import dev.mayaqq.estrogen.content.EstrogenAttributes.DashLevel
 import dev.mayaqq.estrogen.content.EstrogenAttributes.FallDamageResistance
 import dev.mayaqq.estrogen.content.EstrogenAttributes.ShowBoobs
 import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.events.LateInitEvent
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.builder.entry
 import invoke.kitty.kritter.registry.api.entry.holder
@@ -26,6 +28,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.RangedAttribute
 import net.minecraft.world.entity.player.Player
 import kotlin.math.pow
+import kotlin.streams.asSequence
 
 object EstrogenAttributes : Registrar<Attribute> by Registrar(MOD_ID, Registries.ATTRIBUTE) {
     // Dash Level
@@ -48,17 +51,25 @@ object EstrogenAttributes : Registrar<Attribute> by Registrar(MOD_ID, Registries
     })
 }
 
+
+
 object EstrogenAttributeEvents {
-    @Subscription
-    fun PostInitEvent.postInit() {
+
+    init {
+        System.setProperty("nullevt.debug.dump", "true")
+        LateInitEvent calls ::postInit
+    }
+
+    fun postInit() {
         EntityAttributes.modify(EntityType.PLAYER) {
-            add(DashLevel.value!!)
-            add(FallDamageResistance.value!!)
-            add(ShowBoobs.value!!)
-            add(BoobInitialSize.value!!)
-            add(BoobGrowingStartTime.value!!)
+            add(DashLevel.holder)
+            add(FallDamageResistance.holder)
+            add(ShowBoobs.holder)
+            add(BoobInitialSize.holder)
+            add(BoobGrowingStartTime.holder)
         }
     }
+
 
     @Subscription
     internal fun EntityDamageEvent.onDamage() {

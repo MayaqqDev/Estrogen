@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.particles.DashTrailParticle
+import dev.mayaqq.estrogen.client.content.particles.FallingStarParticle
 import dev.mayaqq.estrogen.client.content.particles.MothFuzzParticle
 import dev.mayaqq.estrogen.content.particles.DashTrailParticleOptions
 import invoke.kitty.kritter.registry.api.Registrar
@@ -24,6 +25,10 @@ object EstrogenParticles : Registrar<ParticleType<*>> by Registrar(MOD_ID, Regis
         overrideLimiter = true
     ) {
         factory(::DashTrailParticle)
+    }
+
+    val FallingStar: SimpleParticleType by simpleParticleType("falling_star") {
+        factory { sprites -> ParticleProvider { _, level, x, y, z ,xs, ys, zs -> FallingStarParticle(level, x, y, z, xs, ys, zs, sprites) } }
     }
 
     // TODO: Implement dream block ripples from walking on punching

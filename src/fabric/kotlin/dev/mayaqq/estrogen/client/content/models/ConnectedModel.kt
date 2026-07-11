@@ -44,8 +44,8 @@ actual class ConnectedModel actual constructor(
                 val v = getUnInterpolatedV(original, quad.v(vertex))
                 quad.uv(
                     vertex,
-                    connectedSprite.getU(((u + (uOffset * 16)) / 8.0).toFloat()),
-                    connectedSprite.getV(((v + (vOffset * 16)) / 8.0).toFloat())
+                    connectedSprite.getU(((u + (uOffset)) / 8.0).toFloat()),
+                    connectedSprite.getV(((v + (vOffset)) / 8.0).toFloat())
                 )
             }
 
