@@ -1,12 +1,12 @@
 package dev.mayaqq.estrogen.content.recipes
 
-import dev.mayaqq.cynosure.utils.diffuseColor
+import dev.mayaqq.estrogen.Estrogen
+import dev.mayaqq.estrogen.content.EstrogenItems
 import dev.mayaqq.estrogen.content.EstrogenRecipeSerializers
-import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.items.ThighHighsItem
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.asColor
-import invoke.kitty.kritter.utils.color.toColor
+import invoke.kitty.kritter.utils.extensions.isOf
 import net.minecraft.core.HolderLookup
 import net.minecraft.world.item.DyeItem
 import net.minecraft.world.item.ItemStack
@@ -19,65 +19,62 @@ import net.minecraft.world.level.Level
 
 class ThighHighDyeRecipe(category: CraftingBookCategory) : CustomRecipe(category) {
     override fun matches(inv: CraftingInput, level: Level): Boolean {
-        for (i in 0..2) {
-            val leftSlot = i * 3
-            val middleSlot = leftSlot + 1
-            val rightSlot = leftSlot + 2
-            if (inv.getItem(middleSlot).item is ThighHighsItem) {
-                val rightToItem = inv.getItem(rightSlot)
-                val leftToItem = inv.getItem(leftSlot)
+        inv.columns().let { columns ->
+            if (columns.size < 2) return false
 
-                if (rightToItem.item is DyeItem || leftToItem.item is DyeItem) {
-                    for (j in 0..8) {
-                        if (j == leftSlot || j == middleSlot || j == rightSlot) {
-                            continue
-                        }
-                        if (!inv.getItem(j).isEmpty) {
-                            return false
-                        }
-                    }
+            val thighHighs = columns[1].filter { it isOf EstrogenItems.ThighHighs }.apply {
+                if (this.size != 1) return false
+            }.first()
 
-                    val middle = inv.getItem(middleSlot)
-                    val thighHighsItem = middle.item as ThighHighsItem
+            val thighHighsItem = thighHighs.item as ThighHighsItem
 
-                    // silly expression brackets important dont remove
-                    return thighHighsItem.getStyle(middle) == null && (thighHighsItem.hasCustomColor(middle) || rightToItem.item is DyeItem && leftToItem.item is DyeItem)
-                }
-            }
+            if (thighHighsItem.getStyle(thighHighs) != null) return false
+
+            val hasLeftDyes = columns[0].any { it.item is DyeItem }
+            val hasRightDyes = columns.getOrNull(2)?.any { it.item is DyeItem } == true
+
+            return if (thighHighsItem.hasCustomColor(thighHighs)) hasLeftDyes || hasRightDyes else hasLeftDyes && hasRightDyes
         }
-        return false
     }
 
     override fun assemble(inv: CraftingInput, lookup: HolderLookup.Provider): ItemStack {
-        for (i in 0..2) {
-            val leftSlot = i * 3
-            val middleSlot = leftSlot + 1
-            val rightSlot = leftSlot + 2
-            if (inv.getItem(middleSlot).item is ThighHighsItem) {
-                val stack = inv.getItem(middleSlot)
-                val item = stack.item as ThighHighsItem
-                val leftToItem = inv.getItem(leftSlot)
-                val rightToItem = inv.getItem(rightSlot)
+        inv.columns().let { columns ->
+            val stack = columns[1].first { it isOf EstrogenItems.ThighHighs }
+            val item = stack.item as ThighHighsItem
+            val leftDye = columns[0].filter { it.item is DyeItem }
+            val rightDye = columns.getOrNull(2)?.filter { it.item is DyeItem }?: listOf()
 
-                val newPrimary: Color
-                val newSecondary: Color
+            var newPrimary: Color? = null
+            var newSecondary: Color? = null
 
-                if (item.hasCustomColor(stack)) {
-                    val oldPrimary = item.getColor(stack, 0)
-                    val oldSecondary = item.getColor(stack, 1)
-                    newPrimary = mixColorWithDye(oldPrimary, leftToItem)
-                    newSecondary = mixColorWithDye(oldSecondary, rightToItem)
-                } else {
-                    newPrimary = colorFromDye(leftToItem)
-                    newSecondary = colorFromDye(rightToItem)
+            if (item.hasCustomColor(stack)) {
+                var oldPrimary = item.getColor(stack, 0)
+                var oldSecondary = item.getColor(stack, 1)
+                leftDye.forEach { dye ->
+                    oldPrimary = mixColorWithDye(oldPrimary, dye)
                 }
-
-                val newThighHighsItem = stack.copy()
-                item.setColor(newThighHighsItem, newPrimary, newSecondary)
-                return newThighHighsItem
+                rightDye.forEach { dye ->
+                    oldSecondary = mixColorWithDye(oldSecondary, dye)
+                }
+                newPrimary = oldPrimary
+                newSecondary = oldSecondary
+            } else {
+                leftDye.forEach { dye ->
+                    newPrimary = if (newPrimary == null) colorFromDye(dye) else {
+                        mixColorWithDye(newPrimary, dye)
+                    }
+                }
+                rightDye.forEach { dye ->
+                    newSecondary = if (newSecondary == null) colorFromDye(dye) else {
+                        mixColorWithDye(newSecondary, dye)
+                    }
+                }
             }
+
+            val newThighHighs = stack.copy()
+            item.setColor(newThighHighs, newPrimary!!, newSecondary!!)
+            return newThighHighs
         }
-        return ItemStack.EMPTY
     }
 
     private fun mixColorWithDye(original: Color, dyeStack: ItemStack): Color {
@@ -92,4 +89,8 @@ class ThighHighDyeRecipe(category: CraftingBookCategory) : CustomRecipe(category
 
     override fun canCraftInDimensions(width: Int, height: Int): Boolean = width * height == 9
     override fun getSerializer(): RecipeSerializer<*> = EstrogenRecipeSerializers.THIGH_HIGH_DYE_SERIALIZER.value!!
+
+    private fun CraftingInput.columns(): List<List<ItemStack>> {
+        return this.items().withIndex().groupBy { it.index % 3 }.map { entry -> entry.value.map { it.value } }
+    }
 }
