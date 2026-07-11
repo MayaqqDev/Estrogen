@@ -3,6 +3,7 @@
 package dev.mayaqq.estrogen.content.blocks
 
 import com.mojang.serialization.MapCodec
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.blockEntities.DreamCatcherBlockEntity
@@ -11,6 +12,7 @@ import dev.mayaqq.estrogen.utils.TriColor
 import invoke.kitty.kritter.blockEntity.BlockWithEntity
 import invoke.kitty.kritter.platform.common.BlockColorProvider
 import invoke.kitty.kritter.utils.color.Color
+import invoke.kitty.kritter.utils.color.White
 import invoke.kitty.kritter.utils.color.toColor
 import invoke.kitty.kritter.utils.shapes.allHorizontalDirections
 import net.minecraft.core.BlockPos
@@ -69,10 +71,10 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
 
     fun getColor(getter: BlockAndTintGetter, pos: BlockPos, tintIndex: Int): Color {
         return when (tintIndex) {
-            1 -> triColor(getter, pos)?.left?: (-1).toColor()
-            2 -> triColor(getter, pos)?.middle?: (-1).toColor()
-            3 -> triColor(getter, pos)?.right?: (-1).toColor()
-            else -> (-1).toColor()
+            1 -> triColor(getter, pos)?.left?: White
+            2 -> triColor(getter, pos)?.middle?: White
+            3 -> triColor(getter, pos)?.right?: White
+            else -> White
         }
     }
 
@@ -94,9 +96,10 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
             tintIndex: Int
         ): Color {
             if (state.`is`(EstrogenBlocks.DreamCatcher.value!!) && view != null && pos != null) {
-                return (state.block as DreamCatcherBlock).getColor(view, pos, tintIndex)
+                val color = (state.block as DreamCatcherBlock).getColor(view, pos, tintIndex)
+                return color
             }
-            return (-1).toColor()
+            return White
         }
     }
     init {

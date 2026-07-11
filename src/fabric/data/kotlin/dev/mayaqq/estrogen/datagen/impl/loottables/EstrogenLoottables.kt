@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.datagen.impl.loottables
 
 import dev.mayaqq.estrogen.content.EstrogenBlocks
+import dev.mayaqq.estrogen.content.EstrogenComponents
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
 import net.minecraft.core.HolderLookup
@@ -35,7 +36,7 @@ class EstrogenLoottables(output: FabricDataOutput, lookup: CompletableFuture<Hol
         //TODO: check on this
         add(EstrogenBlocks.DreamCatcher.value!!, createSingleItemTable(EstrogenBlocks.DreamCatcher.value!!).apply(
             CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY).include(
-                DataComponents.BLOCK_ENTITY_DATA
+                EstrogenComponents.TriColorComponent
             )
         ))
     }

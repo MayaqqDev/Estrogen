@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.content.blockEntities
 
 import dev.engine_room.flywheel.lib.visualization.VisualizationHelper
+import dev.mayaqq.estrogen.content.EstrogenComponents
 import dev.mayaqq.estrogen.utils.TriColor
 import dev.mayaqq.estrogen.utils.getTriColor
 import dev.mayaqq.estrogen.utils.putTriColor
@@ -20,6 +21,7 @@ class DreamCatcherBlockEntity(be: BlockEntityType<*>, pos: BlockPos, state: Bloc
     var triColor: TriColor? = null
 
     override fun saveAdditional(tag: CompoundTag, lookup: HolderLookup.Provider) {
+        tag
         if (triColor != null) tag.putTriColor(triColor!!)
     }
 
@@ -31,16 +33,22 @@ class DreamCatcherBlockEntity(be: BlockEntityType<*>, pos: BlockPos, state: Bloc
         if(level?.isClientSide == true) updateOnClient() else sync(false)
     }
 
+    override fun applyImplicitComponents(input: DataComponentInput) {
+        super.applyImplicitComponents(input)
+        this.triColor = input.get(EstrogenComponents.TriColorComponent)
+    }
+
+    override fun collectImplicitComponents(components: DataComponentMap.Builder) {
+        super.collectImplicitComponents(components)
+        triColor?.let { components.set(EstrogenComponents.TriColorComponent, it) }
+    }
+
     override fun getUpdatePacket(): Packet<ClientGamePacketListener> {
         return ClientboundBlockEntityDataPacket.create(this)
     }
 
     override fun getUpdateTag(lookup: HolderLookup.Provider): CompoundTag {
         return saveWithoutMetadata(lookup)
-    }
-
-    override fun collectImplicitComponents(builder: DataComponentMap.Builder) {
-        super.collectImplicitComponents(builder)
     }
 
     fun updateOnClient() {
