@@ -37,9 +37,11 @@ import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LevelAccessor
+import net.minecraft.world.level.LevelReader
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.HalfTransparentBlock
 import net.minecraft.world.level.block.RenderShape
@@ -194,6 +196,13 @@ class DreamBlock(p0: Properties) : GlassLikeBlock(p0), BlockWithEntity<DreamBloc
                 return if (canEntityUse(state, Minecraft.getInstance().player)) level.maxLightLevel else 0
         }
         return if (state.getValue(PERSISTENT)) level.maxLightLevel else 0
+    }
+
+    override fun getCloneItemStack(level: LevelReader, pos: BlockPos, state: BlockState): ItemStack {
+
+        return if (state.getValue(PERSISTENT)) {
+            EstrogenItems.DreamBottle.defaultInstance
+        } else super.getCloneItemStack(level, pos, state)
     }
 
     @EventSubscriber
