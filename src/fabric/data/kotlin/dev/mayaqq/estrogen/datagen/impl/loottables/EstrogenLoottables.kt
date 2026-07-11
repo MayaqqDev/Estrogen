@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.component.DataComponents
 import net.minecraft.world.level.block.BedBlock
+import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.properties.BedPart
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction
 import java.util.concurrent.CompletableFuture
@@ -17,7 +18,7 @@ class EstrogenLoottables(output: FabricDataOutput, lookup: CompletableFuture<Hol
 
     override fun generate() {
         add(EstrogenBlocks.CookieJar.value!!, createSilkTouchOnlyTable(EstrogenBlocks.CookieJar.value!!))
-        add(EstrogenBlocks.DreamBlock.value!!, createSingleItemTable(EstrogenBlocks.DreamBlock.value!!))
+        add(EstrogenBlocks.DreamBlock.get(), createSingleItemTable(EstrogenBlocks.DreamBlock.get()))
         add(EstrogenBlocks.EstrogenPillBlock.value!!, createSingleItemTable(EstrogenBlocks.EstrogenPillBlock.value!!))
         add(EstrogenBlocks.MothWool.value!!, createSingleItemTable(EstrogenBlocks.MothWool.value!!))
         add(EstrogenBlocks.QuiltedMothWool.value!!, createSingleItemTable(EstrogenBlocks.QuiltedMothWool.value!!))

@@ -33,6 +33,8 @@ repositories {
         mavenNeoforgedMeta()
         mavenParchment()
     }
+    maven(url = "https://maven.is-immensely.gay/nightly") { name = "Sappho Company"; description = "Critter, Cynosure" }
+    maven(url = "https://maven.is-immensely.gay/releases") { name = "Sappho Company"; description = "Kittyconfig" }
     maven(url = "https://maven.terraformersmc.com/releases/") { name = "TerraformersMC" }
     maven(url = "https://thedarkcolour.github.io/KotlinForForge/") { name = "KotlinForForge" }
     maven(url = "https://maven.teamresourceful.com/repository/maven-public/") { name = "Team Resourceful" }
@@ -43,8 +45,6 @@ repositories {
     maven(url = "https://maven.theillusivec4.top/") { name = "TheIllusivec4" }
     maven(url = "https://mvn.devos.one/snapshots/") { name = "Devos Maven"; description = "Create Fabric, Porting Lib, Forge Tags, Milk Lib & Fabric Registrate" }
     maven(url = "https://cursemaven.com") { name = "Curseforge Maven"; description = "Forge Config API Port" }
-    maven(url = "https://maven.is-immensely.gay/nightly") { name = "Sappho Company"; description = "Critter, Cynosure" }
-    maven(url = "https://maven.is-immensely.gay/releases") { name = "Sappho Company"; description = "Kittyconfig" }
     maven(url = "https://maven.cafeteria.dev/releases") { name = "Cafeteria Maven"; description = "Fake Player API" }
     maven(url = "https://maven.jamieswhiteshirt.com/libs-release") { name = "JamiesWhiteShirt Maven"; description = "Reach Entity Attributes" }
     maven(url = "https://maven.ladysnake.org/releases") { name = "Ladysnake Maven"; description = "Trinkets" }
@@ -111,7 +111,7 @@ cloche {
             implementation(libs.cosmetics)
             implementation("uwu.serenity:nullbus:1.7.4")
 
-            modImplementation(libs.cynosure)
+            modApi(libs.cynosure)
 
             localRuntime(libs.tca)
         }
@@ -132,32 +132,32 @@ cloche {
             server {
                 runDir("runServer")
             }
-//            data {
-//                jvmArgs("-Dfabric-api.datagen.output-dir=${file("build/generated/resources/main")}")
-//                jvmArgs("-Destrogen.datagen.fabric-output-dir=${file("build/generated/resources/fabric")}")
-//                jvmArgs("-Destrogen.datagen.neoforge-output-dir=${file("build/generated/resources/neoforge")}")
-//            }
+            data {
+                jvmArgs("-Dfabric-api.datagen.output-dir=${file("build/generated/resources/main")}")
+                jvmArgs("-Destrogen.datagen.fabric-output-dir=${file("build/generated/resources/fabric")}")
+                jvmArgs("-Destrogen.datagen.neoforge-output-dir=${file("build/generated/resources/neoforge")}")
+            }
         }
 
-//        data {
-//            this.withMetadataJson {
-//                 this.withElement {
-//                     return@withElement buildJsonObject {
-//                         this@withElement.forEach { this.put(it.key,it.value) }
-//                         val newEntrypoints = buildJsonObject {
-//                             this@withElement["entrypoints"]!!.jsonObject.forEach { this.put(it.key,it.value) }
-////                             put("fabric-datagen", buildJsonArray {
-////                                 add(buildJsonObject {
-////                                   //  put("adapter","kotlin")
-////                                   //  put("value","dev.mayaqq.estrogen.datagen.EstrogenDatagen")
-////                                 })
-////                             })
-//                         }
-//                         put("entrypoints",newEntrypoints)
-//                     }
-//                 }
-//            }
-//        }
+        data {
+            this.withMetadataJson {
+                 this.withElement {
+                     return@withElement buildJsonObject {
+                         this@withElement.forEach { this.put(it.key,it.value) }
+                         val newEntrypoints = buildJsonObject {
+                             this@withElement["entrypoints"]!!.jsonObject.forEach { this.put(it.key,it.value) }
+                             put("fabric-datagen", buildJsonArray {
+                                 add(buildJsonObject {
+                                   put("adapter","kotlin")
+                                   put("value","dev.mayaqq.estrogen.datagen.EstrogenDatagen")
+                                 })
+                             })
+                         }
+                         put("entrypoints",newEntrypoints)
+                     }
+                 }
+            }
+        }
 
         metadata {
             metadata {
@@ -206,9 +206,9 @@ cloche {
             modCompileOnly(libs.fabric.iris)
             modCompileOnlyApi(libs.fabric.flywheel.api)
             modImplementation(libs.fabric.flywheel)
-            modImplementation(libs.fabric.kritter)
-            modImplementation(libs.fabric.rlib)
-            modImplementation(libs.fabric.csr)
+            modApi(libs.fabric.kritter)
+            modApi(libs.fabric.rlib)
+            modApi(libs.fabric.csr)
 
             localRuntime(libs.jcpp)
             localRuntime(libs.glsltransformer)
@@ -295,11 +295,11 @@ cloche {
             implementation(libs.forge.mixinExtras)
             compileOnlyApi(libs.forge.jei)
             modCompileOnly(libs.forge.emi)
-            modImplementation(libs.forge.kritter)
+            modApi(libs.forge.kritter)
             modCompileOnly(libs.forge.oculus)
             legacyClasspath(libs.cosmetics)
-            modImplementation(libs.forge.rlib)
-            modImplementation(libs.forge.csr)
+            modApi(libs.forge.rlib)
+            modApi(libs.forge.csr)
             modCompileOnlyApi(libs.forge.curios.api())
 
             include(libs.forge.rlib) { exclude(group = "com.teamresourceful", module = "bytecodecs") }

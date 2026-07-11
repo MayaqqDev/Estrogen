@@ -3,6 +3,7 @@ package dev.mayaqq.estrogen.datagen.impl.translations
 import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.registry.api.entry.holder
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
 import net.minecraft.core.HolderLookup
@@ -243,10 +244,10 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         tb.add("estrogen.ponder.basic.text_3", "And output fluids from the top")
 
         // Attributes
-        tb.add(EstrogenAttributes.DashLevel, "Dash Level")
-        tb.add(EstrogenAttributes.BoobGrowingStartTime, "Upper Body Start Time")
-        tb.add(EstrogenAttributes.BoobInitialSize, "Upper Body initial size")
-        tb.add(EstrogenAttributes.FallDamageResistance, "Fall Damage Resistance")
+        tb.add(EstrogenAttributes.DashLevel.holder, "Dash Level")
+        tb.add(EstrogenAttributes.BoobGrowingStartTime.holder, "Upper Body Start Time")
+        tb.add(EstrogenAttributes.BoobInitialSize.holder, "Upper Body initial size")
+        tb.add(EstrogenAttributes.FallDamageResistance.holder, "Fall Damage Resistance")
 
         // Display Sources
         tb.add("estrogen.display_source.entity_name", "Entity Name")

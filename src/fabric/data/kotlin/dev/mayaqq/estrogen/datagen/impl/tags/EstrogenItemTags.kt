@@ -122,8 +122,8 @@ class EstrogenItemTags(
             .add(EstrogenBlocks.ColonThreeBlock.value!!.asItem())
             .add(EstrogenItems.ColonThree.value)
         getOrCreateTagBuilder(EstrogenTags.Items.HEAD_ENCHANTABLE)
-            .addTag(ItemTags.HEAD_ARMOR_ENCHANTABLE)
-            .addTag(ItemTags.SKULLS)
+            .forceAddTag(ItemTags.HEAD_ARMOR_ENCHANTABLE)
+            .forceAddTag(ItemTags.SKULLS)
             .add(Items.CARVED_PUMPKIN)
     }
 }

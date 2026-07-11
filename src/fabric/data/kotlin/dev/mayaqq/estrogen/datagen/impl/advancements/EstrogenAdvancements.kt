@@ -5,7 +5,7 @@ import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.content.advancements.triggers.InsertJarTrigger
 import dev.mayaqq.estrogen.content.advancements.triggers.KilledWithEffectTrigger
 import dev.mayaqq.estrogen.id
-import dev.mayaqq.estrogen.utils.holder
+import invoke.kitty.kritter.registry.api.entry.holder
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider
 import net.minecraft.advancements.Advancement
@@ -173,7 +173,7 @@ class EstrogenAdvancements(output: FabricDataOutput, lookup: CompletableFuture<H
                                 .entityType(EntityTypePredicate.of(EntityType.PHANTOM))
                                 .build()
                         ),
-                        EstrogenEffects.Estrogen, ContextAwarePredicate.create()
+                        EstrogenEffects.Estrogen.holder, ContextAwarePredicate.create()
                     )
                 )
             )
