@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.particles.DashTrailParticle
+import dev.mayaqq.estrogen.client.content.particles.DreamingParticle
 import dev.mayaqq.estrogen.client.content.particles.FallingStarParticle
 import dev.mayaqq.estrogen.client.content.particles.MothFuzzParticle
 import dev.mayaqq.estrogen.content.particles.DashTrailParticleOptions
@@ -29,6 +30,10 @@ object EstrogenParticles : Registrar<ParticleType<*>> by Registrar(MOD_ID, Regis
 
     val FallingStar: SimpleParticleType by simpleParticleType("falling_star") {
         factory { sprites -> ParticleProvider { _, level, x, y, z ,xs, ys, zs -> FallingStarParticle(level, x, y, z, xs, ys, zs, sprites) } }
+    }
+
+    val Dreaming: SimpleParticleType by simpleParticleType("dreaming") {
+        factory { sprites -> ParticleProvider { _, level, x, y, z ,xs, ys, zs -> DreamingParticle(level, x, y, z, xs, ys, zs, sprites) } }
     }
 
     // TODO: Implement dream block ripples from walking on punching
