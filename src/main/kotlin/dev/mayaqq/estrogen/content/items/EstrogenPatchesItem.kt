@@ -71,7 +71,7 @@ class EstrogenPatchesItem(properties: Properties) : Item(properties), FluidProvi
         val fluidStorage = FluidApi.ITEM.find(stack, context)?.get(0)
         if (fluidStorage != null) {
             val amount = FluidAmounts.toMillibuckets(fluidStorage.amount)
-            val amountCapacity = fluidStorage.getLimit(fluidStorage.contents.resource())
+            val amountCapacity = FluidAmounts.toMillibuckets(fluidStorage.getLimit(fluidStorage.contents.resource()))
             val fluidString: String? = Component.translatable("fluid_type.estrogen.liquid_estrogen").string
             tooltipComponents.add(Component.literal(" "))
             tooltipComponents.add(
