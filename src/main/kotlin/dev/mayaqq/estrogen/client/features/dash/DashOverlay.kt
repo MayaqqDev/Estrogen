@@ -37,18 +37,18 @@ object DashOverlay : HudOverlay {
             renderOverlay(graphics, dc.floatRed, dc.floatGreen, dc.floatBlue)
         }
 
-        if (DreamBlockEffect.isInDreamBlock && DreamBlockEffect.isEyeInDream) {
+        if (DreamBlockEffect.isInDreamBlock && DreamBlockEffect.isEyeInDream)
             dreamOverlayCooldown = 10
-        } else if (dreamOverlayCooldown > 0) dreamOverlayCooldown--
+        else if (dreamOverlayCooldown > 0)
+            dreamOverlayCooldown--
 
-        if (dreamOverlayCooldown > 0) {
+        if (dreamOverlayCooldown > 0)
             renderDream(graphics, partialTick, dreamOverlayCooldown)
-        } else if (DreamBlockEffect.isInDreamBlock) {
+        else if (DreamBlockEffect.isInDreamBlock)
             renderOverlay(graphics, 0.2f, 0.0f, 0.2f)
-        }
-        if (TextRendererFeatures.obfuscate) {
-            renderOverlay(graphics, 0.12f, 0.08f, 0.18f, 0.3f)
-        }
+
+        if (TextRendererFeatures.obfuscate)
+            renderOverlay(graphics, 0.12f, 0.08f, 0.18f, 0.15f)
     }
 
     private fun renderOverlay(graphics: GuiGraphics, red: Float, green: Float, blue: Float, alpha: Float = 1.0f) {
@@ -103,7 +103,7 @@ object DashOverlay : HudOverlay {
             vertex(bufferBuilder, lastPose, 0, height, partialTick, cooldown)
             vertex(bufferBuilder, lastPose, width, height, partialTick, cooldown)
             vertex(bufferBuilder, lastPose, width, 0, partialTick, cooldown)
-            BufferUploader.drawWithShader(bufferBuilder.build())
+            BufferUploader.drawWithShader(bufferBuilder.buildOrThrow())
         }
     }
 }

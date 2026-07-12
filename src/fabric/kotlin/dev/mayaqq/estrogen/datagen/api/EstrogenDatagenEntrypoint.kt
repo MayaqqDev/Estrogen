@@ -4,9 +4,6 @@ import dev.mayaqq.estrogen.datagen.api.platform.FabricRecipeHelper
 import dev.mayaqq.estrogen.datagen.api.platform.ForgeRecipeHelper
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
-import net.minecraft.client.particle.ExplodeParticle
-import net.minecraft.client.particle.LargeSmokeParticle
-import net.minecraft.client.particle.ParticleRenderType
 import org.apache.commons.io.file.PathUtils
 import java.io.IOException
 import java.nio.file.Files
@@ -15,7 +12,6 @@ import java.nio.file.Paths
 
 abstract class EstrogenDatagenEntrypoint(val modid: String) : DataGeneratorEntrypoint {
     override fun onInitializeDataGenerator(fdg: FabricDataGenerator) {
-
         val commonPath = Paths.get(COMMON_OUTPUT_DIR)
         val fabricPath = Paths.get(FABRIC_OUTPUT_DIR)
         val forgePath = Paths.get(FORGE_OUTPUT_DIR)

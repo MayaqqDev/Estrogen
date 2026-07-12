@@ -2,23 +2,16 @@ package dev.mayaqq.estrogen.network.messages.c2s
 
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenSounds
+import dev.mayaqq.estrogen.content.particles.ColoredCloudParticleOptions
 import dev.mayaqq.estrogen.content.particles.DashTrailParticleOptions
 import dev.mayaqq.estrogen.features.dash.CommonDash
 import dev.mayaqq.estrogen.utils.EstrogenColors
-import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.entry.holder
-import invoke.kitty.kritter.utils.color.floatBlue
-import invoke.kitty.kritter.utils.color.floatGreen
-import invoke.kitty.kritter.utils.color.floatRed
 import kotlinx.serialization.Serializable
-import net.minecraft.core.particles.BlockParticleOption
-import net.minecraft.core.particles.DustParticleOptions
-import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundSource
-import org.joml.Vector3f
 import kotlin.uuid.toKotlinUuid
 
 @Serializable @JvmRecord
@@ -27,8 +20,13 @@ data class DashPacket(val isInitial: Boolean, val dashLevel: Int) {
         if (sender.hasEffect(EstrogenEffects.Estrogen.holder)) {
             val level = sender.level() as ServerLevel
 
-            // Spawn particles around the player
-            level.sendParticles(ParticleTypes.CLOUD, sender.x, sender.y, sender.z, 10, 0.5, 0.5, 0.5, 0.5)
+            val dashColor = EstrogenColors.getDashColor(dashLevel, true)
+
+            // made them nicer hope u like maya c:
+            level.sendParticles(
+                ColoredCloudParticleOptions(dashColor, true),
+                sender.x, sender.y + 0.8, sender.z, 3, 0.5, 0.8, 0.5, 0.18
+            )
 
             if (isInitial) {
                 // Set dashing and play dash sound if this is the initial packet
@@ -36,7 +34,6 @@ data class DashPacket(val isInitial: Boolean, val dashLevel: Int) {
                 level.playSound(null, sender, EstrogenSounds.DASH.get(), SoundSource.PLAYERS, 1.0f, 1.0f)
             } else {
                 // Otherwise spawn trail
-                val dashColor = EstrogenColors.getDashColor(dashLevel, true)
                 level.sendParticles(
                     DashTrailParticleOptions(sender.uuid.toKotlinUuid(), dashColor),
                     sender.xOld, sender.yOld, sender.zOld,

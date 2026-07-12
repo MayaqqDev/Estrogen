@@ -1,10 +1,12 @@
 package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.estrogen.MOD_ID
+import dev.mayaqq.estrogen.client.content.particles.ColoredEmissiveCloudParticle
 import dev.mayaqq.estrogen.client.content.particles.DashTrailParticle
 import dev.mayaqq.estrogen.client.content.particles.DreamingParticle
 import dev.mayaqq.estrogen.client.content.particles.FallingStarParticle
 import dev.mayaqq.estrogen.client.content.particles.MothFuzzParticle
+import dev.mayaqq.estrogen.content.particles.ColoredCloudParticleOptions
 import dev.mayaqq.estrogen.content.particles.DashTrailParticleOptions
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.misc.factory
@@ -36,6 +38,9 @@ object EstrogenParticles : Registrar<ParticleType<*>> by Registrar(MOD_ID, Regis
         factory { sprites -> ParticleProvider { _, level, x, y, z ,xs, ys, zs -> DreamingParticle(level, x, y, z, xs, ys, zs, sprites) } }
     }
 
+    val ColoredCloud: ParticleType<ColoredCloudParticleOptions> by particleType("colored_cloud") {
+        factory { sprites -> ParticleProvider { options, level, x, y, z, xs, ys, zs -> ColoredEmissiveCloudParticle(sprites, options, level, x, y, z, xs, ys, zs) } }
+    }
     // TODO: Implement dream block ripples from walking on punching
 //    val DreamBlockRipple: SimpleParticleType by particleType("dream_ripple") {
 //        overrideLimiter = true

@@ -15,7 +15,7 @@ accessible class net/minecraft/client/gui/screens/advancements/AdvancementTabTyp
 accessible field net/minecraft/world/level/block/AbstractCauldronBlock interactions Lnet/minecraft/core/cauldron/CauldronInteraction$InteractionMap;
 accessible method net/minecraft/world/entity/LivingEntity breakItem (Lnet/minecraft/world/item/ItemStack;)V
 accessible method net/minecraft/client/player/AbstractClientPlayer getPlayerInfo ()Lnet/minecraft/client/multiplayer/PlayerInfo;
-
+accessible method net/minecraft/client/particle/PlayerCloudParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/particle/SpriteSet;)V
 # Forge fuckery
 accessible method net/minecraft/client/gui/screens/Screen init (Lnet/minecraft/client/Minecraft;II)V
 accessible field com/mojang/blaze3d/platform/GlStateManager BLEND Lcom/mojang/blaze3d/platform/GlStateManager$BlendState;
