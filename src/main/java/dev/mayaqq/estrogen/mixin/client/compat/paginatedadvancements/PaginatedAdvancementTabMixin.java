@@ -35,7 +35,7 @@ abstract class PaginatedAdvancementTabMixin extends AdvancementTab {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIFFIIII)V")
     )
     private void shaderBG(GuiGraphics instance, ResourceLocation atlasLocation, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight, Operation<Void> original) {
-        if (this.getDisplay().getBackground() != null && this.getDisplay().getBackground().toString().equals("estrogen:textures/block/dream_block/particle.png")) {
+        if (this.getDisplay().getBackground().isPresent() && this.getDisplay().getBackground().get().toString().equals("estrogen:textures/block/dream_block/particle.png")) {
             DynamicDreamTexture.prepareIfNeeded();
             DynamicDreamTexture.generateIfNeeded();
             estrogen$renderDream(instance, x, x + width, y, y + height);
@@ -54,7 +54,7 @@ abstract class PaginatedAdvancementTabMixin extends AdvancementTab {
         estrogen$vertex(bufferBuilder, graphics.pose().last().pose(), minX, maxY);
         estrogen$vertex(bufferBuilder, graphics.pose().last().pose(), maxX, maxY);
         estrogen$vertex(bufferBuilder, graphics.pose().last().pose(), maxX, minY);
-        BufferUploader.drawWithShader(bufferBuilder.build());
+        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
     }
 
     @Unique

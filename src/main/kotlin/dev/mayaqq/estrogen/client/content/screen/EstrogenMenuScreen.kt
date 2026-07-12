@@ -100,7 +100,7 @@ class EstrogenMenuScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.
             .buildAndAdd()
     }
 
-    override fun beforeRender(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+    override fun afterRender(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         graphics.pushPop {
             translate(width / 2 - ((font.width(titleText) / 2) * 3), height / 4 + 48 - 48, 0F)
             scale(3F, 3F, 0F)

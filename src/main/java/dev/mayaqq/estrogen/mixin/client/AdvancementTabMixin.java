@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer;
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture;
 import net.minecraft.advancements.DisplayInfo;
@@ -28,7 +29,7 @@ public class AdvancementTabMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIFFIIII)V")
     )
     private void shaderBG(GuiGraphics instance, ResourceLocation atlasLocation, int x, int y, float uOffset, float vOffset, int width, int height, int textureWidth, int textureHeight, Operation<Void> original) {
-        if (this.display.getBackground().isPresent() && this.display.getBackground().toString().equals("estrogen:textures/block/dream_block/particle.png")) {
+        if (this.display.getBackground().isPresent() && this.display.getBackground().get().toString().equals("estrogen:textures/block/dream_block/particle.png")) {
             DynamicDreamTexture.prepareIfNeeded();
             DynamicDreamTexture.generateIfNeeded();
             estrogen$renderDream(instance, x, x + width, y, y + height);
@@ -47,7 +48,7 @@ public class AdvancementTabMixin {
         estrogen$vertex(bufferBuilder, graphics.pose().last().pose(), minX, maxY);
         estrogen$vertex(bufferBuilder, graphics.pose().last().pose(), maxX, maxY);
         estrogen$vertex(bufferBuilder, graphics.pose().last().pose(), maxX, minY);
-        BufferUploader.drawWithShader(bufferBuilder.build());
+        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
     }
 
     @Unique

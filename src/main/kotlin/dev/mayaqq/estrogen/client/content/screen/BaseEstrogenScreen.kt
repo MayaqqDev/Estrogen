@@ -77,7 +77,7 @@ abstract class BaseEstrogenScreen(val previous: Screen?, title: Component) : Scr
         bufferBuilder.addVertex(pose, x.toFloat(), y.toFloat(), 0f)
             .setColor(0, 0, 0, 0)
             .uv(x.toFloat(), y.toFloat())
-            .light(LightTexture.FULL_BRIGHT)
+            .setLight(LightTexture.FULL_BRIGHT)
             .normal(0f, 0f, 0f)
     }
 
