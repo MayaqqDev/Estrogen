@@ -6,6 +6,7 @@ import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.config.EstrogenClientConfig.DreamBlock.animateTexture
+import dev.mayaqq.estrogen.id
 import it.unimi.dsi.fastutil.objects.ObjectArrayList
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.DynamicTexture
@@ -17,8 +18,8 @@ import kotlin.jvm.optionals.getOrNull
 @EventSubscriber
 internal object DynamicDreamTexture {
 
-    // why was this in the vanilla mc id?
-    val ID: ResourceLocation = identifier("dream_texture")
+    // why was this in the vanilla mc id? (uhh it shouldve never been lol)
+    val ID: ResourceLocation = id("dream_texture")
 
     private val goobers: MutableList<Goober> = ObjectArrayList() //:
     private lateinit var texture: DynamicTexture

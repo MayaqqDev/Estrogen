@@ -9,7 +9,7 @@ minecraft = "1.21.1"
 fabric = "0.18.5"
 
 # Common Dependencies
-kritter = "2.0.0-alpha.21"
+kritter = "2.0.0-alpha.23"
 kotlinx-serialization="1.8.0"
 kotlinx-coroutines="1.10.1"
 parchment = "2024.11.17"

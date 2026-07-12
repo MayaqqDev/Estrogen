@@ -19,6 +19,7 @@ class DreamBlockVisual(
     }
 
     override fun _delete() {
+
         //TODO("Not yet implemented")
     }
 

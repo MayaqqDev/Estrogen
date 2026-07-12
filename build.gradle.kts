@@ -359,7 +359,7 @@ java {
 kotlin {
     compilerOptions {
         languageVersion = KotlinVersion.KOTLIN_2_4
-        freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes")
+        freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes", "-Xcontext-parameters")
     }
     jvmToolchain(21)
 }

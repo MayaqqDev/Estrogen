@@ -7,6 +7,7 @@ import dev.engine_room.flywheel.lib.model.SimpleQuadMesh
 import dev.engine_room.flywheel.lib.vertex.VertexView
 import net.minecraft.client.renderer.LightTexture
 import net.minecraft.client.renderer.texture.OverlayTexture
+import kotlin.math.max
 
 class MeshVertexConsumer(
     private val viewFactory: () -> VertexView
@@ -15,7 +16,7 @@ class MeshVertexConsumer(
     private val view: VertexView = viewFactory()
     private lateinit var data: MemoryBlock
     private var active: Boolean = false
-    private var pos: Int = 0
+    private var pos: Int = -1
 
     fun begin(initialCapacity: Int) {
         if (active) error("vertex consumer already building")
@@ -23,15 +24,11 @@ class MeshVertexConsumer(
         view.vertexCount(initialCapacity)
         data = MemoryBlock.malloc(initialCapacity * view.stride())
         view.ptr(data.ptr())
-        pos = 0
+        pos = -1
     }
 
     override fun addVertex(p0: Float, p1: Float, p2: Float): VertexConsumer {
         require(active)
-        view.x(pos, p0)
-        view.y(pos, p1)
-        view.z(pos, p2)
-
         pos++
         if(pos >= view.vertexCount()) {
             val newCapacity = view.vertexCount() + 4
@@ -42,6 +39,10 @@ class MeshVertexConsumer(
             view.ptr(newData.ptr())
             data = newData
         }
+
+        view.x(pos, p0)
+        view.y(pos, p1)
+        view.z(pos, p2)
 
         return this
     }
@@ -85,7 +86,7 @@ class MeshVertexConsumer(
     }
 
     fun reset(freeData: Boolean) {
-        pos = 0
+        pos = -1
         view.vertexCount(0)
         view.ptr(0L)
         data.free()
@@ -93,7 +94,8 @@ class MeshVertexConsumer(
     }
 
     fun build(): Mesh {
-        val buildData = MemoryBlock.mallocTracked(view.stride() * pos)
+        require(active)
+        val buildData = MemoryBlock.mallocTracked(view.stride() * max(pos, 0))
         data.copyTo(buildData)
         val outputView = viewFactory()
         outputView.vertexCount(pos)

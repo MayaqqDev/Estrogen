@@ -1,5 +1,6 @@
 package dev.mayaqq.estrogen.client.cosmetics
 
+import com.google.common.hash.Hashing
 import com.mojang.serialization.JsonOps
 import com.teamresourceful.resourcefulcosmetics.ResourcefulCosmetics
 import com.teamresourceful.resourcefulcosmetics.SignedData
@@ -14,6 +15,7 @@ import dev.mayaqq.estrogen.network.messages.c2s.UpdatedCosmeticPacket
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 import net.minecraft.world.entity.player.Player
+import org.apache.commons.io.FilenameUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
@@ -127,3 +129,9 @@ object SignedDataSerializer : KSerializer<SignedData> by buildClassSerializer(""
     String.serializer().fieldOf("signature", SignedData::signature),
     ::SignedData
 )
+
+@Suppress("DEPRECATION")
+fun String.getUrlHash(): String {
+    val hashedUrl = FilenameUtils.getBaseName(this)
+    return Hashing.sha1().hashUnencodedChars(hashedUrl).toString()
+}

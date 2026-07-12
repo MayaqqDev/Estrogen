@@ -50,7 +50,7 @@ import invoke.kitty.kritter.client.events.render.LevelRenderEvent
 import invoke.kitty.kritter.client.model.PreparableModelLoadingPlugin
 import invoke.kitty.kritter.events.LateInitEvent
 import invoke.kitty.kritter.platform.Side
-import invoke.kitty.kritter.resources.registerResourceReloadListener
+import invoke.kitty.kritter.resources.registerReloadListener
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer
 import net.minecraft.client.resources.model.ModelResourceLocation
@@ -82,7 +82,7 @@ fun estrogenClient() {
 
     ClientTickEvents.StartTick.calls(ClientDash::onClientTick)
 
-    registerResourceReloadListener(PackType.CLIENT_RESOURCES, id("estrogen_armor_data"), BreastArmorDataLoader)
+    registerReloadListener(PackType.CLIENT_RESOURCES, id("estrogen_armor_data"), BreastArmorDataLoader)
 
     if (isModLoaded("ears")) EarsCompat.boob()
     if (isModLoaded("roughlyenoughitems")) ReiPluginRegister.register()

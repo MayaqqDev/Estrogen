@@ -29,6 +29,7 @@ import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLoader
 import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLootFunction
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import invoke.kitty.kritter.platform.forge.EntrypointHandler
+import invoke.kitty.kritter.resources.registerReloadListener
 import invoke.kitty.kritter.utils.clientOnly
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.ForestGreen
@@ -36,6 +37,7 @@ import invoke.kitty.kritter.utils.color.LightBlue
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
+import net.minecraft.server.packs.PackType
 import net.minecraft.world.level.levelgen.GenerationStep
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -83,7 +85,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
         // Register Packets
         EstrogenNetwork.initialize()
         // Reload Listeners
-        registerDatapackReloadListener(id("thigh_high_styles"), ThighHighStyleLoader)
+        registerReloadListener(PackType.SERVER_DATA, id("thigh_high_styles"), ThighHighStyleLoader)
         // Forest Green
         ForestGreen
         // Biome Modifiers
@@ -117,8 +119,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
             ServerSideBoobHandling,
             BoobPeople,
             Minigame,
-            ThighHighStyleLootFunction,
-            ThighHighStyleLoader
+            ThighHighStyleLootFunction
         ).forEach(MainBus::subscribe)
     }
 }
