@@ -27,7 +27,7 @@ object EstrogenTags {
         val CURIOS_THIGHS: TagKey<Item> = itemTag(identifier("curios", "thighs"))
         val UWUFYING: TagKey<Item> = itemTag(id("uwufying"))
         val LAVA_BUCKETS: TagKey<Item> = itemTag(commonId("lava_buckets"))
-        val COOKIES: TagKey<Item> = itemTag(commonId("cookies"))
+        val COOKIES: TagKey<Item> = itemTag(commonId("foods/cookie"))
         val CHEST_FEATURE_DISABLED: TagKey<Item> = itemTag(id("chest_feature_disabled"))
         val LEATHER_ITEMS: TagKey<Item> = itemTag(commonId("leather_items"))
         val LIGHT_EMITTERS: TagKey<Item> = itemTag(commonId("light_emitters"))
