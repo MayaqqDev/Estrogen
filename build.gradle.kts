@@ -248,6 +248,10 @@ cloche {
                 adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.compat.recipeviewers.EstrogenRecipeViewerPlugin")
             }
+            entrypoint("client") {
+                adapter.set("kotlin")
+                value.set("dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric::initFabric")
+            }
         }
     }
 
