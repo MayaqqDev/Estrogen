@@ -205,7 +205,7 @@ open class EstrogenButton(
 
                 RenderSystem.enableDepthTest()
                 cosmetic.render(
-                    EstrogenRenderer.getCelShaded(graphics.bufferSource()),
+                    graphics.bufferSource(),
                     EstrogenRenderTypes::entityCutoutNoDiffuse,
                     graphics.pose(),
                     White,

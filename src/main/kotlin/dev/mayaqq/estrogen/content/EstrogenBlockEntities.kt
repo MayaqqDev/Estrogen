@@ -23,13 +23,13 @@ object EstrogenBlockEntities : Registrar<BlockEntityType<*>> by Registrar(MOD_ID
     val DreamBlock: BlockEntityEntry<DreamBlockEntity> = blockEntity("dream_block", ::DreamBlockEntity) {
         validBlock(EstrogenBlocks.DreamBlock)
         renderer(::DreamBlockRenderer)
-        visual(::DreamBlockVisual) { false }
+        //visual(::DreamBlockVisual) { false } TODO: Implement flywheel dream block
     }
 
     val CookieJar: BlockEntityEntry<CookieJarBlockEntity> = blockEntity("cookie_jar", ::CookieJarBlockEntity) {
         validBlock(EstrogenBlocks.CookieJar)
         renderer(::CookieJarRenderer)
-        visual(::CookieJarVisual) { false }
+        visual(::CookieJarVisual)
     }
 
     val DreamCatcher: BlockEntityEntry<DreamCatcherBlockEntity> = blockEntity("dreamcatcher", ::DreamCatcherBlockEntity) {

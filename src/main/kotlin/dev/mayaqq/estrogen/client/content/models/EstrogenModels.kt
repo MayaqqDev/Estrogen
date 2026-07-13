@@ -35,7 +35,7 @@ object EstrogenModels : PreparableModelLoadingPlugin<Preparations> {
 
     override fun ModelLoadingContext.onInitializePlugin(data: Preparations) {
         val (models, textures) = data
-        +models
+        addModels(models.also { println(it) })
 
         modifyModelsOnLoad.subscribe {
             if (id.left == THIGH_HIGH_ITEM_LOCATION) ThighHighsItemModel(it, textures) else it
@@ -44,7 +44,7 @@ object EstrogenModels : PreparableModelLoadingPlugin<Preparations> {
         modifyModelsAfterBake.subscribe {
             if (it != null && id is Either.Right && id.right in CT_MODELS)
                 ConnectedModel(it, spriteGetter.apply(Material(TextureAtlas.LOCATION_BLOCKS, CT_MODELS[id.right]!!)))
-            else
+            else //estrogen:thigh_highs/bisexual   estrogen:thigh_highs/bisexual
                 it
         }
     }

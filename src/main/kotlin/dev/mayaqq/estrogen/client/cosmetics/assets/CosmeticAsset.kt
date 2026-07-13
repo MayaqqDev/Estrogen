@@ -35,9 +35,11 @@ import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 import java.nio.file.Path
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.io.path.createParentDirectories
 import kotlin.io.path.deleteIfExists
 import kotlin.io.path.div
 import kotlin.io.path.exists
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -65,7 +67,7 @@ class CosmeticAsset<T>(
                 loadOrDownload()
                     .onSuccess { state.set(COMPLETED) }
                     .onFailure {
-                        CosmeticAPI.error("Failed to load cosmetic asset from '{}'", url, it)
+                        CosmeticAPI.error("Failed to load cosmetic asset '{}' from '{}'", hash, url, it)
                         state.set(FAILED)
                     }
                     .getOrNull()
@@ -74,7 +76,7 @@ class CosmeticAsset<T>(
             this.deferred = deferred
             return if (deferred.isCompleted) deferred.getCompleted() else null
         } catch (ex: Exception) {
-            CosmeticAPI.error("Error caught loading cosmetic asset from '{}'", url, ex)
+            CosmeticAPI.error("Error caught loading cosmetic asset '{}' from '{}'", hash, url, ex)
             deferred = CompletableDeferred(null)
             state.set(FAILED)
             return null
@@ -85,17 +87,20 @@ class CosmeticAsset<T>(
         val file = cacheDir / hash
         if (file.exists())
             try {
+                CosmeticAPI.debug("Loading asset '{}' from cache", hash)
                 return reader.decode(file.readBytesAsync())
             } catch (ex: IOException) {
-                CosmeticAPI.warn("Failed to load asset from file '{}', redownloading", file, ex)
+                CosmeticAPI.warn("Failed to load asset '{} from file '{}', redownloading", hash, file, ex)
                 try { file.deleteIfExists() } catch (_: IOException) {}
             }
 
+        CosmeticAPI.debug("Downloading asset '{}' from '{}'...", hash, url)
         return runDownload(url)
             .onSuccess { bytes ->
                 // Save cache file in a background task, cs we dont rly care if or when its done
                 downloadScope.launch {
                     try {
+                        file.createParentDirectories()
                         file.writeBytesAsync(bytes)
                     } catch (ex: Exception) {
                         CosmeticAPI.error("Failed to write to cache file, continuing anyways", ex)
@@ -112,7 +117,7 @@ class CosmeticAsset<T>(
 
         for (i in 1..3) {
             val result: Result<ByteArray> = runCatchingSpecific<TimeoutCancellationException, _> {
-                withTimeout(30.seconds) {
+                withTimeout(2.minutes) {
                     val response = CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofByteArray())
                         .asDeferred()
                         .await()

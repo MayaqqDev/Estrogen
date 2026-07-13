@@ -73,12 +73,21 @@ fun Mesh.render(
 
 class MeshBuilder : VertexConsumer {
     private var data: IntArray = IntArray(32 * STRIDE)
-    private var position = 0
+    private var position = -STRIDE
     var vertexCount: Int = 0
         private set
     private var capacity = 32
 
     override fun addVertex(x: Float, y: Float, z: Float): VertexConsumer {
+        position += STRIDE
+        vertexCount++
+        if (vertexCount >= capacity) {
+            capacity += 6
+            val newData = IntArray(capacity * STRIDE)
+            System.arraycopy(data, 0, newData, 0, data.size)
+            data = newData
+            Mesh
+        }
         data[position] = x.toBits()
         data[position + 1] = y.toBits()
         data[position + 2] = z.toBits()
@@ -102,37 +111,11 @@ class MeshBuilder : VertexConsumer {
         return this
     }
 
-    /* TODO: This shit was removed now what
-    override fun endVertex() {
-        position += STRIDE
-        vertexCount++
-        if (vertexCount >= capacity) {
-            capacity += 6
-            val newData = IntArray(capacity * STRIDE)
-            System.arraycopy(data, 0, newData, 0, data.size)
-            data = newData
-            Mesh
-        }
-    }
-     */
-
     // override fun setColor(defaultR: Float, defaultG: Float, defaultB: Float, defaultA: Float) {}
 
     // override fun unsetDefaultColor() {}
 
     fun build(): Mesh {
-        //TODO: just moved it here ig???
-        /*
-        position += STRIDE
-        vertexCount++
-        if (vertexCount >= capacity) {
-            capacity += 6
-            val newData = IntArray(capacity * STRIDE)
-            System.arraycopy(data, 0, newData, 0, data.size)
-            data = newData
-            Mesh
-        }
-         */
         return Mesh(data.sliceArray(0..<(vertexCount * STRIDE)))
     }
 

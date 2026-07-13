@@ -124,7 +124,7 @@ enum class StatusCode {
     UNKNOWN_ERROR,
 }
 
-object SignedDataSerializer : KSerializer<SignedData> by buildClassSerializer("",
+object SignedDataSerializer : KSerializer<SignedData> by buildClassSerializer("SignedData",
     String.serializer().fieldOf("data", SignedData::data),
     String.serializer().fieldOf("signature", SignedData::signature),
     ::SignedData

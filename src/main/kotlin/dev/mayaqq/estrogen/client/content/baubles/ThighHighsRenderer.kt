@@ -13,9 +13,10 @@ import dev.mayaqq.estrogen.api.item.equip.client.EquipRenderer
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import dev.mayaqq.estrogen.content.EstrogenItems
 import dev.mayaqq.estrogen.utils.render.buildMesh
-import dev.mayaqq.estrogen.utils.render.getModel
 import dev.mayaqq.estrogen.utils.render.mesh
 import dev.mayaqq.estrogen.utils.render.render
+import invoke.kitty.kritter.client.model.getModel
+import invoke.kitty.kritter.platform.identifierOf
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.White
 import invoke.kitty.kritter.utils.color.toColor
@@ -25,17 +26,19 @@ import net.minecraft.client.model.geom.ModelPart
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.texture.OverlayTexture
+import net.minecraft.client.resources.model.ModelResourceLocation
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.inventory.InventoryMenu
 import net.minecraft.world.item.ItemStack
 
+
 class ThighHighsRenderer : EquipRenderer {
 
     companion object {
         private val STYLE_MESH_CACHE: RendererReloadCache<ResourceLocation, Mesh> = RendererReloadCache { id ->
-            val modelId = identifier(id.namespace, "thigh_highs/${id.path}")
-            McClient.modelManager.getModel(modelId).buildMesh()
+            val modelId = identifierOf(id.namespace, "thigh_highs/${id.path}")
+            (McClient.modelManager.getModel(modelId) ?: McClient.modelManager.missingModel).buildMesh()
         }
     }
 

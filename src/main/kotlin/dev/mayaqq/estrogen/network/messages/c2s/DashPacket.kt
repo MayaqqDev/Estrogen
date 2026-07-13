@@ -25,7 +25,7 @@ data class DashPacket(val isInitial: Boolean, val dashLevel: Int) {
             // made them nicer hope u like maya c:
             level.sendParticles(
                 ColoredCloudParticleOptions(dashColor, true),
-                sender.x, sender.y + 0.8, sender.z, 3, 0.5, 0.8, 0.5, 0.18
+                sender.x, sender.y + 0.5, sender.z, 3, 0.2, 0.7, 0.2, 0.18
             )
 
             if (isInitial) {

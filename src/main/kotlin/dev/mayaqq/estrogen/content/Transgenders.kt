@@ -41,6 +41,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.material.MapColor
 import net.minecraft.world.level.pathfinder.PathType
+import java.util.function.Predicate
 
 
 // Transgenders is back :>
@@ -89,12 +90,12 @@ inline fun <I> ItemBuilder<I>.equipWithRenderer(crossinline renderer: () -> Equi
 
 // Block entities
 // these need to be inline/crossinline for server-side safety
-inline fun <BE : BlockEntity> BlockEntityBuilder<BE>.visual(crossinline factory: (VisualizationContext, BE, Float) -> BlockEntityVisual<in BE>, noinline predicate: (BE) -> Boolean = { true }) {
+inline fun <BE : BlockEntity> BlockEntityBuilder<BE>.visual(crossinline factory: (VisualizationContext, BE, Float) -> BlockEntityVisual<in BE>, skipRender: Predicate<BE> = { true }) {
     clientOnly {
         onSetup {
             val builder = SimpleBlockEntityVisualizer.builder(it)
                 .factory { ctx, be, f -> factory(ctx, be, f) }
-            predicate.let { builder.skipVanillaRender(it) } ?: builder.neverSkipVanillaRender()
+            builder.skipVanillaRender(skipRender)
             builder.apply()
         }
     }

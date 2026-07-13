@@ -95,7 +95,7 @@ class MeshVertexConsumer(
 
     fun build(): Mesh {
         require(active)
-        val buildData = MemoryBlock.mallocTracked(view.stride() * max(pos, 0))
+        val buildData = MemoryBlock.mallocTracked(view.stride() * (pos + 1))
         data.copyTo(buildData)
         val outputView = viewFactory()
         outputView.vertexCount(pos)

@@ -1,25 +1,31 @@
 package dev.mayaqq.estrogen.features.thighhighs
 
+import com.google.gson.JsonParseException
 import com.google.gson.JsonParser
 import com.mojang.serialization.Codec
 import com.mojang.serialization.JsonOps
+import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.mayaqq.cynosure.core.VersionHooks.Impl.toKtResult
+import dev.mayaqq.cynosure.core.codecs.fieldOf
+import dev.mayaqq.cynosure.core.codecs.forGetter
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenItems
 import dev.mayaqq.estrogen.id
 import invoke.kitty.kritter.events.DataPackSyncEvent
 import invoke.kitty.kritter.resources.AsyncResourceReloadListener
-import invoke.kitty.kritter.serialization.json.GsonObject
-import invoke.kitty.kritter.serialization.json.GsonPrimitive
+import invoke.kitty.kritter.serialization.json.GsonElement
 import invoke.kitty.kritter.utils.coroutines.mapAsync
+import invoke.kitty.kritter.utils.result.flatMap
+import invoke.kitty.kritter.utils.result.runCatchingSpecific
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.sync.Semaphore
-import kotlinx.coroutines.withTimeout
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.packs.resources.ResourceManager
 import net.minecraft.util.profiling.ProfilerFiller
-import kotlin.jvm.optionals.getOrNull
+import kotlin.collections.flatMap
 
 
-object ThighHighStyleLoader : AsyncResourceReloadListener<List<ResourceLocation>> {
+object ThighHighStyleLoader : AsyncResourceReloadListener<List<ThighHighStyleLoader.StyleInstance?>> {
 
     init {
         DataPackSyncEvent.subscribe { player, _ ->
@@ -27,25 +33,30 @@ object ThighHighStyleLoader : AsyncResourceReloadListener<List<ResourceLocation>
         }
     }
 
-    val STYLES_CODEC: Codec<MutableList<ResourceLocation>> = Codec.list(ResourceLocation.CODEC)
+    data class StyleInstance(val replace: Boolean, val values: List<ResourceLocation>)
 
-    override suspend fun load(resourceManager: ResourceManager, profiler: ProfilerFiller): List<ResourceLocation> = coroutineScope {
-        // Reuse semaphore instance bcs were awaiting in between anyways
-        val semaphore = Semaphore(16)
-        val objects = resourceManager.getResourceStack(id("thigh_high_styles.json"))
-            .mapAsync(semaphore) { it.openAsReader().use(JsonParser::parseReader) }
+    val STYLES_CODEC: Codec<StyleInstance> = RecordCodecBuilder.create { instance -> instance.group(
+        Codec.BOOL.optionalFieldOf("replace", false) forGetter StyleInstance::replace,
+        ResourceLocation.CODEC.listOf() fieldOf StyleInstance::values
+    ).apply(instance, ::StyleInstance) }
 
-        val filtered = objects
-            .filterIsInstance<GsonObject>()
-            .takeLastWhile { (it["replace"] as? GsonPrimitive)?.takeIf(GsonPrimitive::isBoolean)?.asBoolean != true }
-
-        filtered.mapAsync(semaphore) { STYLES_CODEC.parse(JsonOps.INSTANCE, it).resultOrPartial().getOrNull() }
-            .filterNotNull()
-            .flatten()
-
+    override suspend fun load(resourceManager: ResourceManager, profiler: ProfilerFiller): List<StyleInstance?> = coroutineScope {
+        resourceManager.getResourceStack(id("thigh_high_styles.json"))
+            .mapAsync(Semaphore(16)) { resource ->
+                resource.openAsReader().use { reader ->
+                    runCatching { JsonParser.parseReader(reader) }
+                        .flatMap { STYLES_CODEC.parse(JsonOps.INSTANCE, it).toKtResult() }
+                        .onFailure { Estrogen.error("Error loading thigh high styles", it) }
+                        .getOrNull()
+                }
+            }
     }
 
-    override suspend fun apply(data: List<ResourceLocation>, resourceManager: ResourceManager, profiler: ProfilerFiller) {
-        EstrogenItems.ThighHighs.get().loadStyles(data)
+    override suspend fun apply(data: List<StyleInstance?>, resourceManager: ResourceManager, profiler: ProfilerFiller) {
+        EstrogenItems.ThighHighs.get().loadStyles(
+            data.filterNotNull()
+                .takeLastWhile { !it.replace }
+                .flatMap { it.values }
+        )
     }
 }
