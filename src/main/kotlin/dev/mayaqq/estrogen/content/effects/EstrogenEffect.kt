@@ -10,12 +10,14 @@ import dev.mayaqq.cynosure.events.entity.EntityTrackingEvent
 import dev.mayaqq.cynosure.events.entity.LivingEntityEvent
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.currentTime
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.features.boobs.Boob
 import dev.mayaqq.estrogen.client.features.dash.ClientDash
 import dev.mayaqq.estrogen.compat.cobblemon.CobblemonCompat
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.content.EstrogenAttributes.FallDamageResistance
+import dev.mayaqq.estrogen.content.EstrogenAttributes.ShowBoobs
 import dev.mayaqq.estrogen.content.EstrogenDamageSources
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.features.dash.CommonDash.removeDashing
@@ -44,6 +46,13 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
             2.0,
             AttributeModifier.Operation.ADD_VALUE
         )
+        addAttributeModifier(
+            ShowBoobs.holder,
+            boobModifierID,
+            1.0,
+            AttributeModifier.Operation.ADD_VALUE
+        )
+
     }
 
     override fun shouldApplyEffectTickThisTick(p0: Int, p1: Int): Boolean = EstrogenCommonConfig.Dash.enabled
@@ -101,11 +110,11 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
                 }
 
                 entity.getAttribute(EstrogenAttributes.DashLevel.holder)?.removeModifier(dashModifierID)
-                entity.getAttribute(EstrogenAttributes.ShowBoobs.holder)?.removeModifier(boobModifierID)
             }
         }
 
         fun handleEffectAddition(entity: LivingEntity, amplifier: Int) {
+            Estrogen.info("Estrogen Effect Added")
             if (entity !is Player) return
 
             if (entity is ServerPlayer) {
@@ -122,13 +131,6 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
                 AttributeModifier.Operation.ADD_VALUE
             )
             entity.getAttribute(EstrogenAttributes.DashLevel.holder)?.replaceModifier(dashModifier)
-
-            val boobModifier = AttributeModifier(
-                boobModifierID,
-                1.0,
-                AttributeModifier.Operation.ADD_VALUE
-            )
-            entity.getAttribute(EstrogenAttributes.ShowBoobs.holder)?.replaceModifier(boobModifier)
 
             entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder)?.let {
                 if (it.baseValue < 0.0) {
@@ -161,9 +163,6 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
                     entity.getAttribute(EstrogenAttributes.BoobInitialSize.holder)?.baseValue = 0.0
                     entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder)?.baseValue = -1.0
                 }
-            }
-
-            if (effect == EstrogenEffects.Estrogen) {
                 EstrogenEffect.handleEffectAddition(entity, newInstance.amplifier)
             }
         }
