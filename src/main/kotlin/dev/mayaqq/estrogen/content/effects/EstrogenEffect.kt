@@ -158,7 +158,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
 
         @Subscription
         internal fun LivingEntityEvent.EffectApply.onApplyEffect() {
-            if (this.oldInstance == null && this.effect == EstrogenEffects.Estrogen && entity is Player) {
+            if (this.oldInstance == null && this.effect == EstrogenEffects.Estrogen.get() && entity is Player) {
                 if (!Boob.shouldShow(entity as Player)) {
                     entity.getAttribute(EstrogenAttributes.BoobInitialSize.holder)?.baseValue = 0.0
                     entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder)?.baseValue = -1.0
@@ -169,13 +169,13 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
 
         @Subscription
         internal fun LivingEntityEvent.EffectRemove.onEffectRemoved() {
-            if (effect == EstrogenEffects.Estrogen)
+            if (effect == EstrogenEffects.Estrogen.get())
                 EstrogenEffect.handleEffectRemoval(this.entity)
         }
 
         @Subscription
         internal fun LivingEntityEvent.EffectExpire.onEffectExpired() {
-            if (effect == EstrogenEffects.Estrogen)
+            if (effect == EstrogenEffects.Estrogen.get())
                 EstrogenEffect.handleEffectRemoval(this.entity)
         }
 
