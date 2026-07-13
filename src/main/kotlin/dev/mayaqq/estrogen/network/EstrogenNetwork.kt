@@ -22,4 +22,5 @@ val EstrogenNetwork = NetworkChannel(id("main"), 1, serializers = MinecraftSeria
     playC2S<DreamBlockRipplePacket>(handler = DreamBlockRipplePacket::handle)
     playC2S<FlapPacket>(handler = FlapPacket::handle)
     playC2S<UpdatedCosmeticPacket>(handler = UpdatedCosmeticPacket::handle)
+    playC2S<DashAirtimeParticlesPacket> { _, _, player -> DashAirtimeParticlesPacket.handle(player) }
 }

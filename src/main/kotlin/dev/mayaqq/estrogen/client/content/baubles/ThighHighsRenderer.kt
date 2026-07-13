@@ -57,7 +57,7 @@ class ThighHighsRenderer : EquipRenderer {
         headPitch: Float
     ) {
         if (model !is HumanoidModel) return
-        val style = EstrogenItems.ThighHighs.value!!.getStyle(stack)
+        val style = EstrogenItems.ThighHighs.get().getStyle(stack)
         val buffer = buffer.getBuffer(RenderType.armorCutoutNoCull(InventoryMenu.BLOCK_ATLAS))
 
         if (style != null) {
@@ -66,12 +66,12 @@ class ThighHighsRenderer : EquipRenderer {
             renderThighHigh(buffer, poseStack, mesh, model.rightLeg, White, light)
         } else {
             val baseMesh = EstrogenRenderer.THIGH_HIGH.mesh
-            val baseColor = (EstrogenItems.ThighHighs.value!!.getColor(stack, 0)) alpha 255
+            val baseColor = (EstrogenItems.ThighHighs.get().getColor(stack, 0)) alpha 255
             renderThighHigh(buffer, poseStack, baseMesh, model.leftLeg, baseColor, light)
             renderThighHigh(buffer, poseStack, baseMesh, model.rightLeg, baseColor, light)
 
             val overlayMesh = EstrogenRenderer.THIGH_HIGH_OVERLAY.mesh
-            val overlayColor = (EstrogenItems.ThighHighs.value!!.getColor(stack, 1)) alpha 255
+            val overlayColor = (EstrogenItems.ThighHighs.get().getColor(stack, 1)) alpha 255
             renderThighHigh(buffer, poseStack, overlayMesh, model.leftLeg, overlayColor, light)
             renderThighHigh(buffer, poseStack, overlayMesh, model.rightLeg, overlayColor, light)
         }

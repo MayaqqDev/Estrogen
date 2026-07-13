@@ -11,6 +11,7 @@ import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import dev.mayaqq.estrogen.features.dash.CommonDash.removeDashing
 import dev.mayaqq.estrogen.features.dash.CommonDash.setDashing
 import dev.mayaqq.estrogen.network.EstrogenNetwork
+import dev.mayaqq.estrogen.network.messages.c2s.DashAirtimeParticlesPacket
 import dev.mayaqq.estrogen.network.messages.c2s.DashPacket
 import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.platform.Side
@@ -90,7 +91,7 @@ object ClientDash {
         isOnCooldown = dashCooldown > 0 || dashes == 0
 
         if (extraParticleTicks > 0) {
-            EstrogenNetwork.sendToServer(DashPacket(false, dashLevel))
+            EstrogenNetwork.sendToServer(DashAirtimeParticlesPacket)
             extraParticleTicks--
         }
 
@@ -127,7 +128,7 @@ object ClientDash {
 
     private fun dashTick(player: LocalPlayer) {
         dashCooldown--
-        extraParticleTicks = 0
+        //extraParticleTicks = 0
 
         // End Dash
         if (dashCooldown == 0) {
@@ -208,7 +209,7 @@ object ClientDash {
         )
         player.deltaMovement = hyperMotion
         dashCooldown = 0
-        extraParticleTicks = 2
+        extraParticleTicks = 4
     }
 
     private fun superJump(player: LocalPlayer, jumpDirection: Vec3) {
@@ -219,7 +220,7 @@ object ClientDash {
         )
         player.deltaMovement = superMotion
         dashCooldown = 0
-        extraParticleTicks = 1
+        extraParticleTicks = 2
     }
 
     private fun wallJump(player: LocalPlayer, jumpDirection: Vec3) {
@@ -229,7 +230,7 @@ object ClientDash {
             jumpDirection.z * BOUNCE_H_SPEED
         )
         dashCooldown = 0
-        extraParticleTicks = 1
+        extraParticleTicks = 2
     }
 
     fun reset() {
