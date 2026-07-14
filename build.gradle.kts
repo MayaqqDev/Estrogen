@@ -127,7 +127,7 @@ cloche {
         includedClient() // includedClient() is not a run
         runs {
             client {
-                jvmArgs("-Dfabric.log.level=debug", "-Dfabric-tag-conventions-v1.legacyTagWarning=VERBOSE")
+                jvmArgs("-Dfabric.log.level=debug", "-Dfabric-tag-conventions-v1.legacyTagWarning=VERBOSE", "-Dmixin.debug.export=true")
             }
             server {
                 runDir("runServer")
