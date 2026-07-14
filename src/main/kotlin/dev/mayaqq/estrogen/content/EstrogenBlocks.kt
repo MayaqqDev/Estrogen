@@ -155,7 +155,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
             ignitedByLava()
         }
         renderType = BlockRenderType.CUTOUT
-        colorProvider = DreamCatcherBlock
+        colorProvider(DreamCatcherBlock)
         item("dreamcatcher", ::DreamCatcherItem) {
             tooltip {
                 CompositeTooltip(
@@ -185,7 +185,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         ) }) {
         initialPropertiesFrom(Blocks::CAULDRON)
         renderType = BlockRenderType.CUTOUT
-        colorProvider = BlockColorProvider { _, _, _, tint -> return@BlockColorProvider if (tint == 0) EstrogenColors.HORSE_URINE else White }
+        colorProvider { _, _, _, _, tint -> if (tint == 0) EstrogenColors.HORSE_URINE else White }
     }
 
     val FiltratedHorseUrineCauldron: RegistryEntry<FiltratedHorseUrineCauldron> = block(
@@ -195,7 +195,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         ) }) {
         initialPropertiesFrom(Blocks::CAULDRON)
         renderType = BlockRenderType.CUTOUT
-        colorProvider = BlockColorProvider { _, _, _, tint -> return@BlockColorProvider if (tint == 0) EstrogenColors.FILTRATED_HORSE_URINE else White }
+        colorProvider { _, _, _, _, tint -> if (tint == 0) EstrogenColors.FILTRATED_HORSE_URINE else White }
     }
 
     val LiquidEstrogenCauldron: RegistryEntry<LayeredCauldronBlock> = block(

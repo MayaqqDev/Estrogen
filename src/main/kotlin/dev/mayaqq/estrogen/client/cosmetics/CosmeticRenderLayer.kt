@@ -2,6 +2,7 @@ package dev.mayaqq.estrogen.client.cosmetics
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
+import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import invoke.kitty.kritter.utils.color.White
@@ -13,7 +14,9 @@ import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Player
 import org.joml.Vector2d
+import org.lwjgl.opengl.GL30
 import kotlin.math.max
+import kotlin.time.Duration.Companion.nanoseconds
 
 class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player>>) : RenderLayer<Player, EntityModel<Player>>(renderer) {
     override fun render(
@@ -28,6 +31,7 @@ class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player
         netHeadYaw: Float,
         headPitch: Float
     ) {
+        McClient.frameTimeNs.nanoseconds.inWholeMilliseconds
         val cosmetic: Cosmetic = player.getUUID().getCosmetic() ?: return
 
         stack.pushPose()
@@ -53,7 +57,7 @@ class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player
         }
 
         cosmetic.render(
-            EstrogenRenderer.getCelShaded(buffer),
+            buffer, //EstrogenRenderer.getCelShaded(buffer), TODO: A less shit outline system
             EstrogenRenderTypes::entityCutoutNoDiffuse,
             stack, White, packedLight, OverlayTexture.NO_OVERLAY
         )

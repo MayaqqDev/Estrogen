@@ -11,6 +11,6 @@ actual fun registerEquip(item: Item, equip: Equip) {
     CuriosApi.registerCurio(item, CuriosWrapper(equip))
 }
 
-actual fun registerEquipRenderer(item: Item, equipRenderer: EquipRenderer) = clientOnly {
-    CuriosRendererRegistry.register(item) { RendererCuriosWrapper(equipRenderer) }
+actual fun registerEquipRenderer(item: Item, renderer: EquipRenderer) = clientOnly {
+    CuriosRendererRegistry.register(item) { RendererCuriosWrapper(renderer) }
 }

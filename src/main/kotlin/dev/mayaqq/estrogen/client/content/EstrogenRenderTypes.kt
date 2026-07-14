@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.RenderStateShard.TextureStateShard
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderType.CompositeState
 import net.minecraft.resources.ResourceLocation
+import org.lwjgl.opengl.GL30
 
 object EstrogenRenderTypes {
 
@@ -77,5 +78,34 @@ object EstrogenRenderTypes {
 
     fun entityCutoutNoDiffuse(texture: ResourceLocation): RenderType {
         return if (isShaderPackInUse) RenderType.entityCutout(texture) else ENTITY_CUTOUT_NO_DIFFUSE.apply(texture)
+    }
+
+    fun modelOutline(texture: ResourceLocation): RenderType {
+        return RenderType.create(
+            "estrogen:cosmetic_outline",
+            DefaultVertexFormat.NEW_ENTITY,
+            VertexFormat.Mode.QUADS,
+            512,
+            false,
+            false,
+            CompositeState.builder()
+                .setShaderState(ShaderStateShard(EstrogenRenderer::cosmeticOutlineShader))
+                .setTextureState(TextureStateShard(texture, false, false))
+                .setTransparencyState(RenderStateShard.NO_TRANSPARENCY)
+                .setCullState(object : RenderStateShard.CullStateShard(true) {
+                    override fun setupRenderState() {
+                        super.setupRenderState()
+                        GL30.glCullFace(GL30.GL_FRONT)
+                    }
+
+                    override fun clearRenderState() {
+                        GL30.glCullFace(GL30.GL_BACK)
+                        super.clearRenderState()
+                    }
+                })
+                .setLightmapState(RenderStateShard.LIGHTMAP)
+                .setOverlayState(RenderStateShard.OVERLAY)
+                .createCompositeState(true)
+        )
     }
 }

@@ -13,44 +13,14 @@ import org.joml.Vector3fc
 
 object ModelOutlineGenerator {
     fun process(model: ModelData): ModelData {
-        // TODO: Remap indices
-        //if (model.groups.isNotEmpty()) return model
-
-        val minmaxx = model.elements.minOf { it.from.x } to model.elements.maxOf { it.to.x }
-        val minmaxy = model.elements.minOf { it.from.y } to model.elements.maxOf { it.to.y }
-        val minmaxz = model.elements.minOf { it.from.z } to model.elements.maxOf { it.to.z }
-
-        fun isOuterFace(dir: Direction, element: ModelElement, face: ModelElementFace): Boolean {
-            val (min, max) = when (dir.axis) {
-                Direction.Axis.X -> minmaxx
-                Direction.Axis.Y -> minmaxy
-                Direction.Axis.Z -> minmaxz
-            }
-
-            val vec = when (dir.axisDirection) {
-                Direction.AxisDirection.POSITIVE -> element.to
-                Direction.AxisDirection.NEGATIVE -> element.from
-            }
-
-            val coord = when (dir.axis) {
-                Direction.Axis.X -> vec.x
-                Direction.Axis.Y -> vec.y
-                Direction.Axis.Z -> vec.z
-            }
-
-            return when (dir.axisDirection) {
-                Direction.AxisDirection.NEGATIVE -> coord <= min
-                Direction.AxisDirection.POSITIVE -> coord >= max
-            }
-        }
-
         val newElements = model.elements.map { element ->
             element.copy(
-                from = Vector3f(element.to),
-                to = Vector3f(element.from),
-                //faces = element.faces.filter { (direction, face) -> isOuterFace(direction, element, face) },
-                faces = element.faces.mapValues { (_, face) ->
-                    face.copy(uv = floatArrayOf(face.uv[2], face.uv[3], face.uv[0], face.uv[1]))
+                from = Vector3f(element.from).add(-.75f, -.75f, -.75f),
+                to = Vector3f(element.to).add(.75f, .75f, .75f),
+                faces = Direction.entries.associateWith { dir ->
+                    val face = element.faces[dir]
+                    face?.copy(uv = floatArrayOf(face.uv[2], face.uv[3], face.uv[0], face.uv[1]))
+                        ?: ModelElementFace(floatArrayOf(0f, 1f, 0f, 1f), 0f, "meow")
                 },
                 shade = false
             )

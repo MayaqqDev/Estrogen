@@ -12,6 +12,7 @@ import invoke.kitty.kritter.creativeTabs.TabPlacement
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.entry.holder
 import invoke.kitty.kritter.registry.api.entry.key
+import invoke.kitty.kritter.registry.item.colorProvider
 import invoke.kitty.kritter.registry.item.creativeTab
 import invoke.kitty.kritter.registry.item.item
 import invoke.kitty.kritter.utils.color.rgb
@@ -131,6 +132,7 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         equipWithRenderer(::ThighHighsRenderer)
         standardTooltip()
         onSetup { CauldronInteraction.WATER.map()[it] = ThighHighsItem.CAULDRON_INTERACTION }
+        colorProvider(ThighHighsItem::getColor)
     }
 
     val EstrogenPatches = item("estrogen_patches", ::EstrogenPatchesItem) {

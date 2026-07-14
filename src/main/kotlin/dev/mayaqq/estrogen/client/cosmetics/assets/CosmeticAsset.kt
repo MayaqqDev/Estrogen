@@ -6,6 +6,7 @@ import com.mojang.serialization.JsonOps
 import dev.mayaqq.cynosure.core.VersionHooks.Impl.toKtResult
 import dev.mayaqq.cynosure.utils.coroutines.Background
 import dev.mayaqq.cynosure.utils.result.failure
+import dev.mayaqq.cynosure.utils.result.failureIfNull
 import dev.mayaqq.cynosure.utils.result.flatMap
 import dev.mayaqq.cynosure.utils.result.flatten
 import dev.mayaqq.cynosure.utils.result.success
@@ -27,6 +28,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.future.asDeferred
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.withTimeoutOrNull
 import java.io.IOException
 import java.lang.ref.Cleaner
 import java.net.URI
@@ -95,19 +97,18 @@ class CosmeticAsset<T>(
             }
 
         CosmeticAPI.debug("Downloading asset '{}' from '{}'...", hash, url)
-        return runDownload(url)
-            .onSuccess { bytes ->
-                // Save cache file in a background task, cs we dont rly care if or when its done
-                downloadScope.launch {
-                    try {
-                        file.createParentDirectories()
-                        file.writeBytesAsync(bytes)
-                    } catch (ex: Exception) {
-                        CosmeticAPI.error("Failed to write to cache file, continuing anyways", ex)
-                    }
-                }
+        val bytes = runDownload(url).getOr { return it.failure() }
+
+        downloadScope.launch {
+            try {
+                file.createParentDirectories()
+                file.writeBytesAsync(bytes)
+            } catch (ex: Exception) {
+                CosmeticAPI.error("Failed to write to cache file, continuing anyways", ex)
             }
-            .flatMap { reader.decode(it) }
+        }
+
+        return reader.decode(bytes)
     }
 
     private suspend fun runDownload(uri: String): Result<ByteArray> {
@@ -116,8 +117,8 @@ class CosmeticAsset<T>(
             .build()
 
         for (i in 1..3) {
-            val result: Result<ByteArray> = runCatchingSpecific<TimeoutCancellationException, _> {
-                withTimeout(2.minutes) {
+            val result: Result<ByteArray>? =
+                withTimeoutOrNull(2.minutes) {
                     val response = CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofByteArray())
                         .asDeferred()
                         .await()
@@ -125,13 +126,12 @@ class CosmeticAsset<T>(
                     if (response.statusCode() / 100 == 2)
                         response.body().success()
                     else
-                        Result.failure("Failed to download '$uri'. Status Code: ${response.statusCode()}")
+                        Result.failure("Failed to download asset from '$uri'. Status Code: ${response.statusCode()}")
                 }
-            }.flatten()
 
-            if (result.isSuccess) return result
+            if (result != null && result.isSuccess) return result
 
-            CosmeticAPI.warn("Failed to download cosmetic asset (attempt {}), retrying in 10 seconds. Error: {}", i, result)
+            CosmeticAPI.warn("Failed to download cosmetic asset (attempt {}), retrying in 10 seconds. Error: {}", i, result ?: "Timeout reached")
             delay(10.seconds)
         }
 

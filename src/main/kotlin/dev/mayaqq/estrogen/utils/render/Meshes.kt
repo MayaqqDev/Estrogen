@@ -71,12 +71,12 @@ fun Mesh.render(
     }
 }
 
-class MeshBuilder : VertexConsumer {
-    private var data: IntArray = IntArray(32 * STRIDE)
+class MeshBuilder(init: Int = 32) : VertexConsumer {
+    private var data: IntArray = IntArray(init * STRIDE)
     private var position = -STRIDE
     var vertexCount: Int = 0
         private set
-    private var capacity = 32
+    private var capacity = init
 
     override fun addVertex(x: Float, y: Float, z: Float): VertexConsumer {
         position += STRIDE

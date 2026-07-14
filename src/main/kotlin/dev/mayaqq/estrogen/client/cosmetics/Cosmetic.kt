@@ -9,20 +9,26 @@ import dev.mayaqq.cynosure.client.models.animations.Animatable
 import dev.mayaqq.cynosure.client.models.animations.AnimationDefinition
 import dev.mayaqq.cynosure.client.models.animations.animate
 import dev.mayaqq.cynosure.client.models.baked.CustomBakedModel
+import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.core.codecs.fieldOf
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
+import dev.mayaqq.cynosure.utils.Couple
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
 import dev.mayaqq.estrogen.MOD_ID
+import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticAsset
 import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticReaders
+import dev.mayaqq.estrogen.client.cosmetics.assets.generateOutlineModel
 import invoke.kitty.kritter.platform.Side
+import invoke.kitty.kritter.utils.color.Black
 import invoke.kitty.kritter.utils.color.Color
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
+import org.joml.Vector3f
 import java.nio.file.Path
 import java.util.*
 import kotlin.io.path.div
@@ -35,9 +41,12 @@ data class Cosmetic(
     val id: String,
     val name: String,
     val texture: CosmeticAsset<ResourceLocation>,
-    val model: CosmeticAsset<CustomBakedModel>,
+    val model: CosmeticAsset<Couple<CustomBakedModel>>,
     val animation: CosmeticAsset<AnimationDefinition>?
 ) {
+
+    //val outlineModel by lazy { generateOutlineModel(model.get()!!) }
+
     /**
      * Use this for rendering cosmetics
      * @param renderType Render type function, provides a RenderType for the texture, e.g. RenderType::entityCutout
@@ -57,10 +66,12 @@ data class Cosmetic(
         animation?.get()?.let {
             (model.get() as? Animatable.Provider)?.animate(it, animationTime)
         }
-        val model = model.get() ?: return
+        val (model, outlineModel) = model.get() ?: return
         val texture = texture.get() ?: return
         val buffer = bufferSource.getBuffer(renderType(texture))
         model.render(buffer, stack, color, light, overlay)
+        val outlineBuffer = bufferSource.getBuffer(EstrogenRenderTypes.modelOutline(texture))
+        outlineModel.render(outlineBuffer, stack, Black, light, overlay)
     }
 
     companion object {

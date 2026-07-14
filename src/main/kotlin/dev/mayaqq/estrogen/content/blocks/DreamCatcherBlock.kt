@@ -14,6 +14,7 @@ import invoke.kitty.kritter.platform.common.BlockColorProvider
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.White
 import invoke.kitty.kritter.utils.color.toColor
+import invoke.kitty.kritter.utils.extensions.isOf
 import invoke.kitty.kritter.utils.shapes.allHorizontalDirections
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -78,7 +79,7 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
         }
     }
 
-    companion object : BlockColorProvider {
+    companion object : BlockColorProvider<DreamCatcherBlock> {
 
         private val SHAPES = Shapes.or(
             Shapes.box(0.3125, -0.0625, 0.4375, 0.625, 0.875, 0.5625),
@@ -90,13 +91,14 @@ class DreamCatcherBlock(properties: Properties) : HorizontalDirectionalBlock(pro
 
         val COLORED: BooleanProperty = BooleanProperty.create("colored")
         override fun getColor(
+            block: DreamCatcherBlock,
             state: BlockState,
             view: BlockAndTintGetter?,
             pos: BlockPos?,
             tintIndex: Int
         ): Color {
-            if (state.`is`(EstrogenBlocks.DreamCatcher.value!!) && view != null && pos != null) {
-                val color = (state.block as DreamCatcherBlock).getColor(view, pos, tintIndex)
+            if (state isOf EstrogenBlocks.DreamBlock.get() && view != null && pos != null) {
+                val color = block.getColor(view, pos, tintIndex)
                 return color
             }
             return White

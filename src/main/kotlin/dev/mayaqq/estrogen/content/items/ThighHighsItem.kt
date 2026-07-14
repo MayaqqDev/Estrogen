@@ -18,6 +18,7 @@ import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.entry.holder
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.MinecraftColors
+import invoke.kitty.kritter.utils.color.White
 import net.minecraft.core.Holder
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.particles.ParticleTypes
@@ -57,6 +58,7 @@ class ThighHighsItem(properties: Properties, val primaryColor: Color, val second
     }
 
     fun getColor(stack: ItemStack, tintIndex: Int): Color {
+        if (getStyle(stack) != null) return White
         stack.get(ThighHighColorComponent)?.let { color ->
             when(tintIndex) {
                 0 -> return color.primary
