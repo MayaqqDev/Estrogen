@@ -1,4 +1,4 @@
-@file:EventSubscriber(Side.CLIENT)
+
 package dev.mayaqq.estrogen.client
 
 //import dev.mayaqq.estrogen.config.Instance
@@ -18,6 +18,7 @@ import dev.mayaqq.cynosure.events.api.MainBus
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.McPlayer
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer

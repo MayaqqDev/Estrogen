@@ -27,7 +27,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.block.LiquidBlock
 import net.minecraft.world.phys.Vec3
 
-@EventSubscriber(Side.CLIENT)
+
 object ClientDash {
 
     private const val DASH_SPEED: Double = 1.0

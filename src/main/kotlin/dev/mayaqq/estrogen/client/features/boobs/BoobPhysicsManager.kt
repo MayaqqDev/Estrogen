@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Player
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
-@EventSubscriber(Side.CLIENT)
+
 object BoobPhysicsManager {
     private val players = ConcurrentHashMap<UUID, Physics>()
 

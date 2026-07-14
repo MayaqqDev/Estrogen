@@ -2,21 +2,22 @@ package dev.mayaqq.estrogen.client.cosmetics
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
-import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
-import dev.mayaqq.estrogen.client.content.EstrogenRenderer
 import invoke.kitty.kritter.utils.color.White
 import net.minecraft.client.model.EntityModel
+import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.entity.RenderLayerParent
 import net.minecraft.client.renderer.entity.layers.RenderLayer
 import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.phys.Vec3
 import org.joml.Vector2d
-import org.lwjgl.opengl.GL30
+import kotlin.math.acos
 import kotlin.math.max
-import kotlin.time.Duration.Companion.nanoseconds
+import kotlin.math.sign
+import kotlin.math.sqrt
 
 class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player>>) : RenderLayer<Player, EntityModel<Player>>(renderer) {
     override fun render(
@@ -31,8 +32,10 @@ class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player
         netHeadYaw: Float,
         headPitch: Float
     ) {
-        McClient.frameTimeNs.nanoseconds.inWholeMilliseconds
         val cosmetic: Cosmetic = player.getUUID().getCosmetic() ?: return
+
+        if (player.isFallFlying) reverseFallFly(stack, player as AbstractClientPlayer, partialTick)
+        else if (player.getSwimAmount(partialTick) > 0.0) reverseSwimming(stack, player as AbstractClientPlayer, partialTick)
 
         stack.pushPose()
         stack.mulPose(Axis.XP.rotationDegrees(180F))
@@ -62,5 +65,32 @@ class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player
             stack, White, packedLight, OverlayTexture.NO_OVERLAY
         )
         stack.popPose()
+    }
+
+    private fun reverseFallFly(stack: PoseStack, entity: AbstractClientPlayer, partialTick: Float) {
+        val fallFlyingTicks: Float = entity.fallFlyingTicks.toFloat() + partialTick
+        val clampedFallFlying = Mth.clamp(fallFlyingTicks * fallFlyingTicks / 100.0f, 0.0f, 1.0f)
+        if (!entity.isAutoSpinAttack) {
+            stack.mulPose(Axis.XP.rotationDegrees(-(clampedFallFlying * (-90.0f - fallFlyingTicks))))
+        }
+
+        val viewVector: Vec3 = entity.getViewVector(partialTick)
+        val deltaMovementLerped: Vec3 = entity.getDeltaMovementLerped(partialTick)
+        val horizontalDistanceDeltaMovement = deltaMovementLerped.horizontalDistanceSqr()
+        val horizontalDistanceViewVector = viewVector.horizontalDistanceSqr()
+        if (horizontalDistanceDeltaMovement > 0.0 && horizontalDistanceViewVector > 0.0) {
+            val thingimabob1 = (deltaMovementLerped.x * viewVector.x + deltaMovementLerped.z * viewVector.z) / sqrt(horizontalDistanceDeltaMovement * horizontalDistanceViewVector)
+            val thingimabob2 = deltaMovementLerped.x * viewVector.z - deltaMovementLerped.z * viewVector.x
+            stack.mulPose(Axis.YP.rotation(-(sign(thingimabob2) * acos(thingimabob1)).toFloat()))
+        }
+    }
+
+    private fun reverseSwimming(stack: PoseStack, entity: AbstractClientPlayer, partialTick: Float) {
+        val swimAmount = entity.getSwimAmount(partialTick)
+        val xRot = entity.getViewXRot(partialTick)
+        val waterTransform = if (entity.isInWater) -90.0f - xRot else -90.0f
+        val lerpedTransform = Mth.lerp(swimAmount, 0.0f, waterTransform)
+        stack.mulPose(Axis.XP.rotationDegrees(lerpedTransform))
+        if (entity.isVisuallySwimming) stack.translate(0.0f, -1.0f, 0.3f)
     }
 }

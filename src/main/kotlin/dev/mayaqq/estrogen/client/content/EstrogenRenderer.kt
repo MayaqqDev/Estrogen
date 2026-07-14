@@ -19,6 +19,7 @@ import dev.mayaqq.cynosure.client.isShaderPackInUse
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.helpers.McClient
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.holder
@@ -37,7 +38,7 @@ import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.ShaderInstance
 import org.lwjgl.opengl.GL11
 
-@EventSubscriber(Side.CLIENT)
+
 object EstrogenRenderer {
 
     // Render state shards

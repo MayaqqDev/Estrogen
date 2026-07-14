@@ -15,7 +15,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.world.phys.Vec3
 import kotlin.math.floor
 
-@EventSubscriber(Side.CLIENT)
+
 object DreamBlockEffect {
     private var sound: DreamBlockSoundInstance? = null
     var isInDreamBlock = false

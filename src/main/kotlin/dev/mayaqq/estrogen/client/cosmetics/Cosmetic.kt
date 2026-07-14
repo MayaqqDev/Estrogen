@@ -1,4 +1,4 @@
-@file:EventSubscriber(Side.CLIENT)
+
 package dev.mayaqq.estrogen.client.cosmetics
 
 import com.mojang.blaze3d.vertex.PoseStack

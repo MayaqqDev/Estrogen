@@ -23,7 +23,7 @@ import net.minecraft.world.inventory.InventoryMenu
 import net.minecraft.world.level.BlockAndTintGetter
 import net.minecraft.world.level.block.state.BlockState
 
-@EventSubscriber(Side.CLIENT)
+
 object ClientDreamBlock {
 
     val DORMANT_MODEL: ResourceLocation = id("block/dream_block/dormant_dream_block")

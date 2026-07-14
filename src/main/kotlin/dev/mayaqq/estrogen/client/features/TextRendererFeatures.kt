@@ -10,7 +10,7 @@ import invoke.kitty.kritter.platform.Side
 import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.client.Minecraft
 
-@EventSubscriber(Side.CLIENT)
+
 object TextRendererFeatures {
 
     @JvmStatic

@@ -8,7 +8,7 @@ import invoke.kitty.kritter.platform.Side
 import net.minecraft.client.KeyMapping
 import org.lwjgl.glfw.GLFW
 
-@EventSubscriber(Side.CLIENT)
+
 object EstrogenKeybinds {
     val DASH_KEY = KeyMapping("key.estrogen.dash", GLFW.GLFW_KEY_X, "category.estrogen")
 
