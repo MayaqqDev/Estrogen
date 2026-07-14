@@ -11,6 +11,8 @@ import net.minecraft.client.renderer.entity.RenderLayerParent
 import net.minecraft.client.renderer.entity.layers.RenderLayer
 import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.util.Mth
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.Pose
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec3
 import org.joml.Vector2d
@@ -34,10 +36,12 @@ class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player
     ) {
         val cosmetic: Cosmetic = player.getUUID().getCosmetic() ?: return
 
+        stack.pushPose()
+
         if (player.isFallFlying) reverseFallFly(stack, player as AbstractClientPlayer, partialTick)
         else if (player.getSwimAmount(partialTick) > 0.0) reverseSwimming(stack, player as AbstractClientPlayer, partialTick)
+        cancelNormalTransform(stack, player as AbstractClientPlayer, partialTick)
 
-        stack.pushPose()
         stack.mulPose(Axis.XP.rotationDegrees(180F))
         stack.scale(0.75f, 0.75f, 0.75f)
 
@@ -68,11 +72,9 @@ class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player
     }
 
     private fun reverseFallFly(stack: PoseStack, entity: AbstractClientPlayer, partialTick: Float) {
+        val xRot = entity.getViewXRot(partialTick)
         val fallFlyingTicks: Float = entity.fallFlyingTicks.toFloat() + partialTick
         val clampedFallFlying = Mth.clamp(fallFlyingTicks * fallFlyingTicks / 100.0f, 0.0f, 1.0f)
-        if (!entity.isAutoSpinAttack) {
-            stack.mulPose(Axis.XP.rotationDegrees(-(clampedFallFlying * (-90.0f - fallFlyingTicks))))
-        }
 
         val viewVector: Vec3 = entity.getViewVector(partialTick)
         val deltaMovementLerped: Vec3 = entity.getDeltaMovementLerped(partialTick)
@@ -83,6 +85,10 @@ class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player
             val thingimabob2 = deltaMovementLerped.x * viewVector.z - deltaMovementLerped.z * viewVector.x
             stack.mulPose(Axis.YP.rotation(-(sign(thingimabob2) * acos(thingimabob1)).toFloat()))
         }
+
+        if (!entity.isAutoSpinAttack) {
+            stack.mulPose(Axis.XP.rotationDegrees(-(clampedFallFlying * (-90.0f - xRot))))
+        }
     }
 
     private fun reverseSwimming(stack: PoseStack, entity: AbstractClientPlayer, partialTick: Float) {
@@ -92,5 +98,13 @@ class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player
         val lerpedTransform = Mth.lerp(swimAmount, 0.0f, waterTransform)
         stack.mulPose(Axis.XP.rotationDegrees(lerpedTransform))
         if (entity.isVisuallySwimming) stack.translate(0.0f, -1.0f, 0.3f)
+    }
+
+    private fun cancelNormalTransform(stack: PoseStack, entity: AbstractClientPlayer, partialTick: Float) {
+        val yBodyRot = Mth.rotLerp(partialTick, entity.yBodyRotO, entity.yBodyRot)
+
+        if (!entity.hasPose(Pose.SLEEPING)) {
+            stack.mulPose(Axis.YP.rotationDegrees(-(180.0f - yBodyRot)))
+        }
     }
 }
