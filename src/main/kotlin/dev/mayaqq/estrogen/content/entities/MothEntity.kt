@@ -126,7 +126,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
                         getParticleType()
                     )
                 }
-                this.playSound(EstrogenSounds.MOTH_FUZZ_UP.value)
+                this.playSound(EstrogenSounds.MOTH_FUZZ_UP.get())
                 this.fuzzingUp()
             }
         }
@@ -326,21 +326,19 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         return null
     }
 
-    override fun getHurtSound(damageSource: DamageSource): SoundEvent = EstrogenSounds.MOTH_HURT.value!!
+    override fun getHurtSound(damageSource: DamageSource): SoundEvent = EstrogenSounds.MOTH_HURT.get()
 
-    override fun getDeathSound(): SoundEvent = EstrogenSounds.MOTH_DEATH.value!!
+    override fun getDeathSound(): SoundEvent = EstrogenSounds.MOTH_DEATH.get()
 
     override fun getSoundVolume(): Float = 0.4f
 
-    override fun getBreedOffspring(level: ServerLevel, otherParent: AgeableMob): MothEntity? = EstrogenEntities.Moth.value!!.create(level)
+    override fun getBreedOffspring(level: ServerLevel, otherParent: AgeableMob): MothEntity? = EstrogenEntities.Moth.get().create(level)
 
     public override fun isFlapping(): Boolean = this.isFlying && this.tickCount % TICKS_PER_FLAP == 0
 
     override fun checkFallDamage(y: Double, onGround: Boolean, state: BlockState, pos: BlockPos) {
         // Lil fella doesn't take fall damage
     }
-
-    //TODO: ARTHROPOD TAG!! override fun getMobType(): MobType = MobType.ARTHROPOD
 
     override fun jumpInLiquid(fluidTag: TagKey<Fluid?>) {
         this.deltaMovement = this.deltaMovement.add(0.0, 0.01, 0.0)

@@ -33,6 +33,7 @@ import java.nio.file.Path
 import java.util.*
 import kotlin.io.path.div
 import kotlin.jvm.optionals.getOrNull
+import kotlin.time.Duration.Companion.nanoseconds
 
 
 val CACHE: Path = GlobalStorage.getCache(MOD_ID).resolve("cosmetics")
@@ -88,8 +89,7 @@ data class Cosmetic(
 
         var animationTicks = 0
 
-        // TODO: check if frameTimeNs is same as previously just frameTime
-        val animationTime: Long get() = (Mth.lerp(Minecraft.getInstance().frameTimeNs.toDouble(), animationTicks.toDouble(), animationTicks + 1.0) * 50L).toLong()
+        val animationTime: Long get() = (Mth.lerp(Minecraft.getInstance().frameTimeNs.nanoseconds.inWholeMilliseconds.toDouble(), animationTicks.toDouble(), animationTicks + 1.0) * 50L).toLong()
     }
 }
 

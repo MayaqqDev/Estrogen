@@ -8,10 +8,13 @@ import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.SlotWidget
 import dev.emi.emi.api.widget.WidgetHolder
 import dev.emi.emi.registry.EmiPluginContainer
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CommonRecipeViewer
+import dev.mayaqq.estrogen.compat.recipeviewers.api.Role
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeHolder
@@ -32,7 +35,7 @@ object EmiPluginRegister {
                         method.isAccessible = true
                         method.invoke(pseudoRecipe.builder, data).let { anyPseudoRecipe ->
                             val crvRecipe = anyPseudoRecipe as CRVPseudoRecipe<*>
-                            registry.addRecipe(object : BasicEmiRecipe(category, crvRecipe.getId(), pseudoRecipe.width, pseudoRecipe.height) {
+                            registry.addRecipe(object : BasicEmiRecipe(category, crvRecipe.getId().withPath("/${crvRecipe.getId().path}"), pseudoRecipe.width, pseudoRecipe.height) {
                                 init {
                                     crvRecipe.init()
 
@@ -46,7 +49,9 @@ object EmiPluginRegister {
                                         widgets.addTexture(texture.coorded, texture.x, texture.y)
                                     }
                                     crvRecipe.slots.forEach { slot ->
-                                        widgets.addSlot(slot.ingredient.toEmi(), slot.x, slot.y).withBackground(slot.background)
+                                        widgets.addSlot(slot.ingredient.toEmi(), slot.x, slot.y).withBackground(slot.background).let { widget ->
+                                            if (slot.role == Role.OUTPUT) widget.recipeContext(this)
+                                        }
                                     }
                                     crvRecipe.drawables.forEach { drawable ->
                                         widgets.addDrawable(drawable.x, drawable.y, 0, 0) {graphics, mouseX, mouseY, partialTick  ->
@@ -86,7 +91,9 @@ object EmiPluginRegister {
                                     widgets.addTexture(texture.coorded, texture.x, texture.y)
                                 }
                                 recipe.slots.forEach { slot ->
-                                    widgets.addSlot(slot.ingredient.toEmi(), slot.x, slot.y).withBackground(slot.background)
+                                    widgets.addSlot(slot.ingredient.toEmi(), slot.x, slot.y).withBackground(slot.background).let { widget ->
+                                        if (slot.role == Role.OUTPUT) widget.recipeContext(this)
+                                    }
                                 }
                                 recipe.drawables.forEach { drawable ->
                                     widgets.addDrawable(drawable.x, drawable.y, 0, 0) {graphics, mouseX, mouseY, partialTick  ->

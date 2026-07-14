@@ -150,7 +150,7 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         tb.add(EstrogenFluids.GenderFluid.block, "Gender Fluid")
         tb.add(EstrogenBlocks.LiquidEstrogenCauldron.value!!, "Liquid Estrogen Cauldron")
         tb.add(EstrogenBlocks.FiltratedHorseUrineCauldron.value!!, "Filtrated Horse Urine Cauldron")
-        tb.add(EstrogenBlocks.HorseUrineCauldron.value!!, "Horse Urine Cauldron Cauldron")
+        tb.add(EstrogenBlocks.HorseUrineCauldron.value!!, "Horse Urine Cauldron")
 
         // Fluids
         tb.add("fluid_type.estrogen.liquid_estrogen", "Liquid Estrogen")
@@ -227,6 +227,7 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         tb.add("tag.item.c.leather_items", "Leather Items")
         tb.add("tag.item.c.light_emitters", "Light Emitters")
         tb.add("tag.item.estrogen.chest_armor_ignore", "Chest Armor Ignore")
+        tb.add("tag.item.estrogen.enchantable.head", "Enchantable Head Armor")
         // Fluids
         tb.add("tag.fluid.estrogen.urine", "Urine")
         tb.add("tag.fluid.estrogen.sponge_ignoring", "Sponge Ignoring")
