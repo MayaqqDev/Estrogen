@@ -14,8 +14,14 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.SpawnEggItem
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeHolder
+import org.joml.Quaternionf
+import org.joml.Vector3f
+
 
 class EntityInteractionCRVRecipe(recipe: RecipeHolder<EntityInteractionRecipe>) : CRVRecipe<EntityInteractionRecipe>(recipe) {
+
+    var entities = mutableMapOf<SpawnEggItem, LivingEntity>()
+
     override fun init() {
         addTexture(RecipeTextures.JEI_SHADOW, 62, 47)
         addTexture(RecipeTextures.JEI_DOWN_ARROW, 74, 10)
@@ -26,25 +32,28 @@ class EntityInteractionCRVRecipe(recipe: RecipeHolder<EntityInteractionRecipe>) 
         addSlot(inputs[0], 51, 5, Role.INPUT)
         addSlot(outputs[0], 132, 38, Role.OUTPUT)
 
-        addDrawable(0, 0) { matrices, offsetX, offsetY, mouseX, mouseY, delta ->
+        addDrawable(88, 55) { graphics, offsetX, offsetY, mouseX, mouseY, delta ->
             val item = (System.currentTimeMillis() / 1000 % eggs.ingredient.size).toInt()
             val current = eggs.ingredient
-            val stack = current.items.first()
-            val entity = Minecraft.getInstance().level?.let {
-                (stack.item as SpawnEggItem).getType(stack).create(
-                    it
-                )
-            } as LivingEntity
-            InventoryScreen.renderEntityInInventoryFollowsMouse(
-                matrices,
-                88,
-                55,
-                88 + 75, //TODO: check x2, y2
-                55 + 78,
-                20,
+            val stack = current.items[item]
+            val entity = entities.getOrPut(stack.item as SpawnEggItem) {
+                Minecraft.getInstance().level?.let {
+                    (stack.item as SpawnEggItem).getType(stack).create(
+                        it
+                    )
+                } as LivingEntity
+            }
+            val rad = 0.017453292f
+            val angle = Quaternionf().rotateYXZ(50 * rad, 180 * rad, 0f)
+
+            InventoryScreen.renderEntityInInventory(
+                graphics,
+                0.5F,
                 0F,
-                -mouseX.toFloat() + 87,
-                -mouseY.toFloat() + 20,
+                20F,
+                Vector3f(),
+                angle,
+                null,
                 entity
             )
         }

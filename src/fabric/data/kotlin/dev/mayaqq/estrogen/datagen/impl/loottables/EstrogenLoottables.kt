@@ -33,7 +33,6 @@ class EstrogenLoottables(output: FabricDataOutput, lookup: CompletableFuture<Hol
             EstrogenBlocks.QuiltedMothBed.value!!,
             createSinglePropConditionTable(EstrogenBlocks.QuiltedMothBed.value!!, BedBlock.PART, BedPart.HEAD)
         )
-        //TODO: check on this
         add(EstrogenBlocks.DreamCatcher.value!!, createSingleItemTable(EstrogenBlocks.DreamCatcher.value!!).apply(
             CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY).include(
                 EstrogenComponents.TriColorComponent

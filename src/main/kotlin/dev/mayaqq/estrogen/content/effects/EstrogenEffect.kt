@@ -83,7 +83,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
 
         fun sendPlayerStatusEffect(player: ServerPlayer, effect: Holder<MobEffect>, vararg targetPlayers: ServerPlayer) {
             val effectInstance = player.getEffect(effect) ?: return
-            //TODO: WHAT THE FUCK IS A BLEND
+            //Blend is uhh maybe for night vision idfk
             sendPacket(ClientboundUpdateMobEffectPacket(player.id, effectInstance, false), *targetPlayers)
         }
 
