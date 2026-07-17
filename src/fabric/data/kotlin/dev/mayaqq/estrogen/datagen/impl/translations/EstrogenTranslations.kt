@@ -186,6 +186,9 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         tb.add("subtitles.estrogen.dream_block.enter", "Dream Block entered")
         tb.add("subtitles.estrogen.dream_block.exit", "Dream Block exited")
 
+        // Jukebox Songs
+        tb.add("jukebox_song.estrogen.g03c", "erora - G03C")
+
         // Death
         tb.add("death.attack.girlpower", "%s Girlbossed too hard")
         tb.add("death.attack.girlpower.player", "%s Girlbossed too hard")
