@@ -40,7 +40,7 @@ class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player
 
         if (player.isFallFlying) reverseFallFly(stack, player as AbstractClientPlayer, partialTick)
         else if (player.getSwimAmount(partialTick) > 0.0) reverseSwimming(stack, player as AbstractClientPlayer, partialTick)
-        cancelNormalTransform(stack, player as AbstractClientPlayer, partialTick)
+        //cancelNormalTransform(stack, player as AbstractClientPlayer, partialTick)
 
         stack.mulPose(Axis.XP.rotationDegrees(180F))
         stack.scale(0.75f, 0.75f, 0.75f)
