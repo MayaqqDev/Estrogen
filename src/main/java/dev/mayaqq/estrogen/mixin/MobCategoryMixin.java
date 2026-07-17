@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.fabric.mixins;
+package dev.mayaqq.estrogen.mixin;
 
 import net.minecraft.world.entity.MobCategory;
 import org.spongepowered.asm.mixin.*;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @Mixin(MobCategory.class)
+//TODO: Fabric Enum extensions and Neoforge Enum extensions, though both will probably need cloche stuff
 public class MobCategoryMixin {
     @Shadow
     @Final
