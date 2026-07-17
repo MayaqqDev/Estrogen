@@ -2,7 +2,11 @@ package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.cynosure.blocks.model.ModelBedBlock
 import dev.mayaqq.cynosure.blocks.poi.add
+import dev.mayaqq.cynosure.client.models.poses.CynosureArmPose
+import dev.mayaqq.cynosure.items.extensions.CustomArmPose
 import dev.mayaqq.cynosure.items.extensions.CustomTooltip
+import dev.mayaqq.cynosure.items.extensions.ItemExtension
+import dev.mayaqq.cynosure.items.extensions.registerExtension
 import dev.mayaqq.cynosure.text.CynosureFonts
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.text.TextStyle.color
@@ -11,6 +15,7 @@ import dev.mayaqq.cynosure.text.TextStyle.underlined
 import dev.mayaqq.cynosure.tooltips.CompositeTooltip
 import dev.mayaqq.cynosure.tooltips.DescriptionTooltip
 import dev.mayaqq.estrogen.MOD_ID
+import dev.mayaqq.estrogen.client.content.blockRenderers.cookieJar.CookieJarArmPose
 import dev.mayaqq.estrogen.content.blocks.*
 import dev.mayaqq.estrogen.content.items.DreamBottleItem
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
@@ -55,6 +60,9 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         item("cookie_jar", ::BlockItem) {
             standardTooltip()
             creativeTab(CreativeModeTabs.FUNCTIONAL_BLOCKS, TabPlacement.AFTER(Items.BARREL))
+            onRegister {
+                it.registerExtension(CustomArmPose(::CookieJarArmPose))
+            }
         }
     }
 

@@ -1,4 +1,5 @@
 {
+	"format_version": "1.21.11",
 	"credit": "Made with Blockbench",
 	"textures": {
 		"3": "estrogen:block/cookie_jar/cookie_jar",
@@ -295,12 +296,12 @@
 	],
 	"display": {
 		"thirdperson_righthand": {
-			"rotation": [64, 0, 0],
-			"translation": [-6.75, 5.25, 5]
+			"rotation": [37, 0, 0],
+			"translation": [-5.5, 3.25, 2.25]
 		},
 		"thirdperson_lefthand": {
-			"rotation": [70, 0, 0],
-			"translation": [-6, 5, 6.5]
+			"rotation": [37, 0, 0],
+			"translation": [-5.5, 3.25, 2.25]
 		},
 		"ground": {
 			"translation": [0, 3.75, 0]
@@ -310,38 +311,38 @@
 			"translation": [0, 2, 0]
 		},
 		"head": {
-			"translation": [0, 4.5, 0],
-			"scale": [1.4, 1.4, 1.4]
+			"translation": [0, 4.75, 0],
+			"scale": [1.6, 1.6, 1.6]
 		}
 	},
 	"groups": [
 		{
 			"name": "glass",
 			"origin": [0, 0, 0],
+			"scope": 0,
 			"color": 0,
-			"nbt": "{}",
 			"children": [
 				0,
 				1,
 				{
 					"name": "main",
 					"origin": [0, 0, 0],
+					"scope": 0,
 					"color": 0,
-					"nbt": "{}",
 					"children": [2, 3, 4, 5, 6, 7]
 				},
 				{
 					"name": "borders_side",
 					"origin": [0, 0, 0],
+					"scope": 0,
 					"color": 0,
-					"nbt": "{}",
 					"children": [8, 9, 10, 11]
 				},
 				{
 					"name": "borders_top",
 					"origin": [0, 0, 0],
+					"scope": 0,
 					"color": 0,
-					"nbt": "{}",
 					"children": [12, 13, 14, 15, 16, 17, 18, 19]
 				}
 			]
