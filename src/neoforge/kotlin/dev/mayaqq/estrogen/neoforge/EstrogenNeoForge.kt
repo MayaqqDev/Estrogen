@@ -19,12 +19,5 @@ object EstrogenNeoForge {
             mod.eventBus.register(EstrogenForgeClient)
             EstrogenRenderTypes
         }
-        try {
-            //val field = FluidRegistry::class.java.getDeclaredField("registry")
-            // field.isAccessible = true
-            // (field.get(EstrogenFluids.fluidRegistry) as DeferredRegister<FluidType>).register(MOD_BUS)
-        } catch (e: ReflectiveOperationException) {
-            Estrogen.error("Failed to initialize fluids for Estrogen: ", e)
-        }
     }
 }

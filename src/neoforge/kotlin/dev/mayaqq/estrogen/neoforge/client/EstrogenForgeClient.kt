@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.neoforge.client
 
-import com.mojang.blaze3d.pipeline.RenderTarget
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
 import invoke.kitty.kritter.platform.Mod
 import invoke.kitty.kritter.platform.forge.EntrypointHandler
@@ -10,7 +9,6 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory
 object EstrogenForgeClient {
     @EntrypointHandler("client")
     fun onClientInit(mod: Mod) {
-        RenderTarget
         mod.modContainer!!.registerExtensionPoint(
             IConfigScreenFactory::class.java,
             IConfigScreenFactory { _, screen -> EstrogenMenuScreen(screen) }

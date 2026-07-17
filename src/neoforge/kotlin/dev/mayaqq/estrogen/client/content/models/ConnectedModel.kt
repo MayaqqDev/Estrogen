@@ -1,9 +1,11 @@
-package dev.mayaqq.estrogen.neoforge.client
+package dev.mayaqq.estrogen.client.content.models
 
 import dev.mayaqq.estrogen.client.content.block.ClientDreamBlock
-import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedU
-import dev.mayaqq.estrogen.client.content.models.getUnInterpolatedV
-import dev.mayaqq.estrogen.utils.render.*
+import dev.mayaqq.estrogen.utils.render.copy
+import dev.mayaqq.estrogen.utils.render.getU
+import dev.mayaqq.estrogen.utils.render.getV
+import dev.mayaqq.estrogen.utils.render.setU
+import dev.mayaqq.estrogen.utils.render.setV
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
@@ -18,12 +20,11 @@ import net.neoforged.neoforge.client.model.BakedModelWrapper
 import net.neoforged.neoforge.client.model.data.ModelData
 import net.neoforged.neoforge.client.model.data.ModelProperty
 
-class ForgeConnectedModel(
-    originalModel: BakedModel,
-    connectedMaterial: Material
-) : BakedModelWrapper<BakedModel>(originalModel) {
-
-    private val connectedSprite: TextureAtlasSprite by lazy(LazyThreadSafetyMode.PUBLICATION, connectedMaterial::sprite)
+@Suppress("ACTUAL_WITHOUT_EXPECT")
+actual class ConnectedModel actual constructor(
+    original: BakedModel,
+    val connectedSprite: TextureAtlasSprite
+) : BakedModelWrapper<BakedModel>(original) {
 
     companion object {
         val CONNECTION: ModelProperty<IntArray> = ModelProperty()
