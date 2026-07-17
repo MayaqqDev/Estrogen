@@ -83,12 +83,14 @@ class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player
         if (horizontalDistanceDeltaMovement > 0.0 && horizontalDistanceViewVector > 0.0) {
             val thingimabob1 = (deltaMovementLerped.x * viewVector.x + deltaMovementLerped.z * viewVector.z) / sqrt(horizontalDistanceDeltaMovement * horizontalDistanceViewVector)
             val thingimabob2 = deltaMovementLerped.x * viewVector.z - deltaMovementLerped.z * viewVector.x
-            stack.mulPose(Axis.YP.rotation(-(sign(thingimabob2) * acos(thingimabob1)).toFloat()))
+            stack.mulPose(Axis.YP.rotation((sign(thingimabob2) * acos(thingimabob1)).toFloat()))
         }
 
         if (!entity.isAutoSpinAttack) {
-            stack.mulPose(Axis.XP.rotationDegrees(-(clampedFallFlying * (-90.0f - xRot))))
+            stack.mulPose(Axis.XP.rotationDegrees(clampedFallFlying * (-90.0f - xRot)))
         }
+
+        stack.translate(0.0f, -0.5f, 0.6f)
     }
 
     private fun reverseSwimming(stack: PoseStack, entity: AbstractClientPlayer, partialTick: Float) {
