@@ -82,7 +82,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), RegistryManager b
             ResourceKey.create(Registries.PLACED_FEATURE, id("memorial"))
         )
 
-        info("Injecting Estrogen into your veins!")
+        info("Injecting Estrogen into your body!")
     }
 
     private inline val isFabric get() = currentLoader == Loader.FABRIC
