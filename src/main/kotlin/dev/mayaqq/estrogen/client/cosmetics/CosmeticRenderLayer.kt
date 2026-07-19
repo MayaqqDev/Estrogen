@@ -51,7 +51,7 @@ class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player
         val y = max(Mth.lerp(0.3, yDiff, 0.0), 0.0) * 1.5f
         val z = -Mth.lerp(0.3, hDiff, 0.0) * 1.25f
 
-        stack.translate(0.0, 0.0, z - 1)
+        stack.translate(0.3, 0.0, z - 1.3)
 
         val defaultAnimation: Boolean = cosmetic.animation == null
 
