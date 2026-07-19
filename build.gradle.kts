@@ -304,8 +304,6 @@ cloche {
             modApi(libs.forge.csr)
             modCompileOnlyApi(libs.forge.curios.api())
 
-            legacyClasspath(libs.nullbus)
-
             include(libs.forge.rlib) { exclude(group = "com.teamresourceful", module = "bytecodecs") }
             include(libs.forge.mixinExtras) { isTransitive = false }
             include(libs.forge.flywheel) { isTransitive = false }
