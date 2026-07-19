@@ -7,7 +7,6 @@
     "SpongeBlockMixin"
   ],
   "client": [
-    "client.ModelBakeryMixin",
     "client.compat.jei.ForgePluginFinderMixin"
   ],
   "injectors": {

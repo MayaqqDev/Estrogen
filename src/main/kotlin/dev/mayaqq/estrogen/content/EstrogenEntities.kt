@@ -17,7 +17,7 @@ import net.minecraft.world.level.levelgen.Heightmap
 object EstrogenEntities : Registrar<EntityType<*>> by Registrar(MOD_ID, Registries.ENTITY_TYPE) {
     // "ESTROGEN_MOTH", "moth", 30, true, true, 128
 
-    val MothCategory = MobCategory.valueOf("ESTROGEN_MOTH")
+    val MothCategory = MobCategory.valueOf("MOTH")
 
     val Moth = entity("moth", MothCategory, ::MothEntity) {
         settings {

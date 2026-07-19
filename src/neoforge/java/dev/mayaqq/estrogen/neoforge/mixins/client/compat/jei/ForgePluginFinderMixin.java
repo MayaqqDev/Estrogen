@@ -5,12 +5,14 @@ import dev.mayaqq.estrogen.compat.recipeviewers.api.jei.JeiPluginRegister;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.neoforge.startup.ForgePluginFinder;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(value = ForgePluginFinder.class, priority = 900)
+@Pseudo
+@Mixin(targets = "mezz.jei.neoforge.startup.ForgePluginFinder", priority = 900)
 public class ForgePluginFinderMixin {
     @ModifyReturnValue(
             method = "getModPlugins",
