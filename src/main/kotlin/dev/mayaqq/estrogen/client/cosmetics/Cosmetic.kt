@@ -15,6 +15,8 @@ import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.utils.Couple
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
+import dev.mayaqq.cynosure.utils.forEach
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.cosmetics.assets.CosmeticAsset
@@ -65,7 +67,7 @@ data class Cosmetic(
         overlay: Int
     ) {
         animation?.get()?.let {
-            (model.get() as? Animatable.Provider)?.animate(it, animationTime)
+            model.get()?.forEach { model -> (model as? Animatable.Provider)?.animate(it, animationTime) }
         }
         val (model, outlineModel) = model.get() ?: return
         val texture = texture.get() ?: return
