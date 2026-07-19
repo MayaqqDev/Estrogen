@@ -27,7 +27,7 @@ cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.6+1.20.1"
 flywheel = "1.0.6"
-cynosure = "1.0.0.17"
+cynosure = "1.0.0.20"
 rlib = "3.0.12"
 
 # Fabric Only Dependencies
@@ -89,6 +89,7 @@ forge-rei = { module = "me.shedaniel:RoughlyEnoughItems-neoforge", version.ref =
 forge-mixinExtras = { module = "io.github.llamalad7:mixinextras-neoforge", version.ref = "mixin_extras" }
 forge-devauth = { module = "me.djtheredstoner:DevAuth-neoforge", version.ref = "devauth" }
 forge-kritter = { module = "invoke.kitty.kritter:kritter-1.21.1-neoforge", version.ref = "kritter" }
+forge-kritter-lang = { module = "invoke.kitty.kritter:kritter-1.21.1-neoforge-lang", version.ref = "kritter" }
 forge-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-neoforge-api-1.21.1", version.ref = "flywheel" }
 forge-flywheel = { module = "dev.engine-room.flywheel:flywheel-neoforge-1.21.1", version.ref = "flywheel" }
 forge-csr = { module = "earth.terrarium.common_storage_lib:common-storage-lib-neoforge-1.21.1", version.ref = "csr" }
@@ -97,6 +98,7 @@ forge-curios = { module = "top.theillusivec4.curios:curios-neoforge", version.re
 forge-oculus = { module = "maven.modrinth:oculus", version = "1.20.1-1.8.0" }
 
 # Extra dependencies
+nullbus = { module = "uwu.serenity:nullbus", version = "1.7.3" }
 tca = { module = "net.minecrell:terminalconsoleappender", version = "1.3.0" }
 jcpp = { module = "org.anarres:jcpp", version = "1.4.14" }
 glsltransformer = { module = "io.github.douira:glsl-transformer", version = "2.0.1" }

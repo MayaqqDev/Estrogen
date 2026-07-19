@@ -254,7 +254,7 @@ cloche {
     }
 
     neoforge {
-        mixins.from(file("src/forge/estrogen-forge.mixins.json"))
+        mixins.from(file("src/neoforge/estrogen-forge.mixins.json"))
 
         loaderVersion = libs.versions.neoforge.get()
         minecraftVersion = libs.versions.minecraft.get()
@@ -303,6 +303,8 @@ cloche {
             modApi(libs.forge.rlib)
             modApi(libs.forge.csr)
             modCompileOnlyApi(libs.forge.curios.api())
+
+            legacyClasspath(libs.nullbus)
 
             include(libs.forge.rlib) { exclude(group = "com.teamresourceful", module = "bytecodecs") }
             include(libs.forge.mixinExtras) { isTransitive = false }
