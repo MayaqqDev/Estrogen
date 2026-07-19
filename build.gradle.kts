@@ -388,7 +388,8 @@ tasks.named("runNeoforgeData") {
 }
 
 minecraftRuns.configureEach {
-    jvmArgs("--enable-native-access=ALL-UNNAMED", "--sun-misc-unsafe-memory-access=allow")
+    if (this.name.startsWith("fabric:")) jvmArgs("--sun-misc-unsafe-memory-access=allow")
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
     property("log4j.configurationFile", project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().toAbsolutePath().toString())
 }
 
