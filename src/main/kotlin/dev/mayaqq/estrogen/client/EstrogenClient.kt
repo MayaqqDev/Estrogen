@@ -128,7 +128,7 @@ object EstrogenClientEvents {
     }
 
     @Subscription
-    internal fun ticking(event: ClientTickEvent) {
+    internal fun ticking(event: ClientTickEvent.End) {
         //Meh good enough
         if (!chestConfigSet && McClient.connection != null) {
             val player = McPlayer ?: return

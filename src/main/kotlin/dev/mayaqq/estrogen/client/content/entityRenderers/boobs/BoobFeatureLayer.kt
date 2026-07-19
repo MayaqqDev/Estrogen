@@ -40,8 +40,7 @@ class BoobFeatureLayer(
     override fun render(stack: PoseStack, bufferSource: MultiBufferSource, i: Int, entity: Player, f: Float, g: Float, h: Float, j: Float, k: Float, l: Float) {
         val chestConfig: ChestConfig? = entity.chestConfig
         val entity = entity as AbstractClientPlayer
-        val skin = entity.playerInfo?.skin
-        if (Boob.shouldShow(entity) && chestConfig != null && chestConfig.enabled && entity.playerInfo?.skin != null && !entity.isInvisible) {
+        if (Boob.shouldShow(entity) && chestConfig != null && entity.playerInfo?.skin != null && !entity.isInvisible) {
             // Armor that straight up disables Chest Feature and Armor and everything.
             if (entity.getItemBySlot(EquipmentSlot.CHEST) in EstrogenTags.Items.CHEST_FEATURE_DISABLED) return
 
