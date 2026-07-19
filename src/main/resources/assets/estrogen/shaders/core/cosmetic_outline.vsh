@@ -33,7 +33,7 @@ void main() {
     //vec2 offset = normalize(clipNormal.xy / ScreenSize) * 16.0;
 
     //clipPos.xy += offset * (clipPos.w * 2.0 / ScreenSize);
-    clipPos.z += 0.0026 * clipPos.w;
+    clipPos.z += 0.005;
 
     gl_Position = clipPos;
 

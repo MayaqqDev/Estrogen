@@ -5,29 +5,24 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.JsonOps
 import dev.mayaqq.cynosure.core.VersionHooks.Impl.toKtResult
 import dev.mayaqq.cynosure.utils.coroutines.Background
+import dev.mayaqq.cynosure.utils.result.UNIT
 import dev.mayaqq.cynosure.utils.result.failure
-import dev.mayaqq.cynosure.utils.result.failureIfNull
-import dev.mayaqq.cynosure.utils.result.flatMap
-import dev.mayaqq.cynosure.utils.result.flatten
 import dev.mayaqq.cynosure.utils.result.success
 import dev.mayaqq.estrogen.client.cosmetics.CosmeticAPI
 import dev.mayaqq.estrogen.client.cosmetics.getUrlHash
 import invoke.kitty.kritter.utils.io.readBytesAsync
 import invoke.kitty.kritter.utils.io.writeBytesAsync
 import invoke.kitty.kritter.utils.result.getOr
-import invoke.kitty.kritter.utils.result.runCatchingSpecific
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.future.asDeferred
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.withTimeoutOrNull
 import java.io.IOException
 import java.lang.ref.Cleaner
@@ -36,11 +31,15 @@ import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 import java.nio.file.Path
+import java.util.concurrent.CompletableFuture
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.coroutines.suspendCoroutine
 import kotlin.io.path.createParentDirectories
 import kotlin.io.path.deleteIfExists
 import kotlin.io.path.div
 import kotlin.io.path.exists
+import kotlin.coroutines.intrinsics.suspendCoroutineUninterceptedOrReturn
+import kotlin.coroutines.intrinsics.COROUTINE_SUSPENDED
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
@@ -49,7 +48,7 @@ class CosmeticAsset<T>(
     val url: String,
     val reader: Reader<T>,
     val cacheDir: Path,
-    val hash: String = url.getUrlHash()
+    val id: String = url.getUrlHash()
 ) : AutoCloseable {
 
     private val downloadScope: CoroutineScope = CoroutineScope(Dispatchers.Background)
@@ -69,7 +68,7 @@ class CosmeticAsset<T>(
                 loadOrDownload()
                     .onSuccess { state.set(COMPLETED) }
                     .onFailure {
-                        CosmeticAPI.error("Failed to load cosmetic asset '{}' from '{}'", hash, url, it)
+                        CosmeticAPI.error("Failed to load cosmetic asset '{}' from '{}'", id, url, it)
                         state.set(FAILED)
                     }
                     .getOrNull()
@@ -78,7 +77,7 @@ class CosmeticAsset<T>(
             this.deferred = deferred
             return if (deferred.isCompleted) deferred.getCompleted() else null
         } catch (ex: Exception) {
-            CosmeticAPI.error("Error caught loading cosmetic asset '{}' from '{}'", hash, url, ex)
+            CosmeticAPI.error("Error caught loading cosmetic asset '{}' from '{}'", id, url, ex)
             deferred = CompletableDeferred(null)
             state.set(FAILED)
             return null
@@ -86,17 +85,17 @@ class CosmeticAsset<T>(
     }
 
     private suspend fun loadOrDownload(): Result<T> {
-        val file = cacheDir / hash
+        val file = cacheDir / id
         if (file.exists())
             try {
-                CosmeticAPI.debug("Loading asset '{}' from cache", hash)
+                CosmeticAPI.debug("Loading asset '{}' from cache", id)
                 return reader.decode(file.readBytesAsync())
             } catch (ex: IOException) {
-                CosmeticAPI.warn("Failed to load asset '{} from file '{}', redownloading", hash, file, ex)
+                CosmeticAPI.warn("Failed to load asset '{} from file '{}', redownloading", id, file, ex)
                 try { file.deleteIfExists() } catch (_: IOException) {}
             }
 
-        CosmeticAPI.debug("Downloading asset '{}' from '{}'...", hash, url)
+        CosmeticAPI.debug("Downloading asset '{}' from '{}'...", id, url)
         val bytes = runDownload(url).getOr { return it.failure() }
 
         downloadScope.launch {

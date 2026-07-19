@@ -106,7 +106,7 @@ class CosmeticRenderLayer(renderer: RenderLayerParent<Player, EntityModel<Player
         val yBodyRot = Mth.rotLerp(partialTick, entity.yBodyRotO, entity.yBodyRot)
 
         if (!entity.hasPose(Pose.SLEEPING)) {
-            stack.mulPose(Axis.YP.rotationDegrees(-(180.0f - yBodyRot)))
+            stack.mulPose(Axis.YP.rotationDegrees(180.0f - yBodyRot))
         }
     }
 }

@@ -48,6 +48,7 @@ import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.injection.chestConfig
 import invoke.kitty.kritter.client.events.ClientTickEvents
 import invoke.kitty.kritter.client.events.render.LevelRenderEvent
+import invoke.kitty.kritter.client.keybinds.registerKeyMapping
 import invoke.kitty.kritter.client.model.PreparableModelLoadingPlugin
 import invoke.kitty.kritter.events.LateInitEvent
 import invoke.kitty.kritter.platform.Side
@@ -74,6 +75,7 @@ fun estrogenClient() {
     CynosureSplashLoader.amount += 30
     EstrogenRenderTypes
     CosmeticAPI
+    EstrogenKeybinds
     EstrogenRenderer.initialize()
     HudOverlayRegistry.register(VanillaHud.FROSTBITE, id("dash"), DashOverlay)
     MothElytraModel.LAYER_LOCATION.registerDefinition(MothElytraModel.Companion::createBodyLayer)

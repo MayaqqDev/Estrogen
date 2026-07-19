@@ -232,10 +232,8 @@ cloche {
         metadata {
             entrypoint("kritter:init", "dev.mayaqq.estrogen.fabric.EstrogenFabric::init")
             entrypoint("kritter:init", "dev.mayaqq.estrogen.Estrogen::init")
-            entrypoint("kritter:client") {
-                //adapter.set("kotlin")
-                value.set("dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric::init")
-            }
+            entrypoint("kritter:client", "dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric::init")
+            entrypoint("kritter:client", "dev.mayaqq.estrogen.client.EstrogenClientKt::estrogenClient")
             entrypoint("modmenu") {
                 adapter.set("kotlin")
                 value.set("dev.mayaqq.estrogen.fabric.compat.ModMenuIntegration")
