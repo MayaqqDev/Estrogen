@@ -12,7 +12,7 @@
 <a href="https://discord.gg/hue">
     <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-plural_vector.svg&w=75&h=75" alt="Discord">
 </a>
-<a href="https://github.com/MayaqqDev/Estrogen/wiki">
+<a href="https://modded.wiki/w/Estrogen">
     <img src="https://wsrv.nl/?url=https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/documentation/ghpages_vector.svg&w=75&h=75" alt="Wiki">
 </a>
 <a href="https://patreon.com/mayaqq">

@@ -77,7 +77,7 @@ cloche {
         url = "https://github.com/MayaqqDev/Estrogen"
         sources = "https://github.com/MayaqqDev/Estrogen"
         author("Mayaqq")
-        contributor("https://github.com/MayaqqDev/Estrogen/wiki/Credits")
+        contributor("https://modded.wiki/w/Estrogen")
 
         dependency {
             modId = "cynosure"
@@ -163,12 +163,12 @@ cloche {
             metadata {
                 custom("modmenu", mapOf(
                     "links" to mapOf(
-                        "estrogen.credits" to "https://github.com/MayaqqDev/Estrogen/wiki/Credits",
+                        "estrogen.credits" to "https://modded.wiki/w/Estrogen",
                         "modmenu.discord" to "https://discord.gg/hue",
                         "modmenu.kofi" to "https://ko-fi.com/mayaqq",
                         "modmenu.curseforge" to "https://www.curseforge.com/minecraft/mc-mods/estrogen",
                         "modmenu.modrinth" to "https://modrinth.com/mod/estrogen",
-                        "modmenu.wiki" to "https://github.com/MayaqqDev/Estrogen/wiki"
+                        "modmenu.wiki" to "https://modded.wiki/w/Estrogen"
                     )
                 ))
                 custom("cynosure", mapOf(
