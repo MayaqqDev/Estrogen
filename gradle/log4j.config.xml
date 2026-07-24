@@ -74,7 +74,7 @@
             <AppenderRef ref="LatestFile" level="info"/>
             <AppenderRef ref="ServerGuiConsole" level="info"/>
         </Root>
-        <Logger level="all" name="Estrogen">
+        <Logger level="all" name="Estrogen" additivity="false">
             <AppenderRef ref="DebugFile" level="debug"/>
             <AppenderRef ref="SysOut" level="all"/>
             <AppenderRef ref="LatestFile" level="all"/>
