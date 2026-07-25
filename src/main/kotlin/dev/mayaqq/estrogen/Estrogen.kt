@@ -28,6 +28,7 @@ import dev.mayaqq.estrogen.features.minigame.Minigame
 import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLoader
 import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLootFunction
 import dev.mayaqq.estrogen.network.EstrogenNetwork
+import invoke.kitty.kritter.events.LateInitEvent
 import invoke.kitty.kritter.platform.forge.EntrypointHandler
 import invoke.kitty.kritter.resources.registerReloadListener
 import invoke.kitty.kritter.utils.clientOnly
@@ -71,7 +72,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
         EstrogenEffects.register()
         AdvancementTriggers.register()
         EstrogenFluids.register()
-        EstrogenFluids.fluidRegistry.init()
+        LateInitEvent.subscribe { EstrogenFluids.fluidRegistry.init() }
         EstrogenPotions.register()
         EstrogenItems.register()
         EstrogenCreativeTab.register()

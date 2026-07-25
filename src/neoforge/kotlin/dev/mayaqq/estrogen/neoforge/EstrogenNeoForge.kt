@@ -11,9 +11,6 @@ import net.minecraft.client.Minecraft
 object EstrogenNeoForge {
     @EntrypointHandler("init")
     fun init(mod: Mod) {
-        clientOnly {
-            mod.eventBus.register(EstrogenForgeClient)
-            EstrogenRenderTypes
-        }
+
     }
 }
