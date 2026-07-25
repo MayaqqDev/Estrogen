@@ -1,0 +1,18 @@
+{
+  "block.createestrogen.centrifuge": "원심분리기",
+  "block.createestrogen.moth_seat": "나방 의자",
+  "create.tooltip.speedRequirement.max": "최대",
+  "createestrogen.ponder.basic.header": "원심분리기 사용법",
+  "createestrogen.ponder.basic.text_1": "원심분리기는 자체적인 인벤토리를 갖지 않기 때문에, 사용하려면 근처에 유체를 담을 수 있는 인벤토리가 필요합니다!",
+  "createestrogen.ponder.basic.text_2": "유체는 아랫면으로 들어가며ㅡ",
+  "createestrogen.ponder.basic.text_3": "결과물은 위로 배출됩니다",
+  "createestrogen.ponder.intro.header": "원심분리기의 요구 조건",
+  "createestrogen.ponder.intro.text_1": "원심분리기를 작동시키려면 최대 속도(256RPM)를 요구합니다!",
+  "createestrogen.recipe.centrifuging": "원심분리",
+  "emi.category.createestrogen.centrifuging": "원심분리기",
+  "item.createestrogen.incomplete_estrogen_patches": "미완성 에스트로겐 패치",
+  "item.createestrogen.incomplete_uwu": "미완성 :3",
+  "item.createestrogen.package": "에스트로겐 알약 패키치",
+  "item.createestrogen.used_filter": "샤용한 필터",
+  "itemGroup.createestrogen.createestrogen": "Create: Estrogen"
+}
