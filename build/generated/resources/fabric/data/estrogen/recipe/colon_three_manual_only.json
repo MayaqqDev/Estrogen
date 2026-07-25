@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "estrogen:uwu"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "CEC",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "estrogen:colon_three"
+  },
+  "show_notification": false
+}

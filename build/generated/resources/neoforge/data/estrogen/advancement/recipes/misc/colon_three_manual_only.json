@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "estrogen:colon_three_manual_only"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "never": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "never"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "estrogen:colon_three_manual_only"
+    ]
+  }
+}

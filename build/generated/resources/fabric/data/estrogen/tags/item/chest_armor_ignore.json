@@ -1,0 +1,50 @@
+{
+  "values": [
+    "minecraft:elytra",
+    "estrogen:moth_elytra",
+    {
+      "id": "mekanism:hdpe_elytra",
+      "required": false
+    },
+    {
+      "id": "deeperdarker:soul_elytra",
+      "required": false
+    },
+    {
+      "id": "mekanism:jetpack",
+      "required": false
+    },
+    {
+      "id": "silentgear:elytra",
+      "required": false
+    },
+    {
+      "id": "gtceu:liquid_fuel_jetpack",
+      "required": false
+    },
+    {
+      "id": "gtceu:electric_jetpack",
+      "required": false
+    },
+    {
+      "id": "gtceu:advanced_electric_jetpack",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:savanna_hood",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:snowy_hood",
+      "required": false
+    },
+    {
+      "id": "endermanoverhaul:badlands_hood",
+      "required": false
+    },
+    {
+      "id": "ironjetpacks:jetpack",
+      "required": false
+    }
+  ]
+}

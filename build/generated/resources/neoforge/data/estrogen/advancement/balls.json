@@ -1,0 +1,35 @@
+{
+  "parent": "estrogen:root",
+  "criteria": {
+    "balls": {
+      "conditions": {
+        "items": [
+          {
+            "items": "estrogen:balls"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.estrogen.balls.description"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "estrogen:balls"
+    },
+    "title": {
+      "translate": "advancement.estrogen.balls.title"
+    }
+  },
+  "requirements": [
+    [
+      "balls"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": {
+      "item": "estrogen:moth_wool"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "MMM",
+    "WWW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "estrogen:moth_bed"
+  }
+}

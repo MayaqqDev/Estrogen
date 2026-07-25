@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:copy_components",
+      "include": [
+        "estrogen:colors"
+      ],
+      "source": "block_entity"
+    }
+  ],
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "estrogen:dreamcatcher"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

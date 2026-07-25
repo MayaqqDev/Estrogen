@@ -1,0 +1,34 @@
+{
+  "parent": "estrogen:liquid_estrogen",
+  "criteria": {
+    "estrogen_patches": {
+      "conditions": {
+        "items": [
+          {
+            "items": "estrogen:estrogen_patches"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.estrogen.estrogen_patches.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "estrogen:estrogen_patches"
+    },
+    "title": {
+      "translate": "advancement.estrogen.estrogen_patches.title"
+    }
+  },
+  "requirements": [
+    [
+      "estrogen_patches"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

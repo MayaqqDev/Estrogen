@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "G": {
+      "tag": "c:glass_panes"
+    },
+    "Z": {
+      "tag": "c:nuggets/iron"
+    }
+  },
+  "pattern": [
+    "GZG",
+    "G G",
+    "GGG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "estrogen:cookie_jar"
+  }
+}
