@@ -77,7 +77,7 @@ class FluidBuilder<S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFlui
     }
 
     fun renderType(renderType: () -> RenderType) {
-        onRegister {
+        onSetup {
             clientOnly {
                 RenderLayerMap.putFluids(renderType.invoke(), it.source, it.flowing)
             }
