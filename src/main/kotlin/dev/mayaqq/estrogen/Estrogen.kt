@@ -72,7 +72,6 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
         EstrogenEffects.register()
         AdvancementTriggers.register()
         EstrogenFluids.register()
-        LateInitEvent.subscribe { EstrogenFluids.fluidRegistry.init() }
         EstrogenPotions.register()
         EstrogenItems.register()
         EstrogenCreativeTab.register()
