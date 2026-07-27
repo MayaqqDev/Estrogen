@@ -251,6 +251,7 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         tb.add(EstrogenAttributes.BoobGrowingStartTime.holder, "Upper Body Start Time")
         tb.add(EstrogenAttributes.BoobInitialSize.holder, "Upper Body initial size")
         tb.add(EstrogenAttributes.FallDamageResistance.holder, "Fall Damage Resistance")
+        tb.add(EstrogenAttributes.ShowBoobs.holder, "Upper Body Visibility")
 
         // Display Sources
         tb.add("estrogen.display_source.entity_name", "Entity Name")
