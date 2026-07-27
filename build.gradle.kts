@@ -58,7 +58,9 @@ repositories {
     //maven(url = "https://maven.tterrag.com") { name = "Tterrag" }
     maven(url = "https://jitpack.io/") { name = "Jitpack maven"; description = "Mixin Extras & Fabric ASM" } //NOTE: LEAVE THIS AS LAST
     mavenCentral()
-    mavenLocal()
+    if (providers.gradleProperty("use_maven_local").orElse("false").get().toBoolean()) {
+        mavenLocal()
+    }
 }
 
 val item_viewer: String by project
@@ -387,13 +389,23 @@ tasks.named("runNeoforgeData") {
 }
 
 minecraftRuns.configureEach {
-    if (this.name.startsWith("fabric:")) jvmArgs("--sun-misc-unsafe-memory-access=allow")
     jvmArgs("--enable-native-access=ALL-UNNAMED")
     property("log4j.configurationFile", project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().toAbsolutePath().toString())
 }
 
 fun Provider<MinimalExternalModuleDependency>.api(): String {
     return "${this.get().module}:${this.get().version}:api"
+}
+
+// Produces only the two distributable loader artifacts for Nix and CI.
+tasks.register<Sync>("nixReleaseArtifacts") {
+    val fabricArtifact = tasks.named<Jar>("fabricIncludeJar")
+    val neoforgeArtifact = tasks.named<Jar>("neoforgeIncludeJar")
+
+    dependsOn(fabricArtifact, neoforgeArtifact)
+    from(fabricArtifact.flatMap(Jar::getArchiveFile))
+    from(neoforgeArtifact.flatMap(Jar::getArchiveFile))
+    into(layout.buildDirectory.dir("nix-artifacts"))
 }
 
 // Publishing
