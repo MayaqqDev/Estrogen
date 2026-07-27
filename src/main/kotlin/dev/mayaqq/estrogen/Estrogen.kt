@@ -11,6 +11,7 @@ import dev.mayaqq.cynosure.utils.tag
 import dev.mayaqq.estrogen.api.EstrogenEntrypoint
 import dev.mayaqq.estrogen.api.EstrogenFlag
 import dev.mayaqq.estrogen.api.EstrogenModule
+import dev.mayaqq.estrogen.api.ScreenProvider
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
 import dev.mayaqq.estrogen.client.hookClientEventBus
 import dev.mayaqq.estrogen.compat.cobblemon.ModlessCobblemonCompat
@@ -22,6 +23,7 @@ import dev.mayaqq.estrogen.content.blocks.CauldronInteractions
 import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import dev.mayaqq.estrogen.content.effects.EstrogenEffect
 import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
+import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipeEvents
 import dev.mayaqq.estrogen.features.boobs.ServerSideBoobHandling
 import dev.mayaqq.estrogen.features.extra.BoobPeople
 import dev.mayaqq.estrogen.features.minigame.Minigame
@@ -52,8 +54,7 @@ inline fun mcid(path: String) = identifier("minecraft", path)
 inline fun cid(path: String) = identifier("c", path)
 
 @EventSubscriber
-@EstrogenEntrypoint
-object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
+object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME) {
 
     @EntrypointHandler("init")
     fun init() {
@@ -100,12 +101,6 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
 
     }
 
-    // Estrogen Module Info stuff
-    override fun createConfigScreen(): (Screen) -> Screen = { EstrogenMenuScreen(it) }
-    override val flags: Array<EstrogenFlag> = arrayOf()
-    override val color: Color = LightBlue
-    override val description: String = "Base Estrogen, contains some recipes + a build-in datapack for vanilla integration."
-
     fun hookEventBus() {
         listOf(
             Estrogen,
@@ -115,7 +110,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
             CauldronInteractions,
             DreamBlock,
             EstrogenEffect,
-            EntityInteractionRecipe,
+            EntityInteractionRecipeEvents,
             ServerSideBoobHandling,
             BoobPeople,
             Minigame,

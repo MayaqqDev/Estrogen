@@ -44,7 +44,7 @@ class ModulesScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.of("e
             EstrogenButton.Builder(
                 ModInfoRenderer(mod, module)
             ) {
-                McClient.setScreen(module.createConfigScreen().invoke(this))
+                McClient.setScreen(module.createConfigScreen().makeScreen(this))
             }.bounds(20 + ((buttonWidth + 10) * (index)) - scrollProgress.toInt(), 40, buttonWidth, height - 80).color(module.color)
                 .buildAndAdd()
         }

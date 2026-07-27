@@ -44,7 +44,7 @@ class ModulesList(val screen: ModulesScreen) : ContainerObjectSelectionList<Modu
     class ModuleEntry(module: ModuleContainer, modulesList: ModulesList) : Entry() {
 
         val button = EstrogenButton.Builder(ModuleButtonRenderer(module)) {
-            McClient.setScreen(module.module.createConfigScreen().invoke(modulesList.screen))
+            McClient.setScreen(module.module.createConfigScreen().makeScreen(modulesList.screen))
         }.bounds(0, 0, modulesList.rowWidth, 150).build()
 
         override fun render(graphics: GuiGraphics, index: Int,

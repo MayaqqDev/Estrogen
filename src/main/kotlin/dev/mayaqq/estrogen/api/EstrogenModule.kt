@@ -6,7 +6,7 @@ import invoke.kitty.kritter.utils.color.Color
 import net.minecraft.client.gui.screens.Screen
 
 public interface EstrogenModule {
-    public fun createConfigScreen(): (Screen) -> Screen
+    public fun createConfigScreen(): ScreenProvider
 
     public val flags: Array<EstrogenFlag>
 
@@ -17,4 +17,8 @@ public interface EstrogenModule {
     public fun hasFlag(flag: EstrogenFlag): Boolean {
         return flags.contains(flag) || flags.any { it.inheritedFlags.contains(flag) }
     }
+}
+
+public fun interface ScreenProvider {
+    fun makeScreen(previous: Screen): Screen
 }

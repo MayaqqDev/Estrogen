@@ -240,7 +240,7 @@ cloche {
             }
             entrypoint("estrogen") {
                 adapter.set("kotlin")
-                value.set("dev.mayaqq.estrogen.Estrogen")
+                value.set("dev.mayaqq.estrogen.EstrogenModuleModule")
             }
             entrypoint("crv") {
                 adapter.set("kotlin")
@@ -282,7 +282,7 @@ cloche {
             }
             server {
                 runDir("runServer")
-                jvmArgs("--nogui")
+                args("--nogui")
             }
             data() // NEEDED FOR GENERATED DATA TO ATTACH ON FORGE! SCREAM AT ASHLEY FOR THIS
         }
