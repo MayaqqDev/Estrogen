@@ -30,3 +30,5 @@ accessible field net/minecraft/client/gui/components/AbstractWidget isHovered Z
 # Thank Adrian
 accessible field earth/terrarium/common_storage_lib/fluid/impl/SimpleFluidStorage update Ljava/lang/Runnable;
 accessible field earth/terrarium/common_storage_lib/fluid/impl/SimpleFluidStorage save Ljava/lang/Runnable;
+# Loot stuff
+accessible method net/minecraft/world/level/storage/loot/functions/LootItemConditionalFunction simpleBuilder (Ljava/util/function/Function;)Lnet/minecraft/world/level/storage/loot/functions/LootItemConditionalFunction$Builder;
