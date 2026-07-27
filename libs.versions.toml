@@ -2,7 +2,7 @@
 
 # Stuff
 kotlin = "2.4.0"
-cloche = "0.19.9"
+cloche = "0.19.12"
 
 # Minecraft
 minecraft = "1.21.1"
@@ -10,8 +10,8 @@ fabric = "0.18.5"
 
 # Common Dependencies
 kritter = "2.0.0-alpha.48"
-kotlinx-serialization="1.8.0"
-kotlinx-coroutines="1.10.1"
+kotlinx-serialization = "1.8.0"
+kotlinx-coroutines = "1.10.1"
 parchment = "2024.11.17"
 devauth = "1.2.1"
 trinkets = "3.10.0"
@@ -35,12 +35,12 @@ fapi = "0.116.12"
 modmenu = "11.0.4"
 cardinal = "6.1.3"
 je-fabric = "19.27.0.343-fabric"
-flk = "1.13.7+kotlin.2.2.21"
+flk = "1.13.12+kotlin.2.4.0"
 
 # Neoforge Only Dependencies
 neoforge = "21.1.233"
 jei-forge = "19.27.0.343-neoforge"
-kff = "5.11.0"
+kff = "5.12.0"
 curios = "9.5.1+1.21.1"
 
 # Extra Dependencies
@@ -50,8 +50,8 @@ curios = "9.5.1+1.21.1"
 
 # Common Dependencies
 mixin = { module = "org.spongepowered:mixin", version.ref = "mixin" }
-ears = { module = "com.unascribed:ears-api", version.ref="ears" }
-figura = { module = "org.figuramc:figura-common-mojmap", version.ref="figura"}
+ears = { module = "com.unascribed:ears-api", version.ref = "ears" }
+figura = { module = "org.figuramc:figura-common-mojmap", version.ref = "figura" }
 createNewAge = { module = "maven.modrinth:create-new-age", version.ref = "new_age" }
 mixinExtras = { module = "io.github.llamalad7:mixinextras-common", version.ref = "mixin_extras" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
@@ -69,7 +69,7 @@ fabric-jei = { module = "maven.modrinth:jei", version.ref = "je-fabric" }
 fabric-modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
 fabric-cardinalComponents-base = { group = "dev.onyxstudios.cardinal-components-api", name = "cardinal-components-base", version.ref = "cardinal" }
 fabric-cardinalComponents-entity = { group = "dev.onyxstudios.cardinal-components-api", name = "cardinal-components-entity", version.ref = "cardinal" }
-fabric-iris = { module = "maven.modrinth:iris", version.ref="iris" }
+fabric-iris = { module = "maven.modrinth:iris", version.ref = "iris" }
 fabric-devauth = { module = "me.djtheredstoner:DevAuth-fabric", version.ref = "devauth" }
 fabric-kritter = { module = "invoke.kitty.kritter:kritter-1.21.1-fabric", version.ref = "kritter" }
 fabric-flywheel-api = { module = "dev.engine-room.flywheel:flywheel-fabric-api-1.21.1", version.ref = "flywheel" }
@@ -104,7 +104,10 @@ jcpp = { module = "org.anarres:jcpp", version = "1.4.14" }
 glsltransformer = { module = "io.github.douira:glsl-transformer", version = "2.0.1" }
 
 [bundles]
-fabric-cardinalComponents = [ "fabric-cardinalComponents-base", "fabric-cardinalComponents-entity" ]
+fabric-cardinalComponents = [
+    "fabric-cardinalComponents-base",
+    "fabric-cardinalComponents-entity",
+]
 
 [plugins]
 cloche = { id = "earth.terrarium.cloche", version.ref = "cloche" }

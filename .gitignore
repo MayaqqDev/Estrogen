@@ -139,3 +139,10 @@ runServer/
 !gradle-wrapper.jar
 /descriptions/
 /.kotlin/
+
+# direnv
+.direnv/
+
+# nix
+result/
+result
