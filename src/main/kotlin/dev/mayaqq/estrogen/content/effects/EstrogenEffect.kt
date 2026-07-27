@@ -113,7 +113,6 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         }
 
         fun handleEffectAddition(entity: LivingEntity, amplifier: Int) {
-            Estrogen.info("Estrogen Effect Added")
             if (entity !is Player) return
 
             if (entity is ServerPlayer) {
@@ -157,7 +156,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
 
         @Subscription
         internal fun LivingEntityEvent.EffectApply.onApplyEffect() {
-            if (this.oldInstance == null && this.effect == EstrogenEffects.Estrogen.get() && entity is Player) {
+            if (this.oldInstance?.amplifier != this.newInstance.amplifier && this.effect == EstrogenEffects.Estrogen.get() && entity is Player) {
                 if (!Boob.shouldShow(entity as Player)) {
                     entity.getAttribute(EstrogenAttributes.BoobInitialSize.holder)?.baseValue = 0.0
                     entity.getAttribute(EstrogenAttributes.BoobGrowingStartTime.holder)?.baseValue = -1.0
