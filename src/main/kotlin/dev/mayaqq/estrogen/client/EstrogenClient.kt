@@ -52,6 +52,7 @@ import invoke.kitty.kritter.client.keybinds.registerKeyMapping
 import invoke.kitty.kritter.client.model.PreparableModelLoadingPlugin
 import invoke.kitty.kritter.events.LateInitEvent
 import invoke.kitty.kritter.platform.Side
+import invoke.kitty.kritter.platform.forge.EntrypointHandler
 import invoke.kitty.kritter.resources.registerReloadListener
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer
@@ -70,6 +71,7 @@ const val THIGH_HIGH_ITEM_TEXTURES = "textures/item/thigh_highs"
 
 var chestConfigSet = false
 
+@EntrypointHandler("client")
 fun estrogenClient() {
     EstrogenClientConfig.initialize()
     CynosureSplashLoader.amount += 30
@@ -87,8 +89,10 @@ fun estrogenClient() {
 
     registerReloadListener(PackType.CLIENT_RESOURCES, id("estrogen_armor_data"), BreastArmorDataLoader)
 
-    if (isModLoaded("ears")) EarsCompat.boob()
-    if (isModLoaded("roughlyenoughitems")) ReiPluginRegister.register()
+    LateInitEvent.subscribe {
+        if (isModLoaded("ears")) EarsCompat.boob()
+        if (isModLoaded("roughlyenoughitems")) ReiPluginRegister.register()
+    }
 
     EstrogenModels.registerConnected(ClientDreamBlock.DORMANT_MODEL, ClientDreamBlock.DORMANT_CONNECTED_TEXTURE)
 }
