@@ -1,11 +1,7 @@
 package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.estrogen.MOD_ID
-import dev.mayaqq.estrogen.client.content.particles.ColoredEmissiveCloudParticle
-import dev.mayaqq.estrogen.client.content.particles.DashTrailParticle
-import dev.mayaqq.estrogen.client.content.particles.DreamingParticle
-import dev.mayaqq.estrogen.client.content.particles.FallingStarParticle
-import dev.mayaqq.estrogen.client.content.particles.MothFuzzParticle
+import dev.mayaqq.estrogen.client.content.particles.*
 import dev.mayaqq.estrogen.content.particles.ColoredCloudParticleOptions
 import dev.mayaqq.estrogen.content.particles.DashTrailParticleOptions
 import invoke.kitty.kritter.registry.api.Registrar

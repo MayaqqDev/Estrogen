@@ -5,7 +5,6 @@ import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.content.EstrogenTags
 import dev.mayaqq.estrogen.injection.chestConfig
-import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.EquipmentSlot

@@ -6,7 +6,6 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.put
 import net.msrandom.minecraftcodev.core.utils.toPath
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import kotlin.io.path.absolutePathString
 
 buildscript {
     dependencies {

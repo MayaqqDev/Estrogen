@@ -4,7 +4,6 @@ import dev.mayaqq.estrogen.content.EstrogenEntities
 import dev.mayaqq.estrogen.content.EstrogenTags
 import dev.mayaqq.estrogen.datagen.api.platform.PlatformHelper
 import dev.mayaqq.estrogen.datagen.api.tags.BaseTagProvider
-import invoke.kitty.kritter.registry.api.entry.holder
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.minecraft.core.HolderLookup
 import net.minecraft.tags.EntityTypeTags

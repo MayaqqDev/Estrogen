@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.content.blocks.fluid
 
 import com.teamresourceful.resourcefullib.common.fluid.data.FluidData
 import dev.mayaqq.estrogen.content.EstrogenEffects
-import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.core.BlockPos
 import net.minecraft.world.effect.MobEffectInstance

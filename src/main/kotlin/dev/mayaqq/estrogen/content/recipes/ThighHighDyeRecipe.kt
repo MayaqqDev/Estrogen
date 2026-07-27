@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.content.recipes
 
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenItems
 import dev.mayaqq.estrogen.content.EstrogenRecipeSerializers
 import dev.mayaqq.estrogen.content.items.ThighHighsItem

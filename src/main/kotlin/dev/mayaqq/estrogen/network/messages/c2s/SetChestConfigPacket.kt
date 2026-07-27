@@ -7,12 +7,10 @@ import dev.mayaqq.estrogen.content.effects.EstrogenEffect
 import dev.mayaqq.estrogen.injection.chestConfig
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigPacket
-import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.entry.holder
 import kotlinx.serialization.Serializable
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ServerPlayer
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.toKotlinUuid
 
 @Serializable @JvmRecord

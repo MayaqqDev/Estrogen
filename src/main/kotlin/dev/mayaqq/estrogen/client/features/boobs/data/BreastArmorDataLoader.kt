@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.client.features.boobs.data
 
-import dev.mayaqq.estrogen.Estrogen
 import invoke.kitty.kritter.resources.JsonDataLoader
 import invoke.kitty.kritter.serialization.KCodec
 import net.minecraft.resources.ResourceLocation

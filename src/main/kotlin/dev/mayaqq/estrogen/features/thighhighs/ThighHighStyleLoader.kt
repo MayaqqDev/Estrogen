@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.features.thighhighs
 
-import com.google.gson.JsonParseException
 import com.google.gson.JsonParser
 import com.mojang.serialization.Codec
 import com.mojang.serialization.JsonOps
@@ -13,16 +12,13 @@ import dev.mayaqq.estrogen.content.EstrogenItems
 import dev.mayaqq.estrogen.id
 import invoke.kitty.kritter.events.DataPackSyncEvent
 import invoke.kitty.kritter.resources.AsyncResourceReloadListener
-import invoke.kitty.kritter.serialization.json.GsonElement
 import invoke.kitty.kritter.utils.coroutines.mapAsync
 import invoke.kitty.kritter.utils.result.flatMap
-import invoke.kitty.kritter.utils.result.runCatchingSpecific
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.sync.Semaphore
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.packs.resources.ResourceManager
 import net.minecraft.util.profiling.ProfilerFiller
-import kotlin.collections.flatMap
 
 
 object ThighHighStyleLoader : AsyncResourceReloadListener<List<ThighHighStyleLoader.StyleInstance?>> {

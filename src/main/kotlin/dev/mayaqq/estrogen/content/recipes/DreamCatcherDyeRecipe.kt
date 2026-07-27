@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.content.recipes
 
 import dev.mayaqq.estrogen.content.EstrogenRecipeSerializers
-import dev.mayaqq.estrogen.content.EstrogenRecipes
 import dev.mayaqq.estrogen.content.items.DreamCatcherItem
 import dev.mayaqq.estrogen.utils.TriColor
 import net.minecraft.core.HolderLookup

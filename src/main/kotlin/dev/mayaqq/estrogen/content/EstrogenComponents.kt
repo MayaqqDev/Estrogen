@@ -11,7 +11,6 @@ import invoke.kitty.kritter.registry.api.builder.entry
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.codec.ByteBufCodecs
-import net.minecraft.network.codec.StreamCodec
 
 object EstrogenComponents : Registrar<DataComponentType<*>> by Registrar(MOD_ID, Registries.DATA_COMPONENT_TYPE) {
     val TriColorComponent: DataComponentType<TriColor> by entry("colors",

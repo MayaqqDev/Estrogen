@@ -3,7 +3,6 @@
 package dev.mayaqq.estrogen.content.blocks
 
 import com.mojang.serialization.MapCodec
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenBlockEntities
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.blockEntities.DreamCatcherBlockEntity
@@ -13,7 +12,6 @@ import invoke.kitty.kritter.blockEntity.BlockWithEntity
 import invoke.kitty.kritter.platform.common.BlockColorProvider
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.White
-import invoke.kitty.kritter.utils.color.toColor
 import invoke.kitty.kritter.utils.extensions.isOf
 import invoke.kitty.kritter.utils.shapes.allHorizontalDirections
 import net.minecraft.core.BlockPos

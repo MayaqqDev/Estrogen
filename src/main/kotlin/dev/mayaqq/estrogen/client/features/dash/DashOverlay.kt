@@ -15,7 +15,6 @@ import dev.mayaqq.estrogen.client.features.dash.ClientDash.isOnCooldown
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.utils.EstrogenColors
-import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.entry.holder
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.floatBlue

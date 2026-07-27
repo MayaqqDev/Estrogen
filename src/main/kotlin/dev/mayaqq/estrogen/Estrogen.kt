@@ -3,16 +3,10 @@ package dev.mayaqq.estrogen
 
 import dev.mayaqq.cynosure.biome.BiomeModifiers
 import dev.mayaqq.cynosure.core.identifier
-import dev.mayaqq.cynosure.data.registerDatapackReloadListener
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.MainBus
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.tag
-import dev.mayaqq.estrogen.api.EstrogenEntrypoint
-import dev.mayaqq.estrogen.api.EstrogenFlag
-import dev.mayaqq.estrogen.api.EstrogenModule
-import dev.mayaqq.estrogen.api.ScreenProvider
-import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
 import dev.mayaqq.estrogen.client.hookClientEventBus
 import dev.mayaqq.estrogen.compat.cobblemon.ModlessCobblemonCompat
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
@@ -22,7 +16,6 @@ import dev.mayaqq.estrogen.content.advancements.triggers.KilledWithEffectEvents
 import dev.mayaqq.estrogen.content.blocks.CauldronInteractions
 import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import dev.mayaqq.estrogen.content.effects.EstrogenEffect
-import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
 import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipeEvents
 import dev.mayaqq.estrogen.features.boobs.ServerSideBoobHandling
 import dev.mayaqq.estrogen.features.extra.BoobPeople
@@ -30,14 +23,10 @@ import dev.mayaqq.estrogen.features.minigame.Minigame
 import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLoader
 import dev.mayaqq.estrogen.features.thighhighs.ThighHighStyleLootFunction
 import dev.mayaqq.estrogen.network.EstrogenNetwork
-import invoke.kitty.kritter.events.LateInitEvent
 import invoke.kitty.kritter.platform.forge.EntrypointHandler
 import invoke.kitty.kritter.resources.registerReloadListener
 import invoke.kitty.kritter.utils.clientOnly
-import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.ForestGreen
-import invoke.kitty.kritter.utils.color.LightBlue
-import net.minecraft.client.gui.screens.Screen
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.server.packs.PackType

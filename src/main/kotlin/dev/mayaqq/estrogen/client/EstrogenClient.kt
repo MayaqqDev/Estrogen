@@ -3,22 +3,18 @@ package dev.mayaqq.estrogen.client
 
 //import dev.mayaqq.estrogen.config.Instance
 import dev.mayaqq.cynosure.client.entity.registerDefinition
-import dev.mayaqq.cynosure.client.events.ClientReloadListenerEvent
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.events.ParticleRenderTypeRegistrationEvent
 import dev.mayaqq.cynosure.client.events.entity.RenderLayerRegistrationEvent
-import dev.mayaqq.cynosure.client.keymapping.KeyMappingRegistry
 import dev.mayaqq.cynosure.client.render.gui.HudOverlayRegistry
 import dev.mayaqq.cynosure.client.render.gui.VanillaHud
 import dev.mayaqq.cynosure.client.splash.data.CynosureSplashLoader
 import dev.mayaqq.cynosure.client.utils.DefaultSkin
 import dev.mayaqq.cynosure.core.isModLoaded
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.MainBus
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.helpers.McPlayer
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.content.EstrogenRenderer
@@ -47,11 +43,8 @@ import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.injection.chestConfig
 import invoke.kitty.kritter.client.events.ClientTickEvents
-import invoke.kitty.kritter.client.events.render.LevelRenderEvent
-import invoke.kitty.kritter.client.keybinds.registerKeyMapping
 import invoke.kitty.kritter.client.model.PreparableModelLoadingPlugin
 import invoke.kitty.kritter.events.LateInitEvent
-import invoke.kitty.kritter.platform.Side
 import invoke.kitty.kritter.platform.forge.EntrypointHandler
 import invoke.kitty.kritter.resources.registerReloadListener
 import net.minecraft.client.Minecraft

@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.compat.recipeviewers.api.jei
 
 import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.core.identifier
-import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe
@@ -25,7 +24,6 @@ import mezz.jei.api.runtime.IJeiRuntime
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey

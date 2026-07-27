@@ -16,7 +16,6 @@ import invoke.kitty.kritter.utils.color.floatGreen
 import invoke.kitty.kritter.utils.color.floatRed
 import net.minecraft.client.Camera
 import net.minecraft.client.Minecraft
-import net.minecraft.client.model.PlayerModel
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.particle.Particle
 import net.minecraft.client.particle.ParticleRenderType

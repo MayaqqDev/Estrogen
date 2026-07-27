@@ -1,8 +1,5 @@
 package dev.mayaqq.estrogen.client.features.dash
 
-import dev.mayaqq.cynosure.client.events.ClientTickEvent
-import dev.mayaqq.cynosure.events.api.EventSubscriber
-import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.client.content.EstrogenKeybinds
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
@@ -14,7 +11,6 @@ import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.c2s.DashAirtimeParticlesPacket
 import dev.mayaqq.estrogen.network.messages.c2s.DashPacket
 import dev.mayaqq.estrogen.utils.holder
-import invoke.kitty.kritter.platform.Side
 import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.client.Minecraft
 import net.minecraft.client.player.LocalPlayer
@@ -22,7 +18,6 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.Direction.Axis
 import net.minecraft.util.Mth
-import net.minecraft.world.entity.EntityAttachment
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.block.LiquidBlock
 import net.minecraft.world.phys.Vec3

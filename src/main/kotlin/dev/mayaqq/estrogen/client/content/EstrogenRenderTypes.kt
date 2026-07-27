@@ -3,11 +3,7 @@ package dev.mayaqq.estrogen.client.content
 import com.mojang.blaze3d.vertex.DefaultVertexFormat
 import com.mojang.blaze3d.vertex.VertexFormat
 import dev.mayaqq.cynosure.client.isShaderPackInUse
-import dev.mayaqq.cynosure.client.render.BufferOutputStage
-import dev.mayaqq.cynosure.client.render.fixed
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture.DynamicDreamTexture
-import invoke.kitty.kritter.client.events.render.LevelRenderEvent
-import invoke.kitty.kritter.client.render.batchedAt
 import net.minecraft.Util
 import net.minecraft.client.renderer.RenderStateShard
 import net.minecraft.client.renderer.RenderStateShard.ShaderStateShard

@@ -3,16 +3,11 @@ package dev.mayaqq.estrogen.content.entities
 import dev.mayaqq.cynosure.core.Loader
 import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.cynosure.core.identifier
-import dev.mayaqq.estrogen.content.EstrogenEntities
-import dev.mayaqq.estrogen.content.EstrogenItems
-import dev.mayaqq.estrogen.content.EstrogenParticles
-import dev.mayaqq.estrogen.content.EstrogenSounds
-import dev.mayaqq.estrogen.content.EstrogenTags
+import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.utils.defaultInstance
 import net.minecraft.Util
 import net.minecraft.core.BlockPos
 import net.minecraft.core.particles.ParticleOptions
-import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor

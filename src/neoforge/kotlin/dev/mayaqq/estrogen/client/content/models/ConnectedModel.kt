@@ -1,16 +1,11 @@
 package dev.mayaqq.estrogen.client.content.models
 
 import dev.mayaqq.estrogen.client.content.block.ClientDreamBlock
-import dev.mayaqq.estrogen.utils.render.copy
-import dev.mayaqq.estrogen.utils.render.getU
-import dev.mayaqq.estrogen.utils.render.getV
-import dev.mayaqq.estrogen.utils.render.setU
-import dev.mayaqq.estrogen.utils.render.setV
+import dev.mayaqq.estrogen.utils.render.*
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.resources.model.BakedModel
-import net.minecraft.client.resources.model.Material
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.util.RandomSource

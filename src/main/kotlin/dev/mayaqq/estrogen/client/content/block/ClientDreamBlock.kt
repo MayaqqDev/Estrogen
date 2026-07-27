@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.client.content.block
 
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.world.LevelEvent
 import dev.mayaqq.estrogen.client.content.models.getTextureShift
@@ -10,16 +9,12 @@ import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.content.blocks.DreamBlock.Companion.isTouchingDreamBlock
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.mixin.client.accessor.LevelRendererAccessor
-import dev.mayaqq.estrogen.utils.holder
-import invoke.kitty.kritter.platform.Side
 import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.client.Minecraft
-import net.minecraft.client.resources.model.Material
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.SectionPos
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.inventory.InventoryMenu
 import net.minecraft.world.level.BlockAndTintGetter
 import net.minecraft.world.level.block.state.BlockState
 

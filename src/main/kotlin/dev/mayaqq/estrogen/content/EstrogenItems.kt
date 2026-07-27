@@ -11,7 +11,6 @@ import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.creativeTabs.TabPlacement
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.entry.holder
-import invoke.kitty.kritter.registry.api.entry.key
 import invoke.kitty.kritter.registry.item.colorProvider
 import invoke.kitty.kritter.registry.item.creativeTab
 import invoke.kitty.kritter.registry.item.item

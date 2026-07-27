@@ -13,7 +13,6 @@ import dev.mayaqq.estrogen.injection.chestConfig
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigPacket
 import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigRequestPacket
-import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.world.entity.player.Player
 import kotlin.uuid.ExperimentalUuidApi

@@ -2,10 +2,8 @@ package dev.mayaqq.estrogen.utils.render
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
-import dev.engine_room.flywheel.api.material.Material
 import dev.engine_room.flywheel.api.model.Model
 import dev.engine_room.flywheel.lib.material.Materials
-import dev.engine_room.flywheel.lib.material.SimpleMaterial
 import dev.engine_room.flywheel.lib.model.SimpleModel
 import dev.engine_room.flywheel.lib.util.RendererReloadCache
 import dev.engine_room.flywheel.lib.vertex.FullVertexView

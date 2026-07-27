@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture
 
 import com.mojang.blaze3d.systems.RenderSystem
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
-import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.config.EstrogenClientConfig.DreamBlock.animateTexture

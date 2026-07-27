@@ -12,15 +12,12 @@ import dev.mayaqq.estrogen.utils.render.MeshBuilder
 import invoke.kitty.kritter.utils.result.and
 import invoke.kitty.kritter.utils.result.flatMap
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ThreadContextElement
 import kotlinx.coroutines.withContext
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.DynamicTexture
 import net.minecraft.resources.ResourceLocation
 import org.joml.Vector2f
 import org.joml.Vector3f
-import org.lwjgl.opengl.GL11
-import org.lwjgl.opengl.GL30
 
 object CosmeticReaders {
 

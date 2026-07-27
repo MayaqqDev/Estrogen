@@ -9,11 +9,11 @@
     "CraftingMenuMixin",
     "EntityMixin",
     "ItemParserMixin",
+    "MobCategoryMixin",
     "PistonMovingBlockEntityMixin",
     "PlayerMixin",
     "ServerGamePacketListenerImplMixin",
-    "ThrownEnderpearlMixin",
-    "MobCategoryMixin"
+    "ThrownEnderpearlMixin"
   ],
   "client": [
     "client.AbstractClientPlayerMixin",

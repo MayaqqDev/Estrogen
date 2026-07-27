@@ -22,7 +22,6 @@ import dev.mayaqq.estrogen.content.EstrogenDamageSources
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.features.dash.CommonDash.removeDashing
 import dev.mayaqq.estrogen.id
-import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.core.Holder
 import net.minecraft.network.protocol.Packet

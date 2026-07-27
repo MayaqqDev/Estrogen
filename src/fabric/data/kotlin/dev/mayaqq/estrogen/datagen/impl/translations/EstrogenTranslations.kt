@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.datagen.impl.translations
 
 import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.id
-import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.entry.holder
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider

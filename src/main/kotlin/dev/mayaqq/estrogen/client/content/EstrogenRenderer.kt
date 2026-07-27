@@ -13,13 +13,9 @@ import dev.engine_room.flywheel.lib.util.ShadersModHelper
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.client.events.CoreShaderRegistrationEvent
 import dev.mayaqq.cynosure.client.events.render.GameRenderEvent
-import dev.mayaqq.cynosure.client.events.render.ReloadLevelRendererEvent
-import dev.mayaqq.cynosure.client.events.render.ResizeRendererEvent
 import dev.mayaqq.cynosure.client.isShaderPackInUse
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.helpers.McClient
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.holder
@@ -28,7 +24,6 @@ import invoke.kitty.kritter.client.events.render.LevelRenderContext
 import invoke.kitty.kritter.client.events.render.LevelRenderEvent
 import invoke.kitty.kritter.client.events.render.ReloadLevelRendererEvent
 import invoke.kitty.kritter.client.events.render.ResizeLevelRendererEvent
-import invoke.kitty.kritter.platform.Side
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.MultiBufferSource

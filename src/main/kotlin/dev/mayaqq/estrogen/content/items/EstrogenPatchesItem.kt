@@ -6,9 +6,7 @@ import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.EstrogenComponents
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenFluids
-import dev.mayaqq.estrogen.content.fluids.item.EstrogenItemFluidStorage
 import dev.mayaqq.estrogen.utils.EstrogenColors
-import dev.mayaqq.estrogen.utils.holder
 import earth.terrarium.common_storage_lib.context.ItemContext
 import earth.terrarium.common_storage_lib.context.impl.IsolatedSlotContext
 import earth.terrarium.common_storage_lib.context.impl.ModifyOnlyContext

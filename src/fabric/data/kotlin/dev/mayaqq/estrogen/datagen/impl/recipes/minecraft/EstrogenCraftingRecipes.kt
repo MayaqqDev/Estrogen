@@ -12,6 +12,7 @@ import net.minecraft.advancements.CriteriaTriggers
 import net.minecraft.advancements.critereon.ImpossibleTrigger
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.recipes.*
+import net.minecraft.data.recipes.RecipeProvider.has
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.item.Items
 import java.util.concurrent.CompletableFuture

@@ -1,11 +1,7 @@
 package dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture
 
 import com.mojang.blaze3d.platform.NativeImage
-import invoke.kitty.kritter.utils.color.Color
-import invoke.kitty.kritter.utils.color.Yellow
-import invoke.kitty.kritter.utils.color.abgr
-import invoke.kitty.kritter.utils.color.rgb
-import invoke.kitty.kritter.utils.color.toColor
+import invoke.kitty.kritter.utils.color.*
 import net.minecraft.util.FastColor
 import net.minecraft.util.RandomSource
 import net.minecraft.util.random.SimpleWeightedRandomList

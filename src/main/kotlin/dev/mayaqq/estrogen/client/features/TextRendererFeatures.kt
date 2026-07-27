@@ -1,12 +1,9 @@
 package dev.mayaqq.estrogen.client.features
 
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenTags
-import dev.mayaqq.estrogen.utils.holder
-import invoke.kitty.kritter.platform.Side
 import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.client.Minecraft
 

@@ -6,8 +6,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.loader.api.FabricLoader
 import net.fabricmc.loader.api.ModContainer
-import net.minecraft.client.multiplayer.ClientLevel
-import net.minecraft.client.particle.TextureSheetParticle
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.DataProvider
 import java.nio.file.Path

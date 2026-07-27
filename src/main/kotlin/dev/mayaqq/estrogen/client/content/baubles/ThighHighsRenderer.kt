@@ -6,7 +6,6 @@ import com.mojang.math.Axis
 import dev.engine_room.flywheel.lib.util.RendererReloadCache
 import dev.mayaqq.cynosure.client.models.baked.Mesh
 import dev.mayaqq.cynosure.client.utils.pushPop
-import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.estrogen.api.item.equip.SlotInfo
 import dev.mayaqq.estrogen.api.item.equip.client.EquipRenderer
@@ -19,14 +18,12 @@ import invoke.kitty.kritter.client.model.getModel
 import invoke.kitty.kritter.platform.identifierOf
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.White
-import invoke.kitty.kritter.utils.color.toColor
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.model.HumanoidModel
 import net.minecraft.client.model.geom.ModelPart
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.texture.OverlayTexture
-import net.minecraft.client.resources.model.ModelResourceLocation
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.inventory.InventoryMenu

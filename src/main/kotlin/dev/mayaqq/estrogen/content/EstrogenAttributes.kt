@@ -2,21 +2,17 @@
 package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.cynosure.entities.EntityAttributes
-import dev.mayaqq.cynosure.events.PostInitEvent
 import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.EntityDamageEvent
 import dev.mayaqq.cynosure.events.entity.player.PlayerRespawnEvent
-import dev.mayaqq.cynosure.utils.add
 import dev.mayaqq.cynosure.utils.contains
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.content.EstrogenAttributes.BoobGrowingStartTime
 import dev.mayaqq.estrogen.content.EstrogenAttributes.BoobInitialSize
 import dev.mayaqq.estrogen.content.EstrogenAttributes.DashLevel
 import dev.mayaqq.estrogen.content.EstrogenAttributes.FallDamageResistance
 import dev.mayaqq.estrogen.content.EstrogenAttributes.ShowBoobs
-import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.events.LateInitEvent
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.builder.entry
@@ -28,7 +24,6 @@ import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.RangedAttribute
 import net.minecraft.world.entity.player.Player
 import kotlin.math.pow
-import kotlin.streams.asSequence
 
 object EstrogenAttributes : Registrar<Attribute> by Registrar(MOD_ID, Registries.ATTRIBUTE) {
     // Dash Level

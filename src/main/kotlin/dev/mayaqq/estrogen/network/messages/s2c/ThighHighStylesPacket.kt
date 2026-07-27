@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.network.messages.s2c
 
 import dev.mayaqq.estrogen.content.EstrogenItems
 import invoke.kitty.kritter.serialization.builtins.ResourceLocationSerializer
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import net.minecraft.resources.ResourceLocation
 

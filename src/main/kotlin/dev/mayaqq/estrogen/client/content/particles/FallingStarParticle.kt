@@ -1,25 +1,12 @@
 package dev.mayaqq.estrogen.client.content.particles
 
 import com.mojang.blaze3d.vertex.VertexConsumer
-import dev.engine_room.flywheel.api.task.Plan
-import dev.engine_room.flywheel.api.visual.DynamicVisual
-import dev.engine_room.flywheel.api.visual.Effect
-import dev.engine_room.flywheel.api.visual.EffectVisual
-import dev.engine_room.flywheel.api.visualization.VisualizationContext
-import dev.engine_room.flywheel.lib.instance.ColoredLitInstance
-import dev.engine_room.flywheel.lib.instance.ColoredLitOverlayInstance
-import dev.engine_room.flywheel.lib.instance.OrientedInstance
-import dev.engine_room.flywheel.lib.instance.TransformedInstance
-import dev.engine_room.flywheel.lib.material.Materials
-import dev.engine_room.flywheel.lib.visual.SimpleDynamicVisual
-import dev.engine_room.flywheel.lib.visualization.VisualizationHelper
 import net.minecraft.client.Camera
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.particle.ParticleRenderType
 import net.minecraft.client.particle.SpriteSet
 import net.minecraft.client.particle.TextureSheetParticle
 import net.minecraft.client.renderer.LightTexture
-import net.minecraft.world.level.LevelAccessor
 import org.joml.Quaternionf
 import org.joml.Vector3f
 

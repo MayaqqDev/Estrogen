@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.content.items
 
 import dev.mayaqq.cynosure.utils.currentTime
 import dev.mayaqq.estrogen.content.EstrogenAttributes
-import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.advancements.CriteriaTriggers
 import net.minecraft.core.particles.DustParticleOptions

@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.client.content.screen
 
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.*
-import dev.mayaqq.cynosure.client.utils.light
 import dev.mayaqq.cynosure.client.utils.normal
 import dev.mayaqq.cynosure.client.utils.uv
 import dev.mayaqq.cynosure.helpers.McClient

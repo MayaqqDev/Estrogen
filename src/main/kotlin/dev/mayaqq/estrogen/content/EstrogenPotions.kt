@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.estrogen.MOD_ID
-import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.builder.entry
 import invoke.kitty.kritter.registry.api.entry.holder

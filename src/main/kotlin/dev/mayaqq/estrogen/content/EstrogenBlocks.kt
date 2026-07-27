@@ -2,10 +2,8 @@ package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.cynosure.blocks.model.ModelBedBlock
 import dev.mayaqq.cynosure.blocks.poi.add
-import dev.mayaqq.cynosure.client.models.poses.CynosureArmPose
 import dev.mayaqq.cynosure.items.extensions.CustomArmPose
 import dev.mayaqq.cynosure.items.extensions.CustomTooltip
-import dev.mayaqq.cynosure.items.extensions.ItemExtension
 import dev.mayaqq.cynosure.items.extensions.registerExtension
 import dev.mayaqq.cynosure.text.CynosureFonts
 import dev.mayaqq.cynosure.text.Text
@@ -23,7 +21,6 @@ import dev.mayaqq.estrogen.content.items.ThighHighsItem
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import invoke.kitty.kritter.creativeTabs.TabPlacement
-import invoke.kitty.kritter.platform.common.BlockColorProvider
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.entry.RegistryEntry
 import invoke.kitty.kritter.registry.block.BlockRenderType

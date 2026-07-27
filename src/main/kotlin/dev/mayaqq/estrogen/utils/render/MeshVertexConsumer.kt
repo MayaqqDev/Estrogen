@@ -7,7 +7,6 @@ import dev.engine_room.flywheel.lib.model.SimpleQuadMesh
 import dev.engine_room.flywheel.lib.vertex.VertexView
 import net.minecraft.client.renderer.LightTexture
 import net.minecraft.client.renderer.texture.OverlayTexture
-import kotlin.math.max
 
 class MeshVertexConsumer(
     private val viewFactory: () -> VertexView

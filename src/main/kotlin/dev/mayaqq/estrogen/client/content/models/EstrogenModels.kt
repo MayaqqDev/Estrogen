@@ -8,7 +8,6 @@ import invoke.kitty.kritter.client.model.ModelLoadingContext
 import invoke.kitty.kritter.client.model.PreparableModelLoadingPlugin
 import invoke.kitty.kritter.utils.Couple
 import invoke.kitty.kritter.utils.Either
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import net.minecraft.client.renderer.texture.TextureAtlas

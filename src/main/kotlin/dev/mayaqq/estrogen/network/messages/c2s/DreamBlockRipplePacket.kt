@@ -2,7 +2,6 @@
 package dev.mayaqq.estrogen.network.messages.c2s
 
 import invoke.kitty.kritter.serialization.builtins.Vec3Serializer
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import net.minecraft.core.Direction

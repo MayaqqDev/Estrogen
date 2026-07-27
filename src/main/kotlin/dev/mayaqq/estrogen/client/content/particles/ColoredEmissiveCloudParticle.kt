@@ -5,8 +5,6 @@ import invoke.kitty.kritter.utils.color.floatBlue
 import invoke.kitty.kritter.utils.color.floatGreen
 import invoke.kitty.kritter.utils.color.floatRed
 import net.minecraft.client.multiplayer.ClientLevel
-import net.minecraft.client.particle.Particle
-import net.minecraft.client.particle.ParticleProvider
 import net.minecraft.client.particle.PlayerCloudParticle
 import net.minecraft.client.particle.SpriteSet
 import net.minecraft.client.renderer.LightTexture

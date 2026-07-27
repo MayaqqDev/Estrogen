@@ -14,7 +14,6 @@ import dev.mayaqq.estrogen.content.components.ThighHighColor
 import dev.mayaqq.estrogen.content.components.ThighHighStyle
 import dev.mayaqq.estrogen.network.EstrogenNetwork
 import dev.mayaqq.estrogen.network.messages.s2c.ThighHighStylesPacket
-import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.entry.holder
 import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.MinecraftColors

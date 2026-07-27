@@ -3,7 +3,6 @@ package dev.mayaqq.estrogen.content
 import dev.mayaqq.cynosure.recipes.codecSerializer
 import dev.mayaqq.cynosure.recipes.recipeType
 import dev.mayaqq.estrogen.MOD_ID
-import dev.mayaqq.estrogen.content.EstrogenRecipes.sibling
 import dev.mayaqq.estrogen.content.recipes.*
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.builder.entry

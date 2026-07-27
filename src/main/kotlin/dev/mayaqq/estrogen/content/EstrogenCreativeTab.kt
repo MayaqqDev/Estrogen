@@ -1,7 +1,5 @@
 package dev.mayaqq.estrogen.content
 
-import dev.mayaqq.cynosure.text.TextProperties.stripped
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.content.EstrogenBlocks.CookieJar
 import dev.mayaqq.estrogen.content.EstrogenBlocks.DreamBlock
@@ -34,16 +32,11 @@ import dev.mayaqq.estrogen.content.EstrogenItems.MothFuzz
 import dev.mayaqq.estrogen.content.EstrogenItems.TestosteroneChunk
 import dev.mayaqq.estrogen.content.EstrogenItems.TestosteronePowder
 import dev.mayaqq.estrogen.content.EstrogenItems.ThighHighs
-import dev.mayaqq.estrogen.id
-import dev.mayaqq.estrogen.utils.defaultInstance
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.entry.RegistryEntry
 import invoke.kitty.kritter.registry.api.entry.holder
-import invoke.kitty.kritter.registry.block.item
 import invoke.kitty.kritter.registry.creativeTab.creativeTab
 import invoke.kitty.kritter.utils.extensions.asStack
-import net.minecraft.core.Holder
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.CreativeModeTab
@@ -53,7 +46,6 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.PotionContents
 import net.minecraft.world.level.ItemLike
-import net.minecraft.world.level.block.Block
 
 
 object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Registries.CREATIVE_MODE_TAB) {

@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack
 import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.currentTime
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.features.boobs.Boob
 import dev.mayaqq.estrogen.client.features.boobs.Boob.boobSize
 import dev.mayaqq.estrogen.client.features.boobs.BoobPhysicsManager.getPhysicsForPlayer
@@ -15,7 +14,6 @@ import dev.mayaqq.estrogen.injection.chestConfig
 import dev.mayaqq.estrogen.injection.renderBoobArmor
 import dev.mayaqq.estrogen.injection.renderBoobArmorTrim
 import dev.mayaqq.estrogen.injection.renderBoobs
-import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.client.model.EntityModel
 import net.minecraft.client.player.AbstractClientPlayer

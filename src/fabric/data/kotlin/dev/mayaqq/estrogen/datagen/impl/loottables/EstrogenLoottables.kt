@@ -5,9 +5,7 @@ import dev.mayaqq.estrogen.content.EstrogenComponents
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
 import net.minecraft.core.HolderLookup
-import net.minecraft.core.component.DataComponents
 import net.minecraft.world.level.block.BedBlock
-import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.properties.BedPart
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction
 import java.util.concurrent.CompletableFuture

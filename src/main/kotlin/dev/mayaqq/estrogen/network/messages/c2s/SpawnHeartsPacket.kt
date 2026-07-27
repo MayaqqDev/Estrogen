@@ -5,8 +5,6 @@ import dev.mayaqq.cynosure.utils.toBlockPos
 import dev.mayaqq.estrogen.id
 import invoke.kitty.kritter.serialization.builtins.ResourceLocationSerializer
 import invoke.kitty.kritter.serialization.builtins.Vec3Serializer
-import invoke.kitty.kritter.serialization.builtins.vectors.Vector3fSerializer
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import net.minecraft.core.particles.ParticleTypes
