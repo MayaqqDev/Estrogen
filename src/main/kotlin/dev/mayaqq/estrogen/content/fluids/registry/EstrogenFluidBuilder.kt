@@ -66,10 +66,10 @@ class FluidBuilder<S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFlui
      * @param props property builder function
      */
     fun clientProperties(props: ClientFluidProperties.Builder.() -> Unit) {
-        val builder = ClientFluidProperties.builder()
-        props.invoke(builder)
-        clientProperties = builder.build()
         clientOnly {
+            val builder = ClientFluidProperties.builder()
+            props.invoke(builder)
+            clientProperties = builder.build()
             if (clientProperties != null) {
                 (owner as FluidRegistryProvider).clientFluidRegistry.register(name) { clientProperties }
             }
