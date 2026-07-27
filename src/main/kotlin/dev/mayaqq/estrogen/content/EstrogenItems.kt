@@ -10,6 +10,7 @@ import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.creativeTabs.TabPlacement
 import invoke.kitty.kritter.registry.api.Registrar
+import invoke.kitty.kritter.registry.api.entry.RegistryEntry
 import invoke.kitty.kritter.registry.api.entry.holder
 import invoke.kitty.kritter.registry.item.colorProvider
 import invoke.kitty.kritter.registry.item.creativeTab
@@ -167,5 +168,8 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
     }
 
     lateinit var DreamBottle: DreamBottleItem
+        internal set
+
+    lateinit var MothSpawnEgg: RegistryEntry<Item>
         internal set
 }

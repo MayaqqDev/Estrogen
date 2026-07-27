@@ -30,7 +30,7 @@ object EstrogenEntities : Registrar<EntityType<*>> by Registrar(MOD_ID, Registri
         renderer(::MothRenderer)
         attributes(MothEntity::createAttributes)
         spawnPlacement(SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MothEntity::checkMobSpawnRules)
-        spawnEgg(White, White)
+        EstrogenItems.MothSpawnEgg = spawnEgg(White, White)
         addSpawn(
             { it in EstrogenTags.Biomes.SPAWNS_MOTH },
             MothCategory,

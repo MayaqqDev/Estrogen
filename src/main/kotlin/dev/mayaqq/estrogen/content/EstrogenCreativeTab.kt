@@ -32,6 +32,7 @@ import dev.mayaqq.estrogen.content.EstrogenItems.MothFuzz
 import dev.mayaqq.estrogen.content.EstrogenItems.TestosteroneChunk
 import dev.mayaqq.estrogen.content.EstrogenItems.TestosteronePowder
 import dev.mayaqq.estrogen.content.EstrogenItems.ThighHighs
+import dev.mayaqq.estrogen.content.EstrogenItems.MothSpawnEgg
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.entry.RegistryEntry
 import invoke.kitty.kritter.registry.api.entry.holder
@@ -80,6 +81,7 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Reg
             acceptWithCount(QuiltedMothCarpet)
             acceptWithCount(MothBed)
             acceptWithCount(QuiltedMothBed)
+            acceptWithCount(MothSpawnEgg)
             acceptWithCount(tippedArrow(EstrogenPotions.EstrogenPotion))
             acceptWithCount(MoltenSlime.bucket)
             acceptWithCount(TestosteroneMixture.bucket)
