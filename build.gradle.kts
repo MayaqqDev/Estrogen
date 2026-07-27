@@ -9,7 +9,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 buildscript {
     dependencies {
-        classpath(kotlin("metadata-jvm"))
+        classpath(kotlin("metadata-jvm", "2.4.0"))
     }
 }
 

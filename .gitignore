@@ -112,10 +112,12 @@ build/reports
 build/resources
 build/run-configs
 build/tmp
+build/libs
 
 build/generated/mergedAccessWideners
 build/generated/metadata
 build/generated/sources
+build/generated/accessTransformers
 
 build/generated/resources/fabric/.cache
 
