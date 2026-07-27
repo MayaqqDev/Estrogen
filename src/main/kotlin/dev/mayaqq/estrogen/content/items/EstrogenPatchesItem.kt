@@ -32,7 +32,7 @@ import net.minecraft.world.level.Level
 class EstrogenPatchesItem(properties: Properties) : Item(properties), FluidProvider.Item, Equip {
     override fun tick(stack: ItemStack, slot: SlotInfo) {
         val context = slot.slotContext(stack)
-        val level: Level = slot.wearer.level()
+        val level: Level = slot.wearer?.level() ?: return
         if (!level.isClientSide && slot.wearer is Player && getAmount(stack) > 0) {
             if (level.gameTime % TRIGGER_EVERY_X_TICKS == 0L) {
                 addEffect(slot.wearer, level)
@@ -90,7 +90,7 @@ class EstrogenPatchesItem(properties: Properties) : Item(properties), FluidProvi
 
 
     override fun onEquip(stack: ItemStack, slot: SlotInfo) {
-        val level: Level = slot.wearer.level()
+        val level: Level = slot.wearer?.level() ?:return
         if (!level.isClientSide && slot.wearer is Player && getAmount(stack) > 0) {
             addEffect(slot.wearer, level)
         }

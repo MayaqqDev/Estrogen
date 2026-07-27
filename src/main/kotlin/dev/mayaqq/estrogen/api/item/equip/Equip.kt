@@ -21,7 +21,7 @@ interface Equip {
     fun canEquip(stack: ItemStack, slot: SlotInfo): Boolean = true
     fun canUnequip(stack: ItemStack, slot: SlotInfo): Boolean = true
     fun onBreak(stack: ItemStack, slot: SlotInfo) {
-        slot.wearer.breakItem(stack)
+        slot.wearer?.breakItem(stack)
     }
     fun getEquipSound(stack: ItemStack, slot: SlotInfo): Holder<SoundEvent> {
         return if (stack.item is Equipable) {
