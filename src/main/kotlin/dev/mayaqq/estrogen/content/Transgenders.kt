@@ -90,7 +90,7 @@ inline fun <I> ItemBuilder<I>.equipWithRenderer(crossinline renderer: () -> Equi
 
 // Block entities
 // these need to be inline/crossinline for server-side safety
-inline fun <BE : BlockEntity> BlockEntityBuilder<BE>.visual(crossinline factory: (VisualizationContext, BE, Float) -> BlockEntityVisual<in BE>, skipRender: Predicate<BE> = { true }) {
+inline fun <BE : BlockEntity> BlockEntityBuilder<BE>.visual(crossinline factory: (VisualizationContext, BE, Float) -> BlockEntityVisual<in BE>, skipRender: Predicate<BE> = Predicate { true }) {
     clientOnly {
         onSetup {
             val builder = SimpleBlockEntityVisualizer.builder(it)

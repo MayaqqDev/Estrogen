@@ -107,6 +107,8 @@ fun hookClientEventBus() {
     ).forEach(MainBus::subscribe)
 }
 
+expect fun hookPlatformClientEventBus()
+
 object EstrogenClientEvents {
 
     @Subscription

@@ -133,6 +133,7 @@ cloche {
                 runDir("runServer")
             }
             data {
+                runDir("run")
                 jvmArgs("-Dfabric-api.datagen.output-dir=${file("build/generated/resources/main")}")
                 jvmArgs("-Destrogen.datagen.fabric-output-dir=${file("build/generated/resources/fabric")}")
                 jvmArgs("-Destrogen.datagen.neoforge-output-dir=${file("build/generated/resources/neoforge")}")
@@ -360,8 +361,14 @@ java {
 // Kotlin args
 kotlin {
     compilerOptions {
-        languageVersion = KotlinVersion.KOTLIN_2_4
-        freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes", "-Xcontext-parameters")
+        languageVersion = KotlinVersion.KOTLIN_2_2
+        freeCompilerArgs = listOf(
+            "-Xmulti-platform",
+            "-Xno-check-actual",
+            "-Xexpect-actual-classes",
+            "-Xcontext-parameters",
+            "-opt-in=kotlin.uuid.ExperimentalUuidApi"
+        )
     }
     jvmToolchain(21)
 }
@@ -483,3 +490,29 @@ publishMods {
 }
 
 class PublishMetadata(val loaderName: String, val modloaders: Array<String>, val requires: Array<String>, val jar: Provider<RegularFile>, val suffix: String)
+
+// MinecraftCodev currently reads this file while calculating the run task graph,
+// before the writeModId task can execute in a clean checkout.
+layout.buildDirectory.file("modId.txt").get().asFile.apply {
+    parentFile.mkdirs()
+    writeText(providers.gradleProperty("modid").get())
+}
+
+// Cloche 0.19.x otherwise gives the remap and intermediate jars the same output,
+// causing the remap task to delete its own input before it can read the manifest.
+tasks.named<Jar>("fabricRemapJar") {
+    destinationDirectory.set(layout.buildDirectory.dir("libs"))
+}
+tasks.named<Jar>("neoforgeRemapJar") {
+    destinationDirectory.set(layout.buildDirectory.dir("libs"))
+}
+
+tasks.matching { it.name.startsWith("accessWidenFabric") }.configureEach {
+    dependsOn("generateFabricMappingsArtifact")
+}
+
+tasks.named("runFabricData") {
+    doFirst {
+        layout.projectDirectory.dir("run").asFile.mkdirs()
+    }
+}

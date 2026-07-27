@@ -74,7 +74,7 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Reg
             accept(ColonThree)
             accept(CookieJar)
             accept(DreamCatcher)
-            accept(DreamBlock.asStack())
+            acceptWithCount(DreamBlock.asStack())
             accept(DreamBottle)
             accept(EstrogenPillBlock)
             accept(MothWool)
@@ -97,8 +97,14 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Reg
     }
 }
 
-private fun <T : Block> CreativeModeTab.Output.accept(holder: RegistryEntry<T>) = this.accept(holder.getOrThrow())
+private fun <T : Block> CreativeModeTab.Output.accept(holder: RegistryEntry<T>) {
+    val blockId = BuiltInRegistries.BLOCK.getKey(holder.getOrThrow())
+    val item = BuiltInRegistries.ITEM.get(blockId)
+    if (item != Items.AIR) accept(item.defaultInstance.apply { count = 1 })
+}
 
-private fun CreativeModeTab.Output.acceptWithCount(stack: ItemStack) = accept(stack.apply { count = 1 })
+private fun CreativeModeTab.Output.acceptWithCount(stack: ItemStack) {
+    if (!stack.isEmpty) accept(stack.copyWithCount(1))
+}
 
 private fun tippedArrow(potion: RegistryEntry<Potion>): ItemStack = PotionContents.createItemStack(Items.TIPPED_ARROW, potion.holder).apply { count = 1 }

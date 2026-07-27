@@ -23,12 +23,10 @@ import dev.mayaqq.estrogen.content.items.ThighHighsItem
 import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import invoke.kitty.kritter.creativeTabs.TabPlacement
-import invoke.kitty.kritter.platform.common.BlockColorProvider
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.entry.RegistryEntry
 import invoke.kitty.kritter.registry.block.BlockRenderType
 import invoke.kitty.kritter.registry.block.block
-import invoke.kitty.kritter.registry.block.colorProvider
 import invoke.kitty.kritter.registry.block.renderType
 import invoke.kitty.kritter.registry.item.creativeTab
 import invoke.kitty.kritter.registry.item.item
@@ -163,7 +161,6 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
             ignitedByLava()
         }
         renderType = BlockRenderType.CUTOUT
-        colorProvider(DreamCatcherBlock)
         item("dreamcatcher", ::DreamCatcherItem) {
             tooltip {
                 CompositeTooltip(
@@ -193,7 +190,6 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         ) }) {
         initialPropertiesFrom(Blocks::CAULDRON)
         renderType = BlockRenderType.CUTOUT
-        colorProvider { _, _, _, _, tint -> if (tint == 0) EstrogenColors.HORSE_URINE else White }
     }
 
     val FiltratedHorseUrineCauldron: RegistryEntry<FiltratedHorseUrineCauldron> = block(
@@ -203,7 +199,6 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         ) }) {
         initialPropertiesFrom(Blocks::CAULDRON)
         renderType = BlockRenderType.CUTOUT
-        colorProvider { _, _, _, _, tint -> if (tint == 0) EstrogenColors.FILTRATED_HORSE_URINE else White }
     }
 
     val LiquidEstrogenCauldron: RegistryEntry<LayeredCauldronBlock> = block(

@@ -49,7 +49,9 @@ data class CuriosWrapper(val equip: Equip) : ICurioItem {
         id: ResourceLocation,
         stack: ItemStack
     ): Multimap<Holder<Attribute>, AttributeModifier> {
-        return equip.getAttributeModifiers(super.getAttributeModifiers(slotContext, id, stack), stack, slotContext.slotInfo(), id)
+        val modifiers = super.getAttributeModifiers(slotContext, id, stack)
+        if (slotContext.entity == null) return modifiers
+        return equip.getAttributeModifiers(modifiers, stack, slotContext.slotInfo(), id)
     }
 
     override fun getDropRule(

@@ -4,6 +4,10 @@
   "package": "dev.mayaqq.estrogen.neoforge.mixins",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "CynosureLootCopyMixin",
+    "KritterCreativeTabContextMixin",
+    "LootTableRandomSequenceAccessor",
+    "NullbusConstantsMixin",
     "SpongeBlockMixin"
   ],
   "client": [

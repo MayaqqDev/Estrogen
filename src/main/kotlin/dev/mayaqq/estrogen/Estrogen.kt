@@ -12,7 +12,7 @@ import dev.mayaqq.estrogen.api.EstrogenEntrypoint
 import dev.mayaqq.estrogen.api.EstrogenFlag
 import dev.mayaqq.estrogen.api.EstrogenModule
 import dev.mayaqq.estrogen.client.content.screen.EstrogenMenuScreen
-import dev.mayaqq.estrogen.client.hookClientEventBus
+import dev.mayaqq.estrogen.client.hookPlatformClientEventBus
 import dev.mayaqq.estrogen.compat.cobblemon.ModlessCobblemonCompat
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
@@ -58,7 +58,7 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
     @EntrypointHandler("init")
     fun init() {
         hookEventBus()
-        clientOnly { hookClientEventBus() }
+        clientOnly { hookPlatformClientEventBus() }
         // Config
         EstrogenCommonConfig.initialize()
         EstrogenServerConfig.initialize()
@@ -72,7 +72,6 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
         EstrogenEffects.register()
         AdvancementTriggers.register()
         EstrogenFluids.register()
-        LateInitEvent.subscribe { EstrogenFluids.fluidRegistry.init() }
         EstrogenPotions.register()
         EstrogenItems.register()
         EstrogenCreativeTab.register()

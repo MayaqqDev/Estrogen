@@ -114,6 +114,7 @@ build/run-configs
 build/tmp
 
 build/generated/mergedAccessWideners
+build/generated/accessTransformers
 build/generated/metadata
 build/generated/sources
 
