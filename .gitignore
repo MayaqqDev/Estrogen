@@ -113,6 +113,7 @@ build/resources
 build/run-configs
 build/tmp
 build/libs
+build/publications
 
 build/generated/mergedAccessWideners
 build/generated/metadata
