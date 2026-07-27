@@ -17,7 +17,6 @@ import dev.mayaqq.estrogen.id
 import dev.mayaqq.estrogen.mcid
 import dev.mayaqq.estrogen.utils.EstrogenColors
 import invoke.kitty.kritter.registry.api.Registrar
-import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.FluidTags
 import net.minecraft.world.item.Items
@@ -49,7 +48,7 @@ object EstrogenFluids : Registrar<Fluid> by Registrar(MOD_ID, Registries.FLUID),
                 flowing(id("block/liquid_estrogen/liquid_estrogen_flow"))
                 screenOverlay(mcid("textures/misc/underwater.png"))
             }
-            renderType { RenderType.translucent() }
+            translucentRenderType()
             block({ data, properties -> EstrogenLiquidBlock(data, properties,
                 arrayOf(BaseEstrogenLiquidBlock.FluidInteraction { pos, state, fluidState ->
                     if (fluidState.`is`(Fluids.WATER)) {
@@ -107,7 +106,7 @@ object EstrogenFluids : Registrar<Fluid> by Registrar(MOD_ID, Registries.FLUID),
             overlay(id("block/gender_fluid/gender_fluid_flow"))
             screenOverlay(mcid("textures/misc/underwater.png"))
         }
-        renderType { RenderType.translucent() }
+        translucentRenderType()
         block({ data, properties -> EstrogenLiquidBlock(data, properties,
             arrayOf(BaseEstrogenLiquidBlock.FluidInteraction { pos, state, fluidState ->
                 if (fluidState.`is`(FluidTags.LAVA)) {

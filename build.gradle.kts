@@ -231,8 +231,8 @@ cloche {
         }
 
         metadata {
+            entrypoint("kritter:init", "dev.mayaqq.estrogen.EstrogenCommonEntrypoint::init")
             entrypoint("kritter:init", "dev.mayaqq.estrogen.fabric.EstrogenFabric::init")
-            entrypoint("kritter:init", "dev.mayaqq.estrogen.Estrogen::init")
             entrypoint("kritter:client", "dev.mayaqq.estrogen.fabric.client.EstrogenClientFabric::init")
             entrypoint("kritter:client", "dev.mayaqq.estrogen.client.EstrogenClientKt::estrogenClient")
             entrypoint("modmenu") {
@@ -283,7 +283,7 @@ cloche {
             }
             server {
                 runDir("runServer")
-                jvmArgs("--nogui")
+                args("--nogui")
             }
             data() // NEEDED FOR GENERATED DATA TO ATTACH ON FORGE! SCREAM AT ASHLEY FOR THIS
         }
@@ -395,7 +395,6 @@ tasks.named("runNeoforgeData") {
 }
 
 minecraftRuns.configureEach {
-    if (this.name.startsWith("fabric:")) jvmArgs("--sun-misc-unsafe-memory-access=allow")
     jvmArgs("--enable-native-access=ALL-UNNAMED")
     property("log4j.configurationFile", project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().toAbsolutePath().toString())
 }
@@ -511,8 +510,18 @@ tasks.matching { it.name.startsWith("accessWidenFabric") }.configureEach {
     dependsOn("generateFabricMappingsArtifact")
 }
 
-tasks.named("runFabricData") {
+tasks.matching {
+    it.name in setOf("runFabricClient", "runNeoforgeClient", "runFabricData")
+}.configureEach {
     doFirst {
         layout.projectDirectory.dir("run").asFile.mkdirs()
+    }
+}
+
+tasks.matching {
+    it.name in setOf("runFabricServer", "runNeoforgeServer")
+}.configureEach {
+    doFirst {
+        layout.projectDirectory.dir("runServer").asFile.mkdirs()
     }
 }

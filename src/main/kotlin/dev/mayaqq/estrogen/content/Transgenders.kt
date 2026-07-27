@@ -26,7 +26,6 @@ import invoke.kitty.kritter.registry.blockEntity.BlockEntityBuilder
 import invoke.kitty.kritter.registry.item.ItemBuilder
 import invoke.kitty.kritter.utils.clientOnly
 import net.minecraft.client.multiplayer.ClientLevel
-import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.BlockPos
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
@@ -162,7 +161,7 @@ fun <S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing> Flu
         overlay(mcid("block/water_flow"))
         screenOverlay(mcid("textures/misc/underwater.png"))
     }
-    renderType(RenderType::translucent)
+    translucentRenderType()
     block(::ResourcefulLiquidBlock) {
         initialPropertiesFrom(Blocks::WATER)
         properties {

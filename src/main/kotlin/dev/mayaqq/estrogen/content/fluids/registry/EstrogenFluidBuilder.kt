@@ -66,13 +66,11 @@ class FluidBuilder<S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFlui
      * @param props property builder function
      */
     fun clientProperties(props: ClientFluidProperties.Builder.() -> Unit) {
-        val builder = ClientFluidProperties.builder()
-        props.invoke(builder)
-        clientProperties = builder.build()
         clientOnly {
-            if (clientProperties != null) {
-                (owner as FluidRegistryProvider).clientFluidRegistry.register(name) { clientProperties }
-            }
+            val builder = ClientFluidProperties.builder()
+            props.invoke(builder)
+            clientProperties = builder.build()
+            (owner as FluidRegistryProvider).clientFluidRegistry.register(name) { clientProperties }
         }
     }
 
@@ -80,6 +78,18 @@ class FluidBuilder<S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFlui
         onSetup {
             clientOnly {
                 RenderLayerMap.putFluids(renderType.invoke(), it.source, it.flowing)
+            }
+        }
+    }
+
+    /**
+     * Avoid constructing a lambda that references the client-only RenderType
+     * class while the fluid definitions initialize on a dedicated server.
+     */
+    fun translucentRenderType() {
+        onSetup {
+            clientOnly {
+                RenderLayerMap.putFluids(RenderType.translucent(), it.source, it.flowing)
             }
         }
     }

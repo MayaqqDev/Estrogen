@@ -95,21 +95,28 @@ class EntityInteractionRecipe(val ingredient: Ingredient, val result: ItemStack,
         override val width: Int = 177
         override val type: RecipeType<*> get() = EstrogenRecipes.ENTITY_INTERACTION.value!!
 
-        @Subscription
-        fun onEntityInteraction(event: InteractionEvent.UseEntity) {
-            if (event.level is ServerLevel) {
-                // Crazy fix, please I have to unify the handling lol, might be Create fucking up though
-                if ((currentLoader == Loader.FABRIC && event.phase == InteractionEvent.UseEntity.Phase.SPECIFIC) || (currentLoader == Loader.FORGE && event.phase == InteractionEvent.UseEntity.Phase.GENERAL)) {
-                    event.level.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION.value!!).forEach { recipe ->
-                        val data = InteractionData(event.getUsedStack(),  event.entity, event.player as ServerPlayer)
-                        if (recipe.value().matches(data, event.level)) {
-                            val sound: ResourceLocation? = recipe.value().sound.getOrNull()
-                            if (sound != null) BuiltInRegistries.SOUND_EVENT.get(sound)?.let { event.entity.playSound(it) }
+    }
+}
 
-                            if (!event.player.isCreative) event.getUsedStack().shrink(1)
-                            event.player.inventory.placeItemBackInInventory(recipe.value().assemble(data, event.level.registryAccess()))
-                            event.result = InteractionResult.SUCCESS
-                        }
+/**
+ * Kept separate from [EntityInteractionRecipe.Companion], which implements the
+ * client-facing recipe-viewer API and therefore has GuiGraphics in its methods.
+ */
+object EntityInteractionRecipeEvents {
+    @Subscription
+    fun onEntityInteraction(event: InteractionEvent.UseEntity) {
+        if (event.level is ServerLevel) {
+            // Crazy fix, please I have to unify the handling lol, might be Create fucking up though
+            if ((currentLoader == Loader.FABRIC && event.phase == InteractionEvent.UseEntity.Phase.SPECIFIC) || (currentLoader == Loader.FORGE && event.phase == InteractionEvent.UseEntity.Phase.GENERAL)) {
+                event.level.recipeManager.getAllRecipesFor(EstrogenRecipes.ENTITY_INTERACTION.value!!).forEach { recipe ->
+                    val data = InteractionData(event.getUsedStack(),  event.entity, event.player as ServerPlayer)
+                    if (recipe.value().matches(data, event.level)) {
+                        val sound: ResourceLocation? = recipe.value().sound.getOrNull()
+                        if (sound != null) BuiltInRegistries.SOUND_EVENT.get(sound)?.let { event.entity.playSound(it) }
+
+                        if (!event.player.isCreative) event.getUsedStack().shrink(1)
+                        event.player.inventory.placeItemBackInInventory(recipe.value().assemble(data, event.level.registryAccess()))
+                        event.result = InteractionResult.SUCCESS
                     }
                 }
             }

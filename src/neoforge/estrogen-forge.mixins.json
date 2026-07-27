@@ -6,6 +6,7 @@
   "mixins": [
     "CynosureLootCopyMixin",
     "KritterCreativeTabContextMixin",
+    "KritterLevelTickMixin",
     "LootTableRandomSequenceAccessor",
     "NullbusConstantsMixin",
     "SpongeBlockMixin"

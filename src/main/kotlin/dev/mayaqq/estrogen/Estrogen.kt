@@ -4,7 +4,6 @@ package dev.mayaqq.estrogen
 import dev.mayaqq.cynosure.biome.BiomeModifiers
 import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.data.registerDatapackReloadListener
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.MainBus
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.tag
@@ -21,7 +20,7 @@ import dev.mayaqq.estrogen.content.advancements.triggers.KilledWithEffectEvents
 import dev.mayaqq.estrogen.content.blocks.CauldronInteractions
 import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import dev.mayaqq.estrogen.content.effects.EstrogenEffect
-import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipe
+import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipeEvents
 import dev.mayaqq.estrogen.features.boobs.ServerSideBoobHandling
 import dev.mayaqq.estrogen.features.extra.BoobPeople
 import dev.mayaqq.estrogen.features.minigame.Minigame
@@ -51,11 +50,9 @@ inline fun id(path: String) = identifier(MOD_ID, path)
 inline fun mcid(path: String) = identifier("minecraft", path)
 inline fun cid(path: String) = identifier("c", path)
 
-@EventSubscriber
 @EstrogenEntrypoint
 object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
 
-    @EntrypointHandler("init")
     fun init() {
         hookEventBus()
         clientOnly { hookPlatformClientEventBus() }
@@ -108,18 +105,31 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME), EstrogenModule {
 
     fun hookEventBus() {
         listOf(
-            Estrogen,
             ModlessCobblemonCompat,
             EstrogenAttributeEvents,
             KilledWithEffectEvents,
             CauldronInteractions,
             DreamBlock,
             EstrogenEffect,
-            EntityInteractionRecipe,
+            EntityInteractionRecipeEvents,
             ServerSideBoobHandling,
             BoobPeople,
             Minigame,
             ThighHighStyleLootFunction
         ).forEach(MainBus::subscribe)
+    }
+}
+
+/**
+ * Keep Kritter's reflective entrypoint discovery away from [Estrogen].
+ *
+ * [Estrogen] is also the built-in module and therefore exposes its client config
+ * screen through [EstrogenModule]. Reflecting over that object on a dedicated
+ * server resolves the client-only Screen type before initialization can start.
+ */
+object EstrogenCommonEntrypoint {
+    @EntrypointHandler("init")
+    fun init() {
+        Estrogen.init()
     }
 }
