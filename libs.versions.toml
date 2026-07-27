@@ -2,14 +2,14 @@
 
 # Stuff
 kotlin = "2.4.0"
-cloche = "0.19.7"
+cloche = "0.19.9"
 
 # Minecraft
 minecraft = "1.21.1"
 fabric = "0.18.5"
 
 # Common Dependencies
-kritter = "2.0.0-alpha.42"
+kritter = "2.0.0-alpha.43"
 kotlinx-serialization="1.8.0"
 kotlinx-coroutines="1.10.1"
 parchment = "2024.11.17"
@@ -27,7 +27,7 @@ cobblemon = "1.5.2+1.20.1"
 mixin = "0.8.3"
 iris = "1.7.6+1.20.1"
 flywheel = "1.0.6"
-cynosure = "1.0.0.24"
+cynosure = "1.0.0.25"
 rlib = "3.0.12"
 
 # Fabric Only Dependencies
