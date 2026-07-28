@@ -79,6 +79,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
         super.defineSynchedData(builder)
         builder.define(ANIMATION_STATES, 1.toByte())
+        builder.define(DATA_FUZZY, false)
     }
 
     override fun tick() {
