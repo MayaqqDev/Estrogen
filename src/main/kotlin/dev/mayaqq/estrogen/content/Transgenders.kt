@@ -131,6 +131,7 @@ fun <S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing> Flu
         density(1500)
     }
     clientProperties {
+        tintColor(tint)
         still(id("block/blank_lava/blank_lava_still"))
         flowing(id("block/blank_lava/blank_lava_flow"))
         overlay(id("block/blank_lava/blank_lava_flow"))
@@ -157,6 +158,7 @@ fun <S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing> Flu
         density(1500)
     }
     clientProperties {
+        tintColor(tint)
         still(mcid("block/water_still"))
         flowing(mcid("block/water_flow"))
         overlay(mcid("block/water_flow"))

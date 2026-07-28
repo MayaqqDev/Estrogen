@@ -8,6 +8,7 @@ import com.teamresourceful.resourcefullib.common.fluid.ResourcefulFlowingFluid
 import com.teamresourceful.resourcefullib.common.fluid.registry.ResourcefulFluidRegistry
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistryType
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.content.blocks.fluid.BaseEstrogenLiquidBlock
 import dev.mayaqq.estrogen.content.blocks.fluid.EstrogenLiquidBlock
@@ -20,6 +21,7 @@ import invoke.kitty.kritter.registry.api.Registrar
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.registries.Registries
 import net.minecraft.tags.FluidTags
+import net.minecraft.util.FastColor
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.Rarity
 import net.minecraft.world.level.block.Blocks

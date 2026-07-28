@@ -4,13 +4,14 @@ import invoke.kitty.kritter.utils.color.Color
 import invoke.kitty.kritter.utils.color.darker
 import invoke.kitty.kritter.utils.color.lighter
 import invoke.kitty.kritter.utils.color.rgb
+import invoke.kitty.kritter.utils.color.rgba
 
 object EstrogenColors {
-    val MOLTEN_SLIME = rgb(144, 238, 144)
-    val TESTOSTERONE_MIXTURE = rgb(232, 212, 170)
-    val FILTRATED_HORSE_URINE = rgb(225, 225, 20)
-    val HORSE_URINE = rgb(140, 139, 5)
-    val MOLTEN_AMETHYST = rgb(174, 122, 253)
+    val MOLTEN_SLIME = rgba(144, 238, 144, 255)
+    val TESTOSTERONE_MIXTURE = rgba(232, 212, 170, 255)
+    val FILTRATED_HORSE_URINE = rgba(225, 225, 20, 255)
+    val HORSE_URINE = rgba(140, 139, 5, 255)
+    val MOLTEN_AMETHYST = rgba(174, 122, 253, 255)
     val DREAM_BLOCK = rgb(0.2f, 0f, 0.2f)
 
     val ESTROGEN_PATCHES_BAR = rgb(0, 179, 255)

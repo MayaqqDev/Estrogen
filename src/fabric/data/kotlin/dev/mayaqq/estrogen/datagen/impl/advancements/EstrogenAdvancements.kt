@@ -216,7 +216,7 @@ class EstrogenAdvancements(output: FabricDataOutput, lookup: CompletableFuture<H
     fun getItems(): ItemPredicate {
         return ItemPredicate(HolderSet.direct(BuiltInRegistries.ITEM.registryKeySet().filter {
                 it.location().namespace == MOD_ID
-            }.map { BuiltInRegistries.ITEM.getHolder(it).getOrNull()!! }).optional(),
+            }.sortedBy { it.location().path }.map { BuiltInRegistries.ITEM.getHolder(it).getOrNull()!! }).optional(),
         MinMaxBounds.Ints.ANY,
         DataComponentPredicate.EMPTY,
         mapOf()
