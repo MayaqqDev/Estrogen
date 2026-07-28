@@ -8,6 +8,7 @@ import dev.mayaqq.estrogen.client.content.blockRenderers.memorial.MemorialRender
 import dev.mayaqq.estrogen.content.blockEntities.CookieJarBlockEntity
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.content.blockEntities.DreamCatcherBlockEntity
+import dev.mayaqq.estrogen.content.blockEntities.EstrogenBedBlockEntity
 import dev.mayaqq.estrogen.content.blockEntities.MemorialBlockEntity
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.blockEntity.BlockEntityEntry
@@ -37,5 +38,9 @@ object EstrogenBlockEntities : Registrar<BlockEntityType<*>> by Registrar(MOD_ID
     val Memorial: BlockEntityEntry<MemorialBlockEntity> = blockEntity("memorial", ::MemorialBlockEntity) {
         validBlock(EstrogenBlocks.Memorial)
         renderer(::MemorialRenderer)
+    }
+
+    val EstrogenBedBlock: BlockEntityEntry<EstrogenBedBlockEntity> = blockEntity("estrogen_bed", ::EstrogenBedBlockEntity) {
+        validBlocks(EstrogenBlocks.MothBed, EstrogenBlocks.QuiltedMothBed)
     }
 }

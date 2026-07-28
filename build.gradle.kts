@@ -280,6 +280,7 @@ cloche {
 
         runs {
             client {
+                jvmArgs("-Dmixin.debug.export=true")
             }
             server {
                 runDir("runServer")

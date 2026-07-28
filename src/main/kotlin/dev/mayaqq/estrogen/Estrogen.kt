@@ -106,4 +106,9 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME) {
             ThighHighStyleLootFunction
         ).forEach(MainBus::subscribe)
     }
+
+    fun hookEarlyEvents() {
+        listOf<Any>(
+        ).forEach(MainBus::subscribe)
+    }
 }
