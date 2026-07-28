@@ -1,4 +1,4 @@
-package dev.mayaqq.estrogen.neoforge.mixins;
+package dev.mayaqq.estrogen.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;

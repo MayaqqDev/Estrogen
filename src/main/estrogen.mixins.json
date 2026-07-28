@@ -13,7 +13,8 @@
     "PistonMovingBlockEntityMixin",
     "PlayerMixin",
     "ServerGamePacketListenerImplMixin",
-    "ThrownEnderpearlMixin"
+    "ThrownEnderpearlMixin",
+    "NullbusConstantsMixin"
   ],
   "client": [
     "client.AbstractClientPlayerMixin",
