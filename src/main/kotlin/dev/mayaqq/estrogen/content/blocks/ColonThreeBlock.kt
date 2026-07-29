@@ -25,7 +25,7 @@ class ColonThreeBlock(properties: Properties) : Block(properties) {
                 }
 
                 val relative = pos.relative(dir)
-                if (level.getBlockState(relative).isAir) {
+                if (level.getBlockState(relative).isAir && level.isInWorldBounds(relative)) {
                     level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState())
                     level.setBlockAndUpdate(relative, state)
                 }
