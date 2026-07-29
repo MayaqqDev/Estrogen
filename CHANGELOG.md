@@ -1,9 +1,16 @@
-# Estrogen `@VERSION@` `1.20.1` `Fabric & Forge`
+# Estrogen `@VERSION@` `1.21.1` `Fabric & NeoForge`
 
 ### Changelog:
-- Cauldron Interaction Config
-- Thigh High Spawn Chance Config
-- Cog Icon in Configs
-- Fixed redash when effect runs out
-- Removed ugly log message on server message
-- Fixed forced pseudo recipes
+- Port to 1.21.1
+- made more compatible
+- More translations
+- new wiki at https://modded.wiki/w/Estrogen
+- Cosmetic rendering adjustments and improvements
+- Custom Arm Poses for some Items & Blocks
+- Better particles when Dashing and Dreaming
+- Better Thigh High dye recipe
+- More block break particles
+- Vanilla recipe fixes & additions
+- Link to resource on [Dreamcatcher](https://TheIndigenousFoundation.org/articles/dreamcatchers)
+- Reworded some descriptions
+- :3
