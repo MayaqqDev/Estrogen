@@ -76,9 +76,9 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void estrogen$init(ModelPart root, boolean thinArms, CallbackInfo ci) {
-        if (root.hasChild("boobs")) estrogen$boobs = root.getChild("boobs");
+        if (root.hasChild("estrogen_boobs")) estrogen$boobs = root.getChild("estrogen_boobs");
         else Estrogen.INSTANCE.warn("An error occurred while trying to get the Estrogen Chest.");
-        if (root.hasChild("boobs_jacket")) estrogen$boobJacket = root.getChild("boobs_jacket");
+        if (root.hasChild("estrogen_boobs_jacket")) estrogen$boobJacket = root.getChild("estrogen_boobs_jacket");
         else Estrogen.INSTANCE.warn("An error occurred while trying to get the Estrogen Chest Jacket.");
         estrogen$boobArmor = new BoobArmorRenderer();
         estrogen$boobArmorTrim = new BoobArmorRenderer();
@@ -89,8 +89,8 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
             at = @At("RETURN")
     )
     private static MeshDefinition estrogen$getTextureModelData(MeshDefinition original, @Local PartDefinition root) {
-        root.addOrReplaceChild("boobs", CubeListBuilder.create().addBox("boobs", -4.0F, 0F, 0F, 8, 2, 2, CubeDeformation.NONE, 18, 22), PartPose.ZERO);
-        root.addOrReplaceChild("boobs_jacket", CubeListBuilder.create().addBox("boobs_jacket", -4.0F, 0F, 0F, 8, 2, 2, new CubeDeformation(0.25f), 18, 38), PartPose.ZERO);
+        root.addOrReplaceChild("estrogen_boobs", CubeListBuilder.create().addBox("estrogen_boobs", -4.0F, 0F, 0F, 8, 2, 2, CubeDeformation.NONE, 18, 22), PartPose.ZERO);
+        root.addOrReplaceChild("estrogen_boobs_jacket", CubeListBuilder.create().addBox("estrogen_boobs_jacket", -4.0F, 0F, 0F, 8, 2, 2, new CubeDeformation(0.25f), 18, 38), PartPose.ZERO);
         return original;
     }
 
