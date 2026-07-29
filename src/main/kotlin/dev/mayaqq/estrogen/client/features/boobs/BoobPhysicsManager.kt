@@ -1,9 +1,9 @@
 package dev.mayaqq.estrogen.client.features.boobs
 
+import dev.mayaqq.cynosure.client.events.ClientTickEvent
 import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.events.world.LevelEvent
+import dev.mayaqq.cynosure.helpers.McLevel
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
-import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.world.entity.player.Player
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
@@ -15,12 +15,12 @@ object BoobPhysicsManager {
     fun isEnabled(): Boolean = EstrogenClientConfig.ChestRenderingGlobal.physicsRendering
 
     @Subscription
-    fun tick(event: LevelEvent.BeginTick) {
-        if (event.level !is ClientLevel) return
+    fun tick(event: ClientTickEvent.Begin) {
+        val level = McLevel?: return
         if (!isEnabled()) return
 
         for (physics in players.entries) {
-            val player = event.level.getPlayerByUUID(physics.key)
+            val player = level.getPlayerByUUID(physics.key)
             if (player != null && Boob.shouldShow(player)) {
                 physics.value.update(player)
                 if (physics.value.expired) {
