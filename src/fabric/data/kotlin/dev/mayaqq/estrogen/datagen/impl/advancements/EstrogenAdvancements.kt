@@ -97,33 +97,33 @@ class EstrogenAdvancements(output: FabricDataOutput, lookup: CompletableFuture<H
             ).addCriterion("estrogen_pill", hasItems(EstrogenItems.EstrogenPill))
             .build(id("estrogen_pill"))
 
-        val estrogenPatches: AdvancementHolder = Advancement.Builder.advancement()
+        val estrogenPatch: AdvancementHolder = Advancement.Builder.advancement()
             .parent(liquidEstrogen)
             .display(
-                EstrogenItems.EstrogenPatches,
-                Component.translatable("advancement.estrogen.estrogen_patches.title"),
-                Component.translatable("advancement.estrogen.estrogen_patches.description"),
+                EstrogenItems.EstrogenPatch,
+                Component.translatable("advancement.estrogen.estrogen_patch.title"),
+                Component.translatable("advancement.estrogen.estrogen_patch.description"),
                 null,
                 AdvancementType.GOAL,
                 true,
                 true,
                 false
-            ).addCriterion("estrogen_patches", hasItems(EstrogenItems.EstrogenPatches))
-            .build(id("estrogen_patches"))
+            ).addCriterion("estrogen_patch", hasItems(EstrogenItems.EstrogenPatch))
+            .build(id("estrogen_patch"))
 
         val uwu: AdvancementHolder = Advancement.Builder.advancement()
             .parent(root)
             .display(
                 EstrogenItems.ColonThree,
-                Component.translatable("advancement.estrogen.uwu.title"),
-                Component.translatable("advancement.estrogen.uwu.description"),
+                Component.translatable("advancement.estrogen.colon_three.title"),
+                Component.translatable("advancement.estrogen.colon_three.description"),
                 null,
                 AdvancementType.CHALLENGE,
                 true,
                 true,
                 true
-            ).addCriterion("uwu", hasItems(EstrogenItems.ColonThree))
-            .build(id("uwu"))
+            ).addCriterion("colon_three", hasItems(EstrogenItems.ColonThree))
+            .build(id("colon_three"))
 
         val balls: AdvancementHolder = Advancement.Builder.advancement()
             .parent(root)
@@ -205,7 +205,7 @@ class EstrogenAdvancements(output: FabricDataOutput, lookup: CompletableFuture<H
         consumer.accept(wetSponge)
         consumer.accept(liquidEstrogen)
         consumer.accept(estrogenPill)
-        consumer.accept(estrogenPatches)
+        consumer.accept(estrogenPatch)
         consumer.accept(uwu)
         consumer.accept(balls)
         consumer.accept(cookie_jar)

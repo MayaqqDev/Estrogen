@@ -27,7 +27,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-class EstrogenPatchesItem(properties: Properties) : Item(properties), FluidProvider.Item, Equip {
+class EstrogenPatchItem(properties: Properties) : Item(properties), FluidProvider.Item, Equip {
     override fun tick(stack: ItemStack, slot: SlotInfo) {
         val context = slot.slotContext(stack)
         val level: Level = slot.wearer?.level() ?: return

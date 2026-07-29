@@ -146,12 +146,14 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
         }
     }
 
-    val ColonThreeBlock: RegistryEntry<ColonThreeBlock> = block("colon_three", ::ColonThreeBlock) {
+    val ColonThreeBlock: RegistryEntry<ColonThreeBlock> = block("colon_three_block", ::ColonThreeBlock) {
         initialPropertiesFrom(Blocks::NETHERITE_BLOCK)
         properties {
             randomTicks()
         }
-        item("colon_three", ::BlockItem)
+        item("colon_three_block", ::BlockItem) {
+            standardTooltip()
+        }
     }
 
     val DreamCatcher: RegistryEntry<DreamCatcherBlock> = block("dreamcatcher", ::DreamCatcherBlock) {

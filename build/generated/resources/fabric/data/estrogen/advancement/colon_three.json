@@ -1,11 +1,11 @@
 {
   "parent": "estrogen:root",
   "criteria": {
-    "uwu": {
+    "colon_three": {
       "conditions": {
         "items": [
           {
-            "items": "estrogen:uwu"
+            "items": "estrogen:colon_three"
           }
         ]
       },
@@ -14,21 +14,21 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.estrogen.uwu.description"
+      "translate": "advancement.estrogen.colon_three.description"
     },
     "frame": "challenge",
     "hidden": true,
     "icon": {
       "count": 1,
-      "id": "estrogen:uwu"
+      "id": "estrogen:colon_three"
     },
     "title": {
-      "translate": "advancement.estrogen.uwu.title"
+      "translate": "advancement.estrogen.colon_three.title"
     }
   },
   "requirements": [
     [
-      "uwu"
+      "colon_three"
     ]
   ],
   "sends_telemetry_event": true

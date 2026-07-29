@@ -1,5 +1,8 @@
 package dev.mayaqq.estrogen.compat.recipeviewers.api.emi
 
+import dev.emi.emi.api.EmiInitRegistry
+import dev.emi.emi.api.EmiPlugin
+import dev.emi.emi.api.EmiRegistry
 import dev.emi.emi.api.recipe.BasicEmiRecipe
 import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.render.EmiTexture
@@ -20,94 +23,100 @@ import net.minecraft.world.item.crafting.RecipeHolder
 object EmiPluginRegister {
     fun getPlugins(): List<EmiPluginContainer> {
         return CommonRecipeViewer.getPlugins().map { commonPlugin ->
-            EmiPluginContainer({ registry ->
-                commonPlugin.plugin.pseudoRecipes?.forEach { pseudoRecipe ->
-                    val category = EmiRecipeCategory(pseudoRecipe.id) { graphics, offsetX, offsetY, partialTick ->
-                        pseudoRecipe.render(graphics, offsetX, offsetY, partialTick)
+            EmiPluginContainer(object : EmiPlugin {
+                override fun initialize(registry: EmiInitRegistry) {
+                    commonPlugin.plugin.removedItems.forEach { registry.disableStack(EmiStack.of(it)) }
+                }
+
+                override fun register(registry: EmiRegistry) {
+                    commonPlugin.plugin.pseudoRecipes?.forEach { pseudoRecipe ->
+                        val category = EmiRecipeCategory(pseudoRecipe.id) { graphics, offsetX, offsetY, partialTick ->
+                            pseudoRecipe.render(graphics, offsetX, offsetY, partialTick)
+                        }
+
+                        registry.addCategory(category)
+
+                        pseudoRecipe.dataSupplier.invoke().forEach { data ->
+                            val method = pseudoRecipe.builder::class.java.getMethod("invoke", Object::class.java)
+                            method.isAccessible = true
+                            method.invoke(pseudoRecipe.builder, data).let { anyPseudoRecipe ->
+                                val crvRecipe = anyPseudoRecipe as CRVPseudoRecipe<*>
+                                registry.addRecipe(object : BasicEmiRecipe(category, crvRecipe.getId().withPath("/${crvRecipe.getId().path}"), pseudoRecipe.width, pseudoRecipe.height) {
+                                    init {
+                                        crvRecipe.init()
+
+                                        this.inputs.addAll(crvRecipe.inputs.map { it.toEmi() })
+                                        this.outputs.addAll(crvRecipe.outputs.map { it.toEmiStack() })
+                                        this.catalysts.addAll(crvRecipe.catalysts.map { it.toEmi() })
+                                    }
+
+                                    override fun addWidgets(widgets: WidgetHolder) {
+                                        crvRecipe.textures.forEach { texture ->
+                                            widgets.addTexture(texture.coorded, texture.x, texture.y)
+                                        }
+                                        crvRecipe.slots.forEach { slot ->
+                                            widgets.addSlot(slot.ingredient.toEmi(), slot.x, slot.y).withBackground(slot.background).let { widget ->
+                                                if (slot.role == Role.OUTPUT) widget.recipeContext(this)
+                                            }
+                                        }
+                                        crvRecipe.drawables.forEach { drawable ->
+                                            widgets.addDrawable(drawable.x, drawable.y, 0, 0) {graphics, mouseX, mouseY, partialTick  ->
+                                                drawable.coorded.draw(graphics, 0, 0, mouseX, mouseY, partialTick)
+                                            }
+                                        }
+                                    }
+                                })
+                            }
+                        }
                     }
 
-                    registry.addCategory(category)
+                    commonPlugin.plugin.recipes.forEach { viewerInfo ->
+                        val category = EmiRecipeCategory(viewerInfo.info.id) {graphics, offsetX, offsetY, partialTick ->
+                            viewerInfo.info.render(graphics, offsetX, offsetY, partialTick)
+                        }
 
-                    pseudoRecipe.dataSupplier.invoke().forEach { data ->
-                        val method = pseudoRecipe.builder::class.java.getMethod("invoke", Object::class.java)
-                        method.isAccessible = true
-                        method.invoke(pseudoRecipe.builder, data).let { anyPseudoRecipe ->
-                            val crvRecipe = anyPseudoRecipe as CRVPseudoRecipe<*>
-                            registry.addRecipe(object : BasicEmiRecipe(category, crvRecipe.getId().withPath("/${crvRecipe.getId().path}"), pseudoRecipe.width, pseudoRecipe.height) {
+                        registry.addCategory(category)
+
+                        viewerInfo.info.workstation?.let {
+                            registry.addWorkstation(category, EmiIngredient.of(Ingredient.of(viewerInfo.info.workstation)))
+                        }
+
+                        registry.recipeManager.recipes.filter { it.value().type == viewerInfo.info.type }.forEach { recipe ->
+                            val recipe = viewerInfo.crvrecipe.invoke(recipe as RecipeHolder<Recipe<*>>)
+                            registry.addRecipe(object : BasicEmiRecipe(category, viewerInfo.info.id, viewerInfo.info.width, viewerInfo.info.height) {
                                 init {
-                                    crvRecipe.init()
+                                    recipe.init()
 
-                                    this.inputs.addAll(crvRecipe.inputs.map { it.toEmi() })
-                                    this.outputs.addAll(crvRecipe.outputs.map { it.toEmiStack() })
-                                    this.catalysts.addAll(crvRecipe.catalysts.map { it.toEmi() })
+                                    this.inputs.addAll(recipe.inputs.map { it.toEmi() })
+                                    this.outputs.addAll(recipe.outputs.map { it.toEmiStack() })
+                                    this.catalysts.addAll(recipe.catalysts.map { it.toEmi() })
                                 }
 
                                 override fun addWidgets(widgets: WidgetHolder) {
-                                    crvRecipe.textures.forEach { texture ->
+                                    recipe.textures.forEach { texture ->
                                         widgets.addTexture(texture.coorded, texture.x, texture.y)
                                     }
-                                    crvRecipe.slots.forEach { slot ->
+                                    recipe.slots.forEach { slot ->
                                         widgets.addSlot(slot.ingredient.toEmi(), slot.x, slot.y).withBackground(slot.background).let { widget ->
                                             if (slot.role == Role.OUTPUT) widget.recipeContext(this)
                                         }
                                     }
-                                    crvRecipe.drawables.forEach { drawable ->
+                                    recipe.drawables.forEach { drawable ->
                                         widgets.addDrawable(drawable.x, drawable.y, 0, 0) {graphics, mouseX, mouseY, partialTick  ->
                                             drawable.coorded.draw(graphics, 0, 0, mouseX, mouseY, partialTick)
                                         }
                                     }
                                 }
+
                             })
                         }
+
                     }
+
+                    //Hiding
+                    commonPlugin.plugin.removedItems.forEach { registry.removeEmiStacks(EmiStack.of(it)) }
+                    commonPlugin.plugin.removedRecipes.forEach { registry.removeRecipes(it) }
                 }
-
-                commonPlugin.plugin.recipes.forEach { viewerInfo ->
-                    val category = EmiRecipeCategory(viewerInfo.info.id) {graphics, offsetX, offsetY, partialTick ->
-                        viewerInfo.info.render(graphics, offsetX, offsetY, partialTick)
-                    }
-
-                    registry.addCategory(category)
-
-                    viewerInfo.info.workstation?.let {
-                        registry.addWorkstation(category, EmiIngredient.of(Ingredient.of(viewerInfo.info.workstation)))
-                    }
-
-                    registry.recipeManager.recipes.filter { it.value().type == viewerInfo.info.type }.forEach { recipe ->
-                        val recipe = viewerInfo.crvrecipe.invoke(recipe as RecipeHolder<Recipe<*>>)
-                        registry.addRecipe(object : BasicEmiRecipe(category, viewerInfo.info.id, viewerInfo.info.width, viewerInfo.info.height) {
-                            init {
-                                recipe.init()
-
-                                this.inputs.addAll(recipe.inputs.map { it.toEmi() })
-                                this.outputs.addAll(recipe.outputs.map { it.toEmiStack() })
-                                this.catalysts.addAll(recipe.catalysts.map { it.toEmi() })
-                            }
-
-                            override fun addWidgets(widgets: WidgetHolder) {
-                                recipe.textures.forEach { texture ->
-                                    widgets.addTexture(texture.coorded, texture.x, texture.y)
-                                }
-                                recipe.slots.forEach { slot ->
-                                    widgets.addSlot(slot.ingredient.toEmi(), slot.x, slot.y).withBackground(slot.background).let { widget ->
-                                        if (slot.role == Role.OUTPUT) widget.recipeContext(this)
-                                    }
-                                }
-                                recipe.drawables.forEach { drawable ->
-                                    widgets.addDrawable(drawable.x, drawable.y, 0, 0) {graphics, mouseX, mouseY, partialTick  ->
-                                        drawable.coorded.draw(graphics, 0, 0, mouseX, mouseY, partialTick)
-                                    }
-                                }
-                            }
-
-                        })
-                    }
-
-                }
-
-                //Hiding
-                commonPlugin.plugin.removedItems.forEach { registry.removeEmiStacks(EmiStack.of(it)) }
-                commonPlugin.plugin.removedRecipes.forEach { registry.removeRecipes(it) }
             }, commonPlugin.modid)
         }
     }

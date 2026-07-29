@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "C": {
-      "item": "estrogen:uwu"
+      "item": "estrogen:colon_three"
     },
     "E": {
       "item": "minecraft:egg"
@@ -16,7 +16,7 @@
   ],
   "result": {
     "count": 1,
-    "id": "estrogen:colon_three"
+    "id": "estrogen:colon_three_block"
   },
   "show_notification": false
 }

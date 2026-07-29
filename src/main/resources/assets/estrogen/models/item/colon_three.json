@@ -1,3 +1,6 @@
 {
-  "parent": "estrogen:block/colon_three"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "estrogen:item/colon_three"
+  }
 }

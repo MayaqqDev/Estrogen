@@ -20,12 +20,12 @@ class EstrogenItemTags(
 ) : BaseTagProvider.ItemProvider(data, completableFeature, helper) {
     override fun addTags(provider: HolderLookup.Provider) {
         getOrCreateTagBuilder(EstrogenTags.Items.THIGHS)
-            .add(EstrogenItems.EstrogenPatches.value)
+            .add(EstrogenItems.EstrogenPatch.value)
             .add(EstrogenItems.ThighHighs.value)
         getOrCreateTagBuilder(EstrogenTags.Items.UWUFYING)
             .add(EstrogenItems.ColonThree.value)
         getOrCreateTagBuilder(EstrogenTags.Items.CURIOS_THIGHS)
-            .add(EstrogenItems.EstrogenPatches.value)
+            .add(EstrogenItems.EstrogenPatch.value)
             .add(EstrogenItems.ThighHighs.value)
         getOrCreateTagBuilder(EstrogenTags.Items.LAVA_BUCKETS)
             .add(EstrogenFluids.MoltenSlime.bucket)
@@ -125,5 +125,7 @@ class EstrogenItemTags(
             .forceAddTag(ItemTags.HEAD_ARMOR_ENCHANTABLE)
             .forceAddTag(ItemTags.SKULLS)
             .add(Items.CARVED_PUMPKIN)
+        getOrCreateTagBuilder(EstrogenTags.Items.HIDDEN_FROM_RECIPE_VIEWERS)
+            .add(EstrogenBlocks.ColonThreeBlock.value!!.asItem())
     }
 }

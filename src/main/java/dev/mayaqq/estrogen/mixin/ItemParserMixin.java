@@ -19,6 +19,6 @@ public class ItemParserMixin {
             )
     )
     private Stream<ResourceKey<Item>> suggestItem(Stream<ResourceKey<Item>> original) {
-        return original.filter(item -> !item.location().equals(ResourceLocation.fromNamespaceAndPath("estrogen", "colon_three")));
+        return original.filter(item -> !item.location().equals(ResourceLocation.fromNamespaceAndPath("estrogen", "colon_three_block")));
     }
 }

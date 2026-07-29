@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "estrogen:block/colon_three"
+    "all": "estrogen:block/colon_three_block"
   }
 }

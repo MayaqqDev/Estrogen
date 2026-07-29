@@ -13,4 +13,5 @@
 - Vanilla recipe fixes & additions
 - Link to resource on [Dreamcatcher](https://TheIndigenousFoundation.org/articles/dreamcatchers)
 - Reworded some descriptions
+- Changed ids of some items and blocks
 - :3

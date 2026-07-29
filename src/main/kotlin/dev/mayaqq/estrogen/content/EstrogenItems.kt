@@ -110,7 +110,7 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         }
     }
 
-    val ColonThree = item("uwu", ::ColonThreeItem) {
+    val ColonThree = item("colon_three", ::ColonThreeItem) {
         properties {
             stacksTo(1)
             food(FoodProperties.Builder()
@@ -135,7 +135,7 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         colorProvider(ThighHighsItem::getColor)
     }
 
-    val EstrogenPatches = item("estrogen_patches", ::EstrogenPatchesItem) {
+    val EstrogenPatch = item("estrogen_patch", ::EstrogenPatchItem) {
         properties {
             stacksTo(1)
         }

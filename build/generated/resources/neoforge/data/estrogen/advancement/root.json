@@ -7,13 +7,14 @@
             "items": [
               "estrogen:balls",
               "estrogen:colon_three",
+              "estrogen:colon_three_block",
               "estrogen:cookie_jar",
               "estrogen:crystal_estrogen_pill",
               "estrogen:dormant_dream_block",
               "estrogen:dream_bottle",
               "estrogen:dreamcatcher",
               "estrogen:estrogen_chip_cookie",
-              "estrogen:estrogen_patches",
+              "estrogen:estrogen_patch",
               "estrogen:estrogen_pill",
               "estrogen:estrogen_pill_block",
               "estrogen:filtrated_horse_urine_bucket",
@@ -36,8 +37,7 @@
               "estrogen:testosterone_chunk",
               "estrogen:testosterone_mixture_bucket",
               "estrogen:testosterone_powder",
-              "estrogen:thigh_highs",
-              "estrogen:uwu"
+              "estrogen:thigh_highs"
             ]
           }
         ]

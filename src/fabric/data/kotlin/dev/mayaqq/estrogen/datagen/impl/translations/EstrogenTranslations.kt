@@ -31,7 +31,7 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         // Items
         tb.add("itemGroup.estrogen.estrogen", "Estrogen")
         tb.add(EstrogenItems.EstrogenPill.value, "Estrogen Pill")
-        tb.add(EstrogenItems.EstrogenPatches.value, "Estrogen Patch")
+        tb.add(EstrogenItems.EstrogenPatch.value, "Estrogen Patch")
         tb.add(EstrogenItems.CrystalEstrogenPill.value, "Crystal Estrogen Pill")
         tb.add(EstrogenItems.EstrogenChipCookie.value, "Estrogen Chip Cookie")
         tb.add("item.estrogen.estrogen_chip_cookie.desc", "erora - G03C")
@@ -40,7 +40,6 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         tb.add(EstrogenItems.TestosteroneChunk.value, "Testosterone Chunk")
         tb.add(EstrogenItems.TestosteronePowder.value, "Testosterone Powder")
         tb.add(EstrogenItems.ColonThree.value, ":3")
-        tb.add("item.estrogen.uwu.tooltip", "§r§dUwU")
         tb.add(EstrogenItems.DreamBottle, "Bottle of Dreams")
         tb.add(EstrogenItems.MothFuzz.value, "Moth Fuzz")
         tb.add(BuiltInRegistries.ITEM.get(id("moth_spawn_egg")), "Rosy Maple Moth Spawn Egg")
@@ -69,10 +68,10 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         // Tooltip
         tb.add("item.estrogen.estrogen_pill.tooltip", "Temporary Source of _Girl Power_.")
         tb.add("item.estrogen.crystal_estrogen_pill.tooltip", "Temporary Source of _Girl Power_.")
-        tb.add("item.estrogen.estrogen_patches.tooltip", "A refillable source of _Girl Power_.")
-        tb.add("item.estrogen.estrogen_patches.tooltip.condition1", "When worn in the Thighs slot")
+        tb.add("item.estrogen.estrogen_patch.tooltip", "A refillable source of _Girl Power_.")
+        tb.add("item.estrogen.estrogen_patch.tooltip.condition1", "When worn in the Thighs slot")
         tb.add(
-            "item.estrogen.estrogen_patches.tooltip.behaviour1",
+            "item.estrogen.estrogen_patch.tooltip.behaviour1",
             "Gives the _Girl Power Effect_ for as long as it's worn and is filled with _Liquid Estrogen_."
         )
         tb.add("block.estrogen.dormant_dream_block.tooltip", "A block with some _very_ powerful properties...")
@@ -83,7 +82,7 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
 
         tb.add("block.estrogen.cookie_jar.tooltip", "A jar to _store_ all your _Cookies_!")
         tb.add("block.estrogen.dreamcatcher.tooltip", "Place to guard off all the _bad_ dreams away!")
-        tb.add("block.estrogen.colon_three.tooltip", "_Why?_")
+        tb.add("block.estrogen.colon_three_block.tooltip", "_Why?_")
 
         // Advancements
         tb.add("advancement.estrogen.root.title", "Estrogen")
@@ -105,13 +104,13 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         tb.add("advancement.estrogen.liquid_estrogen.description", "Collect a Bucket of Liquid Estrogen.")
         tb.add("advancement.estrogen.estrogen_pill.title", "Pill up, gals!")
         tb.add("advancement.estrogen.estrogen_pill.description", "Craft the elusive Estrogen Pill.")
-        tb.add("advancement.estrogen.estrogen_patches.title", "(Almost) Permanent!")
+        tb.add("advancement.estrogen.estrogen_patch.title", "(Almost) Permanent!")
         tb.add(
-            "advancement.estrogen.estrogen_patches.description",
-            "Craft the Estrogen Patches and enjoy your long lasting femininity."
+            "advancement.estrogen.estrogen_patch.description",
+            "Craft the Estrogen Patch and enjoy your long lasting femininity."
         )
-        tb.add("advancement.estrogen.uwu.title", ":3")
-        tb.add("advancement.estrogen.uwu.description", ":3333333333")
+        tb.add("advancement.estrogen.colon_three.title", ":3")
+        tb.add("advancement.estrogen.colon_three.description", ":3333333333")
         tb.add("advancement.estrogen.balls.title", "Hehe")
         tb.add("advancement.estrogen.balls.description", "What happens when you split the Slime and the Balls?")
         tb.add("advancement.estrogen.cookie_jar.title", "Accept & Continue")

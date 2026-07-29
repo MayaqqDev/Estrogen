@@ -41,5 +41,7 @@ class EstrogenBlockTags(
             .add(EstrogenBlocks.QuiltedMothCarpet.value!!)
             .add(EstrogenBlocks.MothBed.value!!)
             .add(EstrogenBlocks.QuiltedMothBed.value!!)
+        getOrCreateTagBuilder(EstrogenTags.Blocks.HIDDEN_FROM_RECIPE_VIEWERS)
+            .add(EstrogenBlocks.ColonThreeBlock.get())
     }
 }
