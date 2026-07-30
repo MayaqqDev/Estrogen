@@ -3,6 +3,8 @@ package dev.mayaqq.estrogen.content.entities
 import dev.mayaqq.cynosure.core.Loader
 import dev.mayaqq.cynosure.core.currentLoader
 import dev.mayaqq.cynosure.core.identifier
+import dev.mayaqq.cynosure.utils.tag
+import dev.mayaqq.estrogen.cid
 import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.utils.defaultInstance
 import net.minecraft.Util
@@ -356,9 +358,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         private val DATA_FUZZY: EntityDataAccessor<Boolean> = SynchedEntityData.defineId<Boolean>(MothEntity::class.java, EntityDataSerializers.BOOLEAN)
         private val ANIMATION_STATES: EntityDataAccessor<Byte> = SynchedEntityData.defineId<Byte>(MothEntity::class.java, EntityDataSerializers.BYTE)
 
-        val shearsTag: TagKey<Item> = TagKey.create(Registries.ITEM,
-            identifier(if (currentLoader == Loader.FORGE) "forge" else "c", "shears")
-        )
+        val shearsTag: TagKey<Item> = Registries.ITEM.tag(cid("tools/shear"))
 
         fun createAttributes(): AttributeSupplier.Builder = createMobAttributes()
             .add(Attributes.MAX_HEALTH, 10.0)
