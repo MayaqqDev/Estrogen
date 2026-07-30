@@ -34,7 +34,7 @@ object EstrogenModels : PreparableModelLoadingPlugin<Preparations> {
 
     override fun ModelLoadingContext.onInitializePlugin(data: Preparations) {
         val (models, textures) = data
-        addModels(models.also { println(it) })
+        addModels(models)
 
         modifyModelsOnLoad.subscribe {
             if (id.left == THIGH_HIGH_ITEM_LOCATION) ThighHighsItemModel(it, textures) else it
