@@ -135,7 +135,6 @@ fun <S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFluid.Flowing> Flu
         still(id("block/blank_lava/blank_lava_still"))
         flowing(id("block/blank_lava/blank_lava_flow"))
         overlay(id("block/blank_lava/blank_lava_flow"))
-        screenOverlay(id("textures/misc/underwater.png"))
     }
     block(::LavaLikeLiquidBlock) {
         initialPropertiesFrom(Blocks::LAVA)
