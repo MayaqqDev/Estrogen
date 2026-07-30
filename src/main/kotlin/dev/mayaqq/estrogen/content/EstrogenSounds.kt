@@ -26,7 +26,7 @@ object EstrogenSounds : Registrar<SoundEvent> by Registrar(MOD_ID, Registries.SO
     val AMPHITRITE: RegistryEntry<SoundEvent> = soundEvent("amphitrite")
     val AURUM_BERRY: RegistryEntry<SoundEvent> = soundEvent("aurum_berry")
     val ESTROGEN_AMBIENT: RegistryEntry<SoundEvent> = soundEvent("estrogen_ambient")
-    val INFERRED_DREAMS: RegistryEntry<SoundEvent> = soundEvent("inferred_dream")
+    val INFERRED_DREAMS: RegistryEntry<SoundEvent> = soundEvent("inferred_dreams")
     val SLEEPING: RegistryEntry<SoundEvent> = soundEvent("sleeping")
     val INNER_SELF_REALIZATION: RegistryEntry<SoundEvent> = soundEvent("inner_self_realization")
 
