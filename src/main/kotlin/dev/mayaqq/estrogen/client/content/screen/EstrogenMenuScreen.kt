@@ -14,6 +14,7 @@ import dev.mayaqq.estrogen.client.content.screen.cosmetics.CosmeticsBaseScreen
 import dev.mayaqq.estrogen.client.content.screen.modules.ModulesScreen
 import dev.mayaqq.estrogen.id
 import invoke.kitty.kritter.utils.color.LightBlue
+import invoke.kitty.kritter.utils.color.MinecraftColors
 import invoke.kitty.kritter.utils.color.Red
 import invoke.kitty.kritter.utils.color.White
 import invoke.kitty.kritter.utils.color.toColor
@@ -34,6 +35,8 @@ class EstrogenMenuScreen(previous: Screen?) : BaseEstrogenScreen(previous, Text.
     val bConfig = EstrogenButton.Builder(EstrogenButton.TextRenderer(Text.translatable("estrogen.button.config"))) {
         //McClient.setScreen(ConfigCategorySelectionScreen(this, listOf("estrogen/client", "estrogen/common", "estrogen/server")))
     }
+        .tooltip(Tooltip.create(Text.of("Currently, config is only editable within the config directory, sorry :(") { color = MinecraftColors.Red }))
+        .disabled(true)
     val bModuleConfigs = EstrogenButton.Builder(EstrogenButton.TextRenderer(Text.translatable("estrogen.button.module_configs"))) {
         McClient.setScreen(ModulesScreen(this))
     }
