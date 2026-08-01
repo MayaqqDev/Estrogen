@@ -25,6 +25,7 @@ import dev.mayaqq.estrogen.mixin.client.accessor.ItemPropertiesAccessor
 import invoke.kitty.kritter.registry.blockEntity.BlockEntityBuilder
 import invoke.kitty.kritter.registry.item.ItemBuilder
 import invoke.kitty.kritter.utils.clientOnly
+import invoke.kitty.kritter.utils.clientOnlyNoDatagen
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.BlockPos
@@ -60,7 +61,7 @@ fun ItemBuilder<*>.standardTooltip() {
 
 inline fun <I> ItemBuilder<I>.textureProperty(id: ResourceLocation, crossinline consumer: (stack: ItemStack, level: ClientLevel?, entity: LivingEntity?, i: Int) -> Float) where I : Item {
     onRegister {
-        clientOnly {
+        clientOnlyNoDatagen {
             ItemPropertiesAccessor.register(it, id) { stack, level, entity, i ->
                 consumer.invoke(
                     stack,

@@ -15,6 +15,7 @@ import invoke.kitty.kritter.registry.api.entry.RegistryEntry
 import invoke.kitty.kritter.registry.block.BlockBuilder
 import invoke.kitty.kritter.registry.item.ItemBuilder
 import invoke.kitty.kritter.utils.clientOnly
+import invoke.kitty.kritter.utils.clientOnlyNoDatagen
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
@@ -77,7 +78,7 @@ class FluidBuilder<S : ResourcefulFlowingFluid.Still, F : ResourcefulFlowingFlui
 
     inline fun renderType(crossinline renderType: () -> RenderType) {
         onSetup {
-            clientOnly {
+            clientOnlyNoDatagen {
                 RenderLayerMap.putFluids(renderType.invoke(), it.source, it.flowing)
             }
         }
