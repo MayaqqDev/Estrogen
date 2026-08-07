@@ -1,8 +1,5 @@
 package dev.mayaqq.estrogen.content.entities
 
-import dev.mayaqq.cynosure.core.Loader
-import dev.mayaqq.cynosure.core.currentLoader
-import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.utils.tag
 import dev.mayaqq.estrogen.cid
 import dev.mayaqq.estrogen.content.*
@@ -70,7 +67,6 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
     private var fuzzupCooldown = 0
 
     init {
-        //There was a thing for the define here as well
         this.moveControl = FlyingMoveControl(this, 20, true)
         this.setPathfindingMalus(PathType.DANGER_FIRE, -1.0f)
         this.setPathfindingMalus(PathType.WATER, -1.0f)
@@ -96,7 +92,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
 
         if (this.isFuzzy()) {
             if (this.random.nextFloat() < 0.05f) {
-                for (i in 0..<this.random.nextInt(2) + 1) {
+                repeat(this.random.nextInt(2) + 1) {
                     this.spawnFuzzyParticle(
                         this.level(),
                         this.x - 0.3,
@@ -113,7 +109,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         if (!this.level().isClientSide && !this.isFuzzy() && !this.isBaby) {
             if (this.level().gameTime % this.ticksToFuzzUp == 0L) {
                 this.setFuzzy()
-                for (i in 0..6) {
+                repeat(7) {
                     this.spawnFuzzyParticle(
                         this.level(),
                         this.x - 0.3,
@@ -183,11 +179,11 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
     }
 
     fun getState(): State {
-        return State.entries[this.entityData.get<Byte>(ANIMATION_STATES).toInt()]
+        return State.entries[this.entityData.get(ANIMATION_STATES).toInt()]
     }
 
     private fun setState(state: State) {
-        this.entityData.set<Byte>(ANIMATION_STATES, state.ordinal.toByte())
+        this.entityData.set(ANIMATION_STATES, state.ordinal.toByte())
     }
 
     override fun onSyncedDataUpdated(key: EntityDataAccessor<*>) {
@@ -240,9 +236,8 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         this.level().playSound(null, this, SoundEvents.SHEEP_SHEAR, source, 1.0f, 1.0f)
         this.setSheared()
         val i = 1 + this.random.nextInt(3)
-        for (j in 0..< i) {
-            val itemEntity = this.spawnAtLocation(EstrogenItems.MothFuzz.defaultInstance(), 0.5f)
-            if (itemEntity == null) continue
+        repeat(i) {
+            val itemEntity = this.spawnAtLocation(EstrogenItems.MothFuzz.defaultInstance(), 0.5f) ?: return@repeat
             itemEntity.deltaMovement = itemEntity.deltaMovement.add(
                 ((this.random.nextFloat() - this.random.nextFloat()) * 0.1f).toDouble(),
                 (this.random.nextFloat() * 0.05f).toDouble(),
@@ -289,8 +284,8 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
     override fun registerGoals() {
         this.goalSelector.addGoal(0, PanicGoal(this, 1.25))
         this.goalSelector.addGoal(2, BreedGoal(this, 1.0))
-        this.goalSelector.addGoal(2, WaterAvoidingRandomFlyingGoal(this, 1.0))
-        this.goalSelector.addGoal(3, TemptByLightBlockGoal(this, 1.0, 5))
+        this.goalSelector.addGoal(2, TemptByLightBlockGoal(this, 1.0, 5))
+        this.goalSelector.addGoal(3, WaterAvoidingRandomFlyingGoal(this, 1.0))
         this.goalSelector.addGoal(4, TemptGoal(this, 1.25, Ingredient.of(EstrogenTags.Items.LIGHT_EMITTERS), false))
         this.goalSelector.addGoal(5, TemptGoal(this, 1.25, Ingredient.of(EstrogenTags.Items.LEATHER_ITEMS), false))
         this.goalSelector.addGoal(6, FollowParentGoal(this, 1.25))
@@ -355,8 +350,8 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
 
     companion object {
         const val TICKS_PER_FLAP: Int = 2
-        private val DATA_FUZZY: EntityDataAccessor<Boolean> = SynchedEntityData.defineId<Boolean>(MothEntity::class.java, EntityDataSerializers.BOOLEAN)
-        private val ANIMATION_STATES: EntityDataAccessor<Byte> = SynchedEntityData.defineId<Byte>(MothEntity::class.java, EntityDataSerializers.BYTE)
+        private val DATA_FUZZY: EntityDataAccessor<Boolean> = SynchedEntityData.defineId(MothEntity::class.java, EntityDataSerializers.BOOLEAN)
+        private val ANIMATION_STATES: EntityDataAccessor<Byte> = SynchedEntityData.defineId(MothEntity::class.java, EntityDataSerializers.BYTE)
 
         val shearsTag: TagKey<Item> = Registries.ITEM.tag(cid("tools/shear"))
 
@@ -414,7 +409,7 @@ class MothEntity(type: EntityType<MothEntity>, level: Level) : Animal(type, leve
         }
 
         companion object {
-            private val OFFSETS: ArrayList<BlockPos> = Util.make<ArrayList<BlockPos>>(ArrayList<BlockPos>()) { offsets: ArrayList<BlockPos> ->
+            private val OFFSETS: ArrayList<BlockPos> = Util.make(ArrayList<BlockPos>()) { offsets: ArrayList<BlockPos> ->
                 var i = 0
                 while (i.toDouble() <= 5) {
                     var j = 0
