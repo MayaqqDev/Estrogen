@@ -16,6 +16,7 @@ import dev.mayaqq.estrogen.content.advancements.triggers.KilledWithEffectEvents
 import dev.mayaqq.estrogen.content.blocks.CauldronInteractions
 import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import dev.mayaqq.estrogen.content.effects.EstrogenEffect
+import dev.mayaqq.estrogen.content.enchantments.UwuCurseEnchantmentEvents
 import dev.mayaqq.estrogen.content.recipes.EntityInteractionRecipeEvents
 import dev.mayaqq.estrogen.features.boobs.ServerSideBoobHandling
 import dev.mayaqq.estrogen.features.extra.BoobPeople
@@ -103,7 +104,8 @@ object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME) {
             ServerSideBoobHandling,
             BoobPeople,
             Minigame,
-            ThighHighStyleLootFunction
+            ThighHighStyleLootFunction,
+            UwuCurseEnchantmentEvents
         ).forEach(MainBus::subscribe)
     }
 
