@@ -42,21 +42,35 @@ repositories {
     maven(url = "https://maven.createmod.net/") { name = "Create" }
     maven(url = "https://repo.nyon.dev/releases") { name = "KotlinLangForge" }
     maven(url = "https://maven.theillusivec4.top/") { name = "TheIllusivec4" }
-    maven(url = "https://mvn.devos.one/snapshots/") { name = "Devos Maven"; description = "Create Fabric, Porting Lib, Forge Tags, Milk Lib & Fabric Registrate" }
+    maven(url = "https://mvn.devos.one/snapshots/") {
+        name = "Devos Maven"; description = "Create Fabric, Porting Lib, Forge Tags, Milk Lib & Fabric Registrate"
+    }
     maven(url = "https://cursemaven.com") { name = "Curseforge Maven"; description = "Forge Config API Port" }
     maven(url = "https://maven.cafeteria.dev/releases") { name = "Cafeteria Maven"; description = "Fake Player API" }
-    maven(url = "https://maven.jamieswhiteshirt.com/libs-release") { name = "JamiesWhiteShirt Maven"; description = "Reach Entity Attributes" }
+    maven(url = "https://maven.jamieswhiteshirt.com/libs-release") {
+        name = "JamiesWhiteShirt Maven"; description = "Reach Entity Attributes"
+    }
     maven(url = "https://maven.ladysnake.org/releases") { name = "Ladysnake Maven"; description = "Trinkets" }
     maven(url = "https://repo.unascribed.com") { name = "Unascribed Maven"; description = "Ears" }
     maven(url = "https://api.modrinth.com/maven") { name = "Modrinth Maven"; description = "Jukeboxfix, Ad Astra" }
-    maven(url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1") { name = "DevAuth maven"; description = "DevAuth" }
+    maven(url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1") {
+        name = "DevAuth maven"; description = "DevAuth"
+    }
     maven(url = "https://maven.isxander.dev/releases") { name = "Xander maven"; description = "YACL" }
-    maven(url = "https://maven.impactdev.net/repository/development/") { name = "ImpactDev Maven"; description = "Cobblemon" }
-    maven(url = "https://maven.squiddev.cc") { name = "Squid Maven"; description = "Create needs CC: Tweaked for some reason" }
-    maven(url = "https://maven.msrandom.net/repository/root") { name = "Ashley"}
-    maven(url = "https://maven.figuramc.org/releases") { name = "Figura Maven"; description = "Figura" } // Second last cs figura misconfigured their maven
+    maven(url = "https://maven.impactdev.net/repository/development/") {
+        name = "ImpactDev Maven"; description = "Cobblemon"
+    }
+    maven(url = "https://maven.squiddev.cc") {
+        name = "Squid Maven"; description = "Create needs CC: Tweaked for some reason"
+    }
+    maven(url = "https://maven.msrandom.net/repository/root") { name = "Ashley" }
+    maven(url = "https://maven.figuramc.org/releases") {
+        name = "Figura Maven"; description = "Figura"
+    } // Second last cs figura misconfigured their maven
     //maven(url = "https://maven.tterrag.com") { name = "Tterrag" }
-    maven(url = "https://jitpack.io/") { name = "Jitpack maven"; description = "Mixin Extras & Fabric ASM" } //NOTE: LEAVE THIS AS LAST
+    maven(url = "https://jitpack.io/") {
+        name = "Jitpack maven"; description = "Mixin Extras & Fabric ASM"
+    } //NOTE: LEAVE THIS AS LAST
     mavenCentral()
     if (providers.gradleProperty("use_maven_local").orElse("false").get().toBoolean()) {
         mavenLocal()
@@ -128,7 +142,11 @@ cloche {
         includedClient() // includedClient() is not a run
         runs {
             client {
-                jvmArgs("-Dfabric.log.level=debug", "-Dfabric-tag-conventions-v1.legacyTagWarning=VERBOSE", "-Dmixin.debug.export=true")
+                jvmArgs(
+                    "-Dfabric.log.level=debug",
+                    "-Dfabric-tag-conventions-v1.legacyTagWarning=VERBOSE",
+                    "-Dmixin.debug.export=true"
+                )
             }
             server {
                 runDir("runServer")
@@ -142,45 +160,51 @@ cloche {
 
         data {
             this.withMetadataJson {
-                 this.withElement {
-                     return@withElement buildJsonObject {
-                         this@withElement.forEach { this.put(it.key,it.value) }
-                         val newEntrypoints = buildJsonObject {
-                             this@withElement["entrypoints"]!!.jsonObject.forEach { this.put(it.key,it.value) }
-                             put("fabric-datagen", buildJsonArray {
-                                 add(buildJsonObject {
-                                   put("adapter","kotlin")
-                                   put("value","dev.mayaqq.estrogen.datagen.EstrogenDatagen")
-                                 })
-                             })
-                         }
-                         put("entrypoints",newEntrypoints)
-                     }
-                 }
+                this.withElement {
+                    return@withElement buildJsonObject {
+                        this@withElement.forEach { this.put(it.key, it.value) }
+                        val newEntrypoints = buildJsonObject {
+                            this@withElement["entrypoints"]!!.jsonObject.forEach { this.put(it.key, it.value) }
+                            put("fabric-datagen", buildJsonArray {
+                                add(buildJsonObject {
+                                    put("adapter", "kotlin")
+                                    put("value", "dev.mayaqq.estrogen.datagen.EstrogenDatagen")
+                                })
+                            })
+                        }
+                        put("entrypoints", newEntrypoints)
+                    }
+                }
             }
         }
 
         metadata {
             metadata {
-                custom("modmenu", mapOf(
-                    "links" to mapOf(
-                        "estrogen.credits" to "https://modded.wiki/w/Estrogen:Credits",
-                        "modmenu.discord" to "https://discord.gg/hue",
-                        "modmenu.kofi" to "https://ko-fi.com/mayaqq",
-                        "modmenu.curseforge" to "https://www.curseforge.com/minecraft/mc-mods/estrogen",
-                        "modmenu.modrinth" to "https://modrinth.com/mod/estrogen",
-                        "modmenu.wiki" to "https://modded.wiki/w/Estrogen"
+                custom(
+                    "modmenu", mapOf(
+                        "links" to mapOf(
+                            "estrogen.credits" to "https://modded.wiki/w/Estrogen:Credits",
+                            "modmenu.discord" to "https://discord.gg/hue",
+                            "modmenu.kofi" to "https://ko-fi.com/mayaqq",
+                            "modmenu.curseforge" to "https://www.curseforge.com/minecraft/mc-mods/estrogen",
+                            "modmenu.modrinth" to "https://modrinth.com/mod/estrogen",
+                            "modmenu.wiki" to "https://modded.wiki/w/Estrogen"
+                        )
                     )
-                ))
-                custom("cynosure", mapOf(
-                    "autosubscription" to true
-                ))
-                custom("catalogue", mapOf(
-                    "icon" to mapOf("item" to "estrogen:estrogen_pill"),
-                    "banner" to "icon.png",
-                    "background" to "estrogen_background.png",
-                    "configFactory" to "dev.mayaqq.estrogen.fabric.integrations.catalogue.CatalogueCompat"
-                ))
+                )
+                custom(
+                    "cynosure", mapOf(
+                        "autosubscription" to true
+                    )
+                )
+                custom(
+                    "catalogue", mapOf(
+                        "icon" to mapOf("item" to "estrogen:estrogen_pill"),
+                        "banner" to "icon.png",
+                        "background" to "estrogen_background.png",
+                        "configFactory" to "dev.mayaqq.estrogen.fabric.integrations.catalogue.CatalogueCompat"
+                    )
+                )
                 custom("cynosure:datapacks", listOf("vanillamode"))
             }
 
@@ -219,7 +243,7 @@ cloche {
             include(libs.fabric.csr) { isTransitive = false }
             include(libs.cosmetics)
 
-            when(item_viewer) {
+            when (item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
                 "EMI" -> modRuntimeOnly(libs.fabric.emi)
                 "JEI" -> modRuntimeOnly(libs.fabric.jei)
@@ -314,7 +338,7 @@ cloche {
 
             modRuntimeOnly(libs.forge.curios)
 
-            when(item_viewer) {
+            when (item_viewer) {
                 "EMI" -> modRuntimeOnly(libs.forge.emi)
                 "REI" -> modRuntimeOnly(libs.forge.rei)
                 "JEI" -> modRuntimeOnly(libs.forge.jei)
@@ -363,7 +387,8 @@ java {
 kotlin {
     compilerOptions {
         languageVersion = KotlinVersion.KOTLIN_2_4
-        freeCompilerArgs = listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes", "-Xcontext-parameters")
+        freeCompilerArgs =
+            listOf("-Xmulti-platform", "-Xno-check-actual", "-Xexpect-actual-classes", "-Xcontext-parameters")
     }
     jvmToolchain(21)
 }
@@ -391,7 +416,10 @@ tasks.named("runNeoforgeData") {
 
 minecraftRuns.configureEach {
     jvmArgs("--enable-native-access=ALL-UNNAMED")
-    property("log4j.configurationFile", project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().toAbsolutePath().toString())
+    property(
+        "log4j.configurationFile",
+        project.layout.projectDirectory.file("gradle/log4j.config.xml").toPath().toAbsolutePath().toString()
+    )
 }
 
 fun Provider<MinimalExternalModuleDependency>.api(): String {
@@ -494,4 +522,13 @@ publishMods {
     }
 }
 
-class PublishMetadata(val loaderName: String, val modloaders: Array<String>, val requires: Array<String>, val jar: Provider<RegularFile>, val suffix: String)
+class PublishMetadata(
+    val loaderName: String,
+    val modloaders: Array<String>,
+    val requires: Array<String>,
+    val jar: Provider<RegularFile>,
+    val suffix: String
+)
+dependencies {
+    testImplementation(kotlin("test"))
+}
