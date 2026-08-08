@@ -1,5 +1,7 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
+import earth.terrarium.cloche.api.attributes.MinecraftModLoader
+import earth.terrarium.cloche.api.attributes.TargetAttributes
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonObject
@@ -82,6 +84,27 @@ val mod_name: String by project
 val modVersion = providers.gradleProperty("version").get()
 val devauth_enabled: String by project
 
+class ModLoaderAttributeMetadataRule : ComponentMetadataRule {
+    override fun execute(context: ComponentMetadataContext) {
+        context.details.addVariant("neoforge") {
+            attributes {
+                attribute(TargetAttributes.CLOCHE_MOD_LOADER, MinecraftModLoader.neoforge)
+            }
+
+            withFiles {
+                addFile("lattice-1.3.1.jar")
+            }
+        }
+    }
+
+}
+
+dependencies {
+    components {
+        withModule<ModLoaderAttributeMetadataRule>("com.moulberry:lattice")
+    }
+}
+
 cloche {
     metadata {
         modId = "estrogen"
@@ -109,9 +132,9 @@ cloche {
     }
 
     common {
-        mixins.from(file("src/main/estrogen.mixins.json"))
+        mixins.from("src/main/estrogen.mixins.json")
 
-        accessWideners.from(file("src/main/estrogen.accesswidener"))
+        accessWideners.from("src/main/estrogen.accesswidener")
 
         dependencies {
             compileOnly(libs.mixin)
@@ -125,6 +148,7 @@ cloche {
             annotationProcessor(libs.mixinExtras)
             implementation(libs.cosmetics)
             implementation("uwu.serenity:nullbus:1.7.4")
+            modApi("com.moulberry:lattice:1.3.1")
 
             modApi(libs.cynosure)
 
@@ -133,7 +157,7 @@ cloche {
     }
 
     fabric {
-        mixins.from(file("src/fabric/estrogen-fabric.mixins.json"))
+        mixins.from("src/fabric/estrogen-fabric.mixins.json")
 
         loaderVersion = libs.versions.fabric
         minecraftVersion = libs.versions.minecraft
@@ -279,7 +303,7 @@ cloche {
     }
 
     neoforge {
-        mixins.from(file("src/neoforge/estrogen-forge.mixins.json"))
+        mixins.from("src/neoforge/estrogen-forge.mixins.json")
 
         loaderVersion = libs.versions.neoforge.get()
         minecraftVersion = libs.versions.minecraft.get()
