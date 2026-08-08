@@ -120,7 +120,7 @@ object ConfigScreen {
             val initialValue = initial.get()
             val editBox = EditBox(font, 0, 0, width, 20, title)
             editBox.setMaxLength(maxLength)
-            editBox.setFilter(filter)
+            editBox.setFilter { filter.invoke(it) || it.isEmpty() }
             editBox.value = initialValue
             editBox.setResponder(setter)
             editBox
