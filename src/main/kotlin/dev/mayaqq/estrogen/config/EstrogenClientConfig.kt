@@ -92,31 +92,6 @@ object EstrogenClientConfig : Config("$MOD_ID/client", Json5Format.Default) {
         val dashOverlay: Boolean by field(true) {
             comment = "Enable dash overlay"
         }
-
-        object EstrogenButton : ConfigCategory(comment = "Settings for the estrogen button in the create screen") {
-
-            val enabled: Boolean by field(true) {
-                comment = "Enable the estrogen button in the create screen"
-            }
-
-            val xOffset: Int by field(-23) {
-                comment = """
-                    X offset the estrogen button in the create screen
-                    Offset is calculated off of the center of the Configure Button
-                """
-            }
-
-            val yOffset: Int by field(0) {
-                comment = """
-                X offset the estrogen button in the create screen
-                Offset is calculated off of the center of the Configure Button
-            """
-            }
-
-            val splashText: Boolean by field(true) {
-                comment = "Custom Splashes on the main menu! Requires resource reload"
-            }
-        }
     }
 
     object Compat : ConfigCategory(comment = "Compatibility between other mods settings") {
