@@ -118,12 +118,12 @@ object ConfigScreen {
     fun editBoxFiltered(initial: Supplier<String>, setter: Consumer<String>, maxLength: Int, filter: (String) -> Boolean): WidgetFunction {
         return WidgetFunction { font, title, description, width ->
             val initialValue = initial.get()
-            val editBox = EditBox(font, 0, 0, width, 20, title)
-            editBox.setMaxLength(maxLength)
-            editBox.setFilter { filter.invoke(it) || it.isEmpty() }
-            editBox.value = initialValue
-            editBox.setResponder(setter)
-            editBox
+            EditBox(font, 0, 0, width, 20, title).apply {
+                setMaxLength(maxLength)
+                setFilter { filter.invoke(it) || it.isEmpty() }
+                value = initialValue
+                setResponder(setter)
+            }
         }
     }
 }
