@@ -4,10 +4,19 @@ import com.moulberry.lattice.Lattice
 import com.moulberry.lattice.WidgetFunction
 import com.moulberry.lattice.element.LatticeElement
 import com.moulberry.lattice.element.LatticeElements
+import com.moulberry.lattice.widget.CenteredStringWidget
+import dev.mayaqq.cynosure.text.CommonText
+import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.text.Text.asComponent
+import dev.mayaqq.cynosure.text.TextBuilder.append
+import dev.mayaqq.cynosure.text.TextStyle.color
+import dev.mayaqq.cynosure.text.TextUtils.splitToWidth
 import invoke.kitty.kritter.config.api.*
 import invoke.kitty.kritter.config.validation.ValidationResult
+import invoke.kitty.kritter.utils.color.MinecraftColors
 import net.minecraft.client.gui.components.EditBox
+import net.minecraft.client.gui.components.MultiLineTextWidget
+import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
 import java.util.function.Consumer
@@ -34,6 +43,7 @@ object ConfigScreen {
         return elements
     }
 
+    @OptIn(ExperimentalCodecsInConfig::class)
     @Suppress("UNCHECKED_CAST")
     fun mapElement(element: ConfigElement): LatticeElement? {
         val inputLength = Int.MAX_VALUE
@@ -48,8 +58,24 @@ object ConfigScreen {
                     )
                 }
 
-                ElementType.BYTE -> TODO()
-                ElementType.CHAR -> TODO()
+                ElementType.BYTE -> {
+                    field as ConfigField<Byte>
+                    editBoxFiltered(
+                        { field.value.toString() },
+                        { value -> value.toByteOrNull()?.let { field.value = it } },
+                        inputLength,
+                        { value -> value.toByteOrNull()?.let { field.validate(it) == ValidationResult.Passed } == true }
+                    )
+                }
+                ElementType.CHAR -> {
+                    field as ConfigField<Char>
+                    editBoxFiltered(
+                        { field.value.toString() },
+                        { value -> value.toCharArray().first().let { field.value = it } },
+                        inputLength,
+                        { value -> value.length == 1 && field.validate(value.toCharArray().first()) == ValidationResult.Passed }
+                    )
+                }
                 ElementType.DOUBLE -> {
                     field as ConfigField<Double>
                     editBoxFiltered(
@@ -90,7 +116,15 @@ object ConfigScreen {
                     )
                 }
 
-                ElementType.SHORT -> TODO()
+                ElementType.SHORT -> {
+                    field as ConfigField<Short>
+                    editBoxFiltered(
+                        { field.value.toString() },
+                        { value -> value.toShortOrNull()?.let { field.value = it } },
+                        inputLength,
+                        { value -> value.toShortOrNull()?.let { field.validate(it) == ValidationResult.Passed } == true }
+                    )
+                }
                 ElementType.STRING -> {
                     field as ConfigField<String>
                     editBoxFiltered(
@@ -101,15 +135,20 @@ object ConfigScreen {
                     )
                 }
 
-                is ElementType.CODEC<*> -> TODO()
-                is ElementType.COLLECTION<*> -> TODO()
-                is ElementType.ENUM<*> -> TODO()
-                is ElementType.OBJECT<*> -> TODO()
-                ElementType.UNDEFINED -> TODO()
-                else -> {
-                    TODO()
+                is ElementType.ENUM<*> -> {
+                    field as ConfigField<Enum<*>>
+                    WidgetFunction.cycleButton(
+                        { field.value },
+                        { value -> field.value = value },
+                        *field.value.javaClass.enumConstants
+                    )
                 }
-            }?: return null
+                is ElementType.OBJECT<*>,
+                is ElementType.COLLECTION<*>,
+                is ElementType.CODEC<*>,
+                ElementType.UNDEFINED -> editInJson()
+                else -> editInJson()
+            }
             return LatticeElement(function, field.displayName, field.comment?.asComponent())
         }
         return null
@@ -123,6 +162,22 @@ object ConfigScreen {
                 setFilter { filter.invoke(it) || it.isEmpty() }
                 value = initialValue
                 setResponder(setter)
+            }
+        }
+    }
+
+    fun editInJson(): WidgetFunction {
+        return WidgetFunction { font, title, description, width ->
+            val text = Text.of {
+                append("Please edit ") { color = MinecraftColors.Red }
+                append(title)
+                append(" within the config file.") { color = MinecraftColors.Red }
+            }.apply {
+                splitToWidth("\n", width)
+            }
+            MultiLineTextWidget(
+            text, font).apply {
+                setMaxWidth(width)
             }
         }
     }
