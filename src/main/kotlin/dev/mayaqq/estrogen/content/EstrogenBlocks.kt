@@ -1,9 +1,6 @@
 package dev.mayaqq.estrogen.content
 
-import dev.mayaqq.cynosure.blocks.model.ModelBedBlock
 import dev.mayaqq.cynosure.blocks.poi.add
-import dev.mayaqq.cynosure.events.api.Subscription
-import dev.mayaqq.cynosure.events.registry.VanillaBlockEntityRegistrationEvent
 import dev.mayaqq.cynosure.items.extensions.CustomArmPose
 import dev.mayaqq.cynosure.items.extensions.CustomTooltip
 import dev.mayaqq.cynosure.items.extensions.registerExtension
@@ -14,7 +11,6 @@ import dev.mayaqq.cynosure.text.TextStyle.font
 import dev.mayaqq.cynosure.text.TextStyle.underlined
 import dev.mayaqq.cynosure.tooltips.CompositeTooltip
 import dev.mayaqq.cynosure.tooltips.DescriptionTooltip
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.blockRenderers.cookieJar.CookieJarArmPose
 import dev.mayaqq.estrogen.content.blocks.*
@@ -44,7 +40,6 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.item.Rarity
 import net.minecraft.world.level.biome.Biome
 import net.minecraft.world.level.block.*
-import net.minecraft.world.level.block.entity.BedBlockEntity
 import net.minecraft.world.level.block.state.properties.BedPart
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument
 import net.minecraft.world.level.material.MapColor
@@ -93,21 +88,33 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
 
     val MothWool: RegistryEntry<Block> = block("moth_wool", ::Block) {
         initialPropertiesFrom(Blocks::ORANGE_WOOL)
+        properties {
+            mapColor(MapColor.TERRACOTTA_ORANGE)
+        }
         item("moth_wool", ::BlockItem)
     }
 
     val QuiltedMothWool: RegistryEntry<Block> = block("quilted_moth_wool", ::Block) {
         initialPropertiesFrom(Blocks::ORANGE_WOOL)
+        properties {
+            mapColor(MapColor.TERRACOTTA_ORANGE)
+        }
         item("quilted_moth_wool", ::BlockItem)
     }
 
     val MothCarpet: RegistryEntry<CarpetBlock> = block("moth_wool_carpet", ::CarpetBlock) {
         initialPropertiesFrom(Blocks::ORANGE_CARPET)
+        properties {
+            mapColor(MapColor.TERRACOTTA_ORANGE)
+        }
         item("moth_wool_carpet", ::BlockItem)
     }
 
     val QuiltedMothCarpet: RegistryEntry<CarpetBlock> = block("quilted_moth_wool_carpet", ::CarpetBlock) {
         initialPropertiesFrom(Blocks::ORANGE_CARPET)
+        properties {
+            mapColor(MapColor.TERRACOTTA_ORANGE)
+        }
         item("quilted_moth_wool_carpet", ::BlockItem)
     }
 
@@ -122,6 +129,9 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
 
     val MothBed: RegistryEntry<EstrogenBedBlock> = block("moth_bed", ::EstrogenBedBlock) {
         initialPropertiesFrom(Blocks::ORANGE_BED)
+        properties {
+            mapColor(MapColor.TERRACOTTA_ORANGE)
+        }
         item("moth_bed", ::BlockItem) {
             properties {
                 stacksTo(1)
@@ -135,6 +145,9 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
 
     val QuiltedMothBed: RegistryEntry<EstrogenBedBlock> = block("quilted_moth_bed", ::EstrogenBedBlock) {
         initialPropertiesFrom(Blocks::ORANGE_BED)
+        properties {
+            mapColor(MapColor.TERRACOTTA_ORANGE)
+        }
         item("quilted_moth_bed", ::BlockItem) {
             properties {
                 stacksTo(1)
@@ -195,6 +208,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
             properties
         ) }) {
         initialPropertiesFrom(Blocks::CAULDRON)
+        properties {}
         renderType = BlockRenderType.CUTOUT
         colorProvider { _, _, _, _, tint -> if (tint == 0) EstrogenColors.HORSE_URINE else White }
     }
@@ -205,6 +219,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
             CauldronInteractions.FILTRATED_HORSE_URINE
         ) }) {
         initialPropertiesFrom(Blocks::CAULDRON)
+        properties {}
         renderType = BlockRenderType.CUTOUT
         colorProvider { _, _, _, _, tint -> if (tint == 0) EstrogenColors.FILTRATED_HORSE_URINE else White }
     }
@@ -216,6 +231,7 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
             properties
         ) }) {
         initialPropertiesFrom(Blocks::CAULDRON)
+        properties {}
         renderType = BlockRenderType.CUTOUT
     }
 
