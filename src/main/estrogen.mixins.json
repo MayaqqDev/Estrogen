@@ -31,7 +31,6 @@
     "client.accessor.AbstractWidgetAccessor",
     "client.accessor.ItemPropertiesAccessor",
     "client.accessor.LevelRendererAccessor",
-    "client.accessor.ModelManagerAccessor",
     "client.compat.betteradvancements.BetterAdvancementTabMixin",
     "client.compat.emi.EmiAgnosMixin",
     "client.compat.paginatedadvancements.PaginatedAdvancementTabMixin"
