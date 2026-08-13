@@ -245,6 +245,7 @@ cloche {
             include(libs.fabric.flywheel) { isTransitive = false }
             include(libs.fabric.csr) { isTransitive = false }
             include(libs.cosmetics)
+            include(libs.lattice)
 
             when (item_viewer) {
                 "REI" -> modRuntimeOnly(libs.fabric.rei) { exclude(group = "net.fabricmc") }
@@ -338,6 +339,7 @@ cloche {
             include(libs.forge.flywheel) { isTransitive = false }
             include(libs.forge.csr) { isTransitive = false }
             include(libs.cosmetics)
+            include(libs.lattice)
 
             modRuntimeOnly(libs.forge.curios)
 
