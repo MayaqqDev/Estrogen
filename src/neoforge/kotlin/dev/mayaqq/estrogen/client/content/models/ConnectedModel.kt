@@ -61,8 +61,8 @@ actual class ConnectedModel actual constructor(
             for (vertex in 0..3) {
                 val u = getUnInterpolatedU(quad.sprite, quad.getU(vertex))
                 val v = getUnInterpolatedV(quad.sprite, quad.getV(vertex))
-                newQuad.setU(vertex, connectedSprite.getU(((u + (uOffset * 16)) / 8.0).toFloat()))
-                newQuad.setV(vertex, connectedSprite.getV(((v + (vOffset * 16)) / 8.0).toFloat()))
+                newQuad.setU(vertex, connectedSprite.getU(((u + (uOffset)) / 8.0).toFloat()))
+                newQuad.setV(vertex, connectedSprite.getV(((v + (vOffset)) / 8.0).toFloat()))
             }
 
             newQuad
