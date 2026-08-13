@@ -127,3 +127,5 @@ runServer/
 # nix
 result/
 result
+
+.envrc
