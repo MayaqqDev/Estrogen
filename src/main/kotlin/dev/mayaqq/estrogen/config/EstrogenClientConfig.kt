@@ -106,8 +106,4 @@ object EstrogenClientConfig : Config("$MOD_ID/client", Json5Format.Default) {
         }
 
     }
-
-    object Test : ConfigCategory(comment = "Testinggg") {
-        val customCollection: Collection<String> by field(listOf("a", "b", "c"))
-    }
 }
