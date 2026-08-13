@@ -34,7 +34,7 @@ repositories {
         mavenNeoforgedMeta()
         mavenParchment()
     }
-    maven(url = "https://maven.is-immensely.gay/nightly") { name = "Sappho Company"; description = "Critter, Cynosure" }
+    maven(url = "https://maven.is-immensely.gay/nightly") { name = "Sappho Company Nightly"; description = "Critter, Cynosure" }
     maven(url = "https://maven.is-immensely.gay/releases") { name = "Sappho Company"; description = "Kittyconfig" }
     maven(url = "https://maven.terraformersmc.com/releases/") { name = "TerraformersMC" }
     maven(url = "https://thedarkcolour.github.io/KotlinForForge/") { name = "KotlinForForge" }
@@ -84,27 +84,6 @@ val mod_name: String by project
 val modVersion = providers.gradleProperty("version").get()
 val devauth_enabled: String by project
 
-class ModLoaderAttributeMetadataRule : ComponentMetadataRule {
-    override fun execute(context: ComponentMetadataContext) {
-        context.details.addVariant("neoforge") {
-            attributes {
-                attribute(TargetAttributes.CLOCHE_MOD_LOADER, MinecraftModLoader.neoforge)
-            }
-
-            withFiles {
-                addFile("lattice-1.3.1.jar")
-            }
-        }
-    }
-
-}
-
-dependencies {
-    components {
-        withModule<ModLoaderAttributeMetadataRule>("com.moulberry:lattice")
-    }
-}
-
 cloche {
     metadata {
         modId = "estrogen"
@@ -147,8 +126,8 @@ cloche {
             implementation(libs.mixinExtras)
             annotationProcessor(libs.mixinExtras)
             implementation(libs.cosmetics)
-            implementation("uwu.serenity:nullbus:1.7.4")
-            modApi("com.moulberry:lattice:1.3.1")
+            implementation(libs.nullbus)
+            modApi(libs.lattice)
 
             modApi(libs.cynosure)
 

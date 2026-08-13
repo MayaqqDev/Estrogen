@@ -101,27 +101,8 @@ $RECYCLE.BIN/
 *.lnk
 
 .gradle
-build/*.txt
-build/classes
-build/intermediate-libs
-build/kotlin
-build/minecraft
-build/minecraft-codev
-build/mixins
-build/reports
-build/resources
-build/run-configs
-build/tmp
-build/libs
-build/publications
-
-build/generated/mergedAccessWideners
-build/generated/metadata
-build/generated/sources
-build/generated/accessTransformers
-
-build/generated/resources/fabric/.cache
-
+build
+!build/generated/resources/fabric/assets/estrogen/lang/en_us.json
 # Ignore Gradle GUI config
 gradle-app.setting
 
