@@ -31,7 +31,15 @@ object EstrogenNeoForge {
     fun registerCapabilities(event: RegisterCapabilitiesEvent) {
         event.registerItem(Capabilities.FluidHandler.ITEM, { stack, context ->
             FluidBucketWrapper(stack)
-        }, *EstrogenFluids.map { (it as EstrogenFluidEntry<*,*>).bucketEntry.get() }.toTypedArray())
+        }, *listOf(
+            EstrogenFluids.HorseUrine,
+            EstrogenFluids.FiltratedHorseUrine,
+            EstrogenFluids.LiquidEstrogen,
+            EstrogenFluids.GenderFluid,
+            EstrogenFluids.MoltenAmethyst,
+            EstrogenFluids.MoltenSlime,
+            EstrogenFluids.TestosteroneMixture
+        ).map { it.bucket }.toTypedArray())
     }
 
     fun registerCauldrons(event: RegisterCauldronFluidContentEvent) {
