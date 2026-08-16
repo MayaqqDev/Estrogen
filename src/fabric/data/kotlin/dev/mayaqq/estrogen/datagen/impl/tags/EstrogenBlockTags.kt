@@ -43,5 +43,9 @@ class EstrogenBlockTags(
             .add(EstrogenBlocks.QuiltedMothBed.value!!)
         getOrCreateTagBuilder(EstrogenTags.Blocks.HIDDEN_FROM_RECIPE_VIEWERS)
             .add(EstrogenBlocks.ColonThreeBlock.get())
+        getOrCreateTagBuilder(BlockTags.CAULDRONS)
+            .add(EstrogenBlocks.HorseUrineCauldron.get())
+            .add(EstrogenBlocks.FiltratedHorseUrineCauldron.get())
+            .add(EstrogenBlocks.LiquidEstrogenCauldron.get())
     }
 }
