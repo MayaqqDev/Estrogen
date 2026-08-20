@@ -30,6 +30,7 @@ import net.minecraft.tags.TagKey
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.level.material.Fluid
+import kotlin.streams.toList
 
 object JeiPluginRegister {
 
@@ -221,7 +222,7 @@ object JeiPluginRegister {
                                     runtime.recipeManager,
                                     type,
                                     runtime.recipeManager.createRecipeLookup(type).get().filter {
-                                        it as RecipeHolder<*> == recipe
+                                        (it as RecipeHolder<*>).id() == recipe
                                     }.toList()
                                 )
                             }
