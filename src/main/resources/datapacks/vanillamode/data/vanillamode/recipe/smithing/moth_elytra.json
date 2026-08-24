@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smithing_transform",
+  "base": {
+    "item": "minecraft:elytra"
+  },
+  "addition": {
+    "item": "estrogen:moth_fuzz"
+  },
+  "template": [],
+  "result": {
+    "id": "estrogen:moth_elytra",
+    "count": 1
+  }
+}

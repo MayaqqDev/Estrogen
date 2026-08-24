@@ -11,11 +11,11 @@
       "item": "minecraft:paper"
     },
     "p": {
-      "item": "estrogen:slime_ball"
+      "item": "minecraft:slime_ball"
     }
   },
   "result": {
-    "item": "estrogen:estrogen_patch",
+    "id": "estrogen:estrogen_patch",
     "count": 1
   },
   "show_notification": true

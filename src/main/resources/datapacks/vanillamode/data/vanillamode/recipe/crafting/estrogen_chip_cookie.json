@@ -15,7 +15,7 @@
     }
   },
   "result": {
-    "item": "estrogen:estrogen_chip_cookie",
+    "id": "estrogen:estrogen_chip_cookie",
     "count": 8
   },
   "show_notification": true

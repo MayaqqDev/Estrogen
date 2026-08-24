@@ -15,7 +15,7 @@
     }
   },
   "result": {
-    "item": "estrogen:crystal_estrogen_pill",
+    "id": "estrogen:crystal_estrogen_pill",
     "count": 1
   },
   "show_notification": true

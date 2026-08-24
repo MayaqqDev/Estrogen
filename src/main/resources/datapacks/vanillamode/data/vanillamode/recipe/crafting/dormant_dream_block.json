@@ -15,7 +15,7 @@
     }
   },
   "result": {
-    "item": "estrogen:dormant_dream_block",
+    "id": "estrogen:dormant_dream_block",
     "count": 2
   },
   "show_notification": true
