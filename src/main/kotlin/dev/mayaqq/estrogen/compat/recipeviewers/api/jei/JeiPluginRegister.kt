@@ -21,6 +21,7 @@ import mezz.jei.api.recipe.IFocusGroup
 import mezz.jei.api.recipe.RecipeIngredientRole
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.IRecipeCategory
+import mezz.jei.api.registration.IRecipeCatalystRegistration
 import mezz.jei.api.registration.IRecipeCategoryRegistration
 import mezz.jei.api.registration.IRecipeRegistration
 import mezz.jei.api.runtime.IJeiRuntime
@@ -62,6 +63,12 @@ object JeiPluginRegister {
             object : IModPlugin {
                 override fun getPluginUid(): ResourceLocation = identifier(commonPlugin.modid, "jei_plugin")
 
+                override fun registerRecipeCatalysts(reg: IRecipeCatalystRegistration) {
+                    commonPlugin.plugin.recipes.filter { it.info.workstation != null }.forEach { recipe ->
+                        reg.addRecipeCatalysts(recipeTypes[recipe.info.type], recipe.info.workstation!!)
+                    }
+                }
+
                 override fun registerCategories(registry: IRecipeCategoryRegistration) {
                     commonPlugin.plugin.pseudoRecipes?.forEach { pseudoRecipe ->
                         registry.addRecipeCategories(object : IRecipeCategory<Any> {
@@ -88,9 +95,6 @@ object JeiPluginRegister {
                                 if (!pseudoRecipeInstances.contains(actualRecipe)) {
                                     pseudoRecipeInstances.add(actualRecipe)
                                     actualRecipe.init()
-                                }
-                                actualRecipe.catalysts.forEach { catalyst ->
-                                    layout.addInvisibleIngredients(RecipeIngredientRole.CATALYST).addCrvIngredient(catalyst)
                                 }
                                 actualRecipe.slots.forEach { slot ->
                                     val jeiSlot = layout.addSlot(slot.role.toJei(), slot.x, slot.y)
@@ -152,9 +156,6 @@ object JeiPluginRegister {
                                     recipeInstances[actualRecipe]!!.init()
                                 }
                                 val rvRecipe = recipeInstances[actualRecipe]!!
-                                rvRecipe.catalysts.forEach { catalyst ->
-                                    layout.addInvisibleIngredients(RecipeIngredientRole.CATALYST).addCrvIngredient(catalyst)
-                                }
                                 rvRecipe.slots.forEach { slot ->
                                     val jeiSlot = layout.addSlot(slot.role.toJei(), slot.x, slot.y)
                                         .setBackground(JeiSlot(RecipeTextures.JEI_SLOT), -1, -1)
