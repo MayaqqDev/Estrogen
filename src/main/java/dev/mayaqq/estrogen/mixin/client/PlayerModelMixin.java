@@ -9,6 +9,7 @@ import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobArmorRendere
 import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobRendering;
 import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.TextureData;
 import dev.mayaqq.estrogen.client.features.boobs.Boob;
+import dev.mayaqq.estrogen.client.features.boobs.BoobArmorHandling;
 import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorData;
 import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorDataLoader;
 import dev.mayaqq.estrogen.compat.figura.FiguraCompat;
@@ -166,14 +167,7 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
         if (data != null) {
             return Optional.ofNullable(data.toTextureData(overlay));
         } else {
-            String texture = item.getMaterial().getRegisteredName();
-            String domain = "minecraft";
-            int idx = texture.indexOf(':');
-            if (idx != -1) {
-                domain = texture.substring(0, idx);
-                texture = texture.substring(idx + 1);
-            }
-            String string = String.format(java.util.Locale.ROOT, "%s:textures/models/armor/%s_layer_1%s.png", domain, texture, overlay ? "_overlay" : "");
+            var string = BoobArmorHandling.INSTANCE.getDefaultTexture(item, itemStack, player, EquipmentSlot.CHEST, item.getMaterial().value().layers().getFirst(), overlay);
             ResourceLocation location = BoobRendering.getARMOR_TEXTURE_CACHE().computeIfAbsent(string, ResourceLocation::tryParse);
             return location != null ? Optional.of(new TextureData(location, 20f, 23f, 18f, 23f, 28f, 23f, 64.0F, 32.0F)) : Optional.empty();
         }
