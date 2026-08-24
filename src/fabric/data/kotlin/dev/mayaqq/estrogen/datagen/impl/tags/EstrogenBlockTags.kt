@@ -47,5 +47,7 @@ class EstrogenBlockTags(
             .add(EstrogenBlocks.HorseUrineCauldron.get())
             .add(EstrogenBlocks.FiltratedHorseUrineCauldron.get())
             .add(EstrogenBlocks.LiquidEstrogenCauldron.get())
+        getOrCreateTagBuilder(EstrogenTags.Blocks.RELOCATION_NOT_SUPPORTED)
+            .add(EstrogenBlocks.Memorial.get())
     }
 }

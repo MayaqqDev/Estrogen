@@ -43,6 +43,7 @@ import net.minecraft.world.level.block.*
 import net.minecraft.world.level.block.state.properties.BedPart
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument
 import net.minecraft.world.level.material.MapColor
+import net.minecraft.world.level.material.PushReaction
 
 @Suppress("unused")
 object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) {
@@ -237,6 +238,9 @@ object EstrogenBlocks : Registrar<Block> by Registrar(MOD_ID, Registries.BLOCK) 
 
     val Memorial: RegistryEntry<MemorialBlock> = block("memorial", ::MemorialBlock) {
         initialPropertiesFrom(Blocks::REINFORCED_DEEPSLATE)
-        properties {}
+        properties {
+            pushReaction(PushReaction.BLOCK)
+
+        }
     }
 }
