@@ -4,6 +4,7 @@ import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
+import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVRecipe
 import dev.mayaqq.estrogen.compat.recipeviewers.api.CommonRecipeViewer
@@ -11,7 +12,9 @@ import dev.mayaqq.estrogen.compat.recipeviewers.api.Role
 import dev.mayaqq.estrogen.utils.exceptions.EmptyTagException
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.constants.VanillaTypes
+import mezz.jei.api.gui.builder.IIngredientAcceptor
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder
 import mezz.jei.api.gui.drawable.IDrawable
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView
 import mezz.jei.api.recipe.IFocusGroup
@@ -86,14 +89,14 @@ object JeiPluginRegister {
                                     pseudoRecipeInstances.add(actualRecipe)
                                     actualRecipe.init()
                                 }
+                                actualRecipe.catalysts.forEach { catalyst ->
+                                    layout.addInvisibleIngredients(RecipeIngredientRole.CATALYST).addCrvIngredient(catalyst)
+                                }
                                 actualRecipe.slots.forEach { slot ->
                                     val jeiSlot = layout.addSlot(slot.role.toJei(), slot.x, slot.y)
                                         .setBackground(JeiSlot(RecipeTextures.JEI_SLOT), -1, -1)
 
-                                    if (slot.ingredient.ingredient != null) jeiSlot.addIngredients(slot.ingredient.ingredient!!)
-                                    else if (slot.ingredient.item != null) jeiSlot.addItemStack(slot.ingredient.item!!)
-                                    else if (slot.ingredient.fluid != null) jeiSlot.addFluidStack(slot.ingredient.fluid!!, 1000L)
-                                    else if (slot.ingredient.fluidTag != null) jeiSlot.addFluidStack(slot.ingredient.fluidTag!!.first, 1000L)
+                                    jeiSlot.addCrvIngredient(slot.ingredient)
                                 }
                             }
 
@@ -149,14 +152,13 @@ object JeiPluginRegister {
                                     recipeInstances[actualRecipe]!!.init()
                                 }
                                 val rvRecipe = recipeInstances[actualRecipe]!!
+                                rvRecipe.catalysts.forEach { catalyst ->
+                                    layout.addInvisibleIngredients(RecipeIngredientRole.CATALYST).addCrvIngredient(catalyst)
+                                }
                                 rvRecipe.slots.forEach { slot ->
                                     val jeiSlot = layout.addSlot(slot.role.toJei(), slot.x, slot.y)
                                         .setBackground(JeiSlot(RecipeTextures.JEI_SLOT), -1, -1)
-
-                                    if (slot.ingredient.ingredient != null) jeiSlot.addIngredients(slot.ingredient.ingredient!!)
-                                    else if (slot.ingredient.item != null) jeiSlot.addItemStack(slot.ingredient.item!!)
-                                    else if (slot.ingredient.fluid != null) jeiSlot.addFluidStack(slot.ingredient.fluid!!, 1000L)
-                                    else if (slot.ingredient.fluidTag != null) jeiSlot.addFluidStack(slot.ingredient.fluidTag!!.first, 1000L)
+                                    jeiSlot.addCrvIngredient(slot.ingredient)
                                 }
                             }
 
@@ -245,6 +247,13 @@ fun Role.toJei(): RecipeIngredientRole = when(this) {
     Role.OUTPUT -> RecipeIngredientRole.OUTPUT
     Role.CATALYST -> RecipeIngredientRole.CATALYST
     Role.RENDER_ONLY -> RecipeIngredientRole.RENDER_ONLY
+}
+
+fun IIngredientAcceptor<*>.addCrvIngredient(crv: CRVIngredient) {
+    if (crv.ingredient != null) this.addIngredients(crv.ingredient)
+    else if (crv.item != null) this.addItemStack(crv.item)
+    else if (crv.fluid != null) this.addFluidStack(crv.fluid, 1000L)
+    else if (crv.fluidTag != null) this.addFluidStack(crv.fluidTag.first, 1000L)
 }
 
 val TagKey<Fluid>.first: Fluid
