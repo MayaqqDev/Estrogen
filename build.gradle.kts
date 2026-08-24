@@ -333,7 +333,7 @@ cloche {
             modApi(libs.forge.rlib)
             modApi(libs.forge.csr)
             modCompileOnlyApi(libs.forge.curios.api())
-            modRuntimeOnly("org.sinytra.forgified-fabric-api:forgified-fabric-api:0.116.7+2.2.4+1.21.1")
+            //modRuntimeOnly("org.sinytra.forgified-fabric-api:forgified-fabric-api:0.116.7+2.2.4+1.21.1")
 
             include(libs.forge.rlib) { exclude(group = "com.teamresourceful", module = "bytecodecs") }
             include(libs.forge.mixinExtras) { isTransitive = false }
