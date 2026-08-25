@@ -125,6 +125,10 @@ class EstrogenItemTags(
             .forceAddTag(ItemTags.HEAD_ARMOR_ENCHANTABLE)
             .forceAddTag(ItemTags.SKULLS)
             .add(Items.CARVED_PUMPKIN)
+        getOrCreateTagBuilder(ItemTags.EQUIPPABLE_ENCHANTABLE)
+            .add(EstrogenItems.MothElytra.value)
+        getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
+            .add(EstrogenItems.MothElytra.value)
         getOrCreateTagBuilder(EstrogenTags.Items.HIDDEN_FROM_RECIPE_VIEWERS)
             .add(EstrogenBlocks.ColonThreeBlock.value!!.asItem())
     }
