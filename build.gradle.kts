@@ -98,10 +98,10 @@ cloche {
 
         dependency {
             modId = "cynosure"
-            /*version {
+            version {
                 start = "1.0.0"
+                startInclusive = true
             }
-             */
         }
     }
 
@@ -488,7 +488,7 @@ publishMods {
     )
     val mcVersion = "1.21.1"
     changelog = file("CHANGELOG.md").readText().replace("@VERSION@", modVersion)
-    type = ALPHA
+    type = BETA
 
     val optionsCurseforge = curseforgeOptions {
         accessToken = properties["curseforge_token"]?.toString()
