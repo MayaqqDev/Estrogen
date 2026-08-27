@@ -174,7 +174,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         @Subscription
         internal fun LivingEntityEvent.EffectExpire.onEffectExpired() {
             if (effect == EstrogenEffects.Estrogen.get())
-                EstrogenEffect.handleEffectRemoval(this.entity)
+                handleEffectRemoval(this.entity)
         }
 
         fun AttributeInstance.replaceModifier(modifier: AttributeModifier) {

@@ -84,7 +84,7 @@ object EstrogenAttributeEvents {
         val attributes = arrayOf(ShowBoobs, BoobGrowingStartTime, BoobInitialSize)
         attributes.forEach { attribute ->
             oldPlayer.getAttribute(attribute.holder)?.let { instance ->
-                newPlayer.getAttribute(attribute.holder)?.replaceFrom(instance)
+                newPlayer.getAttribute(attribute.holder)?.baseValue = instance.baseValue
             }
         }
     }
