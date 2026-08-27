@@ -28,7 +28,6 @@
     "client.PlayerModelMixin",
     "client.PostPassMixin",
     "client.ReceivingLevelScreenMixin",
-    "client.accessor.AbstractWidgetAccessor",
     "client.accessor.ItemPropertiesAccessor",
     "client.accessor.LevelRendererAccessor",
     "client.compat.betteradvancements.BetterAdvancementTabMixin",

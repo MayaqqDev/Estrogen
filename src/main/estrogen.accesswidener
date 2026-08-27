@@ -22,11 +22,6 @@ accessible field com/mojang/blaze3d/platform/GlStateManager BLEND Lcom/mojang/bl
 # Fabric fuckery apparently
 accessible field com/mojang/blaze3d/platform/GlStateManager$BooleanState enabled Z
 accessible field com/mojang/blaze3d/platform/GlStateManager DEPTH Lcom/mojang/blaze3d/platform/GlStateManager$DepthState;
-accessible field net/minecraft/client/gui/components/AbstractWidget x I
-accessible field net/minecraft/client/gui/components/AbstractWidget y I
-accessible field net/minecraft/client/gui/components/AbstractWidget width I
-accessible field net/minecraft/client/gui/components/AbstractWidget height I
-accessible field net/minecraft/client/gui/components/AbstractWidget isHovered Z
 # Thank Adrian
 accessible field earth/terrarium/common_storage_lib/fluid/impl/SimpleFluidStorage update Ljava/lang/Runnable;
 accessible field earth/terrarium/common_storage_lib/fluid/impl/SimpleFluidStorage save Ljava/lang/Runnable;

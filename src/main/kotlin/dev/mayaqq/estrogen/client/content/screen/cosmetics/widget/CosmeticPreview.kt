@@ -39,8 +39,8 @@ class CosmeticPreview(val player: Player?, x: Int, y: Int, width: Int, height: I
             player.yHeadRotO = player.yRot
             InventoryScreen.renderEntityInInventory(
                 graphics,
-                (x + getWidth() / 2f),
-                y + getHeight() - 20f,
+                (getX() + getWidth() / 2f),
+                getY() + getHeight() - 20f,
                 getHeight() / 2.5f,
                 Vector3f(),
                 quaternion,
