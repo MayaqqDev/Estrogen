@@ -14,7 +14,8 @@
     "PlayerMixin",
     "ServerGamePacketListenerImplMixin",
     "ThrownEnderpearlMixin",
-    "NullbusConstantsMixin"
+    "NullbusConstantsMixin",
+    "compat.sable.SubLevelEntityCollisionMixin"
   ],
   "client": [
     "client.AbstractClientPlayerMixin",

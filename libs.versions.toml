@@ -30,6 +30,8 @@ flywheel = "1.0.6"
 cynosure = "1.0.0"
 rlib = "3.0.12"
 lattice = "1.4.0"
+sable = "2.0.5"
+sable-companion = "1.4.0"
 
 # Fabric Only Dependencies
 fapi = "0.116.12"
@@ -37,12 +39,14 @@ modmenu = "11.0.4"
 cardinal = "6.1.3"
 je-fabric = "19.27.0.343-fabric"
 flk = "1.13.13+kotlin.2.4.10"
+sable-fabric = "2.0.5+mc1.21.1-fabric"
 
 # Neoforge Only Dependencies
 neoforge = "21.1.233"
 jei-forge = "19.27.0.343-neoforge"
 kff = "5.12.0"
 curios = "9.5.1+1.21.1"
+sable-neoforge = "2.0.5+mc1.21.1-neoforge"
 
 # Extra Dependencies
 
@@ -61,6 +65,8 @@ flywheel-api = { module = "dev.engine-room.flywheel:flywheel-common-mojmap-api-1
 cynosure = { module = "dev.mayaqq:cynosure", version.ref = "cynosure" }
 cosmetics = { module = "com.teamresourceful:resourceful-cosmetics-4j", version.ref = "resourceful_cosmetics" }
 lattice = { module = "com.moulberry:lattice", version.ref = "lattice" }
+sable = { module = "dev.ryanhcode.sable:sable-common-1.21.1", version.ref = "sable" }
+sable-companion = { module = "dev.ryanhcode.sable-companion:sable-companion-1.21.1", version.ref = "sable-companion" }
 
 # Fabric dependencies
 fabric-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "flk" }
@@ -81,6 +87,7 @@ fabric-rlib = { module = "com.teamresourceful.resourcefullib:resourcefullib-fabr
 fabric-sodium = { module = "maven.modrinth:sodium", version = "mc1.20.1-0.5.13-fabric" }
 fabric-indium = { module = "maven.modrinth:indium", version = "1.0.36+mc1.20.1" }
 fabric-cobblemon = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
+fabric-sable = { module = "maven.modrinth:sable", version.ref = "sable-fabric" }
 
 
 # Neoforge depencencies
@@ -98,6 +105,7 @@ forge-csr = { module = "earth.terrarium.common_storage_lib:common-storage-lib-ne
 forge-rlib = { module = "com.teamresourceful.resourcefullib:resourcefullib-neoforge-1.21", version.ref = "rlib" }
 forge-curios = { module = "top.theillusivec4.curios:curios-neoforge", version.ref = "curios" }
 forge-oculus = { module = "maven.modrinth:oculus", version = "1.20.1-1.8.0" }
+forge-sable = { module = "maven.modrinth:sable", version.ref = "sable-neoforge" }
 
 # Extra dependencies
 nullbus = { module = "uwu.serenity:nullbus", version = "1.7.4" }

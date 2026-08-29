@@ -1,0 +1,13 @@
+{
+  "selector": "estrogen:dream_block",
+
+  "priority": 1001,
+
+  "properties": {},
+
+  "overrides": {
+    "persistent=true": {
+      "sable:floating_material": "estrogen:dream_block"
+    }
+  }
+}

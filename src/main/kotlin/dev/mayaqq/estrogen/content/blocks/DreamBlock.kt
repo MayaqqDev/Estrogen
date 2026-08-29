@@ -12,6 +12,7 @@ import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
 import dev.mayaqq.cynosure.utils.of
 import dev.mayaqq.estrogen.client.features.TextRendererFeatures
 import dev.mayaqq.estrogen.client.features.dash.ClientDash.refresh
+import dev.mayaqq.estrogen.compat.sable.SableCompat
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.*
 import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
@@ -23,6 +24,7 @@ import dev.mayaqq.estrogen.utils.holder
 import invoke.kitty.kritter.blockEntity.BlockWithEntity
 import invoke.kitty.kritter.platform.ENVIRONMENT
 import invoke.kitty.kritter.platform.Side
+import invoke.kitty.kritter.platform.isModLoaded
 import invoke.kitty.kritter.registry.api.entry.holder
 import invoke.kitty.kritter.utils.clientOnly
 import net.minecraft.client.Minecraft
@@ -243,12 +245,14 @@ class DreamBlock(p0: Properties) : GlassLikeBlock(p0), BlockWithEntity<DreamBloc
                 Mth.ceil(playerAABB.maxY) - 1,
                 Mth.ceil(playerAABB.maxZ) - 1
             )
+
+            if (isModLoaded("sable")) {
+                return SableCompat.inBlockCheck(player) { it of EstrogenBlocks.DreamBlock.value!! && canEntityUse(it, player) }
+            }
+
             return BlockPos.betweenClosedStream(minPos, maxPos).anyMatch { pos: BlockPos ->
                 player.level().getBlockState(pos).let { it of EstrogenBlocks.DreamBlock.value!! && canEntityUse(it, player) }
             }
-
-            // can't use betweenClosedStream because it also sometimes includes blocks that the player
-            // is touching the face of, but not colliding with. >:(
         }
 
         fun isTouchingDreamBlock(state: BlockState, direction: Direction): Boolean =

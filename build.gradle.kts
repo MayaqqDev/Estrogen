@@ -54,6 +54,7 @@ repositories {
     }
     maven(url = "https://maven.ladysnake.org/releases") { name = "Ladysnake Maven"; description = "Trinkets" }
     maven(url = "https://repo.unascribed.com") { name = "Unascribed Maven"; description = "Ears" }
+    maven(url = "https://maven.ryanhcode.dev/releases") {name = "Sable" }
     maven(url = "https://api.modrinth.com/maven") { name = "Modrinth Maven"; description = "Jukeboxfix, Ad Astra" }
     maven(url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1") {
         name = "DevAuth maven"; description = "DevAuth"
@@ -132,6 +133,9 @@ cloche {
             modApi(libs.cynosure)
 
             localRuntime(libs.tca)
+
+            compileOnly(libs.sable) { isTransitive = false }
+            compileOnly(libs.sable.companion)
         }
     }
 
@@ -241,6 +245,8 @@ cloche {
             localRuntime(libs.jcpp)
             localRuntime(libs.glsltransformer)
 
+            //modLocalRuntime(libs.fabric.sable)
+
             include(libs.fabric.rlib) { exclude(group = "com.teamresourceful", module = "bytecodecs") }
             include(libs.fabric.flywheel) { isTransitive = false }
             include(libs.fabric.csr) { isTransitive = false }
@@ -333,11 +339,9 @@ cloche {
             modApi(libs.forge.rlib)
             modApi(libs.forge.csr)
             modCompileOnlyApi(libs.forge.curios.api())
-            //Fancy menu
-            modImplementation("maven.modrinth:Wq5SjeWM:sJIzHvg4")
-            modImplementation("maven.modrinth:CVT4pFB2:efcdRVZP")
-            modImplementation("maven.modrinth:J81TRJWm:stJDU839")
             //modRuntimeOnly("org.sinytra.forgified-fabric-api:forgified-fabric-api:0.116.7+2.2.4+1.21.1")
+
+            //modLocalRuntime(libs.forge.sable)
 
             include(libs.forge.rlib) { exclude(group = "com.teamresourceful", module = "bytecodecs") }
             include(libs.forge.mixinExtras) { isTransitive = false }

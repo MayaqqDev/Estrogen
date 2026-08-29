@@ -3,10 +3,13 @@
 package dev.mayaqq.estrogen.client.features.dash
 
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
+import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.cynosure.events.api.Subscription
+import dev.mayaqq.cynosure.utils.of
 import dev.mayaqq.estrogen.client.content.sounds.DreamBlockSoundInstance
+import dev.mayaqq.estrogen.compat.sable.SableCompat
+import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenSounds
-import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
 import dev.mayaqq.estrogen.content.blocks.DreamBlock
 import net.minecraft.client.Minecraft
 import net.minecraft.core.BlockPos
@@ -39,7 +42,13 @@ object DreamBlockEffect {
                 }
             }
             isInDreamBlock = true
-            isEyeInDream = player.clientLevel.getBlockEntity(player.eyePosition.toBlockPos()) is DreamBlockEntity
+            isEyeInDream = if (isModLoaded("sable")) {
+                SableCompat.eyesIn(player) {
+                    it of EstrogenBlocks.DreamBlock.get()
+                }
+            } else {
+                player.clientLevel.getBlockState(player.eyePosition.toBlockPos()) of EstrogenBlocks.DreamBlock.get()
+            }
             if (isEyeInDream) {
                 eyeDreamTick++
             } else eyeDreamTick = 0
