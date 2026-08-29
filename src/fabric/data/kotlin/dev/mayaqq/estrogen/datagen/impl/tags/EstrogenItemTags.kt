@@ -74,6 +74,7 @@ class EstrogenItemTags(
             .addOptional(identifier("endermanoverhaul", "snowy_hood"))
             .addOptional(identifier("endermanoverhaul", "badlands_hood"))
             .addOptional(identifier("ironjetpacks", "jetpack"))
+            .addOptional(identifier("modular_backpacks", "backpack"))
         getOrCreateTagBuilder(EstrogenTags.Items.NON_RECOLORABLE)
             .add(EstrogenBlocks.MothWool.value!!.asItem())
             .add(EstrogenBlocks.MothCarpet.value!!.asItem())

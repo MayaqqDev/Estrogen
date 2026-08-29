@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.mayaqq.cynosure.helpers.McClientKt;
 import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobArmorRenderer;
 import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobRendering;
@@ -30,9 +31,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -52,6 +51,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import static dev.mayaqq.cynosure.core.PlatformHooksKt.isModLoaded;
@@ -70,6 +71,9 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
 
     @Unique
     private BoobArmorRenderer estrogen$boobArmorTrim;
+
+    @Unique
+    private static Map<ResourceLocation, AbstractTexture> boobArmorTextureCache = new HashMap<>();
 
     public PlayerModelMixin(ModelPart modelPart) {
         super(modelPart);
@@ -167,9 +171,25 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
         if (data != null) {
             return Optional.ofNullable(data.toTextureData(overlay));
         } else {
-            var string = BoobArmorHandling.INSTANCE.getDefaultTexture(item, itemStack, player, EquipmentSlot.CHEST, item.getMaterial().value().layers().getFirst(), overlay);
+            ArmorMaterial.Layer layer = null;
+            if (!item.getMaterial().value().layers().isEmpty()) {
+                layer = item.getMaterial().value().layers().getFirst();
+            }
+            var string = BoobArmorHandling.INSTANCE.getDefaultTexture(item, itemStack, player, EquipmentSlot.CHEST, layer, overlay);
             ResourceLocation location = BoobRendering.getARMOR_TEXTURE_CACHE().computeIfAbsent(string, ResourceLocation::tryParse);
-            return location != null ? Optional.of(new TextureData(location, 20f, 23f, 18f, 23f, 28f, 23f, 64.0F, 32.0F)) : Optional.empty();
+            if (location != null) {
+                TextureData textureData = new TextureData(location, 20f, 23f, 18f, 23f, 28f, 23f, 64.0F, 32.0F);
+                AbstractTexture texture;
+                if (boobArmorTextureCache.containsKey(textureData.getLocation())) {
+                    texture = boobArmorTextureCache.get(textureData.getLocation());
+                } else {
+                    texture = McClientKt.getMcClient().getTextureManager().loadTexture(textureData.getLocation(), new SimpleTexture(textureData.getLocation()));
+                    boobArmorTextureCache.put(textureData.getLocation(), texture);
+                }
+                if (texture == MissingTextureAtlasSprite.getTexture()) return Optional.empty();
+                return Optional.of(textureData);
+            }
+            return Optional.empty();
         }
     }
 

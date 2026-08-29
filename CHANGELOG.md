@@ -1,4 +1,6 @@
 # Estrogen `@VERSION@` `1.21.1` `Fabric & NeoForge`
 
 ### Changelog:
-- Sable Compatibility with Dream Blocks
+- Fix Accesswidener button crash
+- Modular Backpacks compatibility (chest armor)
+- Better armor texture handling

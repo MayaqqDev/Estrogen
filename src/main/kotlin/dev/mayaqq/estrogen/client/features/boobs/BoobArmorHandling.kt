@@ -7,10 +7,10 @@ import net.minecraft.world.item.ArmorMaterial
 import net.minecraft.world.item.ItemStack
 import java.util.Locale
 
-expect fun ArmorItem.getDefaultTexture(stack: ItemStack, entity: Entity, slot: EquipmentSlot, layer: ArmorMaterial.Layer, overlay: Boolean): String
+expect fun ArmorItem.getDefaultTexture(stack: ItemStack, entity: Entity, slot: EquipmentSlot, layer: ArmorMaterial.Layer?, overlay: Boolean): String
 
 object BoobArmorHandling {
-    fun getDefaultTexture(item: ArmorItem, stack: ItemStack, entity: Entity, slot: EquipmentSlot, layer: ArmorMaterial.Layer, overlay: Boolean): String {
+    fun getDefaultTexture(item: ArmorItem, stack: ItemStack, entity: Entity, slot: EquipmentSlot, layer: ArmorMaterial.Layer?, overlay: Boolean): String {
         return item.getDefaultTexture(stack, entity, slot, layer, overlay)
     }
 
