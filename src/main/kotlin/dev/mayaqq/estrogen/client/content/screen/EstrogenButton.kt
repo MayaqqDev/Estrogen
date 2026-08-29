@@ -7,6 +7,8 @@ import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.text.CommonText
 import dev.mayaqq.estrogen.client.content.EstrogenRenderTypes
 import dev.mayaqq.estrogen.client.cosmetics.Cosmetic
+import dev.mayaqq.estrogen.client.extensions.posX
+import dev.mayaqq.estrogen.client.extensions.posY
 import dev.mayaqq.estrogen.client.extensions.widgetHeight
 import dev.mayaqq.estrogen.client.extensions.widgetWidth
 import invoke.kitty.kritter.utils.color.*
@@ -38,11 +40,11 @@ open class EstrogenButton(
 ) : Button(x, y, width, height, CommonText.EMPTY, onPress, createNarration) {
 
     override fun renderWidget(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        graphics.fill(this.x, this.y, x + width, y + height, -0x2FEFEFF0)
+        graphics.fill(this.posX, this.posY, posX + width, posY + height, -0x2FEFEFF0)
         if (disabled) {
-            graphics.renderOutline(x + 1, y + 1, width - 2, height - 2,  color.darker().toInt())
+            graphics.renderOutline(posX + 1, posY + 1, width - 2, height - 2,  color.darker().toInt())
         } else {
-            graphics.renderOutline(x + 1, y + 1, width - 2, height - 2,  if (isHoveredOrFocused && !renderOnly) Yellow.toInt() else color.toInt())
+            graphics.renderOutline(posX + 1, posY + 1, width - 2, height - 2,  if (isHoveredOrFocused && !renderOnly) Yellow.toInt() else color.toInt())
         }
 
         renderers.forEach {
@@ -164,7 +166,7 @@ open class EstrogenButton(
             mouseY: Int,
             partialTick: Float
         ) {
-            graphics.blit(icon, this.x + 6, this.y + 6, 0F, 0F, 8, 8, 8, 8)
+            graphics.blit(icon, this.posX + 6, this.posY + 6, 0F, 0F, 8, 8, 8, 8)
         }
     }
 
@@ -185,8 +187,8 @@ open class EstrogenButton(
                 lastHovered = isHovered
             }
 
-            val x = this.x + this.widgetWidth / 2f
-            val y = this.y + this.widgetHeight / 2f
+            val x = this.posX + this.widgetWidth / 2f
+            val y = this.posY + this.widgetHeight / 2f
             val scale = min(this.widgetWidth, this.widgetHeight) / 32f
 
             val yRot = Mth.wrapDegrees(System.currentTimeMillis().toDouble() / 25.0).toFloat()
