@@ -46,12 +46,12 @@ class ConfigSelectionButton(
             this.widgetHeight -= 10
             enlarged = false
         }
-        graphics.fill(x, y, x + width, y + height, -0x2FEFEFF0)
-        graphics.renderOutline(x + 1, y + 1, width - 2, height - 2,  if (isHoveredOrFocused) Yellow.toInt() else Teal.toInt())
-        graphics.drawCenteredString(McFont, message, x + (width / 2), y + 100 + 10 + if (enlarged == true) 5 else 0, 0xFFFFFFFFu.toInt())
+        graphics.fill(posX, posY, posX + width, posY + height, -0x2FEFEFF0)
+        graphics.renderOutline(posX + 1, posY + 1, width - 2, height - 2,  if (isHoveredOrFocused) Yellow.toInt() else Teal.toInt())
+        graphics.drawCenteredString(McFont, message, posX + (width / 2), posY + 100 + 10 + if (enlarged == true) 5 else 0, 0xFFFFFFFFu.toInt())
         graphics.pushPop {
             val scale = 4F + if (enlarged == true) 0.4F else 0.0F
-            translate(x + (width / 2 - (16 * scale / 2)), y + (height / 2 - (16 * scale / 2)), 0)
+            translate(posX + (width / 2 - (16 * scale / 2)), posY + (height / 2 - (16 * scale / 2)), 0)
             scale(scale, scale, 0F)
             graphics.blit(id("textures/gui/icons/cog.png"),
                 0,
