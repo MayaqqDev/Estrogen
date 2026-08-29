@@ -8,7 +8,6 @@ import dev.mayaqq.cynosure.client.events.ParticleRenderTypeRegistrationEvent
 import dev.mayaqq.cynosure.client.events.entity.RenderLayerRegistrationEvent
 import dev.mayaqq.cynosure.client.render.gui.HudOverlayRegistry
 import dev.mayaqq.cynosure.client.render.gui.VanillaHud
-import dev.mayaqq.cynosure.client.splash.data.CynosureSplashLoader
 import dev.mayaqq.cynosure.client.utils.DefaultSkin
 import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.cynosure.events.api.MainBus
@@ -67,7 +66,6 @@ var chestConfigSet = false
 @EntrypointHandler("client")
 fun estrogenClient() {
     EstrogenClientConfig.initialize()
-    CynosureSplashLoader.amount += 30
     EstrogenRenderTypes
     CosmeticAPI
     EstrogenKeybinds
