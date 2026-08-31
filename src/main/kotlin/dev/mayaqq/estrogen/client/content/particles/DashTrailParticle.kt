@@ -51,6 +51,8 @@ class DashTrailParticle(
     private val yRot: Float
     private val vertexCount: Int
 
+    private var doNotRender = false
+
     constructor(options: DashTrailParticleOptions, level: ClientLevel, x: Double, y: Double, z: Double, xSpeed: Double, ySpeed: Double, zSpeed: Double) : this(
         level, x, y, z,
         level.getPlayerByUUID(options.player.toJavaUuid())!!,
@@ -83,6 +85,7 @@ class DashTrailParticle(
         } catch (ex: Exception) {
             // FUCKING MINECRFAft just catches all errors without logging anything useful by default
             // wrrrrrrr
+            doNotRender = true
             Estrogen.error("Error creating trail particle {}", this, ex)
             throw ex
         }
@@ -92,6 +95,8 @@ class DashTrailParticle(
         val pos = renderInfo.position
         if (isLocalPlayer && Minecraft.getInstance().options.cameraType.isFirstPerson && pos.distanceToSqr(x, y, z) < 4.0f)
             return
+
+        if (doNotRender) return
 
         val x = (this.x - pos.x()).toFloat()
         val y = (this.y - pos.y()).toFloat()
