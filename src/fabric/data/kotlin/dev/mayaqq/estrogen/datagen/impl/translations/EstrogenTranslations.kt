@@ -81,7 +81,7 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         )
 
         tb.add("block.estrogen.cookie_jar.tooltip", "A jar to _store_ all your _Cookies_!")
-        tb.add("block.estrogen.dreamcatcher.tooltip", "Place to guard off all the _bad_ dreams away!")
+        tb.add("block.estrogen.dreamcatcher.tooltip", "Hang to ward off _bad_ dreams!")
         tb.add("block.estrogen.colon_three_block.tooltip", "_Why?_")
 
         // Advancements

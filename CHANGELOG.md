@@ -2,3 +2,4 @@
 
 ### Changelog:
 - Fix Crash on fabric #397
+- Updated Dream Catcher description
