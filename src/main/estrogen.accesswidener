@@ -29,3 +29,6 @@ accessible field earth/terrarium/common_storage_lib/fluid/impl/SimpleFluidStorag
 accessible method net/minecraft/world/level/storage/loot/functions/LootItemConditionalFunction simpleBuilder (Ljava/util/function/Function;)Lnet/minecraft/world/level/storage/loot/functions/LootItemConditionalFunction$Builder;
 
 accessible method net/minecraft/client/renderer/texture/TextureManager loadTexture (Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/client/renderer/texture/AbstractTexture;)Lnet/minecraft/client/renderer/texture/AbstractTexture;
+
+# This is needed now for some reason
+accessible field net/minecraft/client/renderer/block/BlockRenderDispatcher modelRenderer Lnet/minecraft/client/renderer/block/ModelBlockRenderer;
