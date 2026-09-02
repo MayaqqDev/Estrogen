@@ -104,27 +104,31 @@ class DashTrailParticle(
 
         val buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE)
 
-        matrices.pushPop {
-            translate(x, y + 1.5f, z)
-            scale(-1.0f, -1.0f, 1.0f)
-            mulPose(Axis.YP.rotationDegrees(yRot))
+        try {
+            matrices.pushPop {
+                translate(x, y + 1.5f, z)
+                scale(-1.0f, -1.0f, 1.0f)
+                mulPose(Axis.YP.rotationDegrees(yRot))
 
-            val alpha = 1f - Mth.lerp(partialTicks.toDouble(), max((age - 1).toDouble(), 0.0), age.toDouble()).toFloat() / lifetime
-            for (i in 0..<vertexCount) {
-                val v = i * ModelConsumer.STRIDE
-                buffer.addVertex(lastPose, vertices[v], vertices[v + 1], vertices[v + 2])
-                    .setUv(vertices[v + 3], vertices[v + 4])
-                    .setColor(r, g, b, alpha)
-                    .setLight(LightTexture.FULL_BRIGHT)
+                val alpha = 1f - Mth.lerp(partialTicks.toDouble(), max((age - 1).toDouble(), 0.0), age.toDouble()).toFloat() / lifetime
+                for (i in 0..<vertexCount) {
+                    val v = i * ModelConsumer.STRIDE
+                    buffer.addVertex(lastPose, vertices[v], vertices[v + 1], vertices[v + 2])
+                        .setUv(vertices[v + 3], vertices[v + 4])
+                        .setColor(r, g, b, alpha)
+                        .setLight(LightTexture.FULL_BRIGHT)
+                }
             }
-        }
 
-        EstrogenRenderer.beginShaderpackBypass()
-        RenderSystem.setShader(EstrogenRenderer::dashTrailParticleShader)
-        RenderSystem.setShaderTexture(0, texture)
-        BufferUploader.drawWithShader(buffer.buildOrThrow())
-        RenderSystem.setShader(GameRenderer::getParticleShader)
-        EstrogenRenderer.endShaderpackBypass()
+            EstrogenRenderer.beginShaderpackBypass()
+            RenderSystem.setShader(EstrogenRenderer::dashTrailParticleShader)
+            RenderSystem.setShaderTexture(0, texture)
+            BufferUploader.drawWithShader(buffer.buildOrThrow())
+            RenderSystem.setShader(GameRenderer::getParticleShader)
+            EstrogenRenderer.endShaderpackBypass()
+        } catch(ex: IllegalStateException) {
+            Estrogen.error("Error rendering trail particle {}", this, ex)
+        }
 
     }
 
