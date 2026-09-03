@@ -1,9 +1,10 @@
 ---
 name: Suggestion
 about: Suggest an idea for this project
-title: ''
+title: "[FEATURE]"
 labels: enhancement
-assignees: ''
+assignees: MayaqqDev
+type: Feature
 
 ---
 

@@ -3,7 +3,8 @@ name: Bug report
 about: Report bugs, crashes and issues
 title: "[BUG]"
 labels: bug
-assignees: ''
+assignees: MayaqqDev
+type: Bug
 
 ---
 
@@ -27,7 +28,7 @@ If applicable, add screenshots to help explain your problem.
  - Mod Loader: [e.g. NeoForge]
  - Game Version [e.g. 1.21.1]
 
-**Game log/Crash Report:**
+**Game log (mainly, can provide crash report):**
 - upload to https://mclo.gs and paste link here
 
 **Additional context**
