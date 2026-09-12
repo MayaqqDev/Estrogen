@@ -132,7 +132,8 @@ object EstrogenClientEvents {
                 EstrogenClientConfig.ChestFeature.armor,
                 EstrogenClientConfig.ChestFeature.physics,
                 EstrogenClientConfig.ChestFeature.bounciness,
-                EstrogenClientConfig.ChestFeature.damping
+                EstrogenClientConfig.ChestFeature.damping,
+                EstrogenClientConfig.ChestFeature.scale
             )
             player.chestConfig = config
             ChestConfig.sync()

@@ -1,16 +1,34 @@
 package dev.mayaqq.estrogen.client.features.boobs
 
+import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.utils.contains
+import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobRendering
+import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobRendering.ARMOR_TEXTURE_CACHE
+import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.TextureData
+import dev.mayaqq.estrogen.client.features.boobs.BoobArmorHandling.getDefaultTexture
+import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorDataLoader.getData
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
+import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.content.EstrogenTags
 import dev.mayaqq.estrogen.injection.chestConfig
+import dev.mayaqq.estrogen.mixin.client.PlayerModelMixin
 import invoke.kitty.kritter.registry.api.entry.holder
+import net.minecraft.client.player.AbstractClientPlayer
+import net.minecraft.client.renderer.texture.AbstractTexture
+import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite
+import net.minecraft.client.renderer.texture.SimpleTexture
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ArmorItem
+import net.minecraft.world.item.ArmorMaterial
+import java.util.*
 
 object Boob {
+
     /**
      * Calculate boob size for rendering based on the time the effect was applied.
      *
@@ -24,6 +42,18 @@ object Boob {
         return Mth.clamp(((currentTime - startTime + tickDelta).toFloat() * 50 / 20000) + initialSize, 0.0f, 1.0f)
     }
 
+    fun physicsCheck(player: Player, config: ChestConfig): Boolean {
+        if (!config.physicsEnabled) return false
+        if (EstrogenClientConfig.ChestRenderingGlobal.armorPhysicsHandling && shouldShowArmor(player)) {
+            return when(player.getItemBySlot(EquipmentSlot.CHEST)) {
+                in EstrogenTags.Items.CHEST_PHYSICS_DISABLE -> false
+                in EstrogenTags.Items.CHEST_PHYSICS_ENABLE -> true
+                else -> false
+            }
+        }
+        return true
+    }
+
     fun shouldShow(player: Player): Boolean {
         return player.getAttributeValue(EstrogenAttributes.ShowBoobs.holder) > 0.0 &&
                 EstrogenClientConfig.ChestRenderingGlobal.rendering &&
@@ -33,6 +63,12 @@ object Boob {
     @JvmStatic
     fun boobFunc(level: Float): Float {
         return 1.48f - Mth.invSqrt((level + 0.6f) * 0.95f)
+    }
+
+    @JvmStatic
+    fun boobFuncSized(level: Float, player: Player): Float {
+        val size = player.chestConfig?.scale?.let { it / 100F }?: 1F
+        return boobFunc(level) * size
     }
 
     @JvmStatic

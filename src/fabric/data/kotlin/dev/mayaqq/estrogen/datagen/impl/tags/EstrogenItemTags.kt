@@ -1,6 +1,7 @@
 package dev.mayaqq.estrogen.datagen.impl.tags
 
 import dev.mayaqq.cynosure.core.identifier
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenItems
@@ -86,6 +87,15 @@ class EstrogenItemTags(
             .add(EstrogenBlocks.DreamBlock.value!!.asItem())
         getOrCreateTagBuilder(EstrogenTags.Items.DISABLES_CAPE)
             .add(EstrogenItems.MothElytra.value)
+        getOrCreateTagBuilder(EstrogenTags.Items.CHEST_PHYSICS_ENABLE)
+            .add(Items.LEATHER_CHESTPLATE)
+            .add(Items.CHAINMAIL_CHESTPLATE)
+        getOrCreateTagBuilder(EstrogenTags.Items.CHEST_PHYSICS_DISABLE)
+            .add(Items.IRON_CHESTPLATE)
+            .add(Items.GOLDEN_CHESTPLATE)
+            .add(Items.DIAMOND_CHESTPLATE)
+            .add(Items.NETHERITE_CHESTPLATE)
+
         getOrCreateTagBuilder(EstrogenTags.Items.CHEST_FEATURE_DISABLED)
             .addOptional(identifier("botania", "manasteel_chestplate"))
             .addOptional(identifier("botania", "elementium_chestplate"))

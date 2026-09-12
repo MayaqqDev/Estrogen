@@ -198,6 +198,8 @@
   "tag.item.c.light_emitters": "Light Emitters",
   "tag.item.curios.thighs": "Thighs",
   "tag.item.estrogen.chest_armor_ignore": "Chest Armor Ignore",
+  "tag.item.estrogen.chest_physics.disable": "Disables Chest Physics",
+  "tag.item.estrogen.chest_physics.enable": "Enables Chest Physics",
   "tag.item.estrogen.enchantable.head": "Enchantable Head Armor",
   "tag.item.estrogen.uwufying": "Uwufying",
   "tag.item.trinkets.legs.thighs": "Thighs",

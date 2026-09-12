@@ -44,6 +44,10 @@ object EstrogenClientConfig : Config("$MOD_ID/client", Json5Format.Default) {
         val physicsRendering: Boolean by field(true) {
             comment = "Enable chest feature physics rendering"
         }
+
+        val armorPhysicsHandling: Boolean by field(true) {
+            comment = "Disable chest physics with plated armor"
+        }
     }
 
     object ChestFeature : ConfigCategory(comment = "Settings for the chest feature (for local player)") {
@@ -73,6 +77,12 @@ object EstrogenClientConfig : Config("$MOD_ID/client", Json5Format.Default) {
             comment = "Chest feature physics damping"
             range = 0.0F..1.0F
             onChanged {chestConfigSet = false }
+        }
+
+        val scale: Int by field(100) {
+            comment = "Chest feature scale, multiplier of Estrogen level scale"
+            range = 0..120
+            onChanged { chestConfigSet = false }
         }
     }
 

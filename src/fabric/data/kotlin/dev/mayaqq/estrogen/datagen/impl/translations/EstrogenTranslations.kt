@@ -229,6 +229,8 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         tb.add("tag.item.c.light_emitters", "Light Emitters")
         tb.add("tag.item.estrogen.chest_armor_ignore", "Chest Armor Ignore")
         tb.add("tag.item.estrogen.enchantable.head", "Enchantable Head Armor")
+        tb.add("tag.item.estrogen.chest_physics.disable", "Disables Chest Physics")
+        tb.add("tag.item.estrogen.chest_physics.enable", "Enables Chest Physics")
         // Fluids
         tb.add("tag.fluid.estrogen.urine", "Urine")
         tb.add("tag.fluid.estrogen.sponge_ignoring", "Sponge Ignoring")

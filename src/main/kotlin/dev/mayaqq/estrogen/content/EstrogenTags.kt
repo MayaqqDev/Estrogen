@@ -41,6 +41,9 @@ object EstrogenTags {
         val TWILIGHT_UNCRAFTING_BLACKLIST_2_WHAT = itemTag(identifier("twilightforest", "banned_uncraftables"))
         val HEAD_ENCHANTABLE = itemTag(id("enchantable/head"))
         val HIDDEN_FROM_RECIPE_VIEWERS = itemTag(commonId("hidden_from_recipe_viewers"))
+
+        val CHEST_PHYSICS_DISABLE = itemTag(id("chest_physics/disable"))
+        val CHEST_PHYSICS_ENABLE = itemTag(id("chest_physics/enable"))
     }
 
     object Blocks {

@@ -12,7 +12,8 @@ data class ChestConfig(
     val armorEnabled: Boolean,
     val physicsEnabled: Boolean,
     val bounciness: Double,
-    val damping: Float
+    val damping: Float,
+    val scale: Int
 ) {
     companion object {
         @JvmStatic
@@ -21,7 +22,8 @@ data class ChestConfig(
                 EstrogenClientConfig.ChestFeature.armor,
                 EstrogenClientConfig.ChestFeature.physics,
                 EstrogenClientConfig.ChestFeature.bounciness,
-                EstrogenClientConfig.ChestFeature.damping
+                EstrogenClientConfig.ChestFeature.damping,
+                EstrogenClientConfig.ChestFeature.scale
             )
 
         @JvmStatic

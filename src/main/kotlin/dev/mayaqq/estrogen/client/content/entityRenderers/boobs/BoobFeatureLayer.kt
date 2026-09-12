@@ -56,7 +56,7 @@ class BoobFeatureLayer(
                 }
                 var yOffset = 0f
                 // Physics check (global setting checked in physics manager
-                if (chestConfig.physicsEnabled) {
+                if (Boob.physicsCheck(entity, chestConfig)) {
                     val physics = getPhysicsForPlayer(entity)
                     if (physics.active) {
                         size += physics.interpolate(currentTime, h.toDouble())!!.x
