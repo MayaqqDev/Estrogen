@@ -7,6 +7,7 @@ import dev.mayaqq.estrogen.content.EstrogenComponents
 import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.utils.EstrogenColors
+import dev.mayaqq.estrogen.utils.holder
 import earth.terrarium.common_storage_lib.context.ItemContext
 import earth.terrarium.common_storage_lib.context.impl.IsolatedSlotContext
 import earth.terrarium.common_storage_lib.context.impl.ModifyOnlyContext
@@ -32,6 +33,8 @@ class EstrogenPatchItem(properties: Properties) : Item(properties), FluidProvide
         val context = slot.slotContext(stack)
         val level: Level = slot.wearer?.level() ?: return
         if (!level.isClientSide && slot.wearer is Player && getAmount(stack) > 0) {
+            val currentAmplifier = slot.wearer.getEffect(EstrogenEffects.Estrogen.holder())?.amplifier
+            if (currentAmplifier != null && currentAmplifier > EstrogenServerConfig.Patch.girlPowerLevel - 1) return
             if (level.gameTime % TRIGGER_EVERY_X_TICKS == 0L) {
                 addEffect(slot.wearer, level)
             }

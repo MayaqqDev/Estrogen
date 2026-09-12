@@ -1,5 +1,4 @@
 # Estrogen `@VERSION@` `1.21.1` `Fabric & NeoForge`
 
 ### Changelog:
-- More catches for dash particle cause models are funky
-- Fixed warn about shader uniforms in logs
+- Patches no longer drain when Crystal Estrogen pill is used
