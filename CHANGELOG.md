@@ -2,3 +2,4 @@
 
 ### Changelog:
 - Make carpet names consistent
+- Configurable Dash Refresh cooldown

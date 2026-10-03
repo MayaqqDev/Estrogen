@@ -74,7 +74,7 @@ object ClientDash {
 
         // Refresh number of dashes
         if (canRefresh(player) && groundCooldown == 0) {
-            groundCooldown = 4
+            groundCooldown = EstrogenCommonConfig.Dash.cooldown
             refresh(player)
         }
 

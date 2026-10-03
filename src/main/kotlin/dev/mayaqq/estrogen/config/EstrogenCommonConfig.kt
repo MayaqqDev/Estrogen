@@ -19,6 +19,11 @@ object EstrogenCommonConfig : SyncedConfig("$MOD_ID/common", Json5Format.Default
             range = 0.0..100.0
         }
 
+        val cooldown by field(4) {
+            comment = "The cooldown between dash refreshes in ticks"
+            range = 0..100
+        }
+
     }
 
     object Recipes : ConfigCategory(comment = "Recipe* Configuration") {
