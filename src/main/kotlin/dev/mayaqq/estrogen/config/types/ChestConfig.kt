@@ -10,6 +10,7 @@ import kotlinx.serialization.Serializable
 data class ChestConfig(
     val enabled: Boolean,
     val armorEnabled: Boolean,
+    val disableWithArmor: Boolean,
     val physicsEnabled: Boolean,
     val bounciness: Double,
     val damping: Float,
@@ -20,6 +21,7 @@ data class ChestConfig(
         val current get() = ChestConfig(
                 EstrogenClientConfig.ChestFeature.enabled,
                 EstrogenClientConfig.ChestFeature.armor,
+            EstrogenClientConfig.ChestFeature.disableWithArmor,
                 EstrogenClientConfig.ChestFeature.physics,
                 EstrogenClientConfig.ChestFeature.bounciness,
                 EstrogenClientConfig.ChestFeature.damping,

@@ -31,18 +31,22 @@ object EstrogenClientConfig : Config("$MOD_ID/client", Json5Format.Default) {
         }
     }
 
-    object ChestRenderingGlobal : ConfigCategory(comment = "Global settings for chest feature rendering") {
+    object ChestRenderingGlobal : ConfigCategory(comment = "Global settings for chest feature rendering (applies to all players)") {
 
         val rendering: Boolean by field(true) {
-            comment = "Enable chest feature rendering"
+            comment = "Disables/Enables all of chest feature rendering"
         }
 
         val armorRendering: Boolean by field(true) {
-            comment = "Enable chest feature armor rendering"
+            comment = "Disables/Enables armor rendering on the chest feature, including any logic around it"
+        }
+
+        val disableWithArmor: Boolean by field(false) {
+            comment = "Instead of having custom chest armor, disable chest rendering fully when armor is on"
         }
 
         val physicsRendering: Boolean by field(true) {
-            comment = "Enable chest feature physics rendering"
+            comment = "Disables/Enables physics for the chest feature"
         }
 
         val armorPhysicsHandling: Boolean by field(true) {
@@ -50,20 +54,24 @@ object EstrogenClientConfig : Config("$MOD_ID/client", Json5Format.Default) {
         }
     }
 
-    object ChestFeature : ConfigCategory(comment = "Settings for the chest feature (for local player)") {
+    object ChestFeature : ConfigCategory(comment = "Settings for the chest feature (applies to only you)") {
 
         val enabled: Boolean by field(true) {
-            comment = "Enable chest feature"
+            comment = "Disables/Enables your chest feature rendering"
             onChanged { chestConfigSet = false }
         }
 
         val armor: Boolean by field(true) {
-            comment = "Enable chest feature armor"
+            comment = "Disables/Enables armor rendering for your chest feature, including any logic around it"
             onChanged { chestConfigSet = false }
         }
 
+        val disableWithArmor: Boolean by field(false) {
+            comment = "Instead of having custom chest armor, disable chest rendering fully when armor is on"
+        }
+
         val physics: Boolean by field(true) {
-            comment = "Enable chest feature physics"
+            comment = "Disables/Enables physics for your chest feature"
             onChanged { chestConfigSet = false }
         }
 

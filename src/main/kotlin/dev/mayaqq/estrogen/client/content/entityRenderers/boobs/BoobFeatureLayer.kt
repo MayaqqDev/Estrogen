@@ -7,6 +7,7 @@ import dev.mayaqq.cynosure.utils.currentTime
 import dev.mayaqq.estrogen.client.features.boobs.Boob
 import dev.mayaqq.estrogen.client.features.boobs.Boob.boobSize
 import dev.mayaqq.estrogen.client.features.boobs.BoobPhysicsManager.getPhysicsForPlayer
+import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.content.EstrogenTags
@@ -40,8 +41,11 @@ class BoobFeatureLayer(
         val entity = entity as AbstractClientPlayer
         if (Boob.shouldShow(entity) && chestConfig != null && entity.playerInfo?.skin != null && !entity.isInvisible) {
             // Armor that straight up disables Chest Feature and Armor and everything.
-            if (entity.getItemBySlot(EquipmentSlot.CHEST) in EstrogenTags.Items.CHEST_FEATURE_DISABLED) return
-
+            val chestItem = entity.getItemBySlot(EquipmentSlot.CHEST)
+            if (chestItem in EstrogenTags.Items.CHEST_FEATURE_DISABLED) return
+            if (!chestItem.isEmpty && chestItem !in EstrogenTags.Items.CHEST_ARMOR_IGNORE && (
+                        EstrogenClientConfig.ChestRenderingGlobal.disableWithArmor || chestConfig.disableWithArmor)
+                ) return
             val vertexConsumer = bufferSource.getBuffer(RenderType.entityCutout(entity.skin.texture()))
 
             val m = LivingEntityRenderer.getOverlayCoords(entity, 0.0f)

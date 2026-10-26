@@ -130,6 +130,7 @@ object EstrogenClientEvents {
             val config = ChestConfig(
                 EstrogenClientConfig.ChestFeature.enabled,
                 EstrogenClientConfig.ChestFeature.armor,
+                EstrogenClientConfig.ChestFeature.disableWithArmor,
                 EstrogenClientConfig.ChestFeature.physics,
                 EstrogenClientConfig.ChestFeature.bounciness,
                 EstrogenClientConfig.ChestFeature.damping,
