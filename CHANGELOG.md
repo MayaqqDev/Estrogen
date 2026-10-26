@@ -3,3 +3,8 @@
 ### Changelog:
 - Make carpet names consistent
 - Configurable Dash Refresh cooldown
+- More translations
+- Fixes to Girl power levels overriding each other
+- makes server config not editable when on a server
+- Makes girl power not get "weaker" when near other players with it (upsie)
+- Make it so you cannot edit server configs while on a server

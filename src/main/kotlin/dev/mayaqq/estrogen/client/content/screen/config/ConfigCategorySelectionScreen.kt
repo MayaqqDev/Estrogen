@@ -1,9 +1,15 @@
 package dev.mayaqq.estrogen.client.content.screen.config
 
 import dev.mayaqq.cynosure.helpers.McClient
+import dev.mayaqq.cynosure.helpers.McPlayer
+import dev.mayaqq.cynosure.text.Text
+import dev.mayaqq.cynosure.text.TextStyle.color
 import invoke.kitty.kritter.config.api.Config
+import invoke.kitty.kritter.config.api.ConfigSide
+import invoke.kitty.kritter.utils.color.MinecraftColors
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Button
+import net.minecraft.client.gui.components.Tooltip
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
@@ -17,6 +23,12 @@ class ConfigCategorySelectionScreen(val previous: Screen?, val configs: List<Con
             val index0 = (width / 2) - (fullSize / 2)
             val button = ConfigSelectionButton(index0 + ((size + 30) * index), (height / 2) - (size / 2), size, size, config.id) {
                 McClient.setScreen(ConfigScreen.make(config, this))
+            }
+            if (config.side != ConfigSide.CLIENT && McPlayer != null && !McClient.isLocalServer) {
+                button.disabled = true
+                button.tooltip = Tooltip.create(Text.of("Please edit server configs from the server files") {
+                    color = MinecraftColors.Red
+                })
             }
             addRenderableWidget(button)
         }
