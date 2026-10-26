@@ -9,3 +9,4 @@
 - Makes girl power not get "weaker" when near other players with it (upsie)
 - Make it so you cannot edit server configs while on a server
 - Config option to disable boobs with armor on fully
+- Increase Estrogen patch applies duration to cause less issues on laggy servers

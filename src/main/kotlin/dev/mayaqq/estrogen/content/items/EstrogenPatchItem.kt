@@ -136,6 +136,6 @@ class EstrogenPatchItem(properties: Properties) : Item(properties), FluidProvide
 
     companion object {
         private const val TRIGGER_EVERY_X_TICKS: Int = 300
-        private const val EFFECT_DURATION: Int = TRIGGER_EVERY_X_TICKS + 220
+        private const val EFFECT_DURATION: Int = TRIGGER_EVERY_X_TICKS + 300
     }
 }
