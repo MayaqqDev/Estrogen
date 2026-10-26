@@ -8,6 +8,7 @@ import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.EntityDamageSourceEvent
 import dev.mayaqq.cynosure.events.entity.EntityTrackingEvent
 import dev.mayaqq.cynosure.events.entity.LivingEntityEvent
+import dev.mayaqq.cynosure.helpers.McPlayer
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.currentTime
 import dev.mayaqq.estrogen.Estrogen
@@ -67,11 +68,7 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         if (!EstrogenCommonConfig.Dash.enabled) return false
 
         // Only tick on the client and if the entity is a player
-        if (
-            entity is Player
-            && entity.level().isClientSide
-            && entity.uuid == Minecraft.getInstance().player?.uuid
-        ) {
+        if (entity is Player && entity.level().isClientSide && entity.uuid == McPlayer!!.uuid) {
             ClientDash.tick()
             if (entity.getEffect(EstrogenEffects.Estrogen.holder)?.duration == 1) ClientDash.reset()
         }
