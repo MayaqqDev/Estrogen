@@ -23,6 +23,7 @@ import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.features.dash.CommonDash.removeDashing
 import dev.mayaqq.estrogen.id
 import invoke.kitty.kritter.registry.api.entry.holder
+import net.minecraft.client.Minecraft
 import net.minecraft.core.Holder
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket
@@ -66,7 +67,11 @@ class EstrogenEffect(category: MobEffectCategory, color: Int) : MobEffect(catego
         if (!EstrogenCommonConfig.Dash.enabled) return false
 
         // Only tick on the client and if the entity is a player
-        if (entity is Player && entity.level().isClientSide) {
+        if (
+            entity is Player
+            && entity.level().isClientSide
+            && entity.uuid == Minecraft.getInstance().player?.uuid
+        ) {
             ClientDash.tick()
             if (entity.getEffect(EstrogenEffects.Estrogen.holder)?.duration == 1) ClientDash.reset()
         }
