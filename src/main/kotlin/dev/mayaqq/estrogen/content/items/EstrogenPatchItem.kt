@@ -112,6 +112,7 @@ class EstrogenPatchItem(properties: Properties) : Item(properties), FluidProvide
 
     override fun getFluids(stack: ItemStack, context: ItemContext): CommonStorage<FluidResource> {
         return SimpleFluidStorage(context, EstrogenComponents.FluidComponent, 1, FluidAmounts.BUCKET)
+            .filter(0) { it.isOf(EstrogenFluids.LiquidEstrogen.get()) }
     }
 
     fun getAmount(stack: ItemStack): Long {
