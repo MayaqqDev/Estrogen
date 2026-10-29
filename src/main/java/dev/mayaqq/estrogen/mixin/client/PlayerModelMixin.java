@@ -1,11 +1,8 @@
 package dev.mayaqq.estrogen.mixin.client;
 
-import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.mayaqq.cynosure.helpers.McClientKt;
-import dev.mayaqq.estrogen.Estrogen;
 import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobArmorRenderer;
 import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobRendering;
 import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.TextureData;
@@ -24,6 +21,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -78,22 +76,15 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void estrogen$init(ModelPart root, boolean thinArms, CallbackInfo ci) {
-        if (root.hasChild("estrogen_boobs")) estrogen$boobs = root.getChild("estrogen_boobs");
-        else Estrogen.INSTANCE.warn("An error occurred while trying to get the Estrogen Chest.");
-        if (root.hasChild("estrogen_boobs_jacket")) estrogen$boobJacket = root.getChild("estrogen_boobs_jacket");
-        else Estrogen.INSTANCE.warn("An error occurred while trying to get the Estrogen Chest Jacket.");
+        MeshDefinition mesh = new MeshDefinition();
+        PartDefinition parts = mesh.getRoot();
+        parts.addOrReplaceChild("estrogen_boobs", CubeListBuilder.create().addBox("estrogen_boobs", -4.0F, 0F, 0F, 8, 2, 2, CubeDeformation.NONE, 18, 22), PartPose.ZERO);
+        parts.addOrReplaceChild("estrogen_boobs_jacket", CubeListBuilder.create().addBox("estrogen_boobs_jacket", -4.0F, 0F, 0F, 8, 2, 2, new CubeDeformation(0.25f), 18, 38), PartPose.ZERO);
+        ModelPart baked = LayerDefinition.create(mesh, 64, 64).bakeRoot();
+        estrogen$boobs = baked.getChild("estrogen_boobs");
+        estrogen$boobJacket = baked.getChild("estrogen_boobs_jacket");
         estrogen$boobArmor = new BoobArmorRenderer();
         estrogen$boobArmorTrim = new BoobArmorRenderer();
-    }
-
-    @ModifyReturnValue(
-            method = "createMesh(Lnet/minecraft/client/model/geom/builders/CubeDeformation;Z)Lnet/minecraft/client/model/geom/builders/MeshDefinition;",
-            at = @At("RETURN")
-    )
-    private static MeshDefinition estrogen$getTextureModelData(MeshDefinition original, @Local PartDefinition root) {
-        root.addOrReplaceChild("estrogen_boobs", CubeListBuilder.create().addBox("estrogen_boobs", -4.0F, 0F, 0F, 8, 2, 2, CubeDeformation.NONE, 18, 22), PartPose.ZERO);
-        root.addOrReplaceChild("estrogen_boobs_jacket", CubeListBuilder.create().addBox("estrogen_boobs_jacket", -4.0F, 0F, 0F, 8, 2, 2, new CubeDeformation(0.25f), 18, 38), PartPose.ZERO);
-        return original;
     }
 
     @Override
