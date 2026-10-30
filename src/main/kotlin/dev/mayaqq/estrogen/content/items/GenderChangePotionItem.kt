@@ -5,6 +5,7 @@ import dev.mayaqq.estrogen.content.EstrogenAttributes
 import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.advancements.CriteriaTriggers
 import net.minecraft.core.particles.DustParticleOptions
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents
@@ -72,6 +73,42 @@ class GenderChangePotionItem(properties: Properties) : Item(properties) {
                         DustParticleOptions(Vector3f(0.15f, 0.20f, 0.81f), 1f),
                         x, y, z,
                         0.0, 0.0, 0.0
+                    )
+                }
+            }
+        }
+
+        fun playParticlesServer(level: Level, livingEntity: LivingEntity) {
+            if (level is ServerLevel) {
+                val playerPos = livingEntity.position()
+                val heightIncrement = livingEntity.boundingBox.ysize / 50
+
+                for (i in 0..49) {
+                    val angle = i * Math.PI / 16
+                    var x = playerPos.x + 0.5 * cos(angle)
+                    var y = playerPos.y + i * heightIncrement
+                    var z = playerPos.z + 0.5 * sin(angle)
+
+                    y += level.random.nextFloat() * 0.1 * (if (level.random.nextBoolean()) 1 else -1)
+
+                    level.sendParticles(
+                        DustParticleOptions(Vector3f(1f, 0.30f, 0.70f), 1f),
+                        x, y, z,
+                        1,
+                        0.0, 0.0, 0.0,
+                        0.0
+                    )
+
+                    x = playerPos.x + 0.5 * cos(angle + Math.PI)
+                    z = playerPos.z + 0.5 * sin(angle + Math.PI)
+                    y += level.random.nextFloat() * 0.1 * (if (level.random.nextBoolean()) 1 else -1)
+
+                    level.sendParticles(
+                        DustParticleOptions(Vector3f(0.15f, 0.20f, 0.81f), 1f),
+                        x, y, z,
+                        1,
+                        0.0, 0.0, 0.0,
+                        0.0
                     )
                 }
             }

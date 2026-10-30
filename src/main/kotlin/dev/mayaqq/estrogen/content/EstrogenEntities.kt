@@ -4,6 +4,8 @@ import dev.mayaqq.cynosure.utils.addSpawn
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.entityRenderers.moth.MothRenderer
+import dev.mayaqq.estrogen.client.content.entityRenderers.projectiles.GenderChangeArrowRenderer
+import dev.mayaqq.estrogen.content.entities.GenderChangeArrow
 import dev.mayaqq.estrogen.content.entities.MothEntity
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.entity.*
@@ -37,5 +39,15 @@ object EstrogenEntities : Registrar<EntityType<*>> by Registrar(MOD_ID, Registri
             30,
             1 to 3,
         )
+    }
+
+    val GenderChangeArrow = entity("gender_change_arrow", MobCategory.MISC, ::GenderChangeArrow) {
+        settings {
+            sized(0.5f, 0.5f)
+            eyeHeight(0.13F)
+            clientTrackingRange(4)
+            updateInterval(20)
+        }
+        renderer(::GenderChangeArrowRenderer)
     }
 }

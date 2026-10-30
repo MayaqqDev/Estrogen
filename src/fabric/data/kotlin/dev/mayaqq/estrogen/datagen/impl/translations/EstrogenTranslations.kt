@@ -46,6 +46,7 @@ class EstrogenTranslations(output: FabricDataOutput, lookup: CompletableFuture<H
         tb.add(EstrogenItems.ThighHighs.value, "Thigh Highs")
         tb.add("estrogen.item.dyeable", "Dyeable")
         tb.add(EstrogenItems.MothElytra.value, "Rosy Maple Elytra")
+        tb.add(EstrogenItems.GenderChangeArrow.get(), "Gender Change Arrow")
         tb.add(EstrogenItems.GenderChangePotion.value, "Gender Change Potion")
         tb.add("estrogen.item.transfer_dummy", "Create: Estrogen item")
         // Potion

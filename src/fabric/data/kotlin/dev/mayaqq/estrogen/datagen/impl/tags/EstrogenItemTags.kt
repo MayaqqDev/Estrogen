@@ -142,5 +142,7 @@ class EstrogenItemTags(
             .add(EstrogenItems.MothElytra.value)
         getOrCreateTagBuilder(EstrogenTags.Items.HIDDEN_FROM_RECIPE_VIEWERS)
             .add(EstrogenBlocks.ColonThreeBlock.value!!.asItem())
+        getOrCreateTagBuilder(ItemTags.ARROWS)
+            .add(EstrogenItems.GenderChangeArrow.get())
     }
 }

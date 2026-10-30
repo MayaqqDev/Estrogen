@@ -72,6 +72,9 @@ object EstrogenRenderer {
     lateinit var renderTypeRainbowEntityCutout: ShaderInstance
         private set
 
+    lateinit var transLines: ShaderInstance
+        private set
+
     // Post chains and framebuffers
     private var dreamingEffect: PostChain? = null
 
@@ -105,6 +108,7 @@ object EstrogenRenderer {
         event.register(id("dash_trail_particle"), DefaultVertexFormat.PARTICLE, ::dashTrailParticleShader)
         event.register(id("cosmetic_outline"), DefaultVertexFormat.NEW_ENTITY, ::cosmeticOutlineShader)
         event.register(id("rendertype_rainbow_entity_cutout"), DefaultVertexFormat.NEW_ENTITY, ::renderTypeRainbowEntityCutout)
+        event.register(id("trans_lines"), DefaultVertexFormat.POSITION_COLOR_NORMAL, ::transLines)
     }
 
     internal fun onReloadRenderer() {

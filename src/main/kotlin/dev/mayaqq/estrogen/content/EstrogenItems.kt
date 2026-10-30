@@ -167,6 +167,12 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         creativeTab(CreativeModeTabs.FOOD_AND_DRINKS, TabPlacement.AFTER(Items.HONEY_BOTTLE))
     }
 
+    val GenderChangeArrow = item("gender_change_arrow", ::GenderChangeArrowItem) {
+        properties {
+            rarity(Rarity.RARE)
+        }
+    }
+
     lateinit var DreamBottle: DreamBottleItem
         internal set
 

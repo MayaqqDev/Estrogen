@@ -26,6 +26,7 @@ import dev.mayaqq.estrogen.content.EstrogenItems.EstrogenChipCookie
 import dev.mayaqq.estrogen.content.EstrogenItems.EstrogenPatch
 import dev.mayaqq.estrogen.content.EstrogenItems.EstrogenPill
 import dev.mayaqq.estrogen.content.EstrogenItems.GenderChangePotion
+import dev.mayaqq.estrogen.content.EstrogenItems.GenderChangeArrow
 import dev.mayaqq.estrogen.content.EstrogenItems.HorseUrineBottle
 import dev.mayaqq.estrogen.content.EstrogenItems.MothElytra
 import dev.mayaqq.estrogen.content.EstrogenItems.MothFuzz
@@ -59,6 +60,7 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Reg
             acceptWithCount(EstrogenPill)
             acceptWithCount(CrystalEstrogenPill)
             acceptWithCount(GenderChangePotion)
+            acceptWithCount(GenderChangeArrow)
             acceptWithCount(Balls)
             acceptWithCount(MothFuzz)
             acceptWithCount(TestosteroneChunk)

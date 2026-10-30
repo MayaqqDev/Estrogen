@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderType.CompositeState
 import net.minecraft.resources.ResourceLocation
 import org.lwjgl.opengl.GL30
+import java.util.*
 
 object EstrogenRenderTypes {
 
@@ -85,6 +86,21 @@ object EstrogenRenderTypes {
                 .createCompositeState(true)
         )
     }
+
+    val TRANS_LINES: RenderType.CompositeRenderType = RenderType.create(
+            "estrogen:trans_lines",
+            DefaultVertexFormat.POSITION_COLOR_NORMAL,
+            VertexFormat.Mode.LINES,
+            1536,
+            CompositeState.builder()
+                .setShaderState(ShaderStateShard(EstrogenRenderer::transLines))
+                .setLineState(RenderStateShard.LineStateShard(OptionalDouble.empty()))
+                .setLayeringState(RenderStateShard.VIEW_OFFSET_Z_LAYERING)
+                .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
+                .setOutputState(RenderStateShard.ITEM_ENTITY_TARGET)
+                .setWriteMaskState(RenderStateShard.COLOR_DEPTH_WRITE).setCullState(RenderStateShard.NO_CULL)
+                .createCompositeState(false)
+        )
 
     fun entityTranslucentNoDiffuse(texture: ResourceLocation): RenderType {
         return if (isShaderPackInUse) RenderType.entityTranslucent(texture) else ENTITY_TRANSLUCENT_NO_DIFFUSE.apply(texture)
