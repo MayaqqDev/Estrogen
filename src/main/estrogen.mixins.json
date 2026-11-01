@@ -33,7 +33,9 @@
     "client.accessor.LevelRendererAccessor",
     "client.compat.betteradvancements.BetterAdvancementTabMixin",
     "client.compat.emi.EmiAgnosMixin",
-    "client.compat.paginatedadvancements.PaginatedAdvancementTabMixin"
+    "client.compat.paginatedadvancements.PaginatedAdvancementTabMixin",
+    "client.ItemRendererMixin",
+    "client.ModelBakeryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

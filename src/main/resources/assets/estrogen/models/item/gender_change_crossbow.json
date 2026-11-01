@@ -1,0 +1,6 @@
+{
+  "parent": "item/crossbow",
+  "textures": {
+    "layer0": "estrogen:item/gender_change_crossbow"
+  }
+}
