@@ -33,7 +33,7 @@ object EstrogenServerConfig : Config("$MOD_ID/server", Json5Format.Default) {
             min = 0
         }
 
-        val effectIncreaseAmount by field(10) {
+        val effectIncreaseAmount by field(72) {
             comment = "Duration the syringe increases per tick (in ticks)"
             min = 0
         }
