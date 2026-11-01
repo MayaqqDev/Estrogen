@@ -34,6 +34,7 @@ import dev.mayaqq.estrogen.content.EstrogenItems.TestosteroneChunk
 import dev.mayaqq.estrogen.content.EstrogenItems.TestosteronePowder
 import dev.mayaqq.estrogen.content.EstrogenItems.ThighHighs
 import dev.mayaqq.estrogen.content.EstrogenItems.MothSpawnEgg
+import dev.mayaqq.estrogen.content.EstrogenItems.Syringe
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.api.entry.RegistryEntry
 import invoke.kitty.kritter.registry.api.entry.holder
@@ -67,6 +68,8 @@ object EstrogenCreativeTab : Registrar<CreativeModeTab> by Registrar(MOD_ID, Reg
             acceptWithCount(TestosteronePowder)
             acceptWithCount(EstrogenChipCookie)
             acceptWithCount(HorseUrineBottle)
+            acceptWithCount(Syringe)
+            acceptWithCount(Syringe.get().getFullStack())
             acceptWithCount(EstrogenPatch.get().getFullStack())
             acceptWithCount(EstrogenPatch)
             acceptWithCount(ThighHighs)

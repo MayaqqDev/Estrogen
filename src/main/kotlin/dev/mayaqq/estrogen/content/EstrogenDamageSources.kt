@@ -10,6 +10,7 @@ import net.minecraft.world.level.Level
 object EstrogenDamageSources {
     val GIRLPOWER = ResourceKey.create(Registries.DAMAGE_TYPE, id("girlpower"))
     val COLON_THREE = ResourceKey.create(Registries.DAMAGE_TYPE, id("colon_three"))
+    val UNSAFE_MEDICAL = ResourceKey.create(Registries.DAMAGE_TYPE, id("unsafe_medical"))
 
     fun of(level: Level, key: ResourceKey<DamageType>): DamageSource {
 

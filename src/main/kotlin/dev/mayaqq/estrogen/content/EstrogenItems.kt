@@ -173,6 +173,12 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         }
     }
 
+    val Syringe = item("syringe", ::SyringeItem) {
+        properties {
+            stacksTo(1)
+        }
+    }
+
     lateinit var DreamBottle: DreamBottleItem
         internal set
 

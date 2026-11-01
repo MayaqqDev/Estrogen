@@ -27,6 +27,27 @@ object EstrogenServerConfig : Config("$MOD_ID/server", Json5Format.Default) {
 
     }
 
+    object Syringe : ConfigCategory() {
+        val capacity by field(3000) {
+            comment = "Capacity of the Syringe in millibuckets"
+            min = 0
+        }
+
+        val effectIncreaseAmount by field(10) {
+            comment = "Duration the syringe increases per tick (in ticks)"
+            min = 0
+        }
+
+        val damageAmount by field(0.5f) {
+            comment = "How much damage does the Syringe do every 1/4 of a second"
+            min = 0f
+        }
+
+        val canKill by field(false) {
+            comment = "If the Syringe can do lethal damage"
+        }
+    }
+
     object ThighHighs : ConfigCategory() {
         val fallDamageReduction by field(100) {
             comment = "The amount of Fall Damage Reduction Thigh Highs add"

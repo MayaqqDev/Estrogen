@@ -10,7 +10,13 @@ import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenItems
+import dev.mayaqq.estrogen.content.items.SyringeItem
 import dev.mayaqq.estrogen.utils.defaultInstance
+import earth.terrarium.common_storage_lib.context.impl.ModifyOnlyContext
+import earth.terrarium.common_storage_lib.context.impl.PlayerContext
+import earth.terrarium.common_storage_lib.fluid.FluidApi
+import earth.terrarium.common_storage_lib.resources.fluid.FluidResource
+import earth.terrarium.common_storage_lib.resources.fluid.util.FluidAmounts
 import invoke.kitty.kritter.registry.api.entry.RegistryEntry
 import net.minecraft.core.BlockPos
 import net.minecraft.core.cauldron.CauldronInteraction
@@ -43,7 +49,8 @@ object CauldronInteractions {
     private val PRE_ESTROGEN by lazy { createMap(
         Items.BUCKET to bucket { EstrogenFluids.LiquidEstrogen.bucket },
         Items.COOKIE to cookie(),
-        EstrogenItems.EstrogenPatch.get() to fillEstrogenPatch()
+        EstrogenItems.EstrogenPatch.get() to fillEstrogenPatch(),
+        EstrogenItems.Syringe.get() to fillSyringe()
     ) }
     private val PRE_WATER by lazy { createMap() }
     private val PRE_EMPTY by lazy { createMap(
@@ -94,7 +101,44 @@ object CauldronInteractions {
                 return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
             if (!level.isClientSide) {
                 val item: Item = stack.item
-                player.setItemInHand(hand, EstrogenItems.EstrogenPatch.get().getFullStack())
+                FluidApi.ITEM.find(stack, PlayerContext.ofHand(player, hand))?.insert(
+                    FluidResource.of(EstrogenFluids.LiquidEstrogen.source),
+                    FluidAmounts.BUCKET,
+                    false
+                )
+                player.awardStat(Stats.USE_CAULDRON)
+                player.awardStat(Stats.ITEM_USED.get(item))
+                level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState())
+                level.playSound(null, pos, SoundEvents.BUCKET_FILL, SoundSource.BLOCKS, 1.0f, 1.0f)
+                level.gameEvent(null, GameEvent.FLUID_PICKUP, pos)
+            }
+
+            return ItemInteractionResult.sidedSuccess(level.isClientSide)
+        }
+    }
+
+    private fun fillSyringe() = object : RichCauldronInteraction {
+        override val expectedOutput: ItemStack get() = EstrogenItems.Syringe.get().getOneBucketStack()
+        override val enabled: Boolean get() = EstrogenCommonConfig.Recipes.cauldronInteractions
+
+        override fun interact(
+            state: BlockState,
+            level: Level,
+            pos: BlockPos,
+            player: Player,
+            hand: InteractionHand,
+            stack: ItemStack
+        ): ItemInteractionResult {
+            if (!enabled) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
+            if (state.hasProperty(LayeredCauldronBlock.LEVEL) && state.getValue(LayeredCauldronBlock.LEVEL) != 3)
+                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION
+            if (!level.isClientSide) {
+                val item: Item = stack.item
+                FluidApi.ITEM.find(stack, PlayerContext.ofHand(player, hand))?.insert(
+                    FluidResource.of(EstrogenFluids.LiquidEstrogen.source),
+                    FluidAmounts.BUCKET,
+                    false
+                )
                 player.awardStat(Stats.USE_CAULDRON)
                 player.awardStat(Stats.ITEM_USED.get(item))
                 level.setBlockAndUpdate(pos, Blocks.CAULDRON.defaultBlockState())
