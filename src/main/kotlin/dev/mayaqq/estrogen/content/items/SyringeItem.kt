@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.content.items
 
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.content.EstrogenComponents
 import dev.mayaqq.estrogen.content.EstrogenDamageSources
@@ -25,8 +24,6 @@ import net.minecraft.network.chat.Style
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.InteractionResultHolder
-import net.minecraft.world.damagesource.DamageSource
-import net.minecraft.world.damagesource.DamageSources
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -44,7 +41,7 @@ class SyringeItem(properties: Properties) : Item(properties), FluidProvider.Item
 
     override fun onUseTick(level: Level, entity: LivingEntity, stack: ItemStack, remainingUseDuration: Int) {
         val effect = entity.getEffect(EstrogenEffects.Estrogen.holder()) ?: return
-        if (remainingUseDuration == 0) hurt(entity)
+        if (level.gameTime % 5 == 0L) hurt(entity)
         if (entity !is Player) return
         val extracted = FluidApi.ITEM.find(stack, PlayerContext.ofHand(entity, entity.usedItemHand))?.get(0)?.extract(
             FluidResource.of(EstrogenFluids.LiquidEstrogen.source),
@@ -93,7 +90,7 @@ class SyringeItem(properties: Properties) : Item(properties), FluidProvider.Item
         }
     }
 
-    override fun getUseDuration(stack: ItemStack, entity: LivingEntity): Int = 5
+    override fun getUseDuration(stack: ItemStack, entity: LivingEntity): Int = 720000
 
     fun getFullStack(): ItemStack {
         val stack = this.defaultInstance

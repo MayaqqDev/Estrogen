@@ -10,7 +10,8 @@ class CookieJarArmPose(stack: ItemStack) : CynosureArmPose(true, true) {
 
     override fun <T : LivingEntity> HumanoidModel<T>.modifyMainArm(
         entity: LivingEntity,
-        arm: ModelPart
+        arm: ModelPart,
+        ageInTicks: Float
     ) {
         arm.xRot = xRot
         arm.yRot = 0F
@@ -19,7 +20,8 @@ class CookieJarArmPose(stack: ItemStack) : CynosureArmPose(true, true) {
 
     override fun <T : LivingEntity> HumanoidModel<T>.modifyOffhandArm(
         entity: LivingEntity,
-        arm: ModelPart
+        arm: ModelPart,
+        ageInTicks: Float
     ) {
         arm.xRot = xRot
         arm.yRot = 0F

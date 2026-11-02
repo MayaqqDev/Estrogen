@@ -100,7 +100,7 @@ cloche {
         dependency {
             modId = "cynosure"
             version {
-                start = "1.0.3"
+                start = "1.0.5"
                 startInclusive = true
             }
         }

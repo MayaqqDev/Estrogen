@@ -1,0 +1,7 @@
+{
+	"parent": "estrogen:item/syringe_base",
+	"textures": {
+		"0": "estrogen:item/syringe/syringe_full",
+		"particle": "estrogen:item/syringe/syringe_full"
+	}
+}

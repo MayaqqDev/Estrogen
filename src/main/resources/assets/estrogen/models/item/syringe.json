@@ -1,0 +1,39 @@
+{
+	"parent": "estrogen:item/syringe_base",
+	"textures": {
+		"0": "estrogen:item/syringe/syringe_empty",
+		"particle": "estrogen:item/syringe/syringe_empty"
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"estrogen:fullness": 0.2
+			},
+			"model": "estrogen:item/syringe_1"
+		},
+		{
+			"predicate": {
+				"estrogen:fullness": 0.4
+			},
+			"model": "estrogen:item/syringe_2"
+		},
+		{
+			"predicate": {
+				"estrogen:fullness": 0.6
+			},
+			"model": "estrogen:item/syringe_3"
+		},
+		{
+			"predicate": {
+				"estrogen:fullness": 0.8
+			},
+			"model": "estrogen:item/syringe_4"
+		},
+		{
+			"predicate": {
+				"estrogen:fullness": 1.0
+			},
+			"model": "estrogen:item/syringe_full"
+		}
+	]
+}

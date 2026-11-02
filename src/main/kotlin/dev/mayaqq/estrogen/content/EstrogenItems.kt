@@ -1,9 +1,15 @@
 package dev.mayaqq.estrogen.content
 
+import dev.mayaqq.cynosure.items.extensions.CustomArmAnimation
+import dev.mayaqq.cynosure.items.extensions.CustomArmPose
 import dev.mayaqq.cynosure.items.extensions.CustomTooltip
+import dev.mayaqq.cynosure.items.extensions.registerExtension
+import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.baubles.EstrogenPatchesRenderer
 import dev.mayaqq.estrogen.client.content.baubles.ThighHighsRenderer
+import dev.mayaqq.estrogen.client.content.blockRenderers.cookieJar.CookieJarArmPose
+import dev.mayaqq.estrogen.client.content.itemRendrers.SyringeAnimation
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.items.*
 import dev.mayaqq.estrogen.id
@@ -20,6 +26,7 @@ import net.minecraft.ChatFormatting
 import net.minecraft.core.cauldron.CauldronInteraction
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
+import net.minecraft.util.Mth
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.food.FoodProperties
@@ -27,6 +34,8 @@ import net.minecraft.world.item.CreativeModeTabs
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.Rarity
+import kotlin.math.log
+import kotlin.math.sign
 
 object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
     val EstrogenPill = item("estrogen_pill", ::Item) {
@@ -176,6 +185,17 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
     val Syringe = item("syringe", ::SyringeItem) {
         properties {
             stacksTo(1)
+        }
+        textureProperty(id("fullness")) { stack, _, _, _ ->
+            val item = stack.item as SyringeItem
+            val amount = item.getAmount(stack)
+            val max = item.getMaxCapacity(stack)
+            val quarter = max / 4f
+            val logme = (sign(amount.toDouble()).toFloat() * ((amount / quarter) + 1)) / 5
+            return@textureProperty logme
+        }
+        onRegister {
+            it.registerExtension(CustomArmAnimation(::SyringeAnimation))
         }
     }
 
