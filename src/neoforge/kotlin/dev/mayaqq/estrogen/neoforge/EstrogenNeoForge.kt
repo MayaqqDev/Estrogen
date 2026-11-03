@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.neoforge
 
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenFluids
-import dev.mayaqq.estrogen.content.fluids.registry.EstrogenFluidEntry
 import invoke.kitty.kritter.platform.Mod
 import invoke.kitty.kritter.platform.forge.EntrypointHandler
 import invoke.kitty.kritter.platform.forge.eventBus

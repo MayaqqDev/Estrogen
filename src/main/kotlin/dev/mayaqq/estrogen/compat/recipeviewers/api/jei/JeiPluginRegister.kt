@@ -1,20 +1,17 @@
+@file:Suppress("UNCHECKED_CAST", "PLATFORM_CLASS_MAPPED_TO_KOTLIN")
+
 package dev.mayaqq.estrogen.compat.recipeviewers.api.jei
 
 import dev.mayaqq.cynosure.client.utils.pushPop
 import dev.mayaqq.cynosure.core.identifier
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.estrogen.client.content.textures.RecipeTextures
-import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVIngredient
-import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVPseudoRecipe
-import dev.mayaqq.estrogen.compat.recipeviewers.api.CRVRecipe
-import dev.mayaqq.estrogen.compat.recipeviewers.api.CommonRecipeViewer
-import dev.mayaqq.estrogen.compat.recipeviewers.api.Role
+import dev.mayaqq.estrogen.compat.recipeviewers.api.*
 import dev.mayaqq.estrogen.utils.exceptions.EmptyTagException
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IIngredientAcceptor
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
-import mezz.jei.api.gui.builder.IRecipeSlotBuilder
 import mezz.jei.api.gui.drawable.IDrawable
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView
 import mezz.jei.api.recipe.IFocusGroup
@@ -34,7 +31,6 @@ import net.minecraft.tags.TagKey
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.level.material.Fluid
-import kotlin.streams.toList
 
 object JeiPluginRegister {
 
@@ -65,7 +61,7 @@ object JeiPluginRegister {
 
                 override fun registerRecipeCatalysts(reg: IRecipeCatalystRegistration) {
                     commonPlugin.plugin.recipes.filter { it.info.workstation != null }.forEach { recipe ->
-                        reg.addRecipeCatalysts(recipeTypes[recipe.info.type], recipe.info.workstation!!)
+                        reg.addRecipeCatalysts(recipeTypes[recipe.info.type]!!, recipe.info.workstation!!)
                     }
                 }
 
@@ -110,7 +106,7 @@ object JeiPluginRegister {
                                     pseudoRecipeInstances.add(actualRecipe)
                                     actualRecipe.init()
                                 }
-                                actualRecipe!!.textures.forEach { texture ->
+                                actualRecipe.textures.forEach { texture ->
                                     texture.coorded.render(graphics, texture.x, texture.y)
                                 }
                                 actualRecipe.drawables.forEach { drawable ->

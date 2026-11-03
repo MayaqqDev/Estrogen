@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.phys.Vec3
 
+@Suppress("UNCHECKED_CAST")
 class SpongingCRVRecipe(recipe: RecipeHolder<SpongingRecipe>) : CRVRecipe<SpongingRecipe>(recipe) {
     override fun init() {
         addTexture(RecipeTextures.JEI_SHADOW, 62, 37)

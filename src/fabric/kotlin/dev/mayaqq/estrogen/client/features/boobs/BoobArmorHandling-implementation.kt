@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.client.features.boobs
 
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.item.ArmorItem

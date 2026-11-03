@@ -1,3 +1,5 @@
+@file:Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
+
 package dev.mayaqq.estrogen.compat.recipeviewers.api.rei
 
 import dev.mayaqq.cynosure.client.utils.pushPop

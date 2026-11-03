@@ -34,7 +34,7 @@ object DreamBlockEffect {
         if (DreamBlock.isInDreamBlock(player)) {
             dreamBlockTick++
             if (dreamBlockTick == 1) {
-                player.playSound(EstrogenSounds.DREAM_BLOCK_ENTER.value, 1.0f, 1.0f)
+                player.playSound(EstrogenSounds.DREAM_BLOCK_ENTER.get(), 1.0f, 1.0f)
             } else if (dreamBlockTick == 2) {
                 if (sound == null) {
                     sound = DreamBlockSoundInstance(player)
@@ -54,7 +54,7 @@ object DreamBlockEffect {
             } else eyeDreamTick = 0
         } else {
             if (isInDreamBlock) {
-                player.playSound(EstrogenSounds.DREAM_BLOCK_EXIT.value, 1.0f, 1.0f)
+                player.playSound(EstrogenSounds.DREAM_BLOCK_EXIT.get(), 1.0f, 1.0f)
             }
             if (sound != null) {
                 Minecraft.getInstance().soundManager.stop(sound!!)

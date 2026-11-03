@@ -26,13 +26,14 @@ import net.minecraft.world.level.block.piston.PistonHeadBlock
 import net.minecraft.world.level.block.state.properties.PistonType
 import net.minecraft.world.phys.Vec3
 
+@Suppress("UNCHECKED_CAST")
 class LiquidEstrogenCauldronCRVRecipe(recipe: RecipeHolder<LiquidEstrogenCauldronRecipe>) : CRVRecipe<LiquidEstrogenCauldronRecipe>(recipe) {
 
     var extended = false
     var extendCounter = System.currentTimeMillis()
 
     fun recipeDisabled(): Boolean {
-        return McClient.level?.recipeManager?.getAllRecipesFor(EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON.value)?.any { !it.value().enabled } == true || anyModuleHasFlag(EstrogenFlag.DISABLES_CAULDRON_ESTROGEN)
+        return McClient.level?.recipeManager?.getAllRecipesFor(EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON.get())?.any { !it.value().enabled } == true || anyModuleHasFlag(EstrogenFlag.DISABLES_CAULDRON_ESTROGEN)
     }
 
     override fun init() {

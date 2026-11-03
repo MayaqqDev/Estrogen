@@ -5,7 +5,7 @@ import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.item.ArmorItem
 import net.minecraft.world.item.ArmorMaterial
 import net.minecraft.world.item.ItemStack
-import java.util.Locale
+import java.util.*
 
 expect fun ArmorItem.getDefaultTexture(stack: ItemStack, entity: Entity, slot: EquipmentSlot, layer: ArmorMaterial.Layer?, overlay: Boolean): String
 

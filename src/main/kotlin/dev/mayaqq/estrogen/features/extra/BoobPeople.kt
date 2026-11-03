@@ -1,9 +1,7 @@
-@file:EventSubscriber
 package dev.mayaqq.estrogen.features.extra
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonParser
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.PlayerConnectionEvent
 import dev.mayaqq.cynosure.utils.currentTime

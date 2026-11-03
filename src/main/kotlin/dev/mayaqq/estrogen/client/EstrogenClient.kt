@@ -63,6 +63,7 @@ const val THIGH_HIGH_ITEM_TEXTURES = "textures/item/thigh_highs"
 
 var chestConfigSet = false
 
+@Suppress("UnusedExpression")
 @EntrypointHandler("client")
 fun estrogenClient() {
     EstrogenClientConfig.initialize()

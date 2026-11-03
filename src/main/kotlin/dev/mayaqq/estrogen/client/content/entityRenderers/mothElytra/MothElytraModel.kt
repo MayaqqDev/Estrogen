@@ -29,7 +29,7 @@ class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>(
     private val ForeWingL: ModelPart = this.root.getChild("ForeWingL")
 
     override fun setupAnim(
-        entity: T,
+        entity: T & Any,
         limbSwing: Float,
         limbSwingAmount: Float,
         ageInTicks: Float,
@@ -40,7 +40,7 @@ class MothElytraModel<T : LivingEntity?>(root: ModelPart) : AgeableListModel<T>(
         var zRot = -0.2617994f
         var yRot = 0.0f
 
-        if (entity!!.isFallFlying) {
+        if (entity.isFallFlying) {
             var j = 1.0f
             val vec3 = entity.deltaMovement
             if (vec3.y < 0.0) {

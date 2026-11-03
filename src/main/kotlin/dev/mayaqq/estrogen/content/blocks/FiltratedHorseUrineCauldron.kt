@@ -20,7 +20,7 @@ class FiltratedHorseUrineCauldron(properties: Properties, interactions: Cauldron
     }
 
     fun progress(state: BlockState, level: LevelAccessor): BlockState {
-        if (level is Level && level.recipeManager.getAllRecipesFor(EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON.value).any { !it.value().enabled }) return state
+        if (level is Level && level.recipeManager.getAllRecipesFor(EstrogenRecipes.LIQUID_ESTROGEN_CAULDRON.get()).any { !it.value().enabled }) return state
         if (anyModuleHasFlag(EstrogenFlag.DISABLES_CAULDRON_ESTROGEN)) return state
         if (level.random.nextInt(3) == 1 && !level.isClientSide) {
             val newState = state.cycle(PROGRESS)

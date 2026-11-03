@@ -1,9 +1,7 @@
-@file:EventSubscriber
 package dev.mayaqq.estrogen.content.advancements.triggers
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.LivingEntityEvent
 import dev.mayaqq.estrogen.content.AdvancementTriggers

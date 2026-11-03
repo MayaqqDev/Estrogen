@@ -1,3 +1,5 @@
+@file:Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN", "UNCHECKED_CAST")
+
 package dev.mayaqq.estrogen.compat.recipeviewers.api.emi
 
 import dev.emi.emi.api.EmiInitRegistry

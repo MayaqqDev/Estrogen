@@ -1,7 +1,5 @@
 @file:Suppress("PropertyName", "UnstableApiUsage")
 
-import earth.terrarium.cloche.api.attributes.MinecraftModLoader
-import earth.terrarium.cloche.api.attributes.TargetAttributes
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonObject
@@ -49,9 +47,6 @@ repositories {
     }
     maven(url = "https://cursemaven.com") { name = "Curseforge Maven"; description = "Forge Config API Port" }
     maven(url = "https://maven.cafeteria.dev/releases") { name = "Cafeteria Maven"; description = "Fake Player API" }
-    maven(url = "https://maven.jamieswhiteshirt.com/libs-release") {
-        name = "JamiesWhiteShirt Maven"; description = "Reach Entity Attributes"
-    }
     maven(url = "https://maven.ladysnake.org/releases") { name = "Ladysnake Maven"; description = "Trinkets" }
     maven(url = "https://repo.unascribed.com") { name = "Unascribed Maven"; description = "Ears" }
     maven(url = "https://maven.ryanhcode.dev/releases") {name = "Sable" }
@@ -71,6 +66,9 @@ repositories {
         name = "Figura Maven"; description = "Figura"
     }
     maven(url = "https://maven.sinytra.org")
+    maven(url = "https://maven.jamieswhiteshirt.com/libs-release") {
+        name = "JamiesWhiteShirt Maven"; description = "Reach Entity Attributes"
+    }
     maven(url = "https://jitpack.io/") {
         name = "Jitpack maven"; description = "Mixin Extras & Fabric ASM"
     } //NOTE: LEAVE THIS AS LAST

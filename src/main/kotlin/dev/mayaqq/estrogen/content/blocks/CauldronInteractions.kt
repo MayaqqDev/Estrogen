@@ -3,16 +3,13 @@
 package dev.mayaqq.estrogen.content.blocks
 
 import dev.mayaqq.cynosure.events.PostInitEvent
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.utils.of
 import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenItems
-import dev.mayaqq.estrogen.content.items.SyringeItem
 import dev.mayaqq.estrogen.utils.defaultInstance
-import earth.terrarium.common_storage_lib.context.impl.ModifyOnlyContext
 import earth.terrarium.common_storage_lib.context.impl.PlayerContext
 import earth.terrarium.common_storage_lib.fluid.FluidApi
 import earth.terrarium.common_storage_lib.resources.fluid.FluidResource
@@ -36,7 +33,6 @@ import net.minecraft.world.level.block.LayeredCauldronBlock
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.gameevent.GameEvent
 
-@EventSubscriber
 object CauldronInteractions {
     private val PRE_HORSE_URINE by lazy { createMap(
         Items.BUCKET to bucket { EstrogenFluids.HorseUrine.bucket },

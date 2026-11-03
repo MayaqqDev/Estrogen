@@ -1,9 +1,7 @@
-@file:EventSubscriber
 package dev.mayaqq.estrogen.content.effects
 
 import dev.mayaqq.cynosure.core.isModLoaded
 import dev.mayaqq.cynosure.entities.PlayerLookup.tracking
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.EntityDamageSourceEvent
 import dev.mayaqq.cynosure.events.entity.EntityTrackingEvent
@@ -11,7 +9,6 @@ import dev.mayaqq.cynosure.events.entity.LivingEntityEvent
 import dev.mayaqq.cynosure.helpers.McPlayer
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.currentTime
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.client.features.boobs.Boob
 import dev.mayaqq.estrogen.client.features.dash.ClientDash
 import dev.mayaqq.estrogen.compat.cobblemon.CobblemonCompat
@@ -24,7 +21,6 @@ import dev.mayaqq.estrogen.content.EstrogenEffects
 import dev.mayaqq.estrogen.features.dash.CommonDash.removeDashing
 import dev.mayaqq.estrogen.id
 import invoke.kitty.kritter.registry.api.entry.holder
-import net.minecraft.client.Minecraft
 import net.minecraft.core.Holder
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket

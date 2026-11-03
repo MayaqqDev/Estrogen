@@ -1,10 +1,6 @@
 package dev.mayaqq.estrogen.utils
 
-import invoke.kitty.kritter.utils.color.Color
-import invoke.kitty.kritter.utils.color.darker
-import invoke.kitty.kritter.utils.color.lighter
-import invoke.kitty.kritter.utils.color.rgb
-import invoke.kitty.kritter.utils.color.rgba
+import invoke.kitty.kritter.utils.color.*
 
 object EstrogenColors {
     val MOLTEN_SLIME = rgba(144, 238, 144, 255)

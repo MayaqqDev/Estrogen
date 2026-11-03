@@ -249,6 +249,7 @@ object EstrogenRenderer {
         private val bufferSources: MutableMap<MultiBufferSource, MultiBufferSource> = MapMaker().weakKeys().makeMap()
         private val outlineBuffers: MutableMap<RenderType, BufferBuilder> = Object2ObjectOpenHashMap()
 
+        @Suppress("TYPE_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
         fun getCelShadeWrapper(bufferSource: MultiBufferSource): MultiBufferSource {
             bufferSources[bufferSource]?.also { return it }
 

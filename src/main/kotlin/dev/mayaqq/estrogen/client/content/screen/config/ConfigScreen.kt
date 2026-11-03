@@ -4,8 +4,6 @@ import com.moulberry.lattice.Lattice
 import com.moulberry.lattice.WidgetFunction
 import com.moulberry.lattice.element.LatticeElement
 import com.moulberry.lattice.element.LatticeElements
-import com.moulberry.lattice.widget.CenteredStringWidget
-import dev.mayaqq.cynosure.text.CommonText
 import dev.mayaqq.cynosure.text.Text
 import dev.mayaqq.cynosure.text.Text.asComponent
 import dev.mayaqq.cynosure.text.TextBuilder.append
@@ -16,7 +14,6 @@ import invoke.kitty.kritter.config.validation.ValidationResult
 import invoke.kitty.kritter.utils.color.MinecraftColors
 import net.minecraft.client.gui.components.EditBox
 import net.minecraft.client.gui.components.MultiLineTextWidget
-import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
 import java.util.function.Consumer

@@ -1,4 +1,4 @@
-@file:Suppress("UnstableApiUsage")
+@file:Suppress("UnstableApiUsage", "NOTHING_TO_INLINE", "DEPRECATION")
 
 package dev.mayaqq.estrogen.content
 

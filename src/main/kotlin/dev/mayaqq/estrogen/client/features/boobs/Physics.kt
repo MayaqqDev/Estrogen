@@ -35,7 +35,7 @@ class Physics {
             return
         }
 
-        val movement = player.position().subtract(this.previousPosition)
+        val movement = player.position().subtract(this.previousPosition!!)
 
         var velocity = Vec2(
             Mth.sqrt(
@@ -73,7 +73,7 @@ class Physics {
             this.boobPosition = Vec2(0.0f, 0.0f)
             this.boobVelocity = Vec2(0.0f, 0.0f)
         } else {
-            this.boobVelocity = this.boobVelocity.add(this.boobAcceleration)
+            this.boobVelocity = this.boobVelocity.add(this.boobAcceleration!!)
             this.boobPosition = this.boobPosition.add(this.boobVelocity)
         }
 

@@ -11,7 +11,6 @@ import dev.mayaqq.cynosure.text.TextStyle.color
 import dev.mayaqq.cynosure.utils.file.GlobalStorage
 import dev.mayaqq.estrogen.MOD_ID
 import dev.mayaqq.estrogen.client.content.screen.config.ConfigCategorySelectionScreen
-import dev.mayaqq.estrogen.client.content.screen.config.ConfigScreen
 import dev.mayaqq.estrogen.client.content.screen.cosmetics.CosmeticsBaseScreen
 import dev.mayaqq.estrogen.client.content.screen.modules.ModulesScreen
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
@@ -19,7 +18,6 @@ import dev.mayaqq.estrogen.config.EstrogenCommonConfig
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
 import dev.mayaqq.estrogen.id
 import invoke.kitty.kritter.utils.color.LightBlue
-import invoke.kitty.kritter.utils.color.MinecraftColors
 import invoke.kitty.kritter.utils.color.Red
 import invoke.kitty.kritter.utils.color.White
 import invoke.kitty.kritter.utils.color.toColor

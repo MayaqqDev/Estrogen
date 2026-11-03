@@ -63,7 +63,7 @@ class SpongingRecipe(val input: Either<Fluid, TagKey<Fluid>>, val output: Resour
             level: Level,
             pos: BlockPos,
         ): BlockState? {
-            level.recipeManager.getAllRecipesFor(EstrogenRecipes.SPONGING.value).forEach { recipe ->
+            level.recipeManager.getAllRecipesFor(EstrogenRecipes.SPONGING.get()).forEach { recipe ->
                 if (recipe.value().matches(FluidData(fluidState, blockState), level) && !level.isClientSide) {
                     return BuiltInRegistries.BLOCK.get(recipe.value().output).withPropertiesOf(blockState)
                 }

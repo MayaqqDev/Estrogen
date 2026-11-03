@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
+@Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
 class EstrogenBedBlock(properties: Properties) : ModelBedBlock(properties), BlockWithEntity<EstrogenBedBlockEntity> {
     override val blockEntityClass: Class<out EstrogenBedBlockEntity> get() = EstrogenBedBlockEntity::class.java
     override fun blockEntityType(): BlockEntityType<out EstrogenBedBlockEntity> = EstrogenBlockEntities.EstrogenBedBlock.get()

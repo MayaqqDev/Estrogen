@@ -5,11 +5,7 @@ import dev.mayaqq.estrogen.client.content.blockRenderers.cookieJar.CookieJarRend
 import dev.mayaqq.estrogen.client.content.blockRenderers.cookieJar.CookieJarVisual
 import dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.DreamBlockRenderer
 import dev.mayaqq.estrogen.client.content.blockRenderers.memorial.MemorialRenderer
-import dev.mayaqq.estrogen.content.blockEntities.CookieJarBlockEntity
-import dev.mayaqq.estrogen.content.blockEntities.DreamBlockEntity
-import dev.mayaqq.estrogen.content.blockEntities.DreamCatcherBlockEntity
-import dev.mayaqq.estrogen.content.blockEntities.EstrogenBedBlockEntity
-import dev.mayaqq.estrogen.content.blockEntities.MemorialBlockEntity
+import dev.mayaqq.estrogen.content.blockEntities.*
 import invoke.kitty.kritter.registry.api.Registrar
 import invoke.kitty.kritter.registry.blockEntity.BlockEntityEntry
 import invoke.kitty.kritter.registry.blockEntity.blockEntity

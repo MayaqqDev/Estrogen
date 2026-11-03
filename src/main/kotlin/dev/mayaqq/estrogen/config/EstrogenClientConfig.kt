@@ -6,7 +6,6 @@ import invoke.kitty.kritter.config.api.Config
 import invoke.kitty.kritter.config.api.ConfigCategory
 import invoke.kitty.kritter.config.formats.Json5Format
 import invoke.kitty.kritter.config.validation.types.range
-import kotlinx.serialization.Serializable
 
 
 object EstrogenClientConfig : Config("$MOD_ID/client", Json5Format.Default) {

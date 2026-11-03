@@ -86,7 +86,6 @@ class MeshBuilder(init: Int = 32) : VertexConsumer {
             val newData = IntArray(capacity * STRIDE)
             System.arraycopy(data, 0, newData, 0, data.size)
             data = newData
-            Mesh
         }
         data[position] = x.toBits()
         data[position + 1] = y.toBits()

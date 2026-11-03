@@ -1,4 +1,3 @@
-@file:EventSubscriber
 package dev.mayaqq.estrogen.content.recipes
 
 import com.mojang.serialization.Codec
@@ -13,7 +12,6 @@ import dev.mayaqq.cynosure.core.codecs.advancements.PredicateCodecs
 import dev.mayaqq.cynosure.core.codecs.fieldOf
 import dev.mayaqq.cynosure.core.codecs.item.ItemStackCodec
 import dev.mayaqq.cynosure.core.currentLoader
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
 import dev.mayaqq.cynosure.utils.contains

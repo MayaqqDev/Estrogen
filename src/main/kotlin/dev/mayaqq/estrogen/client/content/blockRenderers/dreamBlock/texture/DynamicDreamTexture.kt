@@ -2,7 +2,6 @@ package dev.mayaqq.estrogen.client.content.blockRenderers.dreamBlock.texture
 
 import com.mojang.blaze3d.systems.RenderSystem
 import dev.mayaqq.cynosure.client.events.ClientTickEvent
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.estrogen.config.EstrogenClientConfig.DreamBlock.animateTexture
 import dev.mayaqq.estrogen.id
@@ -14,7 +13,6 @@ import net.minecraft.util.RandomSource
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.jvm.optionals.getOrNull
 
-@EventSubscriber
 internal object DynamicDreamTexture {
 
     // why was this in the vanilla mc id? (uhh it shouldve never been lol)

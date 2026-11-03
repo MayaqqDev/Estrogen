@@ -5,7 +5,6 @@ package dev.mayaqq.estrogen.content.blocks
 import com.mojang.serialization.MapCodec
 import dev.mayaqq.cynosure.blocks.GlassLikeBlock
 import dev.mayaqq.cynosure.blocks.poi.anyInRange
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.PlayerConnectionEvent
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
@@ -207,7 +206,6 @@ class DreamBlock(p0: Properties) : GlassLikeBlock(p0), BlockWithEntity<DreamBloc
         } else super.getCloneItemStack(level, pos, state)
     }
 
-    @EventSubscriber
     companion object {
 
         @JvmField val PERSISTENT: BooleanProperty = BooleanProperty.create("persistent")

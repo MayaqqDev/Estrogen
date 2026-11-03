@@ -1,3 +1,5 @@
+@file:Suppress("USELESS_ELVIS")
+
 package dev.mayaqq.estrogen.client.content.entityRenderers.boobs
 
 import dev.mayaqq.cynosure.helpers.McClient
@@ -13,8 +15,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.item.ArmorItem
 import net.minecraft.world.item.ArmorMaterial
-import java.util.Optional
-import kotlin.collections.set
+import java.util.*
 
 object BoobRendering {
 

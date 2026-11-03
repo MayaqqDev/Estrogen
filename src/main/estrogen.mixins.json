@@ -4,38 +4,18 @@
   "package": "dev.mayaqq.estrogen.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BlockStateParserMixin",
-    "BottleItemMixin",
-    "CraftingMenuMixin",
-    "EntityMixin",
-    "ItemParserMixin",
-    "MobCategoryMixin",
-    "PistonMovingBlockEntityMixin",
-    "PlayerMixin",
-    "ServerGamePacketListenerImplMixin",
-    "ThrownEnderpearlMixin",
-    "NullbusConstantsMixin",
-    "compat.sable.SubLevelEntityCollisionMixin"
+    "BlockStateParserMixin", "BottleItemMixin", "CraftingMenuMixin", "EntityMixin", "ItemParserMixin",
+    "MobCategoryMixin", "NullbusConstantsMixin", "PistonMovingBlockEntityMixin", "PlayerMixin",
+    "ServerGamePacketListenerImplMixin", "ThrownEnderpearlMixin", "compat.sable.SubLevelEntityCollisionMixin"
   ],
   "client": [
-    "client.AbstractClientPlayerMixin",
-    "client.AdvancementTabMixin",
-    "client.ClientPacketListenerMixin",
-    "client.ClientTextTooltipMixin",
-    "client.FontMixin",
-    "client.FontStringRenderOutputMixin",
-    "client.MinecraftMixin",
-    "client.PlayerInfoMixin",
-    "client.PlayerModelMixin",
-    "client.PostPassMixin",
-    "client.ReceivingLevelScreenMixin",
-    "client.accessor.ItemPropertiesAccessor",
-    "client.accessor.LevelRendererAccessor",
-    "client.compat.betteradvancements.BetterAdvancementTabMixin",
-    "client.compat.emi.EmiAgnosMixin",
-    "client.compat.paginatedadvancements.PaginatedAdvancementTabMixin",
-    "client.ItemRendererMixin",
-    "client.ModelBakeryMixin"
+    "client.AbstractClientPlayerMixin", "client.AdvancementTabMixin", "client.ClientPacketListenerMixin",
+    "client.ClientTextTooltipMixin", "client.FontMixin", "client.FontStringRenderOutputMixin",
+    "client.ItemRendererMixin", "client.MinecraftMixin", "client.ModelBakeryMixin", "client.PlayerInfoMixin",
+    "client.PlayerModelMixin", "client.PostPassMixin", "client.ReceivingLevelScreenMixin",
+    "client.accessor.ItemPropertiesAccessor", "client.accessor.LevelRendererAccessor",
+    "client.compat.betteradvancements.BetterAdvancementTabMixin", "client.compat.emi.EmiAgnosMixin",
+    "client.compat.paginatedadvancements.PaginatedAdvancementTabMixin"
   ],
   "injectors": {
     "defaultRequire": 1

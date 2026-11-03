@@ -1,7 +1,5 @@
-@file:EventSubscriber
 package dev.mayaqq.estrogen.features.boobs
 
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.EntityTrackingEvent
 import dev.mayaqq.cynosure.events.entity.player.PlayerConnectionEvent
@@ -15,7 +13,6 @@ import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigPacket
 import dev.mayaqq.estrogen.network.messages.s2c.ChestConfigRequestPacket
 import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.world.entity.player.Player
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.toKotlinUuid
 
 // I love handling boobs
@@ -34,7 +31,6 @@ object ServerSideBoobHandling {
     }
 
     @Subscription
-    @OptIn(ExperimentalUuidApi::class)
     fun onEntityTracking(event: EntityTrackingEvent.Start) {
         (event.entity as? Player)?.chestConfig?.let {
             EstrogenNetwork.sendToPlayer(event.player, ChestConfigPacket(event.entity.uuid.toKotlinUuid(), it))

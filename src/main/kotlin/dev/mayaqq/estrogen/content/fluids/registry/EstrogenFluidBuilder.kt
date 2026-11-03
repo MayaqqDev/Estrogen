@@ -1,4 +1,4 @@
-@file:Suppress("UnstableApiUsage")
+@file:Suppress("UnstableApiUsage", "UNCHECKED_CAST")
 
 package dev.mayaqq.estrogen.content.fluids.registry
 

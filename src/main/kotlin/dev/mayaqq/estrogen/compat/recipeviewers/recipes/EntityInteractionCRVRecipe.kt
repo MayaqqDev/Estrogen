@@ -18,6 +18,7 @@ import org.joml.Quaternionf
 import org.joml.Vector3f
 
 
+@Suppress("UNCHECKED_CAST")
 class EntityInteractionCRVRecipe(recipe: RecipeHolder<EntityInteractionRecipe>) : CRVRecipe<EntityInteractionRecipe>(recipe) {
 
     var entities = mutableMapOf<SpawnEggItem, LivingEntity>()

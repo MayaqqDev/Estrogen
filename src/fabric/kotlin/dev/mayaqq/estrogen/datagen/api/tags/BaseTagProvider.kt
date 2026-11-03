@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.material.Fluid
 import java.util.concurrent.CompletableFuture
 
+@Suppress("DEPRECATION")
 abstract class BaseTagProvider<T>(
     output: FabricDataOutput,
     registryKey: ResourceKey<Registry<T>>,

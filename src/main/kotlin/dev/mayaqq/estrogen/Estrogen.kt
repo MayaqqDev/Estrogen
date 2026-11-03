@@ -3,7 +3,6 @@ package dev.mayaqq.estrogen
 
 import dev.mayaqq.cynosure.biome.BiomeModifiers
 import dev.mayaqq.cynosure.core.identifier
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.MainBus
 import dev.mayaqq.cynosure.utils.contains
 import dev.mayaqq.cynosure.utils.tag
@@ -43,7 +42,6 @@ inline fun id(path: String) = identifier(MOD_ID, path)
 inline fun mcid(path: String) = identifier("minecraft", path)
 inline fun cid(path: String) = identifier("c", path)
 
-@EventSubscriber
 object Estrogen : Logger by LoggerFactory.getLogger(MOD_NAME) {
 
     @EntrypointHandler("init")

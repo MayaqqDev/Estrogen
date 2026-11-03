@@ -1,31 +1,15 @@
 package dev.mayaqq.estrogen.client.features.boobs
 
-import dev.mayaqq.cynosure.helpers.McClient
 import dev.mayaqq.cynosure.utils.contains
-import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobRendering
-import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.BoobRendering.ARMOR_TEXTURE_CACHE
-import dev.mayaqq.estrogen.client.content.entityRenderers.boobs.TextureData
-import dev.mayaqq.estrogen.client.features.boobs.BoobArmorHandling.getDefaultTexture
-import dev.mayaqq.estrogen.client.features.boobs.data.BreastArmorDataLoader.getData
 import dev.mayaqq.estrogen.config.EstrogenClientConfig
 import dev.mayaqq.estrogen.config.types.ChestConfig
 import dev.mayaqq.estrogen.content.EstrogenAttributes
 import dev.mayaqq.estrogen.content.EstrogenTags
 import dev.mayaqq.estrogen.injection.chestConfig
-import dev.mayaqq.estrogen.mixin.client.PlayerModelMixin
 import invoke.kitty.kritter.registry.api.entry.holder
-import net.minecraft.client.player.AbstractClientPlayer
-import net.minecraft.client.renderer.texture.AbstractTexture
-import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite
-import net.minecraft.client.renderer.texture.SimpleTexture
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.ArmorItem
-import net.minecraft.world.item.ArmorMaterial
-import java.util.*
 
 object Boob {
 

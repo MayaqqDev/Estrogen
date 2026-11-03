@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package dev.mayaqq.estrogen.compat.recipeviewers
 
 import dev.mayaqq.estrogen.compat.recipeviewers.api.*

@@ -10,6 +10,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
+@Suppress("NOTHING_TO_INLINE")
 abstract class EstrogenDatagenEntrypoint(val modid: String) : DataGeneratorEntrypoint {
     override fun onInitializeDataGenerator(fdg: FabricDataGenerator) {
         val commonPath = Paths.get(COMMON_OUTPUT_DIR)

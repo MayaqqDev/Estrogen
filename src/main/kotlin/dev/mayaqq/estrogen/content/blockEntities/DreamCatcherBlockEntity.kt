@@ -21,7 +21,6 @@ class DreamCatcherBlockEntity(be: BlockEntityType<*>, pos: BlockPos, state: Bloc
     var triColor: TriColor? = null
 
     override fun saveAdditional(tag: CompoundTag, lookup: HolderLookup.Provider) {
-        tag
         if (triColor != null) tag.putTriColor(triColor!!)
     }
 

@@ -38,6 +38,7 @@ import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 import kotlin.jvm.optionals.getOrNull
 
+@Suppress("TYPE_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), BlockWithEntity<CookieJarBlockEntity> by BlockWithEntity(EstrogenBlockEntities.CookieJar), SimpleWaterloggedBlock {
     override fun codec(): MapCodec<out BaseEntityBlock?> = simpleCodec(::CookieJarBlock)
 
@@ -89,7 +90,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
             val remainder: ItemStack = cookieJarBlockEntity.addItemStack(handItem)
             if (ItemStack.matches(handItem, remainder)) {
                 // jar was full, couldn't add item to jar
-                level.playSound(null, pos, EstrogenSounds.JAR_FULL.value, SoundSource.BLOCKS, 1.0f, 1.0f)
+                level.playSound(null, pos, EstrogenSounds.JAR_FULL.get(), SoundSource.BLOCKS, 1.0f, 1.0f)
             } else {
                 if (!player.isCreative) handItem.count = remainder.count
 
@@ -97,7 +98,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
                 level.playSound(
                     null,
                     pos,
-                    EstrogenSounds.JAR_INSERT.value,
+                    EstrogenSounds.JAR_INSERT.get(),
                     SoundSource.BLOCKS,
                     1.0f,
                     0.7f + 0.5f * (cookieJarBlockEntity.count.toFloat() / 512)
@@ -127,7 +128,7 @@ class CookieJarBlock(properties: Properties) : BaseEntityBlock(properties), Bloc
                 level.playSound(
                     null,
                     pos,
-                    EstrogenSounds.JAR_INSERT.value,
+                    EstrogenSounds.JAR_INSERT.get(),
                     SoundSource.BLOCKS,
                     1.0f,
                     0.7f + 0.5f * (cookieJarBlockEntity.count.toFloat() / 512)

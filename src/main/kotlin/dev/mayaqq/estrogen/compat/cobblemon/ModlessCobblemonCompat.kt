@@ -1,8 +1,6 @@
-@file:EventSubscriber
 package dev.mayaqq.estrogen.compat.cobblemon
 
 import dev.mayaqq.cynosure.core.isModLoaded
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.interaction.InteractionEvent
 import dev.mayaqq.estrogen.compat.cobblemon.CobblemonCompat.changeGender
@@ -19,7 +17,7 @@ object ModlessCobblemonCompat {
         if (!isModLoaded("cobblemon")) return
 
         if (event.entity.javaClass.packageName.contains("cobblemon")) {
-            if (event.getUsedStack().`is`(EstrogenItems.GenderChangePotion.value)) {
+            if (event.getUsedStack().`is`(EstrogenItems.GenderChangePotion.get())) {
                 if (changeGender(event.entity)) {
                     event.getUsedStack().shrink(1)
                     val itemStack = ItemStack(Items.GLASS_BOTTLE)

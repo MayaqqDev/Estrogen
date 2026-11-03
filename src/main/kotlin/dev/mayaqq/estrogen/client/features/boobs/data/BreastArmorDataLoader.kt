@@ -9,7 +9,7 @@ import net.minecraft.util.profiling.ProfilerFiller
 object BreastArmorDataLoader : JsonDataLoader<BreastArmorData>(KCodec<BreastArmorData>(), "estrogen_armor_data") {
     val dataMap = hashMapOf<ResourceLocation, BreastArmorData>()
 
-    override suspend fun apply(data: Map<ResourceLocation, BreastArmorData>, resourceManager: ResourceManager, profilerFiller: ProfilerFiller) {
+    override suspend fun apply(data: Map<ResourceLocation, BreastArmorData>, resourceManager: ResourceManager, profiler: ProfilerFiller) {
         dataMap.clear()
         dataMap.putAll(data)
     }

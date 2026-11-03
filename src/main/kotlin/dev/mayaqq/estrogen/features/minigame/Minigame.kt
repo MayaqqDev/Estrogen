@@ -1,6 +1,5 @@
 package dev.mayaqq.estrogen.features.minigame
 
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.player.PlayerTickEvent
 import dev.mayaqq.estrogen.config.EstrogenServerConfig
@@ -9,7 +8,6 @@ import invoke.kitty.kritter.registry.api.entry.holder
 import net.minecraft.world.effect.MobEffectInstance
 
 
-@EventSubscriber
 object Minigame {
     @Subscription
     fun onTick(event: PlayerTickEvent.End) {

@@ -1,10 +1,8 @@
-@file:EventSubscriber
 package dev.mayaqq.estrogen.features.thighhighs
 
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.mayaqq.cynosure.core.identifier
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.world.LoottableEvents
 import dev.mayaqq.cynosure.injection.conditionally

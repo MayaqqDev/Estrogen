@@ -1,7 +1,6 @@
 package dev.mayaqq.estrogen.datagen.impl.tags
 
 import dev.mayaqq.cynosure.core.identifier
-import dev.mayaqq.estrogen.Estrogen
 import dev.mayaqq.estrogen.content.EstrogenBlocks
 import dev.mayaqq.estrogen.content.EstrogenFluids
 import dev.mayaqq.estrogen.content.EstrogenItems

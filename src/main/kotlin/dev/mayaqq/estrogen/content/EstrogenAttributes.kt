@@ -1,8 +1,6 @@
-@file:EventSubscriber
 package dev.mayaqq.estrogen.content
 
 import dev.mayaqq.cynosure.entities.EntityAttributes
-import dev.mayaqq.cynosure.events.api.EventSubscriber
 import dev.mayaqq.cynosure.events.api.Subscription
 import dev.mayaqq.cynosure.events.entity.EntityDamageEvent
 import dev.mayaqq.cynosure.events.entity.player.PlayerRespawnEvent
