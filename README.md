@@ -73,7 +73,7 @@ This mod adds a lot of other features related to Estrogen and its production. Th
 
 ### `Extra information`
 
-You can read more about this mods features, mechanics and some guides on the [wiki](https://github.com/MayaqqDev/Estrogen/wiki)!
+You can read more about this mods features, mechanics and some guides on the [wiki](https://modded.wiki/w/Estrogen)!
 
 Most recipes that seem to not be visible are done using cauldron interactions! More on the wiki!
 
