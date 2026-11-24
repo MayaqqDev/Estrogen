@@ -88,7 +88,7 @@ cloche {
         modId = "estrogen"
         name = "Estrogen"
         description = "A mod adding Estrogen, Dashing, fluid handling mechanics and much more!"
-        license = "LGPL-3.0"
+        license = "LGPL-3.0 for code, ARR for assets"
         icon = "icon.png"
         url = "https://github.com/MayaqqDev/Estrogen"
         sources = "https://github.com/MayaqqDev/Estrogen"
