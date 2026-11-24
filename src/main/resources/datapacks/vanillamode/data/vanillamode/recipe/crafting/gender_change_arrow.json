@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "aaa",
+    "apa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:arrow"
+    },
+    "p": {
+      "item": "estrogen:gender_change_potion"
+    }
+  },
+  "result": {
+    "id": "estrogen:gender_change_arrow",
+    "count": 8
+  },
+  "show_notification": true
+}
