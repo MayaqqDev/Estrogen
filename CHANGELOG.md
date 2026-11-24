@@ -7,3 +7,4 @@
 - Dutch Localization update
 - Currently, creative-only syringe
 - Fix cookie jar crash with newer cynosure versions
+- Fix new age magnet compatibility

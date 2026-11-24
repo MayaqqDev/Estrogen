@@ -48,7 +48,7 @@ object EstrogenTags {
 
     object Blocks {
         val PICKAXE_MINABLE: TagKey<Block> = blockTag(mcId("mineable/pickaxe"))
-        val MAGNET_12: TagKey<Block> = blockTag(identifier("create_new_age", "magnets/force_12"))
+        val MAGNET_12: TagKey<Block> = blockTag(identifier("create_new_age", "magnet/force_12"))
         val NON_RECOLORABLE: TagKey<Block> = blockTag(identifier("moonlight", "non_recolorable"))
         val HIDDEN_FROM_RECIPE_VIEWERS = blockTag(commonId("hidden_from_recipe_viewers"))
         val RELOCATION_NOT_SUPPORTED = blockTag(commonId("relocation_not_supported"))
