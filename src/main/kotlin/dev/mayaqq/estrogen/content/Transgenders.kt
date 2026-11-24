@@ -29,6 +29,7 @@ import invoke.kitty.kritter.utils.clientOnlyNoDatagen
 import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.BlockPos
+import net.minecraft.core.dispenser.DispenseItemBehavior
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.Item
@@ -36,6 +37,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.block.DispenserBlock
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockBehaviour
@@ -57,6 +59,18 @@ fun ItemBuilder<*>.standardTooltip() {
     onRegister {
         it.registerExtension(DescriptionTooltip(DescriptionTooltip.Theme.Default))
     }
+}
+
+fun ItemBuilder<*>.dispenserBehavior(behavior: DispenseItemBehavior) {
+    this.onRegister {
+        DispenserBlock.registerBehavior(it, behavior)
+    }
+}
+
+fun ItemBuilder<*>.dispenserProjectileBehavior() {
+     this.onRegister {
+         DispenserBlock.registerProjectileBehavior(it)
+     }
 }
 
 inline fun <I> ItemBuilder<I>.textureProperty(id: ResourceLocation, crossinline consumer: (stack: ItemStack, level: ClientLevel?, entity: LivingEntity?, i: Int) -> Float) where I : Item {

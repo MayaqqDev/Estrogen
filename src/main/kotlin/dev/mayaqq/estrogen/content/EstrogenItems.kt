@@ -175,6 +175,7 @@ object EstrogenItems : Registrar<Item> by Registrar(MOD_ID, Registries.ITEM) {
         properties {
             rarity(Rarity.RARE)
         }
+        dispenserProjectileBehavior()
     }
 
     val Syringe = item("syringe", ::SyringeItem) {
